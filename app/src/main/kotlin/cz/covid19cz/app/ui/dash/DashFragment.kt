@@ -1,18 +1,19 @@
-package com.covid19cz.bt_tracing.ui.dash
+package cz.covid19cz.app.ui.dash
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.covid19cz.bt_tracing.R
-import com.covid19cz.bt_tracing.databinding.DashMainBinding
-import com.covid19cz.bt_tracing.ext.withViewModel
-import com.covid19cz.bt_tracing.ui.base.BaseFragment
+import cz.covid19cz.app.R
+import cz.covid19cz.app.databinding.DashMainBinding
+import cz.covid19cz.app.ext.withViewModel
+import cz.covid19cz.app.ui.base.BaseFragment
 
 interface DashMainView
 
-class DashFragment : BaseFragment(), DashMainView {
+class DashFragment : BaseFragment(),
+    DashMainView {
     lateinit var binding: DashMainBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

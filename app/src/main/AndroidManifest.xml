@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.covid19cz.bt_tracing">
+    package="cz.covid19cz.app">
 
     <application
         android:name=".BtTracingApplication"
@@ -12,9 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.dash.DashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"
-            >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

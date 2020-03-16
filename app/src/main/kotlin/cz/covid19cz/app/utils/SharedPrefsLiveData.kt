@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing.utils
+package cz.covid19cz.app.utils
 
 import android.app.Application
 import android.app.Fragment
@@ -14,12 +14,13 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 // obtain SharedPreferencesProvider within Activity/Fragment/ViewModel/Service/Context etc.
-fun Context.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = SharedPreferencesProvider({
-    if (name == null)
-        PreferenceManager.getDefaultSharedPreferences(this)
-    else
-        getSharedPreferences(name, mode)
-})
+fun Context.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) =
+    SharedPreferencesProvider({
+        if (name == null)
+            PreferenceManager.getDefaultSharedPreferences(this)
+        else
+            getSharedPreferences(name, mode)
+    })
 
 fun AndroidViewModel.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = getApplication<Application>().sharedPrefs(name, mode)
 fun Fragment.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = activity.sharedPrefs(name, mode)

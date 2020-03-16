@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing
+package cz.covid19cz.bt_tracing
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -20,6 +20,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.covid19cz.bt_tracing", appContext.packageName)
+        assertEquals("cz.covid19cz.bt_tracing", appContext.packageName)
     }
 }

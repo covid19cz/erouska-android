@@ -1,8 +1,8 @@
-package com.covid19cz.bt_tracing.ui.base
+package cz.covid19cz.app.ui.base
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.covid19cz.bt_tracing.di.fragmentModule
+import cz.covid19cz.app.di.fragmentModule
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware

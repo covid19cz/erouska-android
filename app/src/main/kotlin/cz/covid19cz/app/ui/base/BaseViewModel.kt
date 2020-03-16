@@ -1,10 +1,10 @@
-package com.covid19cz.bt_tracing.ui.base
+package cz.covid19cz.app.ui.base
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
-import com.covid19cz.bt_tracing.di.repositoryModule
+import cz.covid19cz.app.di.repositoryModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein

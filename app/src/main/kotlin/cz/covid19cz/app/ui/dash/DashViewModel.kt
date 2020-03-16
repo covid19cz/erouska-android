@@ -1,6 +1,6 @@
-package com.covid19cz.bt_tracing.ui.dash
+package cz.covid19cz.app.ui.dash
 
-import com.covid19cz.bt_tracing.ui.base.BaseViewModel
+import cz.covid19cz.app.ui.base.BaseViewModel
 
 import android.app.Application
 

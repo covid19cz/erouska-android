@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing.di
+package cz.covid19cz.app.di
 
 import kotlinx.coroutines.Dispatchers
 import org.kodein.di.Kodein.Module

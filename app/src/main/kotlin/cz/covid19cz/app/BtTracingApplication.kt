@@ -1,9 +1,9 @@
-package com.covid19cz.bt_tracing
+package cz.covid19cz.app
 
 import android.app.Application
-import com.covid19cz.bt_tracing.di.appModule
-import com.covid19cz.bt_tracing.di.coroutineContextModule
-import com.covid19cz.bt_tracing.di.viewModelModule
+import cz.covid19cz.app.di.appModule
+import cz.covid19cz.app.di.coroutineContextModule
+import cz.covid19cz.app.di.viewModelModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule

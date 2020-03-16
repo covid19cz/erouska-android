@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing.ext
+package cz.covid19cz.app.ext
 
 import androidx.lifecycle.ViewModel
 import org.kodein.di.Kodein

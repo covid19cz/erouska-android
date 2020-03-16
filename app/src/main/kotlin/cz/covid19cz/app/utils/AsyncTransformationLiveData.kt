@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing.utils
+package cz.covid19cz.app.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

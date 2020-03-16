@@ -1,4 +1,4 @@
-package com.covid19cz.bt_tracing
+package cz.covid19cz.bt_tracing
 
 import org.junit.Test
 

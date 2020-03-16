@@ -1,9 +1,9 @@
-package com.covid19cz.bt_tracing.ext
+package cz.covid19cz.app.ext
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
-import com.covid19cz.bt_tracing.utils.AsyncTransformationLiveData
+import cz.covid19cz.app.utils.AsyncTransformationLiveData
 import kotlin.coroutines.CoroutineContext
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
@@ -58,4 +58,9 @@ fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) ->
 
 fun <T, R> LiveData<T>.map(action:(T) -> R): LiveData<R> = Transformations.map(this, action)
 
-fun <T, R> LiveData<T>.mapAsync(coroutineContext: CoroutineContext, action:(T) -> R): LiveData<R> = AsyncTransformationLiveData(this, coroutineContext, action)
+fun <T, R> LiveData<T>.mapAsync(coroutineContext: CoroutineContext, action:(T) -> R): LiveData<R> =
+    AsyncTransformationLiveData(
+        this,
+        coroutineContext,
+        action
+    )

@@ -6,11 +6,11 @@
 
         <variable
             name="viewModel"
-            type="com.covid19cz.bt_tracing.ui.dash.DashViewModel" />
+            type="cz.covid19cz.app.ui.dash.DashViewModel" />
 
         <variable
             name="view"
-            type="com.covid19cz.bt_tracing.ui.dash.DashMainView" />
+            type="cz.covid19cz.app.ui.dash.DashMainView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
