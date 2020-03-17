@@ -1,6 +1,6 @@
 package cz.covid19cz.app.ui.main
 
-import arch.viewmodel.BaseArchViewModel
+import cz.covid19cz.app.ui.base.BaseVM
 
-class MainVM : BaseArchViewModel() {
+class MainVM : BaseVM() {
 }

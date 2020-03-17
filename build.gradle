@@ -3,7 +3,7 @@
 buildscript {
     // KOTLIN_VERSION
     ext {
-        kotlinVersion = '1.3.5'
+        kotlinVersion = '1.3.70'
         gradleVersion = '3.6.1'
         compileSdkVersion = 29
         minSdkVersion = 21
@@ -12,7 +12,6 @@ buildscript {
         versionName = "0.0.1"
 
         versions = [
-                arch                : '1.1.0',
                 nav                 : '2.3.0-alpha03',
                 lifecycle           : "2.2.0",
                 appcompat           : "1.2.0-alpha03",
@@ -21,9 +20,9 @@ buildscript {
                 coroutines          : '1.1.1',
                 retrofit            : '2.6.0',
                 okhttp              : '3.12.1',
-                arch_components     : '2.1.0',
                 room                : '1.1.1',
-                rxandroid           : '2.0.1',
+                rxjava              : '2.2.15',
+                rxandroid           : '2.1.1',
                 stetho              : '1.5.0',
                 work_manager        : '1.0.1',
         ]
@@ -43,7 +42,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.google.gms:google-services:4.3.3'
-        classpath 'io.fabric.tools:gradle:1.30.0'
+        classpath 'io.fabric.tools:gradle:1.31.2'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.nav"
     }
 }
