@@ -1,7 +1,9 @@
 package cz.covid19cz.app.ui.login
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import com.google.firebase.auth.FirebaseUser
@@ -11,10 +13,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val vm: LoginVM by viewModel()
-    private lateinit var views : List<View>
+    private lateinit var views: List<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,12 @@ class LoginActivity: AppCompatActivity() {
 
     private fun setupListeners() {
         vRegister.setOnClickListener {
+            hideKeyboard(vRegister)
             verifyPhoneNumber()
+        }
+        vSendCode.setOnClickListener {
+            hideKeyboard(vSendCode)
+            vm.codeEntered(vCode.text.toString())
         }
     }
 
@@ -44,7 +51,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun showSignedIn(user: FirebaseUser?) {
-        vError.text = "Signed in. User: ${user?.toString()}"
+        vError.text = "Přihlášeno.\n\nUID: ${user?.uid}\nTel. č.: ${user?.phoneNumber}"
         show(vError)
     }
 
@@ -58,10 +65,11 @@ class LoginActivity: AppCompatActivity() {
         vm.state.postValue(AutoVerificationProgress)
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber, // Phone number to verify
-            30, // Timeout duration
+            10, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             this, // Activity (for callback binding)
-            vm.verificationCallbacks) // OnVerificationStateChangedCallbacks
+            vm.verificationCallbacks
+        )
     }
 
     private fun show(vararg views: View) {
@@ -71,5 +79,10 @@ class LoginActivity: AppCompatActivity() {
         this.views.subtract(views.toList()).forEach {
             it.visibility = View.GONE
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val im = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        im.hideSoftInputFromWindow(view.windowToken, 0);
     }
 }

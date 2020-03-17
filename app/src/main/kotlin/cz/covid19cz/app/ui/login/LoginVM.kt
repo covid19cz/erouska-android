@@ -59,6 +59,9 @@ class LoginVM : BaseVM() {
 
     init {
         auth.setLanguageCode("cs")
+        if (auth.currentUser != null) {
+            state.postValue(SignedIn(auth.currentUser))
+        }
     }
 
     fun codeEntered(code: String) {
