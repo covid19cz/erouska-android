@@ -7,5 +7,7 @@ interface DeviceRepository {
     val data: LiveData<List<Device>>
 
     fun addDevices(devices: List<Device>)
-    fun getDevice(): String
+    fun getDeviceById(id: Int): LiveData<Device>
+    fun addDevice(device: Device)
+    fun deleteDevice(device: Device)
 }

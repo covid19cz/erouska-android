@@ -34,11 +34,9 @@ class LoginActivity : AppCompatActivity() {
         vm.deviceRepository.data.observe(this, Observer {
             // Todo: Populate the recyclerView here
             it.forEach { device ->
-                Toast.makeText(baseContext, "Device : " + device.deviceId, Toast.LENGTH_SHORT).show()
+                Log.d(LoginActivity::class.simpleName, device.toString())
             }
         })
-
-        Log.d(LoginActivity::class.simpleName, vm.deviceRepository.getDevice())
     }
 
     private fun setupListeners() {

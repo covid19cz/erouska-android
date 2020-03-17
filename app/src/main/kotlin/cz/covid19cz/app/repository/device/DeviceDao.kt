@@ -13,14 +13,17 @@ interface DeviceDao {
     @Query("SELECT * FROM devices")
     fun findAll(): LiveData<List<Device>>
 
+    @Query("SELECT * FROM devices WHERE deviceId=:id")
+    fun findById(id: Int): LiveData<Device>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(devices: List<Device>)
+    fun insertAll(devices: List<Device>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(devices: Device)
 
     @Query("SELECT * FROM devices WHERE deviceId IN (:deviceIds)")
-    fun findAll(deviceIds: IntArray): List<Device>
-
-    @Insert
-    fun insertAll(vararg devices: Device)
+    fun findAllByIds(deviceIds: IntArray): List<Device>
 
     @Delete
     fun delete(device: Device)
