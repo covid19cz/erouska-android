@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="arch.viewmodel.BaseDialogViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_inner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TITLE -->
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="Title" />
+
+                <!-- MESSAGE -->
+                <TextView
+                    android:id="@+id/text_messaege"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="Message"
+                    app:visibleOrGone="@{vm.message != null}"
+                    android:text="@{vm.message}" />
+
+                <!-- MESSAGE IN GRAY -->
+                <TextView
+                    android:id="@+id/txt_message_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone" />
+
+
+                <!-- One button layout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/button_positive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        tools:text="Positive"
+                        app:visibleOrGone="@{vm.positiveButton != null}"
+                        android:text="@{vm.positiveButton}" />
+
+                    <Button
+                        android:id="@+id/button_negative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        tools:text="Negative"
+                        app:visibleOrInvisible="@{vm.negativeButton != null}"
+                        android:text="@{vm.negativeButton}" />
+
+                    <Button
+                        android:id="@+id/button_neutral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="3"
+                        tools:text="Neutral"
+                        app:visibleOrGone="@{vm.neutralButton != null}"
+                        android:text="@{vm.neutralButton}"
+                        android:gravity="center" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>

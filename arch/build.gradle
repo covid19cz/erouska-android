@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+
+    // Navigation Components
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.nav"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.nav"
+
+    // Material Components
+    implementation "com.google.android.material:material:$versions.material"
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // Koin for Android
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+}

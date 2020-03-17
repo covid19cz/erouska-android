@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':arch'
 rootProject.name='bt-tracing-android'
