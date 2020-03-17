@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVVM Framework</string>
+    <string name="global_unknown_error" translatable="true">Unknown error!</string>
+</resources>

@@ -16,10 +16,6 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
     <style name="DashTitleExpanded" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/colorPrimary</item>

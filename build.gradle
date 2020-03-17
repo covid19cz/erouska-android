@@ -14,6 +14,10 @@ buildscript {
         versions = [
                 arch                : '1.1.0',
                 nav                 : '2.3.0-alpha03',
+                lifecycle           : "2.2.0",
+                appcompat           : "1.2.0-alpha03",
+                material            : "1.2.0-alpha05",
+                koin                : "2.0.1",
                 coroutines          : '1.1.1',
                 retrofit            : '2.6.0',
                 okhttp              : '3.12.1',
@@ -22,7 +26,6 @@ buildscript {
                 rxandroid           : '2.0.1',
                 stetho              : '1.5.0',
                 work_manager        : '1.0.1',
-                kodein              : '5.2.0',
         ]
     }
 
