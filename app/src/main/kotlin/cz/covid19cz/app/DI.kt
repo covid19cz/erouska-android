@@ -21,9 +21,8 @@ val viewModelModule = module {
 
 val databaseModule = module {
     fun provideDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "eds.database")
+        return Room.databaseBuilder(application, AppDatabase::class.java, "covid.database")
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
     }
 
