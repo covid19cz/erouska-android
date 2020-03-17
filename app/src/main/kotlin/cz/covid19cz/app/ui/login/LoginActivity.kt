@@ -2,25 +2,24 @@ package cz.covid19cz.app.ui.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthProvider
 import cz.covid19cz.app.R
-import cz.covid19cz.app.ext.getViewModel
-import cz.covid19cz.app.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
-class LoginActivity : BaseActivity() {
+class LoginActivity: AppCompatActivity() {
 
-    private lateinit var vm: LoginViewModel
+    private val vm: LoginVM by viewModel()
     private lateinit var views : List<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setupListeners()
-        vm = getViewModel()
         vm.state.observe(this) {
             updateState(it)
         }

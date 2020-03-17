@@ -1,15 +1,15 @@
 package cz.covid19cz.app.ui.login
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import cz.covid19cz.app.ui.base.BaseViewModel
+import cz.covid19cz.app.ui.base.BaseVM
 
-class LoginViewModel(val app: Application) : BaseViewModel(app) {
+class LoginVM : BaseVM() {
+
     val state = MutableLiveData<LoginState>(EnterPhoneNumber)
     val verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -42,13 +42,13 @@ class LoginViewModel(val app: Application) : BaseViewModel(app) {
             Log.d(TAG, "onCodeSent:$verificationId")
 
             // Save verification ID and resending token so we can use them later
-            this@LoginViewModel.verificationId = verificationId
+            this@LoginVM.verificationId = verificationId
             resendToken = token
         }
 
         override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
             Log.d(TAG, "onCodeAutoRetrievalTimeOut:$verificationId")
-            this@LoginViewModel.verificationId = verificationId
+            this@LoginVM.verificationId = verificationId
             state.postValue(EnterCode)
         }
     }
@@ -80,7 +80,7 @@ class LoginViewModel(val app: Application) : BaseViewModel(app) {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     state.postValue(LoginError(checkNotNull(task.exception)))
                     //if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        // The verification code entered was invalid
+                    // The verification code entered was invalid
                     //}
                 }
             }
