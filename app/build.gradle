@@ -17,6 +17,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("../meta/debug.keystore")
+        }
+    }
+
     buildTypes {
         release {
             debuggable false
@@ -28,6 +34,7 @@ android {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".dev"
+            signingConfig signingConfigs.debug
         }
     }
 
