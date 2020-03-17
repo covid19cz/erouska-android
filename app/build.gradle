@@ -69,40 +69,42 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
+    // Android Basics
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation 'androidx.fragment:fragment:1.2.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    // Arch
+    implementation project(':arch')
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.nav"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.nav"
 
-    // Kodein
-    implementation "org.kodein.di:kodein-di-framework-android-x:5.2.0"
-    implementation "org.kodein.di:kodein-di-generic-jvm:$versions.kodein"
-    implementation "org.kodein.di:kodein-di-erased-jvm:$versions.kodein"
+    // Koin for Android
+    implementation "org.koin:koin-android:$versions.koin"
+    implementation "org.koin:koin-androidx-scope:$versions.koin"
+    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+
+    //RxBLE
+    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:$versions.arch_components"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 
     // Work manager
     implementation "android.arch.work:work-runtime:$versions.work_manager"
 
     implementation 'joda-time:joda-time:2.10.3'
-
-    // Stetho
-    implementation "com.facebook.stetho:stetho:$versions.stetho"
-    implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
-
-    // Rx
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
-
 
     // Tests
     testImplementation 'junit:junit:4.12'

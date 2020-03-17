@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Basics -->
+    <dimen name="fragment_padding">16dp</dimen>
+
+    <!-- Material Button -->
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_radius">24dp</dimen>
+
+    <dimen name="card_radius">8dp</dimen>
+
+</resources>

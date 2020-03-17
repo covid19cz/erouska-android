@@ -10,25 +10,23 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import cz.covid19cz.app.BtTracingApplication
 import cz.covid19cz.app.R
-import cz.covid19cz.app.ui.dash.DashActivity
+import cz.covid19cz.app.ui.main.MainActivity
 import cz.covid19cz.app.utils.BtUtils
-import okhttp3.internal.Internal.instance
-import org.kodein.di.Kodein
-import org.kodein.di.LazyKodein
-import org.kodein.di.android.closestKodein
-import org.kodein.di.erased.instance
 
 
 class BtTracingService : Service() {
 
-    val CHANNEL_ID = "ForegroundServiceChannel"
-
     companion object{
 
-        fun startService(c : Context) {
+        const val CHANNEL_ID = "ForegroundServiceChannel"
+        const val ARG_DEVICE_ID = "DEVICE_ID"
+        const val ARG_POWER = "POWER"
+
+        fun startService(c : Context, deviceId : String, power : Int) {
             val serviceIntent = Intent(c, BtTracingService::class.java)
+            serviceIntent.putExtra(ARG_DEVICE_ID, deviceId)
+            serviceIntent.putExtra(ARG_POWER, power)
             ContextCompat.startForegroundService(c, serviceIntent)
         }
 
@@ -38,9 +36,15 @@ class BtTracingService : Service() {
         }
     }
 
+    lateinit var deviceId : String
+    var power : Int = 0
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        deviceId = intent?.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
+        power = intent?.getIntExtra(ARG_POWER, 0) ?: 0
+
         createNotificationChannel();
-        val notificationIntent = Intent(this, DashActivity::class.java)
+        val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this,
         0, notificationIntent, 0);
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
@@ -54,6 +58,12 @@ class BtTracingService : Service() {
         startBleClient()
         startBleServer()
         return START_NOT_STICKY;
+    }
+
+    override fun onDestroy() {
+        BtUtils.stopScan()
+        BtUtils.stopServer()
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -79,6 +89,6 @@ class BtTracingService : Service() {
     }
 
     private fun startBleServer(){
-        BtUtils.startServer(this)
+        BtUtils.startServer(deviceId, power)
     }
 }

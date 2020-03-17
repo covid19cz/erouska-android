@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="cz.covid19cz.app.R"/>
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.sandbox.SandboxVM" />
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutSettngs"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:contentPadding="16dp"
+    android:layout_margin="16dp"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textDeviceId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Device ID"
+                android:lines="1"
+                android:maxLength="13"
+                android:enabled="@{!vm.serviceRunning}"
+                android:text="@={vm.deviceId}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textPowerTitle"
+        app:layout_constraintTop_toBottomOf="@id/textDeviceId"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="Vysílací výkon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textPower"
+            app:layout_constraintTop_toBottomOf="@id/textPowerTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{vm.powerToString(vm.power)}"/>
+
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarPower"
+            app:layout_constraintTop_toTopOf="@id/textPowerTitle"
+            app:layout_constraintStart_toEndOf="@id/textPowerTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="16dp"
+            android:progress="@={vm.power}"
+            android:enabled="@{!vm.serviceRunning}"
+            android:max="3"/>
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textPower"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="16dp"
+            app:visibleOrGone="@{vm.serviceRunning}"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonStart"
+            app:layout_constraintTop_toTopOf="@id/buttonStop"
+            app:layout_constraintEnd_toStartOf="@id/buttonStop"
+            android:layout_marginRight="16dp"
+            android:enabled="@{!vm.deviceId.empty &amp;&amp; !vm.serviceRunning}"
+            android:text="Zapnout"
+            android:onClick="@{() -> vm.start()}"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonStop"
+            app:layout_constraintTop_toBottomOf="@id/seekBarPower"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:enabled="@{vm.serviceRunning}"
+            android:text="Vypnout"
+            android:onClick="@{() -> vm.stop()}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutSettngs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:items="@{vm.devices}"
+        app:layoutId="@{R.layout.item_scan_result}"
+        app:lifecycle="@{lifecycle}"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
