@@ -98,6 +98,11 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
 
+    // Rx
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
+
 
     // Tests
     testImplementation 'junit:junit:4.12'
