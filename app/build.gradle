@@ -120,6 +120,9 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
 
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+
 
     // Tests
     testImplementation 'junit:junit:4.12'

@@ -6,10 +6,12 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import cz.covid19cz.app.repository.device.DeviceRepository
 import cz.covid19cz.app.ui.base.BaseVM
 
-class LoginVM : BaseVM() {
+class LoginVM(val deviceRepository: DeviceRepository) : BaseVM() {
 
+    val data = deviceRepository.data
     val state = MutableLiveData<LoginState>(EnterPhoneNumber)
     val verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -21,7 +23,6 @@ class LoginVM : BaseVM() {
             //     detect the incoming verification SMS and perform verification without
             //     user action.
             Log.d(TAG, "onVerificationCompleted:$credential")
-
             signInWithPhoneAuthCredential(credential)
         }
 

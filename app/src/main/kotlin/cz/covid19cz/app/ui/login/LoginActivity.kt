@@ -2,9 +2,12 @@ package cz.covid19cz.app.ui.login
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthProvider
@@ -16,6 +19,7 @@ import java.util.concurrent.TimeUnit
 class LoginActivity : AppCompatActivity() {
 
     private val vm: LoginVM by viewModel()
+
     private lateinit var views: List<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +30,15 @@ class LoginActivity : AppCompatActivity() {
             updateState(it)
         }
         views = listOf(vRegister, vSendCode, vProgress, vPhoneNumber, vError, vCode)
+
+        vm.deviceRepository.data.observe(this, Observer {
+            // Todo: Populate the recyclerView here
+            it.forEach { device ->
+                Toast.makeText(baseContext, "Device : " + device.deviceId, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        Log.d(LoginActivity::class.simpleName, vm.deviceRepository.getDevice())
     }
 
     private fun setupListeners() {
