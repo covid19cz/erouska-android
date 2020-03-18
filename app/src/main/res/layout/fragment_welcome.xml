@@ -48,9 +48,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="normal"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintTop_toBottomOf="@id/welcome_title"
                 tools:layout_editor_absoluteX="16dp"
 
@@ -63,8 +61,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
 
@@ -79,7 +76,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:text="Pokračovat v aktivaci"
-                android:onClick="@{() -> vm.verifyApp()}"
+                android:onClick="@{() -> vm.nextStep()}"
                 app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

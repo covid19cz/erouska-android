@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         vm.state.observe(this) {
             updateState(it)
         }
-        views = listOf(vRegister, vSendCode, vProgress, vPhoneNumber, vError, vCode, phone_verif_image, login_title, login_desc, login_phone_verif, login_statement)
+        views = listOf(vRegister, vSendCode, vProgress, vPhoneNumber, vError, vCode, login_verif_image, login_title, login_desc, login_phone_verif, login_statement)
 
         vm.deviceRepository.data.observe(this, Observer {
             // Todo: Populate the recyclerView here

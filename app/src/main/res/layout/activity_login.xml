@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/phone_verif_image"
+            android:id="@+id/login_verif_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_phone_verify"
@@ -30,15 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif"
-            android:letterSpacing="0.01"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_verif_image"
-            android:text="Zadejte své telefonní číslo" />
+            app:layout_constraintTop_toBottomOf="@+id/login_verif_image"
+            android:text="@string/login_phone_input_hint" />
 
         <TextView
             android:id="@+id/login_desc"
@@ -46,15 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
             android:letterSpacing="0.01"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/login_title"
-            tools:layout_editor_absoluteX="16dp"
-
-            tools:layout_editor_absoluteY="16dp"
             android:text="Na toto telefonní číslo vás mohou kontaktovat pouze hygienici v případě, že se u někoho z vašeho okolí potvrdí nákaza koronavirem." />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +66,7 @@
                 android:id="@+id/vPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telefonní číslo (povinné)"
+                android:hint="@string/login_phone_number_hint"
                 android:inputType="phone"
                 android:lines="1"
                 android:maxLength="13"
@@ -84,11 +78,9 @@
             android:id="@+id/login_statement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:letterSpacing="0.02"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="#99000000"
+            android:textColor="@color/gray"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,8 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            tools:visibility="gone"
-            android:text="Odeslat"
+            android:visibility="gone"
+            android:text="@string/login_send"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vCode" />
@@ -124,8 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
-            android:hint="Zadejte kód z SMS"
-            tools:visibility="gone"
+            android:hint="@string/login_code_input"
+            android:visibility="gone"
             android:inputType="number"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

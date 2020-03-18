@@ -14,6 +14,7 @@ import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import cz.covid19cz.app.bt.BluetoothRepository
+import cz.covid19cz.app.ui.btonboard.BtOnboardVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,11 +22,12 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get()) }
-    viewModel { LoginVM(get()) }
-    viewModel { WelcomeVM() }
+    viewModel { LoginVM(get(), get()) }
+    viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }
+    viewModel { BtOnboardVM() }
 }
 
 val databaseModule = module {

@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.welcome
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.NavOptions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -13,10 +14,18 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
         super.onCreate(savedInstanceState)
 
         subscribe(WelcomeCommandEvent::class) {
-            when(it.command){
+            when (it.command) {
+                WelcomeCommandEvent.Command.OPEN_BT_ONBOARD -> openBluetoothOnboard()
                 WelcomeCommandEvent.Command.VERIFY_APP -> openAppVerification()
                 WelcomeCommandEvent.Command.HELP -> openHelpPage()
             }
+        }
+
+        if (viewModel.userSignedIn) {
+            navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox, null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_graph,
+                        true).build())
         }
     }
 
@@ -26,10 +35,15 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
         enableUpInToolbar(false)
     }
 
-    fun openAppVerification(){
-        navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox)
+    fun openBluetoothOnboard() {
+        navigate(R.id.action_nav_welcome_fragment_to_nav_bt_onboard)
     }
-    fun openHelpPage(){
+
+    fun openAppVerification() {
+        navigate(R.id.action_nav_welcome_fragment_to_nav_login)
+    }
+
+    fun openHelpPage() {
         navigate(R.id.action_nav_welcome_fragment_to_nav_help)
     }
 }

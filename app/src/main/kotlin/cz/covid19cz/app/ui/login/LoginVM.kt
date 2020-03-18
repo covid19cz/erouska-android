@@ -1,5 +1,6 @@
 package cz.covid19cz.app.ui.login
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
@@ -10,10 +11,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ui.base.BaseVM
+import cz.covid19cz.app.utils.boolean
+import cz.covid19cz.app.utils.sharedPrefs
 import java.util.*
 
-class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
+class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) : BaseVM() {
 
+    var userSignedIn by app.sharedPrefs().boolean()
     val data = deviceRepository.data
     val state = MutableLiveData<LoginState>(EnterPhoneNumber)
     val verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -126,5 +130,4 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
             }
         }
     }
-
 }
