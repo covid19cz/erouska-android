@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.help.HelpVM" />
+    </data>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/help_desc"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp"
+                android:text="Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve vašem okolí
+Následně zaznamená ID aplikací a bez vašeho souhlasu je nikam nezasílá.\n\nK odeslání dat z apliakce dojde pouze v případě, že budete mít podezření na nákazu koronavirem.
+Data odesílejte až v momentě, kdy vás kontaktují vás hygienici.\n\nVaši aplikaci spárujeme se zadaným telefonním číslem
+Pracovník hygienické stanice vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.\n\nCo se děje s údaji o telefonech na seznamu osob, které jsem potkal
+Data jsou po celou dobu uchovávána ve vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy  to bude nutné. Nejprve vás bude kontaktovat pracovník hygienické stanice a požádá vás k odeslání dat." />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/welcome_continue_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.goBack()}"
+                android:text="@string/go_back_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

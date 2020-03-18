@@ -6,9 +6,13 @@ import cz.covid19cz.app.db.AppDatabase
 import cz.covid19cz.app.repository.device.DeviceDao
 import cz.covid19cz.app.repository.device.DeviceRepository
 import cz.covid19cz.app.repository.device.DeviceRepositoryImpl
+import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
+import cz.covid19cz.app.ui.btenabled.BtEnabledVM
+import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
+import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -17,6 +21,10 @@ val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM() }
     viewModel { LoginVM(get()) }
+    viewModel { WelcomeVM() }
+    viewModel { HelpVM() }
+    viewModel { BtDisabledVM() }
+    viewModel { BtEnabledVM() }
 }
 
 val databaseModule = module {

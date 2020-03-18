@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.btdisabled.BtDisabledVM" />
+    </data>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/bluetooth_disabled_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bluetooth_disabled"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bluetooth_disabled_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.01"
+                android:textColor="@color/redDark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bluetooth_disabled_image"
+                android:text="@string/bt_disabled_title" />
+
+            <TextView
+                android:id="@+id/bluetooth_disabled_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.01"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintTop_toBottomOf="@id/bluetooth_disabled_title"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp"
+                android:text="@string/bt_disabled_desc"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enable_bluetooth_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.enableBluetooth()}"
+                android:text="@string/enable_bluetooth_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

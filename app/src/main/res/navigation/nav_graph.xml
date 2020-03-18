@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_welcome_fragment">
+
+    <fragment
+        android:id="@+id/nav_welcome_fragment"
+        android:name="cz.covid19cz.app.ui.welcome.WelcomeFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_sandbox"
+            app:destination="@id/nav_sandbox" />
+        <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_help"
+            app:destination="@id/nav_help" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sandbox"
+        android:name="cz.covid19cz.app.ui.sandbox.SandboxFragment"
+        android:label="Sandbox Main"
+        tools:layout="@layout/fragment_sandbox">
+        <action
+            android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
+            app:destination="@id/nav_bt_disabled" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="cz.covid19cz.app.ui.help.HelpFragment"
+        android:label="HelpFragment"
+        tools:layout="@layout/fragment_help"/>
+    <fragment
+        android:id="@+id/nav_bt_disabled"
+        android:name="cz.covid19cz.app.ui.btdisabled.BtDisabledFragment"
+        android:label="BtDisabledFragment"
+        tools:layout="@layout/fragment_sandbox">
+        <action
+            android:id="@+id/action_nav_bt_disabled_to_nav_bt_enabled"
+            app:destination="@id/nav_bt_enabled" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_bt_enabled"
+        android:name="cz.covid19cz.app.ui.btenabled.BtEnabledFragment"
+        android:label="BtEnabledFragment" />
+
+</navigation>

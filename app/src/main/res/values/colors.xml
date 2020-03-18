@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7BC800</color>
-    <color name="colorPrimaryVariant">#56AC00</color>
+    <color name="colorPrimary">#2f80ed</color>
+    <color name="colorPrimaryVariant">#2874ed</color>
     <color name="colorSecondary">#6200FF</color>
     <color name="colorSecondaryVariant">#5000AB</color>
     <color name="colorSurface">@color/white</color>
@@ -12,4 +12,6 @@
 
     <color name="white">#fff</color>
     <color name="red">#ff0000</color>
+    <color name="redDark">#d81d49</color>
+    <color name="green">#8cc23f</color>
 </resources>
