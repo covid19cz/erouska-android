@@ -105,6 +105,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
 
+    //RxPermisssions
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
     //RxBLE
     implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
 

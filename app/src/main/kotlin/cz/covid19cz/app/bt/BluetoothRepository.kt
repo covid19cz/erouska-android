@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
+import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.bt.entity.ScanSession
@@ -22,12 +23,12 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class BluetoothRepository(context : Context) {
+class BluetoothRepository(context: Context) {
 
     val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
     private val btManager: BluetoothManager
-    val  rxBleClient: RxBleClient
+    val rxBleClient: RxBleClient
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
@@ -45,21 +46,22 @@ class BluetoothRepository(context : Context) {
     }
 
     fun isBtEnabled(): Boolean {
-        return btManager.adapter.isEnabled
+        return btManager.adapter?.isEnabled ?: false
     }
 
     fun startScan() {
 
         stopScan()
-
+        Log.d("Start scan in mode: ${AppConfig.scanMode}")
         scanDisposable = rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
-                    .setScanMode(AppConfig.scanMode)
-                    .build()
+                    .setScanMode(AppConfig.scanMode).build(),
+                // Empty Scan filter needed for background scanning since Android 8.1
+                ScanFilter.Builder().build()
             )
-            .subscribe { scanResult ->
+            .subscribe ({ scanResult ->
                 onScanResult(scanResult)
-            }
+            }, {Log.e(it)})
     }
 
     fun stopScan() {
@@ -76,7 +78,7 @@ class BluetoothRepository(context : Context) {
                 Charset.forName("utf-8")
             )
 
-            if (!scanResultsMap.containsKey(deviceId)){
+            if (!scanResultsMap.containsKey(deviceId)) {
                 val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
@@ -90,7 +92,7 @@ class BluetoothRepository(context : Context) {
         }
     }
 
-    fun clear(){
+    fun clear() {
         scanResultsList.clear()
         scanResultsMap.clear()
     }
@@ -99,7 +101,7 @@ class BluetoothRepository(context : Context) {
         return btManager.adapter.isMultipleAdvertisementSupported
     }
 
-    fun startServer(deviceId: String, power : Int) {
+    fun startServer(deviceId: String, power: Int) {
         stopServer()
 
         Log.d("Starting server with power $power")
@@ -126,12 +128,17 @@ class BluetoothRepository(context : Context) {
             //.addServiceData(parcelUuid, arr).build()
             .addServiceData(parcelUuid, deviceId.toByteArray(Charset.forName("utf-8"))).build()
 
-        btManager.adapter.bluetoothLeAdvertiser.startAdvertising(settings, data, scanData, serverCallback);
+        btManager.adapter.bluetoothLeAdvertiser.startAdvertising(
+            settings,
+            data,
+            scanData,
+            serverCallback
+        );
 
         //btManager.openGattServer(c, serverCallback).addService(service)
     }
 
-    fun stopServer(){
+    fun stopServer() {
         btManager.adapter.bluetoothLeAdvertiser.stopAdvertising(serverCallback)
     }
 

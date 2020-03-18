@@ -61,6 +61,7 @@ allprojects {
         maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         maven { url 'http://dl.bintray.com/amulyakhare/maven' }
+        maven { url 'https://jitpack.io' }
         maven {
             url 'http://www.idescout.com/maven/repo/'
             name 'IDEScout, Inc.'

@@ -1,12 +1,12 @@
 package cz.covid19cz.app
 
 import arch.BaseApp
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.idescout.sql.SqlScoutServer
+import cz.covid19cz.app.db.AppDatabase
 import cz.covid19cz.app.utils.Log
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import java.io.File
 
 class App : BaseApp() {
 
@@ -16,6 +16,9 @@ class App : BaseApp() {
         // SQLScout - Database viewer for Android Studio
         SqlScoutServer.create(this, packageName)
         AppConfig.fetchRemoteConfig()
+        if (BuildConfig.DEBUG) {
+            getDatabaseSize()
+        }
     }
 
     private fun setupKoin() {
@@ -23,5 +26,13 @@ class App : BaseApp() {
             androidContext(this@App)
             modules(allModules)
         }
+    }
+
+    private fun getDatabaseSize(){
+        val path: String = getDatabasePath(AppDatabase.DATABASE_NAME).toString()
+
+        val file = File(path)
+        val length: Long = file.length() // File size
+        Log.d("Database size: ${length/1024} kB")
     }
 }

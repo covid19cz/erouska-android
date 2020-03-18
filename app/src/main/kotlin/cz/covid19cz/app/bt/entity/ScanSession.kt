@@ -102,4 +102,15 @@ class ScanSession(val deviceId: String, val mac: String) {
         }
     }
 
+    fun getAvgScanTime() : Long{
+        var sum : Long = 0
+        if (rssiList.size > 1) {
+            for (i in 0 until rssiList.size - 1) {
+                sum += (rssiList[i + 1].timestamp - rssiList[i].timestamp) / 1000
+            }
+            return (sum / rssiList.size - 1)
+        }
+        return AppConfig.collectionSeconds
+    }
+
 }

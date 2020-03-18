@@ -140,6 +140,7 @@ class CovidService : Service() {
         val tempArray = btUtils.scanResultsList.toTypedArray()
         for (item in tempArray) {
             item.calculate()
+            Log.d("Average update time: ${item.getAvgScanTime()} s")
             val rowId = db.add(
                 ExpositionEntity(
                     0,

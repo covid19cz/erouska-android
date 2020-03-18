@@ -18,7 +18,6 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)
-    var scanDisposable : Disposable? = null
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
@@ -39,16 +38,6 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
 
     fun start(){
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
-        scanDisposable?.dispose()
-        scanDisposable = subscribe(Observable.interval(0,10, TimeUnit.SECONDS).map {
-            val devices = bluetoothRepository.scanResultsList
-            for (device in devices) {
-               device.checkOutOfRange()
-            }
-            return@map devices
-        }, this::onError){
-
-        }
     }
 
     fun confirmStart(){
@@ -57,8 +46,6 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
 
     fun stop(){
         serviceRunning.value = false
-        scanDisposable?.dispose()
-        scanDisposable = null
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_OFF))
     }
 

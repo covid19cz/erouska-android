@@ -6,5 +6,9 @@ import androidx.room.RoomDatabase
 @Database(entities = [ExpositionEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
+    companion object{
+        const val DATABASE_NAME = "database"
+    }
+
     abstract val expositionDao: ExpositionDao
 }
