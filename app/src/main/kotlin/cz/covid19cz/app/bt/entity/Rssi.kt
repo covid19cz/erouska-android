@@ -1,4 +1,4 @@
-package cz.covid19cz.app.ui.sandbox.entity
+package cz.covid19cz.app.bt.entity
 
 class Rssi(val rssi : Int) {
 

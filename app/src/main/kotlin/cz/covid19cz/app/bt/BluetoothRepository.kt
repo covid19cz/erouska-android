@@ -1,4 +1,4 @@
-package cz.covid19cz.app.utils
+package cz.covid19cz.app.bt
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
@@ -13,14 +13,15 @@ import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
-import cz.covid19cz.app.ui.sandbox.entity.ScanSession
+import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset
 import java.util.*
 import kotlin.collections.HashMap
 
 
-class BtUtils(context : Context) {
+class BluetoothRepository(context : Context) {
 
     val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
@@ -30,7 +31,8 @@ class BtUtils(context : Context) {
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
-    private val serverCallback = BleServerCallback()
+    private val serverCallback =
+        BleServerCallback()
 
     var scanDisposable: Disposable? = null
 
@@ -65,8 +67,6 @@ class BtUtils(context : Context) {
     fun stopScan() {
         scanDisposable?.dispose()
         scanDisposable = null
-        scanResultsMap.clear()
-        scanResultsList.clear()
     }
 
     private fun onScanResult(result: ScanResult) {
@@ -79,7 +79,10 @@ class BtUtils(context : Context) {
             )
 
             if (!scanResultsMap.containsKey(deviceId)){
-                val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
+                val newEntity = ScanSession(
+                    deviceId,
+                    result.bleDevice.macAddress
+                )
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
                 Log.d("New Device: ${deviceId}, RSSI = ${result.rssi}")

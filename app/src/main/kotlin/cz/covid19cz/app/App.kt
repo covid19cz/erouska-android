@@ -1,9 +1,7 @@
 package cz.covid19cz.app
 
-import android.app.Application
 import arch.BaseApp
 import com.idescout.sql.SqlScoutServer
-import cz.covid19cz.app.utils.BtUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

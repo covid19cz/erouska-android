@@ -4,18 +4,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.entity.ScanSession
+import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.utils.BtUtils
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
-class SandboxVM(val btUtils : BtUtils) : BaseVM() {
+class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
 
     val deviceId = SafeMutableLiveData("")
-    val devices = btUtils.scanResultsList
+    val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(1)
     var scanDisposable : Disposable? = null
@@ -26,9 +26,9 @@ class SandboxVM(val btUtils : BtUtils) : BaseVM() {
     }
 
     fun refreshData() : MutableCollection<ScanSession>{
-        val devices = btUtils.scanResultsMap.values
+        val devices = bluetoothRepository.scanResultsMap.values
         for (device in devices) {
-            device.recalculate()
+            device.calculate()
         }
         return devices
     }
@@ -41,7 +41,7 @@ class SandboxVM(val btUtils : BtUtils) : BaseVM() {
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
         scanDisposable?.dispose()
         scanDisposable = subscribe(Observable.interval(0,10, TimeUnit.SECONDS).map {
-            val devices = btUtils.scanResultsList
+            val devices = bluetoothRepository.scanResultsList
             for (device in devices) {
                device.checkOutOfRange()
             }

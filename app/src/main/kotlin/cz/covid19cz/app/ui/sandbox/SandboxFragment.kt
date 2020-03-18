@@ -15,7 +15,6 @@ import cz.covid19cz.app.service.BtTracingService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.utils.BtUtils
 import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class){
@@ -44,8 +43,8 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
     }
 
     fun tryStartBtService() {
-        if (viewModel.btUtils.hasBle(requireContext())) {
-            if (!viewModel.btUtils.isBtEnabled()) {
+        if (viewModel.bluetoothRepository.hasBle(requireContext())) {
+            if (!viewModel.bluetoothRepository.isBtEnabled()) {
                 requestEnableBt()
                 return
             }

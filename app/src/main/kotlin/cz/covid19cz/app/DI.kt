@@ -9,7 +9,7 @@ import cz.covid19cz.app.db.ExpositionRepositoryImpl
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
-import cz.covid19cz.app.utils.BtUtils
+import cz.covid19cz.app.bt.BluetoothRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -41,7 +41,7 @@ val repositoryModule = module {
     }
 
     single { provideDeviceRepository(get()) }
-    single { BtUtils(get()) }
+    single { BluetoothRepository(get()) }
 }
 
 val allModules = listOf(viewModelModule, databaseModule, repositoryModule)

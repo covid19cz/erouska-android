@@ -1,6 +1,7 @@
-package cz.covid19cz.app.ui.sandbox.entity
+package cz.covid19cz.app.bt.entity
 
 import arch.livedata.SafeMutableLiveData
+import cz.covid19cz.app.AppConfig
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -9,10 +10,13 @@ class ScanSession(val deviceId: String, val mac: String) {
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
+
+    // TODO: keep only necessary live data, just for testing
     val liveMinRssi = SafeMutableLiveData(Int.MAX_VALUE)
     val liveMaxRssi = SafeMutableLiveData(Int.MIN_VALUE)
     val liveAvgRssi = SafeMutableLiveData(0)
     val liveMedRssi = SafeMutableLiveData(0)
+
     val inRange = SafeMutableLiveData(false)
     val sessionStart = SafeMutableLiveData(0L)
     val latestUpdate = SafeMutableLiveData(0L)
@@ -47,12 +51,11 @@ class ScanSession(val deviceId: String, val mac: String) {
             )
         )
 
-        calculateSessionDuration()
-        recalculate()
+        calculate()
         checkOutOfRange()
     }
 
-    fun recalculate() {
+    fun calculate() {
         var sum: Int = 0
         var min: Int = Int.MAX_VALUE
         var max: Int = Int.MIN_VALUE
@@ -81,21 +84,9 @@ class ScanSession(val deviceId: String, val mac: String) {
         liveMedRssi.postValue(medRssi)
     }
 
-    fun calculateSessionDuration() {
-        if (rssiList.size > 0) {
-            val secondsTotal = (rssiList.last().timestamp - rssiList.first().timestamp) / 1000
-            sessionDuration.postValue(secondsTotal)
-
-            val minutes = secondsTotal / 60
-            val seconds = secondsTotal % 60
-
-            sessionDurationString.postValue("${minutes}:${seconds.toString().padStart(2, '0')}")
-        }
-    }
-
     fun checkOutOfRange() {
         if (rssiList.size > 0) {
-            inRange.postValue(System.currentTimeMillis() - rssiList.last().timestamp < 10000)
+            inRange.postValue(System.currentTimeMillis() - rssiList.last().timestamp < AppConfig.BLE_OUT_OF_RANGE_TIMEOUT * 1000)
         }
     }
 

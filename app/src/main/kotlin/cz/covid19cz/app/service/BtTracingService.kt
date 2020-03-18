@@ -15,7 +15,7 @@ import cz.covid19cz.app.db.ExpositionEntity
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ui.main.MainActivity
-import cz.covid19cz.app.utils.BtUtils
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -25,30 +25,31 @@ import java.util.concurrent.TimeUnit
 
 class BtTracingService : Service() {
 
-    companion object{
+    companion object {
 
         const val CHANNEL_ID = "ForegroundServiceChannel"
         const val ARG_DEVICE_ID = "DEVICE_ID"
         const val ARG_POWER = "POWER"
 
-        fun startService(c : Context, deviceId : String, power : Int) {
+        fun startService(c: Context, deviceId: String, power: Int) {
             val serviceIntent = Intent(c, BtTracingService::class.java)
             serviceIntent.putExtra(ARG_DEVICE_ID, deviceId)
             serviceIntent.putExtra(ARG_POWER, power)
             ContextCompat.startForegroundService(c, serviceIntent)
         }
 
-        fun stopService(c : Context) {
+        fun stopService(c: Context) {
             val serviceIntent = Intent(c, BtTracingService::class.java)
             c.stopService(serviceIntent)
         }
     }
 
-    lateinit var deviceId : String
-    var power : Int = 0
-    val btUtils by inject<BtUtils>()
+    lateinit var deviceId: String
+    var power: Int = 0
+    val btUtils by inject<BluetoothRepository>()
     val db by inject<ExpositionRepository>()
-    var saveDataDisposable : Disposable? = null
+    var scanDisposable: Disposable? = null
+    var saveDataDisposable: Disposable? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         deviceId = intent?.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
@@ -56,8 +57,10 @@ class BtTracingService : Service() {
 
         createNotificationChannel();
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this,
-        0, notificationIntent, 0);
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0, notificationIntent, 0
+        );
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.notification_title))
             .setContentText(getString(R.string.notification_text))
@@ -66,10 +69,9 @@ class BtTracingService : Service() {
             .build();
         startForeground(1, notification);
 
-        startBleClient()
         startBleServer()
-        startSavingRoutine()
-        return START_NOT_STICKY;
+        startBleClient()
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {
@@ -98,30 +100,51 @@ class BtTracingService : Service() {
         }
     }
 
-    private fun startBleClient() {
-        btUtils.startScan()
-    }
-
-    private fun startBleServer(){
+    private fun startBleServer() {
         if (btUtils.isServerAvailable()) {
             btUtils.startServer(deviceId, power)
         }
     }
 
-    fun startSavingRoutine(){
-        saveDataDisposable = Observable.interval(30, TimeUnit.SECONDS).map {
-            val tempArray = btUtils.scanResultsList.toTypedArray()
-            for (item in tempArray) {
-                item.recalculate()
-                val rowId = db.add(ExpositionEntity(0, item.deviceId, item.timestampStart, item.timestampEnd, item.minRssi, item.maxRssi, item.avgRssi, item.medRssi))
-                Log.d("DB: Inserted row $rowId")
-            }
-            return@map tempArray.size
-        }.execute({
-            btUtils.clear()
-            Log.d("DB: Saving routine completed, $it rows inserted")
-        },{
-            Log.e(it)
-        })
+    fun startBleClient() {
+        saveDataDisposable = Observable.just(true).map {
+                Log.d("Start scanning")
+                btUtils.startScan()
+                return@map it
+            }.delay(10, TimeUnit.SECONDS)
+            .map {
+                Log.d("Stop scanning")
+                btUtils.stopScan()
+                Log.d("Save data to database")
+                val rowCount = saveData()
+                Log.d("$rowCount rows saved")
+                return@map it
+            }.delay(10, TimeUnit.SECONDS).repeat().execute({
+                Log.d("Clean scan data")
+                btUtils.clear()
+            }, {
+                Log.e(it)
+            })
+    }
+
+    fun saveData(): Int {
+        val tempArray = btUtils.scanResultsList.toTypedArray()
+        for (item in tempArray) {
+            item.calculate()
+            val rowId = db.add(
+                ExpositionEntity(
+                    0,
+                    item.deviceId,
+                    item.timestampStart,
+                    item.timestampEnd,
+                    item.minRssi,
+                    item.maxRssi,
+                    item.avgRssi,
+                    item.medRssi
+                )
+            )
+            Log.d("DB: Inserted row $rowId")
+        }
+        return tempArray.size
     }
 }
