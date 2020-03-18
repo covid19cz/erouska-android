@@ -63,7 +63,7 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
-    private val functions = Firebase.functions
+    private val functions = Firebase.functions("europe-west2")
 
     init {
         auth.setLanguageCode("cs")
