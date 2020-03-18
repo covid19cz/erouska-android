@@ -14,6 +14,7 @@ import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset
@@ -26,19 +27,16 @@ class BluetoothRepository(context : Context) {
     val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
     private val btManager: BluetoothManager
-    val  btAdapter: BluetoothAdapter
     val  rxBleClient: RxBleClient
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
-    private val serverCallback =
-        BleServerCallback()
+    private val serverCallback = BleServerCallback()
 
     var scanDisposable: Disposable? = null
 
     init {
         btManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-        btAdapter = btManager.adapter
         rxBleClient = RxBleClient.create(context)
     }
 
@@ -47,7 +45,7 @@ class BluetoothRepository(context : Context) {
     }
 
     fun isBtEnabled(): Boolean {
-        return btAdapter.isEnabled
+        return btManager.adapter.isEnabled
     }
 
     fun startScan() {
@@ -56,7 +54,7 @@ class BluetoothRepository(context : Context) {
 
         scanDisposable = rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                    .setScanMode(AppConfig.scanMode)
                     .build()
             )
             .subscribe { scanResult ->
@@ -79,10 +77,7 @@ class BluetoothRepository(context : Context) {
             )
 
             if (!scanResultsMap.containsKey(deviceId)){
-                val newEntity = ScanSession(
-                    deviceId,
-                    result.bleDevice.macAddress
-                )
+                val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
                 Log.d("New Device: ${deviceId}, RSSI = ${result.rssi}")
@@ -101,7 +96,7 @@ class BluetoothRepository(context : Context) {
     }
 
     fun isServerAvailable(): Boolean {
-        return btAdapter.isMultipleAdvertisementSupported
+        return btManager.adapter.isMultipleAdvertisementSupported
     }
 
     fun startServer(deviceId: String, power : Int) {
@@ -110,7 +105,7 @@ class BluetoothRepository(context : Context) {
         Log.d("Starting server with power $power")
 
         val settings = AdvertiseSettings.Builder()
-            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER)
+            .setAdvertiseMode(AppConfig.advertiseMode)
             .setConnectable(true)
             .setTimeout(0)
             .setTxPowerLevel(power)
@@ -131,13 +126,13 @@ class BluetoothRepository(context : Context) {
             //.addServiceData(parcelUuid, arr).build()
             .addServiceData(parcelUuid, deviceId.toByteArray(Charset.forName("utf-8"))).build()
 
-        btAdapter.bluetoothLeAdvertiser.startAdvertising(settings, data, scanData, serverCallback);
+        btManager.adapter.bluetoothLeAdvertiser.startAdvertising(settings, data, scanData, serverCallback);
 
         //btManager.openGattServer(c, serverCallback).addService(service)
     }
 
     fun stopServer(){
-        btAdapter.bluetoothLeAdvertiser.stopAdvertising(serverCallback)
+        btManager.adapter.bluetoothLeAdvertiser.stopAdvertising(serverCallback)
     }
 
     private class BleServerCallback : AdvertiseCallback() {

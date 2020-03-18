@@ -17,7 +17,7 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
     val deviceId = SafeMutableLiveData("")
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
-    val power = SafeMutableLiveData(1)
+    val power = SafeMutableLiveData(0)
     var scanDisposable : Disposable? = null
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -64,10 +64,11 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
 
     fun powerToString(pwr : Int) : String{
         return when(pwr){
-            0 -> "ULTRA_LOW"
-            1 -> "LOW"
-            2 -> "MEDIUM"
-            3 -> "HIGH"
+            0 -> "REMOTE_CONFIG"
+            1 -> "ULTRA_LOW"
+            2 -> "LOW"
+            3 -> "MEDIUM"
+            4 -> "HIGH"
             else -> "UNKNOWN"
         }
     }

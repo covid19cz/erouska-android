@@ -74,7 +74,7 @@
             android:layout_marginLeft="16dp"
             android:progress="@={vm.power}"
             android:enabled="@{!vm.serviceRunning}"
-            android:max="3"/>
+            android:max="4"/>
 
         <ProgressBar
             android:layout_width="30dp"

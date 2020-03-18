@@ -11,13 +11,14 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
-import cz.covid19cz.app.service.BtTracingService
+import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import kotlinx.android.synthetic.main.fragment_sandbox.*
 
-class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class){
+class SandboxFragment :
+    BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
@@ -28,7 +29,7 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
         super.onCreate(savedInstanceState)
 
         subscribe(ServiceCommandEvent::class) {
-            when(it.command){
+            when (it.command) {
                 ServiceCommandEvent.Command.TURN_ON -> tryStartBtService()
                 ServiceCommandEvent.Command.TURN_OFF -> stopService()
             }
@@ -54,12 +55,12 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
                 startBtService()
             }
         } else {
-            // TODO: Device doesn't support BLE
+            showSnackBar(R.string.error_ble_unsupported)
         }
     }
 
-    fun stopService(){
-        BtTracingService.stopService(requireContext())
+    fun stopService() {
+        CovidService.stopService(requireContext())
     }
 
     fun requestEnableBt() {
@@ -115,8 +116,9 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    fun startBtService(){
-        BtTracingService.startService(requireContext(), viewModel.deviceId.value, viewModel.power.value)
+    fun startBtService() {
+        val power = viewModel.power.value - 1
+        CovidService.startService(requireContext(), viewModel.deviceId.value, power)
         viewModel.confirmStart()
     }
 }

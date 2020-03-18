@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.db.ExpositionEntity
 import cz.covid19cz.app.db.ExpositionRepository
@@ -23,7 +24,7 @@ import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 
-class BtTracingService : Service() {
+class CovidService : Service() {
 
     companion object {
 
@@ -31,15 +32,15 @@ class BtTracingService : Service() {
         const val ARG_DEVICE_ID = "DEVICE_ID"
         const val ARG_POWER = "POWER"
 
-        fun startService(c: Context, deviceId: String, power: Int) {
-            val serviceIntent = Intent(c, BtTracingService::class.java)
+        fun startService(c: Context, deviceId: String, power: Int = AppConfig.advertiseTxPower) {
+            val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.putExtra(ARG_DEVICE_ID, deviceId)
             serviceIntent.putExtra(ARG_POWER, power)
             ContextCompat.startForegroundService(c, serviceIntent)
         }
 
         fun stopService(c: Context) {
-            val serviceIntent = Intent(c, BtTracingService::class.java)
+            val serviceIntent = Intent(c, CovidService::class.java)
             c.stopService(serviceIntent)
         }
     }
@@ -53,7 +54,7 @@ class BtTracingService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         deviceId = intent?.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
-        power = intent?.getIntExtra(ARG_POWER, 0) ?: 0
+        power = intent?.getIntExtra(ARG_POWER, -1) ?: -1
 
         createNotificationChannel();
         val notificationIntent = Intent(this, MainActivity::class.java)
@@ -90,8 +91,8 @@ class BtTracingService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
-                "Foreground Service Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
+                getString(R.string.foreground_service_channel),
+                NotificationManager.IMPORTANCE_HIGH
             )
             val manager = getSystemService(
                 NotificationManager::class.java
@@ -102,16 +103,23 @@ class BtTracingService : Service() {
 
     private fun startBleServer() {
         if (btUtils.isServerAvailable()) {
-            btUtils.startServer(deviceId, power)
+            if (power != -1) {
+                btUtils.startServer(deviceId, power)
+            } else {
+                btUtils.startServer(deviceId, AppConfig.advertiseTxPower)
+            }
         }
     }
 
     fun startBleClient() {
-        saveDataDisposable = Observable.just(true).map {
+        saveDataDisposable = Observable.just(true)
+            //Give IU Thread time to clean data
+            .delay(1, TimeUnit.SECONDS)
+            .map {
                 Log.d("Start scanning")
                 btUtils.startScan()
                 return@map it
-            }.delay(10, TimeUnit.SECONDS)
+            }.delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
             .map {
                 Log.d("Stop scanning")
                 btUtils.stopScan()
@@ -119,7 +127,8 @@ class BtTracingService : Service() {
                 val rowCount = saveData()
                 Log.d("$rowCount rows saved")
                 return@map it
-            }.delay(10, TimeUnit.SECONDS).repeat().execute({
+            }.delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
+            .repeat().execute({
                 Log.d("Clean scan data")
                 btUtils.clear()
             }, {
