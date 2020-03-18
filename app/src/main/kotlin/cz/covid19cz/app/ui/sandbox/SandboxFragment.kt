@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.CovidService
@@ -32,6 +33,12 @@ class SandboxFragment :
             when (it.command) {
                 ServiceCommandEvent.Command.TURN_ON -> tryStartBtService()
                 ServiceCommandEvent.Command.TURN_OFF -> stopService()
+            }
+        }
+
+        subscribe(ExportEvent.Complete::class) { event ->
+             view?.let {
+                    Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
             }
         }
     }

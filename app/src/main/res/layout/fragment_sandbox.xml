@@ -122,6 +122,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonExport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Exportovat"
+            android:onClick="@{() -> vm.export()}"
+            app:layout_constraintEnd_toStartOf="@+id/vLogin"
+            app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
