@@ -9,13 +9,13 @@ buildscript {
         minSdkVersion = 21
         targetSdkVersion = 29
 
-        VERSION_MAJOR = 0
-        VERSION_MINOR = 1
-        VERSION_PATCH = 0
+        final VERSION_MAJOR = 0
+        final VERSION_MINOR = 2
+        final VERSION_PATCH = 0
 
         //versionCode XYYYZZZ (X - Major, YYY - Minor, ZZZ - Patch)
-        versionCode Integer.parseInt(String.valueOf(VERSION_MAJOR) + String.valueOf(VERSION_MINOR).padLeft(3, "0") + String.valueOf(VERSION_PATCH).padLeft(3, "0"))
-        versionName "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+        versionCode = Integer.parseInt(String.valueOf(VERSION_MAJOR) + String.valueOf(VERSION_MINOR).padLeft(3, "0") + String.valueOf(VERSION_PATCH).padLeft(3, "0"))
+        versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
 
         versions = [
                 nav                 : '2.3.0-alpha03',
@@ -26,7 +26,7 @@ buildscript {
                 coroutines          : '1.1.1',
                 retrofit            : '2.6.0',
                 okhttp              : '3.12.1',
-                room                : '1.1.1',
+                room                : '2.2.4',
                 rxjava              : '2.2.15',
                 rxandroid           : '2.1.1',
                 stetho              : '1.5.0',

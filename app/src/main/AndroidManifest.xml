@@ -25,6 +25,7 @@
             </intent-filter>
             <nav-graph android:value="@navigation/nav_dash" />
         </activity>
+        <activity android:name=".ui.login.LoginActivity" />
 
         <service
             android:name=".service.BtTracingService"

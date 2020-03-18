@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textDeviceId"
-            android:text='@{String.format("Čas expozice %s", item.sessionDurationString)}'/>
+            android:text='@{String.format("Čas expozice: %s", item.sessionDurationString)}'/>
 
         <TextView
             android:id="@+id/textCurrentRssi"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textCurrentRssi"
-            android:text='@{String.format("Max: %d", item.maxRssi)}'/>
+            android:text='@{String.format("Maximum: %d", item.maxRssi)}'/>
 
         <TextView
             android:id="@+id/textAvgRssi"

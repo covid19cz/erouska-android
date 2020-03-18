@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
 
@@ -15,8 +13,15 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        archivesBaseName = "covid19-cz_$versionName"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../meta/debug.keystore")
+        }
     }
 
     buildTypes {
@@ -30,6 +35,7 @@ android {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".dev"
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -44,11 +50,15 @@ android {
         targetCompatibility 1.8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     dataBinding {
         enabled = true
     }
 
-    lintOptions{
+    lintOptions {
         disable 'MissingTranslation'
     }
 
@@ -106,6 +116,18 @@ dependencies {
 
     implementation 'joda-time:joda-time:2.10.3'
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
+
+    // Stetho
+    implementation "com.facebook.stetho:stetho:$versions.stetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
+
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+
+
     // Tests
     testImplementation 'junit:junit:4.12'
 
@@ -113,4 +135,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
-

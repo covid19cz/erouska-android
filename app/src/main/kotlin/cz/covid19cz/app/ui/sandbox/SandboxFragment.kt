@@ -6,14 +6,17 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.BtTracingService
 import cz.covid19cz.app.ui.base.BaseFragment
+import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.BtUtils
+import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class){
 
@@ -30,6 +33,13 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
                 ServiceCommandEvent.Command.TURN_ON -> tryStartBtService()
                 ServiceCommandEvent.Command.TURN_OFF -> stopService()
             }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vLogin.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
         }
     }
 

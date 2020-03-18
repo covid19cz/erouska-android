@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="cz.covid19cz.app.R"/>
+        <import type="cz.covid19cz.app.BuildConfig"/>
         <variable
             name="vm"
             type="cz.covid19cz.app.ui.sandbox.SandboxVM" />
@@ -88,7 +90,7 @@
             android:id="@+id/buttonStart"
             app:layout_constraintTop_toTopOf="@id/buttonStop"
             app:layout_constraintEnd_toStartOf="@id/buttonStop"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="8dp"
             android:enabled="@{!vm.deviceId.empty &amp;&amp; !vm.serviceRunning}"
             android:text="Zapnout"
             android:onClick="@{() -> vm.start()}"/>
@@ -103,6 +105,22 @@
             android:text="Vypnout"
             android:onClick="@{() -> vm.stop()}"/>
 
+        <Button
+            android:id="@+id/vLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            app:layout_constraintTop_toBottomOf="@id/buttonStop"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.format("verze %s",BuildConfig.VERSION_NAME)}'
+            tools:text="1.0.0"
+            android:textColor="#ccc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
