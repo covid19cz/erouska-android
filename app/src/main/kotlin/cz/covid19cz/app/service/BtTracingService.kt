@@ -11,8 +11,16 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import cz.covid19cz.app.R
+import cz.covid19cz.app.db.ExpositionEntity
+import cz.covid19cz.app.db.ExpositionRepository
+import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ui.main.MainActivity
 import cz.covid19cz.app.utils.BtUtils
+import cz.covid19cz.app.utils.Log
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 
 class BtTracingService : Service() {
@@ -38,6 +46,9 @@ class BtTracingService : Service() {
 
     lateinit var deviceId : String
     var power : Int = 0
+    val btUtils by inject<BtUtils>()
+    val db by inject<ExpositionRepository>()
+    var saveDataDisposable : Disposable? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         deviceId = intent?.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
@@ -57,12 +68,15 @@ class BtTracingService : Service() {
 
         startBleClient()
         startBleServer()
+        startSavingRoutine()
         return START_NOT_STICKY;
     }
 
     override fun onDestroy() {
-        BtUtils.stopScan()
-        BtUtils.stopServer()
+        btUtils.stopScan()
+        btUtils.stopServer()
+        saveDataDisposable?.dispose()
+        saveDataDisposable = null
         super.onDestroy()
     }
 
@@ -85,10 +99,29 @@ class BtTracingService : Service() {
     }
 
     private fun startBleClient() {
-        BtUtils.startScan()
+        btUtils.startScan()
     }
 
     private fun startBleServer(){
-        BtUtils.startServer(deviceId, power)
+        if (btUtils.isServerAvailable()) {
+            btUtils.startServer(deviceId, power)
+        }
+    }
+
+    fun startSavingRoutine(){
+        saveDataDisposable = Observable.interval(30, TimeUnit.SECONDS).map {
+            val tempArray = btUtils.scanResultsList.toTypedArray()
+            for (item in tempArray) {
+                item.recalculate()
+                val rowId = db.add(ExpositionEntity(0, item.deviceId, item.timestampStart, item.timestampEnd, item.minRssi, item.maxRssi, item.avgRssi, item.medRssi))
+                Log.d("DB: Inserted row $rowId")
+            }
+            return@map tempArray.size
+        }.execute({
+            btUtils.clear()
+            Log.d("DB: Saving routine completed, $it rows inserted")
+        },{
+            Log.e(it)
+        })
     }
 }

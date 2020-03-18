@@ -8,39 +8,36 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
-import android.os.Handler
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
-import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
-import cz.covid19cz.app.ui.sandbox.entity.ScanResultEntity
+import cz.covid19cz.app.ui.sandbox.entity.ScanSession
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-object BtUtils {
+class BtUtils(context : Context) {
 
     val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
-    lateinit var btManager: BluetoothManager
-    lateinit var btAdapter: BluetoothAdapter
-    lateinit var rxBleClient: RxBleClient
+    private val btManager: BluetoothManager
+    val  btAdapter: BluetoothAdapter
+    val  rxBleClient: RxBleClient
 
-    val scanResultsMap = HashMap<String, ScanResultEntity>()
-    val scanResultsList = ObservableArrayList<ScanResultEntity>()
+    val scanResultsMap = HashMap<String, ScanSession>()
+    val scanResultsList = ObservableArrayList<ScanSession>()
     private val serverCallback = BleServerCallback()
 
     var scanDisposable: Disposable? = null
 
-    fun init(c: Context) {
-        btManager = c.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+    init {
+        btManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = btManager.adapter
-        rxBleClient = RxBleClient.create(c)
+        rxBleClient = RxBleClient.create(context)
     }
 
     fun hasBle(c: Context): Boolean {
@@ -58,9 +55,6 @@ object BtUtils {
         scanDisposable = rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
                     .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
-                    .build(),
-                ScanFilter.Builder()
-                    .setServiceUuid(ParcelUuid(SERVICE_UUID))
                     .build()
             )
             .subscribe { scanResult ->
@@ -85,7 +79,7 @@ object BtUtils {
             )
 
             if (!scanResultsMap.containsKey(deviceId)){
-                val newEntity = ScanResultEntity(deviceId, result.bleDevice.macAddress)
+                val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
                 Log.d("New Device: ${deviceId}, RSSI = ${result.rssi}")
@@ -96,6 +90,11 @@ object BtUtils {
                 Log.d("Updating: ${deviceId}, RSSI = ${result.rssi}")
             }
         }
+    }
+
+    fun clear(){
+        scanResultsList.clear()
+        scanResultsMap.clear()
     }
 
     fun isServerAvailable(): Boolean {

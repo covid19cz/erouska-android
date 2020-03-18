@@ -1,15 +1,10 @@
 package cz.covid19cz.app.ui.sandbox
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
-import arch.viewmodel.BaseArchViewModel
-import com.polidea.rxandroidble2.scan.ScanResult
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.entity.ScanResultEntity
+import cz.covid19cz.app.ui.sandbox.entity.ScanSession
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.BtUtils
 import cz.covid19cz.app.utils.Log
@@ -17,10 +12,10 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
-class SandboxVM : BaseVM() {
+class SandboxVM(val btUtils : BtUtils) : BaseVM() {
 
     val deviceId = SafeMutableLiveData("")
-    val devices = BtUtils.scanResultsList
+    val devices = btUtils.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(1)
     var scanDisposable : Disposable? = null
@@ -30,8 +25,8 @@ class SandboxVM : BaseVM() {
 
     }
 
-    fun refreshData() : MutableCollection<ScanResultEntity>{
-        val devices = BtUtils.scanResultsMap.values
+    fun refreshData() : MutableCollection<ScanSession>{
+        val devices = btUtils.scanResultsMap.values
         for (device in devices) {
             device.recalculate()
         }
@@ -46,7 +41,7 @@ class SandboxVM : BaseVM() {
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
         scanDisposable?.dispose()
         scanDisposable = subscribe(Observable.interval(0,10, TimeUnit.SECONDS).map {
-            val devices = BtUtils.scanResultsList
+            val devices = btUtils.scanResultsList
             for (device in devices) {
                device.checkOutOfRange()
             }

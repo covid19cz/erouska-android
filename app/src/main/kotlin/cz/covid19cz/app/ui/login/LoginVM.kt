@@ -6,10 +6,10 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import cz.covid19cz.app.repository.device.DeviceRepository
+import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ui.base.BaseVM
 
-class LoginVM(val deviceRepository: DeviceRepository) : BaseVM() {
+class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
 
     val data = deviceRepository.data
     val state = MutableLiveData<LoginState>(EnterPhoneNumber)

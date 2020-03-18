@@ -2,7 +2,6 @@ package cz.covid19cz.app.ui.base
 
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.app.ext.execute
-import cz.covid19cz.app.repository.device.DeviceRepository
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single

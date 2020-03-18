@@ -3,32 +3,32 @@ package cz.covid19cz.app
 import android.app.Application
 import androidx.room.Room
 import cz.covid19cz.app.db.AppDatabase
-import cz.covid19cz.app.repository.device.DeviceDao
-import cz.covid19cz.app.repository.device.DeviceRepository
-import cz.covid19cz.app.repository.device.DeviceRepositoryImpl
+import cz.covid19cz.app.db.ExpositionDao
+import cz.covid19cz.app.db.ExpositionRepository
+import cz.covid19cz.app.db.ExpositionRepositoryImpl
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
+import cz.covid19cz.app.utils.BtUtils
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM() }
+    viewModel { SandboxVM(get()) }
     viewModel { LoginVM(get()) }
 }
 
 val databaseModule = module {
     fun provideDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "covid.database")
+        return Room.databaseBuilder(application, AppDatabase::class.java, "database")
             .fallbackToDestructiveMigration()
             .build()
     }
 
-
-    fun provideDao(database: AppDatabase): DeviceDao {
-        return database.deviceDao
+    fun provideDao(database: AppDatabase): ExpositionDao {
+        return database.expositionDao
     }
 
     single { provideDatabase(androidApplication()) }
@@ -36,11 +36,12 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideDeviceRepository(deviceDao: DeviceDao): DeviceRepository {
-        return DeviceRepositoryImpl(deviceDao)
+    fun provideDeviceRepository(deviceDao: ExpositionDao): ExpositionRepository {
+        return ExpositionRepositoryImpl(deviceDao)
     }
 
     single { provideDeviceRepository(get()) }
+    single { BtUtils(get()) }
 }
 
 val allModules = listOf(viewModelModule, databaseModule, repositoryModule)

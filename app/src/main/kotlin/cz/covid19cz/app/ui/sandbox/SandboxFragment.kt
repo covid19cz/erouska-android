@@ -44,8 +44,8 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
     }
 
     fun tryStartBtService() {
-        if (BtUtils.hasBle(requireContext())) {
-            if (!BtUtils.isBtEnabled()) {
+        if (viewModel.btUtils.hasBle(requireContext())) {
+            if (!viewModel.btUtils.isBtEnabled()) {
                 requestEnableBt()
                 return
             }
