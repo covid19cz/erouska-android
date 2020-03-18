@@ -22,14 +22,13 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get()) }
+    viewModel { SandboxVM(get(), get()) }
     viewModel { LoginVM(get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }
     viewModel { BtOnboardVM() }
-    viewModel { SandboxVM(get(), get()) }
 }
 
 val databaseModule = module {
