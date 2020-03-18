@@ -2,7 +2,7 @@
 <defaultsMap>
     <entry>
         <key>collectionSeconds</key>
-        <value>30</value>
+        <value>120</value>
     </entry>
     <entry>
         <key>waitingSeconds</key>
