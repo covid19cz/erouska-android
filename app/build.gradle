@@ -14,7 +14,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        archivesBaseName = "covid19-cz_$versionName"
+        archivesBaseName = "covid19-cz"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +30,8 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
+            // TODO: Change all this before going to Play Store
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -131,7 +133,11 @@ dependencies {
     implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
 
     implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.room:room-rxjava2:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
+
+    implementation "net.sf.supercsv:super-csv:$versions.super_csv"
+
 
     // Tests
     testImplementation 'junit:junit:4.12'

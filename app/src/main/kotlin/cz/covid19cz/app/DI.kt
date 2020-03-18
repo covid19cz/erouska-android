@@ -9,6 +9,7 @@ import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.db.ExpositionDao
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.db.ExpositionRepositoryImpl
+import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
@@ -28,6 +29,7 @@ val viewModelModule = module {
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }
     viewModel { BtOnboardVM() }
+    viewModel { SandboxVM(get(), get()) }
 }
 
 val databaseModule = module {
@@ -43,6 +45,7 @@ val databaseModule = module {
 
     single { provideDatabase(androidApplication()) }
     single { provideDao(get()) }
+    single { CsvExporter(get(), get()) }
 }
 
 val repositoryModule = module {
