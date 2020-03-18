@@ -14,12 +14,13 @@ class CsvExporter(val context: Context, val repository: ExpositionRepository) {
 
     private fun filename() = "${System.currentTimeMillis()}.csv"
 
-    fun export (): Single<String> {
+    fun export(): Single<String> {
         val destinationFile = File(context.cacheDir, filename())
-        val csvWriter = CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
+        val csvWriter =
+            CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
 
-        return repository.dataObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
-                entities ->
+        return repository.dataObservable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).map { entities ->
             // write metadata
             csvWriter.writeHeader("version1")
 

@@ -1,30 +1,37 @@
 package cz.covid19cz.app.ui.sandbox
 
-import android.widget.Toast
+import android.net.Uri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.ktx.storageMetadata
+import cz.covid19cz.app.bt.BluetoothRepository
+import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import java.io.File
 import java.util.concurrent.TimeUnit
 
-class SandboxVM(val bluetoothRepository : BluetoothRepository, val exporter: CsvExporter) : BaseVM() {
+class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter) :
+    BaseVM() {
 
     val deviceId = SafeMutableLiveData("")
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)
-    var scanDisposable : Disposable? = null
+    var scanDisposable: Disposable? = null
     var exportDisposable: Disposable? = null
+    val storage = Firebase.storage
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(){
+    fun onCreate() {
 
     }
 
@@ -33,7 +40,7 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository, val exporter: Csv
         exportDisposable?.dispose()
     }
 
-    fun refreshData() : MutableCollection<ScanSession>{
+    fun refreshData(): MutableCollection<ScanSession> {
         val devices = bluetoothRepository.scanResultsMap.values
         for (device in devices) {
             device.calculate()
@@ -41,29 +48,29 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository, val exporter: Csv
         return devices
     }
 
-    fun onError(t : Throwable){
+    fun onError(t: Throwable) {
         Log.e(t)
     }
 
-    fun start(){
+    fun start() {
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
         scanDisposable?.dispose()
-        scanDisposable = subscribe(Observable.interval(0,10, TimeUnit.SECONDS).map {
+        scanDisposable = subscribe(Observable.interval(0, 10, TimeUnit.SECONDS).map {
             val devices = bluetoothRepository.scanResultsList
             for (device in devices) {
-               device.checkOutOfRange()
+                device.checkOutOfRange()
             }
             return@map devices
-        }, this::onError){
+        }, this::onError) {
 
         }
     }
 
-    fun confirmStart(){
+    fun confirmStart() {
         serviceRunning.value = true
     }
 
-    fun stop(){
+    fun stop() {
         serviceRunning.value = false
         scanDisposable?.dispose()
         scanDisposable = null
@@ -72,18 +79,32 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository, val exporter: Csv
 
     fun export() {
         exportDisposable?.dispose()
-        exportDisposable = exporter.export().subscribe (
-            {
-                publish(ExportEvent.Complete(it))
-            },
-            {
-                publish(ExportEvent.Error(it.message ?: "Export failed"))
-            }
+        exportDisposable = exporter.export().subscribe({
+            uploadToStorage(it)
+            publish(ExportEvent.Complete(it))
+        }, {
+            publish(ExportEvent.Error(it.message ?: "Export failed"))
+        }
         )
     }
 
-    fun powerToString(pwr : Int) : String{
-        return when(pwr){
+    private fun uploadToStorage(path: String) {
+        val fuid = FirebaseAuth.getInstance().uid
+        val timestamp = System.currentTimeMillis()
+        val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
+        val metadata = storageMetadata {
+            contentType = "text/csv"
+            setCustomMetadata("version", "1")
+        }
+        ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
+            publish(ExportEvent.Complete("Upload success"))
+        }.addOnFailureListener {
+            publish(ExportEvent.Error(it.message ?: "Upload failed"))
+        }
+    }
+
+    fun powerToString(pwr: Int): String {
+        return when (pwr) {
             0 -> "REMOTE_CONFIG"
             1 -> "ULTRA_LOW"
             2 -> "LOW"
