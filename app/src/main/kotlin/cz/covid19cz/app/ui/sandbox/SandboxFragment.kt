@@ -1,29 +1,21 @@
 package cz.covid19cz.app.ui.sandbox
 
+import android.Manifest
 import android.Manifest.permission
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.navigation.Navigation
 import cz.covid19cz.app.R
-import cz.covid19cz.app.databinding.FragmentWelcomeBinding
-import cz.covid19cz.app.service.BtTracingService
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent.Command.TURN_OFF
-import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent.Command.TURN_ON
-import cz.covid19cz.app.utils.BtUtils
 import kotlinx.android.synthetic.main.fragment_sandbox.vLogin
-import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {

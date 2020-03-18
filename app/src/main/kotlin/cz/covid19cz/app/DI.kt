@@ -3,9 +3,6 @@ package cz.covid19cz.app
 import android.app.Application
 import androidx.room.Room
 import cz.covid19cz.app.db.AppDatabase
-import cz.covid19cz.app.repository.device.DeviceDao
-import cz.covid19cz.app.repository.device.DeviceRepository
-import cz.covid19cz.app.repository.device.DeviceRepositoryImpl
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.btenabled.BtEnabledVM
 import cz.covid19cz.app.ui.help.HelpVM

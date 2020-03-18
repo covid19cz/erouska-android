@@ -1,6 +1,5 @@
 package cz.covid19cz.app.ui.base
 
-import androidx.annotation.StringRes
 import android.Manifest.permission
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
