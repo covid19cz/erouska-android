@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="cz.covid19cz.app.ui.sandbox.entity.ScanResultEntity" />
+            type="cz.covid19cz.app.bt.entity.ScanSession" />
 
         <variable
             name="vm"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textCurrentRssi"
-            android:text='@{String.format("Maximum: %d", item.maxRssi)}'/>
+            android:text='@{String.format("Maximum: %d", item.liveMaxRssi)}'/>
 
         <TextView
             android:id="@+id/textAvgRssi"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textMaxRssi"
-            android:text='@{String.format("Průměr: %d", item.avgRssi)}'/>
+            android:text='@{String.format("Průměr: %d", item.liveAvgRssi)}'/>
 
         <TextView
             android:id="@+id/textMedRssi"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textAvgRssi"
-            android:text='@{String.format("Medián: %d", item.medRssi)}'/>
+            android:text='@{String.format("Medián: %d", item.liveMedRssi)}'/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

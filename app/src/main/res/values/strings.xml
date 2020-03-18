@@ -14,4 +14,8 @@
     <string name="bt_enabled_title">Aplikace je aktivní</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
+
+    <string name="foreground_service_channel">Služba na pozadí</string>
+
+    <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
 </resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>collectionSeconds</key>
+        <value>120</value>
+    </entry>
+    <entry>
+        <key>waitingSeconds</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>advertiseTxPower</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>advertiseMode</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>scanMode</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>smsTimeoutSeconds</key>
+        <value>10</value>
+    </entry>
+</defaultsMap>

@@ -1,28 +1,23 @@
 package cz.covid19cz.app.ui.sandbox
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
-import arch.viewmodel.BaseArchViewModel
-import com.polidea.rxandroidble2.scan.ScanResult
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.entity.ScanResultEntity
+import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.utils.BtUtils
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
-class SandboxVM : BaseVM() {
+class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
 
     val deviceId = SafeMutableLiveData("")
-    val devices = BtUtils.scanResultsList
+    val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
-    val power = SafeMutableLiveData(1)
+    val power = SafeMutableLiveData(0)
     var scanDisposable : Disposable? = null
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -30,10 +25,10 @@ class SandboxVM : BaseVM() {
 
     }
 
-    fun refreshData() : MutableCollection<ScanResultEntity>{
-        val devices = BtUtils.scanResultsMap.values
+    fun refreshData() : MutableCollection<ScanSession>{
+        val devices = bluetoothRepository.scanResultsMap.values
         for (device in devices) {
-            device.recalculate()
+            device.calculate()
         }
         return devices
     }
@@ -46,7 +41,7 @@ class SandboxVM : BaseVM() {
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
         scanDisposable?.dispose()
         scanDisposable = subscribe(Observable.interval(0,10, TimeUnit.SECONDS).map {
-            val devices = BtUtils.scanResultsList
+            val devices = bluetoothRepository.scanResultsList
             for (device in devices) {
                device.checkOutOfRange()
             }
@@ -69,10 +64,11 @@ class SandboxVM : BaseVM() {
 
     fun powerToString(pwr : Int) : String{
         return when(pwr){
-            0 -> "ULTRA_LOW"
-            1 -> "LOW"
-            2 -> "MEDIUM"
-            3 -> "HIGH"
+            0 -> "REMOTE_CONFIG"
+            1 -> "ULTRA_LOW"
+            2 -> "LOW"
+            3 -> "MEDIUM"
+            4 -> "HIGH"
             else -> "UNKNOWN"
         }
     }

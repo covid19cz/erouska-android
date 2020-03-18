@@ -1,4 +1,4 @@
-package cz.covid19cz.app.utils
+package cz.covid19cz.app.bt
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
@@ -8,39 +8,36 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
-import android.os.Handler
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
-import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
-import cz.covid19cz.app.ui.sandbox.entity.ScanResultEntity
+import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-object BtUtils {
+class BluetoothRepository(context : Context) {
 
     val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
-    lateinit var btManager: BluetoothManager
-    lateinit var btAdapter: BluetoothAdapter
-    lateinit var rxBleClient: RxBleClient
+    private val btManager: BluetoothManager
+    val  rxBleClient: RxBleClient
 
-    val scanResultsMap = HashMap<String, ScanResultEntity>()
-    val scanResultsList = ObservableArrayList<ScanResultEntity>()
+    val scanResultsMap = HashMap<String, ScanSession>()
+    val scanResultsList = ObservableArrayList<ScanSession>()
     private val serverCallback = BleServerCallback()
 
     var scanDisposable: Disposable? = null
 
-    fun init(c: Context) {
-        btManager = c.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-        btAdapter = btManager.adapter
-        rxBleClient = RxBleClient.create(c)
+    init {
+        btManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        rxBleClient = RxBleClient.create(context)
     }
 
     fun hasBle(c: Context): Boolean {
@@ -48,7 +45,7 @@ object BtUtils {
     }
 
     fun isBtEnabled(): Boolean {
-        return btAdapter.isEnabled
+        return btManager.adapter.isEnabled
     }
 
     fun startScan() {
@@ -57,10 +54,7 @@ object BtUtils {
 
         scanDisposable = rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
-                    .build(),
-                ScanFilter.Builder()
-                    .setServiceUuid(ParcelUuid(SERVICE_UUID))
+                    .setScanMode(AppConfig.scanMode)
                     .build()
             )
             .subscribe { scanResult ->
@@ -71,8 +65,6 @@ object BtUtils {
     fun stopScan() {
         scanDisposable?.dispose()
         scanDisposable = null
-        scanResultsMap.clear()
-        scanResultsList.clear()
     }
 
     private fun onScanResult(result: ScanResult) {
@@ -85,7 +77,7 @@ object BtUtils {
             )
 
             if (!scanResultsMap.containsKey(deviceId)){
-                val newEntity = ScanResultEntity(deviceId, result.bleDevice.macAddress)
+                val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
                 Log.d("New Device: ${deviceId}, RSSI = ${result.rssi}")
@@ -98,8 +90,13 @@ object BtUtils {
         }
     }
 
+    fun clear(){
+        scanResultsList.clear()
+        scanResultsMap.clear()
+    }
+
     fun isServerAvailable(): Boolean {
-        return btAdapter.isMultipleAdvertisementSupported
+        return btManager.adapter.isMultipleAdvertisementSupported
     }
 
     fun startServer(deviceId: String, power : Int) {
@@ -108,7 +105,7 @@ object BtUtils {
         Log.d("Starting server with power $power")
 
         val settings = AdvertiseSettings.Builder()
-            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER)
+            .setAdvertiseMode(AppConfig.advertiseMode)
             .setConnectable(true)
             .setTimeout(0)
             .setTxPowerLevel(power)
@@ -129,13 +126,13 @@ object BtUtils {
             //.addServiceData(parcelUuid, arr).build()
             .addServiceData(parcelUuid, deviceId.toByteArray(Charset.forName("utf-8"))).build()
 
-        btAdapter.bluetoothLeAdvertiser.startAdvertising(settings, data, scanData, serverCallback);
+        btManager.adapter.bluetoothLeAdvertiser.startAdvertising(settings, data, scanData, serverCallback);
 
         //btManager.openGattServer(c, serverCallback).addService(service)
     }
 
     fun stopServer(){
-        btAdapter.bluetoothLeAdvertiser.stopAdvertising(serverCallback)
+        btManager.adapter.bluetoothLeAdvertiser.stopAdvertising(serverCallback)
     }
 
     private class BleServerCallback : AdvertiseCallback() {

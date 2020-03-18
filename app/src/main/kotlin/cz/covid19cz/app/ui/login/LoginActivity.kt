@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthProvider
 import cz.covid19cz.app.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -57,12 +55,13 @@ class LoginActivity : AppCompatActivity() {
             EnterCode -> show(vCode, vSendCode)
             SigningProgress -> show(vProgress)
             is LoginError -> showError(state.exception)
-            is SignedIn -> showSignedIn(state.user)
+            is SignedIn -> showSignedIn(state)
         }
     }
 
-    private fun showSignedIn(user: FirebaseUser?) {
-        vError.text = "Přihlášeno.\n\nUID: ${user?.uid}\nTel. č.: ${user?.phoneNumber}"
+    private fun showSignedIn(user: SignedIn) {
+        vError.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
+                "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
         show(vError)
     }
 

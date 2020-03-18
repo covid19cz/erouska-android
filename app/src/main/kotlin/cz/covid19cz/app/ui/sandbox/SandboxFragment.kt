@@ -14,6 +14,8 @@ import androidx.navigation.Navigation
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
 import cz.covid19cz.app.service.BtTracingService
+import cz.covid19cz.app.databinding.FragmentSandboxBinding
+import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
@@ -21,8 +23,10 @@ import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent.Command.TURN_OFF
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent.Command.TURN_ON
 import cz.covid19cz.app.utils.BtUtils
 import kotlinx.android.synthetic.main.fragment_sandbox.vLogin
+import kotlinx.android.synthetic.main.fragment_sandbox.*
 
-class SandboxFragment : BaseFragment<FragmentWelcomeBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
+class SandboxFragment :
+    BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
@@ -34,8 +38,8 @@ class SandboxFragment : BaseFragment<FragmentWelcomeBinding, SandboxVM>(R.layout
 
         subscribe(ServiceCommandEvent::class) {
             when (it.command) {
-                TURN_ON -> tryStartBtService()
-                TURN_OFF -> stopService()
+                ServiceCommandEvent.Command.TURN_ON -> tryStartBtService()
+                ServiceCommandEvent.Command.TURN_OFF -> stopService()
             }
         }
     }
@@ -58,8 +62,8 @@ class SandboxFragment : BaseFragment<FragmentWelcomeBinding, SandboxVM>(R.layout
     }
 
     fun tryStartBtService() {
-        if (BtUtils.hasBle(requireContext())) {
-            if (!BtUtils.isBtEnabled()) {
+        if (viewModel.bluetoothRepository.hasBle(requireContext())) {
+            if (!viewModel.bluetoothRepository.isBtEnabled()) {
                 navigate(R.id.action_nav_sandbox_to_nav_bt_disabled)
                 return
             }
@@ -69,18 +73,18 @@ class SandboxFragment : BaseFragment<FragmentWelcomeBinding, SandboxVM>(R.layout
                 startBtService()
             }
         } else {
-            // TODO: Device doesn't support BLE
+            showSnackBar(R.string.error_ble_unsupported)
         }
     }
 
     fun stopService() {
-        BtTracingService.stopService(requireContext())
+        CovidService.stopService(requireContext())
     }
 
     private fun hasLocationPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
-            permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -98,7 +102,8 @@ class SandboxFragment : BaseFragment<FragmentWelcomeBinding, SandboxVM>(R.layout
     }
 
     fun startBtService() {
-        BtTracingService.startService(requireContext(), viewModel.deviceId.value, viewModel.power.value)
+        val power = viewModel.power.value - 1
+        CovidService.startService(requireContext(), viewModel.deviceId.value, power)
         viewModel.confirmStart()
     }
 }
