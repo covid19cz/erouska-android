@@ -6,8 +6,11 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ui.base.BaseVM
+import java.util.*
 
 class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
 
@@ -56,12 +59,13 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
     private val TAG = "Login"
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db = Firebase.firestore
 
     init {
         auth.setLanguageCode("cs")
         if (auth.currentUser != null) {
-            state.postValue(SignedIn(auth.currentUser))
+            getUser()
         }
     }
 
@@ -77,8 +81,7 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = task.result?.user
-                    state.postValue(SignedIn(user))
+                    writeUserToFirestore()
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -90,5 +93,38 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
             }
     }
 
+    private fun writeUserToFirestore() {
+        val uid = checkNotNull(auth.uid)
+        db.collection("users").document(uid).get().addOnSuccessListener {
+            if (it.exists()) {
+                val buid = it.data?.get("buid") as String
+                updateUser(uid, buid)
+            } else {
+                // TODO: generate BUID using backend
+                val buid = UUID.randomUUID().toString().takeLast(10)
+                updateUser(uid, buid)
+            }
+        }
+    }
+
+    private fun updateUser(uid: String, buid: String) {
+        val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
+        db.collection("users").document(uid).set(UserModel(buid, phoneNumber))
+            .addOnSuccessListener {
+                state.postValue(SignedIn(uid, phoneNumber, buid))
+            }
+    }
+
+    private fun getUser() {
+        val uid = checkNotNull(auth.uid)
+        val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
+        db.collection("users").document(uid).get().addOnSuccessListener {
+            if (it.exists()) {
+                // Document exists
+                val buid = it.data?.get("buid") as String
+                state.postValue(SignedIn(uid, phoneNumber, buid))
+            }
+        }
+    }
 
 }
