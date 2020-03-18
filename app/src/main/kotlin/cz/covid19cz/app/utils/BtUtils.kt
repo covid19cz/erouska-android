@@ -13,6 +13,7 @@ import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.ui.sandbox.entity.ScanSession
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset
@@ -54,7 +55,7 @@ class BtUtils(context : Context) {
 
         scanDisposable = rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                    .setScanMode(AppConfig.scanMode)
                     .build()
             )
             .subscribe { scanResult ->
@@ -107,7 +108,7 @@ class BtUtils(context : Context) {
         Log.d("Starting server with power $power")
 
         val settings = AdvertiseSettings.Builder()
-            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER)
+            .setAdvertiseMode(AppConfig.advertiseMode)
             .setConnectable(true)
             .setTimeout(0)
             .setTxPowerLevel(power)
