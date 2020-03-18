@@ -119,6 +119,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
+    implementation 'com.google.firebase:firebase-config:19.1.2'
 
     // Stetho
     implementation "com.facebook.stetho:stetho:$versions.stetho"
