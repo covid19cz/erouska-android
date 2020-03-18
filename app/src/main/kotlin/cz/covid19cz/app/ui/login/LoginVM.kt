@@ -1,5 +1,6 @@
 package cz.covid19cz.app.ui.login
 
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
@@ -7,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ui.base.BaseVM
@@ -61,6 +63,7 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
+    private val functions = Firebase.functions
 
     init {
         auth.setLanguageCode("cs")
@@ -81,7 +84,7 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    writeUserToFirestore()
+                    registerDevice()
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -93,35 +96,27 @@ class LoginVM(val deviceRepository: ExpositionRepository) : BaseVM() {
             }
     }
 
-    private fun writeUserToFirestore() {
-        val uid = checkNotNull(auth.uid)
-        db.collection("users").document(uid).get().addOnSuccessListener {
-            if (it.exists()) {
-                val buid = it.data?.get("buid") as String
-                updateUser(uid, buid)
-            } else {
-                // TODO: generate BUID using backend
-                val buid = UUID.randomUUID().toString().takeLast(10)
-                updateUser(uid, buid)
-            }
+    private fun registerDevice() {
+        val data = hashMapOf(
+            "platform" to "android",
+            "platformVersion" to Build.VERSION.RELEASE,
+            "manufacturer" to Build.MANUFACTURER,
+            "model" to Build.MODEL,
+            "locale" to Locale.getDefault().toString()
+        )
+        functions.getHttpsCallable("createUser").call(data).addOnSuccessListener {
+            getUser()
+        }.addOnFailureListener {
+            state.postValue(LoginError(it))
         }
-    }
-
-    private fun updateUser(uid: String, buid: String) {
-        val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        db.collection("users").document(uid).set(UserModel(buid, phoneNumber))
-            .addOnSuccessListener {
-                state.postValue(SignedIn(uid, phoneNumber, buid))
-            }
     }
 
     private fun getUser() {
         val uid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        db.collection("users").document(uid).get().addOnSuccessListener {
-            if (it.exists()) {
-                // Document exists
-                val buid = it.data?.get("buid") as String
+        db.collection("users").document(uid).addSnapshotListener { snapshot, _ ->
+            if (snapshot!=null && snapshot.exists()) {
+                val buid = snapshot.data?.get("buid") as String
                 state.postValue(SignedIn(uid, phoneNumber, buid))
             }
         }

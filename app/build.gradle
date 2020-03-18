@@ -127,6 +127,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-config-ktx:19.1.2'
+    implementation 'com.google.firebase:firebase-functions-ktx:19.0.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
 
     // Stetho
     implementation "com.facebook.stetho:stetho:$versions.stetho"
