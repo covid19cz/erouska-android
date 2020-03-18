@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "exposition")
 data class ExpositionEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
-    val deviceId: String,
+    val buid: String,
     val timestampStart: Long,
     val timestampEnd: Long,
     val rssiMin: Int,
