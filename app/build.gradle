@@ -14,7 +14,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        archivesBaseName = "covid19-cz_$versionName"
+        archivesBaseName = "covid19-cz"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +30,8 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
+            // TODO: Change all this before going to Play Store
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
