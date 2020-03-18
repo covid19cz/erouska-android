@@ -15,7 +15,7 @@ class App : BaseApp() {
         setupKoin()
         // SQLScout - Database viewer for Android Studio
         SqlScoutServer.create(this, packageName)
-        AppConfig.init()
+        AppConfig.fetchRemoteConfig()
     }
 
     private fun setupKoin() {

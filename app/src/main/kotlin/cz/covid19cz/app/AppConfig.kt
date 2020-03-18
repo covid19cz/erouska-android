@@ -24,18 +24,26 @@ object AppConfig {
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
-            .setMinimumFetchIntervalInSeconds(3600)
+            .setMinimumFetchIntervalInSeconds(if (BuildConfig.DEBUG) 0 else 3600)
             .build()
-        firebaseRemoteConfig.setConfigSettingsAsync(configSettings).addOnCompleteListener {
-            print()
-        }
+        firebaseRemoteConfig.setConfigSettingsAsync(configSettings)
+
         firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults).addOnCompleteListener {
             print()
         }
     }
 
-    fun init() {
-        // just init instance
+    fun fetchRemoteConfig(){
+        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener {
+                task ->
+            if (task.isSuccessful) {
+                val updated = task.result
+                Log.d("Config params updated: $updated")
+                print()
+            } else {
+                Log.e("Config params update failed")
+            }
+        }
     }
 
     private fun print() {
