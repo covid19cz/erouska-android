@@ -1,22 +1,21 @@
 package cz.covid19cz.app.ui.sandbox
 
 import android.Manifest
-import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
+import android.app.ActivityManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.login.LoginActivity
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import kotlinx.android.synthetic.main.fragment_sandbox.*
+import cz.covid19cz.app.utils.Log
+import kotlinx.android.synthetic.main.fragment_sandbox.vLogin
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
@@ -41,19 +40,45 @@ class SandboxFragment :
                     Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
             }
         }
+
+        if (isMyServiceRunning(CovidService::class.java)) {
+            Log.d("Service Covid is running")
+            viewModel.serviceRunning.value = true
+        } else {
+            Log.d("Service Covid is not running")
+        }
+    }
+
+    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager =
+            context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+        for (service in manager!!.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vLogin.setOnClickListener {
-            startActivity(Intent(activity, LoginActivity::class.java))
+            navigate(R.id.action_nav_sandbox_to_nav_login)
         }
+
+        setToolbarTitle(R.string.bluetooth_toolbar_title)
+        enableUpInToolbar(false)
+    }
+
+    override fun onBluetoothEnabled() {
+        super.onBluetoothEnabled()
+        tryStartBtService()
     }
 
     fun tryStartBtService() {
         if (viewModel.bluetoothRepository.hasBle(requireContext())) {
             if (!viewModel.bluetoothRepository.isBtEnabled()) {
-                requestEnableBt()
+                navigate(R.id.action_nav_sandbox_to_nav_bt_disabled)
                 return
             }
             if (!hasLocationPermissions()) {
@@ -70,44 +95,11 @@ class SandboxFragment :
         CovidService.stopService(requireContext())
     }
 
-    fun requestEnableBt() {
-        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        startActivityForResult(enableBtIntent, REQUEST_BT_ENABLE)
-    }
-
     private fun hasLocationPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestLocationPermission() {
-        if (shouldShowRequestPermissionRationale(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        ) {
-            //TODO: better dialog and navigate to settings
-            Toast.makeText(context, "Povolte přístup k poloze", Toast.LENGTH_LONG).show()
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_PERMISSION_FINE_LOCATION
-            )
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        when (requestCode) {
-            REQUEST_BT_ENABLE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    tryStartBtService()
-                }
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onRequestPermissionsResult(
