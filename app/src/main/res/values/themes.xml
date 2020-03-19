@@ -13,7 +13,6 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
-        <item name="colorControlNormal">@color/white</item>
 
         <item name="toolbarStyle">@style/Toolbar</item>
         <item name="materialButtonStyle">@style/Button</item>
