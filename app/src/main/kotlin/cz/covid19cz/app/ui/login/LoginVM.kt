@@ -118,8 +118,9 @@ class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) 
     private fun getUser() {
         val uid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        db.collection("users").document(uid).addSnapshotListener { snapshot, _ ->
-            if (snapshot!=null && snapshot.exists()) {
+        db.collection("users").document(uid).get().addOnCompleteListener { response ->
+            val snapshot = response.result;
+            if (snapshot != null) {
                 val buid = snapshot.data?.get("buid") as String
                 state.postValue(SignedIn(uid, phoneNumber, buid))
             }
