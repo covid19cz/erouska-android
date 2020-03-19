@@ -17,6 +17,7 @@
 
         <item name="toolbarStyle">@style/Toolbar</item>
         <item name="materialButtonStyle">@style/Button</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">

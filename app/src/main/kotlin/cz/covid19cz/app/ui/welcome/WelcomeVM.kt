@@ -6,7 +6,6 @@ import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.welcome.event.WelcomeCommandEvent
 import cz.covid19cz.app.utils.boolean
 import cz.covid19cz.app.utils.sharedPrefs
-import cz.covid19cz.app.utils.string
 
 class WelcomeVM(val app: Application, val bluetoothRepository: BluetoothRepository) : BaseVM() {
 

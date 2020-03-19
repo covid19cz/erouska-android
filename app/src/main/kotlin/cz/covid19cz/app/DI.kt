@@ -2,20 +2,20 @@ package cz.covid19cz.app
 
 import android.app.Application
 import androidx.room.Room
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.AppDatabase
-import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
-import cz.covid19cz.app.ui.btenabled.BtEnabledVM
-import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.db.ExpositionDao
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.db.ExpositionRepositoryImpl
 import cz.covid19cz.app.db.export.CsvExporter
+import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
+import cz.covid19cz.app.ui.btenabled.BtEnabledVM
+import cz.covid19cz.app.ui.btonboard.BtOnboardVM
+import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
-import cz.covid19cz.app.bt.BluetoothRepository
-import cz.covid19cz.app.ui.btonboard.BtOnboardVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

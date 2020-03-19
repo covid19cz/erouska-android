@@ -14,15 +14,13 @@ import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.Log
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.io.File
-import java.util.concurrent.TimeUnit
 
 class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter) :
     BaseVM() {
 
-    val deviceId = SafeMutableLiveData("")
+    val buid = SafeMutableLiveData(generateDummyBuid())
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)
@@ -99,6 +97,13 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
             4 -> "HIGH"
             else -> "UNKNOWN"
         }
+    }
+
+    private fun generateDummyBuid() : String{
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz1234567890"
+        return (1..10)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 
 }

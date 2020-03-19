@@ -2,7 +2,6 @@ package cz.covid19cz.app.ui.sandbox
 import android.Manifest
 import android.app.ActivityManager
 import android.content.Context
-import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,8 +14,8 @@ import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.Log
-import kotlinx.android.synthetic.main.fragment_sandbox.vLogin
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
@@ -118,7 +117,7 @@ class SandboxFragment :
 
     fun startBtService() {
         val power = viewModel.power.value - 1
-        CovidService.startService(requireContext(), viewModel.deviceId.value, power)
+        CovidService.startService(requireContext(), viewModel.buid.value, power)
         viewModel.confirmStart()
     }
 

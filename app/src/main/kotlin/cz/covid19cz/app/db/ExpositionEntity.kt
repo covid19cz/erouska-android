@@ -12,5 +12,7 @@ data class ExpositionEntity(
     val rssiMin: Int,
     val rssiMax: Int,
     val rssiAvg: Int,
-    val rssiMed: Int
+    val rssiMed: Int,
+    val rssiCount: Int,
+    val avgUpdateSeconds: Int
 )

@@ -1,6 +1,5 @@
 package cz.covid19cz.app.bt
 
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
@@ -14,8 +13,8 @@ import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
-import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.nio.charset.Charset

@@ -1,7 +1,7 @@
 package cz.covid19cz.app.ui.login
 
-import android.os.Build
 import android.app.Application
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException

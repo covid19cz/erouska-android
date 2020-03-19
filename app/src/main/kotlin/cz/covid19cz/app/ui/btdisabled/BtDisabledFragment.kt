@@ -5,7 +5,6 @@ import android.view.View
 import androidx.navigation.NavOptions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
-import cz.covid19cz.app.databinding.FragmentHelpBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.btdisabled.event.BtDisabledCommandEvent
 

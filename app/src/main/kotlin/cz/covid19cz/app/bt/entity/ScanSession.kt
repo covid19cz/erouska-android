@@ -2,7 +2,6 @@ package cz.covid19cz.app.bt.entity
 
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.app.AppConfig
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -16,13 +15,7 @@ class ScanSession(val deviceId: String, val mac: String) {
     val liveMaxRssi = SafeMutableLiveData(Int.MIN_VALUE)
     val liveAvgRssi = SafeMutableLiveData(0)
     val liveMedRssi = SafeMutableLiveData(0)
-
     val inRange = SafeMutableLiveData(false)
-    val sessionStart = SafeMutableLiveData(0L)
-    val latestUpdate = SafeMutableLiveData(0L)
-    val sessionDuration = SafeMutableLiveData(0L)
-    val sessionDurationString = SafeMutableLiveData("")
-    val latestUpdateString = SafeMutableLiveData("")
 
     var minRssi = Int.MAX_VALUE
     var maxRssi = Int.MIN_VALUE
@@ -32,24 +25,25 @@ class ScanSession(val deviceId: String, val mac: String) {
         get() = rssiList.firstOrNull()?.timestamp ?: 0L
     val timestampEnd: Long
         get() = rssiList.lastOrNull()?.timestamp ?: 0L
-
+    val rssiCount: Int
+        get() = rssiList.size
+    val avgTime: Long
+        get() {
+            var sum: Long = 0
+            if (rssiList.size > 1) {
+                for (i in 0 until rssiList.size - 1) {
+                    sum += (rssiList[i + 1].timestamp - rssiList[i].timestamp) / 1000
+                }
+                return (sum / rssiList.size - 1)
+            }
+            return AppConfig.collectionSeconds
+        }
 
     fun addRssi(rssiVal: Int) {
         val rssi = Rssi(rssiVal)
-        if (rssiList.size == 0) {
-            sessionStart
-        }
 
         rssiList.add(rssi)
         currRssi.postValue(rssiVal)
-        latestUpdate.postValue(rssi.timestamp)
-        latestUpdateString.postValue(
-            SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(
-                Date(
-                    rssi.timestamp
-                )
-            )
-        )
 
         calculate()
         checkOutOfRange()
@@ -100,17 +94,6 @@ class ScanSession(val deviceId: String, val mac: String) {
         } else {
             l[middle]
         }
-    }
-
-    fun getAvgScanTime() : Long{
-        var sum : Long = 0
-        if (rssiList.size > 1) {
-            for (i in 0 until rssiList.size - 1) {
-                sum += (rssiList[i + 1].timestamp - rssiList[i].timestamp) / 1000
-            }
-            return (sum / rssiList.size - 1)
-        }
-        return AppConfig.collectionSeconds
     }
 
 }

@@ -40,11 +40,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Device ID"
+                android:hint="BUID (Broadcast UID)"
                 android:lines="1"
                 android:maxLength="13"
                 android:enabled="@{!vm.serviceRunning}"
-                android:text="@={vm.deviceId}"/>
+                android:text="@={vm.buid}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +93,7 @@
             app:layout_constraintTop_toTopOf="@id/buttonStop"
             app:layout_constraintEnd_toStartOf="@id/buttonStop"
             android:layout_marginRight="8dp"
-            android:enabled="@{!vm.deviceId.empty &amp;&amp; !vm.serviceRunning}"
+            android:enabled="@{!vm.buid.empty &amp;&amp; !vm.serviceRunning}"
             android:text="Zapnout"
             android:onClick="@{() -> vm.start()}"/>
 

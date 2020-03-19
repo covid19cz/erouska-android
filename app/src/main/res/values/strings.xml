@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">COVID-19 CZ</string>
+    <string name="app_name">Mobilní rouška</string>
 
-    <string name="notification_title">COVID-19 CZ běží</string>
+    <string name="notification_title">Mobilní rouška běží</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
     <string name="welcome_toolbar_title">Koronavirus radar</string>
     <string name="bt_disabled_toolbar_title">Koronavirus radar</string>

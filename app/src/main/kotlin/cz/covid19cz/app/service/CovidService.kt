@@ -1,5 +1,6 @@
 package cz.covid19cz.app.service
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,15 +9,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.ExpositionEntity
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ui.main.MainActivity
-import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -31,17 +33,21 @@ class CovidService : Service() {
         const val CHANNEL_ID = "ForegroundServiceChannel"
         const val ARG_DEVICE_ID = "DEVICE_ID"
         const val ARG_POWER = "POWER"
+        const val ACTION_START = "ACTION_START"
+        const val ACTION_STOP = "ACTION_STOP"
 
         fun startService(c: Context, deviceId: String, power: Int = AppConfig.advertiseTxPower) {
             val serviceIntent = Intent(c, CovidService::class.java)
+            serviceIntent.action = ACTION_START
             serviceIntent.putExtra(ARG_DEVICE_ID, deviceId)
             serviceIntent.putExtra(ARG_POWER, power)
             ContextCompat.startForegroundService(c, serviceIntent)
         }
 
         fun stopService(c: Context) {
-            val serviceIntent = Intent(c, CovidService::class.java)
-            c.stopService(serviceIntent)
+            val stopIntent = Intent(c, CovidService::class.java)
+            stopIntent.action = ACTION_STOP
+            c.startService(stopIntent)
         }
     }
 
@@ -51,27 +57,38 @@ class CovidService : Service() {
     val db by inject<ExpositionRepository>()
     var scanDisposable: Disposable? = null
     var saveDataDisposable: Disposable? = null
+    private var wakeLock : PowerManager.WakeLock? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        deviceId = intent?.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
-        power = intent?.getIntExtra(ARG_POWER, -1) ?: -1
+        when(intent?.action) {
+            ACTION_START -> {
+                deviceId = intent.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
+                power = intent.getIntExtra(ARG_POWER, -1) ?: -1
 
-        createNotificationChannel();
-        val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0, notificationIntent, 0
-        );
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.notification_title))
-            .setContentText(getString(R.string.notification_text))
-            .setSmallIcon(R.drawable.ic_notification)
-            .setContentIntent(pendingIntent)
-            .build();
-        startForeground(1, notification);
+                createNotificationChannel();
+                val notificationIntent = Intent(this, MainActivity::class.java)
+                val pendingIntent = PendingIntent.getActivity(
+                    this,
+                    0, notificationIntent, 0
+                );
+                val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setContentTitle(getString(R.string.notification_title))
+                    .setContentText(getString(R.string.notification_text))
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentIntent(pendingIntent)
+                    .build();
+                startForeground(1, notification);
 
-        startBleServer()
-        startBleClient()
+                startBleServer()
+                startBleClient()
+                wakeLock(true)
+            }
+            ACTION_STOP -> {
+                wakeLock(false)
+                stopForeground(true)
+                stopSelf()
+            }
+        }
         return START_NOT_STICKY
     }
 
@@ -140,7 +157,6 @@ class CovidService : Service() {
         val tempArray = btUtils.scanResultsList.toTypedArray()
         for (item in tempArray) {
             item.calculate()
-            Log.d("Average update time: ${item.getAvgScanTime()} s")
             val rowId = db.add(
                 ExpositionEntity(
                     0,
@@ -150,11 +166,32 @@ class CovidService : Service() {
                     item.minRssi,
                     item.maxRssi,
                     item.avgRssi,
-                    item.medRssi
+                    item.medRssi,
+                    item.rssiCount,
+                    item.avgTime.toInt()
                 )
             )
             Log.d("DB: Inserted row $rowId")
         }
         return tempArray.size
+    }
+
+    @SuppressLint("InvalidWakeLockTag", "WakelockTimeout")
+    private fun wakeLock(enable : Boolean){
+        if (enable) {
+            var tag = "$packageName:LOCK"
+
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M && Build.MANUFACTURER == "Huawei") {
+                tag = "LocationManagerService"
+            }
+
+            wakeLock = (getSystemService(Context.POWER_SERVICE) as PowerManager).newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK,
+                tag
+            )
+            wakeLock?.acquire()
+        } else {
+            wakeLock?.release()
+        }
     }
 }

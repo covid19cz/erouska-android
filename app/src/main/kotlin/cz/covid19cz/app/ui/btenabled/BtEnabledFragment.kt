@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
-import cz.covid19cz.app.databinding.FragmentHelpBinding
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.btdisabled.event.BtDisabledCommandEvent
 import cz.covid19cz.app.ui.btenabled.event.BtEnabledCommandEvent
 
 class BtEnabledFragment :

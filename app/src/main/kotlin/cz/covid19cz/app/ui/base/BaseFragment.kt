@@ -1,12 +1,10 @@
 package cz.covid19cz.app.ui.base
 
-import android.Manifest.permission
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
