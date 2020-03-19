@@ -32,21 +32,23 @@ class BluetoothRepository(context: Context) {
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
+
     private val serverCallback = object: AdvertiseCallback(){
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
-                isAdvertising.value = true
+                isAdvertising = true
                 Log.d("BLE advertising started.")
                 super.onStartSuccess(settingsInEffect)
             }
 
             override fun onStartFailure(errorCode: Int) {
-                isAdvertising.value = false
+                isAdvertising = false
                 Log.d("BLE advertising failed: $errorCode")
                 super.onStartFailure(errorCode)
             }
     }
-    val isAdvertising = SafeMutableLiveData(false)
-    val isScanning = SafeMutableLiveData(false)
+
+    var isAdvertising = false
+    var isScanning = false
 
     var scanDisposable: Disposable? = null
 
@@ -64,7 +66,7 @@ class BluetoothRepository(context: Context) {
     }
 
     fun startScanning() {
-        if (isScanning.value) {
+        if (isScanning) {
             stopScanning()
         }
 
@@ -78,13 +80,13 @@ class BluetoothRepository(context: Context) {
             .subscribe ({ scanResult ->
                 onScanResult(scanResult)
             }, {
-                isScanning.value = false
+                isScanning = false
                 Log.e(it)})
-        isScanning.value = true
+        isScanning = true
     }
 
     fun stopScanning() {
-        isScanning.value = false
+        isScanning = false
         Log.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
@@ -123,7 +125,7 @@ class BluetoothRepository(context: Context) {
     }
 
     fun startServer(deviceId: String, power: Int) {
-        if (isAdvertising.value) {
+        if (isAdvertising) {
             stopServer()
         }
 

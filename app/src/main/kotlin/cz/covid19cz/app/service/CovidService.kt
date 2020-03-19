@@ -78,7 +78,7 @@ class CovidService : Service() {
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
                     .build();
-                startForeground(1, notification);
+                startForeground(1, notification)
 
                 startBleAdvertising()
                 startBleScanning()
