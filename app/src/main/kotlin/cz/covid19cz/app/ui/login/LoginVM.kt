@@ -11,13 +11,14 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import cz.covid19cz.app.db.ExpositionRepository
+import cz.covid19cz.app.db.DatabaseRepository
+import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.utils.boolean
 import cz.covid19cz.app.utils.sharedPrefs
 import java.util.*
 
-class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) : BaseVM() {
+class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, val sharedPrefsRepository: SharedPrefsRepository) : BaseVM() {
 
     var userSignedIn by app.sharedPrefs().boolean()
     val data = deviceRepository.data
@@ -119,11 +120,16 @@ class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) 
         val uid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
         db.collection("users").document(uid).get().addOnCompleteListener { response ->
-            val snapshot = response.result;
-            if (snapshot != null) {
-                val buid = snapshot.data?.get("buid") as String
+            val snapshot = response.result
+
+            (snapshot?.data?.get("buid") as? String)?.let { buid ->
+                saveBuid(buid)
                 state.postValue(SignedIn(uid, phoneNumber, buid))
             }
         }
+    }
+
+    fun saveBuid(buid : String){
+        sharedPrefsRepository.putDeviceBuid(buid)
     }
 }

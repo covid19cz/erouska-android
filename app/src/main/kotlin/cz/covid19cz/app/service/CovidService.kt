@@ -16,7 +16,8 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.ExpositionEntity
-import cz.covid19cz.app.db.ExpositionRepository
+import cz.covid19cz.app.db.DatabaseRepository
+import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ui.main.MainActivity
 import cz.covid19cz.app.utils.Log
@@ -31,16 +32,12 @@ class CovidService : Service() {
     companion object {
 
         const val CHANNEL_ID = "ForegroundServiceChannel"
-        const val ARG_DEVICE_ID = "DEVICE_ID"
-        const val ARG_POWER = "POWER"
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
 
-        fun startService(c: Context, deviceId: String, power: Int = AppConfig.advertiseTxPower) {
+        fun startService(c: Context) {
             val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.action = ACTION_START
-            serviceIntent.putExtra(ARG_DEVICE_ID, deviceId)
-            serviceIntent.putExtra(ARG_POWER, power)
             ContextCompat.startForegroundService(c, serviceIntent)
         }
 
@@ -51,20 +48,24 @@ class CovidService : Service() {
         }
     }
 
-    lateinit var deviceId: String
-    var power: Int = 0
+    lateinit var deviceBuid: String
     val btUtils by inject<BluetoothRepository>()
-    val db by inject<ExpositionRepository>()
-    var scanDisposable: Disposable? = null
-    var saveDataDisposable: Disposable? = null
-    private var wakeLock : PowerManager.WakeLock? = null
+    val db by inject<DatabaseRepository>()
+    val prefs by inject<SharedPrefsRepository>()
+
+    var bleAdvertisingDisposable: Disposable? = null
+    var bleScanningDisposable: Disposable? = null
+    private var wakeLock: PowerManager.WakeLock? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        deviceBuid = prefs.getDeviceBuid() ?: "NULL BUID"
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when(intent?.action) {
-            ACTION_START -> {
-                deviceId = intent.getStringExtra(ARG_DEVICE_ID) ?: "Unknown Device ID"
-                power = intent.getIntExtra(ARG_POWER, -1) ?: -1
-
+        when (intent?.action) {
+            // null intent is in case service is restarted by system
+            ACTION_START, null -> {
                 createNotificationChannel();
                 val notificationIntent = Intent(this, MainActivity::class.java)
                 val pendingIntent = PendingIntent.getActivity(
@@ -79,8 +80,8 @@ class CovidService : Service() {
                     .build();
                 startForeground(1, notification);
 
-                startBleServer()
-                startBleClient()
+                startBleAdvertising()
+                startBleScanning()
                 wakeLock(true)
             }
             ACTION_STOP -> {
@@ -89,14 +90,16 @@ class CovidService : Service() {
                 stopSelf()
             }
         }
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     override fun onDestroy() {
-        btUtils.stopScan()
+        btUtils.stopScanning()
         btUtils.stopServer()
-        saveDataDisposable?.dispose()
-        saveDataDisposable = null
+        bleScanningDisposable?.dispose()
+        bleScanningDisposable = null
+        bleAdvertisingDisposable?.dispose()
+        bleAdvertisingDisposable = null
         super.onDestroy()
     }
 
@@ -118,46 +121,53 @@ class CovidService : Service() {
         }
     }
 
-    private fun startBleServer() {
-        if (btUtils.isServerAvailable()) {
-            if (power != -1) {
-                btUtils.startServer(deviceId, power)
-            } else {
-                btUtils.startServer(deviceId, AppConfig.advertiseTxPower)
-            }
-        }
-    }
-
-    fun startBleClient() {
-        saveDataDisposable = Observable.just(true)
+    fun startBleScanning() {
+        bleScanningDisposable = Observable.just(true)
             //Give IU Thread time to clean data
             .delay(1, TimeUnit.SECONDS)
             .map {
-                Log.d("Start scanning")
-                btUtils.startScan()
+                btUtils.startScanning()
                 return@map it
-            }.delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
+            }
+            .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
             .map {
-                Log.d("Stop scanning")
-                btUtils.stopScan()
-                Log.d("Save data to database")
-                val rowCount = saveData()
-                Log.d("$rowCount rows saved")
+                btUtils.stopScanning()
+                saveData()
                 return@map it
-            }.delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
-            .repeat().execute({
-                Log.d("Clean scan data")
-                btUtils.clear()
+            }
+            .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
+            .repeat()
+            .execute({
+                btUtils.clearScanResults()
             }, {
                 Log.e(it)
             })
     }
 
-    fun saveData(): Int {
+    fun startBleAdvertising() {
+        bleAdvertisingDisposable = Observable.just(true)
+            .delay(1, TimeUnit.SECONDS)
+            .map {
+                btUtils.startServer(deviceBuid, AppConfig.advertiseTxPower)
+            }
+            .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
+            .map {
+                btUtils.stopServer()
+            }
+            .repeat()
+            .execute({
+                Log.d("Restarting BLE advertising")
+            }, {
+                Log.e(it)
+            })
+    }
+
+    fun saveData() {
+        Log.d("Saving data to database")
         val tempArray = btUtils.scanResultsList.toTypedArray()
         for (item in tempArray) {
             item.calculate()
-            val rowId = db.add(
+            db.add(
                 ExpositionEntity(
                     0,
                     item.deviceId,
@@ -168,16 +178,15 @@ class CovidService : Service() {
                     item.avgRssi,
                     item.medRssi,
                     item.rssiCount,
-                    item.avgTime.toInt()
+                    item.avgUpdateSeconds.toInt()
                 )
             )
-            Log.d("DB: Inserted row $rowId")
         }
-        return tempArray.size
+        Log.d("${tempArray.size} records saved")
     }
 
     @SuppressLint("InvalidWakeLockTag", "WakelockTimeout")
-    private fun wakeLock(enable : Boolean){
+    private fun wakeLock(enable: Boolean) {
         if (enable) {
             var tag = "$packageName:LOCK"
 
@@ -189,9 +198,17 @@ class CovidService : Service() {
                 PowerManager.PARTIAL_WAKE_LOCK,
                 tag
             )
-            wakeLock?.acquire()
+            wakeLock?.let {
+                if (!it.isHeld){
+                    it.acquire()
+                }
+            }
         } else {
-            wakeLock?.release()
+            wakeLock?.let {
+                if (it.isHeld){
+                    it.release()
+                }
+            }
         }
     }
 }

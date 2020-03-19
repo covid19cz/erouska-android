@@ -1,7 +1,7 @@
 package cz.covid19cz.app.db.export
 
 import android.content.Context
-import cz.covid19cz.app.db.ExpositionRepository
+import cz.covid19cz.app.db.DatabaseRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -10,7 +10,7 @@ import org.supercsv.prefs.CsvPreference
 import java.io.File
 import java.io.FileWriter
 
-class CsvExporter(val context: Context, val repository: ExpositionRepository) {
+class CsvExporter(val context: Context, val repository: DatabaseRepository) {
 
     companion object {
         // represents the structure of the csv file
@@ -32,7 +32,7 @@ class CsvExporter(val context: Context, val repository: ExpositionRepository) {
         val csvWriter =
             CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
 
-        return repository.dataObservable
+        return repository.data
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { entities ->

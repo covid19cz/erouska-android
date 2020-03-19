@@ -27,14 +27,6 @@ class LoginFragment :
         viewModel.state.observe(this) {
             updateState(it)
         }
-
-
-        viewModel.deviceRepository.data.observe(this, Observer {
-            // Todo: Populate the recyclerView here
-            it.forEach { device ->
-                Log.d(LoginFragment::class.simpleName, device.toString())
-            }
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
