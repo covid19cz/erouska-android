@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.NavOptions.Builder
 import cz.covid19cz.app.BuildConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.ActivityMainBinding
@@ -27,7 +28,12 @@ class MainActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_test){
-            navigate(R.id.nav_sandbox)
+            navigate(R.id.nav_sandbox, null,
+                Builder()
+                    .setPopUpTo(
+                        R.id.nav_graph,
+                        true
+                    ).build())
         }
         return super.onOptionsItemSelected(item)
     }
