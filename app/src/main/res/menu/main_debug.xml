@@ -6,4 +6,9 @@
         android:id="@+id/action_test"
         android:title="Test"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="O aplikaci"
+        app:showAsAction="always" />
 </menu>

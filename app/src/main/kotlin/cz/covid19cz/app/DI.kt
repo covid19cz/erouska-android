@@ -5,6 +5,7 @@ import androidx.room.Room
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.*
 import cz.covid19cz.app.db.export.CsvExporter
+import cz.covid19cz.app.ui.about.AboutVM
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.btenabled.BtEnabledVM
 import cz.covid19cz.app.ui.btonboard.BtOnboardVM
@@ -26,6 +27,7 @@ val viewModelModule = module {
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }
     viewModel { BtOnboardVM() }
+    viewModel { AboutVM() }
 }
 
 val databaseModule = module {

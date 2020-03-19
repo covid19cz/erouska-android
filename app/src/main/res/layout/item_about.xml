@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="cz.covid19cz.app.R"/>
+        <import type="cz.covid19cz.app.ui.about.AboutRecyclerLayoutStrategy"/>
+        <variable
+            name="item"
+            type="cz.covid19cz.app.ui.about.entity.AboutProfileItem" />
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.about.AboutVM" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        android:onClick="@{() -> vm.profileClick(item)}">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/imagePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            app:imageResource="@{item.photo}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textName"
+            android:paddingTop="4dp"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/imagePhoto"
+            android:gravity="center"
+            android:text="@{item.name}"
+            tools:text="Jméno" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textSurname"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textName"
+            android:gravity="center"
+            android:text="@{item.surname}"
+            tools:text="Příjmení" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

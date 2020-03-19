@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="cz.covid19cz.app.R"/>
+        <variable
+            name="item"
+            type="String" />
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.about.AboutVM" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{item}"
+        tools:text="Role"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:padding="8dp"
+        />
+</layout>

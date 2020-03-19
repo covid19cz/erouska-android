@@ -79,5 +79,10 @@
             android:id="@+id/action_nav_login_to_nav_sandbox"
             app:destination="@id/nav_sandbox" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="cz.covid19cz.app.ui.about.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about"/>
 
 </navigation>

@@ -22,19 +22,24 @@ class MainActivity :
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (BuildConfig.DEBUG){
             menuInflater.inflate(R.menu.main_debug, menu)
+        } else {
+            menuInflater.inflate(R.menu.main, menu)
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_test){
-            navigate(R.id.nav_sandbox, null,
+        when(item.itemId){
+            R.id.action_test -> navigate(R.id.nav_sandbox, null,
                 Builder()
                     .setPopUpTo(
                         R.id.nav_graph,
                         true
                     ).build())
+
+            R.id.action_about -> navigate(R.id.nav_about)
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

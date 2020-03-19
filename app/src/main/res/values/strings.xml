@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mobilní rouška</string>
+    <string name="covid19_link">https://covid19cz.cz/</string>
 
     <string name="notification_title">Mobilní rouška běží</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
@@ -34,4 +35,10 @@
     <string name="login_code_input">Zadejte kód z SMS</string>
     <string name="login_phone_number_hint">Telefonní číslo (povinné)</string>
     <string name="login_phone_input_error">Neplatné telefonní číslo</string>
+
+    <string name="about_intro">Aplikaci jsme vyvíjeli s důrazem na bezpečnost a ochranu soukromí, abychom jí bez obav mohli používat i my. Anonymizovaná data o Bluetooth zařízeních, které jste potkali, bez vašeho vědomí nikam neodesíláme. Aplikace nepoužívá vaší polohu a z nasbíraných dat nelze zjistit, kde jste se pohybovali. Věříme, že se nám společně podaří epidemii zastavit, tým Mobilní roušky.</string>
+    <string name="about_managers">Řízení projektu</string>
+    <string name="about_app_devs">Vývoj aplikace</string>
+    <string name="about_backend_devs">Vývoj backendu</string>
+    <string name="about_ux_ui">UX/UI</string>
 </resources>
