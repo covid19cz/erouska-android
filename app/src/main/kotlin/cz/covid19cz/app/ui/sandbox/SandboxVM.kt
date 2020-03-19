@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
+import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.export.CsvExporter
@@ -79,7 +80,7 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
         val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
-            setCustomMetadata("version", "1")
+            setCustomMetadata("version", R.integer.storage_csv_version.toString())
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             publish(ExportEvent.Complete("Upload success"))
