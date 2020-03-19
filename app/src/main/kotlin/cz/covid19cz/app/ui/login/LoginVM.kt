@@ -31,7 +31,6 @@ class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) 
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
-            Log.d(TAG, "onVerificationCompleted:$credential")
             signInWithPhoneAuthCredential(credential)
         }
 
@@ -49,17 +48,16 @@ class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) 
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
-            Log.d(TAG, "onCodeSent:$verificationId")
 
             // Save verification ID and resending token so we can use them later
             this@LoginVM.verificationId = verificationId
             resendToken = token
+            state.postValue(EnterCode)
         }
 
         override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
             Log.d(TAG, "onCodeAutoRetrievalTimeOut:$verificationId")
             this@LoginVM.verificationId = verificationId
-            state.postValue(EnterCode)
         }
     }
     private val TAG = "Login"
@@ -109,7 +107,7 @@ class LoginVM(val app: Application, val deviceRepository: ExpositionRepository) 
             "locale" to Locale.getDefault().toString()
         )
         functions.getHttpsCallable("createUser").call(data).addOnSuccessListener {
-            getUser()
+            Log.d(TAG, "data="+it.data)
         }.addOnFailureListener {
             state.postValue(LoginError(it))
         }
