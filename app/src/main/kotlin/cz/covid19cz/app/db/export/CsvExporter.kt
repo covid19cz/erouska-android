@@ -37,7 +37,6 @@ class CsvExporter(val context: Context, val repository: ExpositionRepository) {
             .observeOn(AndroidSchedulers.mainThread())
             .map { entities ->
                 // write metadata
-                csvWriter.writeComment("version: 1")
                 csvWriter.writeHeader(*HEADERS)
 
                 // write entities
