@@ -45,7 +45,7 @@ object Log {
 
     fun e(throwable: Throwable) {
         if (BuildConfig.DEBUG) {
-            Log.e(null, throwable.message, throwable)
+            Log.e("Log", throwable.message, throwable)
         }
     }
 
