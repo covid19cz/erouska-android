@@ -12,6 +12,19 @@ import java.io.FileWriter
 
 class CsvExporter(val context: Context, val repository: ExpositionRepository) {
 
+    companion object {
+        // represents the structure of the csv file
+        val HEADERS: Array<String> = arrayOf(
+            "buid",
+            "timestampStart",
+            "timestampEnd",
+            "minRssi",
+            "maxRssi",
+            "avgRssi",
+            "medRssi"
+        )
+    }
+
     private fun filename() = "${System.currentTimeMillis()}.csv"
 
     fun export(): Single<String> {
@@ -19,24 +32,27 @@ class CsvExporter(val context: Context, val repository: ExpositionRepository) {
         val csvWriter =
             CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
 
-        return repository.dataObservable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).map { entities ->
-            // write metadata
-            csvWriter.writeHeader("version1")
+        return repository.dataObservable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { entities ->
+                // write metadata
+                csvWriter.writeComment("version: 1")
+                csvWriter.writeHeader(*HEADERS)
 
-            // write entities
-            entities.forEach {
-                csvWriter.write(
-                    it.buid,
-                    it.timestampStart,
-                    it.timestampEnd,
-                    it.rssiMin,
-                    it.rssiMax,
-                    it.rssiAvg,
-                    it.rssiMed
-                )
-            }
-            csvWriter.close()
-        }.map { destinationFile.absolutePath }
+                // write entities
+                entities.forEach {
+                    csvWriter.write(
+                        it.buid,
+                        it.timestampStart,
+                        it.timestampEnd,
+                        it.rssiMin,
+                        it.rssiMax,
+                        it.rssiAvg,
+                        it.rssiMed
+                    )
+                }
+                csvWriter.close()
+            }.map { destinationFile.absolutePath }
     }
 }
