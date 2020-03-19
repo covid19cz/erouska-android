@@ -93,7 +93,6 @@ class LoginFragment :
         vError.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
                 "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
         show(vError)
-        viewModel.userSignedIn = true
         waitAndOpenSandbox(2000)
     }
 

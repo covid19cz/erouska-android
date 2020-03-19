@@ -21,7 +21,7 @@ val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get(), get()) }
     viewModel { LoginVM(get(), get(), get()) }
-    viewModel { WelcomeVM(get(), get()) }
+    viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }

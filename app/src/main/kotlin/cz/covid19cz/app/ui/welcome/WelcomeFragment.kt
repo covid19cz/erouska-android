@@ -21,7 +21,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
             }
         }
 
-        if (viewModel.userSignedIn) {
+        if (viewModel.userInitialized) {
             navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox, null,
                 NavOptions.Builder()
                     .setPopUpTo(R.id.nav_graph,

@@ -1,15 +1,19 @@
 package cz.covid19cz.app.ui.welcome
 
 import android.app.Application
+import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.app.bt.BluetoothRepository
+import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.welcome.event.WelcomeCommandEvent
-import cz.covid19cz.app.utils.boolean
-import cz.covid19cz.app.utils.sharedPrefs
 
-class WelcomeVM(val app: Application, val bluetoothRepository: BluetoothRepository) : BaseVM() {
+class WelcomeVM(val app: Application,
+                val bluetoothRepository: BluetoothRepository,
+                private val sharedPrefsRepository: SharedPrefsRepository
+) : BaseVM() {
 
-    var userSignedIn by app.sharedPrefs().boolean()
+    val userInitialized
+        get() = FirebaseAuth.getInstance().currentUser != null && sharedPrefsRepository.getDeviceBuid() != null
 
     fun nextStep() {
         if (bluetoothRepository.isBtEnabled()) {
