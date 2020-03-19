@@ -20,7 +20,7 @@ buildscript {
         targetSdkVersion = 29
 
         final VERSION_MAJOR = 0
-        final VERSION_MINOR = 3
+        final VERSION_MINOR = 4
 
         versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${commitCount()}"
 
