@@ -2,6 +2,11 @@
 
 buildscript {
     // KOTLIN_VERSION
+
+    ext.commitCount = {
+        return Integer.valueOf('git rev-list --count HEAD'.execute().text.trim())
+    }
+
     ext {
         kotlinVersion = '1.3.70'
         gradleVersion = '3.6.1'
@@ -11,11 +16,9 @@ buildscript {
 
         final VERSION_MAJOR = 0
         final VERSION_MINOR = 3
-        final VERSION_PATCH = 0
 
-        //versionCode XYYYZZZ (X - Major, YYY - Minor, ZZZ - Patch)
-        versionCode = Integer.parseInt(String.valueOf(VERSION_MAJOR) + String.valueOf(VERSION_MINOR).padLeft(3, "0") + String.valueOf(VERSION_PATCH).padLeft(3, "0"))
-        versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+        versionCode = commitCount
+        versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${versionCode}"
 
         versions = [
                 nav                 : '2.3.0-alpha03',
@@ -52,6 +55,7 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.31.2'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03"
     }
+
 }
 
 allprojects {

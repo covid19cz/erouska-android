@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.welcome
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import cz.covid19cz.app.BuildConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -31,7 +32,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.welcome_toolbar_title)
+        setToolbarTitle(BuildConfig.VERSION_NAME+"("+BuildConfig.VERSION_CODE+")")
         enableUpInToolbar(false)
     }
 
