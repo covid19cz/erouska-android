@@ -11,7 +11,18 @@ import com.google.firebase.auth.PhoneAuthProvider
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentLoginBinding
 import cz.covid19cz.app.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_login.login_desc
+import kotlinx.android.synthetic.main.fragment_login.login_info
+import kotlinx.android.synthetic.main.fragment_login.login_progress
+import kotlinx.android.synthetic.main.fragment_login.login_statement
+import kotlinx.android.synthetic.main.fragment_login.login_title
+import kotlinx.android.synthetic.main.fragment_login.login_verif_activate_btn
+import kotlinx.android.synthetic.main.fragment_login.login_verif_code
+import kotlinx.android.synthetic.main.fragment_login.login_verif_code_input
+import kotlinx.android.synthetic.main.fragment_login.login_verif_code_send_btn
+import kotlinx.android.synthetic.main.fragment_login.login_verif_image
+import kotlinx.android.synthetic.main.fragment_login.login_verif_phone
+import kotlinx.android.synthetic.main.fragment_login.login_verif_phone_input
 import java.util.concurrent.TimeUnit
 
 class LoginFragment :
@@ -31,20 +42,19 @@ class LoginFragment :
         super.onViewCreated(view, savedInstanceState)
 
         views = listOf(
-            vRegister,
-            vSendCode,
-            vProgress,
-            vPhoneNumber,
-            vError,
-            vCode,
             login_verif_image,
+            login_progress,
+            login_verif_activate_btn,
+            login_verif_code_send_btn,
+            login_info,
+            login_verif_phone_input,
+            login_verif_code_input,
             login_title,
             login_desc,
-            login_phone_verif,
+            login_verif_phone,
+            login_verif_code,
             login_statement
         )
-
-
 
         setupListeners()
 
@@ -53,20 +63,27 @@ class LoginFragment :
     }
 
     private fun setupListeners() {
-        vRegister.setOnClickListener {
-            hideKeyboard(vRegister)
+        login_verif_activate_btn.setOnClickListener {
+            hideKeyboard(login_verif_activate_btn)
 
-            if (vPhoneNumber.text?.trim()?.isNotEmpty() == true) {
-                login_phone_verif.isErrorEnabled = false
+            if (login_verif_phone_input.text?.trim()?.isNotEmpty() == true) {
+                login_verif_phone.isErrorEnabled = false
                 verifyPhoneNumber()
             } else {
-                login_phone_verif.isErrorEnabled = true
-                login_phone_verif.error = getString(R.string.login_phone_input_error)
+                login_verif_phone.isErrorEnabled = true
+                login_verif_phone.error = getString(R.string.login_phone_input_error)
             }
         }
-        vSendCode.setOnClickListener {
-            hideKeyboard(vSendCode)
-            viewModel.codeEntered(vCode.text.toString())
+        login_verif_code_send_btn.setOnClickListener {
+            hideKeyboard(login_verif_code_send_btn)
+
+            if (login_verif_code_input.text?.trim()?.isNotEmpty() == true) {
+                login_verif_code.isErrorEnabled = false
+                viewModel.codeEntered(login_verif_code_input.text.toString())
+            } else {
+                login_verif_code.isErrorEnabled = true
+                login_verif_code.error = getString(R.string.login_code_input_error)
+            }
         }
     }
 
@@ -76,23 +93,23 @@ class LoginFragment :
                 login_verif_image,
                 login_title,
                 login_desc,
-                login_phone_verif,
-                vPhoneNumber,
+                login_verif_phone,
+                login_verif_phone_input,
                 login_statement,
-                vRegister
+                login_verif_activate_btn
             )
-            AutoVerificationProgress -> show(vProgress)
-            EnterCode -> show(vCode, vSendCode)
-            SigningProgress -> show(vProgress)
+            AutoVerificationProgress -> show(login_progress)
+            EnterCode -> show(login_verif_image, login_verif_code_input, login_verif_code, login_verif_code_send_btn)
+            SigningProgress -> show(login_progress)
             is LoginError -> showError(state.exception)
             is SignedIn -> showSignedIn(state)
         }
     }
 
     private fun showSignedIn(user: SignedIn) {
-        vError.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
+        login_info.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
                 "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
-        show(vError)
+        show(login_info)
         waitAndOpenSandbox(2000)
     }
 
@@ -119,12 +136,12 @@ class LoginFragment :
     }
 
     private fun showError(exception: Exception) {
-        vError.text = exception.message
-        show(vError)
+        login_info.text = exception.message
+        show(login_info)
     }
 
     private fun verifyPhoneNumber() {
-        val phoneNumber = vPhoneNumber.text.toString()
+        val phoneNumber = login_verif_phone_input.text.toString()
         viewModel.state.postValue(AutoVerificationProgress)
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber, // Phone number to verify

@@ -82,7 +82,7 @@ class LoginVM(
     }
 
     fun codeEntered(code: String) {
-        state.postValue(SigningProgress)
+        state.postValue(SigningProgress)//todo
         val credential = PhoneAuthProvider.getCredential(verificationId, code)
         signInWithPhoneAuthCredential(credential)
     }
