@@ -52,6 +52,7 @@ class LoginFragment :
             login_title,
             login_desc,
             login_verif_phone,
+            login_verif_code,
             login_statement
         )
 
@@ -98,7 +99,7 @@ class LoginFragment :
                 login_verif_activate_btn
             )
             AutoVerificationProgress -> show(login_progress)
-            EnterCode -> show(login_verif_image, login_verif_code_input, login_verif_code_send_btn)
+            EnterCode -> show(login_verif_image, login_verif_code_input, login_verif_code, login_verif_code_send_btn)
             SigningProgress -> show(login_progress)
             is LoginError -> showError(state.exception)
             is SignedIn -> showSignedIn(state)
@@ -109,7 +110,6 @@ class LoginFragment :
         login_info.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
                 "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
         show(login_info)
-        viewModel.userSignedIn = true
         waitAndOpenSandbox(2000)
     }
 
