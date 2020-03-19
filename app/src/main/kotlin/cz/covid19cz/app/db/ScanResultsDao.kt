@@ -5,24 +5,24 @@ import androidx.room.*
 import io.reactivex.Single
 
 @Dao
-interface ExpositionDao {
+interface ScanResultsDao {
 
     companion object{
-        const val TABLE_NAME = "exposition"
+        const val TABLE_NAME = "scan_results"
     }
 
     @Query("SELECT * FROM $TABLE_NAME")
-    fun findAll(): LiveData<List<ExpositionEntity>>
+    fun findAll(): LiveData<List<ScanResultEntity>>
 
     @Query("SELECT * FROM $TABLE_NAME")
-    fun getAll(): Single<List<ExpositionEntity>>
+    fun getAll(): Single<List<ScanResultEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(devices: List<ExpositionEntity>) : List<Long>
+    fun insertAll(devices: List<ScanResultEntity>) : List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(devices: ExpositionEntity) : Long
+    fun insert(devices: ScanResultEntity) : Long
 
     @Delete
-    fun delete(device: ExpositionEntity)
+    fun delete(device: ScanResultEntity)
 }

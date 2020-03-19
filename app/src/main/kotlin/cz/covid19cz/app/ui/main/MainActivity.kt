@@ -18,23 +18,4 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (BuildConfig.DEBUG){
-            menuInflater.inflate(R.menu.main_debug, menu)
-        }
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_test){
-            navigate(R.id.nav_sandbox, null,
-                Builder()
-                    .setPopUpTo(
-                        R.id.nav_graph,
-                        true
-                    ).build())
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_nav_sandbox_to_nav_login"
             app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_nav_sandbox_to_nav_db_explorer"
+            app:destination="@id/nav_db_explorer" />
     </fragment>
 
     <fragment
@@ -79,5 +82,9 @@
             android:id="@+id/action_nav_login_to_nav_sandbox"
             app:destination="@id/nav_sandbox" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_db_explorer"
+        android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
+        android:label="DbExplorerFragment" />
 
 </navigation>

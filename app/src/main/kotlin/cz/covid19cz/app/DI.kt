@@ -8,6 +8,7 @@ import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.btenabled.BtEnabledVM
 import cz.covid19cz.app.ui.btonboard.BtOnboardVM
+import cz.covid19cz.app.ui.dbexplorer.DbExplorerVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
@@ -26,6 +27,7 @@ val viewModelModule = module {
     viewModel { BtDisabledVM() }
     viewModel { BtEnabledVM() }
     viewModel { BtOnboardVM() }
+    viewModel { DbExplorerVM(get()) }
 }
 
 val databaseModule = module {
@@ -35,8 +37,8 @@ val databaseModule = module {
             .build()
     }
 
-    fun provideDao(database: AppDatabase): ExpositionDao {
-        return database.expositionDao
+    fun provideDao(database: AppDatabase): ScanResultsDao {
+        return database.scanResultsDao
     }
 
     single { provideDatabase(androidApplication()) }
@@ -45,7 +47,7 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideDatabaseRepository(deviceDao: ExpositionDao): DatabaseRepository {
+    fun provideDatabaseRepository(deviceDao: ScanResultsDao): DatabaseRepository {
         return ExpositionRepositoryImpl(deviceDao)
     }
 

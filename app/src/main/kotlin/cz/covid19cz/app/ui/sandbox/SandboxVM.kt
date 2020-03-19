@@ -9,6 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.SharedPrefsRepository
@@ -81,6 +82,10 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
             publish(ExportEvent.Error(it.message ?: "Export failed"))
         }
         )
+    }
+
+    fun openDbExplorer(){
+        navigate(R.id.action_nav_sandbox_to_nav_db_explorer)
     }
 
     private fun uploadToStorage(path: String) {

@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
-import cz.covid19cz.app.db.ExpositionEntity
+import cz.covid19cz.app.db.ScanResultEntity
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.execute
@@ -59,7 +59,7 @@ class CovidService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        deviceBuid = prefs.getDeviceBuid() ?: "NULL BUID"
+        deviceBuid = prefs.getDeviceBuid() ?: "UNREGISTERED"
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -168,7 +168,7 @@ class CovidService : Service() {
         for (item in tempArray) {
             item.calculate()
             db.add(
-                ExpositionEntity(
+                ScanResultEntity(
                     0,
                     item.deviceId,
                     item.timestampStart,
@@ -177,8 +177,7 @@ class CovidService : Service() {
                     item.maxRssi,
                     item.avgRssi,
                     item.medRssi,
-                    item.rssiCount,
-                    item.avgUpdateSeconds.toInt()
+                    item.rssiCount
                 )
             )
         }
