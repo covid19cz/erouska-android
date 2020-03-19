@@ -8,9 +8,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
@@ -18,7 +20,7 @@ import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.io.File
 
-class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter) :
+class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter, val prefs : SharedPrefsRepository) :
     BaseVM() {
 
     val buid = SafeMutableLiveData(generateDummyBuid())
@@ -30,7 +32,15 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-
+        power.observeForever { value ->
+            if (value == 0){
+                // 0 means remote config
+                AppConfig.overrideAdvertiseTxPower = null
+            } else {
+                // save overriding power setting (value-1)
+                AppConfig.overrideAdvertiseTxPower = value-1
+            }
+        }
     }
 
     override fun onCleared() {
@@ -51,6 +61,7 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
     }
 
     fun start() {
+        prefs.putDeviceBuid(buid.value)
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
     }
 

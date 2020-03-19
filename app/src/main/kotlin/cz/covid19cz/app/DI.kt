@@ -3,10 +3,7 @@ package cz.covid19cz.app
 import android.app.Application
 import androidx.room.Room
 import cz.covid19cz.app.bt.BluetoothRepository
-import cz.covid19cz.app.db.AppDatabase
-import cz.covid19cz.app.db.ExpositionDao
-import cz.covid19cz.app.db.ExpositionRepository
-import cz.covid19cz.app.db.ExpositionRepositoryImpl
+import cz.covid19cz.app.db.*
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.btenabled.BtEnabledVM
@@ -22,8 +19,8 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get()) }
-    viewModel { LoginVM(get(), get()) }
+    viewModel { SandboxVM(get(), get(), get()) }
+    viewModel { LoginVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
@@ -48,12 +45,13 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideDeviceRepository(deviceDao: ExpositionDao): ExpositionRepository {
+    fun provideDatabaseRepository(deviceDao: ExpositionDao): DatabaseRepository {
         return ExpositionRepositoryImpl(deviceDao)
     }
 
-    single { provideDeviceRepository(get()) }
+    single { provideDatabaseRepository(get()) }
     single { BluetoothRepository(get()) }
+    single { SharedPrefsRepository(get()) }
 }
 
 val allModules = listOf(viewModelModule, databaseModule, repositoryModule)

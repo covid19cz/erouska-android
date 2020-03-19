@@ -14,13 +14,17 @@ object AppConfig {
     val waitingSeconds
         get() = firebaseRemoteConfig.getLong("waitingSeconds")
     val advertiseTxPower
-        get() = firebaseRemoteConfig.getLong("advertiseTxPower").toInt()
+        get() = overrideAdvertiseTxPower ?: firebaseRemoteConfig.getLong("advertiseTxPower").toInt()
     val advertiseMode
         get() = firebaseRemoteConfig.getLong("advertiseMode").toInt()
     val scanMode
         get() = firebaseRemoteConfig.getLong("scanMode").toInt()
     val smsTimeoutSeconds
-        get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds").toInt()
+        get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
+    val advertiseRestartMinutes
+        get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
+
+    var overrideAdvertiseTxPower : Int? = null
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

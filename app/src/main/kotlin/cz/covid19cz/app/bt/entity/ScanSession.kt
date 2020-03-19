@@ -27,7 +27,7 @@ class ScanSession(val deviceId: String, val mac: String) {
         get() = rssiList.lastOrNull()?.timestamp ?: 0L
     val rssiCount: Int
         get() = rssiList.size
-    val avgTime: Long
+    val avgUpdateSeconds: Long
         get() {
             var sum: Long = 0
             if (rssiList.size > 1) {
@@ -36,7 +36,7 @@ class ScanSession(val deviceId: String, val mac: String) {
                 }
                 return (sum / rssiList.size - 1)
             }
-            return AppConfig.collectionSeconds
+            return 0
         }
 
     fun addRssi(rssiVal: Int) {

@@ -117,7 +117,7 @@ class SandboxFragment :
 
     fun startBtService() {
         val power = viewModel.power.value - 1
-        CovidService.startService(requireContext(), viewModel.buid.value, power)
+        CovidService.startService(requireContext())
         viewModel.confirmStart()
     }
 
