@@ -80,7 +80,7 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
         val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
-            setCustomMetadata("version", R.integer.storage_csv_version.toString())
+            setCustomMetadata("version", "1")
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             publish(ExportEvent.Complete("Upload success"))
