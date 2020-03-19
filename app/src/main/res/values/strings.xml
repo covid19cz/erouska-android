@@ -28,10 +28,9 @@
     <string name="login_statement">Přečetl jsem si a aktivací souhlasím s podmínkami zpracování osobních údajů po dobu nouzového stavu.</string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
     <string name="login_finish_activation">Dokončit aktivaci</string>
-    <string name="login_titile">Zadejte své telefonní číslo</string>
     <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
     <string name="login_send">Odeslat</string>
     <string name="login_code_input">Zadejte kód z SMS</string>
-    <string name="login_phone_number_hint">Telefonní číslo (povinné)</string>
     <string name="login_phone_input_error">Neplatné telefonní číslo</string>
+    <string name="login_code_input_error">Nevalidní kód</string>
 </resources>
