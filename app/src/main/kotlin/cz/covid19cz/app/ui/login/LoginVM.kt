@@ -24,7 +24,6 @@ class LoginVM(
     private val sharedPrefsRepository: SharedPrefsRepository
 ) : BaseVM() {
 
-    var userSignedIn by app.sharedPrefs().boolean()
     val data = deviceRepository.data
     val state = MutableLiveData<LoginState>(EnterPhoneNumber)
     val verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -73,7 +72,12 @@ class LoginVM(
     init {
         auth.setLanguageCode("cs")
         if (auth.currentUser != null) {
-            getUser()
+            if (sharedPrefsRepository.getDeviceBuid() == null) {
+                registerDevice()
+            }
+            else {
+                getUser()
+            }
         }
     }
 
@@ -120,7 +124,9 @@ class LoginVM(
     private fun getUser() {
         val fuid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        val buid = sharedPrefsRepository.getDeviceBuid() ?: ""
+
+        // if BUID is not set here, it's a logic error
+        val buid = checkNotNull(sharedPrefsRepository.getDeviceBuid())
         state.postValue(SignedIn(fuid, phoneNumber, buid))
     }
 }
