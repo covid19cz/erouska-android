@@ -3,8 +3,35 @@
 
     <string name="notification_title">COVID-19 CZ běží</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
+    <string name="welcome_toolbar_title">Koronavirus radar</string>
+    <string name="bt_disabled_toolbar_title">Koronavirus radar</string>
+    <string name="help_toolbar_title">Jak to funguje</string>
+    <string name="bluetooth_toolbar_title">Hledání zařízení</string>
+    <string name="go_back_button">Zpět do aplikace</string>
+    <string name="enable_bluetooth_button">Zapnout bluetooth</string>
+    <string name="bt_disabled_title">Zapněte Bluetooth</string>
+    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+    <string name="bt_enabled_title">Aplikace je aktivní</string>
+    <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
+    <string name="bt_enabled_toolbar_title">Odesláno</string>
 
     <string name="foreground_service_channel">Služba na pozadí</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
+    <string name="bt_onboard_title">Povolte aplikaci přístup k Bluetooth, abychom mohli vytvářet seznam telefonů,  se kterými jste se setkali.</string>
+    <string name="bt_onboard_desc">Bluetooth nikdy nevypínejte, aby aplikace mohla správně fungovat.</string>
+    <string name="bt_onboard_desc_minor"><![CDATA[Aplikace nikdy nebude data odesílat sama. Anonymizovaná data o telefonech odešle pouze v případě, že k tomu dáte svolení.]]></string>
+    <string name="bt_onboard_toolbar_title">Povolení Bluetooth</string>
+    <string name="login_toolbar_title">Aktivace</string>
+    <string name="help_desc">Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve vašem okolí Následně zaznamená ID aplikací a bez vašeho souhlasu je nikam nezasílá.\n\nK odeslání dat z apliakce dojde pouze v případě, že budete mít podezření na nákazu koronavirem. Data odesílejte až v momentě, kdy vás kontaktují vás hygienici.\n\nVaši aplikaci spárujeme se zadaným telefonním číslem Pracovník hygienické stanice vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.\n\nCo se děje s údaji o telefonech na seznamu osob, které jsem potkal Data jsou po celou dobu uchovávána ve vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy to bude nutné. Nejprve vás bude kontaktovat pracovník hygienické stanice a požádá vás k odeslání dat.</string>
+    <string name="login_desc">Na toto telefonní číslo vás mohou kontaktovat pouze hygienici v případě, že se u někoho z vašeho okolí potvrdí nákaza koronavirem.</string>
+    <string name="login_statement">Přečetl jsem si a aktivací souhlasím s podmínkami zpracování osobních údajů po dobu nouzového stavu.</string>
+    <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
+    <string name="login_finish_activation">Dokončit aktivaci</string>
+    <string name="login_titile">Zadejte své telefonní číslo</string>
+    <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
+    <string name="login_send">Odeslat</string>
+    <string name="login_code_input">Zadejte kód z SMS</string>
+    <string name="login_phone_number_hint">Telefonní číslo (povinné)</string>
+    <string name="login_phone_input_error">Neplatné telefonní číslo</string>
 </resources>

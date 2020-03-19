@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.welcome.WelcomeVM" />
+    </data>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="16dp">
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/welcome_help_btn"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> vm.help()}"
+                android:layout_width="wrap_content"
+                android:text="Jak to funguje"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/mzcr_icon"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_mzcr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/welcome_desc"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintTop_toBottomOf="@id/welcome_title"
+                tools:layout_editor_absoluteX="16dp"
+
+                tools:layout_editor_absoluteY="16dp"
+                android:text="Tato aplikace vytváří seznam telefonů ve vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve vaší blízkosti, může vás kontaktovat  hygienická stanice.\n\nKdyž se potvrdí nákaza u vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku." />
+
+            <TextView
+                android:id="@+id/welcome_title"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mzcr_icon"
+                android:text="Chráním sebe, chráním ostatní" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/welcome_continue_btn"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:text="Pokračovat v aktivaci"
+                android:onClick="@{() -> vm.nextStep()}"
+                app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -1,30 +1,45 @@
 package cz.covid19cz.app.ui.sandbox
 
+import android.net.Uri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
-import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.bt.entity.ScanSession
-import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.ktx.storageMetadata
 import cz.covid19cz.app.bt.BluetoothRepository
+import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.db.export.CsvExporter
+import cz.covid19cz.app.ui.base.BaseVM
+import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import java.io.File
 import java.util.concurrent.TimeUnit
 
-class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
+class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter) :
+    BaseVM() {
 
     val deviceId = SafeMutableLiveData("")
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)
+    var exportDisposable: Disposable? = null
+    val storage = Firebase.storage
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(){
+    fun onCreate() {
 
     }
 
-    fun refreshData() : MutableCollection<ScanSession>{
+    override fun onCleared() {
+        super.onCleared()
+        exportDisposable?.dispose()
+    }
+
+    fun refreshData(): MutableCollection<ScanSession> {
         val devices = bluetoothRepository.scanResultsMap.values
         for (device in devices) {
             device.calculate()
@@ -32,25 +47,51 @@ class SandboxVM(val bluetoothRepository : BluetoothRepository) : BaseVM() {
         return devices
     }
 
-    fun onError(t : Throwable){
+    fun onError(t: Throwable) {
         Log.e(t)
     }
 
-    fun start(){
+    fun start() {
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
     }
 
-    fun confirmStart(){
+    fun confirmStart() {
         serviceRunning.value = true
     }
 
-    fun stop(){
+    fun stop() {
         serviceRunning.value = false
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_OFF))
     }
 
-    fun powerToString(pwr : Int) : String{
-        return when(pwr){
+    fun export() {
+        exportDisposable?.dispose()
+        exportDisposable = exporter.export().subscribe({
+            uploadToStorage(it)
+            publish(ExportEvent.Complete(it))
+        }, {
+            publish(ExportEvent.Error(it.message ?: "Export failed"))
+        }
+        )
+    }
+
+    private fun uploadToStorage(path: String) {
+        val fuid = FirebaseAuth.getInstance().uid
+        val timestamp = System.currentTimeMillis()
+        val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
+        val metadata = storageMetadata {
+            contentType = "text/csv"
+            setCustomMetadata("version", "1")
+        }
+        ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
+            publish(ExportEvent.Complete("Upload success"))
+        }.addOnFailureListener {
+            publish(ExportEvent.Error(it.message ?: "Upload failed"))
+        }
+    }
+
+    fun powerToString(pwr: Int): String {
+        return when (pwr) {
             0 -> "REMOTE_CONFIG"
             1 -> "ULTRA_LOW"
             2 -> "LOW"

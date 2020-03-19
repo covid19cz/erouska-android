@@ -10,7 +10,7 @@ buildscript {
         targetSdkVersion = 29
 
         final VERSION_MAJOR = 0
-        final VERSION_MINOR = 2
+        final VERSION_MINOR = 3
         final VERSION_PATCH = 0
 
         //versionCode XYYYZZZ (X - Major, YYY - Minor, ZZZ - Patch)
@@ -31,6 +31,7 @@ buildscript {
                 rxandroid           : '2.1.1',
                 stetho              : '1.5.0',
                 work_manager        : '1.0.1',
+                super_csv           : '2.4.0'
         ]
     }
 
@@ -49,7 +50,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.google.gms:google-services:4.3.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.nav"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03"
     }
 }
 

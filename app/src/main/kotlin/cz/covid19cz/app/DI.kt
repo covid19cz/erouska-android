@@ -3,21 +3,32 @@ package cz.covid19cz.app
 import android.app.Application
 import androidx.room.Room
 import cz.covid19cz.app.db.AppDatabase
+import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
+import cz.covid19cz.app.ui.btenabled.BtEnabledVM
+import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.db.ExpositionDao
 import cz.covid19cz.app.db.ExpositionRepository
 import cz.covid19cz.app.db.ExpositionRepositoryImpl
+import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
+import cz.covid19cz.app.ui.welcome.WelcomeVM
 import cz.covid19cz.app.bt.BluetoothRepository
+import cz.covid19cz.app.ui.btonboard.BtOnboardVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get()) }
-    viewModel { LoginVM(get()) }
+    viewModel { SandboxVM(get(), get()) }
+    viewModel { LoginVM(get(), get()) }
+    viewModel { WelcomeVM(get(), get()) }
+    viewModel { HelpVM() }
+    viewModel { BtDisabledVM() }
+    viewModel { BtEnabledVM() }
+    viewModel { BtOnboardVM() }
 }
 
 val databaseModule = module {
@@ -33,6 +44,7 @@ val databaseModule = module {
 
     single { provideDatabase(androidApplication()) }
     single { provideDao(get()) }
+    single { CsvExporter(get(), get()) }
 }
 
 val repositoryModule = module {
