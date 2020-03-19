@@ -125,9 +125,8 @@ class LoginVM(
         val fuid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
 
-        val buid = sharedPrefsRepository.getDeviceBuid()
         // if BUID is not set here, it's a logic error
-        assert(buid != null);
-        state.postValue(SignedIn(fuid, phoneNumber, buid!!))
+        val buid = checkNotNull(sharedPrefsRepository.getDeviceBuid())
+        state.postValue(SignedIn(fuid, phoneNumber, buid))
     }
 }
