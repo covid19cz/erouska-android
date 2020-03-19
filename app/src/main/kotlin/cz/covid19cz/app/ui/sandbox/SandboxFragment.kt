@@ -15,7 +15,6 @@ import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
 import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
@@ -66,10 +65,6 @@ class SandboxFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vLogin.setOnClickListener {
-            navigate(R.id.action_nav_sandbox_to_nav_login)
-        }
-
         setToolbarTitle(R.string.bluetooth_toolbar_title)
         enableUpInToolbar(false)
     }

@@ -3,10 +3,8 @@ package cz.covid19cz.app.ui.login
 import android.app.Activity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
 import com.google.firebase.auth.PhoneAuthProvider
@@ -95,20 +93,17 @@ class LoginFragment :
         vError.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
                 "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
         show(vError)
-        Log.d("LoginFragment", "onFinish()")
         viewModel.userSignedIn = true
         waitAndOpenSandbox(2000)
     }
 
     private fun waitAndOpenSandbox(millisToWait: Long) {
-        Log.d("LoginFragment", "onFinish()")
         val timer = object : CountDownTimer(millisToWait, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 //stub
             }
 
             override fun onFinish() {
-                Log.d("LoginFragment", "onFinish()")
                 if (isAdded) {
                     navigate(
                         R.id.action_nav_login_to_nav_sandbox, null,

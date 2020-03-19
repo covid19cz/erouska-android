@@ -8,7 +8,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.db.DatabaseRepository
@@ -16,9 +15,14 @@ import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.utils.boolean
 import cz.covid19cz.app.utils.sharedPrefs
+import org.json.JSONObject
 import java.util.*
 
-class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, val sharedPrefsRepository: SharedPrefsRepository) : BaseVM() {
+class LoginVM(
+    val app: Application,
+    private val deviceRepository: DatabaseRepository,
+    private val sharedPrefsRepository: SharedPrefsRepository
+) : BaseVM() {
 
     var userSignedIn by app.sharedPrefs().boolean()
     val data = deviceRepository.data
@@ -32,7 +36,6 @@ class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, va
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
-            Log.d(TAG, "onVerificationCompleted:$credential")
             signInWithPhoneAuthCredential(credential)
         }
 
@@ -50,24 +53,21 @@ class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, va
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
-            Log.d(TAG, "onCodeSent:$verificationId")
 
             // Save verification ID and resending token so we can use them later
             this@LoginVM.verificationId = verificationId
             resendToken = token
+            state.postValue(EnterCode)
         }
 
         override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
-            Log.d(TAG, "onCodeAutoRetrievalTimeOut:$verificationId")
             this@LoginVM.verificationId = verificationId
-            state.postValue(EnterCode)
         }
     }
     private val TAG = "Login"
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val db = Firebase.firestore
     private val functions = Firebase.functions("europe-west2")
 
     init {
@@ -88,7 +88,6 @@ class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, va
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
                     registerDevice()
                 } else {
                     // Sign in failed, display a message and update the UI
@@ -110,6 +109,8 @@ class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, va
             "locale" to Locale.getDefault().toString()
         )
         functions.getHttpsCallable("createUser").call(data).addOnSuccessListener {
+            val buid = JSONObject(it.data.toString()).getString("buid")
+            sharedPrefsRepository.putDeviceBuid(buid)
             getUser()
         }.addOnFailureListener {
             state.postValue(LoginError(it))
@@ -117,19 +118,9 @@ class LoginVM(val app: Application, val deviceRepository: DatabaseRepository, va
     }
 
     private fun getUser() {
-        val uid = checkNotNull(auth.uid)
+        val fuid = checkNotNull(auth.uid)
         val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        db.collection("users").document(uid).get().addOnCompleteListener { response ->
-            val snapshot = response.result
-
-            (snapshot?.data?.get("buid") as? String)?.let { buid ->
-                saveBuid(buid)
-                state.postValue(SignedIn(uid, phoneNumber, buid))
-            }
-        }
-    }
-
-    fun saveBuid(buid : String){
-        sharedPrefsRepository.putDeviceBuid(buid)
+        val buid = sharedPrefsRepository.getDeviceBuid() ?: ""
+        state.postValue(SignedIn(fuid, phoneNumber, buid))
     }
 }

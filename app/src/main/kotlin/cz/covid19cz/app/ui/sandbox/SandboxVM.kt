@@ -9,7 +9,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import cz.covid19cz.app.AppConfig
-import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.SharedPrefsRepository
@@ -23,7 +22,7 @@ import java.io.File
 class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter, val prefs : SharedPrefsRepository) :
     BaseVM() {
 
-    val buid = SafeMutableLiveData(generateDummyBuid())
+    val buid = SafeMutableLiveData(prefs.getDeviceBuid() ?: "")
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)
@@ -61,7 +60,6 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
     }
 
     fun start() {
-        prefs.putDeviceBuid(buid.value)
         publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
     }
 
@@ -109,13 +107,6 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
             4 -> "HIGH"
             else -> "UNKNOWN"
         }
-    }
-
-    private fun generateDummyBuid() : String{
-        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz1234567890"
-        return (1..10)
-            .map { allowedChars.random() }
-            .joinToString("")
     }
 
 }
