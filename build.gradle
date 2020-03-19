@@ -4,7 +4,12 @@ buildscript {
     // KOTLIN_VERSION
 
     ext.commitCount = {
-        return Integer.valueOf('git rev-list --count HEAD'.execute().text.trim())
+        def stdOut = new ByteArrayOutputStream()
+        exec {
+            commandLine "git", "rev-list", "--count", "HEAD"
+            standardOutput = stdOut
+        }
+        return Integer.valueOf(stdOut.toString().trim())
     }
 
     ext {
@@ -17,8 +22,7 @@ buildscript {
         final VERSION_MAJOR = 0
         final VERSION_MINOR = 3
 
-        versionCode = commitCount
-        versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${versionCode}"
+        versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${commitCount()}"
 
         versions = [
                 nav                 : '2.3.0-alpha03',

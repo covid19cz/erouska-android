@@ -12,7 +12,7 @@ android {
         applicationId "cz.covid19cz.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
+        versionCode rootProject.ext.commitCount()
         versionName rootProject.ext.versionName
         archivesBaseName = "covid19-cz"
         multiDexEnabled true
