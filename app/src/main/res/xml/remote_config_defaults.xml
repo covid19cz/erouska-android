@@ -17,10 +17,6 @@
         <value>0</value>
     </entry>
     <entry>
-        <key>advertiseRestartMinutes</key>
-        <value>5</value>
-    </entry>
-    <entry>
         <key>scanMode</key>
         <value>0</value>
     </entry>

@@ -21,8 +21,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("scanMode").toInt()
     val smsTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
-    val advertiseRestartMinutes
-        get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
 
     var overrideAdvertiseTxPower : Int? = null
 
