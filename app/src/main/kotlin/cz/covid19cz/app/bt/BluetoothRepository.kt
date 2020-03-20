@@ -65,10 +65,22 @@ class BluetoothRepository(context: Context) {
         return btManager.adapter?.isEnabled ?: false
     }
 
+    fun enableBt() {
+        btManager.adapter?.enable()
+    }
+
+    fun ensureBtEnabled(){
+        if (!isBtEnabled()){
+            enableBt()
+        }
+    }
+
     fun startScanning() {
         if (isScanning) {
             stopScanning()
         }
+
+        ensureBtEnabled()
 
         Log.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
         scanDisposable = rxBleClient.scanBleDevices(
@@ -129,6 +141,8 @@ class BluetoothRepository(context: Context) {
             stopServer()
         }
 
+        ensureBtEnabled()
+
         Log.d("Starting BLE advertising with power $power")
 
         val settings = AdvertiseSettings.Builder()
@@ -167,6 +181,8 @@ class BluetoothRepository(context: Context) {
         Log.d("Stopping BLE advertising")
         btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
     }
+
+
 
 
 }
