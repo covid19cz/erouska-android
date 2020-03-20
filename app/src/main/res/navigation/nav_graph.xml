@@ -44,7 +44,7 @@
         android:id="@+id/nav_help"
         android:name="cz.covid19cz.app.ui.help.HelpFragment"
         android:label="HelpFragment"
-        tools:layout="@layout/fragment_help"/>
+        tools:layout="@layout/fragment_help" />
 
     <fragment
         android:id="@+id/nav_bt_disabled"
@@ -60,7 +60,7 @@
         android:id="@+id/nav_bt_enabled"
         android:name="cz.covid19cz.app.ui.btenabled.BtEnabledFragment"
         android:label="BtEnabledFragment"
-        tools:layout="@layout/fragment_bt_enabled"/>
+        tools:layout="@layout/fragment_bt_enabled" />
     <fragment
         android:id="@+id/nav_bt_onboard"
         android:name="cz.covid19cz.app.ui.btonboard.BtOnboardFragment"
@@ -71,7 +71,9 @@
             app:destination="@id/nav_sandbox" />
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_login"
-            app:destination="@id/nav_login" />
+            app:destination="@id/nav_login"
+            app:popUpTo="@id/nav_welcome_fragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/nav_login"
