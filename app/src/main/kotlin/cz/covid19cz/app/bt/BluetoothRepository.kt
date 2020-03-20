@@ -106,6 +106,8 @@ class BluetoothRepository(context: Context) {
 
     private fun onScanResult(result: ScanResult) {
 
+        Log.d("Scan result: ${result.bleDevice.name} (${result.bleDevice.macAddress})")
+
         result.scanRecord?.getServiceData(ParcelUuid(SERVICE_UUID))?.let { data ->
 
             val deviceId = String(
