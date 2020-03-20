@@ -75,7 +75,7 @@ class CovidService : Service() {
                 val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(getString(R.string.notification_text))
-                    .setSmallIcon(R.drawable.ic_notification)
+                    .setSmallIcon(R.drawable.ic_notification_normal)
                     .setContentIntent(pendingIntent)
                     .build();
                 startForeground(1, notification)
