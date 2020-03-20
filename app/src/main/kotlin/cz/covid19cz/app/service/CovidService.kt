@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.os.Looper
 import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -34,6 +35,9 @@ class CovidService : Service() {
         const val CHANNEL_ID = "ForegroundServiceChannel"
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        const val SERVICE_STATE_CHECK_PERIOD : Long = 2000
+
+        private val handler = android.os.Handler(Looper.getMainLooper())
 
         fun startService(c: Context) {
             val serviceIntent = Intent(c, CovidService::class.java)
@@ -55,10 +59,48 @@ class CovidService : Service() {
 
     var bleAdvertisingDisposable: Disposable? = null
     var bleScanningDisposable: Disposable? = null
+    var serviceState: ServiceState? = null
+        set(value) {
+            val oldState = field
+            if (field != value) {
+                Log.d("service state = $value")
+                field = value
+                onNewServiceState(oldState)
+                // TODO: broadcast/notify listeners that we have a new state (make visual adjustments to persistent notification)
+            }
+        }
     private var wakeLock: PowerManager.WakeLock? = null
+
+    // runnable which switches state of the service based on current conditions
+    private val checkStateRunnable = object : Runnable {
+        override fun run() {
+            if (serviceState != ServiceState.STOPPED) {
+                // check in which state we are
+                if (btUtils.isBtEnabled()) {
+                    if (serviceState == ServiceState.RUNNING_NO_EFFECT) {
+                        // do state transition
+                        serviceState = ServiceState.RUNNING
+                    } // else: OK
+                } else {
+                    // bluetooth is not enabled
+                    if (serviceState == ServiceState.RUNNING) {
+                        // do state transition
+                        serviceState = ServiceState.RUNNING_NO_EFFECT
+                    }
+                }
+                // reschedule ourselves
+                handler.postDelayed(this, SERVICE_STATE_CHECK_PERIOD)
+            }
+        }
+    }
+
+    enum class ServiceState {
+        STOPPED, RUNNING, RUNNING_NO_EFFECT
+    }
 
     override fun onCreate() {
         super.onCreate()
+        serviceState = ServiceState.STOPPED
         deviceBuid = prefs.getDeviceBuid() ?: "UNREGISTERED"
     }
 
@@ -66,27 +108,27 @@ class CovidService : Service() {
         when (intent?.action) {
             // null intent is in case service is restarted by system
             ACTION_START, null -> {
-                createNotificationChannel();
+                createNotificationChannel()
                 val notificationIntent = Intent(this, MainActivity::class.java)
                 val pendingIntent = PendingIntent.getActivity(
                     this,
                     0, notificationIntent, 0
-                );
+                )
                 val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(getString(R.string.notification_text))
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
-                    .build();
+                    .build()
                 startForeground(1, notification)
-
-                startBleAdvertising()
-                startBleScanning()
-                wakeLock(true)
+                //
+                serviceState = ServiceState.RUNNING
+                // start service state checker
+                handler.post(checkStateRunnable)
             }
             ACTION_STOP -> {
-                wakeLock(false)
                 stopForeground(true)
+                serviceState = ServiceState.STOPPED
                 stopSelf()
             }
         }
@@ -94,18 +136,46 @@ class CovidService : Service() {
     }
 
     override fun onDestroy() {
-        btUtils.stopScanning()
-        btUtils.stopServer()
-        bleScanningDisposable?.dispose()
-        bleScanningDisposable = null
-        bleAdvertisingDisposable?.dispose()
-        bleAdvertisingDisposable = null
+        serviceState = ServiceState.STOPPED
         super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
+    private fun onNewServiceState(prevState: ServiceState?) {
+        when (serviceState) {
+            ServiceState.RUNNING ->
+                // start the BLE machinery
+                startBleMachinery()
+            ServiceState.RUNNING_NO_EFFECT ->
+                // stop the BLE machinery
+                stopBleMachinery()
+            ServiceState.STOPPED ->
+                // stop the BLE machinery
+                if (prevState == ServiceState.RUNNING) stopBleMachinery()
+        }
+    }
+
+    private fun startBleMachinery() {
+        startBleAdvertising()
+        startBleScanning()
+        wakeLock(true)
+    }
+
+
+    private fun stopBleMachinery() {
+        btUtils.stopAdvertising()
+        btUtils.stopScanning()
+        bleScanningDisposable?.dispose()
+        bleScanningDisposable = null
+        bleAdvertisingDisposable?.dispose()
+        bleAdvertisingDisposable = null
+        wakeLock(false)
+    }
+
+
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -117,7 +187,7 @@ class CovidService : Service() {
             val manager = getSystemService(
                 NotificationManager::class.java
             )
-            manager.createNotificationChannel(serviceChannel)
+            manager!!.createNotificationChannel(serviceChannel)
         }
     }
 
@@ -148,15 +218,10 @@ class CovidService : Service() {
         bleAdvertisingDisposable = Observable.just(true)
             .delay(1, TimeUnit.SECONDS)
             .map {
-                btUtils.startServer(deviceBuid, AppConfig.advertiseTxPower)
+                btUtils.startAdvertising(deviceBuid, AppConfig.advertiseTxPower)
             }
-            .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
-            .map {
-                btUtils.stopServer()
-            }
-            .repeat()
             .execute({
-                Log.d("Restarting BLE advertising")
+                Log.d("Starting BLE advertising")
             }, {
                 Log.e(it)
             })

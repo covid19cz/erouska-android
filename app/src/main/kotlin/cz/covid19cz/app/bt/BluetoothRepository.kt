@@ -9,7 +9,6 @@ import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
-import arch.livedata.SafeMutableLiveData
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
@@ -33,7 +32,7 @@ class BluetoothRepository(context: Context) {
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
-    private val serverCallback = object: AdvertiseCallback(){
+    private val advertiseCallback = object: AdvertiseCallback(){
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
                 isAdvertising = true
                 Log.d("BLE advertising started.")
@@ -132,13 +131,9 @@ class BluetoothRepository(context: Context) {
         scanResultsMap.clear()
     }
 
-    fun isServerAvailable(): Boolean {
-        return btManager.adapter?.isMultipleAdvertisementSupported ?: false
-    }
-
-    fun startServer(deviceId: String, power: Int) {
+    fun startAdvertising(deviceId: String, power: Int) {
         if (isAdvertising) {
-            stopServer()
+            stopAdvertising()
         }
 
         ensureBtEnabled()
@@ -171,15 +166,14 @@ class BluetoothRepository(context: Context) {
             settings,
             data,
             scanData,
-            serverCallback
-        );
-
-        //btManager.openGattServer(c, serverCallback).addService(service)
+            advertiseCallback
+        )
     }
 
-    fun stopServer() {
+    fun stopAdvertising() {
         Log.d("Stopping BLE advertising")
-        btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
+        isAdvertising = false
+        btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertiseCallback)
     }
 
 
