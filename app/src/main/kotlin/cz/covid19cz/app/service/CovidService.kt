@@ -19,6 +19,7 @@ import cz.covid19cz.app.db.ScanResultEntity
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.execute
+import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.ui.main.MainActivity
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
@@ -66,19 +67,7 @@ class CovidService : Service() {
         when (intent?.action) {
             // null intent is in case service is restarted by system
             ACTION_START, null -> {
-                createNotificationChannel();
-                val notificationIntent = Intent(this, MainActivity::class.java)
-                val pendingIntent = PendingIntent.getActivity(
-                    this,
-                    0, notificationIntent, 0
-                );
-                val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle(getString(R.string.notification_title))
-                    .setContentText(getString(R.string.notification_text))
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setContentIntent(pendingIntent)
-                    .build();
-                startForeground(1, notification)
+                createNotification()
 
                 startBleAdvertising()
                 startBleScanning()
@@ -93,9 +82,43 @@ class CovidService : Service() {
         return START_STICKY
     }
 
+    fun createNotification(){
+
+        val btEnabled = btUtils.isBtEnabled()
+        val locationEnabled = isLocationEnabled()
+
+        Log.d("Bluetooth Enabled = $btEnabled")
+        Log.d("Location Enabled = $btEnabled")
+
+        createNotificationChannel()
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0, notificationIntent, 0
+        )
+
+        var title = R.string.notification_title
+        var text = R.string.notification_text
+        var icon = R.drawable.ic_notification
+
+        if (btEnabled && locationEnabled){
+            title = R.string.notification_title
+            text = R.string.notification_text
+            icon = R.drawable.ic_notification
+        }
+
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(getString(title))
+            .setContentText(getString(text))
+            .setSmallIcon(icon)
+            .setContentIntent(pendingIntent)
+            .build();
+        startForeground(1, notification)
+    }
+
     override fun onDestroy() {
         btUtils.stopScanning()
-        btUtils.stopServer()
+        btUtils.stopAdvertising()
         bleScanningDisposable?.dispose()
         bleScanningDisposable = null
         bleAdvertisingDisposable?.dispose()
@@ -126,7 +149,11 @@ class CovidService : Service() {
             //Give IU Thread time to clean data
             .delay(1, TimeUnit.SECONDS)
             .map {
-                btUtils.startScanning()
+                if (btUtils.isBtEnabled()) {
+                    btUtils.startScanning()
+                } else {
+
+                }
                 return@map it
             }
             .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
@@ -148,22 +175,22 @@ class CovidService : Service() {
         bleAdvertisingDisposable = Observable.just(true)
             .delay(1, TimeUnit.SECONDS)
             .map {
-                btUtils.startServer(deviceBuid, AppConfig.advertiseTxPower)
+                btUtils.startAdvertising(deviceBuid)
             }
             .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
             .map {
-                btUtils.stopServer()
+                btUtils.stopAdvertising()
             }
             .repeat()
             .execute({
-                Log.d("Restarting BLE advertising")
+                Log.i("Restarting BLE advertising")
             }, {
                 Log.e(it)
             })
     }
 
     fun saveData() {
-        Log.d("Saving data to database")
+        Log.i("Saving data to database")
         val tempArray = btUtils.scanResultsList.toTypedArray()
         for (item in tempArray) {
             item.calculate()
@@ -181,7 +208,7 @@ class CovidService : Service() {
                 )
             )
         }
-        Log.d("${tempArray.size} records saved")
+        Log.i("${tempArray.size} records saved")
     }
 
     @SuppressLint("InvalidWakeLockTag", "WakelockTimeout")

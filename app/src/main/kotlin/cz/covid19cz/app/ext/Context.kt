@@ -5,7 +5,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
 
-fun Context.isLocationEnabled(): Boolean? {
+fun Context.isLocationEnabled(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         // This is new method provided in API 28
         val lm =

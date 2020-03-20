@@ -9,7 +9,6 @@ import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
-import arch.livedata.SafeMutableLiveData
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
@@ -36,13 +35,13 @@ class BluetoothRepository(context: Context) {
     private val serverCallback = object: AdvertiseCallback(){
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
                 isAdvertising = true
-                Log.d("BLE advertising started.")
+                Log.i("BLE advertising started.")
                 super.onStartSuccess(settingsInEffect)
             }
 
             override fun onStartFailure(errorCode: Int) {
                 isAdvertising = false
-                Log.d("BLE advertising failed: $errorCode")
+                Log.i("BLE advertising failed: $errorCode")
                 super.onStartFailure(errorCode)
             }
     }
@@ -119,12 +118,12 @@ class BluetoothRepository(context: Context) {
                 val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                 scanResultsList.add(newEntity)
                 scanResultsMap[deviceId] = newEntity
-                Log.d("New Device: ${deviceId}, RSSI = ${result.rssi}")
+                Log.i("Found new device")
             }
 
             scanResultsMap[deviceId]?.let { entity ->
                 entity.addRssi(result.rssi)
-                Log.d("Known Device:: ${deviceId}, RSSI = ${result.rssi}")
+                Log.i("Found existing device")
             }
         }
     }
@@ -138,14 +137,17 @@ class BluetoothRepository(context: Context) {
         return btManager.adapter?.isMultipleAdvertisementSupported ?: false
     }
 
-    fun startServer(deviceId: String, power: Int) {
+    fun startAdvertising(deviceId: String) {
+
+        val  power = AppConfig.advertiseTxPower
+
         if (isAdvertising) {
-            stopServer()
+            stopAdvertising()
         }
 
         ensureBtEnabled()
 
-        Log.d("Starting BLE advertising with power $power")
+        Log.i("Starting BLE advertising with power $power")
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AppConfig.advertiseMode)
@@ -160,13 +162,7 @@ class BluetoothRepository(context: Context) {
             .addServiceUuid(parcelUuid)
             .build()
 
-        /*val arr =  ByteArray(13)
-        for (i in 0 .. 12) {
-            arr[i] = 68.toByte()
-        }*/
-
         val scanData = AdvertiseData.Builder()
-            //.addServiceData(parcelUuid, arr).build()
             .addServiceData(parcelUuid, deviceId.toByteArray(Charset.forName("utf-8"))).build()
 
         btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
@@ -179,8 +175,8 @@ class BluetoothRepository(context: Context) {
         //btManager.openGattServer(c, serverCallback).addService(service)
     }
 
-    fun stopServer() {
-        Log.d("Stopping BLE advertising")
+    fun stopAdvertising() {
+        Log.i("Stopping BLE advertising")
         btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
     }
 
