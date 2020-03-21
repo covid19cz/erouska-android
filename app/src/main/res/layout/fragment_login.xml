@@ -116,14 +116,37 @@
                 tools:visibility="gone" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/login_verif_phone"
+                android:id="@+id/login_verif_prefix"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/login_verif_phone"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_desc">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_verif_prefix_input"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="+420"
+                    android:lines="1"
+                    android:maxLength="5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_verif_phone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/login_verif_prefix"
                 app:layout_constraintTop_toBottomOf="@+id/login_desc">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -8,21 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
 import com.google.firebase.auth.PhoneAuthProvider
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentLoginBinding
 import cz.covid19cz.app.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_login.login_desc
-import kotlinx.android.synthetic.main.fragment_login.login_info
-import kotlinx.android.synthetic.main.fragment_login.login_progress
-import kotlinx.android.synthetic.main.fragment_login.login_statement
-import kotlinx.android.synthetic.main.fragment_login.login_title
-import kotlinx.android.synthetic.main.fragment_login.login_verif_activate_btn
-import kotlinx.android.synthetic.main.fragment_login.login_verif_code
-import kotlinx.android.synthetic.main.fragment_login.login_verif_code_input
-import kotlinx.android.synthetic.main.fragment_login.login_verif_code_send_btn
-import kotlinx.android.synthetic.main.fragment_login.login_verif_image
-import kotlinx.android.synthetic.main.fragment_login.login_verif_phone
-import kotlinx.android.synthetic.main.fragment_login.login_verif_phone_input
+import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
 class LoginFragment :
@@ -53,7 +43,8 @@ class LoginFragment :
             login_desc,
             login_verif_phone,
             login_verif_code,
-            login_statement
+            login_statement,
+            login_verif_prefix
         )
 
         setupListeners()
@@ -96,10 +87,16 @@ class LoginFragment :
                 login_verif_phone,
                 login_verif_phone_input,
                 login_statement,
-                login_verif_activate_btn
+                login_verif_activate_btn,
+                login_verif_prefix
             )
             AutoVerificationProgress -> show(login_progress)
-            EnterCode -> show(login_verif_image, login_verif_code_input, login_verif_code, login_verif_code_send_btn)
+            EnterCode -> show(
+                login_verif_image,
+                login_verif_code_input,
+                login_verif_code,
+                login_verif_code_send_btn
+            )
             SigningProgress -> show(login_progress)
             is LoginError -> showError(state.exception)
             is SignedIn -> showSignedIn(state)
@@ -141,11 +138,12 @@ class LoginFragment :
     }
 
     private fun verifyPhoneNumber() {
+        val prefix = login_verif_prefix_input.text.toString()
         val phoneNumber = login_verif_phone_input.text.toString()
         viewModel.state.postValue(AutoVerificationProgress)
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phoneNumber, // Phone number to verify
-            10, // Timeout duration
+            prefix + phoneNumber, // Phone number to verify
+            AppConfig.smsTimeoutSeconds, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             requireActivity(), // Activity (for callback binding)
             viewModel.verificationCallbacks
