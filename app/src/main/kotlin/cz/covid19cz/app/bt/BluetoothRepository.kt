@@ -82,18 +82,23 @@ class BluetoothRepository(context: Context) {
         ensureBtEnabled()
 
         Log.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
+
+        // "Some" scan filter needed for background scanning since Android 8.1.
+        // However, some devices (at least Samsung S10e...) consider empty filter == no filter.
+        val builder = ScanFilter.Builder()
+        builder.setServiceUuid(ParcelUuid(SERVICE_UUID))
+        val scanFilter = builder.build()
+
         scanDisposable = rxBleClient.scanBleDevices(
-                ScanSettings.Builder()
-                    .setScanMode(AppConfig.scanMode).build(),
-                // Empty Scan filter needed for background scanning since Android 8.1
-                ScanFilter.Builder().build()
-            )
-            .subscribe({ scanResult ->
-                onScanResult(scanResult)
-            }, {
-                isScanning = false
-                Log.e(it)
-            })
+            ScanSettings.Builder().setScanMode(AppConfig.scanMode).build(),
+            scanFilter
+        ).subscribe({ scanResult ->
+            onScanResult(scanResult)
+        }, {
+            isScanning = false
+            Log.e(it)
+        })
+
         isScanning = true
     }
 
@@ -105,51 +110,27 @@ class BluetoothRepository(context: Context) {
     }
 
     private fun onScanResult(result: ScanResult) {
-
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
-
-            var deviceId =
-                if (result.scanRecord.deviceName == "Covid-19") {
-                    Log.d("Probabaly iPhone detected")
-                    //TODO: Handle iPhone
-                    "iPhone"
-                } else if (result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true) {
-                    // BUID is in the map under our UUID
-                    Log.d("BUID is in the map under our UUID")
-                    String(
-                        result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!,
-                        Charset.forName("utf-8")
-                    )
-                } else if (result.scanRecord.serviceData.isNotEmpty()) {
-                    // BUID is in the map under different UUID
-                    Log.d("BUID is in the map under different UUID")
-                    String(result.scanRecord.serviceData.values.first(), Charset.forName("utf-8"))
-                } else {
-                    // BUID isn't in map
-                    val hackyBuidBytes = ByteArray(10)
-                    var lastByteIndex = -1
-
-                    result.scanRecord?.bytes?.let {
-                        for (i in result.scanRecord.bytes.size - 1 downTo 0) {
-                            if (result.scanRecord.bytes[i] != 0x00.toByte()) {
-                                lastByteIndex = i + 1
-                                break
-                            }
-                        }
-
-                        if (lastByteIndex != -1) {
-                            result.scanRecord.bytes.copyInto(
-                                hackyBuidBytes,
-                                0,
-                                lastByteIndex - 10,
-                                lastByteIndex
-                            )
-                            Log.d("BUID isn't in the map")
-                            String(hackyBuidBytes, Charset.forName("utf-8"))
-                        } else {
-                            Log.d("BUID not found")
-                            null
-                        }
+            val deviceId: String? =
+                when {
+                    result.scanRecord.deviceName == "Covid-19" -> {
+                        Log.d("Probably iPhone detected")
+                        //TODO: Handle iPhone
+                        "iPhone"
+                    }
+                    result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true -> {
+                        // BUID is in the map under our UUID
+                        Log.d("BUID is in the map under our UUID")
+                        toBuid(result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!)
+                    }
+                    result.scanRecord.serviceData.isNotEmpty() -> {
+                        // BUID is in the map under different UUID
+                        Log.d("BUID is in the map under different UUID")
+                        toBuid(result.scanRecord.serviceData.values.first())
+                    }
+                    else -> {
+                        // BUID isn't in the map, it's time to try hack...
+                        hackyParseBuid(result)
                     }
                 }
 
@@ -167,6 +148,38 @@ class BluetoothRepository(context: Context) {
                 }
             }
         }
+    }
+
+    private fun hackyParseBuid(result: ScanResult): String? {
+        val hackyBuidBytes = ByteArray(10)
+        var lastByteIndex = -1
+
+        return result.scanRecord?.bytes?.let {
+            for (i in result.scanRecord.bytes.size - 1 downTo 0) {
+                if (result.scanRecord.bytes[i] != 0x00.toByte()) {
+                    lastByteIndex = i + 1
+                    break
+                }
+            }
+
+            if (lastByteIndex != -1) {
+                result.scanRecord.bytes.copyInto(
+                    hackyBuidBytes,
+                    0,
+                    lastByteIndex - 10,
+                    lastByteIndex
+                )
+                Log.d("Parsed BUID from ScanResult raw data")
+                toBuid(hackyBuidBytes)
+            } else {
+                Log.d("Could not parse BUID from ScanResult raw data")
+                null
+            }
+        }
+    }
+
+    private fun toBuid(rawBytes: ByteArray): String {
+        return String(rawBytes, Charset.forName("utf-8"))
     }
 
     fun clearScanResults() {
