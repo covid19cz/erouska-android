@@ -153,11 +153,6 @@ class BluetoothRepository(context: Context) {
                     }
                 }
 
-            // This is fokin dirty, I'll refactor it, I promise :D
-            if (deviceId != null && deviceId?.length != 10) {
-                deviceId = "iPhone"
-            }
-
             deviceId?.let {
                 if (!scanResultsMap.containsKey(deviceId)) {
                     val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
