@@ -21,11 +21,10 @@ class SandboxFragment :
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
-        const val REQUEST_PERMISSION_FINE_LOCATION = 1001
     }
 
-    lateinit var rxPermissions: RxPermissions
-    val compositeDisposable = CompositeDisposable()
+    private lateinit var rxPermissions: RxPermissions
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +73,14 @@ class SandboxFragment :
         tryStartBtService()
     }
 
-    fun tryStartBtService() {
+    private fun tryStartBtService() {
         if (viewModel.bluetoothRepository.hasBle(requireContext())) {
             if (!viewModel.bluetoothRepository.isBtEnabled()) {
                 navigate(R.id.action_nav_sandbox_to_nav_bt_disabled)
                 return
             }
             compositeDisposable.add(rxPermissions
-                .request(
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe { granted: Boolean ->
                     if (granted) {
                         startBtService()
@@ -98,7 +95,7 @@ class SandboxFragment :
         }
     }
 
-    fun stopService() {
+    private fun stopService() {
         CovidService.stopService(requireContext())
     }
 
@@ -110,7 +107,7 @@ class SandboxFragment :
         }
     }
 
-    fun startBtService() {
+    private fun startBtService() {
         CovidService.startService(requireContext())
         viewModel.confirmStart()
     }
