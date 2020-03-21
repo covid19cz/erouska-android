@@ -108,42 +108,54 @@ class BluetoothRepository(context: Context) {
 
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
 
-            val deviceId = if (result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true) {
-                // BUID is in the map under our UUID
-                Log.d("BUID is in the map under our UUID")
-                String(result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!, Charset.forName("utf-8"))
-            }
-            else if (result.scanRecord.serviceData.isNotEmpty()) {
-                // BUID is in the map under different UUID
-                Log.d("BUID is in the map under different UUID")
-                String(result.scanRecord.serviceData.values.first(), Charset.forName("utf-8"))
-            } else {
-                // BUID isn't in map
-                val hackyBuidBytes = ByteArray(10)
-                var lastByteIndex = -1
+            var deviceId =
+                if (result.scanRecord.deviceName == "Covid-19") {
+                    Log.d("Probabaly iPhone detected")
+                    //TODO: Handle iPhone
+                    "iPhone"
+                } else if (result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true) {
+                    // BUID is in the map under our UUID
+                    Log.d("BUID is in the map under our UUID")
+                    String(
+                        result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!,
+                        Charset.forName("utf-8")
+                    )
+                } else if (result.scanRecord.serviceData.isNotEmpty()) {
+                    // BUID is in the map under different UUID
+                    Log.d("BUID is in the map under different UUID")
+                    String(result.scanRecord.serviceData.values.first(), Charset.forName("utf-8"))
+                } else {
+                    // BUID isn't in map
+                    val hackyBuidBytes = ByteArray(10)
+                    var lastByteIndex = -1
 
-                result.scanRecord?.bytes?.let {
-                    for (i in result.scanRecord.bytes.size - 1 downTo 0) {
-                        if (result.scanRecord.bytes[i] != 0x00.toByte()) {
-                            lastByteIndex = i + 1
-                            break
+                    result.scanRecord?.bytes?.let {
+                        for (i in result.scanRecord.bytes.size - 1 downTo 0) {
+                            if (result.scanRecord.bytes[i] != 0x00.toByte()) {
+                                lastByteIndex = i + 1
+                                break
+                            }
+                        }
+
+                        if (lastByteIndex != -1) {
+                            result.scanRecord.bytes.copyInto(
+                                hackyBuidBytes,
+                                0,
+                                lastByteIndex - 10,
+                                lastByteIndex
+                            )
+                            Log.d("BUID isn't in the map")
+                            String(hackyBuidBytes, Charset.forName("utf-8"))
+                        } else {
+                            Log.d("BUID not found")
+                            null
                         }
                     }
-
-                    if (lastByteIndex != -1) {
-                        result.scanRecord.bytes.copyInto(
-                            hackyBuidBytes,
-                            0,
-                            lastByteIndex - 10,
-                            lastByteIndex
-                        )
-                        Log.d("BUID isn't in the map")
-                        String(hackyBuidBytes, Charset.forName("utf-8"))
-                    } else {
-                        Log.d("BUID not found")
-                        null
-                    }
                 }
+
+            // This is fokin dirty, I'll refactor it, I promise :D
+            if (deviceId != null && deviceId?.length != 10) {
+                deviceId = "iPhone"
             }
 
             deviceId?.let {
@@ -151,12 +163,12 @@ class BluetoothRepository(context: Context) {
                     val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                     scanResultsList.add(newEntity)
                     scanResultsMap[deviceId] = newEntity
-                    Log.d("Found new device")
+                    Log.d("Found new device: $deviceId")
                 }
 
                 scanResultsMap[deviceId]?.let { entity ->
                     entity.addRssi(result.rssi)
-                    Log.d("Found existing device")
+                    Log.d("Found existing device: $deviceId")
                 }
             }
         }

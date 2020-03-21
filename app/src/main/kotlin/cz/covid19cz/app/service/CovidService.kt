@@ -102,12 +102,21 @@ class CovidService : Service() {
             0, notificationIntent, 0
         )
 
-        var title =
-            if (btEnabled && locationEnabled) R.string.notification_title else R.string.notification_title_error
-        var text =
-            if (btEnabled && locationEnabled) R.string.notification_text else R.string.notification_text_error
-        var icon =
-            if (btEnabled && locationEnabled) R.drawable.ic_notification_normal else R.drawable.ic_notification_error
+        val title :Int
+        val text : Int
+        val icon :Int
+
+        //TODO: work in progress
+        //if (btEnabled && locationEnabled){
+        if (true){
+            title = R.string.notification_title
+            text = R.string.notification_text
+            icon = R.drawable.ic_notification_normal
+        } else {
+            title = R.string.notification_title_error
+            text = R.string.notification_text_error
+            icon = R.drawable.ic_notification_error
+        }
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(title))
