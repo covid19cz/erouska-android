@@ -7,6 +7,8 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.location.LocationManager
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
@@ -20,6 +22,8 @@ import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.isLocationEnabled
+import cz.covid19cz.app.receiver.BluetoothStateReceiver
+import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.ui.main.MainActivity
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
@@ -35,6 +39,7 @@ class CovidService : Service() {
         const val CHANNEL_ID = "ForegroundServiceChannel"
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        const val ACTION_UPDATE = "ACTION_UPDATE"
 
         fun startService(c: Context) {
             val serviceIntent = Intent(c, CovidService::class.java)
@@ -60,7 +65,7 @@ class CovidService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        deviceBuid = prefs.getDeviceBuid() ?: "UNREGISTERED"
+        deviceBuid = prefs.getDeviceBuid() ?: "UNREGISTER"
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -78,17 +83,17 @@ class CovidService : Service() {
                 stopForeground(true)
                 stopSelf()
             }
+            ACTION_UPDATE -> {
+                createNotification()
+            }
         }
         return START_STICKY
     }
 
-    fun createNotification(){
+    fun createNotification() {
 
         val btEnabled = btUtils.isBtEnabled()
         val locationEnabled = isLocationEnabled()
-
-        Log.d("Bluetooth Enabled = $btEnabled")
-        Log.d("Location Enabled = $btEnabled")
 
         createNotificationChannel()
         val notificationIntent = Intent(this, MainActivity::class.java)
@@ -97,15 +102,12 @@ class CovidService : Service() {
             0, notificationIntent, 0
         )
 
-        var title = R.string.notification_title
-        var text = R.string.notification_text
-        var icon = R.drawable.ic_notification
-
-        if (btEnabled && locationEnabled){
-            title = R.string.notification_title
-            text = R.string.notification_text
-            icon = R.drawable.ic_notification
-        }
+        var title =
+            if (btEnabled && locationEnabled) R.string.notification_title else R.string.notification_title_error
+        var text =
+            if (btEnabled && locationEnabled) R.string.notification_text else R.string.notification_text_error
+        var icon =
+            if (btEnabled && locationEnabled) R.drawable.ic_notification_normal else R.drawable.ic_notification_error
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(title))
@@ -152,7 +154,8 @@ class CovidService : Service() {
                 if (btUtils.isBtEnabled()) {
                     btUtils.startScanning()
                 } else {
-
+                    createNotification()
+                    bleScanningDisposable?.dispose()
                 }
                 return@map it
             }
@@ -175,7 +178,12 @@ class CovidService : Service() {
         bleAdvertisingDisposable = Observable.just(true)
             .delay(1, TimeUnit.SECONDS)
             .map {
-                btUtils.startAdvertising(deviceBuid)
+                if (btUtils.isBtEnabled()) {
+                    btUtils.startAdvertising(deviceBuid)
+                } else {
+                    createNotification()
+                    bleAdvertisingDisposable?.dispose()
+                }
             }
             .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
             .map {
@@ -225,13 +233,13 @@ class CovidService : Service() {
                 tag
             )
             wakeLock?.let {
-                if (!it.isHeld){
+                if (!it.isHeld) {
                     it.acquire()
                 }
             }
         } else {
             wakeLock?.let {
-                if (it.isHeld){
+                if (it.isHeld) {
                     it.release()
                 }
             }

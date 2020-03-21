@@ -32,18 +32,18 @@ class BluetoothRepository(context: Context) {
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
-    private val serverCallback = object: AdvertiseCallback(){
-            override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
-                isAdvertising = true
-                Log.i("BLE advertising started.")
-                super.onStartSuccess(settingsInEffect)
-            }
+    private val serverCallback = object : AdvertiseCallback() {
+        override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
+            isAdvertising = true
+            Log.i("BLE advertising started.")
+            super.onStartSuccess(settingsInEffect)
+        }
 
-            override fun onStartFailure(errorCode: Int) {
-                isAdvertising = false
-                Log.i("BLE advertising failed: $errorCode")
-                super.onStartFailure(errorCode)
-            }
+        override fun onStartFailure(errorCode: Int) {
+            isAdvertising = false
+            Log.i("BLE advertising failed: $errorCode")
+            super.onStartFailure(errorCode)
+        }
     }
 
     var isAdvertising = false
@@ -68,8 +68,8 @@ class BluetoothRepository(context: Context) {
         btManager.adapter?.enable()
     }
 
-    fun ensureBtEnabled(){
-        if (!isBtEnabled()){
+    fun ensureBtEnabled() {
+        if (!isBtEnabled()) {
             enableBt()
         }
     }
@@ -88,11 +88,12 @@ class BluetoothRepository(context: Context) {
                 // Empty Scan filter needed for background scanning since Android 8.1
                 ScanFilter.Builder().build()
             )
-            .subscribe ({ scanResult ->
+            .subscribe({ scanResult ->
                 onScanResult(scanResult)
             }, {
                 isScanning = false
-                Log.e(it)})
+                Log.e(it)
+            })
         isScanning = true
     }
 
@@ -105,25 +106,58 @@ class BluetoothRepository(context: Context) {
 
     private fun onScanResult(result: ScanResult) {
 
-        Log.d("Scan result: ${result.bleDevice.name} (${result.bleDevice.macAddress})")
+        if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
 
-        result.scanRecord?.getServiceData(ParcelUuid(SERVICE_UUID))?.let { data ->
+            val deviceId = if (result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true) {
+                // BUID is in the map under our UUID
+                Log.d("BUID is in the map under our UUID")
+                String(result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!, Charset.forName("utf-8"))
+            }
+            else if (result.scanRecord.serviceData.isNotEmpty()) {
+                // BUID is in the map under different UUID
+                Log.d("BUID is in the map under different UUID")
+                String(result.scanRecord.serviceData.values.first(), Charset.forName("utf-8"))
+            } else {
+                // BUID isn't in map
+                val hackyBuidBytes = ByteArray(10)
+                var lastByteIndex = -1
 
-            val deviceId = String(
-                data,
-                Charset.forName("utf-8")
-            )
+                result.scanRecord?.bytes?.let {
+                    for (i in result.scanRecord.bytes.size - 1 downTo 0) {
+                        if (result.scanRecord.bytes[i] != 0x00.toByte()) {
+                            lastByteIndex = i + 1
+                            break
+                        }
+                    }
 
-            if (!scanResultsMap.containsKey(deviceId)) {
-                val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
-                scanResultsList.add(newEntity)
-                scanResultsMap[deviceId] = newEntity
-                Log.i("Found new device")
+                    if (lastByteIndex != -1) {
+                        result.scanRecord.bytes.copyInto(
+                            hackyBuidBytes,
+                            0,
+                            lastByteIndex - 10,
+                            lastByteIndex
+                        )
+                        Log.d("BUID isn't in the map")
+                        String(hackyBuidBytes, Charset.forName("utf-8"))
+                    } else {
+                        Log.d("BUID not found")
+                        null
+                    }
+                }
             }
 
-            scanResultsMap[deviceId]?.let { entity ->
-                entity.addRssi(result.rssi)
-                Log.i("Found existing device")
+            deviceId?.let {
+                if (!scanResultsMap.containsKey(deviceId)) {
+                    val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
+                    scanResultsList.add(newEntity)
+                    scanResultsMap[deviceId] = newEntity
+                    Log.d("Found new device")
+                }
+
+                scanResultsMap[deviceId]?.let { entity ->
+                    entity.addRssi(result.rssi)
+                    Log.d("Found existing device")
+                }
             }
         }
     }
@@ -139,7 +173,7 @@ class BluetoothRepository(context: Context) {
 
     fun startAdvertising(deviceId: String) {
 
-        val  power = AppConfig.advertiseTxPower
+        val power = AppConfig.advertiseTxPower
 
         if (isAdvertising) {
             stopAdvertising()
@@ -179,8 +213,6 @@ class BluetoothRepository(context: Context) {
         Log.i("Stopping BLE advertising")
         btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
     }
-
-
 
 
 }

@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Mobilní rouška</string>
+    <string name="app_name">eRouška</string>
 
-    <string name="notification_title">Mobilní rouška běží</string>
+    <string name="notification_title">eRouška běží</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
+
+    <string name="notification_title_error">eRouška neběží</string>
+    <string name="notification_text_error">Pokračujte podle instrukcí v aplikaci</string>
     <string name="foreground_service_channel">Služba na pozadí</string>
 
     <string name="help_toolbar_title">Jak to funguje</string>
