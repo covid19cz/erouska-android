@@ -11,10 +11,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".App"
@@ -40,7 +38,6 @@
         <service
             android:name=".service.CovidService"
             android:enabled="true"
-            android:exported="true"
             android:foregroundServiceType="location">
             <meta-data
                 android:name="longScanForcingEnabled"
@@ -57,20 +54,8 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".receiver.BluetoothStateReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".receiver.LocationStateReceiver">
-            <intent-filter>
-                <action android:name="android.location.PROVIDERS_CHANGED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".receiver.BluetoothStateReceiver"/>
+        <receiver android:name=".receiver.LocationStateReceiver"/>
     </application>
 
 </manifest>
