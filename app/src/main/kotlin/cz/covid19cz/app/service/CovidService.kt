@@ -152,7 +152,6 @@ class CovidService : Service() {
 
     private fun startBleScanning() {
         bleScanningDisposable = Observable.just(true)
-            //Give IU Thread time to clean data
             .delay(1, TimeUnit.SECONDS)
             .map {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
@@ -168,7 +167,7 @@ class CovidService : Service() {
             .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
             .repeat()
             .execute(
-                { Log.i("Restarting BLE scanning") },
+                { Log.d("Restarting BLE scanning") },
                 { Log.e(it) }
             )
     }
@@ -187,7 +186,7 @@ class CovidService : Service() {
             .map { btUtils.stopAdvertising() }
             .repeat()
             .execute(
-                { Log.i("Restarting BLE advertising") },
+                { Log.d("Restarting BLE advertising") },
                 { Log.e(it) }
             )
     }

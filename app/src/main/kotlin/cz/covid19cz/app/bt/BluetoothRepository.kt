@@ -1,6 +1,6 @@
 package cz.covid19cz.app.bt
 
-import android.bluetooth.BluetoothManager
+import android.bluetooth.*
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
-class BluetoothRepository(context: Context, private val db: DatabaseRepository) {
+class BluetoothRepository(val context: Context, private val db: DatabaseRepository) {
 
     private val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
     private val GATT_CHARACTERISTIC_UUID = UUID.fromString("9472fbde-04ff-4fff-be1c-b9d3287e8f28")
@@ -38,28 +38,84 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val discoveredIosDevices = HashMap<String, ScanSession>()
-    val iPhoneConnectionDisposables = HashMap<String, Disposable>()
+    //val iOsQueue = Que
     val scanResultsList = ObservableArrayList<ScanSession>()
 
-    private val serverCallback = object : AdvertiseCallback() {
+    var isAdvertising = false
+    var isScanning = false
+
+    private var scanDisposable: Disposable? = null
+    private var outOfRangeChecker: Disposable? = null
+
+    private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
+            Log.d("BLE advertising started.")
             isAdvertising = true
-            Log.i("BLE advertising started.")
             super.onStartSuccess(settingsInEffect)
         }
 
         override fun onStartFailure(errorCode: Int) {
             isAdvertising = false
-            Log.i("BLE advertising failed: $errorCode")
+            Log.e("BLE advertising failed: $errorCode")
             super.onStartFailure(errorCode)
         }
     }
 
-    var isAdvertising = false
-    var isScanning = false
+    private val gattCallback = object : BluetoothGattCallback() {
 
-    var scanDisposable: Disposable? = null
-    var outOfRangeChecker: Disposable? = null
+        override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
+            if (newState == BluetoothProfile.STATE_CONNECTED) {
+                Log.d("GATT connected")
+                gatt.discoverServices()
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                Log.d("GATT disconnected")
+            }
+        }
+
+        override fun onCharacteristicRead(
+            gatt: BluetoothGatt,
+            characteristic: BluetoothGattCharacteristic?,
+            status: Int
+        ) {
+            if (GATT_CHARACTERISTIC_UUID == characteristic!!.uuid) {
+                val buid = characteristic.value?.asHexLower
+                val mac = gatt.device?.address
+                gatt.disconnect()
+
+                if (buid != null){
+                    Log.d("BUID found in characteristic")
+                    discoveredIosDevices[mac]?.let { s ->
+                        Observable.just(s).map { session ->
+                            session.deviceId = buid
+                            scanResultsMap[buid] = session
+                            session
+                        }.execute({
+                            scanResultsList.add(it)
+                        }, {
+                            Log.e(it)
+                        })
+                    }
+                } else {
+                    Log.e("BUID not found in characteristic")
+                }
+            }
+        }
+
+        override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
+            if (status != BluetoothGatt.GATT_SUCCESS) {
+                gatt.disconnect()
+                return
+            }
+            val characteristic = gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
+            if (characteristic != null){
+                Log.d("GATT characteristic found")
+                gatt.readCharacteristic(characteristic)
+            } else {
+                Log.e("GATT characteristic not found")
+                gatt.disconnect()
+            }
+        }
+    }
 
     fun hasBle(c: Context): Boolean {
         return c.packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)
@@ -79,7 +135,7 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
         }
 
         if (!isBtEnabled()) {
-            Log.e("Bluetooth is not disabled, can't start scanning.")
+            Log.d("Bluetooth disabled, can't start scanning")
             return
         }
 
@@ -121,7 +177,7 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
     }
 
     private fun saveScansAndDispose() {
-        Log.i("Saving data to database")
+        Log.d("Saving data to database")
         Observable.just(scanResultsList.toTypedArray())
             .map { tempArray ->
                 for (item in tempArray) {
@@ -140,7 +196,7 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
                 }
                 tempArray.size
             }.execute({
-                Log.i("$it records saved")
+                Log.d("$it records saved")
                 clearScanResults()
             }, { Log.e(it) })
     }
@@ -176,37 +232,15 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
 
     private fun getBuidFromIos(result: ScanResult) {
         val mac = result.bleDevice.macAddress
-        val device = rxBleClient.getBleDevice(mac)
-        val session =  ScanSession("iOS Device", mac)
+        val session = ScanSession("iOS Device", mac)
         session.addRssi(result.rssi)
+        Log.d("Connecting to GATT")
         discoveredIosDevices[mac] = session
-        iPhoneConnectionDisposables[result.bleDevice.macAddress] = device.establishConnection(false)
-            .flatMap {
-                it.discoverServices().toObservable()
-            }.flatMap {
-                it.getCharacteristic(SERVICE_UUID, GATT_CHARACTERISTIC_UUID).toObservable()
-            }
-            .map {
-                it.value?.asHexLower ?: "iOS Device"
-            }
-            .execute(
-                { buid ->
-                    Log.d("iPhone BUID: $buid")
-                    //if (buid != null && buid.length == 20) {
 
-                    discoveredIosDevices[mac]?.let { session ->
-                        session.deviceId = buid
-                        scanResultsMap[buid] = session
-                        scanResultsList.add(session)
-                        Log.d("Found new iOS Device")
-                    }
-                    // }
-                    iPhoneConnectionDisposables[mac]?.dispose()
-                    iPhoneConnectionDisposables.remove(mac)
+        val device = btManager?.adapter?.getRemoteDevice(mac)
+        val gatt = device?.connectGatt(context, false, gattCallback)
 
-                },
-                { Log.e(it) }
-            )
+        //val characteristic = gatt?.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
     }
 
     private fun getBuidFromAndroid(bytes: ByteArray): String? {
@@ -244,6 +278,7 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
     }
 
     private fun clearScanResults() {
+        discoveredIosDevices.clear()
         scanResultsList.clear()
         scanResultsMap.clear()
     }
@@ -261,11 +296,11 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
         }
 
         if (!isBtEnabled()) {
-            Log.e("Bluetooth is not disabled, can't start advertising.")
+            Log.d("Bluetooth disabled, can't start advertising")
             return
         }
 
-        Log.i("Starting BLE advertising with power $power")
+        Log.d("Starting BLE advertising with power $power")
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AppConfig.advertiseMode)
@@ -287,13 +322,14 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
             settings,
             data,
             scanData,
-            serverCallback
+            advertisingCallback
         )
     }
 
     fun stopAdvertising() {
-        Log.i("Stopping BLE advertising")
-        btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
+        Log.d("Stopping BLE advertising")
+        isAdvertising = false
+        btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }
 
 
