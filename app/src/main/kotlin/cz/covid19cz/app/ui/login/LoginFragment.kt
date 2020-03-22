@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
 import com.google.firebase.auth.PhoneAuthProvider
@@ -12,6 +13,8 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentLoginBinding
 import cz.covid19cz.app.ui.base.BaseFragment
+import cz.covid19cz.app.ui.login.event.ErrorEvent
+import cz.covid19cz.app.utils.Text
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -25,6 +28,15 @@ class LoginFragment :
 
         viewModel.state.observe(this) {
             updateState(it)
+        }
+
+        subscribe(ErrorEvent::class) {
+            when (it.command) {
+                ErrorEvent.Command.ERROR_PHONE_NUMBER_INVALID_FORMAT -> {
+                    login_verif_phone.isErrorEnabled = true
+                    login_verif_phone.error = getString(R.string.login_phone_input_error)
+                }
+            }
         }
     }
 
@@ -44,7 +56,8 @@ class LoginFragment :
             login_verif_phone,
             login_verif_code,
             login_statement,
-            login_verif_prefix
+            login_verif_prefix,
+            error_button_back
         )
 
         setupListeners()
@@ -76,6 +89,12 @@ class LoginFragment :
                 login_verif_code.error = getString(R.string.login_code_input_error)
             }
         }
+        login_verif_phone_input.addTextChangedListener(afterTextChanged = {
+            login_verif_phone.isErrorEnabled = false
+        })
+        error_button_back.setOnClickListener {
+            viewModel.state.postValue(EnterPhoneNumber)
+        }
     }
 
     private fun updateState(state: LoginState) {
@@ -98,7 +117,7 @@ class LoginFragment :
                 login_verif_code_send_btn
             )
             SigningProgress -> show(login_progress)
-            is LoginError -> showError(state.exception)
+            is LoginError -> showError(state.text)
             is SignedIn -> showSignedIn(state)
         }
     }
@@ -132,9 +151,9 @@ class LoginFragment :
         timer.start()
     }
 
-    private fun showError(exception: Exception) {
-        login_info.text = exception.message
-        show(login_info)
+    private fun showError(text: Text?) {
+        login_info.text = text?.toCharSequence(requireContext())
+        show(login_info, error_button_back)
     }
 
     private fun verifyPhoneNumber() {
@@ -162,5 +181,12 @@ class LoginFragment :
     private fun hideKeyboard(view: View) {
         val im = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         im.hideSoftInputFromWindow(view.windowToken, 0);
+    }
+
+    override fun onBackPressed(): Boolean {
+        return if (viewModel.state.value is LoginError) {
+            viewModel.state.postValue(EnterPhoneNumber)
+            true
+        } else false
     }
 }
