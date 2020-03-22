@@ -5,9 +5,9 @@ import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
-import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
+import androidx.core.content.getSystemService
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
@@ -17,6 +17,9 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.hexAsByteArray
+import cz.covid19cz.app.db.DatabaseRepository
+import cz.covid19cz.app.db.ScanResultEntity
+import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -25,12 +28,12 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
-class BluetoothRepository(context: Context) {
+class BluetoothRepository(context: Context, private val db: DatabaseRepository) {
 
-    val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
+    private val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
 
-    private val btManager: BluetoothManager
-    val rxBleClient: RxBleClient
+    private val btManager = context.getSystemService<BluetoothManager>()
+    private val rxBleClient: RxBleClient = RxBleClient.create(context)
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val scanResultsList = ObservableArrayList<ScanSession>()
@@ -55,27 +58,16 @@ class BluetoothRepository(context: Context) {
     var scanDisposable: Disposable? = null
     var outOfRangeChecker: Disposable? = null
 
-    init {
-        btManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-        rxBleClient = RxBleClient.create(context)
-    }
-
     fun hasBle(c: Context): Boolean {
         return c.packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)
     }
 
     fun isBtEnabled(): Boolean {
-        return btManager.adapter?.isEnabled ?: false
+        return btManager?.adapter?.isEnabled ?: false
     }
 
-    fun enableBt() {
-        btManager.adapter?.enable()
-    }
-
-    fun ensureBtEnabled() {
-        if (!isBtEnabled()) {
-            enableBt()
-        }
+    private fun enableBt() {
+        btManager?.adapter?.enable()
     }
 
     fun startScanning() {
@@ -83,7 +75,10 @@ class BluetoothRepository(context: Context) {
             stopScanning()
         }
 
-        ensureBtEnabled()
+        if (!isBtEnabled()) {
+            Log.e("Bluetooth is not disabled, can't start scanning.")
+            return
+        }
 
         Log.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
@@ -119,13 +114,39 @@ class BluetoothRepository(context: Context) {
         scanDisposable = null
         outOfRangeChecker?.dispose()
         outOfRangeChecker = null
+        saveScansAndDispose()
+    }
+
+    private fun saveScansAndDispose() {
+        Log.i("Saving data to database")
+        Observable.just(scanResultsList.toTypedArray())
+            .map { tempArray ->
+                for (item in tempArray) {
+                    item.calculate()
+                    db.add(
+                        ScanResultEntity(
+                            0,
+                            item.deviceId,
+                            item.timestampStart,
+                            item.timestampEnd,
+                            item.maxRssi,
+                            item.medRssi,
+                            item.rssiCount
+                        )
+                    )
+                }
+                tempArray.size
+            }.execute({
+                Log.i("$it records saved")
+                clearScanResults()
+            }, { Log.e(it) })
     }
 
     private fun onScanResult(result: ScanResult) {
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
 
             var deviceId = findBuid(result.scanRecord.bytes)
-            if (result.scanRecord.deviceName == "Covid-19" && deviceId == null){
+            if (result.scanRecord.deviceName == "Covid-19" && deviceId == null) {
                 Log.d("Probably iPhone detected")
                 deviceId = "iPhone"
             }
@@ -146,40 +167,40 @@ class BluetoothRepository(context: Context) {
         }
     }
 
-    private fun findBuid(bytes : ByteArray) : String? {
+    private fun findBuid(bytes: ByteArray): String? {
 
         var result = ByteArray(10)
 
         var currIndex = 0
         var len = -1
-        var type : Byte
+        var type: Byte
 
-        while (currIndex < bytes.size && len != 0){
-                len = bytes[currIndex].toInt()
-                type = bytes[currIndex+1]
+        while (currIndex < bytes.size && len != 0) {
+            len = bytes[currIndex].toInt()
+            type = bytes[currIndex + 1]
 
-                if (type == 0x21.toByte()){
-                    // +2 (skip lenght byte and type byte), +16 (skip Service UUID)
-                    bytes.copyInto(result, 0,currIndex + 2 + 16, currIndex + 2 + 16 + 10)
-                    break
-                } else {
-                    currIndex+=len+1
-                }
+            if (type == 0x21.toByte()) {
+                // +2 (skip lenght byte and type byte), +16 (skip Service UUID)
+                bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
+                break
+            } else {
+                currIndex += len + 1
+            }
         }
 
-            val resultHex = result.asHexLower
-            Log.d("BUID = $resultHex")
+        val resultHex = result.asHexLower
+        Log.d("BUID = $resultHex")
 
-            return if(resultHex != "00000000000000000000") resultHex else null
+        return if (resultHex != "00000000000000000000") resultHex else null
     }
 
-    fun clearScanResults() {
+    private fun clearScanResults() {
         scanResultsList.clear()
         scanResultsMap.clear()
     }
 
     fun supportsAdvertising(): Boolean {
-        return btManager.adapter?.isMultipleAdvertisementSupported ?: false
+        return btManager?.adapter?.isMultipleAdvertisementSupported ?: false
     }
 
     fun startAdvertising(buid: String) {
@@ -190,7 +211,10 @@ class BluetoothRepository(context: Context) {
             stopAdvertising()
         }
 
-        ensureBtEnabled()
+        if (!isBtEnabled()) {
+            Log.e("Bluetooth is not disabled, can't start advertising.")
+            return
+        }
 
         Log.i("Starting BLE advertising with power $power")
 
@@ -210,7 +234,7 @@ class BluetoothRepository(context: Context) {
         val scanData = AdvertiseData.Builder()
             .addServiceData(parcelUuid, buid.hexAsByteArray).build()
 
-        btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
+        btManager?.adapter?.bluetoothLeAdvertiser?.startAdvertising(
             settings,
             data,
             scanData,
@@ -220,7 +244,7 @@ class BluetoothRepository(context: Context) {
 
     fun stopAdvertising() {
         Log.i("Stopping BLE advertising")
-        btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
+        btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(serverCallback)
     }
 
 
