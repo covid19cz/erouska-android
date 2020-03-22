@@ -64,36 +64,12 @@
                 android:layout_marginBottom="8dp"
                 android:onClick="@{() -> vm.export()}"
                 android:text="@string/upload_data"
-                app:layout_constraintBottom_toTopOf="@+id/show_data_button"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bluetooth_disabled_desc"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/show_data_button"
-                style="?materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:onClick="@{() -> vm.openDbExplorer()}"
-                android:text="@string/show_my_data"
-                app:layout_constraintBottom_toTopOf="@+id/share_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/share_button"
-                style="?materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:onClick="@{() -> vm.share()}"
-                android:text="@string/share_app"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

@@ -2,7 +2,10 @@ package cz.covid19cz.app.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.ActivityMainBinding
 import cz.covid19cz.app.ui.base.BaseActivity
@@ -15,27 +18,38 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
-
-        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.label != null) {
-                title = destination.label
-            } else {
-                setTitle(R.string.app_name)
+        findNavController(R.id.nav_host_fragment).let {
+            NavigationUI.setupWithNavController(bottom_navigation, it);
+            it.addOnDestinationChangedListener { controller, destination, arguments ->
+                if (destination.label != null) {
+                    title = destination.label
+                } else {
+                    setTitle(R.string.app_name)
+                }
+                bottom_navigation.visibility =
+                    if (destination.arguments["fullscreen"]?.defaultValue == true
+                        || arguments?.getBoolean("fullscreen") == true
+                    ) {
+                        GONE
+                    } else {
+                        VISIBLE
+                    }
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_help -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_help)
+            R.id.nav_help -> {
+                navigate(R.id.nav_help, Bundle().apply { putBoolean("fullscreen", true) })
                 true
             }
-            R.id.action_menu_sandbox -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_sandbox)
-                true
+            else -> {
+                NavigationUI.onNavDestinationSelected(
+                    item,
+                    findNavController(R.id.nav_host_fragment)
+                ) || super.onOptionsItemSelected(item)
             }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 }

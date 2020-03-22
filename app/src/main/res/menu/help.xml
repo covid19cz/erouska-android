@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_help"
+        android:id="@+id/nav_help"
         android:title="@string/menu_help"
         android:visible="true"
         app:showAsAction="always" />
