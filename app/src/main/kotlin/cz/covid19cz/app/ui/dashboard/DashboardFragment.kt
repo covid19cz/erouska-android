@@ -35,7 +35,7 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
                 DashboardCommandEvent.Command.TURN_OFF -> context?.let { stopService(it) }
                 DashboardCommandEvent.Command.UPLOAD -> TODO()
                 DashboardCommandEvent.Command.SHOW_DATA -> TODO()
-                DashboardCommandEvent.Command.SHARE -> TODO()
+                DashboardCommandEvent.Command.SHARE -> { showSnackBar("Sdílet zatím neumím.") }
             }
         }
 
