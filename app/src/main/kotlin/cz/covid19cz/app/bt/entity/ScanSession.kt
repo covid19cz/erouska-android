@@ -5,7 +5,7 @@ import cz.covid19cz.app.AppConfig
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScanSession(val deviceId: String, val mac: String) {
+class ScanSession(var deviceId: String, val mac: String) {
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)

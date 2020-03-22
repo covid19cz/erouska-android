@@ -15,11 +15,11 @@ import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
-import cz.covid19cz.app.ext.asHexLower
-import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.ScanResultEntity
+import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
+import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -31,11 +31,14 @@ import kotlin.collections.HashMap
 class BluetoothRepository(context: Context, private val db: DatabaseRepository) {
 
     private val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
+    private val GATT_CHARACTERISTIC_UUID = UUID.fromString("9472fbde-04ff-4fff-be1c-b9d3287e8f28")
 
     private val btManager = context.getSystemService<BluetoothManager>()
     private val rxBleClient: RxBleClient = RxBleClient.create(context)
 
     val scanResultsMap = HashMap<String, ScanSession>()
+    val discoveredIosDevices = HashMap<String, ScanSession>()
+    val iPhoneConnectionDisposables = HashMap<String, Disposable>()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
     private val serverCallback = object : AdvertiseCallback() {
@@ -145,18 +148,22 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
     private fun onScanResult(result: ScanResult) {
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
 
-            var deviceId = findBuid(result.scanRecord.bytes)
+            var deviceId = getBuidFromAndroid(result.scanRecord.bytes)
             if (result.scanRecord.deviceName == "Covid-19" && deviceId == null) {
-                Log.d("Probably iPhone detected")
-                deviceId = "iPhone"
+                if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
+                    getBuidFromIos(result)
+                } else {
+                    discoveredIosDevices[result.bleDevice.macAddress]?.addRssi(result.rssi)
+                }
             }
 
             deviceId?.let {
                 if (!scanResultsMap.containsKey(deviceId)) {
                     val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
+                    newEntity.addRssi(result.rssi)
                     scanResultsList.add(newEntity)
                     scanResultsMap[deviceId] = newEntity
-                    Log.d("Found new device: $deviceId")
+                    Log.d("Found new Android: $deviceId")
                 }
 
                 scanResultsMap[deviceId]?.let { entity ->
@@ -167,7 +174,42 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
         }
     }
 
-    private fun findBuid(bytes: ByteArray): String? {
+    private fun getBuidFromIos(result: ScanResult) {
+        val mac = result.bleDevice.macAddress
+        val device = rxBleClient.getBleDevice(mac)
+        val session =  ScanSession("iOS Device", mac)
+        session.addRssi(result.rssi)
+        discoveredIosDevices[mac] = session
+        iPhoneConnectionDisposables[result.bleDevice.macAddress] = device.establishConnection(false)
+            .flatMap {
+                it.discoverServices().toObservable()
+            }.flatMap {
+                it.getCharacteristic(SERVICE_UUID, GATT_CHARACTERISTIC_UUID).toObservable()
+            }
+            .map {
+                it.value?.asHexLower ?: "iOS Device"
+            }
+            .execute(
+                { buid ->
+                    Log.d("iPhone BUID: $buid")
+                    //if (buid != null && buid.length == 20) {
+
+                    discoveredIosDevices[mac]?.let { session ->
+                        session.deviceId = buid
+                        scanResultsMap[buid] = session
+                        scanResultsList.add(session)
+                        Log.d("Found new iOS Device")
+                    }
+                    // }
+                    iPhoneConnectionDisposables[mac]?.dispose()
+                    iPhoneConnectionDisposables.remove(mac)
+
+                },
+                { Log.e(it) }
+            )
+    }
+
+    private fun getBuidFromAndroid(bytes: ByteArray): String? {
 
         var result = ByteArray(10)
 
@@ -183,22 +225,20 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
                 // +2 (skip lenght byte and type byte), +16 (skip 128 bit Service UUID)
                 bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
                 break
-            } else if (type == 0x16.toByte()){ //16 bit Service UUID (rare cases)
+            } else if (type == 0x16.toByte()) { //16 bit Service UUID (rare cases)
                 // +2 (skip lenght byte and type byte), +2 (skip 16 bit Service UUID)
                 bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
                 break
-            } else if (type == 0x20.toByte()){ //32 bit Service UUID (just in case)
+            } else if (type == 0x20.toByte()) { //32 bit Service UUID (just in case)
                 // +2 (skip lenght byte and type byte), +4 (skip 32 bit Service UUID)
                 bytes.copyInto(result, 0, currIndex + 2 + 4, currIndex + 2 + 4 + 10)
                 break
-            }
-            else {
+            } else {
                 currIndex += len + 1
             }
         }
 
         val resultHex = result.asHexLower
-        Log.d("BUID = $resultHex")
 
         return if (resultHex != "00000000000000000000") resultHex else null
     }
