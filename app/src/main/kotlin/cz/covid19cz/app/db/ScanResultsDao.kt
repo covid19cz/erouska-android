@@ -25,4 +25,7 @@ interface ScanResultsDao {
 
     @Delete
     fun delete(device: ScanResultEntity)
+
+    @Query("DELETE FROM $TABLE_NAME")
+    fun clear()
 }
