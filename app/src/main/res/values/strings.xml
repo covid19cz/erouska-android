@@ -22,9 +22,12 @@
     <string name="enable_bluetooth_button">Zapnout bluetooth</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
-    <string name="bt_enabled_title">Aplikace je aktivní</string>
+    <string name="dashboard_title">Aplikace je aktivní</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
+    <string name="share_app">Sdílet aplikaci</string>
+    <string name="upload_data">Kontaktovali mě hygienici</string>
+    <string name="show_my_data">Zobrazit moje data</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="bt_onboard_title">Povolte aplikaci přístup k Bluetooth, abychom mohli vytvářet seznam telefonů,  se kterými jste se setkali.</string>
@@ -44,4 +47,5 @@
     <string name="login_code_input_error">Nevalidní kód</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
     <string name="menu_help">Nápověda</string>
+    <string name="sandbox">Sandbox</string>
 </resources>

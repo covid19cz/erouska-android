@@ -2,7 +2,6 @@ package cz.covid19cz.app.ui.sandbox
 
 import android.net.Uri
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,7 @@ import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
+import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.app.utils.Log
 import io.reactivex.disposables.Disposable
 import java.io.File
@@ -62,7 +61,7 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
     }
 
     fun start() {
-        publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_ON))
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
 
     fun confirmStart() {
@@ -71,7 +70,7 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
 
     fun stop() {
         serviceRunning.value = false
-        publish(ServiceCommandEvent(ServiceCommandEvent.Command.TURN_OFF))
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
     }
 
     fun export() {

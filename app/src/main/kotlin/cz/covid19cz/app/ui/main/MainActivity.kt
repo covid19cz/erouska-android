@@ -17,7 +17,7 @@ class MainActivity :
         setSupportActionBar(toolbar)
 
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.label != null){
+            if (destination.label != null) {
                 title = destination.label
             } else {
                 setTitle(R.string.app_name)
@@ -26,9 +26,16 @@ class MainActivity :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.menu_help) {
-            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_help)
-            true
-        } else super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.menu_help -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_help)
+                true
+            }
+            R.id.action_menu_sandbox -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_sandbox)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -1,7 +1,6 @@
 package cz.covid19cz.app
 
 import android.app.Application
-import android.app.NotificationManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.room.Room
@@ -13,7 +12,7 @@ import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
-import cz.covid19cz.app.ui.btenabled.BtEnabledVM
+import cz.covid19cz.app.ui.dashboard.DashboardVM
 import cz.covid19cz.app.ui.btonboard.BtOnboardVM
 import cz.covid19cz.app.ui.dbexplorer.DbExplorerVM
 import cz.covid19cz.app.ui.help.HelpVM
@@ -33,7 +32,7 @@ val viewModelModule = module {
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
-    viewModel { BtEnabledVM() }
+    viewModel { DashboardVM(get(), get(), get()) }
     viewModel { BtOnboardVM() }
     viewModel { DbExplorerVM(get()) }
 }

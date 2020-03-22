@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.btdisabled.BtDisabledVM" />
+            type="cz.covid19cz.app.ui.dashboard.DashboardVM" />
     </data>
 
     <ScrollView
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_bluetooth_disabled"
+                android:src="@drawable/ic_check"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/bt_disabled_title"
+                android:text="@string/dashboard_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/redDark"
+                android:textColor="@color/green"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,19 +51,46 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/bt_disabled_desc"
-
+                android:text="@string/bt_enabled_desc"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintTop_toBottomOf="@id/bluetooth_disabled_title"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="16dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/enable_bluetooth_btn"
+                android:id="@+id/upload_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> vm.enableBluetooth()}"
-                android:text="@string/enable_bluetooth_button"
+                android:layout_marginBottom="8dp"
+                android:onClick="@{() -> vm.export()}"
+                android:text="@string/upload_data"
+                app:layout_constraintBottom_toTopOf="@+id/show_data_button"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bluetooth_disabled_desc"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/show_data_button"
+                style="?materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:onClick="@{() -> vm.openDbExplorer()}"
+                android:text="@string/show_my_data"
+                app:layout_constraintBottom_toTopOf="@+id/share_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/share_button"
+                style="?materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:onClick="@{() -> vm.share()}"
+                android:text="@string/share_app"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
