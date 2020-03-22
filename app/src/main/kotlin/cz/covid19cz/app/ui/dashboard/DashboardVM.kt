@@ -39,10 +39,6 @@ class DashboardVM(
         )
     }
 
-    fun openDbExplorer() {
-        navigate(R.id.action_nav_dashboard_to_nav_user_data)
-    }
-
     private fun uploadToStorage(path: String) {
         val fuid = FirebaseAuth.getInstance().uid
         val timestamp = System.currentTimeMillis()
