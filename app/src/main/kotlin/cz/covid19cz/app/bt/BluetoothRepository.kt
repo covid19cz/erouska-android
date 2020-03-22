@@ -38,7 +38,6 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val discoveredIosDevices = HashMap<String, ScanSession>()
-    //val iOsQueue = Que
     val scanResultsList = ObservableArrayList<ScanSession>()
 
     var isAdvertising = false
