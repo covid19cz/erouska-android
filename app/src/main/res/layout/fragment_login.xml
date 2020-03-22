@@ -147,6 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:imeOptions="actionDone"
                     android:lines="1"
                     android:text="+420"
                     android:maxLength="13" />
@@ -170,6 +171,7 @@
                     android:id="@+id/login_verif_code_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="number"
                     android:lines="1" />
 
