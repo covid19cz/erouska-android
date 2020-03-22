@@ -43,6 +43,6 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
     }
 
     fun openHelpPage() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_help)
+        navigate(R.id.action_nav_welcome_fragment_to_nav_help, Bundle().apply { putBoolean("fullscreen", true) })
     }
 }
