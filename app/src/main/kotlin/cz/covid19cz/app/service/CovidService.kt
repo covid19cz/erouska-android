@@ -152,7 +152,6 @@ class CovidService : Service() {
 
     private fun startBleScanning() {
         bleScanningDisposable = Observable.just(true)
-            .delay(1, TimeUnit.SECONDS)
             .map {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
                     btUtils.startScanning()
@@ -174,7 +173,6 @@ class CovidService : Service() {
 
     private fun startBleAdvertising() {
         bleAdvertisingDisposable = Observable.just(true)
-            .delay(1, TimeUnit.SECONDS)
             .map {
                 if (btUtils.isBtEnabled()) {
                     btUtils.startAdvertising(deviceBuid)
