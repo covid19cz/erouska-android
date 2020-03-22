@@ -17,6 +17,7 @@ import arch.viewmodel.BaseArchViewModel
 import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.app.ui.sandbox.SandboxFragment
 import cz.covid19cz.app.ui.sandbox.SandboxFragment.Companion
+import cz.covid19cz.app.utils.Log
 import kotlin.reflect.KClass
 
 
@@ -79,5 +80,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    open fun onBackPressed(): Boolean {
+        return false
     }
 }

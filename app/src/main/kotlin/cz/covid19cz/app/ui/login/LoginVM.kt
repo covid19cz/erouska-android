@@ -5,16 +5,19 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import cz.covid19cz.app.R
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.utils.boolean
-import cz.covid19cz.app.utils.sharedPrefs
+import cz.covid19cz.app.ui.login.event.ErrorEvent
+import cz.covid19cz.app.utils.toText
 import org.json.JSONObject
 import java.util.*
 
@@ -42,7 +45,16 @@ class LoginVM(
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
             Log.w(TAG, "onVerificationFailed", e)
-            state.postValue(LoginError(e))
+
+            if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_PHONE_NUMBER") {
+                state.postValue(EnterPhoneNumber)
+                publish(ErrorEvent(ErrorEvent.Command.ERROR_PHONE_NUMBER_INVALID_FORMAT))
+            } else if (e is FirebaseNetworkException) {
+                state.postValue(LoginError(R.string.login_network_error.toText()))
+            } else {
+                state.postValue(LoginError(e.message?.toText()))
+            }
+
         }
 
         override fun onCodeSent(
@@ -74,8 +86,7 @@ class LoginVM(
         if (auth.currentUser != null) {
             if (sharedPrefsRepository.getDeviceBuid() == null) {
                 registerDevice()
-            }
-            else {
+            } else {
                 getUser()
             }
         }
@@ -96,7 +107,7 @@ class LoginVM(
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    state.postValue(LoginError(checkNotNull(task.exception)))
+                    state.postValue(LoginError(checkNotNull(task.exception).message?.toText()))
                     //if (task.exception is FirebaseAuthInvalidCredentialsException) {
                     // The verification code entered was invalid
                     //}
@@ -117,7 +128,7 @@ class LoginVM(
             sharedPrefsRepository.putDeviceBuid(buid)
             getUser()
         }.addOnFailureListener {
-            state.postValue(LoginError(it))
+            state.postValue(LoginError(it.message?.toText()))
         }
     }
 

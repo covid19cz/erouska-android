@@ -4,6 +4,8 @@
     <string name="notification_title">eRouška běží</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
 
+    <string name="common_back">Zpět</string>
+
     <string name="notification_title_error">eRouška neběží</string>
     <string name="notification_text_bluetooth_disabled">Pro správnou funkci eRoušky je třeba zapnout bluetooth</string>
     <string name="notification_text_location_disabled">Pro správnou funkci eRoušky je třeba zapnout polohové služby</string>
@@ -41,4 +43,5 @@
     <string name="login_code_input">Zadejte kód z SMS</string>
     <string name="login_phone_input_error">Neplatné telefonní číslo</string>
     <string name="login_code_input_error">Nevalidní kód</string>
+    <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
 </resources>
