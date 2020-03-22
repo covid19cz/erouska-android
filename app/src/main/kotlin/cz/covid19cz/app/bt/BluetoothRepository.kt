@@ -179,11 +179,20 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
             len = bytes[currIndex].toInt()
             type = bytes[currIndex + 1]
 
-            if (type == 0x21.toByte()) {
-                // +2 (skip lenght byte and type byte), +16 (skip Service UUID)
+            if (type == 0x21.toByte()) { //128 bit Service UUID (most cases)
+                // +2 (skip lenght byte and type byte), +16 (skip 128 bit Service UUID)
                 bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
                 break
-            } else {
+            } else if (type == 0x16.toByte()){ //16 bit Service UUID (rare cases)
+                // +2 (skip lenght byte and type byte), +2 (skip 16 bit Service UUID)
+                bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
+                break
+            } else if (type == 0x20.toByte()){ //32 bit Service UUID (just in case)
+                // +2 (skip lenght byte and type byte), +4 (skip 32 bit Service UUID)
+                bytes.copyInto(result, 0, currIndex + 2 + 4, currIndex + 2 + 4 + 10)
+                break
+            }
+            else {
                 currIndex += len + 1
             }
         }
