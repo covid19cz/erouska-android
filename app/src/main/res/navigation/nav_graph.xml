@@ -12,16 +12,32 @@
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_sandbox"
-            app:destination="@id/nav_sandbox" />
+            app:destination="@id/nav_sandbox"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_help"
-            app:destination="@id/nav_help" />
+            app:destination="@id/nav_help"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_bt_onboard"
-            app:destination="@id/nav_bt_onboard" />
+            app:destination="@id/nav_bt_onboard"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_login"
-            app:destination="@id/nav_login" />
+            app:destination="@id/nav_login"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
@@ -31,13 +47,25 @@
         tools:layout="@layout/fragment_sandbox">
         <action
             android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
-            app:destination="@id/nav_bt_disabled" />
+            app:destination="@id/nav_bt_disabled"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_nav_sandbox_to_nav_login"
-            app:destination="@id/nav_login" />
+            app:destination="@id/nav_login"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_nav_sandbox_to_nav_db_explorer"
-            app:destination="@id/nav_db_explorer" />
+            app:destination="@id/nav_db_explorer"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
@@ -53,7 +81,11 @@
         tools:layout="@layout/fragment_bt_disabled">
         <action
             android:id="@+id/action_nav_bt_disabled_to_nav_bt_enabled"
-            app:destination="@id/nav_bt_enabled" />
+            app:destination="@id/nav_bt_enabled"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
@@ -68,12 +100,20 @@
         tools:layout="@layout/fragment_bt_onboard">
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_sandbox"
-            app:destination="@id/nav_sandbox" />
+            app:destination="@id/nav_sandbox"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_login"
             app:destination="@id/nav_login"
             app:popUpTo="@id/nav_welcome_fragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/nav_login"
@@ -82,7 +122,11 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_nav_login_to_nav_sandbox"
-            app:destination="@id/nav_sandbox" />
+            app:destination="@id/nav_sandbox"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/nav_db_explorer"

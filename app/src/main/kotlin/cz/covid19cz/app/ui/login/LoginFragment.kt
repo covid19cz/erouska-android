@@ -3,7 +3,7 @@ package cz.covid19cz.app.ui.login
 import android.app.Activity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
@@ -23,9 +23,8 @@ class LoginFragment :
 
     private lateinit var views: List<View>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onStart() {
+        super.onStart()
         viewModel.state.observe(this) {
             updateState(it)
         }
@@ -38,6 +37,11 @@ class LoginFragment :
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.help, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +60,6 @@ class LoginFragment :
             login_verif_phone,
             login_verif_code,
             login_statement,
-            login_verif_prefix,
             error_button_back
         )
 
@@ -105,8 +108,7 @@ class LoginFragment :
                 login_verif_phone,
                 login_verif_phone_input,
                 login_statement,
-                login_verif_activate_btn,
-                login_verif_prefix
+                login_verif_activate_btn
             )
             AutoVerificationProgress -> show(login_progress)
             EnterCode -> show(
@@ -156,11 +158,10 @@ class LoginFragment :
     }
 
     private fun verifyPhoneNumber() {
-        val prefix = login_verif_prefix_input.text.toString()
         val phoneNumber = login_verif_phone_input.text.toString()
         viewModel.state.postValue(AutoVerificationProgress)
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            prefix + phoneNumber, // Phone number to verify
+            phoneNumber, // Phone number to verify
             AppConfig.smsTimeoutSeconds, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             requireActivity(), // Activity (for callback binding)

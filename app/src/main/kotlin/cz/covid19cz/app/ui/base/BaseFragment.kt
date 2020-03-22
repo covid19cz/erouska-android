@@ -2,10 +2,7 @@ package cz.covid19cz.app.ui.base
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
@@ -15,6 +12,7 @@ import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
 import com.google.android.material.snackbar.Snackbar
+import cz.covid19cz.app.R
 import cz.covid19cz.app.ui.sandbox.SandboxFragment
 import cz.covid19cz.app.ui.sandbox.SandboxFragment.Companion
 import cz.covid19cz.app.utils.Log
@@ -56,8 +54,16 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         // stub
     }
 
-    fun enableUpInToolbar(enable: Boolean) {
+    fun enableUpInToolbar(enable: Boolean, iconType: IconType = IconType.UP) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+        if (enable) {
+            when (iconType) {
+                IconType.CLOSE -> R.drawable.ic_action_close
+                IconType.UP -> R.drawable.ic_action_up
+            }.run {
+                (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(this)
+            }
+        }
     }
 
     fun requestEnableBt() {
@@ -84,5 +90,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
 
     open fun onBackPressed(): Boolean {
         return false
+    }
+
+    enum class IconType {
+        UP, CLOSE
     }
 }
