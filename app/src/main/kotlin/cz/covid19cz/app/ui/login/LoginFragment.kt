@@ -49,7 +49,6 @@ class LoginFragment :
 
         setupListeners()
 
-        setToolbarTitle(R.string.login_toolbar_title)
         enableUpInToolbar(true)
     }
 

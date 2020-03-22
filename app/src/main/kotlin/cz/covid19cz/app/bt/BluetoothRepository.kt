@@ -15,10 +15,13 @@ import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.ext.asHexLower
+import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.utils.Log
+import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import java.nio.charset.Charset
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
@@ -50,6 +53,7 @@ class BluetoothRepository(context: Context) {
     var isScanning = false
 
     var scanDisposable: Disposable? = null
+    var outOfRangeChecker: Disposable? = null
 
     init {
         btManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
@@ -85,19 +89,25 @@ class BluetoothRepository(context: Context) {
 
         // "Some" scan filter needed for background scanning since Android 8.1.
         // However, some devices (at least Samsung S10e...) consider empty filter == no filter.
+        //TODO: We have to solve this using some list of problematic devices
         val builder = ScanFilter.Builder()
         builder.setServiceUuid(ParcelUuid(SERVICE_UUID))
         val scanFilter = builder.build()
 
         scanDisposable = rxBleClient.scanBleDevices(
             ScanSettings.Builder().setScanMode(AppConfig.scanMode).build(),
-            scanFilter
+            ScanFilter.Builder().build()
         ).subscribe({ scanResult ->
             onScanResult(scanResult)
         }, {
             isScanning = false
             Log.e(it)
         })
+
+        outOfRangeChecker = Observable.interval(0, 5, TimeUnit.SECONDS)
+            .map {
+                scanResultsList.forEach { it.checkOutOfRange() }
+            }.subscribe()
 
         isScanning = true
     }
@@ -107,32 +117,18 @@ class BluetoothRepository(context: Context) {
         Log.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
+        outOfRangeChecker?.dispose()
+        outOfRangeChecker = null
     }
 
     private fun onScanResult(result: ScanResult) {
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
-            val deviceId: String? =
-                when {
-                    result.scanRecord.deviceName == "Covid-19" -> {
-                        Log.d("Probably iPhone detected")
-                        //TODO: Handle iPhone
-                        "iPhone"
-                    }
-                    result.scanRecord?.serviceData?.containsKey(ParcelUuid(SERVICE_UUID)) == true -> {
-                        // BUID is in the map under our UUID
-                        Log.d("BUID is in the map under our UUID")
-                        toBuid(result.scanRecord.getServiceData(ParcelUuid(SERVICE_UUID))!!)
-                    }
-                    result.scanRecord.serviceData.isNotEmpty() -> {
-                        // BUID is in the map under different UUID
-                        Log.d("BUID is in the map under different UUID")
-                        toBuid(result.scanRecord.serviceData.values.first())
-                    }
-                    else -> {
-                        // BUID isn't in the map, it's time to try hack...
-                        hackyParseBuid(result)
-                    }
-                }
+
+            var deviceId = findBuid(result.scanRecord.bytes)
+            if (result.scanRecord.deviceName == "Covid-19" && deviceId == null){
+                Log.d("Probably iPhone detected")
+                deviceId = "iPhone"
+            }
 
             deviceId?.let {
                 if (!scanResultsMap.containsKey(deviceId)) {
@@ -150,36 +146,31 @@ class BluetoothRepository(context: Context) {
         }
     }
 
-    private fun hackyParseBuid(result: ScanResult): String? {
-        val hackyBuidBytes = ByteArray(10)
-        var lastByteIndex = -1
+    private fun findBuid(bytes : ByteArray) : String? {
 
-        return result.scanRecord?.bytes?.let {
-            for (i in result.scanRecord.bytes.size - 1 downTo 0) {
-                if (result.scanRecord.bytes[i] != 0x00.toByte()) {
-                    lastByteIndex = i + 1
+        var result = ByteArray(10)
+
+        var currIndex = 0
+        var len = -1
+        var type : Byte
+
+        while (currIndex < bytes.size && len != 0){
+                len = bytes[currIndex].toInt()
+                type = bytes[currIndex+1]
+
+                if (type == 0x21.toByte()){
+                    // +2 (skip lenght byte and type byte), +16 (skip Service UUID)
+                    bytes.copyInto(result, 0,currIndex + 2 + 16, currIndex + 2 + 16 + 10)
                     break
+                } else {
+                    currIndex+=len+1
                 }
-            }
-
-            if (lastByteIndex != -1) {
-                result.scanRecord.bytes.copyInto(
-                    hackyBuidBytes,
-                    0,
-                    lastByteIndex - 10,
-                    lastByteIndex
-                )
-                Log.d("Parsed BUID from ScanResult raw data")
-                toBuid(hackyBuidBytes)
-            } else {
-                Log.d("Could not parse BUID from ScanResult raw data")
-                null
-            }
         }
-    }
 
-    private fun toBuid(rawBytes: ByteArray): String {
-        return String(rawBytes, Charset.forName("utf-8"))
+            val resultHex = result.asHexLower
+            Log.d("BUID = $resultHex")
+
+            return if(resultHex != "00000000000000000000") resultHex else null
     }
 
     fun clearScanResults() {
@@ -187,11 +178,11 @@ class BluetoothRepository(context: Context) {
         scanResultsMap.clear()
     }
 
-    fun isServerAvailable(): Boolean {
+    fun supportsAdvertising(): Boolean {
         return btManager.adapter?.isMultipleAdvertisementSupported ?: false
     }
 
-    fun startAdvertising(deviceId: String) {
+    fun startAdvertising(buid: String) {
 
         val power = AppConfig.advertiseTxPower
 
@@ -217,16 +208,14 @@ class BluetoothRepository(context: Context) {
             .build()
 
         val scanData = AdvertiseData.Builder()
-            .addServiceData(parcelUuid, deviceId.toByteArray(Charset.forName("utf-8"))).build()
+            .addServiceData(parcelUuid, buid.hexAsByteArray).build()
 
         btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
             settings,
             data,
             scanData,
             serverCallback
-        );
-
-        //btManager.openGattServer(c, serverCallback).addService(service)
+        )
     }
 
     fun stopAdvertising() {

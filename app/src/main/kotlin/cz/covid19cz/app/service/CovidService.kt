@@ -65,7 +65,7 @@ class CovidService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        deviceBuid = prefs.getDeviceBuid() ?: "UNREGISTER"
+        deviceBuid = prefs.getDeviceBuid() ?: "00000000000000000000"
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -217,9 +217,7 @@ class CovidService : Service() {
                     item.deviceId,
                     item.timestampStart,
                     item.timestampEnd,
-                    item.minRssi,
                     item.maxRssi,
-                    item.avgRssi,
                     item.medRssi,
                     item.rssiCount
                 )

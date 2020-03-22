@@ -9,9 +9,7 @@ data class ScanResultEntity(
     val buid: String,
     val timestampStart: Long,
     val timestampEnd: Long,
-    val rssiMin: Int,
     val rssiMax: Int,
-    val rssiAvg: Int,
     val rssiMed: Int,
     val rssiCount: Int
 )

@@ -65,7 +65,6 @@ class SandboxFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.bluetooth_toolbar_title)
         enableUpInToolbar(false)
     }
 

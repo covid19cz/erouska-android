@@ -55,14 +55,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         // stub
     }
 
-    fun setToolbarTitle(@StringRes titleId: Int) {
-        setToolbarTitle(getString(titleId))
-    }
-
-    fun setToolbarTitle(title: String) {
-        (activity as AppCompatActivity).supportActionBar?.title = title
-    }
-
     fun enableUpInToolbar(enable: Boolean) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(enable)
     }

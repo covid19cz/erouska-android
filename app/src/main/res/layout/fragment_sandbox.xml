@@ -36,44 +36,15 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            tools:text="BUID: 1234567890"
             android:text='@{String.format("BUID: %s", vm.buid)}'
-            android:textSize="20sp"/>
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textPowerTitle"
-        app:layout_constraintTop_toBottomOf="@id/textBuid"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:text="Vysílací výkon"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textPower"
-            app:layout_constraintTop_toBottomOf="@id/textPowerTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@{vm.powerToString(vm.power)}"/>
-
-
-        <androidx.appcompat.widget.AppCompatSeekBar
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarPower"
-            app:layout_constraintTop_toTopOf="@id/textPowerTitle"
-            app:layout_constraintStart_toEndOf="@id/textPowerTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginLeft="16dp"
-            android:progress="@={vm.power}"
-            android:enabled="@{!vm.serviceRunning}"
-            android:max="4"/>
+            android:textSize="16sp"/>
 
         <ProgressBar
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:layout_constraintTop_toBottomOf="@id/textPower"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="16dp"
             app:visibleOrGone="@{vm.serviceRunning}"/>
 
@@ -85,17 +56,18 @@
             app:layout_constraintEnd_toStartOf="@id/buttonStop"
             android:layout_marginRight="8dp"
             android:enabled="@{!vm.buid.empty &amp;&amp; !vm.serviceRunning}"
-            android:text="Zapnout"
+            android:text="ZAP"
             android:onClick="@{() -> vm.start()}"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonStop"
-            app:layout_constraintTop_toBottomOf="@id/seekBarPower"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/textBuid"
             app:layout_constraintEnd_toEndOf="parent"
             android:enabled="@{vm.serviceRunning}"
-            android:text="Vypnout"
+            android:text="VYP"
             android:onClick="@{() -> vm.stop()}"/>
 
         <TextView
@@ -111,7 +83,7 @@
             android:id="@+id/buttonExport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exportovat"
+            android:text="EXPORT"
             android:onClick="@{() -> vm.export()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonStart" />

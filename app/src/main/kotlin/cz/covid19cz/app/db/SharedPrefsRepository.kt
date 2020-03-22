@@ -21,7 +21,21 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun getDeviceBuid() : String?{
-        return prefs.getString(DEVICE_BUID, null)
+        return prefs.getString(DEVICE_BUID, null)?.let {
+            // check BUID and delete if old 10 chars BUID present
+            if (it.length != 20){
+                removeDeviceBuid()
+                return@let null
+            }
+            return@let it
+        }
+    }
+
+    private fun checkBuid(){
+
+        if (prefs.contains(DEVICE_BUID) && getDeviceBuid()?.length != 20){
+
+        }
     }
 
     fun clear(){

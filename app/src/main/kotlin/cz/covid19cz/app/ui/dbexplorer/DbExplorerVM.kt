@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.dbexplorer
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import cz.covid19cz.app.R
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.ScanResultEntity
 import cz.covid19cz.app.ui.base.BaseVM
@@ -31,6 +32,20 @@ class DbExplorerVM(val dbRepo: DatabaseRepository) : BaseVM() {
     }
 
     fun getAvgSeconds(start : Long, end : Long, count : Int) : String{
-        return "${(end - start)/count/1000}s"
+        return String.format("%.1fs", (end - start)/count.toFloat()/1000f)
+    }
+
+    fun getExpositionColor(rssi : Int) : Int{
+        return when{
+            rssi >= -65 -> R.color.exposition_level_8
+            rssi >= -70 -> R.color.exposition_level_7
+            rssi >= -75 -> R.color.exposition_level_6
+            rssi >= -80 -> R.color.exposition_level_5
+            rssi >= -85 -> R.color.exposition_level_4
+            rssi >= -90 -> R.color.exposition_level_3
+            rssi >= -95 -> R.color.exposition_level_2
+            else -> R.color.exposition_level_1
+
+        }
     }
 }
