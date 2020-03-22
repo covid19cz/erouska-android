@@ -18,12 +18,14 @@ import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
+import cz.covid19cz.app.receiver.ScreenStateReceiver
 import cz.covid19cz.app.ui.notifications.CovidNotificationManager
 import cz.covid19cz.app.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
+
 
 class CovidService : Service() {
 
@@ -33,9 +35,12 @@ class CovidService : Service() {
         const val ACTION_UPDATE = "ACTION_UPDATE"
         const val ACTION_PAUSE = "ACTION_PAUSE"
         const val ACTION_RESUME = "ACTION_RESUME"
+        const val ACTION_SCREEN_STATE_CHANGE = "ACTION_SCREEN_STATE_CHANGE"
 
         const val ACTION_MASK_STARTED = "action_service_started"
         const val ACTION_MASK_STOPPED = "action_service_stopped"
+
+        const val EXTRA_SCREEN_STATE = "SCREEN_STATE"
 
         fun startService(c: Context): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
@@ -67,6 +72,13 @@ class CovidService : Service() {
             return serviceIntent
         }
 
+        fun screenStateChange(c: Context, newState: String) {
+            val intent = Intent(c, CovidService::class.java)
+            intent.action = ACTION_SCREEN_STATE_CHANGE
+            intent.putExtra(EXTRA_SCREEN_STATE, newState)
+            c.startService(intent)
+        }
+
         fun isRunning(context: Context): Boolean {
             val manager =
             context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
@@ -82,6 +94,7 @@ class CovidService : Service() {
     private val locationStateReceiver by inject<LocationStateReceiver>()
     private val bluetoothStateReceiver by inject<BluetoothStateReceiver>()
     private val batterySaverStateReceiver by inject<BatterSaverStateReceiver>()
+    private val screenStateReceiver by inject<ScreenStateReceiver>()
     private val btUtils by inject<BluetoothRepository>()
     private val prefs by inject<SharedPrefsRepository>()
     private val wakeLockManager by inject<WakeLockManager>()
@@ -93,7 +106,10 @@ class CovidService : Service() {
     private var bleScanningDisposable: Disposable? = null
 
     private lateinit var deviceBuid: String
+    private var useScanFilter: Boolean = false
     private var servicePaused = false
+
+    private var screenOfDetectionTimer: CountDownTimer? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -138,6 +154,14 @@ class CovidService : Service() {
                 servicePaused = false
                 createNotification()
                 turnMaskOn()
+            }
+            ACTION_SCREEN_STATE_CHANGE -> {
+                L.d("Screen state change: ${intent.getStringExtra(EXTRA_SCREEN_STATE)}")
+
+                when (intent.getStringExtra(EXTRA_SCREEN_STATE)) {
+                    Intent.ACTION_SCREEN_OFF -> startScreenOffScanningCheck()
+                    Intent.ACTION_SCREEN_ON -> screenOfDetectionTimer?.cancel()
+                }
             }
         }
         return START_STICKY
@@ -196,19 +220,24 @@ class CovidService : Service() {
 
         val batterySaverFilter = IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
         registerReceiver(batterySaverStateReceiver, batterySaverFilter)
+
+        val screenStateFilter = IntentFilter(Intent.ACTION_SCREEN_OFF)
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_ON)
+        registerReceiver(screenStateReceiver, screenStateFilter)
     }
 
     private fun unsubscribeFromReceivers() {
         unregisterReceiver(locationStateReceiver)
         unregisterReceiver(bluetoothStateReceiver)
         unregisterReceiver(batterySaverStateReceiver)
+        unregisterReceiver(screenStateReceiver)
     }
 
     private fun startBleScanning() {
         bleScanningDisposable = Observable.just(true)
             .map {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
-                    btUtils.startScanning()
+                    btUtils.startScanning(useScanFilter)
                 } else {
                     bleScanningDisposable?.dispose()
                 }
@@ -216,6 +245,7 @@ class CovidService : Service() {
             .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
             .map {
                 btUtils.stopScanning()
+                screenOfDetectionTimer?.cancel()
             }
             .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
             .repeat()
@@ -248,6 +278,40 @@ class CovidService : Service() {
             powerManager.locationPowerSaveMode == PowerManager.LOCATION_MODE_ALL_DISABLED_WHEN_SCREEN_OFF
         } else {
             true
+        }
+    }
+
+    /**
+     * Starts regular check to ensure we're reading data when the screen is off.
+     */
+    private fun startScreenOffScanningCheck() {
+        Handler(Looper.getMainLooper()).post {
+            val switchedOffSince = System.currentTimeMillis()
+
+            /**
+             * Wait up-to 30s, try every 10 seconds.
+             * If the check passes, this timer is stopped.
+             * If onFinish is invoked, it means the test didn't passed => we have to restart scanning.
+             */
+            screenOfDetectionTimer =
+                object : CountDownTimer(30 * 1000, 10 * 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        btUtils.lastScanResultTime.value?.let { lastResultTime ->
+                            L.d("Checking if it's still scanning")
+                            if (lastResultTime > switchedOffSince + 1000) { // 1s tolerance
+                                // Device does support scanning on background with empty filter
+                                screenOfDetectionTimer?.cancel() // cancel this check, it's not needed anymore
+                            }
+                        }
+                    }
+
+                    override fun onFinish() {
+                        L.d("Device does NOT support scanning on background with empty filter, restarting")
+                        useScanFilter = true
+                        btUtils.stopScanning()
+                        btUtils.startScanning(useScanFilter = true)
+                    }
+                }.start()
         }
     }
 }

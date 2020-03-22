@@ -64,6 +64,7 @@
 
         <receiver android:name=".receiver.BluetoothStateReceiver"/>
         <receiver android:name=".receiver.LocationStateReceiver"/>
+        <receiver android:name=".receiver.ScreenStateReceiver"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
