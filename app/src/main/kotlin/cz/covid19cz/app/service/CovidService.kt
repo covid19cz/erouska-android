@@ -8,11 +8,13 @@ import android.content.IntentFilter
 import android.location.LocationManager
 import android.os.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.isLocationEnabled
+import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.ui.notifications.CovidNotificationManager
@@ -50,9 +52,11 @@ class CovidService : Service() {
 
     private val locationStateReceiver by inject<LocationStateReceiver>()
     private val bluetoothStateReceiver by inject<BluetoothStateReceiver>()
+    private val batterySaverStateReceiver by inject<BatterSaverStateReceiver>()
     private val btUtils by inject<BluetoothRepository>()
     private val prefs by inject<SharedPrefsRepository>()
     private val wakeLockManager by inject<WakeLockManager>()
+    private val powerManager by inject<PowerManager>()
     private val notificationManager = CovidNotificationManager(this)
 
     private var bleAdvertisingDisposable: Disposable? = null
@@ -63,7 +67,7 @@ class CovidService : Service() {
     override fun onCreate() {
         super.onCreate()
         deviceBuid = prefs.getDeviceBuid() ?: "00000000000000000000"
-        subscribeToBluetoothAndLocationStates()
+        subscribeToReceivers()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -95,7 +99,7 @@ class CovidService : Service() {
     override fun onDestroy() {
         wakeLockManager.release()
         turnMaskOff()
-        unsubscribeFromBluetoothAndLocationStates()
+        unsubscribeFromReceivers()
 
         super.onDestroy()
     }
@@ -120,20 +124,30 @@ class CovidService : Service() {
     }
 
     private fun createNotification() {
-        notificationManager.postNotification(btUtils.isBtEnabled(), isLocationEnabled())
+        notificationManager.postNotification(
+            CovidNotificationManager.ServiceStatus(
+                btUtils.isBtEnabled(),
+                isLocationEnabled(),
+                batterySaverRestrictsLocation()
+            )
+        )
     }
 
-    private fun subscribeToBluetoothAndLocationStates() {
-        val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
-        registerReceiver(locationStateReceiver, filter)
+    private fun subscribeToReceivers() {
+        val locationFilter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        registerReceiver(locationStateReceiver, locationFilter)
 
         val btFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
         registerReceiver(bluetoothStateReceiver, btFilter)
+
+        val batterySaverFilter = IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
+        registerReceiver(batterySaverStateReceiver, batterySaverFilter)
     }
 
-    private fun unsubscribeFromBluetoothAndLocationStates() {
+    private fun unsubscribeFromReceivers() {
         unregisterReceiver(locationStateReceiver)
         unregisterReceiver(bluetoothStateReceiver)
+        unregisterReceiver(batterySaverStateReceiver)
     }
 
     private fun startBleScanning() {
@@ -176,5 +190,13 @@ class CovidService : Service() {
                 { Log.i("Restarting BLE advertising") },
                 { Log.e(it) }
             )
+    }
+
+    private fun batterySaverRestrictsLocation(): Boolean {
+        return powerManager.isPowerSaveMode && if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            powerManager.locationPowerSaveMode == PowerManager.LOCATION_MODE_ALL_DISABLED_WHEN_SCREEN_OFF
+        } else {
+            true
+        }
     }
 }

@@ -2,11 +2,13 @@ package cz.covid19cz.app
 
 import android.app.Application
 import android.app.NotificationManager
+import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.room.Room
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.*
 import cz.covid19cz.app.db.export.CsvExporter
+import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
@@ -65,7 +67,11 @@ val repositoryModule = module {
 val appModule = module {
     single { LocationStateReceiver() }
     single { BluetoothStateReceiver() }
+    single { BatterSaverStateReceiver() }
     single { WakeLockManager(androidContext().getSystemService()) }
+    single { androidContext().getSystemService<PowerManager>() }
 }
+
+
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)
