@@ -3,7 +3,7 @@ package cz.covid19cz.app.ui.sandbox
 import android.net.Uri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
-import arch.livedata.SafeMutableLiveData
+    import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -12,15 +12,22 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.bt.entity.ScanSession
+import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
-import cz.covid19cz.app.utils.Log
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.io.File
 
-class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter, val prefs : SharedPrefsRepository) :
+class SandboxVM(
+    val bluetoothRepository: BluetoothRepository,
+    private val exporter: CsvExporter,
+    private val prefs : SharedPrefsRepository,
+    private val repository: DatabaseRepository
+) :
     BaseVM() {
 
     val buid = prefs.getDeviceBuid()
@@ -56,10 +63,6 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
         return devices
     }
 
-    fun onError(t: Throwable) {
-        Log.e(t)
-    }
-
     fun start() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
@@ -86,6 +89,17 @@ class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvE
 
     fun openDbExplorer(){
         navigate(R.id.action_nav_sandbox_to_nav_db_explorer)
+    }
+
+    fun nuke() {
+        prefs.clear()
+        Completable.fromAction(repository::clear)
+            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                navigate(R.id.action_nav_sandbox_to_nav_welcome_fragment)
+            }
+        FirebaseAuth.getInstance().signOut()
     }
 
     private fun uploadToStorage(path: String) {

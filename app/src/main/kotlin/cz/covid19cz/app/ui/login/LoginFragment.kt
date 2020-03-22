@@ -2,8 +2,9 @@ package cz.covid19cz.app.ui.login
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
@@ -13,8 +14,8 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentLoginBinding
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.login.event.ErrorEvent
 import cz.covid19cz.app.utils.Text
+import cz.covid19cz.app.utils.setOnDoneListener
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -27,15 +28,6 @@ class LoginFragment :
         super.onStart()
         viewModel.state.observe(this) {
             updateState(it)
-        }
-
-        subscribe(ErrorEvent::class) {
-            when (it.command) {
-                ErrorEvent.Command.ERROR_PHONE_NUMBER_INVALID_FORMAT -> {
-                    login_verif_phone.isErrorEnabled = true
-                    login_verif_phone.error = getString(R.string.login_phone_input_error)
-                }
-            }
         }
     }
 
@@ -69,87 +61,78 @@ class LoginFragment :
     }
 
     private fun setupListeners() {
-        login_verif_activate_btn.setOnClickListener {
-            hideKeyboard(login_verif_activate_btn)
-
-            if (login_verif_phone_input.text?.trim()?.isNotEmpty() == true) {
-                login_verif_phone.isErrorEnabled = false
-                verifyPhoneNumber()
-            } else {
-                login_verif_phone.isErrorEnabled = true
-                login_verif_phone.error = getString(R.string.login_phone_input_error)
-            }
-        }
-        login_verif_code_send_btn.setOnClickListener {
-            hideKeyboard(login_verif_code_send_btn)
-
-            if (login_verif_code_input.text?.trim()?.isNotEmpty() == true) {
-                login_verif_code.isErrorEnabled = false
-                viewModel.codeEntered(login_verif_code_input.text.toString())
-            } else {
-                login_verif_code.isErrorEnabled = true
-                login_verif_code.error = getString(R.string.login_code_input_error)
-            }
-        }
         login_verif_phone_input.addTextChangedListener(afterTextChanged = {
             login_verif_phone.isErrorEnabled = false
         })
+        login_verif_phone_input.setOnDoneListener {
+            hideKeyboard(login_verif_activate_btn)
+            viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
+        }
+        login_verif_activate_btn.setOnClickListener {
+            hideKeyboard(login_verif_activate_btn)
+            viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
+        }
+        login_verif_code_input.addTextChangedListener(afterTextChanged = {
+            login_verif_code.isErrorEnabled = false
+        })
+        login_verif_code_input.setOnDoneListener {
+            hideKeyboard(login_verif_code_send_btn)
+            viewModel.codeEntered(login_verif_code_input.text.toString())
+        }
+        login_verif_code_send_btn.setOnClickListener {
+            hideKeyboard(login_verif_code_send_btn)
+            viewModel.codeEntered(login_verif_code_input.text.toString())
+        }
         error_button_back.setOnClickListener {
-            viewModel.state.postValue(EnterPhoneNumber)
+            viewModel.backPressed()
         }
     }
 
     private fun updateState(state: LoginState) {
         when (state) {
-            EnterPhoneNumber -> show(
-                login_verif_image,
-                login_title,
-                login_desc,
-                login_verif_phone,
-                login_verif_phone_input,
-                login_statement,
-                login_verif_activate_btn
-            )
-            AutoVerificationProgress -> show(login_progress)
-            EnterCode -> show(
-                login_verif_image,
-                login_verif_code_input,
-                login_verif_code,
-                login_verif_code_send_btn
-            )
-            SigningProgress -> show(login_progress)
-            is LoginError -> showError(state.text)
-            is SignedIn -> showSignedIn(state)
-        }
-    }
-
-    private fun showSignedIn(user: SignedIn) {
-        login_info.text = "Přihlášeno.\n\nFUID: ${user.fuid}\n" +
-                "BUID: ${user.buid}\nTel. č.: ${user.phoneNumber}"
-        show(login_info)
-        waitAndOpenSandbox(2000)
-    }
-
-    private fun waitAndOpenSandbox(millisToWait: Long) {
-        val timer = object : CountDownTimer(millisToWait, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                //stub
-            }
-
-            override fun onFinish() {
-                if (isAdded) {
-                    navigate(
-                        R.id.action_nav_login_to_nav_dashboard, null,
-                        Builder()
-                            .setPopUpTo(
-                                R.id.nav_graph,
-                                true
-                            ).build()
-                    )
+            is EnterPhoneNumber -> {
+                show(
+                    login_verif_image,
+                    login_title,
+                    login_desc,
+                    login_verif_phone,
+                    login_verif_phone_input,
+                    login_statement,
+                    login_verif_activate_btn
+                )
+                login_verif_phone.isErrorEnabled = state.invalidPhoneNumber
+                if (state.invalidPhoneNumber) {
+                    login_verif_phone.error = getString(R.string.login_phone_input_error)
                 }
             }
+            is EnterCode -> {
+                show(
+                    login_verif_image,
+                    login_verif_code_input,
+                    login_verif_code,
+                    login_verif_code_send_btn
+                )
+                login_verif_code.isErrorEnabled = state.invalidCode
+                if (state.invalidCode) {
+                    login_verif_code.error = getString(R.string.login_code_input_error)
+                }
+            }
+            SigningProgress -> show(login_progress)
+            is LoginError -> showError(state.text)
+            is SignedIn -> showSignedIn()
+            StartVerification -> verifyPhoneNumber()
         }
-        timer.start()
+    }
+
+    private fun showSignedIn() {
+        navigate(
+            R.id.action_nav_login_to_nav_dashboard, null,
+            Builder()
+                .setPopUpTo(
+                    R.id.nav_graph,
+                    true
+                ).build()
+        )
     }
 
     private fun showError(text: Text?) {
@@ -158,8 +141,8 @@ class LoginFragment :
     }
 
     private fun verifyPhoneNumber() {
+        show(login_progress)
         val phoneNumber = login_verif_phone_input.text.toString()
-        viewModel.state.postValue(AutoVerificationProgress)
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber, // Phone number to verify
             AppConfig.smsTimeoutSeconds, // Timeout duration
@@ -185,7 +168,7 @@ class LoginFragment :
 
     override fun onBackPressed(): Boolean {
         return if (viewModel.state.value is LoginError) {
-            viewModel.state.postValue(EnterPhoneNumber)
+            viewModel.backPressed()
             true
         } else false
     }

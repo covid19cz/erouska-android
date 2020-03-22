@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_menu_sandbox"
+        android:id="@+id/nav_sandbox"
         android:title="@string/sandbox"
         app:showAsAction="never" />
 </menu>

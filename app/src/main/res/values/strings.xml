@@ -19,7 +19,7 @@
     <string name="help_toolbar_title">Jak to funguje</string>
     <string name="bluetooth_toolbar_title">Hledání zařízení</string>
     <string name="go_back_button">Zpět do aplikace</string>
-    <string name="enable_bluetooth_button">Zapnout bluetooth</string>
+    <string name="enable_bluetooth_button">Pokračovat</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
     <string name="dashboard_title">Aplikace je aktivní</string>
@@ -48,4 +48,5 @@
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
     <string name="menu_help">Nápověda</string>
     <string name="sandbox">Sandbox</string>
+    <string name="my_data">Moje data</string>
 </resources>

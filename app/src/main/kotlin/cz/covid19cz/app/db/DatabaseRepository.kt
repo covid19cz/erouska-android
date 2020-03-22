@@ -5,9 +5,9 @@ import io.reactivex.Single
 interface DatabaseRepository {
 
     val data: Single<List<ScanResultEntity>>
-
-    fun add(scanResult: ScanResultEntity) : Long
+    fun add(scanResult: ScanResultEntity): Long
     fun delete(scanResult: ScanResultEntity)
+    fun clear()
 }
 
 class ExpositionRepositoryImpl(private val dao: ScanResultsDao) :
@@ -15,11 +15,15 @@ class ExpositionRepositoryImpl(private val dao: ScanResultsDao) :
 
     override val data: Single<List<ScanResultEntity>> = dao.getAll()
 
-    override fun add(device: ScanResultEntity) : Long {
+    override fun add(device: ScanResultEntity): Long {
         return dao.insert(device)
     }
 
     override fun delete(scanResult: ScanResultEntity) {
         dao.delete(scanResult)
+    }
+
+    override fun clear() {
+        dao.clear()
     }
 }
