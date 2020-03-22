@@ -15,11 +15,11 @@ import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
-import cz.covid19cz.app.ext.asHexLower
-import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.ScanResultEntity
+import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
+import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.utils.Log
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -123,18 +123,22 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
             .map { tempArray ->
                 for (item in tempArray) {
                     item.calculate()
-                    db.add(
-                        ScanResultEntity(
-                            0,
-                            item.deviceId,
-                            item.timestampStart,
-                            item.timestampEnd,
-                            item.maxRssi,
-                            item.medRssi,
-                            item.rssiCount
-                        )
+
+                    val scanResult = ScanResultEntity(
+                        0,
+                        item.deviceId,
+                        item.timestampStart,
+                        item.timestampEnd,
+                        item.maxRssi,
+                        item.medRssi,
+                        item.rssiCount
                     )
+
+                    Log.d("Saving: $scanResult")
+
+                    db.add(scanResult)
                 }
+
                 tempArray.size
             }.execute({
                 Log.i("$it records saved")
@@ -144,9 +148,13 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
 
     private fun onScanResult(result: ScanResult) {
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
-
             var deviceId = findBuid(result.scanRecord.bytes)
-            if (result.scanRecord.deviceName == "Covid-19" && deviceId == null) {
+
+            if (deviceId.isNullOrBlank()) {
+                deviceId = tryHackyParseBuid(result)
+            }
+
+            if (deviceId.isNullOrBlank() && result.scanRecord.deviceName == "Covid-19") {
                 Log.d("Probably iPhone detected")
                 deviceId = "iPhone"
             }
@@ -161,15 +169,14 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
 
                 scanResultsMap[deviceId]?.let { entity ->
                     entity.addRssi(result.rssi)
-                    Log.d("Found existing device: $deviceId")
+                    Log.d("Device $deviceId RSSI ${result.rssi}")
                 }
             }
         }
     }
 
     private fun findBuid(bytes: ByteArray): String? {
-
-        var result = ByteArray(10)
+        val result = ByteArray(10)
 
         var currIndex = 0
         var len = -1
@@ -189,9 +196,39 @@ class BluetoothRepository(context: Context, private val db: DatabaseRepository) 
         }
 
         val resultHex = result.asHexLower
-        Log.d("BUID = $resultHex")
 
-        return if (resultHex != "00000000000000000000") resultHex else null
+        return if (resultHex != "00000000000000000000") {
+            Log.d("BUID = $resultHex")
+            resultHex
+        } else null
+    }
+
+    private fun tryHackyParseBuid(result: ScanResult): String? {
+        val hackyBuidBytes = ByteArray(10)
+        var lastByteIndex = -1
+
+        return result.scanRecord?.bytes?.let {
+            for (i in result.scanRecord.bytes.size - 1 downTo 0) {
+                if (result.scanRecord.bytes[i] != 0x00.toByte()) {
+                    lastByteIndex = i + 1
+                    break
+                }
+            }
+
+            if (lastByteIndex != -1) {
+                result.scanRecord.bytes.copyInto(
+                    hackyBuidBytes,
+                    0,
+                    lastByteIndex - 10,
+                    lastByteIndex
+                )
+                Log.d("Parsed BUID from ScanResult raw data")
+                hackyBuidBytes.asHexLower
+            } else {
+                Log.d("Could not parse BUID from ScanResult raw data")
+                null
+            }
+        }
     }
 
     private fun clearScanResults() {
