@@ -79,7 +79,7 @@ class CovidNotificationManager(private val service: CovidService) {
                     actionIntent = getBatterySaverSettingsIntent()
                     actionText = R.string.notification_action_disable_battery_saver
                 }
-                serviceStatus.bluetoothEnabled -> {
+                !serviceStatus.bluetoothEnabled -> {
                     text = R.string.notification_text_bluetooth_disabled
                     actionIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     actionText = R.string.notification_action_enable_bluetooth
