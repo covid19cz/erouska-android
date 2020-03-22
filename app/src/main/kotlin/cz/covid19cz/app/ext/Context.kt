@@ -4,13 +4,12 @@ import android.content.Context
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
+import androidx.core.content.getSystemService
 
 fun Context.isLocationEnabled(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         // This is new method provided in API 28
-        val lm =
-            this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        lm.isLocationEnabled
+        getSystemService<LocationManager>()?.isLocationEnabled ?: false
     } else {
         // This is Deprecated in API 28
         val mode = Settings.Secure.getInt(

@@ -3,7 +3,7 @@ package cz.covid19cz.app.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [ScanResultEntity::class], version = 5, exportSchema = false)
+@Database(entities = [ScanResultEntity::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object{

@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.sandbox
 
 import android.net.Uri
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +24,7 @@ import java.io.File
 class SandboxVM(val bluetoothRepository: BluetoothRepository, val exporter: CsvExporter, val prefs : SharedPrefsRepository) :
     BaseVM() {
 
-    val buid = SafeMutableLiveData(prefs.getDeviceBuid() ?: "")
+    val buid = prefs.getDeviceBuid()
     val devices = bluetoothRepository.scanResultsList
     val serviceRunning = SafeMutableLiveData(false)
     val power = SafeMutableLiveData(0)

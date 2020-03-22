@@ -21,7 +21,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.help_toolbar_title)
         enableUpInToolbar(true)
     }
 

@@ -15,7 +15,7 @@ class ScanSession(val deviceId: String, val mac: String) {
     val liveMaxRssi = SafeMutableLiveData(Int.MIN_VALUE)
     val liveAvgRssi = SafeMutableLiveData(0)
     val liveMedRssi = SafeMutableLiveData(0)
-    val inRange = SafeMutableLiveData(false)
+    val inRange = SafeMutableLiveData(true)
 
     var minRssi = Int.MAX_VALUE
     var maxRssi = Int.MIN_VALUE
@@ -45,8 +45,8 @@ class ScanSession(val deviceId: String, val mac: String) {
         rssiList.add(rssi)
         currRssi.postValue(rssiVal)
 
-        calculate()
-        checkOutOfRange()
+        //calculate()
+        //checkOutOfRange()
     }
 
     fun calculate() {

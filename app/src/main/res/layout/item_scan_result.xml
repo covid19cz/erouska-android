@@ -32,18 +32,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:max="100"
+            android:max="70"
             android:progress="@{100 + item.currRssi}"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/textDeviceId"
+            android:id="@+id/textBuid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textColor="@color/textColorSecondary"
-            android:textSize="24sp"
+            android:textSize="16sp"
             android:text="@{item.deviceId}"/>
 
         <TextView
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textSize="20sp"
             android:textColor="@{item.inRange ? @color/textColorSecondary : @color/red}"
-            android:text='@{item.inRange ? String.format("RSSI: %d", item.currRssi) : "Mimo dosah"}' />
+            android:text='@{item.inRange ? String.format("RSSI: %d", item.currRssi) : "Ztraceno"}' />
 
         <TextView
             android:id="@+id/textMaxRssi"
@@ -62,6 +62,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textCurrentRssi"
+            android:visibility="gone"
             android:text='@{String.format("Maximum: %d", item.liveMaxRssi)}'/>
 
         <TextView
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textMaxRssi"
+            android:visibility="gone"
             android:text='@{String.format("Průměr: %d", item.liveAvgRssi)}'/>
 
         <TextView
@@ -78,6 +80,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textAvgRssi"
+            android:visibility="gone"
             android:text='@{String.format("Medián: %d", item.liveMedRssi)}'/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

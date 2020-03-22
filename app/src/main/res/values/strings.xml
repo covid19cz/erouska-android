@@ -7,8 +7,15 @@
     <string name="common_back">Zpět</string>
 
     <string name="notification_title_error">eRouška neběží</string>
-    <string name="notification_text_error">Pokračujte podle instrukcí v aplikaci</string>
+    <string name="notification_text_bluetooth_disabled">Pro správnou funkci eRoušky je třeba zapnout bluetooth</string>
+    <string name="notification_text_location_disabled">Pro správnou funkci eRoušky je třeba zapnout polohové služby</string>
+    <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
+
+    <string name="notification_action_enable_bluetooth">Zapnout bluetooth</string>
+    <string name="notification_action_enable_location">Zapnout polohové služby</string>
+    <string name="notification_action_disable_battery_saver">Vypnout spořič baterie</string>
     <string name="foreground_service_channel">Služba na pozadí</string>
+    <string name="foreground_service_alert_channel">Důležitá upozornění</string>
 
     <string name="help_toolbar_title">Jak to funguje</string>
     <string name="bluetooth_toolbar_title">Hledání zařízení</string>

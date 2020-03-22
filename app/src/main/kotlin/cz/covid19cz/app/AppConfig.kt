@@ -6,7 +6,7 @@ import cz.covid19cz.app.utils.Log
 
 object AppConfig {
 
-    const val BLE_OUT_OF_RANGE_TIMEOUT = 30
+    const val BLE_OUT_OF_RANGE_TIMEOUT = 5
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds

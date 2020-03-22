@@ -45,9 +45,9 @@ class CsvExporter(val context: Context, val repository: DatabaseRepository) {
                         it.buid,
                         it.timestampStart,
                         it.timestampEnd,
-                        it.rssiMin,
+                        0,
                         it.rssiMax,
-                        it.rssiAvg,
+                        0,
                         it.rssiMed
                     )
                 }

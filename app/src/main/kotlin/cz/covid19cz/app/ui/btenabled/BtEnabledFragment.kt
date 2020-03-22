@@ -22,7 +22,6 @@ class BtEnabledFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.bt_enabled_toolbar_title)
         enableUpInToolbar(true)
     }
 

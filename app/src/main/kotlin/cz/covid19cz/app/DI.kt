@@ -1,10 +1,17 @@
 package cz.covid19cz.app
 
 import android.app.Application
+import android.app.NotificationManager
+import android.os.PowerManager
+import androidx.core.content.getSystemService
 import androidx.room.Room
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.*
 import cz.covid19cz.app.db.export.CsvExporter
+import cz.covid19cz.app.receiver.BatterSaverStateReceiver
+import cz.covid19cz.app.receiver.BluetoothStateReceiver
+import cz.covid19cz.app.receiver.LocationStateReceiver
+import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.btenabled.BtEnabledVM
 import cz.covid19cz.app.ui.btonboard.BtOnboardVM
@@ -15,6 +22,7 @@ import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -52,8 +60,18 @@ val repositoryModule = module {
     }
 
     single { provideDatabaseRepository(get()) }
-    single { BluetoothRepository(get()) }
+    single { BluetoothRepository(get(), get()) }
     single { SharedPrefsRepository(get()) }
 }
 
-val allModules = listOf(viewModelModule, databaseModule, repositoryModule)
+val appModule = module {
+    single { LocationStateReceiver() }
+    single { BluetoothStateReceiver() }
+    single { BatterSaverStateReceiver() }
+    single { WakeLockManager(androidContext().getSystemService()) }
+    single { androidContext().getSystemService<PowerManager>() }
+}
+
+
+
+val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)

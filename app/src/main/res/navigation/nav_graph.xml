@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_welcome_fragment"
         android:name="cz.covid19cz.app.ui.welcome.WelcomeFragment"
-        android:label="Welcome"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_sandbox"
@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/nav_sandbox"
         android:name="cz.covid19cz.app.ui.sandbox.SandboxFragment"
-        android:label="Sandbox Main"
+        android:label="Test"
         tools:layout="@layout/fragment_sandbox">
         <action
             android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/nav_help"
         android:name="cz.covid19cz.app.ui.help.HelpFragment"
-        android:label="HelpFragment"
+        android:label="@string/help_toolbar_title"
         tools:layout="@layout/fragment_help" />
 
     <fragment
@@ -59,12 +59,12 @@
     <fragment
         android:id="@+id/nav_bt_enabled"
         android:name="cz.covid19cz.app.ui.btenabled.BtEnabledFragment"
-        android:label="BtEnabledFragment"
+        android:label="@string/bt_enabled_title"
         tools:layout="@layout/fragment_bt_enabled" />
     <fragment
         android:id="@+id/nav_bt_onboard"
         android:name="cz.covid19cz.app.ui.btonboard.BtOnboardFragment"
-        android:label="BtOnboardFragment"
+        android:label="@string/bt_onboard_toolbar_title"
         tools:layout="@layout/fragment_bt_onboard">
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_sandbox"
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="cz.covid19cz.app.ui.login.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/login_toolbar_title"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_nav_login_to_nav_sandbox"
@@ -87,6 +87,6 @@
     <fragment
         android:id="@+id/nav_db_explorer"
         android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
-        android:label="DbExplorerFragment" />
+        android:label="Databáze" />
 
 </navigation>
