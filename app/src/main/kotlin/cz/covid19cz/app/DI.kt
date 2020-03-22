@@ -12,14 +12,15 @@ import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
+import cz.covid19cz.app.receiver.ScreenStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
-import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.dbexplorer.DbExplorerVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
+import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication
@@ -68,13 +69,13 @@ val repositoryModule = module {
 val appModule = module {
     single { LocationStateReceiver() }
     single { BluetoothStateReceiver() }
+    single { ScreenStateReceiver() }
     single { BatterSaverStateReceiver() }
     single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
 }
-
 
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)
