@@ -131,7 +131,7 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
     private fun tryStartBtService() {
         if (viewModel.bluetoothRepository.hasBle(requireContext())) {
             if (!viewModel.bluetoothRepository.isBtEnabled()) {
-                requestEnableBt()
+                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
                 return
             }
             compositeDisposable.add(rxPermissions
