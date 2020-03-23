@@ -1,9 +1,11 @@
 package cz.covid19cz.app
 
 import android.app.Application
+import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.room.Room
+import com.google.firebase.analytics.FirebaseAnalytics
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.*
 import cz.covid19cz.app.db.export.CsvExporter
@@ -13,7 +15,7 @@ import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
-import cz.covid19cz.app.ui.btonboard.BtOnboardVM
+import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.dbexplorer.DbExplorerVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
@@ -33,7 +35,7 @@ val viewModelModule = module {
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
     viewModel { DashboardVM(get(), get(), get()) }
-    viewModel { BtOnboardVM() }
+    viewModel { PermissionsOnboardingVM(get(), get(), get()) }
     viewModel { DbExplorerVM(get()) }
 }
 
@@ -59,7 +61,7 @@ val repositoryModule = module {
     }
 
     single { provideDatabaseRepository(get()) }
-    single { BluetoothRepository(get(), get()) }
+    single { BluetoothRepository(get(), get(), get()) }
     single { SharedPrefsRepository(get()) }
 }
 
@@ -67,8 +69,10 @@ val appModule = module {
     single { LocationStateReceiver() }
     single { BluetoothStateReceiver() }
     single { BatterSaverStateReceiver() }
+    single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
+    single { androidContext().getSystemService<BluetoothManager>() }
 }
 
 

@@ -26,7 +26,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_bt_onboard"
-            app:destination="@id/nav_bt_onboard"
+            app:destination="@id/nav_permission_onboard"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -108,10 +108,10 @@
         android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard"/>
     <fragment
-        android:id="@+id/nav_bt_onboard"
-        android:name="cz.covid19cz.app.ui.btonboard.BtOnboardFragment"
-        android:label="@string/bt_onboard_toolbar_title"
-        tools:layout="@layout/fragment_bt_onboard">
+        android:id="@+id/nav_permission_onboard"
+        android:name="cz.covid19cz.app.ui.onboarding.PermissionsOnboardingFragment"
+        android:label="@string/permission_onboarding_toolbar_title"
+        tools:layout="@layout/fragment_permissions_onboarding">
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_sandbox"
             app:destination="@id/nav_sandbox"
@@ -154,5 +154,9 @@
         android:id="@+id/nav_db_explorer"
         android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
         android:label="@string/my_data_title" />
+    <fragment
+        android:id="@+id/alertDialogFragment"
+        android:name="arch.view.AlertDialogFragment"
+        android:label="AlertDialogFragment" />
 
 </navigation>

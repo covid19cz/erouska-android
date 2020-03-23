@@ -21,18 +21,22 @@ import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
 import cz.covid19cz.app.utils.L
+import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.*
 import kotlin.collections.HashMap
 
 
-class BluetoothRepository(val context: Context, private val db: DatabaseRepository) {
+class BluetoothRepository(
+    val context: Context,
+    private val db: DatabaseRepository,
+    private val btManager: BluetoothManager
+) {
 
     private val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
     private val GATT_CHARACTERISTIC_UUID = UUID.fromString("9472fbde-04ff-4fff-be1c-b9d3287e8f28")
 
-    private val btManager = context.getSystemService<BluetoothManager>()
     private val rxBleClient: RxBleClient = RxBleClient.create(context)
 
     val scanResultsMap = HashMap<String, ScanSession>()
@@ -119,7 +123,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
     }
 
     fun isBtEnabled(): Boolean {
-        return btManager?.adapter?.isEnabled ?: false
+        return btManager.isBluetoothEnabled()
     }
 
     fun startScanning() {
@@ -315,6 +319,4 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         isAdvertising = false
         btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }
-
-
 }

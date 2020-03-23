@@ -17,6 +17,7 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
+import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.toText
 import org.json.JSONObject
 import java.util.*
@@ -50,7 +51,7 @@ class LoginVM(
         override fun onVerificationFailed(e: FirebaseException) {
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
-            L.d("onVerificationFailed", e)
+            L.d("onVerificationFailed")
             handleError(e)
         }
 
@@ -121,7 +122,7 @@ class LoginVM(
                     registerDevice()
                 } else {
                     // Sign in failed, display a message and update the UI
-                    L.d("signInWithCredential:failure", task.exception)
+                    L.d("signInWithCredential:failure")
                     task.exception?.let { handleError(it) }
                 }
             }

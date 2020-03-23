@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.app.R
@@ -23,19 +24,8 @@ class MainActivity :
         findNavController(R.id.nav_host_fragment).let {
             NavigationUI.setupWithNavController(bottom_navigation, it);
             it.addOnDestinationChangedListener { controller, destination, arguments ->
-                if (destination.label != null) {
-                    title = destination.label
-                } else {
-                    setTitle(R.string.app_name)
-                }
-                bottom_navigation.visibility =
-                    if (destination.arguments["fullscreen"]?.defaultValue == true
-                        || arguments?.getBoolean("fullscreen") == true
-                    ) {
-                        GONE
-                    } else {
-                        VISIBLE
-                    }
+                updateTitle(destination)
+                updateBottomNavigation(destination, arguments)
             }
         }
     }
@@ -53,5 +43,27 @@ class MainActivity :
                 ) || super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun updateTitle(destination: NavDestination) {
+        if (destination.label != null) {
+            title = destination.label
+        } else {
+            setTitle(R.string.app_name)
+        }
+    }
+
+    private fun updateBottomNavigation(
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        bottom_navigation.visibility =
+            if (destination.arguments["fullscreen"]?.defaultValue == true
+                || arguments?.getBoolean("fullscreen") == true
+            ) {
+                GONE
+            } else {
+                VISIBLE
+            }
     }
 }
