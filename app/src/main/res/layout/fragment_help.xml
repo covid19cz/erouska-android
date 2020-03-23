@@ -24,9 +24,9 @@
                 android:id="@+id/help_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="32dp"
+                android:paddingTop="32dp"
+                android:paddingEnd="32dp"
                 android:paddingBottom="80dp"
                 android:text="@string/help_desc"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
