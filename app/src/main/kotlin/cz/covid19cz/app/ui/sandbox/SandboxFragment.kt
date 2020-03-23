@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
+import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
@@ -80,7 +81,7 @@ class SandboxFragment :
                 return
             }
             compositeDisposable.add(rxPermissions
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .request(getLocationPermission())
                 .subscribe { granted: Boolean ->
                     if (granted) {
                         startBtService()

@@ -9,6 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentPermissionsOnboardingBinding
+import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.ext.openLocationSettings
 import cz.covid19cz.app.ext.openPermissionsScreen
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -64,7 +65,7 @@ class PermissionsOnboardingFragment :
 
     private fun requestLocation() {
         compositeDisposable.add(rxPermissions
-            .request(Manifest.permission.ACCESS_FINE_LOCATION)
+            .request(getLocationPermission())
             .subscribe { granted: Boolean ->
                 if (granted) {
                     viewModel.onLocationPermissionGranted()

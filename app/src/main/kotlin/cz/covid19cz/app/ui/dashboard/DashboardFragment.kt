@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
+import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.service.CovidService.Companion.startService
 import cz.covid19cz.app.service.CovidService.Companion.stopService
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -72,7 +73,7 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
                 return
             }
             compositeDisposable.add(rxPermissions
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .request(getLocationPermission())
                 .subscribe { granted: Boolean ->
                     if (granted) {
                         startService(requireContext())
