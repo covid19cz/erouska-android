@@ -66,7 +66,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 text = R.string.notification_text_paused
                 icon = R.drawable.ic_notification_normal
                 color = R.color.exposition_level_6
-                actionIntent = CovidService.resume(service).wrapAsForegroundService()
+                actionIntent = CovidService.startService(service).wrapAsForegroundService()
                 actionText = R.string.notification_action_resume
             }
             serviceStatus.batterySaverEnabled -> {

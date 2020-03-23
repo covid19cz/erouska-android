@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import arch.livedata.SafeMutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -113,7 +114,9 @@ class SandboxFragment :
     }
 
     private fun startBtService() {
-        CovidService.startService(requireContext())
+        with(requireContext()) {
+            ContextCompat.startForegroundService(this, CovidService.startService(this))
+        }
         viewModel.confirmStart()
     }
 

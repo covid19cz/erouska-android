@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -137,7 +138,9 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
                 .request(getLocationPermission())
                 .subscribe { granted: Boolean ->
                     if (granted) {
-                        CovidService.startService(requireContext())
+                        with (requireContext()) {
+                            ContextCompat.startForegroundService(this, CovidService.startService(this))
+                        }
                     } else {
                         //TODO: better dialog and navigate to settings
                         Toast.makeText(context, "Povolte přístup k poloze", Toast.LENGTH_LONG)

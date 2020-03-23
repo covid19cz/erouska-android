@@ -37,10 +37,10 @@ class CovidService : Service() {
         const val ACTION_MASK_STARTED = "action_service_started"
         const val ACTION_MASK_STOPPED = "action_service_stopped"
 
-        fun startService(c: Context) {
+        fun startService(c: Context): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.action = ACTION_START
-            ContextCompat.startForegroundService(c, serviceIntent)
+            return serviceIntent
         }
 
         fun stopService(c: Context): Intent {
@@ -157,9 +157,13 @@ class CovidService : Service() {
     }
 
     private fun turnMaskOn() {
-        localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
-        startBleAdvertising()
-        startBleScanning()
+        if (isLocationEnabled() && btUtils.isBtEnabled()) {
+            localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
+            startBleAdvertising()
+            startBleScanning()
+        } else {
+            turnMaskOff()
+        }
     }
 
     private fun turnMaskOff() {
