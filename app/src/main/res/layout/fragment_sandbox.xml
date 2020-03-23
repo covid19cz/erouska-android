@@ -40,6 +40,15 @@
             android:text='@{String.format("BUID: %s", vm.buid)}'
             android:textSize="16sp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textBuid"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Podporuje vysílání"
+            android:textSize="12sp"
+            android:text='@{vm.advertisingSupportText}' />
+
         <ProgressBar
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -105,6 +114,7 @@
             android:onClick="@{() -> vm.nuke()}"
             android:text="Resetovat aplikaci"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/buttonExport" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

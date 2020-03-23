@@ -47,6 +47,6 @@
     <string name="login_code_input_error">Nevalidní kód</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
     <string name="menu_help">Nápověda</string>
-    <string name="sandbox">Sandbox</string>
-    <string name="my_data">Moje data</string>
+    <string name="sandbox">Test</string>
+    <string name="my_data_title">Moje data</string>
 </resources>

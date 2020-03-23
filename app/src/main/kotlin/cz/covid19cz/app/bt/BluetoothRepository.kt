@@ -44,7 +44,6 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
     var isScanning = false
 
     private var scanDisposable: Disposable? = null
-    private var outOfRangeChecker: Disposable? = null
 
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
@@ -124,10 +123,6 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         return btManager?.adapter?.isEnabled ?: false
     }
 
-    private fun enableBt() {
-        btManager?.adapter?.enable()
-    }
-
     fun startScanning() {
         if (isScanning) {
             stopScanning()
@@ -157,11 +152,6 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
             Log.e(it)
         })
 
-        outOfRangeChecker = Observable.interval(0, 5, TimeUnit.SECONDS)
-            .map {
-                scanResultsList.forEach { it.checkOutOfRange() }
-            }.subscribe()
-
         isScanning = true
     }
 
@@ -170,8 +160,6 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         Log.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
-        outOfRangeChecker?.dispose()
-        outOfRangeChecker = null
         saveScansAndDispose()
     }
 
@@ -237,9 +225,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         discoveredIosDevices[mac] = session
 
         val device = btManager?.adapter?.getRemoteDevice(mac)
-        val gatt = device?.connectGatt(context, false, gattCallback)
-
-        //val characteristic = gatt?.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
+        device?.connectGatt(context, false, gattCallback)
     }
 
     private fun getBuidFromAndroid(bytes: ByteArray): String? {

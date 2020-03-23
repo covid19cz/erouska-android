@@ -53,35 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textSize="20sp"
-            android:textColor="@{item.inRange ? @color/textColorSecondary : @color/red}"
-            android:text='@{item.inRange ? String.format("RSSI: %d", item.currRssi) : "Ztraceno"}' />
-
-        <TextView
-            android:id="@+id/textMaxRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCurrentRssi"
-            android:visibility="gone"
-            android:text='@{String.format("Maximum: %d", item.liveMaxRssi)}'/>
-
-        <TextView
-            android:id="@+id/textAvgRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textMaxRssi"
-            android:visibility="gone"
-            android:text='@{String.format("Průměr: %d", item.liveAvgRssi)}'/>
-
-        <TextView
-            android:id="@+id/textMedRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textAvgRssi"
-            android:visibility="gone"
-            android:text='@{String.format("Medián: %d", item.liveMedRssi)}'/>
+            android:text='@{String.format("RSSI: %d", item.currRssi)}' />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

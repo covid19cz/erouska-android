@@ -153,6 +153,6 @@
     <fragment
         android:id="@+id/nav_db_explorer"
         android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
-        android:label="Databáze" />
+        android:label="@string/my_data_title" />
 
 </navigation>

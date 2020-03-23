@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.sandbox
 
 import android.net.Uri
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
     import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +37,13 @@ class SandboxVM(
     val power = SafeMutableLiveData(0)
     var exportDisposable: Disposable? = null
     val storage = Firebase.storage
+    val advertisingSupportText = MutableLiveData<String>().apply {
+        value = if (bluetoothRepository.supportsAdvertising()){
+            "Podporuje vysílání"
+        } else {
+            "Nepodporuje vysílání"
+        }
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -53,14 +61,6 @@ class SandboxVM(
     override fun onCleared() {
         super.onCleared()
         exportDisposable?.dispose()
-    }
-
-    fun refreshData(): MutableCollection<ScanSession> {
-        val devices = bluetoothRepository.scanResultsMap.values
-        for (device in devices) {
-            device.calculate()
-        }
-        return devices
     }
 
     fun start() {
@@ -114,17 +114,6 @@ class SandboxVM(
             publish(ExportEvent.Complete("Upload success"))
         }.addOnFailureListener {
             publish(ExportEvent.Error(it.message ?: "Upload failed"))
-        }
-    }
-
-    fun powerToString(pwr: Int): String {
-        return when (pwr) {
-            0 -> "REMOTE_CONFIG"
-            1 -> "ULTRA_LOW"
-            2 -> "LOW"
-            3 -> "MEDIUM"
-            4 -> "HIGH"
-            else -> "UNKNOWN"
         }
     }
 
