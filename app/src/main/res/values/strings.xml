@@ -47,6 +47,8 @@
     <string name="login_phone_input_error">Neplatné telefonní číslo</string>
     <string name="login_code_input_error">Nevalidní kód</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
+    <string name="login_too_many_attempts_error">Moc pokusů o ověření telefonního čísla. Znovu to můžete zkusit za několik hodin.</string>
+    <string name="login_session_expired">Platnost kódu vypršela. Zašlete si nový kód a zadejte ho do 3 minut.</string>
     <string name="menu_help">Nápověda</string>
     <string name="sandbox">Test</string>
     <string name="my_data_title">Moje data</string>

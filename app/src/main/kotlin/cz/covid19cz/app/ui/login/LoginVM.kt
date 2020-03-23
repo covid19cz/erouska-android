@@ -135,7 +135,11 @@ class LoginVM(
             mutableState.postValue(EnterPhoneNumber(true))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_VERIFICATION_CODE") {
             mutableState.postValue(EnterCode(true))
-        } else if (e is FirebaseNetworkException) {
+        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_TOO_MANY_REQUESTS") {
+            mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
+        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_SESSION_EXPIRED") {
+            mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+        }  else if (e is FirebaseNetworkException) {
             mutableState.postValue(LoginError(R.string.login_network_error.toText()))
         } else {
             mutableState.postValue(LoginError(e.message?.toText()))
