@@ -23,7 +23,7 @@ class BtDisabledFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(true)
+        enableUpInToolbar(false)
     }
 
     fun enableBluetooth() {
@@ -31,7 +31,7 @@ class BtDisabledFragment :
     }
 
     override fun onBluetoothEnabled() {
-        navigate(R.id.action_nav_bt_disabled_to_nav_bt_enabled, null,
+        navigate(R.id.action_nav_bt_disabled_to_nav_dashboard, null,
             NavOptions.Builder()
                 .setPopUpTo(R.id.nav_bt_disabled,
                     true).build())
