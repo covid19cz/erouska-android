@@ -7,6 +7,8 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
     enum class Command{
         TURN_ON,
         TURN_OFF,
+        PAUSE,
+        RESUME,
         UPLOAD,
         SHOW_DATA,
         SHARE

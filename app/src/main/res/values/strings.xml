@@ -9,6 +9,10 @@
     <string name="notification_text_bluetooth_disabled">Pro správnou funkci eRoušky je třeba zapnout bluetooth</string>
     <string name="notification_text_location_disabled">Pro správnou funkci eRoušky je třeba zapnout polohové služby</string>
     <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
+    <string name="notification_text_paused">Aplikace pozastavená. Nezapomeňte ji spustit.</string>
+    <string name="notification_action_resume">Spustit</string>
+    <string name="notification_text_resumed">Aplikace běží a zaznamenává anonymně telefony ve vašem okolí.</string>
+    <string name="notification_action_pause">Pozastavit</string>
 
     <string name="notification_action_enable_bluetooth">Zapnout bluetooth</string>
     <string name="notification_action_enable_location">Zapnout polohové služby</string>
@@ -22,12 +26,18 @@
     <string name="enable_bluetooth_button">Pokračovat</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
-    <string name="dashboard_title">Aplikace je aktivní</string>
+    <string name="dashboard_title_running">Aplikace je aktivní</string>
+    <string name="dashboard_title_paused">Aplikace je pozastavená</string>
+    <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
+    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o vašem okolí.\n\nSpusťte znovu sběr dat a chraňte vás i vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme vás na čísle 728 953 731. Požádáme vás o zaslání anonymizovaného seznamu telefonů, které byly ve vašem okolí v sekci Moje data.</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
     <string name="share_app">Sdílet aplikaci</string>
     <string name="upload_data">Kontaktovali mě hygienici</string>
     <string name="show_my_data">Zobrazit moje data</string>
+    <string name="pause_app">Pozastavit sbírání dat</string>
+    <string name="start_app">Spustit sbírání dat</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">Povolte aplikaci přístup k Bluetooth a sledování polohy</string>
