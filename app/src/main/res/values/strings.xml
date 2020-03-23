@@ -56,4 +56,6 @@
     <string name="permission_rationale_body">Více o tom proč tomu tak je, najdete v nápovědě.</string>
     <string name="permission_rationale_settings">Nastavení</string>
     <string name="permission_rationale_dismiss">Zrušit</string>
+    <string name="login_verify">Ověřit</string>
+    <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
 </resources>

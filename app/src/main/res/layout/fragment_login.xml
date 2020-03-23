@@ -21,7 +21,7 @@
 
 
             <ImageView
-                android:id="@+id/login_verif_image"
+                android:id="@+id/login_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -51,7 +51,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_verif_image" />
+                app:layout_constraintTop_toBottomOf="@+id/login_image" />
 
             <TextView
                 android:id="@+id/login_desc"
@@ -81,11 +81,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_verif_phone" />
 
-            <TextView
-                android:id="@+id/login_info"
+
+            <ImageView
+                android:id="@+id/error_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="24dp"
+                android:src="@drawable/ic_error"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/error_message" />
+
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:text="Error text"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -99,7 +112,7 @@
                 android:text="@string/common_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_info" />
+                app:layout_constraintTop_toBottomOf="@id/error_message" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -121,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/login_send"
+                android:text="@string/login_verify"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -154,6 +167,17 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/phone_number_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:text="@string/login_phone_number_sms_sent"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_verif_code"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -165,7 +189,7 @@
                 android:hint="@string/login_code_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_verif_image">
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_code">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_verif_code_input"

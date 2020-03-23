@@ -26,6 +26,6 @@
     </entry>
     <entry>
         <key>smsTimeoutSeconds</key>
-        <value>10</value>
+        <value>20</value>
     </entry>
 </defaultsMap>

@@ -65,7 +65,7 @@ class LoginVM(
             // Save verification ID and resending token so we can use them later
             this@LoginVM.verificationId = verificationId
             resendToken = token
-            mutableState.postValue(EnterCode(false))
+            mutableState.postValue(EnterCode(false, phoneNumber))
         }
 
         override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
@@ -77,6 +77,7 @@ class LoginVM(
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val functions = Firebase.functions("europe-west2")
+    private lateinit var phoneNumber: String
 
     init {
         auth.setLanguageCode("cs")
@@ -90,6 +91,7 @@ class LoginVM(
     }
 
     fun phoneNumberEntered(phoneNumber: String) {
+        this.phoneNumber = phoneNumber
         if (phoneNumber.length >= 8) {
             mutableState.postValue(StartVerification)
         } else {
@@ -99,7 +101,7 @@ class LoginVM(
 
     fun codeEntered(code: String) {
         if (code.trim().length != 6) {
-            mutableState.postValue(EnterCode(true))
+            mutableState.postValue(EnterCode(true, phoneNumber))
         } else {
             mutableState.postValue(SigningProgress)
             val credential =
@@ -134,7 +136,7 @@ class LoginVM(
         if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_PHONE_NUMBER") {
             mutableState.postValue(EnterPhoneNumber(true))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_VERIFICATION_CODE") {
-            mutableState.postValue(EnterCode(true))
+            mutableState.postValue(EnterCode(true, phoneNumber))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_TOO_MANY_REQUESTS") {
             mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_SESSION_EXPIRED") {

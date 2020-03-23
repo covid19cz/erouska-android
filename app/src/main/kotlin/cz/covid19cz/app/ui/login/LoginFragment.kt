@@ -1,11 +1,9 @@
 package cz.covid19cz.app.ui.login
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
@@ -15,9 +13,12 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentLoginBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.utils.Text
+import cz.covid19cz.app.utils.focusAndShowKeyboard
+import cz.covid19cz.app.utils.hideKeyboard
 import cz.covid19cz.app.utils.setOnDoneListener
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
+
 
 class LoginFragment :
     BaseFragment<FragmentLoginBinding, LoginVM>(R.layout.fragment_login, LoginVM::class) {
@@ -40,11 +41,12 @@ class LoginFragment :
         super.onViewCreated(view, savedInstanceState)
 
         views = listOf(
-            login_verif_image,
+            login_image,
             login_progress,
             login_verif_activate_btn,
             login_verif_code_send_btn,
-            login_info,
+            error_message,
+            error_image,
             login_verif_phone_input,
             login_verif_code_input,
             login_title,
@@ -52,7 +54,8 @@ class LoginFragment :
             login_verif_phone,
             login_verif_code,
             login_statement,
-            error_button_back
+            error_button_back,
+            phone_number_code
         )
 
         setupListeners()
@@ -65,22 +68,22 @@ class LoginFragment :
             login_verif_phone.isErrorEnabled = false
         })
         login_verif_phone_input.setOnDoneListener {
-            hideKeyboard(login_verif_activate_btn)
+            login_verif_activate_btn.hideKeyboard()
             viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
         }
         login_verif_activate_btn.setOnClickListener {
-            hideKeyboard(login_verif_activate_btn)
+            login_verif_activate_btn.hideKeyboard()
             viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
         }
         login_verif_code_input.addTextChangedListener(afterTextChanged = {
             login_verif_code.isErrorEnabled = false
         })
         login_verif_code_input.setOnDoneListener {
-            hideKeyboard(login_verif_code_send_btn)
+            login_verif_code_send_btn.hideKeyboard()
             viewModel.codeEntered(login_verif_code_input.text.toString())
         }
         login_verif_code_send_btn.setOnClickListener {
-            hideKeyboard(login_verif_code_send_btn)
+            login_verif_code_send_btn.hideKeyboard()
             viewModel.codeEntered(login_verif_code_input.text.toString())
         }
         error_button_back.setOnClickListener {
@@ -92,7 +95,7 @@ class LoginFragment :
         when (state) {
             is EnterPhoneNumber -> {
                 show(
-                    login_verif_image,
+                    login_image,
                     login_title,
                     login_desc,
                     login_verif_phone,
@@ -107,15 +110,18 @@ class LoginFragment :
             }
             is EnterCode -> {
                 show(
-                    login_verif_image,
+                    phone_number_code,
                     login_verif_code_input,
                     login_verif_code,
                     login_verif_code_send_btn
                 )
+                phone_number_code.text =
+                    getString(R.string.login_phone_number_sms_sent, state.phoneNumber)
                 login_verif_code.isErrorEnabled = state.invalidCode
                 if (state.invalidCode) {
                     login_verif_code.error = getString(R.string.login_code_input_error)
                 }
+                login_verif_code_input.focusAndShowKeyboard()
             }
             SigningProgress -> show(login_progress)
             is LoginError -> showError(state.text)
@@ -138,8 +144,8 @@ class LoginFragment :
     }
 
     private fun showError(text: Text?) {
-        login_info.text = text?.toCharSequence(requireContext())
-        show(login_info, error_button_back)
+        error_message.text = text?.toCharSequence(requireContext())
+        show(error_message, error_button_back, error_image)
     }
 
     private fun verifyPhoneNumber() {
@@ -161,11 +167,6 @@ class LoginFragment :
         this.views.subtract(views.toList()).forEach {
             it.visibility = View.GONE
         }
-    }
-
-    private fun hideKeyboard(view: View) {
-        val im = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        im.hideSoftInputFromWindow(view.windowToken, 0);
     }
 
     override fun onBackPressed(): Boolean {
