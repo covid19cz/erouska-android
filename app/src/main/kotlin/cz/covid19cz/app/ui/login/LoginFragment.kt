@@ -125,14 +125,16 @@ class LoginFragment :
     }
 
     private fun showSignedIn() {
-        navigate(
-            R.id.action_nav_login_to_nav_dashboard, null,
-            Builder()
-                .setPopUpTo(
-                    R.id.nav_graph,
-                    true
-                ).build()
-        )
+        if (navController().currentDestination?.id == R.id.nav_login) {
+            navigate(
+                R.id.action_nav_login_to_nav_dashboard, null,
+                Builder()
+                    .setPopUpTo(
+                        R.id.nav_graph,
+                        true
+                    ).build()
+            )
+        }
     }
 
     private fun showError(text: Text?) {

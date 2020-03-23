@@ -2,7 +2,6 @@ package cz.covid19cz.app.ui.login
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
@@ -74,7 +73,6 @@ class LoginVM(
         }
     }
     private var autoVerifiedCredential: PhoneAuthCredential? = null
-    private val TAG = "Login"
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -129,6 +127,7 @@ class LoginVM(
     }
 
     private fun handleError(e: Exception) {
+        L.e(e)
         if (e is FirebaseAuthInvalidCredentialsException) {
             L.d("Error code: ${e.errorCode}")
         }
