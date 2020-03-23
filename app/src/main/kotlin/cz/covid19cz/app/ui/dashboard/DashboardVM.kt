@@ -9,8 +9,8 @@ import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.ExportEvent
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.app.ui.sandbox.ExportEvent
 import io.reactivex.disposables.Disposable
 import java.io.File
 
@@ -44,7 +44,8 @@ class DashboardVM(
         val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
-            setCustomMetadata("version", "1")
+            setCustomMetadata("version", "2")
+            setCustomMetadata("buid", prefs.getDeviceBuid())
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             publish(ExportEvent.Complete("Upload success"))

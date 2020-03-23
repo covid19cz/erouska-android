@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">eRouška</string>
-    <string name="common_back">Zpět</string>
+    <string name="login_try_again">Zkusit znovu</string>
 
     <string name="notification_title">eRouška je aktivní</string>
     <string name="notification_text">Právě pomáháte chránit sebe i ostatní</string>
