@@ -10,7 +10,9 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.ActivityMainBinding
 import cz.covid19cz.app.ui.base.BaseActivity
 import cz.covid19cz.app.ui.help.HelpFragment
+import cz.covid19cz.app.utils.L
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.RuntimeException
 
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {

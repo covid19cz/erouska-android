@@ -20,11 +20,10 @@ import cz.covid19cz.app.db.ScanResultEntity
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
@@ -47,14 +46,14 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
 
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
-            Log.d("BLE advertising started.")
+            L.d("BLE advertising started.")
             isAdvertising = true
             super.onStartSuccess(settingsInEffect)
         }
 
         override fun onStartFailure(errorCode: Int) {
             isAdvertising = false
-            Log.e("BLE advertising failed: $errorCode")
+            L.e("BLE advertising failed: $errorCode")
             super.onStartFailure(errorCode)
         }
     }
@@ -63,10 +62,10 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
 
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                Log.d("GATT connected")
+                L.d("GATT connected")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                Log.d("GATT disconnected")
+                L.d("GATT disconnected")
             }
         }
 
@@ -81,7 +80,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
                 gatt.close()
 
                 if (buid != null){
-                    Log.d("BUID found in characteristic")
+                    L.d("BUID found in characteristic")
                     discoveredIosDevices[mac]?.let { s ->
                         Observable.just(s).map { session ->
                             session.deviceId = buid
@@ -90,11 +89,11 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
                         }.execute({
                             scanResultsList.add(it)
                         }, {
-                            Log.e(it)
+                            L.e(it)
                         })
                     }
                 } else {
-                    Log.e("BUID not found in characteristic")
+                    L.e("BUID not found in characteristic")
                 }
             }
         }
@@ -106,10 +105,10 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
             }
             val characteristic = gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
             if (characteristic != null){
-                Log.d("GATT characteristic found")
+                L.d("GATT characteristic found")
                 gatt.readCharacteristic(characteristic)
             } else {
-                Log.e("GATT characteristic not found")
+                L.e("GATT characteristic not found")
                 gatt.close()
             }
         }
@@ -129,11 +128,11 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         }
 
         if (!isBtEnabled()) {
-            Log.d("Bluetooth disabled, can't start scanning")
+            L.d("Bluetooth disabled, can't start scanning")
             return
         }
 
-        Log.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
+        L.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
         // "Some" scan filter needed for background scanning since Android 8.1.
         // However, some devices (at least Samsung S10e...) consider empty filter == no filter.
@@ -149,7 +148,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
             onScanResult(scanResult)
         }, {
             isScanning = false
-            Log.e(it)
+            L.e(it)
         })
 
         isScanning = true
@@ -157,14 +156,14 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
 
     fun stopScanning() {
         isScanning = false
-        Log.d("Stopping BLE scanning")
+        L.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
         saveScansAndDispose()
     }
 
     private fun saveScansAndDispose() {
-        Log.d("Saving data to database")
+        L.d("Saving data to database")
         Observable.just(scanResultsList.toTypedArray())
             .map { tempArray ->
                 for (item in tempArray) {
@@ -183,9 +182,9 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
                 }
                 tempArray.size
             }.execute({
-                Log.d("$it records saved")
+                L.d("$it records saved")
                 clearScanResults()
-            }, { Log.e(it) })
+            }, { L.e(it) })
     }
 
     private fun onScanResult(result: ScanResult) {
@@ -206,12 +205,12 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
                     newEntity.addRssi(result.rssi)
                     scanResultsList.add(newEntity)
                     scanResultsMap[deviceId] = newEntity
-                    Log.d("Found new Android: $deviceId")
+                    L.d("Found new Android: $deviceId")
                 }
 
                 scanResultsMap[deviceId]?.let { entity ->
                     entity.addRssi(result.rssi)
-                    Log.d("Found existing device: $deviceId")
+                    L.d("Found existing device: $deviceId")
                 }
             }
         }
@@ -221,7 +220,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         val mac = result.bleDevice.macAddress
         val session = ScanSession("iOS Device", mac)
         session.addRssi(result.rssi)
-        Log.d("Connecting to GATT")
+        L.d("Connecting to GATT")
         discoveredIosDevices[mac] = session
 
         val device = btManager?.adapter?.getRemoteDevice(mac)
@@ -281,11 +280,11 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
         }
 
         if (!isBtEnabled()) {
-            Log.d("Bluetooth disabled, can't start advertising")
+            L.d("Bluetooth disabled, can't start advertising")
             return
         }
 
-        Log.d("Starting BLE advertising with power $power")
+        L.d("Starting BLE advertising with power $power")
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AppConfig.advertiseMode)
@@ -312,7 +311,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
     }
 
     fun stopAdvertising() {
-        Log.d("Stopping BLE advertising")
+        L.d("Stopping BLE advertising")
         isAdvertising = false
         btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }

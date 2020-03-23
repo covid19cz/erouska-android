@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.location.LocationManager
 import android.os.*
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
@@ -18,7 +17,7 @@ import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.ui.notifications.CovidNotificationManager
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import org.koin.android.ext.android.inject
@@ -166,8 +165,8 @@ class CovidService : Service() {
             .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
             .repeat()
             .execute(
-                { Log.d("Restarting BLE scanning") },
-                { Log.e(it) }
+                { L.d("Restarting BLE scanning") },
+                { L.e(it) }
             )
     }
 
@@ -184,8 +183,8 @@ class CovidService : Service() {
             .map { btUtils.stopAdvertising() }
             .repeat()
             .execute(
-                { Log.d("Restarting BLE advertising") },
-                { Log.e(it) }
+                { L.d("Restarting BLE advertising") },
+                { L.e(it) }
             )
     }
 

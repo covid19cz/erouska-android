@@ -7,7 +7,7 @@ import cz.covid19cz.app.BuildConfig
 /**
  * Created by stepansonsky on 07/01/16.
  */
-object Log {
+object L {
 
     fun d(text: String) {
         val logStrings = createLogStrings(text)
@@ -36,14 +36,13 @@ object Log {
 
     fun e(throwable: Throwable) {
         if (BuildConfig.DEBUG) {
-            Log.e("Log", throwable.message, throwable)
+            Log.e("L", throwable.message, throwable)
         }
         Crashlytics.logException(throwable)
     }
 
     private fun createLogStrings(text: String): Array<String> {
         val ste = Thread.currentThread().stackTrace
-
         val line = "(" + (ste[4].fileName + ":" + ste[4].lineNumber + ")")
         return arrayOf(line, text)
     }

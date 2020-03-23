@@ -14,7 +14,7 @@ import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
 
 class SandboxFragment :
@@ -45,10 +45,10 @@ class SandboxFragment :
         }
 
         if (isMyServiceRunning(CovidService::class.java)) {
-            Log.d("Service Covid is running")
+            L.d("Service Covid is running")
             viewModel.serviceRunning.value = true
         } else {
-            Log.d("Service Covid is not running")
+            L.d("Service Covid is not running")
         }
     }
 

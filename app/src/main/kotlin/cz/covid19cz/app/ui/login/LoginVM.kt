@@ -50,7 +50,7 @@ class LoginVM(
         override fun onVerificationFailed(e: FirebaseException) {
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
-            Log.w(TAG, "onVerificationFailed", e)
+            L.d("onVerificationFailed", e)
             handleError(e)
         }
 
@@ -121,7 +121,7 @@ class LoginVM(
                     registerDevice()
                 } else {
                     // Sign in failed, display a message and update the UI
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    L.d("signInWithCredential:failure", task.exception)
                     task.exception?.let { handleError(it) }
                 }
             }
@@ -129,7 +129,7 @@ class LoginVM(
 
     private fun handleError(e: Exception) {
         if (e is FirebaseAuthInvalidCredentialsException) {
-            Log.w(TAG, "Error code: ${e.errorCode}")
+            L.d("Error code: ${e.errorCode}")
         }
         if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_PHONE_NUMBER") {
             mutableState.postValue(EnterPhoneNumber(true))

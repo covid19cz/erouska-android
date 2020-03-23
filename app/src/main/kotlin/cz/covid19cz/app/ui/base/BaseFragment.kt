@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.app.R
 import cz.covid19cz.app.ui.sandbox.SandboxFragment
 import cz.covid19cz.app.ui.sandbox.SandboxFragment.Companion
-import cz.covid19cz.app.utils.Log
 import kotlin.reflect.KClass
 
 
