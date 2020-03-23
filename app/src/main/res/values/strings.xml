@@ -56,6 +56,10 @@
     <string name="permission_rationale_body">Více o tom proč tomu tak je, najdete v nápovědě.</string>
     <string name="permission_rationale_settings">Nastavení</string>
     <string name="permission_rationale_dismiss">Zrušit</string>
+    <string name="welcome_help">Jak to funguje</string>
+    <string name="welcome_activation">Pokračovat v aktivaci</string>
+    <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve vaší blízkosti, může vás kontaktovat hygienická stanice.\n\nKdyž se potvrdí nákaza u vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.]]></string>
+    <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
 </resources>

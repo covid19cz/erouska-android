@@ -17,17 +17,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:padding="16dp">
+            android:padding="32dp">
 
             <com.google.android.material.button.MaterialButton
                 style="?materialButtonOutlinedStyle"
                 android:id="@+id/welcome_help_btn"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:onClick="@{() -> vm.help()}"
                 android:layout_width="wrap_content"
-                android:text="Jak to funguje"
+                android:text="@string/welcome_help"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -54,7 +53,7 @@
                 tools:layout_editor_absoluteX="16dp"
 
                 tools:layout_editor_absoluteY="16dp"
-                android:text="Tato aplikace vytváří seznam telefonů ve vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve vaší blízkosti, může vás kontaktovat  hygienická stanice.\n\nKdyž se potvrdí nákaza u vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku." />
+                android:text="@string/welcome_description" />
 
             <TextView
                 android:id="@+id/welcome_title"
@@ -65,10 +64,9 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mzcr_icon"
-                android:text="Chráním sebe, chráním ostatní" />
+                android:text="@string/welcome_title" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome_continue_btn"
@@ -76,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="@{() -> vm.nextStep()}"
-                android:text="Pokračovat v aktivaci"
+                android:text="@string/welcome_activation"
                 app:cornerRadius="24dp"
                 app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
                 app:layout_constraintEnd_toEndOf="parent"
