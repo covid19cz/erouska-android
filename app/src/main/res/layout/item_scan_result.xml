@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="cz.covid19cz.app.utils.RssiUtils"/>
         <variable
             name="item"
             type="cz.covid19cz.app.bt.entity.ScanSession" />
@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_radius"
-        app:contentPadding="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
@@ -25,7 +24,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.currRssi)}">
 
         <ProgressBar
             android:id="@+id/progress"
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:max="70"
+            app:progressTintResource="@{RssiUtils.INSTANCE.rssiToColor(item.currRssi)}"
             android:progress="@{100 + item.currRssi}"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -53,6 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:text='@{String.format("RSSI: %d", item.currRssi)}' />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

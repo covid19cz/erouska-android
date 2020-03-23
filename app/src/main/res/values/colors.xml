@@ -24,4 +24,13 @@
     <color name="exposition_level_6">#FF9800</color>
     <color name="exposition_level_7">#FF5722</color>
     <color name="exposition_level_8">#F44336</color>
+
+    <color name="exposition_level_1_bg">#774CAF50</color>
+    <color name="exposition_level_2_bg">#778BC34A</color>
+    <color name="exposition_level_3_bg">#77CDDC39</color>
+    <color name="exposition_level_4_bg">#77FFEB3B</color>
+    <color name="exposition_level_5_bg">#77FFC107</color>
+    <color name="exposition_level_6_bg">#77FF9800</color>
+    <color name="exposition_level_7_bg">#77FF5722</color>
+    <color name="exposition_level_8_bg">#77F44336</color>
 </resources>

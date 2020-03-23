@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="cz.covid19cz.app.utils.RssiUtils" />
+
         <variable
             name="vm"
             type="cz.covid19cz.app.ui.dbexplorer.DbExplorerVM" />
@@ -17,52 +19,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="4dp">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
+        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.rssiMed)}">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{vm.formatTimeStamps(item.timestampStart, item.timestampEnd)}"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:text="@{item.buid}" />
-
-            </LinearLayout>
+            android:layout_weight="3"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                app:textColorResource="@{vm.getExpositionColor(item.rssiMax)}"
-                android:text="@{String.valueOf(item.rssiMax)}" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.formatTimeStamps(item.timestampEnd)}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.buid}"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:textColorResource="@{vm.getExpositionColor(item.rssiMed)}"
-            android:text="@{String.valueOf(item.rssiMed)}" />
+            android:text="@{String.valueOf(item.rssiMed)}"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -71,12 +60,5 @@
             android:gravity="center"
             android:text='@{vm.getAvgSeconds(item.timestampStart, item.timestampEnd, item.rssiCount)}' />
 
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#11000000"
-            android:layout_marginTop="4dp"/>
     </LinearLayout>
 </layout>

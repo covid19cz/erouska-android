@@ -28,13 +28,13 @@
             android:textStyle="bold"
             android:text="BUID" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:text="Max." />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="RSSI" />
 
         <TextView
             android:layout_width="0dp"
@@ -42,15 +42,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="Med." />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text='Frekv.' />
+            android:text='Frekvence' />
 
         </LinearLayout>
 </layout>

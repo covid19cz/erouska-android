@@ -78,7 +78,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
             if (GATT_CHARACTERISTIC_UUID == characteristic!!.uuid) {
                 val buid = characteristic.value?.asHexLower
                 val mac = gatt.device?.address
-                gatt.disconnect()
+                gatt.close()
 
                 if (buid != null){
                     Log.d("BUID found in characteristic")
@@ -101,7 +101,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
 
         override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
             if (status != BluetoothGatt.GATT_SUCCESS) {
-                gatt.disconnect()
+                gatt.close()
                 return
             }
             val characteristic = gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
@@ -110,7 +110,7 @@ class BluetoothRepository(val context: Context, private val db: DatabaseReposito
                 gatt.readCharacteristic(characteristic)
             } else {
                 Log.e("GATT characteristic not found")
-                gatt.disconnect()
+                gatt.close()
             }
         }
     }
