@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.btonboard.BtOnboardVM" />
+            type="cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM" />
     </data>
 
     <ScrollView
@@ -17,15 +17,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/bluetooth_onboard_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_bluetooth_onboard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,10 @@
                 android:id="@+id/bluetooth_onboard_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/bt_onboard_title"
+                android:layout_marginEnd="16dp"
+                android:text="@string/permission_onboarding_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,33 +49,50 @@
                 android:id="@+id/bluetooth_onboard_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/bt_onboard_desc"
-
+                android:layout_marginEnd="16dp"
+                android:text="@string/permission_onboarding_desc"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_title"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_title" />
+
+            <TextView
+                android:id="@+id/bluetooth_onboard_desc_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/permission_onboarding_desc_2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_desc" />
 
             <TextView
                 android:id="@+id/bluetooth_onboard_desc_minor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/bt_onboard_desc_minor"
+                android:layout_marginEnd="16dp"
+                android:text="@string/permission_onboarding_desc_minor"
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 android:textStyle="normal"
-                app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_desc"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_desc_2" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/enable_bluetooth_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:onClick="@{() -> vm.enableBluetooth()}"
                 android:text="@string/enable_bluetooth_button"
                 app:layout_constraintBottom_toBottomOf="parent"
