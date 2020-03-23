@@ -4,6 +4,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
 import com.google.android.material.snackbar.Snackbar
+import cz.covid19cz.app.R
 import cz.covid19cz.app.ui.sandbox.SandboxFragment
 import cz.covid19cz.app.ui.sandbox.SandboxFragment.Companion
 import kotlin.reflect.KClass
@@ -51,21 +53,26 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         // stub
     }
 
-    fun setToolbarTitle(@StringRes titleId: Int) {
-        setToolbarTitle(getString(titleId))
-    }
-
-    fun setToolbarTitle(title: String) {
-        (activity as AppCompatActivity).supportActionBar?.title = title
-    }
-
-    fun enableUpInToolbar(enable: Boolean) {
+    fun enableUpInToolbar(enable: Boolean, iconType: IconType = IconType.UP) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+        if (enable) {
+            when (iconType) {
+                IconType.CLOSE -> R.drawable.ic_action_close
+                IconType.UP -> R.drawable.ic_action_up
+            }.run {
+                (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(this)
+            }
+        }
     }
 
     fun requestEnableBt() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         startActivityForResult(enableBtIntent, SandboxFragment.REQUEST_BT_ENABLE)
+    }
+
+    fun requestLocationEnable(){
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -78,5 +85,13 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    open fun onBackPressed(): Boolean {
+        return false
+    }
+
+    enum class IconType {
+        UP, CLOSE
     }
 }

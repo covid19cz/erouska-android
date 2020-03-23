@@ -21,7 +21,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
             }
         }
 
-        if (viewModel.userSignedIn) {
+        if (viewModel.userInitialized) {
             navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox, null,
                 NavOptions.Builder()
                     .setPopUpTo(R.id.nav_graph,
@@ -31,7 +31,6 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.welcome_toolbar_title)
         enableUpInToolbar(false)
     }
 
@@ -44,6 +43,6 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
     }
 
     fun openHelpPage() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_help)
+        navigate(R.id.action_nav_welcome_fragment_to_nav_help, Bundle().apply { putBoolean("fullscreen", true) })
     }
 }

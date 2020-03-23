@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:padding="16dp">
 
-            <Button
-                style="?attr/materialButtonOutlinedStyle"
+            <com.google.android.material.button.MaterialButton
+                style="?materialButtonOutlinedStyle"
                 android:id="@+id/welcome_help_btn"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -34,11 +34,12 @@
 
             <ImageView
                 android:id="@+id/mzcr_icon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
                 android:scaleType="center"
                 android:src="@drawable/ic_mzcr"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +62,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
 
@@ -71,12 +72,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome_continue_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_width="wrap_content"
-                android:text="Pokračovat v aktivaci"
                 android:onClick="@{() -> vm.nextStep()}"
+                android:text="Pokračovat v aktivaci"
+                app:cornerRadius="24dp"
                 app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

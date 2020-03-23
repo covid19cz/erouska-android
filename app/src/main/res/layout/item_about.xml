@@ -20,14 +20,14 @@
         android:onClick="@{() -> vm.profileClick(item)}">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="80dp"
+        android:layout_width="88dp"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
             android:id="@+id/imagePhoto"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="88dp"
             android:scaleType="centerCrop"
             app:imageResource="@{item.photo}"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +42,8 @@
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/imagePhoto"
             android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{item.name}"
             tools:text="Jméno" />
 
@@ -52,7 +54,9 @@
             android:paddingBottom="4dp"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/textName"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
             android:text="@{item.surname}"
             tools:text="Příjmení" />
 

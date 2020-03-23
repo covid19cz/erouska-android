@@ -1,10 +1,12 @@
 package cz.covid19cz.app.ui.main
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import androidx.navigation.NavOptions.Builder
-import cz.covid19cz.app.BuildConfig
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.ActivityMainBinding
 import cz.covid19cz.app.ui.base.BaseActivity
@@ -13,33 +15,52 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (BuildConfig.DEBUG){
-            menuInflater.inflate(R.menu.main_debug, menu)
-        } else {
-            menuInflater.inflate(R.menu.main, menu)
+        findNavController(R.id.nav_host_fragment).let {
+            NavigationUI.setupWithNavController(bottom_navigation, it);
+            it.addOnDestinationChangedListener { controller, destination, arguments ->
+                updateTitle(destination)
+                updateBottomNavigation(destination, arguments)
+            }
         }
-        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_test -> navigate(R.id.nav_sandbox, null,
-                Builder()
-                    .setPopUpTo(
-                        R.id.nav_graph,
-                        true
-                    ).build())
-
-            R.id.action_about -> navigate(R.id.nav_about)
+        return when (item.itemId) {
+            R.id.nav_help -> {
+                navigate(R.id.nav_help, Bundle().apply { putBoolean("fullscreen", true) })
+                true
+            }
+            else -> {
+                NavigationUI.onNavDestinationSelected(
+                    item,
+                    findNavController(R.id.nav_host_fragment)
+                ) || super.onOptionsItemSelected(item)
+            }
         }
+    }
 
-        return super.onOptionsItemSelected(item)
+    private fun updateTitle(destination: NavDestination) {
+        if (destination.label != null) {
+            title = destination.label
+        } else {
+            setTitle(R.string.app_name)
+        }
+    }
+
+    private fun updateBottomNavigation(
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        bottom_navigation.visibility =
+            if (destination.arguments["fullscreen"]?.defaultValue == true
+                || arguments?.getBoolean("fullscreen") == true
+            ) {
+                GONE
+            } else {
+                VISIBLE
+            }
     }
 }

@@ -1,26 +1,29 @@
 package cz.covid19cz.app.db
 
-import androidx.lifecycle.LiveData
 import io.reactivex.Single
 
 interface DatabaseRepository {
 
-    val data: Single<List<ExpositionEntity>>
-
-    fun add(exposition: ExpositionEntity) : Long
-    fun delete(exposition: ExpositionEntity)
+    val data: Single<List<ScanResultEntity>>
+    fun add(scanResult: ScanResultEntity): Long
+    fun delete(scanResult: ScanResultEntity)
+    fun clear()
 }
 
-class ExpositionRepositoryImpl(private val dao: ExpositionDao) :
+class ExpositionRepositoryImpl(private val dao: ScanResultsDao) :
     DatabaseRepository {
 
-    override val data: Single<List<ExpositionEntity>> = dao.getAll()
+    override val data: Single<List<ScanResultEntity>> = dao.getAll()
 
-    override fun add(device: ExpositionEntity) : Long {
+    override fun add(device: ScanResultEntity): Long {
         return dao.insert(device)
     }
 
-    override fun delete(exposition: ExpositionEntity) {
-        dao.delete(exposition)
+    override fun delete(scanResult: ScanResultEntity) {
+        dao.delete(scanResult)
+    }
+
+    override fun clear() {
+        dao.clear()
     }
 }

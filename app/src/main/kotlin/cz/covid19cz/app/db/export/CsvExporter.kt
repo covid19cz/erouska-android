@@ -10,7 +10,7 @@ import org.supercsv.prefs.CsvPreference
 import java.io.File
 import java.io.FileWriter
 
-class CsvExporter(val context: Context, val repository: DatabaseRepository) {
+class CsvExporter(private val context: Context, private val repository: DatabaseRepository) {
 
     companion object {
         // represents the structure of the csv file
@@ -45,9 +45,9 @@ class CsvExporter(val context: Context, val repository: DatabaseRepository) {
                         it.buid,
                         it.timestampStart,
                         it.timestampEnd,
-                        it.rssiMin,
+                        0,
                         it.rssiMax,
-                        it.rssiAvg,
+                        0,
                         it.rssiMed
                     )
                 }

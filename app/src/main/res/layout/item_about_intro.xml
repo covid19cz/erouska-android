@@ -15,9 +15,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         app:cardCornerRadius="16dp"
         app:contentPadding="16dp">
 
@@ -28,18 +28,10 @@
             android:gravity="center_horizontal"
             >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:src="@drawable/logo_covid19cz"
-                android:onClick="@{() -> vm.logoClick(@string/covid19_link)}"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/about_intro"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
                 />
         </LinearLayout>
 

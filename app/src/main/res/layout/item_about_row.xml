@@ -36,8 +36,8 @@
         app:items="@{item.items}"
         app:layoutStrategy="@{AboutRecyclerLayoutStrategy.INSTANCE}"
         app:orientation="@{RecyclerView.HORIZONTAL}"
-        android:paddingLeft="48dp"
-        android:paddingRight="48dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
         android:clipToPadding="false"
         />
 

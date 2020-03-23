@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="cz.covid19cz.app.utils.RssiUtils"/>
         <variable
             name="item"
             type="cz.covid19cz.app.bt.entity.ScanSession" />
@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_radius"
-        app:contentPadding="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
@@ -25,25 +24,28 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.currRssi)}">
 
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:max="100"
+            android:max="70"
+            app:progressTintResource="@{RssiUtils.INSTANCE.rssiToColor(item.currRssi)}"
             android:progress="@{100 + item.currRssi}"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/textDeviceId"
+            android:id="@+id/textBuid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textColor="@color/textColorSecondary"
-            android:textSize="24sp"
+            android:textSize="16sp"
             android:text="@{item.deviceId}"/>
 
         <TextView
@@ -53,32 +55,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress"
             android:textSize="20sp"
-            android:textColor="@{item.inRange ? @color/textColorSecondary : @color/red}"
-            android:text='@{item.inRange ? String.format("RSSI: %d", item.currRssi) : "Mimo dosah"}' />
-
-        <TextView
-            android:id="@+id/textMaxRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCurrentRssi"
-            android:text='@{String.format("Maximum: %d", item.liveMaxRssi)}'/>
-
-        <TextView
-            android:id="@+id/textAvgRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textMaxRssi"
-            android:text='@{String.format("Průměr: %d", item.liveAvgRssi)}'/>
-
-        <TextView
-            android:id="@+id/textMedRssi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textAvgRssi"
-            android:text='@{String.format("Medián: %d", item.liveMedRssi)}'/>
+            android:textStyle="bold"
+            android:text='@{String.format("RSSI: %d", item.currRssi)}' />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

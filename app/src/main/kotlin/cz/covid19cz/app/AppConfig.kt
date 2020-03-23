@@ -2,11 +2,11 @@ package cz.covid19cz.app
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.utils.L
 
 object AppConfig {
 
-    const val BLE_OUT_OF_RANGE_TIMEOUT = 30
+    const val BLE_OUT_OF_RANGE_TIMEOUT = 5
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds
@@ -42,17 +42,17 @@ object AppConfig {
                 task ->
             if (task.isSuccessful) {
                 val updated = task.result
-                Log.d("Config params updated: $updated")
+                L.d("Config params updated: $updated")
                 print()
             } else {
-                Log.e("Config params update failed")
+                L.e("Config params update failed")
             }
         }
     }
 
     private fun print() {
         for (item in firebaseRemoteConfig.all) {
-            Log.d("${item.key}: ${item.value.asString()}")
+            L.d("${item.key}: ${item.value.asString()}")
         }
     }
 }

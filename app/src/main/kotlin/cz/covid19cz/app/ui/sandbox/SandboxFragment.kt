@@ -1,4 +1,5 @@
 package cz.covid19cz.app.ui.sandbox
+
 import android.Manifest
 import android.app.ActivityManager
 import android.content.Context
@@ -12,8 +13,8 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.sandbox.event.ServiceCommandEvent
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
 
 class SandboxFragment :
@@ -21,34 +22,33 @@ class SandboxFragment :
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
-        const val REQUEST_PERMISSION_FINE_LOCATION = 1001
     }
 
-    lateinit var rxPermissions: RxPermissions
-    val compositeDisposable = CompositeDisposable()
+    private lateinit var rxPermissions: RxPermissions
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         rxPermissions = RxPermissions(this)
 
-        subscribe(ServiceCommandEvent::class) {
+        subscribe(DashboardCommandEvent::class) {
             when (it.command) {
-                ServiceCommandEvent.Command.TURN_ON -> tryStartBtService()
-                ServiceCommandEvent.Command.TURN_OFF -> stopService()
+                DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
+                DashboardCommandEvent.Command.TURN_OFF -> stopService()
             }
         }
 
         subscribe(ExportEvent.Complete::class) { event ->
-             view?.let {
-                    Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
+            view?.let {
+                Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
             }
         }
 
         if (isMyServiceRunning(CovidService::class.java)) {
-            Log.d("Service Covid is running")
+            L.d("Service Covid is running")
             viewModel.serviceRunning.value = true
         } else {
-            Log.d("Service Covid is not running")
+            L.d("Service Covid is not running")
         }
     }
 
@@ -65,7 +65,6 @@ class SandboxFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.bluetooth_toolbar_title)
         enableUpInToolbar(false)
     }
 
@@ -74,16 +73,14 @@ class SandboxFragment :
         tryStartBtService()
     }
 
-    fun tryStartBtService() {
+    private fun tryStartBtService() {
         if (viewModel.bluetoothRepository.hasBle(requireContext())) {
             if (!viewModel.bluetoothRepository.isBtEnabled()) {
                 navigate(R.id.action_nav_sandbox_to_nav_bt_disabled)
                 return
             }
             compositeDisposable.add(rxPermissions
-                .request(
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe { granted: Boolean ->
                     if (granted) {
                         startBtService()
@@ -98,7 +95,7 @@ class SandboxFragment :
         }
     }
 
-    fun stopService() {
+    private fun stopService() {
         CovidService.stopService(requireContext())
     }
 
@@ -110,7 +107,7 @@ class SandboxFragment :
         }
     }
 
-    fun startBtService() {
+    private fun startBtService() {
         CovidService.startService(requireContext())
         viewModel.confirmStart()
     }

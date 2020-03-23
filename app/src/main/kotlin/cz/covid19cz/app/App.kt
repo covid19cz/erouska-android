@@ -3,7 +3,7 @@ package cz.covid19cz.app
 import arch.BaseApp
 import com.idescout.sql.SqlScoutServer
 import cz.covid19cz.app.db.AppDatabase
-import cz.covid19cz.app.utils.Log
+import cz.covid19cz.app.utils.L
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import java.io.File
@@ -34,6 +34,6 @@ class App : BaseApp() {
 
         val file = File(path)
         val length: Long = file.length() // File size
-        Log.d("Database size: ${length/1024} kB")
+        L.d("Database size: ${length/1024} kB")
     }
 }
