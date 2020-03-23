@@ -140,7 +140,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room"
 
     implementation "net.sf.supercsv:super-csv:$versions.super_csv"
-
+    implementation 'com.android.support:customtabs:28.0.0'
 
     // Tests
     testImplementation 'junit:junit:4.12'

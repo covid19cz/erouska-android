@@ -62,4 +62,16 @@
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
+    <string name="contacts_title">Kontakty</string>
+    <string name="contacts_suspicion_desc"><b>Máte podezření na koronavirus?</b>\n\nZůstaňte doma a kontaktuje svého praktického lékaře nebo příslušnou hygienickou stanici.</string>
+    <string name="contacts_help_desc"><b>Potřebujete poradit?</b>\n\nVeškeré otázky a nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince 1212.</string>
+    <string name="contacts_faq">Často kladené dotazy</string>
+    <string name="contacts_important">Důležité kontakty</string>
+    <string name="contacts_emergency">Zavolejte na 1212</string>
+    <string name="contacts_improve_desc">Máte návrh na zlepšení aplikace nebo dotaz k jejímu fungování?</string>
+    <string name="contacts_email">Napište nám email</string>
+    <string name="send_email_chooser">Send mail...</string>
+    <string name="no_emal_client">There is no email client installed.</string>
+    <string name="default_email_subject">Dotaz z aplikace</string>
+    <string name="default_email_address">info@erouska.cz</string>
 </resources>

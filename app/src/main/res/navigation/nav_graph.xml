@@ -155,6 +155,11 @@
         android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
         android:label="@string/my_data_title" />
     <fragment
+        android:id="@+id/nav_contacts"
+        android:name="cz.covid19cz.app.ui.contacts.ContactsFragment"
+        android:label="@string/contacts_title"
+        tools:layout="@layout/fragment_contacts"/>
+    <fragment
         android:id="@+id/alertDialogFragment"
         android:name="arch.view.AlertDialogFragment"
         android:label="AlertDialogFragment" />
