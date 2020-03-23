@@ -11,6 +11,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import cz.covid19cz.app.R
@@ -48,52 +49,64 @@ class CovidNotificationManager(private val service: CovidService) {
 
     fun postNotification(serviceStatus: ServiceStatus) {
         createNotificationChannel()
-
         val builder = NotificationCompat.Builder(service, SERVICE_CHANNEL_ID)
+        builder.setStyle(NotificationCompat.BigTextStyle())
 
         @StringRes val title: Int
         @StringRes val text: Int
         @DrawableRes val icon: Int
         @ColorRes val color: Int
         val notificationIntent = Intent(service, MainActivity::class.java)
+        @StringRes val actionText: Int?
+        val actionIntent: PendingIntent
 
-        if (serviceStatus.isOk()) {
-            title = R.string.notification_title
-            text = R.string.notification_text
-            icon = R.drawable.ic_notification_normal
-            color = R.color.green
-        } else {
-            title = R.string.notification_title_error
-            icon = R.drawable.ic_notification_error
-            color = R.color.red
-
-            builder.setChannelId(ALERT_CHANNEL_ID)
-            builder.setStyle(NotificationCompat.BigTextStyle())
-
-            @StringRes val actionText: Int?
-            val actionIntent: Intent
-
-            when {
-                serviceStatus.batterySaverEnabled -> {
-                    text = R.string.notification_text_battery_saver_enabled
-                    actionIntent = getBatterySaverSettingsIntent()
-                    actionText = R.string.notification_action_disable_battery_saver
-                }
-                !serviceStatus.bluetoothEnabled -> {
-                    text = R.string.notification_text_bluetooth_disabled
-                    actionIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                    actionText = R.string.notification_action_enable_bluetooth
-                }
-                else -> {
-                    text = R.string.notification_text_location_disabled
-                    actionIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    actionText = R.string.notification_action_enable_location
-                }
+        when {
+            serviceStatus.paused -> {
+                title = R.string.notification_title_error
+                text = R.string.notification_text_paused
+                icon = R.drawable.ic_notification_normal
+                color = R.color.exposition_level_6
+                actionIntent = CovidService.resume(service).wrapAsForegroundService()
+                actionText = R.string.notification_action_resume
             }
-            val actionPendingIntent = PendingIntent.getActivity(service, 0, actionIntent, 0)
-            builder.addAction(0, service.getString(actionText), actionPendingIntent)
-
+            serviceStatus.batterySaverEnabled -> {
+                builder.setChannelId(ALERT_CHANNEL_ID)
+                title = R.string.notification_title_error
+                text = R.string.notification_text_battery_saver_enabled
+                icon = R.drawable.ic_notification_error
+                color = R.color.red
+                actionIntent = getBatterySaverSettingsIntent().wrapAsActivity()
+                actionText = R.string.notification_action_disable_battery_saver
+            }
+            !serviceStatus.bluetoothEnabled -> {
+                builder.setChannelId(ALERT_CHANNEL_ID)
+                title = R.string.notification_title_error
+                text = R.string.notification_text_bluetooth_disabled
+                icon = R.drawable.ic_notification_error
+                color = R.color.red
+                actionIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE).wrapAsActivity()
+                actionText = R.string.notification_action_enable_bluetooth
+            }
+            !serviceStatus.locationEnabled -> {
+                builder.setChannelId(ALERT_CHANNEL_ID)
+                title = R.string.notification_title_error
+                text = R.string.notification_text_location_disabled
+                icon = R.drawable.ic_notification_error
+                color = R.color.red
+                actionIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).wrapAsActivity()
+                actionText = R.string.notification_action_enable_location
+            }
+            else -> {
+                title = R.string.notification_title
+                text = R.string.notification_text_resumed
+                icon = R.drawable.ic_notification_normal
+                color = R.color.green
+                actionIntent = CovidService.stopService(service).wrapAsService()
+                actionText = R.string.notification_action_pause
+            }
         }
+        builder.addAction(0, service.getString(actionText), actionIntent)
+
 
         val notificationPendingIntent =
             PendingIntent.getActivity(service, 0, notificationIntent, 0)
@@ -104,12 +117,19 @@ class CovidNotificationManager(private val service: CovidService) {
                 .setSmallIcon(icon)
                 .setColor(ContextCompat.getColor(this, color))
                 .setContentIntent(notificationPendingIntent)
+                .setOngoing(!serviceStatus.paused)
                 .build()
-                .run { startForeground(NOTIFICATION_ID, this) }
+                .run {
+                    if (serviceStatus.paused) {
+                        NotificationManagerCompat.from(service).notify(NOTIFICATION_ID, this)
+                    } else {
+                        startForeground(NOTIFICATION_ID, this)
+                    }
+                }
         }
     }
 
-    fun getBatterySaverSettingsIntent(): Intent {
+    private fun getBatterySaverSettingsIntent(): Intent {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
         } else {
@@ -117,7 +137,20 @@ class CovidNotificationManager(private val service: CovidService) {
         }
     }
 
+    private fun Intent.wrapAsService() = PendingIntent.getService(service, 0, this, 0)
+
+    private fun Intent.wrapAsForegroundService(): PendingIntent {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(service, 0, this, 0)
+        } else {
+            wrapAsService()
+        }
+    }
+
+    private fun Intent.wrapAsActivity() = PendingIntent.getActivity(service, 0, this, 0)
+
     data class ServiceStatus(
+        val paused: Boolean,
         val bluetoothEnabled: Boolean,
         val locationEnabled: Boolean,
         val batterySaverEnabled: Boolean
