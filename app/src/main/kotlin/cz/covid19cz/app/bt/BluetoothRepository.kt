@@ -7,6 +7,7 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
+import android.util.Log
 import androidx.core.content.getSystemService
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
@@ -24,6 +25,7 @@ import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import java.nio.charset.Charset
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -83,7 +85,7 @@ class BluetoothRepository(
                 val mac = gatt.device?.address
                 gatt.close()
 
-                if (buid != null){
+                if (buid != null) {
                     L.d("BUID found in characteristic")
                     discoveredIosDevices[mac]?.let { s ->
                         Observable.just(s).map { session ->
@@ -107,8 +109,9 @@ class BluetoothRepository(
                 gatt.close()
                 return
             }
-            val characteristic = gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
-            if (characteristic != null){
+            val characteristic =
+                gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
+            if (characteristic != null) {
                 L.d("GATT characteristic found")
                 gatt.readCharacteristic(characteristic)
             } else {
@@ -195,7 +198,9 @@ class BluetoothRepository(
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
 
             var deviceId = getBuidFromAndroid(result.scanRecord.bytes)
-            if (result.scanRecord.deviceName == "Covid-19" && deviceId == null) {
+
+            if (deviceId == null && result.scanRecord.getManufacturerSpecificData(0x004C) != null) {
+                // It's time to handle iOS Device
                 if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
                     getBuidFromIos(result)
                 } else {
