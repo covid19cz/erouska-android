@@ -21,7 +21,7 @@
         <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="ToolbarTheme" parent="Widget.MaterialComponents.Toolbar">
         <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.functions.ktx.functions
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.R
 import cz.covid19cz.app.db.DatabaseRepository
@@ -141,7 +143,7 @@ class LoginVM(
             mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_SESSION_EXPIRED") {
             mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
-        }  else if (e is FirebaseNetworkException) {
+        } else if (e is FirebaseNetworkException) {
             mutableState.postValue(LoginError(R.string.login_network_error.toText()))
         } else {
             mutableState.postValue(LoginError(e.message?.toText()))
@@ -149,20 +151,31 @@ class LoginVM(
     }
 
     private fun registerDevice() {
-        val data = hashMapOf(
-            "platform" to "android",
-            "platformVersion" to Build.VERSION.RELEASE,
-            "manufacturer" to Build.MANUFACTURER,
-            "model" to Build.MODEL,
-            "locale" to Locale.getDefault().toString()
-        )
-        functions.getHttpsCallable("createUser").call(data).addOnSuccessListener {
-            val buid = JSONObject(it.data.toString()).getString("buid")
-            sharedPrefsRepository.putDeviceBuid(buid)
-            getUser()
-        }.addOnFailureListener {
-            handleError(it)
-        }
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let { handleError(it) }
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val pushToken = task.result?.token
+                val data = hashMapOf(
+                    "platform" to "android",
+                    "platformVersion" to Build.VERSION.RELEASE,
+                    "manufacturer" to Build.MANUFACTURER,
+                    "model" to Build.MODEL,
+                    "locale" to Locale.getDefault().toString(),
+                    "pushRegistrationToken" to pushToken
+                )
+                functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
+                    val buid = JSONObject(it.data.toString()).getString("buid")
+                    sharedPrefsRepository.putDeviceBuid(buid)
+                    getUser()
+                }.addOnFailureListener {
+                    handleError(it)
+                }
+            })
     }
 
     private fun getUser() {

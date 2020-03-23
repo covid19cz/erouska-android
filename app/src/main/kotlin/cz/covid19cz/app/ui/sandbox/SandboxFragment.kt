@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import arch.livedata.SafeMutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
@@ -27,6 +29,7 @@ class SandboxFragment :
 
     private lateinit var rxPermissions: RxPermissions
     private val compositeDisposable = CompositeDisposable()
+    val serviceRunning = SafeMutableLiveData(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +48,7 @@ class SandboxFragment :
             }
         }
 
-        if (isMyServiceRunning(CovidService::class.java)) {
+        if (CovidService.isRunning(requireContext())) {
             L.d("Service Covid is running")
             viewModel.serviceRunning.value = true
         } else {
@@ -97,7 +100,9 @@ class SandboxFragment :
     }
 
     private fun stopService() {
-        CovidService.stopService(requireContext())
+        with(requireContext()){
+            startService(CovidService.stopService(this))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -109,7 +114,9 @@ class SandboxFragment :
     }
 
     private fun startBtService() {
-        CovidService.startService(requireContext())
+        with(requireContext()) {
+            ContextCompat.startForegroundService(this, CovidService.startService(this))
+        }
         viewModel.confirmStart()
     }
 
