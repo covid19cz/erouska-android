@@ -15,7 +15,7 @@ import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.receiver.ScreenStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
-import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
+import cz.covid19cz.app.ui.btdisabled.PermissionDisabledVM
 import cz.covid19cz.app.ui.contacts.ContactsVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
 import cz.covid19cz.app.ui.help.HelpVM
@@ -37,10 +37,10 @@ val viewModelModule = module {
     viewModel { LoginVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
-    viewModel { BtDisabledVM() }
+    viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { DashboardVM(get(), get(), get()) }
     viewModel { ContactsVM() }
-    viewModel { PermissionsOnboardingVM(get(), get(), get()) }
+    viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { MyDataVM(get(), get(), get()) }
 }
 

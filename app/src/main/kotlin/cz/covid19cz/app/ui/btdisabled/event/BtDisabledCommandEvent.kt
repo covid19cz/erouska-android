@@ -6,6 +6,8 @@ class BtDisabledCommandEvent(val command: Command) : LiveEvent() {
 
     enum class Command{
         ENABLE_BT,
+        REQUEST_LOCATION,
+        ENABLED_LOCATION
     }
 
 }

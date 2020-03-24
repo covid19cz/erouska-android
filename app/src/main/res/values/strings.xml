@@ -23,9 +23,18 @@
     <string name="help_toolbar_title">Jak to funguje</string>
     <string name="bluetooth_toolbar_title">Hledání zařízení</string>
     <string name="go_back_button">Zpět do aplikace</string>
-    <string name="enable_bluetooth_button">Pokračovat</string>
+    <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+
+    <string name="location_disabled_title">Zapněte Polohové služby</string>
+    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
+    <string name="enable_location_button">Zapnout Polohové služby</string>
+
+    <string name="bt_location_disabled_title">Zapněte Bluetooth a Polohové služby</string>
+    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby”.</string>
+    <string name="enable_bt_location_button">Zapnout BT a Polohové služby</string>
+
     <string name="dashboard_title_running">Aplikace je aktivní</string>
     <string name="dashboard_title_paused">Aplikace je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
