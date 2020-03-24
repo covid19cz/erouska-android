@@ -104,7 +104,7 @@ class MyDataVM(
     fun sendData() {
         val minutesSinceLastUpload = (System.currentTimeMillis() - prefs.getLastUploadTimestamp())/60000
         if (minutesSinceLastUpload < AppConfig.uploadWaitingMinutes) {
-            publish(ExportEvent.PleaseWait(AppConfig.uploadWaitingMinutes))
+            publish(ExportEvent.PleaseWait(AppConfig.uploadWaitingMinutes - minutesSinceLastUpload.toInt()))
         } else {
             publish(ExportEvent.Confirmation)
         }
