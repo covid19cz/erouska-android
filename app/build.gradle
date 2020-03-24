@@ -130,6 +130,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-config-ktx:19.1.2'
     implementation 'com.google.firebase:firebase-functions-ktx:19.0.2'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
 
     // Stetho
     implementation "com.facebook.stetho:stetho:$versions.stetho"
@@ -140,7 +141,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room"
 
     implementation "net.sf.supercsv:super-csv:$versions.super_csv"
-
+    implementation 'com.android.support:customtabs:28.0.0'
 
     // Tests
     testImplementation 'junit:junit:4.12'

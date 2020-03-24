@@ -1,6 +1,8 @@
 package cz.covid19cz.app.ui.dashboard
 
 import android.net.Uri
+import androidx.lifecycle.Observer
+import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -10,8 +12,8 @@ import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.sandbox.ExportEvent
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.app.ui.sandbox.ExportEvent
 import io.reactivex.disposables.Disposable
 import java.io.File
 
@@ -23,6 +25,33 @@ class DashboardVM(
 
     private var exportDisposable: Disposable? = null
     private val storage = Firebase.storage
+    val serviceRunning = SafeMutableLiveData(false)
+
+    private val serviceObserver = Observer<Boolean> {
+        if (!it) {
+//            publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+        }
+    }
+
+    override fun onCleared() {
+        serviceRunning.removeObserver(serviceObserver)
+        super.onCleared()
+    }
+
+    fun init() {
+        serviceRunning.observeForever(serviceObserver)
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+    }
+
+    fun pause() {
+        serviceRunning.value = false
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
+    }
+
+    fun start() {
+        serviceRunning.value = true
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+    }
 
     fun share() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.SHARE))
@@ -46,6 +75,7 @@ class DashboardVM(
         val metadata = storageMetadata {
             contentType = "text/csv"
             setCustomMetadata("version", AppConfig.CSV_VERSION.toString())
+            setCustomMetadata("buid", prefs.getDeviceBuid())
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             publish(ExportEvent.Complete("Upload success"))

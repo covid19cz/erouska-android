@@ -4,6 +4,7 @@ import android.app.Application
 import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.room.Room
 import com.google.firebase.analytics.FirebaseAnalytics
 import cz.covid19cz.app.bt.BluetoothRepository
@@ -14,6 +15,7 @@ import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
+import cz.covid19cz.app.ui.contacts.ContactsVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
 import cz.covid19cz.app.ui.mydata.MyDataVM
 import cz.covid19cz.app.ui.help.HelpVM
@@ -36,6 +38,7 @@ val viewModelModule = module {
     viewModel { HelpVM() }
     viewModel { BtDisabledVM() }
     viewModel { DashboardVM(get(), get(), get()) }
+    viewModel { ContactsVM() }
     viewModel { PermissionsOnboardingVM(get(), get(), get()) }
     viewModel { MyDataVM(get()) }
 }
@@ -71,6 +74,7 @@ val appModule = module {
     single { BluetoothStateReceiver() }
     single { BatterSaverStateReceiver() }
     single { FirebaseAnalytics.getInstance(androidApplication()) }
+    single { LocalBroadcastManager.getInstance(androidApplication()) }
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }

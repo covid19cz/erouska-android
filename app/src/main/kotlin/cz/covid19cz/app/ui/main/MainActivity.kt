@@ -5,15 +5,14 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.ActivityMainBinding
 import cz.covid19cz.app.ui.base.BaseActivity
-import cz.covid19cz.app.ui.help.HelpFragment
-import cz.covid19cz.app.utils.L
+import cz.covid19cz.app.ui.dashboard.DashboardFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.RuntimeException
 
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
@@ -22,7 +21,13 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         findNavController(R.id.nav_host_fragment).let {
-            NavigationUI.setupWithNavController(bottom_navigation, it);
+            bottom_navigation.setOnNavigationItemSelectedListener { item ->
+                navigate(
+                    item.itemId,
+                    navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
+                )
+                true
+            }
             it.addOnDestinationChangedListener { controller, destination, arguments ->
                 updateTitle(destination)
                 updateBottomNavigation(destination, arguments)

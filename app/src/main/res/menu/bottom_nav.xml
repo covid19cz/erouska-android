@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_data"
         android:title="@string/my_data_title" />
     <item
-        android:id="@+id/tab_contacts"
+        android:id="@+id/nav_contacts"
         android:icon="@drawable/ic_contacts"
         android:title="Kontakty" />
     <item

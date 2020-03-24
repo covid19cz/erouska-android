@@ -44,6 +44,14 @@
                 android:value="true" />
         </service>
 
+        <service
+            android:name=".service.PushService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <receiver
             android:name=".receiver.OnBootReceiver"
             android:enabled="true"
@@ -56,6 +64,13 @@
 
         <receiver android:name=".receiver.BluetoothStateReceiver"/>
         <receiver android:name=".receiver.LocationStateReceiver"/>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification_normal" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorSecondary" />
     </application>
 
 </manifest>

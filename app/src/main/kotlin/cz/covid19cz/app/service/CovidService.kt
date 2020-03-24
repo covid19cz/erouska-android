@@ -1,5 +1,6 @@
 package cz.covid19cz.app.service
 
+import android.app.ActivityManager
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
@@ -8,6 +9,7 @@ import android.content.IntentFilter
 import android.location.LocationManager
 import android.os.*
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
@@ -29,23 +31,51 @@ class CovidService : Service() {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
         const val ACTION_UPDATE = "ACTION_UPDATE"
+        const val ACTION_PAUSE = "ACTION_PAUSE"
+        const val ACTION_RESUME = "ACTION_RESUME"
 
-        fun startService(c: Context) {
+        const val ACTION_MASK_STARTED = "action_service_started"
+        const val ACTION_MASK_STOPPED = "action_service_stopped"
+
+        fun startService(c: Context): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.action = ACTION_START
-            ContextCompat.startForegroundService(c, serviceIntent)
+            return serviceIntent
         }
 
-        fun stopService(c: Context) {
-            val stopIntent = Intent(c, CovidService::class.java)
-            stopIntent.action = ACTION_STOP
-            c.startService(stopIntent)
+        fun stopService(c: Context): Intent {
+            val serviceIntent = Intent(c, CovidService::class.java)
+            serviceIntent.action = ACTION_STOP
+            return serviceIntent
         }
 
         fun update(c: Context) {
-            val stopIntent = Intent(c, CovidService::class.java)
-            stopIntent.action = ACTION_UPDATE
-            c.startService(stopIntent)
+            val serviceIntent = Intent(c, CovidService::class.java)
+            serviceIntent.action = ACTION_UPDATE
+            c.startService(serviceIntent)
+        }
+
+        fun pause(c: Context): Intent {
+            val serviceIntent = Intent(c, CovidService::class.java)
+            serviceIntent.action = ACTION_PAUSE
+            return serviceIntent
+        }
+
+        fun resume(c: Context): Intent {
+            val serviceIntent = Intent(c, CovidService::class.java)
+            serviceIntent.action = ACTION_RESUME
+            return serviceIntent
+        }
+
+        fun isRunning(context: Context): Boolean {
+            val manager =
+            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+            for (service in manager!!.getRunningServices(Int.MAX_VALUE)) {
+                if (CovidService::class.java.name == service.service.className) {
+                    return true
+                }
+            }
+            return false
         }
     }
 
@@ -56,12 +86,14 @@ class CovidService : Service() {
     private val prefs by inject<SharedPrefsRepository>()
     private val wakeLockManager by inject<WakeLockManager>()
     private val powerManager by inject<PowerManager>()
+    private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val notificationManager = CovidNotificationManager(this)
 
     private var bleAdvertisingDisposable: Disposable? = null
     private var bleScanningDisposable: Disposable? = null
 
     private lateinit var deviceBuid: String
+    private var servicePaused = false
 
     override fun onCreate() {
         super.onCreate()
@@ -73,14 +105,21 @@ class CovidService : Service() {
         when (intent?.action) {
             // null intent is in case service is restarted by system
             ACTION_START, null -> {
+                servicePaused = false
                 createNotification()
                 turnMaskOn()
                 wakeLockManager.acquire()
             }
             ACTION_STOP -> {
                 wakeLockManager.release()
-                stopForeground(true)
+                servicePaused = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    stopForeground(STOP_FOREGROUND_DETACH)
+                } else {
+                    stopForeground(true)
+                }
                 stopSelf()
+                createNotification()
             }
             ACTION_UPDATE -> {
                 createNotification()
@@ -89,6 +128,16 @@ class CovidService : Service() {
                 } else {
                     turnMaskOff()
                 }
+            }
+            ACTION_PAUSE -> {
+                servicePaused = true
+                createNotification()
+                turnMaskOff()
+            }
+            ACTION_RESUME -> {
+                servicePaused = false
+                createNotification()
+                turnMaskOn()
             }
         }
         return START_STICKY
@@ -107,11 +156,17 @@ class CovidService : Service() {
     }
 
     private fun turnMaskOn() {
-        startBleAdvertising()
-        startBleScanning()
+        if (isLocationEnabled() && btUtils.isBtEnabled()) {
+            localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
+            startBleAdvertising()
+            startBleScanning()
+        } else {
+            turnMaskOff()
+        }
     }
 
     private fun turnMaskOff() {
+        localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STOPPED))
         btUtils.stopScanning()
         btUtils.stopAdvertising()
 
@@ -124,6 +179,7 @@ class CovidService : Service() {
     private fun createNotification() {
         notificationManager.postNotification(
             CovidNotificationManager.ServiceStatus(
+                servicePaused,
                 btUtils.isBtEnabled(),
                 isLocationEnabled(),
                 batterySaverRestrictsLocation()
