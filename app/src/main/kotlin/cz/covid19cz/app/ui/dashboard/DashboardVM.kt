@@ -27,9 +27,9 @@ class DashboardVM(
     private val storage = Firebase.storage
     val serviceRunning = SafeMutableLiveData(false)
 
-    private val serviceObserver = Observer<Boolean> {
-        if (!it) {
-//            publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+    private val serviceObserver = Observer<Boolean> { isRunning ->
+        if (!isRunning && !prefs.getAppPaused()) {
+                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
         }
     }
 
@@ -40,16 +40,13 @@ class DashboardVM(
 
     fun init() {
         serviceRunning.observeForever(serviceObserver)
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
 
     fun pause() {
-        serviceRunning.value = false
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
     }
 
     fun start() {
-        serviceRunning.value = true
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
 
