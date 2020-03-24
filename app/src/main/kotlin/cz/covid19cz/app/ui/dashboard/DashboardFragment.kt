@@ -8,14 +8,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
-import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
-import cz.covid19cz.app.ext.getLocationPermission
+import cz.covid19cz.app.databinding.FragmentPermissionssDisabledBinding
+import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -25,7 +24,7 @@ import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 
-class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
+class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
     R.layout.fragment_dashboard,
     DashboardVM::class
 ) {
@@ -57,8 +56,6 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
                 DashboardCommandEvent.Command.TURN_OFF -> context?.let {
                     it.startService(CovidService.stopService(it))
                 }
-                DashboardCommandEvent.Command.UPLOAD -> TODO()
-                DashboardCommandEvent.Command.SHOW_DATA -> TODO()
                 DashboardCommandEvent.Command.SHARE -> showSnackBar("Sdílet zatím neumím.")
                 DashboardCommandEvent.Command.PAUSE -> pauseService()
                 DashboardCommandEvent.Command.RESUME -> resumeService()
@@ -130,26 +127,17 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
     }
 
     private fun tryStartBtService() {
-        if (viewModel.bluetoothRepository.hasBle(requireContext())) {
-            if (!viewModel.bluetoothRepository.isBtEnabled()) {
-                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-                return
+        with (requireContext()) {
+            if (viewModel.bluetoothRepository.hasBle(this)) {
+                if (!viewModel.bluetoothRepository.isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
+                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    return
+                } else {
+                    ContextCompat.startForegroundService(this, CovidService.startService(this))
+                }
+            } else {
+                showSnackBar(R.string.error_ble_unsupported)
             }
-            compositeDisposable.add(rxPermissions
-                .request(getLocationPermission())
-                .subscribe { granted: Boolean ->
-                    if (granted && requireContext().isLocationEnabled()) {
-                        with (requireContext()) {
-                            ContextCompat.startForegroundService(this, CovidService.startService(this))
-                        }
-                    } else {
-                        //TODO: better dialog and navigate to settings
-                        Toast.makeText(context, "Povolte přístup k poloze", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                })
-        } else {
-            showSnackBar(R.string.error_ble_unsupported)
         }
     }
 }
