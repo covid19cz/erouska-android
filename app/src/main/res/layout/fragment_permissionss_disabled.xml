@@ -6,8 +6,8 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.btdisabled.PermissionDisabledVM" />
-        <import type="cz.covid19cz.app.ui.btdisabled.PermissionDisabledVM.ScreenState"/>
+            type="cz.covid19cz.app.ui.permissions.PermissionDisabledVM" />
+        <import type="cz.covid19cz.app.ui.permissions.PermissionDisabledVM.ScreenState"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

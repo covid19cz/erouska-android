@@ -1,29 +1,25 @@
 package cz.covid19cz.app.ui.dashboard
 
+import android.content.Context
 import androidx.lifecycle.Observer
 import arch.livedata.SafeMutableLiveData
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
-import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
-import io.reactivex.disposables.Disposable
 
 class DashboardVM(
     val bluetoothRepository: BluetoothRepository,
-    private val exporter: CsvExporter,
-    val prefs: SharedPrefsRepository
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    private var exportDisposable: Disposable? = null
-    private val storage = Firebase.storage
     val serviceRunning = SafeMutableLiveData(false)
 
     private val serviceObserver = Observer<Boolean> { isRunning ->
         if (!isRunning && !prefs.getAppPaused()) {
-                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
+        } else {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.UPDATE_STATE))
         }
     }
 

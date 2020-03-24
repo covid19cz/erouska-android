@@ -1,4 +1,4 @@
-package cz.covid19cz.app.ui.onboarding.event
+package cz.covid19cz.app.ui.permissions.onboarding.event
 
 import arch.event.LiveEvent
 

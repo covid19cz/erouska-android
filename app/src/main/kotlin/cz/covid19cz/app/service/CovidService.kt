@@ -239,7 +239,7 @@ class CovidService : Service() {
 
     private fun startBleScanning() {
         bleScanningDisposable = Observable.just(true)
-            .map {
+            .doOnNext {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
                     btUtils.startScanning(useScanFilter)
                 } else {
@@ -247,7 +247,7 @@ class CovidService : Service() {
                 }
             }
             .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
-            .map {
+            .doOnNext {
                 btUtils.stopScanning()
                 screenOfDetectionTimer?.cancel()
             }
@@ -261,7 +261,7 @@ class CovidService : Service() {
 
     private fun startBleAdvertising() {
         bleAdvertisingDisposable = Observable.just(true)
-            .map {
+            .doOnNext {
                 if (btUtils.isBtEnabled()) {
                     btUtils.startAdvertising(deviceBuid)
                 } else {
@@ -269,7 +269,7 @@ class CovidService : Service() {
                 }
             }
             .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
-            .map { btUtils.stopAdvertising() }
+            .doOnNext { btUtils.stopAdvertising() }
             .repeat()
             .execute(
                 { L.d("Restarting BLE advertising") },

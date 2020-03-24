@@ -1,10 +1,11 @@
-package cz.covid19cz.app.ui.onboarding
+package cz.covid19cz.app.ui.permissions.onboarding
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import cz.covid19cz.app.R
+import cz.covid19cz.app.ui.permissions.BasePermissionsFragment
 
 
 class PermissionsOnboardingFragment :
