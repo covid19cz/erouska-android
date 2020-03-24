@@ -17,8 +17,6 @@ class DashboardVM(
     val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    private var exportDisposable: Disposable? = null
-    private val storage = Firebase.storage
     val serviceRunning = SafeMutableLiveData(false)
 
     private val serviceObserver = Observer<Boolean> { isRunning ->

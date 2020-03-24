@@ -15,14 +15,14 @@ import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.receiver.ScreenStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
-import cz.covid19cz.app.ui.btdisabled.PermissionDisabledVM
+import cz.covid19cz.app.ui.permissions.PermissionDisabledVM
 import cz.covid19cz.app.ui.contacts.ContactsVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
 import cz.covid19cz.app.ui.mydata.MyDataVM
-import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
+import cz.covid19cz.app.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication

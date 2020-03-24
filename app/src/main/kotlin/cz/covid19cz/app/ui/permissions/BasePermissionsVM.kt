@@ -1,11 +1,11 @@
-package cz.covid19cz.app.ui.onboarding
+package cz.covid19cz.app.ui.permissions
 
 import android.app.Application
 import android.bluetooth.BluetoothManager
 import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.ui.base.BaseVM
-import cz.covid19cz.app.ui.onboarding.event.PermissionsOnboarding
+import cz.covid19cz.app.ui.permissions.onboarding.event.PermissionsOnboarding
 import cz.covid19cz.app.utils.isBluetoothEnabled
 
 abstract class BasePermissionsVM(

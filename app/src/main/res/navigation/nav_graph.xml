@@ -90,7 +90,7 @@
 
     <fragment
         android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.app.ui.btdisabled.PermissionsDisabledFragment"
+        android:name="cz.covid19cz.app.ui.permissions.PermissionsDisabledFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_permissionss_disabled">
         <action
@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
-        android:name="cz.covid19cz.app.ui.onboarding.PermissionsOnboardingFragment"
+        android:name="cz.covid19cz.app.ui.permissions.onboarding.PermissionsOnboardingFragment"
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
         <action

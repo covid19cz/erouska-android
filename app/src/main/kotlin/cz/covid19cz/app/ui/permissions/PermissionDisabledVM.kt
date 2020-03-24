@@ -1,4 +1,4 @@
-package cz.covid19cz.app.ui.btdisabled
+package cz.covid19cz.app.ui.permissions
 
 import android.app.Application
 import android.bluetooth.BluetoothManager
@@ -7,7 +7,6 @@ import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.app.R
 import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
-import cz.covid19cz.app.ui.onboarding.BasePermissionsVM
 import cz.covid19cz.app.utils.isBluetoothEnabled
 
 class PermissionDisabledVM(

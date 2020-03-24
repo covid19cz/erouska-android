@@ -1,9 +1,6 @@
-package cz.covid19cz.app.ui.onboarding
+package cz.covid19cz.app.ui.permissions
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
 import androidx.annotation.LayoutRes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -13,7 +10,7 @@ import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.ext.openLocationSettings
 import cz.covid19cz.app.ext.openPermissionsScreen
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.onboarding.event.PermissionsOnboarding
+import cz.covid19cz.app.ui.permissions.onboarding.event.PermissionsOnboarding
 import io.reactivex.disposables.CompositeDisposable
 import kotlin.reflect.KClass
 
