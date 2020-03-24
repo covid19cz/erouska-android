@@ -21,7 +21,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="32dp">
+                android:padding="@dimen/fragment_padding">
 
                 <ImageView
                     android:id="@+id/bluetooth_disabled_image"

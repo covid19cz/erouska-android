@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:padding="32dp">
+            android:padding="@dimen/fragment_padding">
 
             <com.google.android.material.button.MaterialButton
                 style="?materialButtonOutlinedStyle"
