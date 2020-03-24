@@ -1,6 +1,8 @@
 package cz.covid19cz.app.bt.entity
 
 import arch.livedata.SafeMutableLiveData
+import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.ext.minutesToMilis
 import cz.covid19cz.app.ext.rssiToDistanceString
 import java.util.*
 import kotlin.collections.ArrayList
@@ -55,5 +57,11 @@ class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
         } else {
             l[middle]
         }
+    }
+
+    fun reset(){
+        rssiList.clear()
+        avgRssi = 0
+        medRssi = 0
     }
 }

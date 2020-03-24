@@ -9,3 +9,15 @@ fun Int.rssiToDistance(): Double {
 fun Int.rssiToDistanceString(): String {
     return String.format("%.1f m", rssiToDistance())
 }
+
+fun Int.hoursToMilis() : Int{
+    return this * 360000
+}
+
+fun Int.minutesToMilis() : Int{
+    return this * 60000
+}
+
+fun Int.secondsToMilis() : Int{
+    return this * 1000
+}

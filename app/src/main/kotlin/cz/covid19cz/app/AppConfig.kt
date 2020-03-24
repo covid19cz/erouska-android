@@ -6,7 +6,6 @@ import cz.covid19cz.app.utils.L
 
 object AppConfig {
 
-    const val BLE_OUT_OF_RANGE_TIMEOUT = 5
     const val CSV_VERSION = 3
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()

@@ -256,7 +256,7 @@ class CovidService : Service() {
             .execute(
                 { L.d("Restarting BLE scanning") },
                 {
-                    btUtils.clearScanResults()
+                    pause(this)
                     L.e(it)
                 }
             )

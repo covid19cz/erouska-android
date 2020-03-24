@@ -10,19 +10,19 @@
     </entry>
     <entry>
         <key>advertiseTxPower</key>
-        <value>3</value>
+        <value>2</value>
     </entry>
     <entry>
         <key>advertiseMode</key>
-        <value>0</value>
+        <value>1</value>
     </entry>
     <entry>
         <key>advertiseRestartMinutes</key>
-        <value>5</value>
+        <value>60</value>
     </entry>
     <entry>
         <key>scanMode</key>
-        <value>0</value>
+        <value>1</value>
     </entry>
     <entry>
         <key>smsTimeoutSeconds</key>

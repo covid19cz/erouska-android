@@ -128,7 +128,7 @@ class MyDataVM(
         val ref = storage.reference.child("proximity/$fuid/$buid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
-            setCustomMetadata("version", "3")
+            setCustomMetadata("version", AppConfig.CSV_VERSION.toString())
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             prefs.saveLastUploadTimestamp(timestamp)
