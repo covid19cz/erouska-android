@@ -39,7 +39,7 @@
     <string name="dashboard_title_paused">Aplikace je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o vašem okolí.\n\nSpusťte znovu sběr dat a chraňte vás i vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
-    <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme vás na čísle %s. Požádáme vás o zaslání anonymizovaného seznamu telefonů, které byly ve vašem okolí v sekci Moje data.</string>
+    <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme vás na čísle %s. Požádáme vás o zaslání anonymizovaného seznamu telefonů, který naleznete v sekci Moje data.</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
     <string name="share_app">Sdílet aplikaci</string>
