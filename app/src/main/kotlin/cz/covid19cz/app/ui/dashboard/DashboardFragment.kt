@@ -7,10 +7,12 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.tbruyelle.rxpermissions2.RxPermissions
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.app.ext.hasLocationPermission
@@ -21,6 +23,7 @@ import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
+
 
 class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
     R.layout.fragment_dashboard,
@@ -54,7 +57,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.TURN_OFF -> context?.let {
                     it.startService(CovidService.stopService(it))
                 }
-                DashboardCommandEvent.Command.SHARE -> showSnackBar("Sdílet zatím neumím.")
                 DashboardCommandEvent.Command.PAUSE -> pauseService()
                 DashboardCommandEvent.Command.RESUME -> resumeService()
                 DashboardCommandEvent.Command.UPDATE_STATE -> {
@@ -88,6 +90,16 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.sandbox, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_share -> {
+                shareApp()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onBluetoothEnabled() {
@@ -149,6 +161,16 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) }
 
         )
+    }
 
+    private fun shareApp() {
+        shareLink(AppConfig.shareAppDynamicLink)
+    }
+
+    private fun shareLink(link: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, link)
+        startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
     }
 }

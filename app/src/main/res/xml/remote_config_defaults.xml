@@ -40,4 +40,8 @@
         <key>uploadWaitingMinutes</key>
         <value>15</value>
     </entry>
+    <entry>
+        <key>shareAppDynamicLink</key>
+        <value>https://covid19cz.page.link/share</value>
+    </entry>
 </defaultsMap>
