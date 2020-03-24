@@ -57,6 +57,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.SHARE -> showSnackBar("Sdílet zatím neumím.")
                 DashboardCommandEvent.Command.PAUSE -> pauseService()
                 DashboardCommandEvent.Command.RESUME -> resumeService()
+                DashboardCommandEvent.Command.UPDATE_STATE -> {
+                    checkRequirements(onFailed = {
+                        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    })
+                }
             }
         }
 
@@ -118,18 +123,32 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         )
     }
 
-    private fun tryStartBtService() {
-        with (requireContext()) {
+    private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}) {
+        with(requireContext()) {
             if (viewModel.bluetoothRepository.hasBle(this)) {
                 if (!viewModel.bluetoothRepository.isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
-                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    onFailed()
                     return
                 } else {
-                    ContextCompat.startForegroundService(this, CovidService.startService(this))
+                    onPassed()
                 }
             } else {
                 showSnackBar(R.string.error_ble_unsupported)
             }
         }
+    }
+
+    private fun tryStartBtService() {
+        checkRequirements(
+            {
+                ContextCompat.startForegroundService(
+                    requireContext(),
+                    CovidService.startService(requireContext())
+                )
+            },
+            { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) }
+
+        )
+
     }
 }

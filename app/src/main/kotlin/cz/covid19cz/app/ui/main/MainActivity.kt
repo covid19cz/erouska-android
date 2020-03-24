@@ -16,10 +16,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.app.R
+import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.databinding.ActivityMainBinding
+import cz.covid19cz.app.ext.hasLocationPermission
+import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseActivity
-import cz.covid19cz.app.ui.dashboard.DashboardFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
@@ -27,6 +29,7 @@ class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
     private val localBroadcastManager by inject<LocalBroadcastManager>()
+    private val bluetoothRepository by inject<BluetoothRepository>()
 
     private val serviceStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -58,7 +61,10 @@ class MainActivity :
             }
         }
         viewModel.serviceRunning.observe(this, Observer { isRunning ->
-            ContextCompat.getColor(this, if (isRunning) R.color.green else R.color.red).let {
+            ContextCompat.getColor(
+                this,
+                if (isRunning && passesRequirements()) R.color.green else R.color.red
+            ).let {
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
         })
@@ -117,6 +123,10 @@ class MainActivity :
             serviceStateReceiver,
             IntentFilter(CovidService.ACTION_MASK_STOPPED)
         )
+    }
+
+    private fun passesRequirements(): Boolean {
+        return bluetoothRepository.isBtEnabled() && isLocationEnabled() && hasLocationPermission()
     }
 
 }
