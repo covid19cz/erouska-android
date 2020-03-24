@@ -80,6 +80,7 @@
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
+    <string name="login_code_read_automatically">Ověřovací kód byl automaticky předvyplněn.</string>
     <string name="contacts_title">Kontakty</string>
     <string name="contacts_suspicion_desc"><b>Máte podezření na koronavirus?</b>\n\nZůstaňte doma a kontaktuje svého praktického lékaře nebo příslušnou hygienickou stanici.</string>
     <string name="contacts_help_desc"><b>Potřebujete poradit?</b>\n\nVeškeré otázky a nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince 1212.</string>

@@ -123,6 +123,17 @@ class LoginFragment :
                 }
                 login_verif_code_input.focusAndShowKeyboard()
             }
+            is CodeReadAutomatically -> {
+                show(
+                    phone_number_code,
+                    login_verif_code_input,
+                    login_verif_code,
+                    login_verif_code_send_btn
+                )
+                phone_number_code.setText(R.string.login_code_read_automatically)
+                login_verif_code.isErrorEnabled = false
+                login_verif_code_input.setText(state.code)
+            }
             SigningProgress -> show(login_progress)
             is LoginError -> showError(state.text)
             is SignedIn -> showSignedIn()
