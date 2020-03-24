@@ -9,8 +9,6 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
         TURN_OFF,
         PAUSE,
         RESUME,
-        UPLOAD,
-        SHOW_DATA,
         SHARE
     }
 

@@ -51,7 +51,7 @@
         tools:layout="@layout/fragment_sandbox">
         <action
             android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
-            app:destination="@id/nav_bt_disabled"
+            app:destination="@id/nav_permisions_disabled"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -89,10 +89,10 @@
         tools:layout="@layout/fragment_help" />
 
     <fragment
-        android:id="@+id/nav_bt_disabled"
-        android:name="cz.covid19cz.app.ui.btdisabled.BtDisabledFragment"
+        android:id="@+id/nav_permisions_disabled"
+        android:name="cz.covid19cz.app.ui.btdisabled.PermissionsDisabledFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_bt_disabled">
+        tools:layout="@layout/fragment_permissionss_disabled">
         <action
             android:id="@+id/action_nav_bt_disabled_to_nav_dashboard"
             app:destination="@id/nav_dashboard"
@@ -109,7 +109,7 @@
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_nav_dashboard_to_nav_bt_disabled"
-            app:destination="@id/nav_bt_disabled"
+            app:destination="@id/nav_permisions_disabled"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"

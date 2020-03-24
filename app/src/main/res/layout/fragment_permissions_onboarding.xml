@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM" />
+            type="cz.covid19cz.app.ui.onboarding.BasePermissionsVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
