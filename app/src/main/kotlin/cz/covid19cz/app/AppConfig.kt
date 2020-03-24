@@ -7,6 +7,7 @@ import cz.covid19cz.app.utils.L
 object AppConfig {
 
     const val BLE_OUT_OF_RANGE_TIMEOUT = 5
+    const val CSV_VERSION = 3
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds
@@ -23,6 +24,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
     val advertiseRestartMinutes
         get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
+    val criticalExpositionRssi
+        get() = firebaseRemoteConfig.getLong("criticalExpositionRssi").toInt()
+    val criticalExpositionMinutes
+        get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
 
     var overrideAdvertiseTxPower : Int? = null
 

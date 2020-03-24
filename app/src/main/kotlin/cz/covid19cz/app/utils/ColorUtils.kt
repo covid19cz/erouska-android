@@ -2,7 +2,7 @@ package cz.covid19cz.app.utils
 
 import cz.covid19cz.app.R
 
-object RssiUtils {
+object ColorUtils {
 
     fun rssiToColor(rssi : Int) : Int{
         return when{
@@ -14,7 +14,6 @@ object RssiUtils {
             rssi > -85 -> R.color.exposition_level_3
             rssi > -90 -> R.color.exposition_level_2
             else -> R.color.exposition_level_1
-
         }
     }
 
@@ -28,6 +27,20 @@ object RssiUtils {
             rssi > -85 -> R.color.exposition_level_3_bg
             rssi > -90 -> R.color.exposition_level_2_bg
             else -> R.color.exposition_level_1_bg
+
+        }
+    }
+
+    fun criticalCountToColor(count : Int) : Int{
+        return when{
+            count < 2 -> R.color.exposition_level_1
+            count < 3 -> R.color.exposition_level_2
+            count < 4 -> R.color.exposition_level_3
+            count < 5 -> R.color.exposition_level_4
+            count < 6 -> R.color.exposition_level_5
+            count < 7 -> R.color.exposition_level_6
+            count < 8 -> R.color.exposition_level_7
+            else -> R.color.exposition_level_8
 
         }
     }

@@ -15,17 +15,18 @@ import cz.covid19cz.app.receiver.LocationStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
-import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
-import cz.covid19cz.app.ui.dbexplorer.DbExplorerVM
+import cz.covid19cz.app.ui.mydata.MyDataVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
+import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+
 
 val viewModelModule = module {
     viewModel { MainVM() }
@@ -36,7 +37,7 @@ val viewModelModule = module {
     viewModel { BtDisabledVM() }
     viewModel { DashboardVM(get(), get(), get()) }
     viewModel { PermissionsOnboardingVM(get(), get(), get()) }
-    viewModel { DbExplorerVM(get()) }
+    viewModel { MyDataVM(get()) }
 }
 
 val databaseModule = module {
@@ -46,7 +47,7 @@ val databaseModule = module {
             .build()
     }
 
-    fun provideDao(database: AppDatabase): ScanResultsDao {
+    fun provideDao(database: AppDatabase): ScanDataDao {
         return database.scanResultsDao
     }
 
@@ -56,7 +57,7 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideDatabaseRepository(deviceDao: ScanResultsDao): DatabaseRepository {
+    fun provideDatabaseRepository(deviceDao: ScanDataDao): DatabaseRepository {
         return ExpositionRepositoryImpl(deviceDao)
     }
 

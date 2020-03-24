@@ -28,4 +28,12 @@
         <key>smsTimeoutSeconds</key>
         <value>10</value>
     </entry>
+    <entry>
+        <key>criticalExpositionRssi</key>
+        <value>-80</value>
+    </entry>
+    <entry>
+        <key>criticalExpositionMinutes</key>
+        <value>2</value>
+    </entry>
 </defaultsMap>

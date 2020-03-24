@@ -65,8 +65,8 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
-            android:id="@+id/action_nav_sandbox_to_nav_db_explorer"
-            app:destination="@id/nav_db_explorer"
+            android:id="@+id/action_nav_sandbox_to_nav_my_data"
+            app:destination="@id/nav_my_data"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -151,8 +151,8 @@
             android:defaultValue="true" />
     </fragment>
     <fragment
-        android:id="@+id/nav_db_explorer"
-        android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
+        android:id="@+id/nav_my_data"
+        android:name="cz.covid19cz.app.ui.mydata.MyDataFragment"
         android:label="@string/my_data_title" />
     <fragment
         android:id="@+id/alertDialogFragment"

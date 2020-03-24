@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="cz.covid19cz.app.utils.RssiUtils"/>
+        <import type="cz.covid19cz.app.utils.ColorUtils"/>
         <variable
             name="item"
             type="cz.covid19cz.app.bt.entity.ScanSession" />
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.currRssi)}">
+        app:backgroundResource="@{ColorUtils.INSTANCE.rssiToColorBackground(item.currRssi)}">
 
         <ProgressBar
             android:id="@+id/progress"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:max="70"
-            app:progressTintResource="@{RssiUtils.INSTANCE.rssiToColor(item.currRssi)}"
+            app:progressTintResource="@{ColorUtils.INSTANCE.rssiToColor(item.currRssi)}"
             android:progress="@{100 + item.currRssi}"
             app:layout_constraintTop_toTopOf="parent"/>
 

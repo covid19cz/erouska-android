@@ -7,8 +7,6 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
-import android.util.Log
-import androidx.core.content.getSystemService
 import androidx.databinding.ObservableArrayList
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
@@ -17,7 +15,7 @@ import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.DatabaseRepository
-import cz.covid19cz.app.db.ScanResultEntity
+import cz.covid19cz.app.db.ScanDataEntity
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
@@ -25,7 +23,6 @@ import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import java.nio.charset.Charset
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -176,12 +173,12 @@ class BluetoothRepository(
                 for (item in tempArray) {
                     item.calculate()
                     db.add(
-                        ScanResultEntity(
+                        ScanDataEntity(
                             0,
                             item.deviceId,
                             item.timestampStart,
                             item.timestampEnd,
-                            item.maxRssi,
+                            item.avgRssi,
                             item.medRssi,
                             item.rssiCount
                         )

@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
@@ -44,7 +45,7 @@ class DashboardVM(
         val ref = storage.reference.child("proximity/$fuid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
-            setCustomMetadata("version", "1")
+            setCustomMetadata("version", AppConfig.CSV_VERSION.toString())
         }
         ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
             publish(ExportEvent.Complete("Upload success"))

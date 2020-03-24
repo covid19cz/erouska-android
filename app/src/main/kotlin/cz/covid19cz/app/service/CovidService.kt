@@ -79,7 +79,6 @@ class CovidService : Service() {
             }
             ACTION_STOP -> {
                 wakeLockManager.release()
-                btUtils.stopScanning()
                 stopForeground(true)
                 stopSelf()
             }

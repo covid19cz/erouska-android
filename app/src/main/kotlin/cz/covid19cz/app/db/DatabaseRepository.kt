@@ -4,23 +4,36 @@ import io.reactivex.Single
 
 interface DatabaseRepository {
 
-    val data: Single<List<ScanResultEntity>>
-    fun add(scanResult: ScanResultEntity): Long
-    fun delete(scanResult: ScanResultEntity)
+    val data: Single<List<ScanDataEntity>>
+    fun add(scanData: ScanDataEntity): Long
+    fun getBuidCount(since: Long): Single<Int>
+    fun getCriticalExpositions(since: Long, criticalRssi: Int, criticalMinutes: Int): Single<List<ExpositionEntity>>
+    fun delete(scanData: ScanDataEntity)
     fun clear()
 }
 
-class ExpositionRepositoryImpl(private val dao: ScanResultsDao) :
+class ExpositionRepositoryImpl(private val dao: ScanDataDao) :
     DatabaseRepository {
 
-    override val data: Single<List<ScanResultEntity>> = dao.getAll()
+    override val data: Single<List<ScanDataEntity>> = dao.getAll()
 
-    override fun add(device: ScanResultEntity): Long {
-        return dao.insert(device)
+    override fun add(device: ScanDataEntity): Long {
+        if (device.buid.length == 20) {
+            return dao.insert(device)
+        }
+        return 0L
     }
 
-    override fun delete(scanResult: ScanResultEntity) {
-        dao.delete(scanResult)
+    override fun getBuidCount(since: Long): Single<Int> {
+        return dao.getDistinctCount(since)
+    }
+
+    override fun getCriticalExpositions(since: Long, criticalRssi: Int, criticalMinutes: Int): Single<List<ExpositionEntity>> {
+        return dao.getCritical(since, criticalRssi, criticalMinutes)
+    }
+
+    override fun delete(scanData: ScanDataEntity) {
+        dao.delete(scanData)
     }
 
     override fun clear() {

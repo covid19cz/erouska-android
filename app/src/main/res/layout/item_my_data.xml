@@ -5,42 +5,43 @@
 
     <data>
 
-        <import type="cz.covid19cz.app.utils.RssiUtils" />
+        <import type="cz.covid19cz.app.utils.ColorUtils" />
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.dbexplorer.DbExplorerVM" />
+            type="cz.covid19cz.app.ui.mydata.MyDataVM" />
 
         <variable
             name="item"
-            type="cz.covid19cz.app.db.ScanResultEntity" />
+            type="cz.covid19cz.app.db.ScanDataEntity" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:backgroundResource="@{ColorUtils.INSTANCE.rssiToColorBackground(item.rssiMed)}"
         android:paddingLeft="16dp"
-        android:paddingTop="4dp"
         android:paddingRight="16dp"
-        android:paddingBottom="4dp"
-        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.rssiMed)}">
+        >
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@{vm.formatTimeStamps(item.timestampEnd)}" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.buid}"
+                android:layout_marginBottom="4dp"
+                android:text="@{item.maskedBuid}"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -50,15 +51,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@{String.valueOf(item.rssiMed)}"
-            android:textSize="20sp" />
+            android:text='@{String.format("%d",item.rssiMed)}'
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text='@{vm.getAvgSeconds(item.timestampStart, item.timestampEnd, item.rssiCount)}' />
-
+            android:text="@{item.medDistance}"
+            android:textSize="16sp" />
     </LinearLayout>
 </layout>

@@ -1,16 +1,18 @@
 package cz.covid19cz.app.bt.entity
 
 import arch.livedata.SafeMutableLiveData
-import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.ext.rssiToDistanceString
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class ScanSession(var deviceId: String, val mac: String) {
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
+    val currDistance = SafeMutableLiveData("")
 
-    var maxRssi = Int.MIN_VALUE
+    var avgRssi = 0
     var medRssi = 0
     val timestampStart: Long
         get() = rssiList.firstOrNull()?.timestamp ?: 0L
@@ -26,19 +28,17 @@ class ScanSession(var deviceId: String, val mac: String) {
     }
 
     fun calculate() {
-        var sum: Int = 0
-        var max: Int = Int.MIN_VALUE
+        var sum = 0
 
         for (rssi in rssiList) {
             sum += rssi.rssi
-            if (rssi.rssi > max) {
-                max = rssi.rssi
-            }
         }
         if (rssiList.size != 0) {
+            if (sum != 0) {
+                avgRssi = sum / rssiList.size
+            }
             medRssi = median(rssiList.map { it.rssi }.toIntArray())
         }
-        maxRssi = max
     }
 
     private fun median(l: IntArray): Int {
@@ -52,5 +52,4 @@ class ScanSession(var deviceId: String, val mac: String) {
             l[middle]
         }
     }
-
 }
