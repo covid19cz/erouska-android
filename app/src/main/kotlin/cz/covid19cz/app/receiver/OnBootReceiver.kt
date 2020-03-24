@@ -6,16 +6,15 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.service.CovidService
-import org.koin.android.ext.android.inject
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class OnBootReceiver : BroadcastReceiver(), KoinComponent {
 
-    val prefs by inject<SharedPrefsRepository>()
+    private val prefs by inject<SharedPrefsRepository>()
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (prefs.getDeviceBuid() != null){
+        if (prefs.getDeviceBuid() != null && !prefs.getAppPaused()){
             ContextCompat.startForegroundService(context, CovidService.startService(context))
         }
     }
