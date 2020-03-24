@@ -70,4 +70,8 @@ class MyDataVM(val dbRepo: DatabaseRepository) : BaseVM() {
     fun getAvgSeconds(start: Long, end: Long, count: Int): String {
         return String.format("%.1fs", (end - start) / count.toFloat() / 1000f)
     }
+
+    fun sendData() {
+        // TODO
+    }
 }

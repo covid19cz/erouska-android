@@ -93,4 +93,5 @@
     <string name="no_emal_client">There is no email client installed.</string>
     <string name="default_email_subject">Dotaz z aplikace</string>
     <string name="default_email_address">info@erouska.cz</string>
+    <string name="send_data">Odeslat data</string>
 </resources>
