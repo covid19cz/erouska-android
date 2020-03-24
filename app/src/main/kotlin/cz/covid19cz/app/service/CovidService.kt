@@ -122,6 +122,7 @@ class CovidService : Service() {
             // null intent is in case service is restarted by system
             ACTION_START, null -> {
                 servicePaused = false
+                prefs.setAppPaused(false)
                 createNotification()
                 turnMaskOn()
                 wakeLockManager.acquire()
@@ -129,6 +130,7 @@ class CovidService : Service() {
             ACTION_STOP -> {
                 wakeLockManager.release()
                 servicePaused = true
+                prefs.setAppPaused(true)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     stopForeground(STOP_FOREGROUND_DETACH)
                 } else {
@@ -147,11 +149,13 @@ class CovidService : Service() {
             }
             ACTION_PAUSE -> {
                 servicePaused = true
+                prefs.setAppPaused(true)
                 createNotification()
                 turnMaskOff()
             }
             ACTION_RESUME -> {
                 servicePaused = false
+                prefs.setAppPaused(false)
                 createNotification()
                 turnMaskOn()
             }

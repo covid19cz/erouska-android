@@ -16,6 +16,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
 import cz.covid19cz.app.ext.getLocationPermission
+import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.sandbox.ExportEvent
@@ -137,7 +138,7 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
             compositeDisposable.add(rxPermissions
                 .request(getLocationPermission())
                 .subscribe { granted: Boolean ->
-                    if (granted) {
+                    if (granted && requireContext().isLocationEnabled()) {
                         with (requireContext()) {
                             ContextCompat.startForegroundService(this, CovidService.startService(this))
                         }
