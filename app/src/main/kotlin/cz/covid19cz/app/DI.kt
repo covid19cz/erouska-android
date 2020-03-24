@@ -13,6 +13,7 @@ import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.receiver.BatterSaverStateReceiver
 import cz.covid19cz.app.receiver.BluetoothStateReceiver
 import cz.covid19cz.app.receiver.LocationStateReceiver
+import cz.covid19cz.app.receiver.ScreenStateReceiver
 import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.contacts.ContactsVM
@@ -72,6 +73,7 @@ val repositoryModule = module {
 val appModule = module {
     single { LocationStateReceiver() }
     single { BluetoothStateReceiver() }
+    single { ScreenStateReceiver() }
     single { BatterSaverStateReceiver() }
     single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { LocalBroadcastManager.getInstance(androidApplication()) }
@@ -79,7 +81,6 @@ val appModule = module {
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
 }
-
 
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)
