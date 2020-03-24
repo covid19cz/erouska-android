@@ -69,6 +69,9 @@ class BluetoothRepository(
                 L.d("GATT connected")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID){
+                    discoveredIosDevices.remove(gatt.device.address)
+                }
                 L.d("GATT disconnected")
             }
         }
@@ -81,7 +84,6 @@ class BluetoothRepository(
             if (GATT_CHARACTERISTIC_UUID == characteristic!!.uuid) {
                 val buid = characteristic.value?.asHexLower
                 val mac = gatt.device?.address
-                gatt.close()
 
                 if (buid != null) {
                     L.d("BUID found in characteristic")
@@ -92,12 +94,14 @@ class BluetoothRepository(
                             session
                         }.execute({
                             scanResultsList.add(it)
+                            gatt.close()
                         }, {
                             L.e(it)
                         })
                     }
                 } else {
                     L.e("BUID not found in characteristic")
+                    gatt.close()
                 }
             }
         }
@@ -171,10 +175,10 @@ class BluetoothRepository(
         L.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
-        saveScansAndDispose()
+        saveDataAndClearScanResults()
     }
 
-    private fun saveScansAndDispose() {
+    private fun saveDataAndClearScanResults() {
         L.d("Saving data to database")
         Observable.just(scanResultsList.toTypedArray())
             .map { tempArray ->
@@ -235,7 +239,7 @@ class BluetoothRepository(
 
     private fun getBuidFromIos(result: ScanResult) {
         val mac = result.bleDevice.macAddress
-        val session = ScanSession("iOS Device", mac)
+        val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         L.d("Connecting to GATT")
         discoveredIosDevices[mac] = session
@@ -277,7 +281,7 @@ class BluetoothRepository(
         return if (resultHex != "00000000000000000000") resultHex else null
     }
 
-    private fun clearScanResults() {
+    fun clearScanResults() {
         discoveredIosDevices.clear()
         scanResultsList.clear()
         scanResultsMap.clear()

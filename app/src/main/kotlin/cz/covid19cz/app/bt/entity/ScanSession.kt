@@ -6,7 +6,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ScanSession(var deviceId: String, val mac: String) {
+class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
+
+    companion object{
+        const val DEFAULT_BUID = "UNKNOWN"
+    }
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
