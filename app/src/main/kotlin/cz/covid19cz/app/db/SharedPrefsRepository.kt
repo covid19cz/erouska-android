@@ -9,6 +9,7 @@ class SharedPrefsRepository(c : Context) {
     companion object{
         const val DEVICE_BUID = "DEVICE_BUID"
         const val APP_PAUSED = "preference.app_paused"
+        const val LAST_UPLOAD_TIMESTAMP = "preference.last_upload_timestamp"
     }
 
     val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -27,6 +28,14 @@ class SharedPrefsRepository(c : Context) {
 
     fun setAppPaused(appPaused: Boolean) {
         prefs.edit().putBoolean(APP_PAUSED, appPaused).apply()
+    }
+
+    fun saveLastUploadTimestamp(timestamp: Long) {
+        prefs.edit().putLong(LAST_UPLOAD_TIMESTAMP, timestamp).apply()
+    }
+
+    fun getLastUploadTimestamp(): Long {
+        return prefs.getLong(LAST_UPLOAD_TIMESTAMP, -1)
     }
 
     fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)

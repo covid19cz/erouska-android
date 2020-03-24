@@ -18,10 +18,10 @@ import cz.covid19cz.app.service.WakeLockManager
 import cz.covid19cz.app.ui.btdisabled.BtDisabledVM
 import cz.covid19cz.app.ui.contacts.ContactsVM
 import cz.covid19cz.app.ui.dashboard.DashboardVM
-import cz.covid19cz.app.ui.mydata.MyDataVM
 import cz.covid19cz.app.ui.help.HelpVM
 import cz.covid19cz.app.ui.login.LoginVM
 import cz.covid19cz.app.ui.main.MainVM
+import cz.covid19cz.app.ui.mydata.MyDataVM
 import cz.covid19cz.app.ui.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
@@ -33,7 +33,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get(), get(), get()) }
+    viewModel { SandboxVM(get(), get(), get()) }
     viewModel { LoginVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
@@ -41,7 +41,7 @@ val viewModelModule = module {
     viewModel { DashboardVM(get(), get(), get()) }
     viewModel { ContactsVM() }
     viewModel { PermissionsOnboardingVM(get(), get(), get()) }
-    viewModel { MyDataVM(get()) }
+    viewModel { MyDataVM(get(), get(), get()) }
 }
 
 val databaseModule = module {

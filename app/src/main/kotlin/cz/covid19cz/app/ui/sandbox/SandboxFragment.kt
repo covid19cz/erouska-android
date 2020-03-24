@@ -1,6 +1,5 @@
 package cz.covid19cz.app.ui.sandbox
 
-import android.Manifest
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import arch.livedata.SafeMutableLiveData
-import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
@@ -39,12 +37,6 @@ class SandboxFragment :
             when (it.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
-            }
-        }
-
-        subscribe(ExportEvent.Complete::class) { event ->
-            view?.let {
-                Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
             }
         }
 

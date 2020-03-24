@@ -36,4 +36,8 @@
         <key>criticalExpositionMinutes</key>
         <value>2</value>
     </entry>
+    <entry>
+        <key>uploadWaitingMinutes</key>
+        <value>15</value>
+    </entry>
 </defaultsMap>

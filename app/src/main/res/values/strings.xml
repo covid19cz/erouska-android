@@ -94,4 +94,8 @@
     <string name="default_email_subject">Dotaz z aplikace</string>
     <string name="default_email_address">info@erouska.cz</string>
     <string name="send_data">Odeslat data</string>
+    <string name="upload_successful">Data byla úspěšně nahrána, hygienici k nim nyní mají přístup.</string>
+    <string name="upload_failed">Nepodařilo se nahrát data. Detaily: %s</string>
+    <string name="please_wait_upload">Data jste již odeslali. Znovu budete moci odeslat data za %d minut.</string>
+    <string name="upload_confirmation">Potvrďte prosím odeslání dat. Po odeslání budou mít k datům přístup hygienici.</string>
 </resources>

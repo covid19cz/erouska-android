@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
@@ -19,7 +18,6 @@ import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
-import cz.covid19cz.app.ui.sandbox.ExportEvent
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
@@ -62,12 +60,6 @@ class DashboardFragment : BaseFragment<FragmentBtDisabledBinding, DashboardVM>(
                 DashboardCommandEvent.Command.SHARE -> showSnackBar("Sdílet zatím neumím.")
                 DashboardCommandEvent.Command.PAUSE -> pauseService()
                 DashboardCommandEvent.Command.RESUME -> resumeService()
-            }
-        }
-
-        subscribe(ExportEvent.Complete::class) { event ->
-            view?.let {
-                Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
             }
         }
 

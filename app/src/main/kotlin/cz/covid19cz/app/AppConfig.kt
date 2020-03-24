@@ -28,6 +28,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("criticalExpositionRssi").toInt()
     val criticalExpositionMinutes
         get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
+    val uploadWaitingMinutes
+        get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
 
     var overrideAdvertiseTxPower : Int? = null
 
