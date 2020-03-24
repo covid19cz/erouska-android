@@ -5,14 +5,14 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import cz.covid19cz.app.R
-import cz.covid19cz.app.databinding.FragmentBtDisabledBinding
+import cz.covid19cz.app.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.contacts.event.ContactsCommandEvent
 import cz.covid19cz.app.utils.makeCall
 import cz.covid19cz.app.utils.openChromeTab
 import cz.covid19cz.app.utils.sendEmail
 
-class ContactsFragment : BaseFragment<FragmentBtDisabledBinding, ContactsVM>(
+class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, ContactsVM>(
     R.layout.fragment_contacts,
     ContactsVM::class
 ) {

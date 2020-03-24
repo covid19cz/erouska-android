@@ -17,6 +17,9 @@ interface ScanDataDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getAll(): Single<List<ScanDataEntity>>
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE timestampEnd > :since")
+    fun getAllFromTimestamp(since: Long): Single<List<ScanDataEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(devices: List<ScanDataEntity>) : List<Long>
 

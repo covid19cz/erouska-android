@@ -5,6 +5,7 @@ import io.reactivex.Single
 interface DatabaseRepository {
 
     val data: Single<List<ScanDataEntity>>
+    fun getAllFromTimestamp(timestamp: Long): Single<List<ScanDataEntity>>
     fun add(scanData: ScanDataEntity): Long
     fun getBuidCount(since: Long): Single<Int>
     fun getCriticalExpositions(since: Long, criticalRssi: Int, criticalMinutes: Int): Single<List<ExpositionEntity>>
@@ -22,6 +23,10 @@ class ExpositionRepositoryImpl(private val dao: ScanDataDao) :
             return dao.insert(device)
         }
         return 0L
+    }
+
+    override fun getAllFromTimestamp(timestamp: Long): Single<List<ScanDataEntity>> {
+        return dao.getAllFromTimestamp(timestamp)
     }
 
     override fun getBuidCount(since: Long): Single<Int> {

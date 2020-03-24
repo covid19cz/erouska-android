@@ -25,12 +25,12 @@ class CsvExporter(private val context: Context, private val repository: Database
 
     private fun filename() = "${System.currentTimeMillis()}.csv"
 
-    fun export(): Single<String> {
+    fun export(lastUploadTimestamp: Long): Single<String> {
         val destinationFile = File(context.cacheDir, filename())
         val csvWriter =
             CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
 
-        return repository.data
+        return repository.getAllFromTimestamp(lastUploadTimestamp)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { entities ->
