@@ -40,10 +40,6 @@ class DashboardVM(
     fun start() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
-
-    fun share() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.SHARE))
-    }
 }
 
 val PHONE_REGEX = Regex("""(\+\d{1,3})?\s*(\d{1,3})\s*(\d{1,3})\s*(\d{1,3})""")

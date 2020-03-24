@@ -10,7 +10,5 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
         UPDATE_STATE,
         PAUSE,
         RESUME,
-        SHARE
     }
-
 }
