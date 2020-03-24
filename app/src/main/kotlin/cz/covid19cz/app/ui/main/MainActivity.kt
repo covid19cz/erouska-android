@@ -40,6 +40,7 @@ class MainActivity :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         registerServiceStateReceivers()
@@ -61,6 +62,8 @@ class MainActivity :
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
         })
+
+        viewModel.serviceRunning.value = CovidService.isRunning(this)
     }
 
     override fun onDestroy() {
