@@ -30,6 +30,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
     val uploadWaitingMinutes
         get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
+    val shareAppDynamicLink
+        get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
 
     var overrideAdvertiseTxPower : Int? = null
 
