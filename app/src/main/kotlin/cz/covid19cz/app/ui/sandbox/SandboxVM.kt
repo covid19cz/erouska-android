@@ -48,8 +48,6 @@ class SandboxVM(
         }
     }
 
-
-
     fun start() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }

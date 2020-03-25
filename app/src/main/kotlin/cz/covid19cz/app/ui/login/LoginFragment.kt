@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.login
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
@@ -35,6 +36,16 @@ class LoginFragment :
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                viewModel.backPressed()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -138,6 +149,12 @@ class LoginFragment :
             is LoginError -> showError(state.text)
             is SignedIn -> showSignedIn()
             StartVerification -> verifyPhoneNumber()
+        }
+
+        if (state is EnterCode || state is CodeReadAutomatically) {
+            activity?.setTitle(R.string.login_verification_code)
+        } else {
+            activity?.setTitle(R.string.login_toolbar_title)
         }
     }
 

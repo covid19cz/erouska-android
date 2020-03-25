@@ -117,6 +117,9 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
+            app:destination="@id/deleteDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
@@ -174,5 +177,9 @@
         android:id="@+id/alertDialogFragment"
         android:name="arch.view.AlertDialogFragment"
         android:label="AlertDialogFragment" />
+    <fragment
+        android:id="@+id/deleteDataFragment"
+        android:name="cz.covid19cz.app.ui.confirm.DeleteDataFragment"
+        android:label="@string/delete_data" />
 
 </navigation>

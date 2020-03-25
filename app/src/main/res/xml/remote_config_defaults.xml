@@ -30,11 +30,7 @@
     </entry>
     <entry>
         <key>criticalExpositionRssi</key>
-        <value>-80</value>
-    </entry>
-    <entry>
-        <key>criticalExpositionMinutes</key>
-        <value>2</value>
+        <value>-75</value>
     </entry>
     <entry>
         <key>uploadWaitingMinutes</key>
@@ -42,7 +38,7 @@
     </entry>
     <entry>
         <key>persistDataDays</key>
-        <value>30</value>
+        <value>14</value>
     </entry>
     <entry>
         <key>shareAppDynamicLink</key>
