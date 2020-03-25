@@ -27,9 +27,9 @@ class MainVM(val database : DatabaseRepository): BaseVM() {
     }
 
     private fun deleteOldData(){
-        Single.just(AppConfig.persistDataDays).map {
+        Single.just(true).map {
             L.d("Deleting data older than $it days")
-            database.deleteOldData(it)
+            database.deleteOldData()
         }.execute({
             L.d("$it records deleted")
         },{

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="cz.covid19cz.app.utils.ColorUtils" />
+        <import type="cz.covid19cz.app.AppConfig" />
 
         <import type="cz.covid19cz.app.R" />
 
@@ -19,35 +19,86 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="match_parent"
+            android:id="@+id/textStats"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_padding"
             android:layout_marginLeft="@dimen/fragment_padding"
             android:layout_marginRight="@dimen/fragment_padding"
-            android:text="@string/my_data_description"
+            android:text="@{@plurals/my_data_today_count(vm.todayCount,vm.todayCount)}"
+            tools:text="@plurals/my_data_today_count"
+            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/fragment_padding"
+            android:layout_marginRight="@dimen/fragment_padding"
+            android:text="@{@string/my_data_description(AppConfig.INSTANCE.persistDataDays)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textStats" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textDescription">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_data_tab_critical_title"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_data_tab_all_title"/>
+
+        </com.google.android.material.tabs.TabLayout>
 
         <include
             android:id="@+id/header"
             layout="@layout/item_my_data_header"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textDescription" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabs" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:items="@{vm.items}"
-            app:layoutId="@{R.layout.item_my_data}"
+            app:refreshing="@{vm.loading}"
+            app:onRefreshListener="@{() -> vm.onRefresh()}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header"
-            app:viewModel="@{vm}" />
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:items="@{vm.items}"
+                app:layoutId="@{R.layout.item_my_data}"
+                app:viewModel="@{vm}" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enable_bluetooth_btn"

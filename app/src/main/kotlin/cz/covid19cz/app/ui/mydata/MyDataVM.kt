@@ -27,31 +27,33 @@ class MyDataVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
+    val loading = SafeMutableLiveData(false)
     val items = ObservableArrayList<ScanDataEntity>()
-    private val dateFormatter = SimpleDateFormat("d.M.", Locale.getDefault())
+    private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val todayCount = SafeMutableLiveData(0)
-    val todayCritical = SafeMutableLiveData(0)
-    val twoWeeksCount = SafeMutableLiveData(0)
-    val twoWeeksCriticalCount = SafeMutableLiveData(0)
+    val allCount = SafeMutableLiveData(0)
+    val allCriticalCount = SafeMutableLiveData(0)
+    val currentTab = SafeMutableLiveData(0)
     var exportDisposable: Disposable? = null
     private val storage = Firebase.storage
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        subscribe(dbRepo.getAllDesc(), { L.e(it) }) {
+        load()
+    }
+
+    fun load() {
+        loading. value = true
+        items.clear()
+        subscribe(if (currentTab.value == 0) dbRepo.getCriticalDesc() else dbRepo.getAllDesc(), {
+            loading. value = false
+            L.e(it) }) {
+            loading. value = false
             items.addAll(it)
         }
 
-        // Will be used later for some interesting statistics :)
-        /*val todayBeginCalendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-        }
-
-        val twoWeeksBefore = Calendar.getInstance().apply {
-            add(Calendar.DAY_OF_MONTH, -14)
+        val todayBeginCalendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
@@ -61,30 +63,17 @@ class MyDataVM(
             todayCount.value = it
         }
 
-        subscribe(
-            dbRepo.getCriticalExpositions(
-                todayBeginCalendar.timeInMillis,
-                AppConfig.criticalExpositionRssi,
-                AppConfig.criticalExpositionMinutes
-            ), { L.e(it) }) {
-            todayCritical.value = it.size
+        subscribe(dbRepo.getBuidCount(0), { L.e(it) }) {
+            allCount.value = it
         }
 
-        subscribe(dbRepo.getBuidCount(twoWeeksBefore.timeInMillis), { L.e(it) }) {
-            twoWeeksCount.value = it
+        subscribe(dbRepo.getCriticalBuidCount(0), { L.e(it) }) {
+            allCriticalCount.value = it
         }
+    }
 
-        subscribe(
-            dbRepo.getCriticalExpositions(
-                twoWeeksBefore.timeInMillis,
-                AppConfig.criticalExpositionRssi,
-                AppConfig.criticalExpositionMinutes
-            ), { L.e(it) }) { result ->
-            result.forEach {
-                L.d("${it.buid} - ${it.expositionTime / 1000}s")
-            }
-            twoWeeksCriticalCount.value = result.size
-        }*/
+    fun onRefresh(){
+        load()
     }
 
     override fun onCleared() {
@@ -101,7 +90,7 @@ class MyDataVM(
     }
 
     fun sendData() {
-        val minutesSinceLastUpload = (System.currentTimeMillis() - prefs.getLastUploadTimestamp())/60000
+        val minutesSinceLastUpload = (System.currentTimeMillis() - prefs.getLastUploadTimestamp()) / 60000
         if (minutesSinceLastUpload < AppConfig.uploadWaitingMinutes) {
             publish(ExportEvent.PleaseWait(AppConfig.uploadWaitingMinutes - minutesSinceLastUpload.toInt()))
         } else {

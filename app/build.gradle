@@ -91,6 +91,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01"
 
     // Arch
     implementation project(':arch')
@@ -131,10 +132,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions-ktx:19.0.2'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
     implementation 'com.google.firebase:firebase-messaging:20.1.2'
-
-    // Stetho
-    implementation "com.facebook.stetho:stetho:$versions.stetho"
-    implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
 
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-rxjava2:$versions.room"

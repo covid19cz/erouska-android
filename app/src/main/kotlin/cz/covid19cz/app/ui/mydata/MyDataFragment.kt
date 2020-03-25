@@ -1,10 +1,14 @@
 package cz.covid19cz.app.ui.mydata
 
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayout
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentMyDataBinding
 import cz.covid19cz.app.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_my_data.*
 
 class MyDataFragment :
     BaseFragment<FragmentMyDataBinding, MyDataVM>(R.layout.fragment_my_data, MyDataVM::class) {
@@ -33,6 +37,33 @@ class MyDataFragment :
                 { dialog, _ -> dialog.dismiss() }
                 .show()
         }
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupTabs()
+    }
+
+    fun setupTabs(){
+        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                this@MyDataFragment.onTabSelected(tab)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                this@MyDataFragment.onTabSelected(tab)
+            }
+        })
+    }
+
+    fun onTabSelected(tab : TabLayout.Tab){
+        viewModel.currentTab.value = tab.position
+        viewModel.load()
     }
 
     private fun showMessageDialog(message: String) {
