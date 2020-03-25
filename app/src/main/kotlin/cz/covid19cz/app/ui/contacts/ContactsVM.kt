@@ -1,5 +1,6 @@
 package cz.covid19cz.app.ui.contacts
 
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.contacts.event.ContactsCommandEvent
 import cz.covid19cz.app.ui.contacts.event.ContactsCommandEvent.Command.EMAIL
@@ -23,5 +24,17 @@ class ContactsVM : BaseVM() {
 
     fun email() {
         publish(ContactsCommandEvent(EMAIL))
+    }
+
+    fun getFaqUrl() : String {
+        return AppConfig.faqDynamicLink //"https://koronavirus.mzcr.cz/otazky-odpovedi"
+    }
+
+    fun getImportantUrl() : String {
+        return AppConfig.importantDynamicLink //"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy"
+    }
+
+    fun getEmergencyNumber() : String {
+        return AppConfig.emergencyNumber //"1212"
     }
 }

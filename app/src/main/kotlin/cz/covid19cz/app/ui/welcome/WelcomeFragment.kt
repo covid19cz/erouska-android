@@ -1,12 +1,16 @@
 package cz.covid19cz.app.ui.welcome
 
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.navigation.NavOptions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.welcome.event.WelcomeCommandEvent
+import kotlinx.android.synthetic.main.fragment_help.help_desc
+import kotlinx.android.synthetic.main.fragment_welcome.welcome_desc
 
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
 
@@ -32,6 +36,15 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+
+        val welcomeDescription: String = String.format(
+            getString(R.string.welcome_description),
+            viewModel.getProclamationUrl()
+        )
+
+        welcome_desc.text = Html.fromHtml(welcomeDescription)
+        welcome_desc.movementMethod = LinkMovementMethod.getInstance()
+
     }
 
     fun openBluetoothOnboard() {

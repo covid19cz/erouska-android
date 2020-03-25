@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.welcome
 import android.app.Application
 import android.bluetooth.BluetoothManager
 import com.google.firebase.auth.FirebaseAuth
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
@@ -34,7 +35,6 @@ class WelcomeVM(private val app: Application,
     }
 
     fun getProclamationUrl(): String {
-        // TODO Replace with link from Firebase
-        return "http://www.erouska.cz"
+        return AppConfig.proclamationDynamicLink
     }
 }
