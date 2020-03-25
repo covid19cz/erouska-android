@@ -12,6 +12,7 @@
         <item name="rippleColor">@color/colorPrimaryVariant</item>
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:backgroundTint">?colorSurface</item>
     </style>
 
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">

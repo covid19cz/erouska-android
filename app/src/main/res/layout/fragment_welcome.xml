@@ -81,6 +81,7 @@
             android:id="@+id/welcome_help_btn"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:onClick="@{() -> vm.help()}"
             android:layout_width="wrap_content"
             android:text="@string/welcome_help"
