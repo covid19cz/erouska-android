@@ -42,8 +42,8 @@ val viewModelModule = module {
     viewModel { DashboardVM(get(), get()) }
     viewModel { ContactsVM() }
     viewModel { PermissionsOnboardingVM(get(), get()) }
-    viewModel { MyDataVM(get(), get(), get()) }
-    viewModel { ConfirmationVM(get(), get()) }
+    viewModel { MyDataVM(get(), get()) }
+    viewModel { ConfirmationVM(get(), get(), get()) }
 }
 
 val databaseModule = module {

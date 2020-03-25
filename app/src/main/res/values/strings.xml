@@ -116,7 +116,7 @@
     <string name="upload_successful">Data byla úspěšně nahrána, hygienici k nim nyní mají přístup.</string>
     <string name="upload_failed">Nepodařilo se nahrát data. Detaily: %s</string>
     <string name="please_wait_upload">Data jste již odeslali. Znovu budete moci odeslat data za %d minut.</string>
-    <string name="upload_confirmation">Potvrďte prosím odeslání dat. Po odeslání budou mít k datům přístup hygienici.</string>
+    <string name="upload_confirmation">Byli jste požádáni o odeslání seznamu telefonů, se kterými jste se setkali?\n\nS odeslanými daty bude Ministerstvo zdravotnictví a jemu podřízení hygienici pracovat na základě vašeho souhlasu podle podmínek zpracování.</string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
     <string name="share_app_text">Ahoj, používám aplikaci Mobilní rouška. Nainstaluj si ji taky a společně pomožme zastavit šíření koronaviru. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
@@ -126,4 +126,5 @@
     <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z vašeho okolí.\n\nDojde-li k potvrzení nákazy u vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s tímto telefonním číslem %s.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O aplikaci</string>
+    <string name="yes_send">Ano, odeslat</string>
 </resources>

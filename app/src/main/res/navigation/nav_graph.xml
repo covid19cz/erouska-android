@@ -176,7 +176,11 @@
     <fragment
         android:id="@+id/nav_my_data"
         android:name="cz.covid19cz.app.ui.mydata.MyDataFragment"
-        android:label="@string/my_data_title" />
+        android:label="@string/my_data_title" >
+        <action
+            android:id="@+id/action_nav_my_data_to_nav_send_data"
+            app:destination="@id/nav_send_data" />
+    </fragment>
     <fragment
         android:id="@+id/nav_contacts"
         android:name="cz.covid19cz.app.ui.contacts.ContactsFragment"
@@ -201,5 +205,9 @@
             app:launchSingleTop="true"
             app:destination="@id/nav_welcome_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_send_data"
+        android:name="cz.covid19cz.app.ui.confirm.SendDataFragment"
+        android:label="@string/send_data" />
 
 </navigation>
