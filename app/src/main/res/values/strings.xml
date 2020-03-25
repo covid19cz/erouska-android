@@ -92,6 +92,7 @@
     <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve Vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve Vaší blízkosti, může Vás kontaktovat hygienická stanice.\n\nKdyž se potvrdí nákaza u Vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.]]></string>
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
+    <string name="login_verification_code">Ověřovací kód</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
     <string name="login_code_read_automatically">Ověřovací kód byl automaticky předvyplněn.</string>
     <string name="contacts_title">Kontakty</string>
