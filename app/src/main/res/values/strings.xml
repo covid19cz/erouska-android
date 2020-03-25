@@ -120,4 +120,7 @@
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
     <string name="share_app_text">Ahoj, používám aplikaci Mobilní rouška. Nainstaluj si ji taky a společně pomožme zastavit šíření koronaviru. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
+    <string name="delete_data_description">Opravdu chcete smazat naměřená nebo odeslaná data?\n\nHygienici tak přijdou o možnost využít vaše kontakty v případě, že budete nakažen.</string>
+    <string name="delete_data_button">Smazat všechna data</string>
+    <string name="delete_data">Smazat data</string>
 </resources>
