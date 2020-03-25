@@ -1,4 +1,4 @@
-# bt-tracing-android
+# erouska-android
 
 Erouška for Android
 
