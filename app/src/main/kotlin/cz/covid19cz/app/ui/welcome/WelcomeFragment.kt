@@ -7,6 +7,7 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.welcome.event.WelcomeCommandEvent
+import cz.covid19cz.app.utils.Auth
 
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
 
@@ -21,7 +22,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
             }
         }
 
-        if (viewModel.userInitialized) {
+        if (Auth.isSignedIn()) {
             navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox, null,
                 NavOptions.Builder()
                     .setPopUpTo(R.id.nav_graph,

@@ -1,6 +1,5 @@
 package cz.covid19cz.app.ui.login
 
-import android.app.Application
 import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +14,6 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import cz.covid19cz.app.R
-import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.utils.L
@@ -24,8 +22,6 @@ import org.json.JSONObject
 import java.util.*
 
 class LoginVM(
-    val app: Application,
-    private val deviceRepository: DatabaseRepository,
     private val sharedPrefsRepository: SharedPrefsRepository
 ) : BaseVM() {
 

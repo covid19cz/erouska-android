@@ -27,7 +27,7 @@ class LiveEventMap {
         if (liveEvent == null) {
             liveEvent = initUiEvent(event::class)
         }
-        liveEvent.value = event
+        liveEvent.postValue(event)
     }
 
     private fun <T : LiveEvent> initUiEvent(eventClass: KClass<out T>): SingleLiveEvent<T> {

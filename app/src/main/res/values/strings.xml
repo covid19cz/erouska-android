@@ -118,4 +118,7 @@
     <string name="delete_data_description">Opravdu chcete smazat naměřená nebo odeslaná data?\n\nHygienici tak přijdou o možnost využít vaše kontakty v případě, že budete nakažen.</string>
     <string name="delete_data_button">Smazat všechna data</string>
     <string name="delete_data">Smazat data</string>
+    <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z vašeho okolí.\n\nDojde-li k potvrzení nákazy u vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s tímto telefonním číslem %s.</string>
+    <string name="delete_registration">Zrušit registraci</string>
+    <string name="about">O aplikaci</string>
 </resources>
