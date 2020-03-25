@@ -73,7 +73,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="@dimen/fragment_padding"
                 android:text="@string/login_statement"
-                android:textColor="@color/gray"
+                android:textColor="@color/textColorSecondary"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
