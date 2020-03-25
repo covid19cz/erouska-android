@@ -27,11 +27,11 @@ class ContactsVM : BaseVM() {
     }
 
     fun getFaqUrl() : String {
-        return AppConfig.faqDynamicLink
+        return AppConfig.faqLink
     }
 
     fun getImportantUrl() : String {
-        return AppConfig.importantDynamicLink
+        return AppConfig.importantLink
     }
 
     fun getEmergencyNumber() : String {

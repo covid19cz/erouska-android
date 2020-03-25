@@ -45,11 +45,11 @@
         <value>https://covid19cz.page.link/share</value>
     </entry>
     <entry>
-        <key>faqDynamicLink</key>
+        <key>faqLink</key>
         <value>https://koronavirus.mzcr.cz/otazky-odpovedi</value>
     </entry>
     <entry>
-        <key>importantDynamicLink</key>
+        <key>importantLink</key>
         <value>https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy</value>
     </entry>
     <entry>
@@ -57,11 +57,11 @@
         <value>1212</value>
     </entry>
     <entry>
-        <key>proclamationDynamicLink</key>
+        <key>proclamationLink</key>
         <value>http://www.erouska.cz</value>
     </entry>
     <entry>
-        <key>tutorialDynamicLink</key>
+        <key>tutorialLink</key>
         <value>http://www.erouska.cz/navody</value>
     </entry>
 </defaultsMap>

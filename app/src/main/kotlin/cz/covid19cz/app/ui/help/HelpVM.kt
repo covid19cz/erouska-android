@@ -12,11 +12,11 @@ class HelpVM : BaseVM() {
     }
 
     fun getProclamationUrl(): String {
-        return AppConfig.proclamationDynamicLink
+        return AppConfig.proclamationLink
     }
 
     fun getTutorialUrl(): String {
-        return AppConfig.tutorialDynamicLink
+        return AppConfig.tutorialLink
     }
 
     fun getDeviceName(): String {
