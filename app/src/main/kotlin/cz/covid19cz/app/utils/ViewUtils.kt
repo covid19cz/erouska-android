@@ -112,3 +112,11 @@ fun Context.openChromeTab(url: String) {
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(this, Uri.parse(url))
 }
+
+fun View.hide() {
+    visibility = View.GONE
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
