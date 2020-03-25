@@ -16,7 +16,7 @@ class HelpVM : BaseVM() {
     }
 
     fun getTutorialUrl(): String {
-        return AppConfig.tutorialDynamicLink //"http://www.erouska.cz/navody"
+        return AppConfig.tutorialDynamicLink
     }
 
     fun getDeviceName(): String {
