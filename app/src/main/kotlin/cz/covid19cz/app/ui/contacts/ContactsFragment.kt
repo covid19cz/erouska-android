@@ -40,15 +40,15 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     }
 
     fun openImportant() {
-        context?.openChromeTab("https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/")
+        context?.openChromeTab(viewModel.getImportantUrl())
     }
 
     fun openFaq() {
-        context?.openChromeTab("https://koronavirus.mzcr.cz/otazky-odpovedi")
+        context?.openChromeTab(viewModel.getFaqUrl())
     }
 
     fun callEmergency() {
-        context?.makeCall("1212")
+        context?.makeCall(viewModel.getEmergencyNumber())
     }
 
     fun sendEmail() {

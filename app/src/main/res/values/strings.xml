@@ -56,7 +56,7 @@
     <string name="permission_onboarding_desc_minor">Aplikace data nikdy sama neodesílá. Anonymizovaná data o telefonech, které byly ve Vaší blízkosti, odešle pouze v případě, že k tomu dáte jednoznačný pokyn stisknutím tlačítka \"Odeslat data\".</string>
     <string name="permission_onboarding_toolbar_title">Povolení</string>
     <string name="login_toolbar_title">Aktivace</string>
-    <string name="help_desc"><b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve Vašem okolí a také mají aplikaci nainstalovanou.</b>\n\nNásledně zaznamená ID aplikací a bez Vašeho souhlasu je nikam nezasílá.\n\n<b>K odeslání dat z aplikace dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b>\n\nData odesílejte až v momentě, kdy Vás kontaktují hygienici.\n\n<b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b>\n\nVíce v jejich prohlášení o podpoře naší aplikace.\n\n<b>Vaši aplikaci spárujeme se zadaným telefonním číslem.</b>\n\nPracovník hygienické stanice Vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.\n\n<b>Co se děje s údaji o telefonech na seznamu osob, které jsem potkal?</b>\n\nData jsou po celou dobu uchovávána ve Vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy  to bude nutné. Nejprve Vás bude kontaktovat pracovník hygienické stanice a požádá Vás k odeslání dat.\n\n<b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b>\n\nNávod pro Váš telefon XZ\n\n<b>Kdo aplikaci provozuje?</b>\n\nAplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.</string>
+    <string name="help_desc"><![CDATA[<b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve Vašem okolí a také mají aplikaci nainstalovanou.</b><br/><br/>Následně zaznamená ID aplikací a bez Vašeho souhlasu je nikam nezasílá.<br/><br/><b>K odeslání dat z aplikace dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b><br/><br/>Data odesílejte až v momentě, kdy Vás kontaktují hygienici.<br/><br/><b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b><br/><br/>Více v jejich <a href="%s">prohlášení o podpoře</a> naší aplikace.<br/><br/><b>Vaši aplikaci spárujeme se zadaným telefonním číslem.</b><br/><br/>Pracovník hygienické stanice Vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.<br/><br/><b>Co se děje s údaji o telefonech na seznamu osob, které jsem potkal?</b><br/><br/>Data jsou po celou dobu uchovávána ve Vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy to bude nutné. Nejprve Vás bude kontaktovat pracovník hygienické stanice a požádá Vás k odeslání dat.<br/><br/><b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b><br/><br/><a href="%s">Návod pro Váš telefon %s</a><br/><br/><b>Kdo aplikaci provozuje?</b><br/><br/>Aplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.]]></string>
     <string name="login_desc">Na toto telefonní číslo Vás mohou kontaktovat pouze hygienici v případě, že se u někoho z Vašeho okolí potvrdí nákaza koronavirem.</string>
     <string name="login_statement">Přečetl jsem si a aktivací souhlasím s podmínkami zpracování osobních údajů po dobu nouzového stavu.</string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
@@ -73,11 +73,16 @@
     <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">Následující data jsou veškeré záznamy o měření signálu okolních telefonů s eRouškou. Neobsahují vaší polohu ani osobní údaje a odeslat hygienikům je můžete pouze vy.</string>
-    <string name="my_data_today">Dnes</string>
-    <string name="my_data_two_weeks">Za 14 dní</string>
-    <string name="my_data_total">Celkem: %d </string>
-    <string name="my_data_critical">Příliš blízko: %d</string>
+    <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze vy. Záznamy starší než %d dní se automaticky mažou.</string>
+    <string name="my_data_tab_all_title">Všechna data</string>
+    <string name="my_data_tab_critical_title">Blízká setkání</string>
+
+    <plurals name="my_data_today_count">
+        <item quantity="one">Potkali jste %d člověka s eRouškou.</item>
+        <item quantity="few">Potkali jste %d lidi s eRouškou.</item>
+        <item quantity="other">Potkali jste %d lidí s eRouškou.</item>
+    </plurals>
+
     <string name="my_data_column_date">Datum</string>
     <string name="my_data_column_time">Čas</string>
     <string name="my_data_column_buid">ID</string>
@@ -89,7 +94,7 @@
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
     <string name="welcome_activation">Pokračovat v aktivaci</string>
-    <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve Vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve Vaší blízkosti, může Vás kontaktovat hygienická stanice.\n\nKdyž se potvrdí nákaza u Vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.]]></string>
+    <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve Vašem okolí.<br/><br/>Když se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve Vaší blízkosti, může Vás kontaktovat hygienická stanice.<br/><br/>Když se potvrdí nákaza u Vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.<br/><br/>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT. Více v jejich <a href="%s">prohlášení o podpoře</a> naší aplikace.]]></string>
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_verification_code">Ověřovací kód</string>

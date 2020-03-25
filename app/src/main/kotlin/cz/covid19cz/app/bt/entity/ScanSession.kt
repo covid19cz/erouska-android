@@ -16,7 +16,6 @@ class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
-    val currDistance = SafeMutableLiveData("")
 
     var avgRssi = 0
     var medRssi = 0
@@ -47,15 +46,15 @@ class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
         }
     }
 
-    private fun median(l: IntArray): Int {
-        Arrays.sort(l)
-        val middle = l.size / 2
-        return if (l.size % 2 == 0) {
-            val left = l[middle - 1]
-            val right = l[middle]
+    private fun median(values: IntArray): Int {
+        Arrays.sort(values)
+        val middle = values.size / 2
+        return if (values.size % 2 == 0) {
+            val left = values[middle - 1]
+            val right = values[middle]
             (left + right) / 2
         } else {
-            l[middle]
+            values[middle]
         }
     }
 

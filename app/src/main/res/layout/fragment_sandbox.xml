@@ -88,7 +88,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDbExplorer"
             android:layout_width="wrap_content"

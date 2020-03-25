@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.welcome
 
 import android.app.Application
 import android.bluetooth.BluetoothManager
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.ui.base.BaseVM
@@ -25,5 +26,9 @@ class WelcomeVM(private val app: Application,
 
     fun help() {
         publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.HELP))
+    }
+
+    fun getProclamationUrl(): String {
+        return AppConfig.proclamationDynamicLink
     }
 }
