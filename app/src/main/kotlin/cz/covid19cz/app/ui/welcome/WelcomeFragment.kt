@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.text.HtmlCompat
 import androidx.navigation.NavOptions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentWelcomeBinding
@@ -42,7 +43,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
             viewModel.getProclamationUrl()
         )
 
-        welcome_desc.text = Html.fromHtml(welcomeDescription)
+        welcome_desc.text = HtmlCompat.fromHtml(welcomeDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
         welcome_desc.movementMethod = LinkMovementMethod.getInstance()
 
     }

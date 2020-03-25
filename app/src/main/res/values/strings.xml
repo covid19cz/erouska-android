@@ -102,10 +102,10 @@
     <string name="login_code_read_automatically">Ověřovací kód byl automaticky předvyplněn.</string>
     <string name="contacts_title">Kontakty</string>
     <string name="contacts_suspicion_desc"><b>Máte podezření na koronavirus?</b>\n\nZůstaňte doma a kontaktuje svého praktického lékaře nebo příslušnou hygienickou stanici.</string>
-    <string name="contacts_help_desc"><b>Potřebujete poradit?</b>\n\nVeškeré otázky a nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince 1212.</string>
+    <string name="contacts_help_desc"><![CDATA[<b>Potřebujete poradit?</b><br/><br/>Veškeré otázky a nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince %s.]]></string>
     <string name="contacts_faq">Často kladené dotazy</string>
     <string name="contacts_important">Důležité kontakty</string>
-    <string name="contacts_emergency">Zavolejte na 1212</string>
+    <string name="contacts_emergency">Zavolejte na %s</string>
     <string name="contacts_improve_desc">Máte návrh na zlepšení aplikace nebo dotaz k jejímu fungování?</string>
     <string name="contacts_email">Napište nám email</string>
     <string name="send_email_chooser">Odeslat email…</string>
