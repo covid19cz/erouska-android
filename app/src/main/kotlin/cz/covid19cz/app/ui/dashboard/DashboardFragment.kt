@@ -164,7 +164,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun shareApp() {
-        shareLink(AppConfig.shareAppDynamicLink)
+        val text = getString(R.string.share_app_text, AppConfig.shareAppDynamicLink)
+        shareLink(text)
     }
 
     private fun shareLink(link: String) {
