@@ -20,11 +20,13 @@ import cz.covid19cz.app.db.ScanDataEntity
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
+import cz.covid19cz.app.ext.minutesToMilis
 import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -62,6 +64,7 @@ class BluetoothRepository(
         }
     }
 
+    private var gattFailCount = 0
     private val gattCallback = object : BluetoothGattCallback() {
 
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
@@ -69,6 +72,10 @@ class BluetoothRepository(
                 L.d("GATT connected")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID) {
+                    discoveredIosDevices.remove(gatt.device.address)
+                }
+
                 L.d("GATT disconnected")
             }
         }
@@ -81,23 +88,25 @@ class BluetoothRepository(
             if (GATT_CHARACTERISTIC_UUID == characteristic!!.uuid) {
                 val buid = characteristic.value?.asHexLower
                 val mac = gatt.device?.address
-                gatt.close()
 
                 if (buid != null) {
-                    L.d("BUID found in characteristic")
+                    L.d("GATT BUID found")
                     discoveredIosDevices[mac]?.let { s ->
                         Observable.just(s).map { session ->
                             session.deviceId = buid
                             scanResultsMap[buid] = session
                             session
                         }.execute({
+                            gattFailCount = 0
                             scanResultsList.add(it)
+                            gatt.close()
                         }, {
                             L.e(it)
                         })
                     }
                 } else {
-                    L.e("BUID not found in characteristic")
+                    L.e("GATT BUID not found")
+                    gatt.close()
                 }
             }
         }
@@ -171,10 +180,10 @@ class BluetoothRepository(
         L.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
-        saveScansAndDispose()
+        saveDataAndClearScanResults()
     }
 
-    private fun saveScansAndDispose() {
+    private fun saveDataAndClearScanResults() {
         L.d("Saving data to database")
         Observable.just(scanResultsList.toTypedArray())
             .map { tempArray ->
@@ -212,7 +221,14 @@ class BluetoothRepository(
                 if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
                     getBuidFromIos(result)
                 } else {
-                    discoveredIosDevices[result.bleDevice.macAddress]?.addRssi(result.rssi)
+                    discoveredIosDevices[result.bleDevice.macAddress]?.let {
+                        if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
+                            scanResultsMap[it.deviceId] = it
+                            scanResultsList.add(it)
+                        }
+                        it.addRssi(result.rssi)
+                    }
+
                 }
             }
 
@@ -235,7 +251,7 @@ class BluetoothRepository(
 
     private fun getBuidFromIos(result: ScanResult) {
         val mac = result.bleDevice.macAddress
-        val session = ScanSession("iOS Device", mac)
+        val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         L.d("Connecting to GATT")
         discoveredIosDevices[mac] = session
@@ -277,10 +293,16 @@ class BluetoothRepository(
         return if (resultHex != "00000000000000000000") resultHex else null
     }
 
-    private fun clearScanResults() {
-        discoveredIosDevices.clear()
+    fun clearScanResults() {
         scanResultsList.clear()
         scanResultsMap.clear()
+    }
+
+    private fun clearIosDevices() {
+        // Don't clear whole iOS device cache to preventing DDOS GATT
+        for (device in discoveredIosDevices) {
+                device.value.reset()
+        }
     }
 
     fun supportsAdvertising(): Boolean {

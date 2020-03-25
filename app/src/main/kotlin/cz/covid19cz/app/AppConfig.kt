@@ -6,7 +6,6 @@ import cz.covid19cz.app.utils.L
 
 object AppConfig {
 
-    const val BLE_OUT_OF_RANGE_TIMEOUT = 5
     const val CSV_VERSION = 3
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
@@ -30,6 +29,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
     val uploadWaitingMinutes
         get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
+    val persistDataDays
+        get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
+    val shareAppDynamicLink
+        get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
 
     var overrideAdvertiseTxPower : Int? = null
 

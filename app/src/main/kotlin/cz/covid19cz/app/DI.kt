@@ -32,7 +32,7 @@ import org.koin.dsl.module
 
 
 val viewModelModule = module {
-    viewModel { MainVM() }
+    viewModel { MainVM(get()) }
     viewModel { SandboxVM(get(), get(), get()) }
     viewModel { LoginVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }

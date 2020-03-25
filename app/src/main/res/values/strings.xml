@@ -11,7 +11,7 @@
     <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
     <string name="notification_text_paused">Aplikace pozastavená. Nezapomeňte ji spustit.</string>
     <string name="notification_action_resume">Spustit</string>
-    <string name="notification_text_resumed">Aplikace běží a zaznamenává anonymně telefony ve vašem okolí.</string>
+    <string name="notification_text_resumed">Aplikace běží a zaznamenává anonymně telefony ve Vašem okolí.</string>
     <string name="notification_action_pause">Pozastavit</string>
 
     <string name="notification_action_enable_bluetooth">Zapnout bluetooth</string>
@@ -25,21 +25,21 @@
     <string name="go_back_button">Zpět do aplikace</string>
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve Vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
 
     <string name="location_disabled_title">Zapněte Polohové služby</string>
-    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
+    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
     <string name="enable_location_button">Zapnout Polohové služby</string>
 
     <string name="bt_location_disabled_title">Zapněte Bluetooth a Polohové služby</string>
-    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby”.</string>
+    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby”.</string>
     <string name="enable_bt_location_button">Zapnout BT a Polohové služby</string>
 
     <string name="dashboard_title_running">Aplikace je aktivní</string>
     <string name="dashboard_title_paused">Aplikace je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
-    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o vašem okolí.\n\nSpusťte znovu sběr dat a chraňte vás i vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
-    <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme vás na čísle 728 953 731. Požádáme vás o zaslání anonymizovaného seznamu telefonů, které byly ve vašem okolí v sekci Moje data.</string>
+    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o Vašem okolí.\n\nSpusťte znovu sběr dat a chraňte Vás i Vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme Vás na čísle %s. Požádáme Vás o zaslání anonymizovaného seznamu telefonů, který naleznete v sekci Moje data.</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
     <string name="share_app">Sdílet aplikaci</string>
@@ -50,13 +50,13 @@
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">Povolte aplikaci přístup k Bluetooth a sledování polohy</string>
-    <string name="permission_onboarding_desc">Aplikace vaši polohu nesleduje ani nezaznamenává, některé telefony její sledování vyžadují pro správnou funkci Bluetooth.</string>
-    <string name="permission_onboarding_desc_2">Aplikace vaši polohu nesleduje ani nezaznamenává, některé telefony její sledování vyžadují pro správnou funkci Bluetooth.</string>
-    <string name="permission_onboarding_desc_minor">Aplikace data nikdy sama neodesílá. Anonymizovaná data o telefonech, které byly ve vaší blízkosti, odešle pouze v případě, že k tomu dáte jednoznačný pokyn stisknutím tlačítka Odeslat data.</string>
+    <string name="permission_onboarding_desc">Aplikace Vaši polohu nesleduje ani nezaznamenává, některé telefony však aktivaci sledování polohy vyžadují pro správnou funkci Bluetooth.</string>
+    <string name="permission_onboarding_desc_2">Bluetooth nikdy nevypínejte, aby aplikace mohla správně fungovat.</string>
+    <string name="permission_onboarding_desc_minor">Aplikace data nikdy sama neodesílá. Anonymizovaná data o telefonech, které byly ve Vaší blízkosti, odešle pouze v případě, že k tomu dáte jednoznačný pokyn stisknutím tlačítka "Odeslat data".</string>
     <string name="permission_onboarding_toolbar_title">Povolení</string>
     <string name="login_toolbar_title">Aktivace</string>
-    <string name="help_desc"><b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve vašem okolí a také mají aplikaci nainstalovanou</b>\n\nNásledně zaznamená ID aplikací a bez vašeho souhlasu je nikam nezasílá.\n\n<b>K odeslání dat z apliakce dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b>\n\nData odesílejte až v momentě, kdy vás kontaktují vás hygienici.\n\n<b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b>\n\nVíce v jejich prohlášení o podpoře naší aplikace.\n\n<b>Vaši aplikaci spárujeme se zadaným telefonním číslem</b>\n\nPracovník hygienické stanice vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.\n\n<b>Co se děje s údaji o telefonech na seznamu osob, které jsem potkal</b>\n\nData jsou po celou dobu uchovávána ve vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy  to bude nutné. Nejprve vás bude kontaktovat pracovník hygienické stanice a požádá vás k odeslání dat.\n\n<b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b>\n\nNávod pro váš telefon XZ\n\n<b>Kdo aplikaci provozuje</b>\n\nAplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.</string>
-    <string name="login_desc">Na toto telefonní číslo vás mohou kontaktovat pouze hygienici v případě, že se u někoho z vašeho okolí potvrdí nákaza koronavirem.</string>
+    <string name="help_desc"><b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve Vašem okolí a také mají aplikaci nainstalovanou.</b>\n\nNásledně zaznamená ID aplikací a bez Vašeho souhlasu je nikam nezasílá.\n\n<b>K odeslání dat z aplikace dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b>\n\nData odesílejte až v momentě, kdy Vás kontaktují hygienici.\n\n<b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b>\n\nVíce v jejich prohlášení o podpoře naší aplikace.\n\n<b>Vaši aplikaci spárujeme se zadaným telefonním číslem</b>\n\nPracovník hygienické stanice Vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.\n\n<b>Co se děje s údaji o telefonech na seznamu osob, které jsem potkal</b>\n\nData jsou po celou dobu uchovávána ve Vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy  to bude nutné. Nejprve Vás bude kontaktovat pracovník hygienické stanice a požádá Vás k odeslání dat.\n\n<b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b>\n\nNávod pro Váš telefon XZ\n\n<b>Kdo aplikaci provozuje</b>\n\nAplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.</string>
+    <string name="login_desc">Na toto telefonní číslo Vás mohou kontaktovat pouze hygienici v případě, že se u někoho z Vašeho okolí potvrdí nákaza koronavirem.</string>
     <string name="login_statement">Přečetl jsem si a aktivací souhlasím s podmínkami zpracování osobních údajů po dobu nouzového stavu.</string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
     <string name="login_finish_activation">Dokončit aktivaci</string>
@@ -72,12 +72,15 @@
     <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">Kolik jsem potkal/a lidí s eRouškou?</string>
-    <string name="my_data_description_2">Snažte se snižovat počet lidí příliš blízko.</string>
+    <string name="my_data_description">Následující data jsou veškeré záznamy o měření signálu okolních telefonů s eRouškou. Neobsahují vaší polohu ani osobní údaje a odeslat hygienikům je můžete pouze vy.</string>
     <string name="my_data_today">Dnes</string>
     <string name="my_data_two_weeks">Za 14 dní</string>
     <string name="my_data_total">Celkem: %d </string>
     <string name="my_data_critical">Příliš blízko: %d</string>
+    <string name="my_data_column_date">Datum</string>
+    <string name="my_data_column_time">Čas</string>
+    <string name="my_data_column_buid">ID</string>
+    <string name="my_data_column_rssi">RSSI</string>
 
     <string name="permission_rationale_title">Pro správnou funkci aplikace je nutné oprávnění k přístupu k poloze.</string>
     <string name="permission_rationale_body">Více o tom proč tomu tak je, najdete v nápovědě.</string>
@@ -85,7 +88,7 @@
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
     <string name="welcome_activation">Pokračovat v aktivaci</string>
-    <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve vaší blízkosti, může vás kontaktovat hygienická stanice.\n\nKdyž se potvrdí nákaza u vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.]]></string>
+    <string name="welcome_description"><![CDATA[Tato aplikace vytváří seznam telefonů ve Vašem okolí.\n\nKdyž se potvrdí nákaza koronavirem u některého z majitelů telefonů, které byly ve Vaší blízkosti, může Vás kontaktovat hygienická stanice.\n\nKdyž se potvrdí nákaza u Vás, hygienická stanice může kontaktovat všechny, kdo s vámi potenciálně přišli do styku.]]></string>
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
@@ -98,7 +101,7 @@
     <string name="contacts_emergency">Zavolejte na 1212</string>
     <string name="contacts_improve_desc">Máte návrh na zlepšení aplikace nebo dotaz k jejímu fungování?</string>
     <string name="contacts_email">Napište nám email</string>
-    <string name="send_email_chooser">Send mail...</string>
+    <string name="send_email_chooser">Odeslat email…</string>
     <string name="no_emal_client">There is no email client installed.</string>
     <string name="default_email_subject">Dotaz z aplikace</string>
     <string name="default_email_address">info@erouska.cz</string>
@@ -107,4 +110,6 @@
     <string name="upload_failed">Nepodařilo se nahrát data. Detaily: %s</string>
     <string name="please_wait_upload">Data jste již odeslali. Znovu budete moci odeslat data za %d minut.</string>
     <string name="upload_confirmation">Potvrďte prosím odeslání dat. Po odeslání budou mít k datům přístup hygienici.</string>
+    <string name="share_app_title">Sdílet aplikaci eRouška</string>
+    <string name="menu_share_app">Sdílet aplikaci</string>
 </resources>
