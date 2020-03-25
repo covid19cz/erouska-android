@@ -72,12 +72,15 @@
     <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">Kolik jsem potkal/a lidí s eRouškou?</string>
-    <string name="my_data_description_2">Snažte se snižovat počet lidí příliš blízko.</string>
+    <string name="my_data_description">Následující data jsou veškeré záznamy o měření signálu okolních telefonů s eRouškou. Neobsahují vaší polohu ani osobní údaje a odeslat hygienikům je můžete pouze vy.</string>
     <string name="my_data_today">Dnes</string>
     <string name="my_data_two_weeks">Za 14 dní</string>
     <string name="my_data_total">Celkem: %d </string>
     <string name="my_data_critical">Příliš blízko: %d</string>
+    <string name="my_data_column_date">Datum</string>
+    <string name="my_data_column_time">Čas</string>
+    <string name="my_data_column_buid">ID</string>
+    <string name="my_data_column_rssi">RSSI</string>
 
     <string name="permission_rationale_title">Pro správnou funkci aplikace je nutné oprávnění k přístupu k poloze.</string>
     <string name="permission_rationale_body">Více o tom proč tomu tak je, najdete v nápovědě.</string>

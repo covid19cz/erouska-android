@@ -28,7 +28,8 @@ class MyDataVM(
 ) : BaseVM() {
 
     val items = ObservableArrayList<ScanDataEntity>()
-    private val dateFormatter = SimpleDateFormat("d.M. HH:mm", Locale.getDefault())
+    private val dateFormatter = SimpleDateFormat("d.M.", Locale.getDefault())
+    private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val todayCount = SafeMutableLiveData(0)
     val todayCritical = SafeMutableLiveData(0)
     val twoWeeksCount = SafeMutableLiveData(0)
@@ -38,13 +39,12 @@ class MyDataVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        subscribe(dbRepo.data.map { orig ->
-            orig.sortedByDescending { it.timestampStart }
-        }, { L.e(it) }) {
+        subscribe(dbRepo.getAllDesc(), { L.e(it) }) {
             items.addAll(it)
         }
 
-        val todayBeginCalendar = Calendar.getInstance().apply {
+        // Will be used later for some interesting statistics :)
+        /*val todayBeginCalendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
@@ -84,8 +84,7 @@ class MyDataVM(
                 L.d("${it.buid} - ${it.expositionTime / 1000}s")
             }
             twoWeeksCriticalCount.value = result.size
-        }
-
+        }*/
     }
 
     override fun onCleared() {
@@ -93,12 +92,12 @@ class MyDataVM(
         exportDisposable?.dispose()
     }
 
-    fun formatTimeStamps(time: Long): String {
-        return dateFormatter.format(Date(time))
+    fun formatDate(timestamp: Long): String {
+        return dateFormatter.format(Date(timestamp))
     }
 
-    fun getAvgSeconds(start: Long, end: Long, count: Int): String {
-        return String.format("%.1fs", (end - start) / count.toFloat() / 1000f)
+    fun formatTime(timestamp: Long): String {
+        return timeFormatter.format(Date(timestamp))
     }
 
     fun sendData() {

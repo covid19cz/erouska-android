@@ -30,18 +30,4 @@ object ColorUtils {
 
         }
     }
-
-    fun criticalCountToColor(count : Int) : Int{
-        return when{
-            count < 2 -> R.color.exposition_level_1
-            count < 3 -> R.color.exposition_level_2
-            count < 4 -> R.color.exposition_level_3
-            count < 5 -> R.color.exposition_level_4
-            count < 6 -> R.color.exposition_level_5
-            count < 7 -> R.color.exposition_level_6
-            count < 8 -> R.color.exposition_level_7
-            else -> R.color.exposition_level_8
-
-        }
-    }
 }

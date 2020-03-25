@@ -16,50 +16,68 @@
             type="cz.covid19cz.app.db.ScanDataEntity" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:backgroundResource="@{ColorUtils.INSTANCE.rssiToColorBackground(item.rssiMed)}"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        >
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textTime"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            tools:text="25.3.2020"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{vm.formatDate(item.timestampEnd)}" />
+
+
+        <TextView
+            android:id="@+id/textTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@{vm.formatTimeStamps(item.timestampEnd)}" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@{item.maskedBuid}"
-                android:textSize="16sp" />
-
-        </LinearLayout>
+            app:layout_constraintStart_toEndOf="@id/textDate"
+            app:layout_constraintEnd_toStartOf="@id/textBuid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            tools:text="02:02"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{vm.formatTime(item.timestampEnd)}" />
 
         <TextView
+            android:id="@+id/textBuid"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/textTime"
+            app:layout_constraintEnd_toStartOf="@id/textRssi"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            android:text='@{String.format("%d",item.rssiMed)}'
-            android:textSize="16sp" />
+            tools:text="...1234"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{item.maskedBuid}" />
 
         <TextView
+            android:id="@+id/textRssi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            app:layout_constraintStart_toEndOf="@id/textBuid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            android:text="@{item.medDistance}"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:text='@{String.format("%d dB",item.rssiMed)}'
+            tools:text="-70 db"
+            app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.rssiMed)}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#ECECEC"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

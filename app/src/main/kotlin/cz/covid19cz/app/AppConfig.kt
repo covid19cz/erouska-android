@@ -29,6 +29,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
     val uploadWaitingMinutes
         get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
+    val persistDataDays
+        get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
 

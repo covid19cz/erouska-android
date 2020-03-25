@@ -3,13 +3,19 @@ package cz.covid19cz.app
 import arch.BaseApp
 import com.idescout.sql.SqlScoutServer
 import cz.covid19cz.app.db.AppDatabase
+import cz.covid19cz.app.db.DatabaseRepository
+import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.utils.L
+import io.reactivex.Single
+import io.reactivex.SingleSource
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
+import org.koin.core.inject
 import java.io.File
 
 
-class App : BaseApp() {
+class App : BaseApp(), KoinComponent{
 
     override fun onCreate() {
         super.onCreate()

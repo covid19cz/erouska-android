@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#2f80ed</color>
     <color name="colorPrimaryVariant">#2874ed</color>
-    <color name="colorSecondary">#6200FF</color>
-    <color name="colorSecondaryVariant">#5000AB</color>
+    <color name="colorSecondary">#EE225B</color>
+    <color name="colorSecondaryVariant">#C50F42</color>
     <color name="colorSurface">@color/white</color>
     <color name="colorOnSurface">#717171</color>
 

@@ -19,75 +19,25 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:layout_marginTop="@dimen/fragment_padding"
+            android:layout_marginLeft="@dimen/fragment_padding"
+            android:layout_marginRight="@dimen/fragment_padding"
             android:text="@string/my_data_description"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/my_data_description_2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:visibleOrGone="@{vm.twoWeeksCriticalCount > 0}" />
-
-        <LinearLayout
-            android:id="@+id/sums"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description">
-
-            <include
-                layout="@layout/view_my_data_sums"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                app:all="@{vm.todayCount}"
-                app:cardCornerRadius="16dp"
-                app:contentPadding="16dp"
-                app:critical="@{vm.todayCritical}"
-                app:title="@{@string/my_data_today}" />
-
-            <include
-                layout="@layout/view_my_data_sums"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                app:all="@{vm.twoWeeksCount}"
-                app:cardCornerRadius="16dp"
-                app:contentPadding="16dp"
-                app:critical="@{vm.twoWeeksCriticalCount}"
-                app:title="@{@string/my_data_two_weeks}" />
-
-        </LinearLayout>
 
         <include
             android:id="@+id/header"
             layout="@layout/item_my_data_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sums" />
+            app:layout_constraintTop_toBottomOf="@id/textDescription" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

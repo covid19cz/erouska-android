@@ -41,6 +41,10 @@
         <value>15</value>
     </entry>
     <entry>
+        <key>persistDataDays</key>
+        <value>30</value>
+    </entry>
+    <entry>
         <key>shareAppDynamicLink</key>
         <value>https://covid19cz.page.link/share</value>
     </entry>
