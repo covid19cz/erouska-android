@@ -9,6 +9,7 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentMyDataBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_data.*
+import kotlinx.android.synthetic.main.fragment_my_data.view.*
 
 class MyDataFragment :
     BaseFragment<FragmentMyDataBinding, MyDataVM>(R.layout.fragment_my_data, MyDataVM::class) {
@@ -46,24 +47,8 @@ class MyDataFragment :
     }
 
     fun setupTabs(){
-        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(tab: TabLayout.Tab) {
-                this@MyDataFragment.onTabSelected(tab)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                this@MyDataFragment.onTabSelected(tab)
-            }
-        })
-    }
-
-    fun onTabSelected(tab : TabLayout.Tab){
-        viewModel.currentTab.value = tab.position
-        viewModel.load()
+        viewPager.adapter = MyDataPagerAdapter(requireContext())
+        tabs.setupWithViewPager(viewPager)
     }
 
     private fun showMessageDialog(message: String) {

@@ -28,7 +28,8 @@ class MyDataVM(
 ) : BaseVM() {
 
     val loading = SafeMutableLiveData(false)
-    val items = ObservableArrayList<ScanDataEntity>()
+    val allItems = ObservableArrayList<ScanDataEntity>()
+    val criticalItems = ObservableArrayList<ScanDataEntity>()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val todayCount = SafeMutableLiveData(0)
@@ -44,13 +45,22 @@ class MyDataVM(
     }
 
     fun load() {
-        loading. value = true
-        items.clear()
-        subscribe(if (currentTab.value == 0) dbRepo.getCriticalDesc() else dbRepo.getAllDesc(), {
-            loading. value = false
-            L.e(it) }) {
-            loading. value = false
-            items.addAll(it)
+        loading.value = true
+        criticalItems.clear()
+        allItems.clear()
+
+        subscribe(dbRepo.getAllDesc(), {
+            loading.value = false
+            L.e(it)
+        }) {
+            loading.value = false
+            allItems.addAll(it)
+        }
+
+        subscribe(dbRepo.getCriticalDesc(), {
+            L.e(it)
+        }) {
+            criticalItems.addAll(it)
         }
 
         val todayBeginCalendar = Calendar.getInstance().apply {
@@ -72,7 +82,7 @@ class MyDataVM(
         }
     }
 
-    fun onRefresh(){
+    fun onRefresh() {
         load()
     }
 

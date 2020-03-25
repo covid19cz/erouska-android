@@ -42,6 +42,7 @@
             android:layout_marginLeft="@dimen/fragment_padding"
             android:layout_marginRight="@dimen/fragment_padding"
             android:text="@{@string/my_data_description(AppConfig.INSTANCE.persistDataDays)}"
+            tools:text="@string/my_data_description"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,19 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/textDescription">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_data_tab_critical_title"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_data_tab_all_title"/>
-
-        </com.google.android.material.tabs.TabLayout>
+            app:layout_constraintTop_toBottomOf="@id/textDescription"/>
 
         <include
             android:id="@+id/header"
@@ -76,7 +65,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabs" />
-
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
@@ -91,12 +79,29 @@
             app:layout_constraintTop_toBottomOf="@id/header"
             app:layout_constraintVertical_bias="0.0">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:items="@{vm.items}"
-                app:layoutId="@{R.layout.item_my_data}"
-                app:viewModel="@{vm}" />
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pageCritical"
+                    app:items="@{vm.criticalItems}"
+                    app:layoutId="@{R.layout.item_my_data}"
+                    app:viewModel="@{vm}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pageAll"
+                    app:items="@{vm.allItems}"
+                    app:layoutId="@{R.layout.item_my_data}"
+                    app:viewModel="@{vm}" />
+
+            </androidx.viewpager.widget.ViewPager>
+
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
