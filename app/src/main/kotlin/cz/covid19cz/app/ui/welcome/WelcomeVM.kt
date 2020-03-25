@@ -32,4 +32,9 @@ class WelcomeVM(private val app: Application,
     fun help() {
         publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.HELP))
     }
+
+    fun getProclamationUrl(): String {
+        // TODO Replace with link from Firebase
+        return "http://www.erouska.cz"
+    }
 }
