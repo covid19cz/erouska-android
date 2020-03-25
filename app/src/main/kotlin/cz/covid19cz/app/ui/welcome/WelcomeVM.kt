@@ -29,6 +29,6 @@ class WelcomeVM(private val app: Application,
     }
 
     fun getProclamationUrl(): String {
-        return AppConfig.proclamationDynamicLink
+        return AppConfig.proclamationLink
     }
 }

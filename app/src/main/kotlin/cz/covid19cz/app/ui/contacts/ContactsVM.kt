@@ -27,14 +27,14 @@ class ContactsVM : BaseVM() {
     }
 
     fun getFaqUrl() : String {
-        return AppConfig.faqDynamicLink //"https://koronavirus.mzcr.cz/otazky-odpovedi"
+        return AppConfig.faqLink
     }
 
     fun getImportantUrl() : String {
-        return AppConfig.importantDynamicLink //"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy"
+        return AppConfig.importantLink
     }
 
     fun getEmergencyNumber() : String {
-        return AppConfig.emergencyNumber //"1212"
+        return AppConfig.emergencyNumber
     }
 }

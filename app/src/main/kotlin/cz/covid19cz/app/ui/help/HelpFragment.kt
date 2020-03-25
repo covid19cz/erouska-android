@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.text.HtmlCompat
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentHelpBinding
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -40,7 +41,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             viewModel.getDeviceName()
         )
 
-        help_desc.text = Html.fromHtml(helpDescription)
+        help_desc.text = HtmlCompat.fromHtml(helpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
         help_desc.movementMethod = LinkMovementMethod.getInstance()
     }
 
