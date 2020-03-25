@@ -33,16 +33,16 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
-    val faqDynamicLink
-        get() = firebaseRemoteConfig.getString("faqDynamicLink")
-    val importantDynamicLink
-        get() = firebaseRemoteConfig.getString("importantDynamicLink")
+    val faqLink
+        get() = firebaseRemoteConfig.getString("faqLink")
+    val importantLink
+        get() = firebaseRemoteConfig.getString("importantLink")
     val emergencyNumber
         get() = firebaseRemoteConfig.getString("emergencyNumber")
-    val proclamationDynamicLink
-        get() = firebaseRemoteConfig.getString("proclamationDynamicLink")
-    val tutorialDynamicLink
-        get() = firebaseRemoteConfig.getString("tutorialDynamicLink")
+    val proclamationLink
+        get() = firebaseRemoteConfig.getString("proclamationLink")
+    val tutorialLink
+        get() = firebaseRemoteConfig.getString("tutorialLink")
 
     var overrideAdvertiseTxPower : Int? = null
 
