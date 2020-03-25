@@ -20,13 +20,11 @@ import cz.covid19cz.app.db.ScanDataEntity
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
-import cz.covid19cz.app.ext.minutesToMilis
 import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -214,12 +212,12 @@ class BluetoothRepository(
         lastScanResultTime.value = System.currentTimeMillis()
 
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
-            val deviceId = getBuidFromAndroid(result.scanRecord.bytes)
+            val deviceId = getBuidFromAdvertising(result.scanRecord.bytes)
 
-            if (deviceId == null && result.scanRecord.getManufacturerSpecificData(0x004C) != null) {
+            if (deviceId == null) {
                 // It's time to handle iOS Device
                 if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
-                    getBuidFromIos(result)
+                    getBuidFromGatt(result)
                 } else {
                     discoveredIosDevices[result.bleDevice.macAddress]?.let {
                         if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
@@ -249,7 +247,7 @@ class BluetoothRepository(
         }
     }
 
-    private fun getBuidFromIos(result: ScanResult) {
+    private fun getBuidFromGatt(result: ScanResult) {
         val mac = result.bleDevice.macAddress
         val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
@@ -260,7 +258,7 @@ class BluetoothRepository(
         device?.connectGatt(context, false, gattCallback)
     }
 
-    private fun getBuidFromAndroid(bytes: ByteArray): String? {
+    private fun getBuidFromAdvertising(bytes: ByteArray): String? {
         val result = ByteArray(10)
 
         var currIndex = 0

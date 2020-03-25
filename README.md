@@ -1,6 +1,6 @@
-# bt-tracing-android
+# erouska-android
 
-Bluetooth Tracing for Android
+Erouška for Android
 
 ## Android
 
