@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_confirmation.*
 
 abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, ConfirmationVM>(R.layout.fragment_confirmation, ConfirmationVM::class) {
 
-    abstract val descriptionRes: Int
+    abstract val description: String
     abstract val buttonTextRes: Int
     abstract fun confirmedClicked()
     abstract fun doWhenFinished()
@@ -35,7 +35,7 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        confirm_desc.setText(descriptionRes)
+        confirm_desc.text = description
         confirm_button.setText(buttonTextRes)
         confirm_button.setOnClickListener {
             confirm_desc.hide()

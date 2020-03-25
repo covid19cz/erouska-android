@@ -5,7 +5,6 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
@@ -15,6 +14,7 @@ import cz.covid19cz.app.db.ScanDataEntity
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
+import cz.covid19cz.app.utils.Auth
 import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.Disposable
 import java.io.File
@@ -120,7 +120,7 @@ class MyDataVM(
     }
 
     private fun uploadToStorage(path: String) {
-        val fuid = FirebaseAuth.getInstance().uid
+        val fuid = Auth.getFuid()
         val timestamp = System.currentTimeMillis()
         val buid = prefs.getDeviceBuid()
         val ref = storage.reference.child("proximity/$fuid/$buid/$timestamp.csv")

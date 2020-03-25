@@ -2,9 +2,7 @@ package cz.covid19cz.app.ui.welcome
 
 import android.app.Application
 import android.bluetooth.BluetoothManager
-import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.app.AppConfig
-import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ext.hasLocationPermission
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.ui.base.BaseVM
@@ -12,12 +10,8 @@ import cz.covid19cz.app.ui.welcome.event.WelcomeCommandEvent
 import cz.covid19cz.app.utils.isBluetoothEnabled
 
 class WelcomeVM(private val app: Application,
-                private val bluetoothManager: BluetoothManager,
-                private val sharedPrefsRepository: SharedPrefsRepository
+                private val bluetoothManager: BluetoothManager
 ) : BaseVM() {
-
-    val userInitialized
-        get() = FirebaseAuth.getInstance().currentUser != null && sharedPrefsRepository.getDeviceBuid() != null
 
     fun nextStep() {
         if (needsPermisssions()) {

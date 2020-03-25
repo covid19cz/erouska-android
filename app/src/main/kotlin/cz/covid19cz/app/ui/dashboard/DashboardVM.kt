@@ -2,11 +2,11 @@ package cz.covid19cz.app.ui.dashboard
 
 import androidx.lifecycle.Observer
 import arch.livedata.SafeMutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.app.utils.Auth
 
 class DashboardVM(
     val bluetoothRepository: BluetoothRepository,
@@ -14,7 +14,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
-    val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber?.formatPhoneNumber() ?: "?"
+    val phoneNumber = Auth.getPhoneNumber().formatPhoneNumber()
 
     private val serviceObserver = Observer<Boolean> { isRunning ->
         if (!isRunning && !prefs.getAppPaused()) {

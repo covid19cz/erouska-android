@@ -20,6 +20,7 @@ import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.app.utils.Auth
 import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
@@ -69,7 +70,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         checkIfServiceIsRunning()
 
+        checkIfSignedIn()
+
         viewModel.init()
+    }
+
+    private fun checkIfSignedIn() {
+        if (!Auth.isSignedIn()) {
+            navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+        }
     }
 
     private fun checkIfServiceIsRunning() {
@@ -88,7 +97,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.sandbox, menu)
+        inflater.inflate(R.menu.dashboard, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
