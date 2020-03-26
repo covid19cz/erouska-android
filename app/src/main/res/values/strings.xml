@@ -73,7 +73,7 @@
     <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze vy. Záznamy starší než %d dní se automaticky mažou.</string>
+    <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze Vy. Záznamy starší než %d dní se automaticky mažou.</string>
     <string name="my_data_tab_all_title">Všechna data</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
 
