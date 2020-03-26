@@ -1,16 +1,16 @@
 package cz.covid19cz.app.db.export
 
-import android.content.Context
 import cz.covid19cz.app.db.DatabaseRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.supercsv.io.CsvListWriter
 import org.supercsv.prefs.CsvPreference
-import java.io.File
-import java.io.FileWriter
+import java.io.ByteArrayOutputStream
+import java.io.OutputStreamWriter
+import java.nio.charset.Charset
 
-class CsvExporter(private val context: Context, private val repository: DatabaseRepository) {
+class CsvExporter(private val repository: DatabaseRepository) {
 
     companion object {
         // represents the structure of the csv file
@@ -23,12 +23,12 @@ class CsvExporter(private val context: Context, private val repository: Database
         )
     }
 
-    private fun filename() = "${System.currentTimeMillis()}.csv"
-
-    fun export(lastUploadTimestamp: Long): Single<String> {
-        val destinationFile = File(context.cacheDir, filename())
-        val csvWriter =
-            CsvListWriter(FileWriter(destinationFile), CsvPreference.STANDARD_PREFERENCE)
+    fun export(lastUploadTimestamp: Long): Single<ByteArray> {
+        val stream = ByteArrayOutputStream()
+        val csvWriter = CsvListWriter(
+            OutputStreamWriter(stream, Charset.forName("utf-8")),
+            CsvPreference.STANDARD_PREFERENCE
+        )
 
         return repository.getAllFromTimestamp(lastUploadTimestamp)
             .subscribeOn(Schedulers.io())
@@ -48,6 +48,6 @@ class CsvExporter(private val context: Context, private val repository: Database
                     )
                 }
                 csvWriter.close()
-            }.map { destinationFile.absolutePath }
+            }.map { stream.toByteArray() }
     }
 }
