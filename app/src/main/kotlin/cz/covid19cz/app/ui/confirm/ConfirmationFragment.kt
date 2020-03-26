@@ -7,7 +7,9 @@ import cz.covid19cz.app.databinding.FragmentHelpBinding
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.confirm.event.ErrorEvent
 import cz.covid19cz.app.ui.confirm.event.FinishedEvent
+import cz.covid19cz.app.ui.confirm.event.LogoutEvent
 import cz.covid19cz.app.utils.hide
+import cz.covid19cz.app.utils.logoutWhenNotSignedIn
 import cz.covid19cz.app.utils.show
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 
@@ -29,6 +31,9 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
             confirm_button.hide()
             confirm_progress.hide()
             confirm_desc.text = it.exception.message
+        }
+        subscribe(LogoutEvent::class) {
+            logoutWhenNotSignedIn()
         }
     }
 
