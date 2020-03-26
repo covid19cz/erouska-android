@@ -4,3 +4,4 @@ import arch.event.LiveEvent
 
 class FinishedEvent() : LiveEvent()
 data class ErrorEvent(val exception: Throwable): LiveEvent()
+class LogoutEvent(): LiveEvent()
