@@ -64,7 +64,6 @@ class BluetoothRepository(
         }
     }
 
-    private var gattFailCount = 0
     private val gattCallback = object : BluetoothGattCallback() {
 
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
@@ -101,17 +100,15 @@ class BluetoothRepository(
                             scanResultsMap[buid] = session
                             session
                         }.execute({
-                            gattFailCount = 0
                             scanResultsList.add(it)
-                            gatt.close()
                         }, {
                             L.e(it)
                         })
                     }
                 } else {
                     L.e("GATT BUID not found")
-                    gatt.close()
                 }
+                gatt.close()
             }
         }
 
@@ -189,7 +186,7 @@ class BluetoothRepository(
 
     private fun saveDataAndClearScanResults() {
         L.d("Saving data to database")
-        Observable.just(scanResultsList.toTypedArray())
+        Observable.just(scanResultsMap.values.toTypedArray())
             .map { tempArray ->
                 for (item in tempArray) {
                     item.calculate()
