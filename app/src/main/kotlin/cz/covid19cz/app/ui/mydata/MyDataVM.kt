@@ -26,7 +26,7 @@ class MyDataVM(
     val allCount = SafeMutableLiveData(0)
     val allCriticalCount = SafeMutableLiveData(0)
 
-    val descriptionVisible = SafeMutableLiveData(false)
+    val descriptionVisible = SafeMutableLiveData(true)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
