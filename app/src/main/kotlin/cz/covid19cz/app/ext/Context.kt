@@ -28,7 +28,7 @@ fun Context.isLocationEnabled(): Boolean {
 fun Context.hasLocationPermission(): Boolean {
     return PermissionChecker.checkSelfPermission(
         this,
-        android.Manifest.permission.ACCESS_FINE_LOCATION
+        getLocationPermission()
     ) == PermissionChecker.PERMISSION_GRANTED
 }
 
@@ -42,4 +42,12 @@ fun Context.openPermissionsScreen() {
     val uri: Uri = Uri.fromParts("package", packageName, null)
     intent.data = uri
     startActivity(intent)
+}
+
+fun getLocationPermission(): String {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
+    } else {
+        android.Manifest.permission.ACCESS_FINE_LOCATION
+    }
 }

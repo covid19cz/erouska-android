@@ -6,7 +6,7 @@ import cz.covid19cz.app.utils.L
 
 object AppConfig {
 
-    const val BLE_OUT_OF_RANGE_TIMEOUT = 5
+    const val CSV_VERSION = 3
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds
@@ -23,6 +23,30 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
     val advertiseRestartMinutes
         get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
+    val criticalExpositionRssi
+        get() = firebaseRemoteConfig.getLong("criticalExpositionRssi").toInt()
+    val criticalExpositionMinutes
+        get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
+    val uploadWaitingMinutes
+        get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
+    val persistDataDays
+        get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
+    val shareAppDynamicLink
+        get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
+    val faqLink
+        get() = firebaseRemoteConfig.getString("faqLink")
+    val importantLink
+        get() = firebaseRemoteConfig.getString("importantLink")
+    val emergencyNumber
+        get() = firebaseRemoteConfig.getString("emergencyNumber")
+    val proclamationLink
+        get() = firebaseRemoteConfig.getString("proclamationLink")
+    val tutorialLink
+        get() = firebaseRemoteConfig.getString("tutorialLink")
+    val aboutApi
+        get() = firebaseRemoteConfig.getString("aboutApi")
+    val aboutWeb
+        get() = firebaseRemoteConfig.getString("aboutWeb")
 
     var overrideAdvertiseTxPower : Int? = null
 

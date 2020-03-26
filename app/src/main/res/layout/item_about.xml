@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:scaleType="centerCrop"
-            app:imageResource="@{item.photo}"
+            app:url="@{item.photoUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

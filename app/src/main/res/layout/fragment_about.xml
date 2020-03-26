@@ -24,6 +24,13 @@
         android:clipToPadding="false"
         />
 
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:url="@{vm.aboutWebUrl}"
+        app:java_script_enabled="@{true}"
+        app:visibleOrGone="@{vm.aboutWebUrl != null}"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

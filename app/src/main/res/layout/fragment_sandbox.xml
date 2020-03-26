@@ -89,33 +89,14 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonExport"
-            android:layout_width="95dp"
-            android:layout_height="55dp"
-            android:onClick="@{() -> vm.export()}"
-            android:text="EXPORT"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDbExplorer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="DB"
             android:onClick="@{() -> vm.openDbExplorer()}"
-            app:layout_constraintEnd_toStartOf="@id/buttonExport"
+            app:layout_constraintStart_toStartOf="@id/buttonStart"
             app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.nuke()}"
-            android:text="Resetovat aplikaci"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/buttonExport" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

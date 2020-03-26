@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="cz.covid19cz.app.utils.RssiUtils"/>
+        <import type="cz.covid19cz.app.utils.ColorUtils"/>
         <variable
             name="item"
             type="cz.covid19cz.app.bt.entity.ScanSession" />
@@ -25,16 +25,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:backgroundResource="@{RssiUtils.INSTANCE.rssiToColorBackground(item.currRssi)}">
+        android:padding="16dp">
 
         <ProgressBar
-            android:id="@+id/progress"
+            android:id="@+id/confirm_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:max="70"
-            app:progressTintResource="@{RssiUtils.INSTANCE.rssiToColor(item.currRssi)}"
+            app:progressTintResource="@{ColorUtils.INSTANCE.rssiToColor(item.currRssi)}"
             android:progress="@{100 + item.currRssi}"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -43,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress"
+            app:layout_constraintTop_toBottomOf="@id/confirm_progress"
             android:textColor="@color/textColorSecondary"
             android:textSize="16sp"
             android:text="@{item.deviceId}"/>
@@ -53,9 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress"
+            app:layout_constraintTop_toBottomOf="@id/confirm_progress"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.currRssi)}"
             android:text='@{String.format("RSSI: %d", item.currRssi)}' />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

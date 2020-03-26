@@ -51,7 +51,7 @@
         tools:layout="@layout/fragment_sandbox">
         <action
             android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
-            app:destination="@id/nav_bt_disabled"
+            app:destination="@id/nav_permisions_disabled"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -65,8 +65,8 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
-            android:id="@+id/action_nav_sandbox_to_nav_db_explorer"
-            app:destination="@id/nav_db_explorer"
+            android:id="@+id/action_nav_sandbox_to_nav_my_data"
+            app:destination="@id/nav_my_data"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -89,12 +89,12 @@
         tools:layout="@layout/fragment_help" />
 
     <fragment
-        android:id="@+id/nav_bt_disabled"
-        android:name="cz.covid19cz.app.ui.btdisabled.BtDisabledFragment"
-        android:label="BtDisabledFragment"
-        tools:layout="@layout/fragment_bt_disabled">
+        android:id="@+id/nav_permisions_disabled"
+        android:name="cz.covid19cz.app.ui.permissions.PermissionsDisabledFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_permissionss_disabled">
         <action
-            android:id="@+id/action_nav_bt_disabled_to_nav_bt_enabled"
+            android:id="@+id/action_nav_bt_disabled_to_nav_dashboard"
             app:destination="@id/nav_dashboard"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -106,10 +106,36 @@
         android:id="@+id/nav_dashboard"
         android:name="cz.covid19cz.app.ui.dashboard.DashboardFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_dashboard"/>
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_bt_disabled"
+            app:destination="@id/nav_permisions_disabled"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
+            app:destination="@id/nav_delete_data" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_deleteUserFragment"
+            app:destination="@id/nav_delete_user" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:destination="@id/nav_welcome_fragment" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_about"
+            app:destination="@id/nav_about" />
+    </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
-        android:name="cz.covid19cz.app.ui.onboarding.PermissionsOnboardingFragment"
+        android:name="cz.covid19cz.app.ui.permissions.onboarding.PermissionsOnboardingFragment"
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
         <action
@@ -151,17 +177,45 @@
             android:defaultValue="true" />
     </fragment>
     <fragment
-        android:id="@+id/nav_db_explorer"
-        android:name="cz.covid19cz.app.ui.dbexplorer.DbExplorerFragment"
-        android:label="@string/my_data_title" />
+        android:id="@+id/nav_my_data"
+        android:name="cz.covid19cz.app.ui.mydata.MyDataFragment"
+        android:label="@string/my_data_title" >
+        <action
+            android:id="@+id/action_nav_my_data_to_nav_send_data"
+            app:destination="@id/nav_send_data" />
+    </fragment>
     <fragment
-        android:id="@+id/alertDialogFragment"
+        android:id="@+id/nav_contacts"
+        android:name="cz.covid19cz.app.ui.contacts.ContactsFragment"
+        android:label="@string/contacts_title"
+        tools:layout="@layout/fragment_contacts"/>
+    <fragment
+        android:id="@+id/nav_alert"
         android:name="arch.view.AlertDialogFragment"
         android:label="AlertDialogFragment" />
     <fragment
+        android:id="@+id/nav_delete_data"
+        android:name="cz.covid19cz.app.ui.confirm.DeleteDataFragment"
+        android:label="@string/delete_data" />
+    <fragment
+        android:id="@+id/nav_delete_user"
+        android:name="cz.covid19cz.app.ui.confirm.DeleteUserFragment"
+        android:label="@string/delete_registration" >
+        <action
+            android:id="@+id/action_deleteUserFragment_to_nav_welcome_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:destination="@id/nav_welcome_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_send_data"
+        android:name="cz.covid19cz.app.ui.confirm.SendDataFragment"
+        android:label="@string/send_data" />
+    <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.app.ui.about.AboutFragment"
-        android:label="@string/about_title"
-        tools:layout="@layout/fragment_about"/>
+        tools:layout="@layout/fragment_about"
+        android:label="@string/about_title" />
 
 </navigation>

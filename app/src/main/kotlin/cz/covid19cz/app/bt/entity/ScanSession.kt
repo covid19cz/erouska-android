@@ -2,15 +2,22 @@ package cz.covid19cz.app.bt.entity
 
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.ext.minutesToMilis
+import cz.covid19cz.app.ext.rssiToDistanceString
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScanSession(var deviceId: String, val mac: String) {
+
+class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
+
+    companion object{
+        const val DEFAULT_BUID = "UNKNOWN"
+    }
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
 
-    var maxRssi = Int.MIN_VALUE
+    var avgRssi = 0
     var medRssi = 0
     val timestampStart: Long
         get() = rssiList.firstOrNull()?.timestamp ?: 0L
@@ -26,31 +33,34 @@ class ScanSession(var deviceId: String, val mac: String) {
     }
 
     fun calculate() {
-        var sum: Int = 0
-        var max: Int = Int.MIN_VALUE
+        var sum = 0
 
         for (rssi in rssiList) {
             sum += rssi.rssi
-            if (rssi.rssi > max) {
-                max = rssi.rssi
-            }
         }
         if (rssiList.size != 0) {
+            if (sum != 0) {
+                avgRssi = sum / rssiList.size
+            }
             medRssi = median(rssiList.map { it.rssi }.toIntArray())
         }
-        maxRssi = max
     }
 
-    private fun median(l: IntArray): Int {
-        Arrays.sort(l)
-        val middle = l.size / 2
-        return if (l.size % 2 == 0) {
-            val left = l[middle - 1]
-            val right = l[middle]
+    private fun median(values: IntArray): Int {
+        Arrays.sort(values)
+        val middle = values.size / 2
+        return if (values.size % 2 == 0) {
+            val left = values[middle - 1]
+            val right = values[middle]
             (left + right) / 2
         } else {
-            l[middle]
+            values[middle]
         }
     }
 
+    fun reset(){
+        rssiList.clear()
+        avgRssi = 0
+        medRssi = 0
+    }
 }

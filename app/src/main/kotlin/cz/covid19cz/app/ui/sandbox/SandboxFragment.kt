@@ -1,16 +1,17 @@
 package cz.covid19cz.app.ui.sandbox
 
-import android.Manifest
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import arch.livedata.SafeMutableLiveData
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentSandboxBinding
+import cz.covid19cz.app.ext.getLocationPermission
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
@@ -26,6 +27,7 @@ class SandboxFragment :
 
     private lateinit var rxPermissions: RxPermissions
     private val compositeDisposable = CompositeDisposable()
+    val serviceRunning = SafeMutableLiveData(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +40,7 @@ class SandboxFragment :
             }
         }
 
-        subscribe(ExportEvent.Complete::class) { event ->
-            view?.let {
-                Snackbar.make(it, event.fileName, Snackbar.LENGTH_LONG).show()
-            }
-        }
-
-        if (isMyServiceRunning(CovidService::class.java)) {
+        if (CovidService.isRunning(requireContext())) {
             L.d("Service Covid is running")
             viewModel.serviceRunning.value = true
         } else {
@@ -80,7 +76,7 @@ class SandboxFragment :
                 return
             }
             compositeDisposable.add(rxPermissions
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .request(getLocationPermission())
                 .subscribe { granted: Boolean ->
                     if (granted) {
                         startBtService()
@@ -96,7 +92,9 @@ class SandboxFragment :
     }
 
     private fun stopService() {
-        CovidService.stopService(requireContext())
+        with(requireContext()){
+            startService(CovidService.stopService(this))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,7 +106,9 @@ class SandboxFragment :
     }
 
     private fun startBtService() {
-        CovidService.startService(requireContext())
+        with(requireContext()) {
+            ContextCompat.startForegroundService(this, CovidService.startService(this))
+        }
         viewModel.confirmStart()
     }
 

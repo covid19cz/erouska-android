@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="cz.covid19cz.app.utils.ColorUtils" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.app.ui.mydata.MyDataVM" />
+
+        <variable
+            name="item"
+            type="cz.covid19cz.app.db.ScanDataEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textTime"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            tools:text="25.3.2020"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{vm.formatDate(item.timestampEnd)}" />
+
+
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/textDate"
+            app:layout_constraintEnd_toStartOf="@id/textBuid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            tools:text="02:02"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{vm.formatTime(item.timestampEnd)}" />
+
+        <TextView
+            android:id="@+id/textBuid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/textTime"
+            app:layout_constraintEnd_toStartOf="@id/textRssi"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            tools:text="...1234"
+            android:textColor="@color/textColorPrimary"
+            android:text="@{item.maskedBuid}" />
+
+        <TextView
+            android:id="@+id/textRssi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/textBuid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:text='@{String.format("%d dBm",item.rssiMed)}'
+            tools:text="-70 db"
+            app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.rssiMed)}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#ECECEC"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

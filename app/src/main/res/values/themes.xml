@@ -2,26 +2,32 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:background">@null</item>
 
         <item name="toolbarStyle">@style/Toolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
         <item name="materialButtonStyle">@style/Button</item>
         <item name="materialButtonOutlinedStyle">@style/OutlinedButton</item>
         <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="AppTheme.Launchscreen">
+        <item name="android:background">@drawable/launchscreen</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Widget.MaterialComponents.Toolbar">
         <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

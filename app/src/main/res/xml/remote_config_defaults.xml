@@ -10,22 +10,70 @@
     </entry>
     <entry>
         <key>advertiseTxPower</key>
-        <value>3</value>
+        <value>2</value>
     </entry>
     <entry>
         <key>advertiseMode</key>
-        <value>0</value>
+        <value>1</value>
     </entry>
     <entry>
         <key>advertiseRestartMinutes</key>
-        <value>5</value>
+        <value>60</value>
     </entry>
     <entry>
         <key>scanMode</key>
-        <value>0</value>
+        <value>1</value>
     </entry>
     <entry>
         <key>smsTimeoutSeconds</key>
-        <value>10</value>
+        <value>20</value>
+    </entry>
+    <entry>
+        <key>criticalExpositionRssi</key>
+        <value>-75</value>
+    </entry>
+    <entry>
+        <key>uploadWaitingMinutes</key>
+        <value>15</value>
+    </entry>
+    <entry>
+        <key>persistDataDays</key>
+        <value>14</value>
+    </entry>
+    <entry>
+        <key>shareAppDynamicLink</key>
+        <value>https://covid19cz.page.link/share</value>
+    </entry>
+    <entry>
+        <key>faqLink</key>
+        <value>https://koronavirus.mzcr.cz/otazky-odpovedi</value>
+    </entry>
+    <entry>
+        <key>importantLink</key>
+        <value>https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy</value>
+    </entry>
+    <entry>
+        <key>aboutApi</key>
+        <value>http://erouska.betaversion.cz/peoples.json</value>
+    </entry>
+    <entry>
+        <key>emergencyNumber</key>
+        <value>1212</value>
+    </entry>
+    <entry>
+        <key>proclamationLink</key>
+        <value>http://www.erouska.cz</value>
+    </entry>
+    <entry>
+        <key>tutorialLink</key>
+        <value>http://www.erouska.cz/navody</value>
+    </entry>
+    <entry>
+        <key>aboutApi</key>
+        <value>http://www.erouska.cz/tym/json</value>
+    </entry>
+    <entry>
+        <key>aboutWeb</key>
+        <value>http://www.erouska.cz/tym</value>
     </entry>
 </defaultsMap>

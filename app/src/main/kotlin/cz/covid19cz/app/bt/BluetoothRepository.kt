@@ -7,9 +7,8 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
-import android.util.Log
-import androidx.core.content.getSystemService
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.MutableLiveData
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
@@ -17,7 +16,7 @@ import com.polidea.rxandroidble2.scan.ScanSettings
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.entity.ScanSession
 import cz.covid19cz.app.db.DatabaseRepository
-import cz.covid19cz.app.db.ScanResultEntity
+import cz.covid19cz.app.db.ScanDataEntity
 import cz.covid19cz.app.ext.asHexLower
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ext.hexAsByteArray
@@ -25,8 +24,8 @@ import cz.covid19cz.app.utils.L
 import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import java.nio.charset.Charset
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
@@ -49,6 +48,7 @@ class BluetoothRepository(
     var isScanning = false
 
     private var scanDisposable: Disposable? = null
+    private var gattFailDisposable: Disposable? = null
 
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
@@ -64,6 +64,7 @@ class BluetoothRepository(
         }
     }
 
+    private var gattFailCount = 0
     private val gattCallback = object : BluetoothGattCallback() {
 
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
@@ -71,6 +72,14 @@ class BluetoothRepository(
                 L.d("GATT connected")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID) {
+                    gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
+                        // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
+                        discoveredIosDevices.remove(gatt.device.address)
+                        gattFailDisposable?.dispose()
+                    }
+                }
+
                 L.d("GATT disconnected")
             }
         }
@@ -83,23 +92,25 @@ class BluetoothRepository(
             if (GATT_CHARACTERISTIC_UUID == characteristic!!.uuid) {
                 val buid = characteristic.value?.asHexLower
                 val mac = gatt.device?.address
-                gatt.close()
 
                 if (buid != null) {
-                    L.d("BUID found in characteristic")
+                    L.d("GATT BUID found")
                     discoveredIosDevices[mac]?.let { s ->
                         Observable.just(s).map { session ->
                             session.deviceId = buid
                             scanResultsMap[buid] = session
                             session
                         }.execute({
+                            gattFailCount = 0
                             scanResultsList.add(it)
+                            gatt.close()
                         }, {
                             L.e(it)
                         })
                     }
                 } else {
-                    L.e("BUID not found in characteristic")
+                    L.e("GATT BUID not found")
+                    gatt.close()
                 }
             }
         }
@@ -129,10 +140,14 @@ class BluetoothRepository(
         return btManager.isBluetoothEnabled()
     }
 
-    fun startScanning() {
+    val lastScanResultTime: MutableLiveData<Long> = MutableLiveData(0)
+
+    fun startScanning(useScanFilter: Boolean = true) {
         if (isScanning) {
             stopScanning()
         }
+
+        L.d("Starting BLE scanning ${if (useScanFilter) "with" else "without"} filter")
 
         if (!isBtEnabled()) {
             L.d("Bluetooth disabled, can't start scanning")
@@ -143,14 +158,17 @@ class BluetoothRepository(
 
         // "Some" scan filter needed for background scanning since Android 8.1.
         // However, some devices (at least Samsung S10e...) consider empty filter == no filter.
-        //TODO: We have to solve this using some list of problematic devices
-        val builder = ScanFilter.Builder()
-        builder.setServiceUuid(ParcelUuid(SERVICE_UUID))
-        val scanFilter = builder.build()
+        val scanFilter: ScanFilter = if (useScanFilter) {
+            val builder = ScanFilter.Builder()
+            builder.setServiceUuid(ParcelUuid(SERVICE_UUID))
+            builder.build()
+        } else {
+            ScanFilter.Builder().build()
+        }
 
         scanDisposable = rxBleClient.scanBleDevices(
             ScanSettings.Builder().setScanMode(AppConfig.scanMode).build(),
-            ScanFilter.Builder().build()
+            scanFilter
         ).subscribe({ scanResult ->
             onScanResult(scanResult)
         }, {
@@ -166,27 +184,29 @@ class BluetoothRepository(
         L.d("Stopping BLE scanning")
         scanDisposable?.dispose()
         scanDisposable = null
-        saveScansAndDispose()
+        saveDataAndClearScanResults()
     }
 
-    private fun saveScansAndDispose() {
+    private fun saveDataAndClearScanResults() {
         L.d("Saving data to database")
         Observable.just(scanResultsList.toTypedArray())
             .map { tempArray ->
                 for (item in tempArray) {
                     item.calculate()
-                    db.add(
-                        ScanResultEntity(
-                            0,
-                            item.deviceId,
-                            item.timestampStart,
-                            item.timestampEnd,
-                            item.maxRssi,
-                            item.medRssi,
-                            item.rssiCount
-                        )
+                    val scanResult = ScanDataEntity(
+                        0,
+                        item.deviceId,
+                        item.timestampStart,
+                        item.timestampEnd,
+                        item.avgRssi,
+                        item.medRssi,
+                        item.rssiCount
                     )
+                    L.d("Saving: $scanResult")
+
+                    db.add(scanResult)
                 }
+
                 tempArray.size
             }.execute({
                 L.d("$it records saved")
@@ -195,20 +215,31 @@ class BluetoothRepository(
     }
 
     private fun onScanResult(result: ScanResult) {
+        lastScanResultTime.value = System.currentTimeMillis()
+
         if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true) {
+            val deviceId = getBuidFromAdvertising(result.scanRecord.bytes)
 
-            var deviceId = getBuidFromAndroid(result.scanRecord.bytes)
-
-            if (deviceId == null && result.scanRecord.getManufacturerSpecificData(0x004C) != null) {
+            if (deviceId == null) {
                 // It's time to handle iOS Device
                 if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
-                    getBuidFromIos(result)
+                    L.d("Found new iOS")
+                    getBuidFromGatt(result)
                 } else {
-                    discoveredIosDevices[result.bleDevice.macAddress]?.addRssi(result.rssi)
+                    discoveredIosDevices[result.bleDevice.macAddress]?.let {
+                        if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
+                            scanResultsMap[it.deviceId] = it
+                            scanResultsList.add(it)
+                        }
+                        it.addRssi(result.rssi)
+                        L.d("Device ${it.deviceId} - RSSI ${result.rssi}")
+                    }
+                    return
                 }
             }
 
             deviceId?.let {
+                // It's time to handle Android Device
                 if (!scanResultsMap.containsKey(deviceId)) {
                     val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                     newEntity.addRssi(result.rssi)
@@ -219,26 +250,25 @@ class BluetoothRepository(
 
                 scanResultsMap[deviceId]?.let { entity ->
                     entity.addRssi(result.rssi)
-                    L.d("Found existing device: $deviceId")
+                    L.d("Device $deviceId - RSSI ${result.rssi}")
                 }
             }
         }
     }
 
-    private fun getBuidFromIos(result: ScanResult) {
+    private fun getBuidFromGatt(result: ScanResult) {
         val mac = result.bleDevice.macAddress
-        val session = ScanSession("iOS Device", mac)
+        val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         L.d("Connecting to GATT")
         discoveredIosDevices[mac] = session
 
-        val device = btManager?.adapter?.getRemoteDevice(mac)
+        val device = btManager.adapter?.getRemoteDevice(mac)
         device?.connectGatt(context, false, gattCallback)
     }
 
-    private fun getBuidFromAndroid(bytes: ByteArray): String? {
-
-        var result = ByteArray(10)
+    private fun getBuidFromAdvertising(bytes: ByteArray): String? {
+        val result = ByteArray(10)
 
         var currIndex = 0
         var len = -1
@@ -270,14 +300,21 @@ class BluetoothRepository(
         return if (resultHex != "00000000000000000000") resultHex else null
     }
 
-    private fun clearScanResults() {
-        discoveredIosDevices.clear()
+    fun clearScanResults() {
         scanResultsList.clear()
         scanResultsMap.clear()
+        clearIosDevices()
+    }
+
+    private fun clearIosDevices() {
+        // Don't clear whole iOS device cache to preventing DDOS GATT
+        for (device in discoveredIosDevices) {
+            device.value.reset()
+        }
     }
 
     fun supportsAdvertising(): Boolean {
-        return btManager?.adapter?.isMultipleAdvertisementSupported ?: false
+        return btManager.adapter?.isMultipleAdvertisementSupported ?: false
     }
 
     fun startAdvertising(buid: String) {
@@ -311,7 +348,7 @@ class BluetoothRepository(
         val scanData = AdvertiseData.Builder()
             .addServiceData(parcelUuid, buid.hexAsByteArray).build()
 
-        btManager?.adapter?.bluetoothLeAdvertiser?.startAdvertising(
+        btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
             settings,
             data,
             scanData,
@@ -322,6 +359,6 @@ class BluetoothRepository(
     fun stopAdvertising() {
         L.d("Stopping BLE advertising")
         isAdvertising = false
-        btManager?.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
+        btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }
 }
