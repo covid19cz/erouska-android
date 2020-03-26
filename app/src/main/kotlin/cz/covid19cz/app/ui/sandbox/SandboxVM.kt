@@ -4,17 +4,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.bt.BluetoothRepository
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
-import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 class SandboxVM(
     val bluetoothRepository: BluetoothRepository,
@@ -64,17 +60,6 @@ class SandboxVM(
 
     fun openDbExplorer(){
         navigate(R.id.action_nav_sandbox_to_nav_my_data)
-    }
-
-    fun nuke() {
-        prefs.clear()
-        Completable.fromAction(repository::clear)
-            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                navigate(R.id.action_nav_sandbox_to_nav_welcome_fragment)
-            }
-        FirebaseAuth.getInstance().signOut()
     }
 
 

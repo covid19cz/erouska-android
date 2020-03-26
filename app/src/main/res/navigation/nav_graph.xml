@@ -119,7 +119,16 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
-            app:destination="@id/deleteDataFragment" />
+            app:destination="@id/nav_delete_data" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_deleteUserFragment"
+            app:destination="@id/nav_delete_user" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:destination="@id/nav_welcome_fragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
@@ -167,19 +176,38 @@
     <fragment
         android:id="@+id/nav_my_data"
         android:name="cz.covid19cz.app.ui.mydata.MyDataFragment"
-        android:label="@string/my_data_title" />
+        android:label="@string/my_data_title" >
+        <action
+            android:id="@+id/action_nav_my_data_to_nav_send_data"
+            app:destination="@id/nav_send_data" />
+    </fragment>
     <fragment
         android:id="@+id/nav_contacts"
         android:name="cz.covid19cz.app.ui.contacts.ContactsFragment"
         android:label="@string/contacts_title"
         tools:layout="@layout/fragment_contacts"/>
     <fragment
-        android:id="@+id/alertDialogFragment"
+        android:id="@+id/nav_alert"
         android:name="arch.view.AlertDialogFragment"
         android:label="AlertDialogFragment" />
     <fragment
-        android:id="@+id/deleteDataFragment"
+        android:id="@+id/nav_delete_data"
         android:name="cz.covid19cz.app.ui.confirm.DeleteDataFragment"
         android:label="@string/delete_data" />
+    <fragment
+        android:id="@+id/nav_delete_user"
+        android:name="cz.covid19cz.app.ui.confirm.DeleteUserFragment"
+        android:label="@string/delete_registration" >
+        <action
+            android:id="@+id/action_deleteUserFragment_to_nav_welcome_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:destination="@id/nav_welcome_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_send_data"
+        android:name="cz.covid19cz.app.ui.confirm.SendDataFragment"
+        android:label="@string/send_data" />
 
 </navigation>

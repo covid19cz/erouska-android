@@ -44,4 +44,24 @@
         <key>shareAppDynamicLink</key>
         <value>https://covid19cz.page.link/share</value>
     </entry>
+    <entry>
+        <key>faqLink</key>
+        <value>https://koronavirus.mzcr.cz/otazky-odpovedi</value>
+    </entry>
+    <entry>
+        <key>importantLink</key>
+        <value>https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy</value>
+    </entry>
+    <entry>
+        <key>emergencyNumber</key>
+        <value>1212</value>
+    </entry>
+    <entry>
+        <key>proclamationLink</key>
+        <value>http://www.erouska.cz</value>
+    </entry>
+    <entry>
+        <key>tutorialLink</key>
+        <value>http://www.erouska.cz/navody</value>
+    </entry>
 </defaultsMap>

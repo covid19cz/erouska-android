@@ -4,7 +4,7 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.service.CovidService
 
 class DeleteDataFragment : ConfirmationFragment() {
-    override val descriptionRes = R.string.delete_data_description
+    override val description by lazy { getString(R.string.delete_data_description) }
     override val buttonTextRes = R.string.delete_data_button
 
     override fun confirmedClicked() {
