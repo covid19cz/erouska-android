@@ -1,6 +1,5 @@
 package cz.covid19cz.app.ui.confirm
 
-import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.functions.FirebaseFunctionsException
 import com.google.firebase.functions.ktx.functions
@@ -23,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.io.File
 
 class ConfirmationVM(
     private val database: DatabaseRepository,
@@ -102,7 +100,7 @@ class ConfirmationVM(
         }
     }
 
-    private fun uploadToStorage(path: String) {
+    private fun uploadToStorage(csv: ByteArray) {
         val fuid = Auth.getFuid()
         val timestamp = System.currentTimeMillis()
         val buid = prefs.getDeviceBuid()
@@ -111,7 +109,7 @@ class ConfirmationVM(
             contentType = "text/csv"
             setCustomMetadata("version", AppConfig.CSV_VERSION.toString())
         }
-        ref.putFile(Uri.fromFile(File(path)), metadata).addOnSuccessListener {
+        ref.putBytes(csv, metadata).addOnSuccessListener {
             prefs.saveLastUploadTimestamp(timestamp)
             publish(FinishedEvent())
         }.addOnFailureListener {

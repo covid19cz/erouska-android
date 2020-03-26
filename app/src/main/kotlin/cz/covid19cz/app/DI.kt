@@ -59,7 +59,7 @@ val databaseModule = module {
 
     single { provideDatabase(androidApplication()) }
     single { provideDao(get()) }
-    single { CsvExporter(get(), get()) }
+    single { CsvExporter(get()) }
 }
 
 val repositoryModule = module {
