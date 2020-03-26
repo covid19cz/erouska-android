@@ -127,4 +127,5 @@
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
+    <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
 </resources>

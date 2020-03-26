@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.confirm
 
 import android.os.Bundle
 import android.view.View
+import com.google.firebase.storage.StorageException
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentHelpBinding
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -28,7 +29,10 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
             confirm_desc.show()
             confirm_button.hide()
             confirm_progress.hide()
-            confirm_desc.text = it.exception.message
+            confirm_desc.text = when ((it.exception as? StorageException)?.errorCode) {
+                StorageException.ERROR_RETRY_LIMIT_EXCEEDED -> getString(R.string.upload_error)
+                else -> it.exception.message
+            }
         }
     }
 
