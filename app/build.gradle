@@ -116,6 +116,9 @@ dependencies {
     //RxBLE
     implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
 
+    // BLE Scanner Compat
+    implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
+
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
