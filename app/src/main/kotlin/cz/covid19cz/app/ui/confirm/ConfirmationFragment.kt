@@ -9,7 +9,9 @@ import cz.covid19cz.app.ext.withInternet
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.confirm.event.ErrorEvent
 import cz.covid19cz.app.ui.confirm.event.FinishedEvent
+import cz.covid19cz.app.ui.confirm.event.LogoutEvent
 import cz.covid19cz.app.utils.hide
+import cz.covid19cz.app.utils.logoutWhenNotSignedIn
 import cz.covid19cz.app.utils.show
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 
@@ -34,6 +36,9 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
                 StorageException.ERROR_RETRY_LIMIT_EXCEEDED -> getString(R.string.upload_error)
                 else -> it.exception.message
             }
+        }
+        subscribe(LogoutEvent::class) {
+            logoutWhenNotSignedIn()
         }
     }
 

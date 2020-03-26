@@ -73,7 +73,7 @@
     <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze vy. Záznamy starší než %d dní se automaticky mažou.</string>
+    <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze Vy. Záznamy starší než %d dní se automaticky mažou.</string>
     <string name="my_data_tab_all_title">Všechna data</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
 
@@ -98,11 +98,11 @@
     <string name="welcome_title">Chráním sebe, chráním ostatní</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_verification_code">Ověřovací kód</string>
-    <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s ověřovacím kódem.</string>
+    <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme Vám zaslali SMS s ověřovacím kódem.</string>
     <string name="login_code_read_automatically">Ověřovací kód byl automaticky předvyplněn.</string>
     <string name="contacts_title">Kontakty</string>
     <string name="contacts_suspicion_desc"><b>Máte podezření na koronavirus?</b>\n\nZůstaňte doma a kontaktuje svého praktického lékaře nebo příslušnou hygienickou stanici.</string>
-    <string name="contacts_help_desc"><![CDATA[<b>Potřebujete poradit?</b><br/><br/>Veškeré otázky a nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince %s.]]></string>
+    <string name="contacts_help_desc"><![CDATA[<b>Potřebujete poradit?</b><br/><br/>Veškeré otázky a nejasnosti týkající se koronaviru by Vám měli zodpovědět na webu MZČR nebo na bezplatné infolince %s.]]></string>
     <string name="contacts_faq">Často kladené dotazy</string>
     <string name="contacts_important">Důležité kontakty</string>
     <string name="contacts_emergency">Zavolejte na %s</string>
@@ -129,4 +129,5 @@
     <string name="yes_send">Ano, odeslat</string>
     <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
     <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
+    <string name="automatic_logout_warning">Váš účet již neexistuje, byli jste odhlášeni.</string>
 </resources>

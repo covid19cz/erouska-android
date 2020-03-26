@@ -9,78 +9,85 @@
             type="cz.covid19cz.app.ui.welcome.WelcomeVM" />
     </data>
 
-    <ScrollView
-        android:fillViewport="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_height="wrap_content"
+        <ScrollView
+            android:id="@+id/main_content"
+            android:fillViewport="true"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:padding="@dimen/fragment_padding">
+            android:layout_margin="@dimen/fragment_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <com.google.android.material.button.MaterialButton
-                style="?materialButtonOutlinedStyle"
-                android:id="@+id/welcome_help_btn"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.help()}"
-                android:layout_width="wrap_content"
-                android:text="@string/welcome_help"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_width="match_parent">
 
-            <ImageView
-                android:id="@+id/mzcr_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:src="@drawable/ic_mzcr"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/mzcr_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_mzcr"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/welcome_desc"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintTop_toBottomOf="@id/welcome_title"
-                tools:layout_editor_absoluteX="16dp"
+                <TextView
+                    android:id="@+id/welcome_title"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mzcr_icon"
+                    android:text="@string/welcome_title" />
 
-                tools:layout_editor_absoluteY="16dp"
-                android:text="@string/welcome_description" />
+                <TextView
+                    android:id="@+id/welcome_desc"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    app:layout_constraintTop_toBottomOf="@id/welcome_title"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="16dp"
+                    android:paddingBottom="120dp"
 
-            <TextView
-                android:id="@+id/welcome_title"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mzcr_icon"
-                android:text="@string/welcome_title" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/welcome_continue_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:onClick="@{() -> vm.nextStep()}"
-                android:text="@string/welcome_activation"
-                app:cornerRadius="24dp"
-                app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                    android:text="@string/welcome_description" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/welcome_continue_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{() -> vm.nextStep()}"
+            android:text="@string/welcome_activation"
+            app:cornerRadius="24dp"
+            app:layout_constraintTop_toTopOf="@id/welcome_help_btn"
+            app:layout_constraintBottom_toTopOf="@id/welcome_help_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            style="?materialButtonOutlinedStyle"
+            android:id="@+id/welcome_help_btn"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> vm.help()}"
+            android:layout_width="wrap_content"
+            android:text="@string/welcome_help"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome_continue_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
