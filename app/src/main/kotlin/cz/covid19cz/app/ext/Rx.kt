@@ -1,5 +1,6 @@
 package cz.covid19cz.app.ext
 
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -19,6 +20,10 @@ fun <T> Maybe<T>.execute(onSuccess : (t :T) -> Unit, onError : (t :Throwable) ->
     return inBackground().subscribe(onSuccess, onError)
 }
 
+fun <T> Flowable<T>.execute(onNext : (t :T) -> Unit, onError : (t :Throwable) -> Unit): Disposable {
+    return inBackground().subscribe(onNext, onError)
+}
+
 fun <T> Observable<T>.inBackground(): Observable<T> {
     return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
@@ -28,5 +33,9 @@ fun <T> Single<T>.inBackground(): Single<T> {
 }
 
 fun <T> Maybe<T>.inBackground(): Maybe<T> {
+    return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Flowable<T>.inBackground(): Flowable<T> {
     return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

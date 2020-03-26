@@ -27,7 +27,6 @@ class MyDataVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    val loading = SafeMutableLiveData(false)
     val allItems = ObservableArrayList<ScanDataEntity>()
     val criticalItems = ObservableArrayList<ScanDataEntity>()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
@@ -41,32 +40,30 @@ class MyDataVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        load()
+        subscribeToDb()
+
     }
 
-    fun load() {
-        loading.value = true
-        criticalItems.clear()
-        allItems.clear()
-
-        subscribe(dbRepo.getAllDesc(), {
-            loading.value = false
-            L.e(it)
-        }) {
-            loading.value = false
-            allItems.addAll(it)
-        }
-
-        subscribe(dbRepo.getCriticalDesc(), {
-            L.e(it)
-        }) {
-            criticalItems.addAll(it)
-        }
+    fun subscribeToDb() {
 
         val todayBeginCalendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
+        }
+
+        subscribe(dbRepo.getAllDesc(), {
+            L.e(it)
+        }) { newData ->
+            allItems.clear()
+            allItems.addAll(newData)
+        }
+
+        subscribe(dbRepo.getCriticalDesc(), {
+            L.e(it)
+        }) { newData ->
+            criticalItems.clear()
+            criticalItems.addAll(newData)
         }
 
         subscribe(dbRepo.getBuidCount(todayBeginCalendar.timeInMillis), { L.e(it) }) {
@@ -80,10 +77,6 @@ class MyDataVM(
         subscribe(dbRepo.getCriticalBuidCount(0), { L.e(it) }) {
             allCriticalCount.value = it
         }
-    }
-
-    fun onRefresh() {
-        load()
     }
 
     override fun onCleared() {

@@ -5,10 +5,10 @@ import cz.covid19cz.app.R
 
 object ColorUtils {
 
-    private val LEVEL_8 = AppConfig.criticalExpositionRssi + 5
-    private val LEVEL_7 = LEVEL_8 - 5 // Level 7 is criticalRss value from remote config
-    private val LEVEL_6 = LEVEL_7 - 2
-    private val LEVEL_5 = LEVEL_6 - 2
+    private val LEVEL_8 = AppConfig.criticalExpositionRssi + 15
+    private val LEVEL_7 = LEVEL_8 - 5
+    private val LEVEL_6 = LEVEL_7 - 5
+    private val LEVEL_5 = LEVEL_6 - 5 // Level 5 is criticalRss value from remote config
     private val LEVEL_4 = LEVEL_5 - 2
     private val LEVEL_3 = LEVEL_4 - 2
     private val LEVEL_2 = LEVEL_3 - 2

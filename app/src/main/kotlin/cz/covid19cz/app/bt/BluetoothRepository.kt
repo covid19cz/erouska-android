@@ -25,6 +25,7 @@ import cz.covid19cz.app.utils.isBluetoothEnabled
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
@@ -47,6 +48,7 @@ class BluetoothRepository(
     var isScanning = false
 
     private var scanDisposable: Disposable? = null
+    private var gattFailDisposable: Disposable? = null
 
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
@@ -71,7 +73,11 @@ class BluetoothRepository(
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID) {
-                    discoveredIosDevices.remove(gatt.device.address)
+                    gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
+                        // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
+                        discoveredIosDevices.remove(gatt.device.address)
+                        gattFailDisposable?.dispose()
+                    }
                 }
 
                 L.d("GATT disconnected")
@@ -217,6 +223,7 @@ class BluetoothRepository(
             if (deviceId == null) {
                 // It's time to handle iOS Device
                 if (!discoveredIosDevices.containsKey(result.bleDevice.macAddress)) {
+                    L.d("Found new iOS")
                     getBuidFromGatt(result)
                 } else {
                     discoveredIosDevices[result.bleDevice.macAddress]?.let {
@@ -225,12 +232,14 @@ class BluetoothRepository(
                             scanResultsList.add(it)
                         }
                         it.addRssi(result.rssi)
+                        L.d("Device ${it.deviceId} - RSSI ${result.rssi}")
                     }
-
+                    return
                 }
             }
 
             deviceId?.let {
+                // It's time to handle Android Device
                 if (!scanResultsMap.containsKey(deviceId)) {
                     val newEntity = ScanSession(deviceId, result.bleDevice.macAddress)
                     newEntity.addRssi(result.rssi)
@@ -241,7 +250,7 @@ class BluetoothRepository(
 
                 scanResultsMap[deviceId]?.let { entity ->
                     entity.addRssi(result.rssi)
-                    L.d("Device $deviceId RSSI ${result.rssi}")
+                    L.d("Device $deviceId - RSSI ${result.rssi}")
                 }
             }
         }
@@ -294,12 +303,13 @@ class BluetoothRepository(
     fun clearScanResults() {
         scanResultsList.clear()
         scanResultsMap.clear()
+        clearIosDevices()
     }
 
     private fun clearIosDevices() {
         // Don't clear whole iOS device cache to preventing DDOS GATT
         for (device in discoveredIosDevices) {
-                device.value.reset()
+            device.value.reset()
         }
     }
 

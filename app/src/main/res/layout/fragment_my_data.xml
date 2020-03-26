@@ -66,23 +66,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabs" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:refreshing="@{vm.loading}"
-            app:onRefreshListener="@{() -> vm.onRefresh()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header"
-            app:layout_constraintVertical_bias="0.0">
-
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -101,9 +94,6 @@
                     app:viewModel="@{vm}" />
 
             </androidx.viewpager.widget.ViewPager>
-
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enable_bluetooth_btn"

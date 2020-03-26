@@ -46,4 +46,8 @@ data class ScanDataEntity(
     fun getAvgDistance() : String{
         return rssiAvg.rssiToDistanceString()
     }
+
+    override fun equals(other: Any?): Boolean {
+        return id == (other as? ScanDataEntity)?.id
+    }
 }

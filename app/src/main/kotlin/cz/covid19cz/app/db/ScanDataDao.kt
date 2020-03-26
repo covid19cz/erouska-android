@@ -2,6 +2,7 @@ package cz.covid19cz.app.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao
@@ -18,10 +19,10 @@ interface ScanDataDao {
     fun getAll(): Single<List<ScanDataEntity>>
 
     @Query("SELECT * FROM $TABLE_NAME ORDER BY ${ScanDataEntity.COLUMN_TIMESTAMP_END} DESC")
-    fun getAllDesc(): Single<List<ScanDataEntity>>
+    fun getAllDesc(): Flowable<List<ScanDataEntity>>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE ${ScanDataEntity.COLUMN_RSSI_MED} >= :rssi ORDER BY ${ScanDataEntity.COLUMN_TIMESTAMP_END} DESC")
-    fun getCriticalDesc(rssi : Int): Single<List<ScanDataEntity>>
+    fun getCriticalDesc(rssi : Int): Flowable<List<ScanDataEntity>>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE ${ScanDataEntity.COLUMN_TIMESTAMP_END} > :since")
     fun getAllFromTimestamp(since: Long): Single<List<ScanDataEntity>>
@@ -42,5 +43,5 @@ interface ScanDataDao {
     fun clear()
 
     @Query("SELECT count(DISTINCT ${ScanDataEntity.COLUMN_BUID}) FROM $TABLE_NAME WHERE ${ScanDataEntity.COLUMN_TIMESTAMP_END} > :since AND ${ScanDataEntity.COLUMN_RSSI_MED} >= :rssi")
-    fun getBuidCount(since: Long, rssi : Int) : Single<Int>
+    fun getBuidCount(since: Long, rssi : Int) : Flowable<Int>
 }
