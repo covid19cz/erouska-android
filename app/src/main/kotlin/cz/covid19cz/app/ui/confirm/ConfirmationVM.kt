@@ -2,8 +2,10 @@ package cz.covid19cz.app.ui.confirm
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import cz.covid19cz.app.AppConfig
@@ -13,6 +15,7 @@ import cz.covid19cz.app.db.export.CsvExporter
 import cz.covid19cz.app.ui.base.BaseVM
 import cz.covid19cz.app.ui.confirm.event.ErrorEvent
 import cz.covid19cz.app.ui.confirm.event.FinishedEvent
+import cz.covid19cz.app.ui.confirm.event.LogoutEvent
 import cz.covid19cz.app.utils.Auth
 import cz.covid19cz.app.utils.L
 import io.reactivex.disposables.Disposable
@@ -48,8 +51,7 @@ class ConfirmationVM(
                     database.clear()
                     publish(FinishedEvent())
                 } catch (e: Exception) {
-                    L.e(e)
-                    publish(ErrorEvent(e))
+                    handleError(e)
                 }
             }
         }
@@ -65,8 +67,7 @@ class ConfirmationVM(
                     Auth.signOut()
                     publish(FinishedEvent())
                 } catch (e: Exception) {
-                    L.e(e)
-                    publish(ErrorEvent(e))
+                    handleError(e)
                 }
             }
         }
@@ -77,8 +78,7 @@ class ConfirmationVM(
         exportDisposable = exporter.export(prefs.getLastUploadTimestamp()).subscribe({
             uploadToStorage(it)
         }, {
-            L.e(it)
-            publish(ErrorEvent(it))
+            handleError(it)
         }
         )
     }
@@ -96,8 +96,18 @@ class ConfirmationVM(
             prefs.saveLastUploadTimestamp(timestamp)
             publish(FinishedEvent())
         }.addOnFailureListener {
-            L.e(it)
-            publish(ErrorEvent(it))
+            handleError(it)
+        }
+    }
+
+    private fun handleError(e: Throwable) {
+        L.e(e)
+        if (e is FirebaseFunctionsException && e.code == FirebaseFunctionsException.Code.UNAUTHENTICATED) {
+            publish(LogoutEvent())
+        } else if (e is StorageException && e.errorCode == StorageException.ERROR_NOT_AUTHENTICATED) {
+            publish(LogoutEvent())
+        } else {
+            publish(ErrorEvent(e))
         }
     }
 

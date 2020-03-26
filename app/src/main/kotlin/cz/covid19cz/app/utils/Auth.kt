@@ -1,7 +1,11 @@
 package cz.covid19cz.app.utils
 
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import cz.covid19cz.app.R
 import cz.covid19cz.app.db.SharedPrefsRepository
+import cz.covid19cz.app.service.CovidService
+import cz.covid19cz.app.ui.base.BaseFragment
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -25,4 +29,12 @@ object Auth: KoinComponent {
     fun signOut() {
         auth.signOut()
     }
+}
+
+fun BaseFragment<*,*>.logoutWhenNotSignedIn() {
+    with(requireContext()){
+        startService(CovidService.stopService(this))
+    }
+    Auth.signOut()
+    findNavController().popBackStack(R.id.nav_graph, false)
 }
