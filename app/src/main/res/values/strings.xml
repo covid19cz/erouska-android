@@ -128,4 +128,5 @@
     <string name="about">O aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
     <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
+    <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
 </resources>

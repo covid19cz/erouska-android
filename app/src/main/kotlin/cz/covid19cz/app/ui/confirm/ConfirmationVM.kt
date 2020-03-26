@@ -29,7 +29,7 @@ class ConfirmationVM(
 ) : BaseVM() {
 
     companion object {
-        const val UPLOAD_TIMEOUT_MILLIS = 10000L
+        const val UPLOAD_TIMEOUT_MILLIS = 30000L
     }
 
     private val functions = Firebase.functions("europe-west2")

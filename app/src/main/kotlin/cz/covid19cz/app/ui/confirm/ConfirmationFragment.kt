@@ -5,6 +5,7 @@ import android.view.View
 import com.google.firebase.storage.StorageException
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentHelpBinding
+import cz.covid19cz.app.ext.withInternet
 import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.confirm.event.ErrorEvent
 import cz.covid19cz.app.ui.confirm.event.FinishedEvent
@@ -42,10 +43,12 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
         confirm_desc.text = description
         confirm_button.setText(buttonTextRes)
         confirm_button.setOnClickListener {
-            confirm_desc.hide()
-            confirm_button.hide()
-            confirm_progress.show()
-            confirmedClicked()
+            requireContext().withInternet {
+                confirm_desc.hide()
+                confirm_button.hide()
+                confirm_progress.show()
+                confirmedClicked()
+            }
         }
         confirm_desc.show()
         confirm_button.show()
