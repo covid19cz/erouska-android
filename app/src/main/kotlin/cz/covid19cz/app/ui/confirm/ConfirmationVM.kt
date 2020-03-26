@@ -29,6 +29,10 @@ class ConfirmationVM(
     private val exporter: CsvExporter
 ) : BaseVM() {
 
+    companion object {
+        const val UPLOAD_TIMEOUT_MILLIS = 30000L
+    }
+
     private val functions = Firebase.functions("europe-west2")
     private var exportDisposable: Disposable? = null
     private val storage = Firebase.storage
@@ -104,6 +108,7 @@ class ConfirmationVM(
         val fuid = Auth.getFuid()
         val timestamp = System.currentTimeMillis()
         val buid = prefs.getDeviceBuid()
+        storage.maxUploadRetryTimeMillis = UPLOAD_TIMEOUT_MILLIS;
         val ref = storage.reference.child("proximity/$fuid/$buid/$timestamp.csv")
         val metadata = storageMetadata {
             contentType = "text/csv"
