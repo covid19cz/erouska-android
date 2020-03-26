@@ -26,6 +26,8 @@ class MyDataVM(
     val allCount = SafeMutableLiveData(0)
     val allCriticalCount = SafeMutableLiveData(0)
 
+    val descriptionVisible = SafeMutableLiveData(false)
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         subscribeToDb()
@@ -81,5 +83,9 @@ class MyDataVM(
         } else {
             publish(ExportEvent.Confirmation)
         }
+    }
+
+    fun toggleDescription() {
+        descriptionVisible.postValue(!descriptionVisible.value)
     }
 }

@@ -31,8 +31,21 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/descriptionToggle"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/descriptionToggle"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="@dimen/fragment_padding"
+            android:src="@{vm.descriptionVisible ? @drawable/ic_arrow_up : @drawable/ic_arrow_down}"
+            android:onClick="@{() -> vm.toggleDescription()}"
+            app:layout_constraintStart_toEndOf="@id/textStats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textStats"
+            app:layout_constraintBottom_toBottomOf="@id/textStats"
+            app:tint="?colorPrimary" />
 
         <TextView
             android:id="@+id/textDescription"
@@ -44,6 +57,7 @@
             android:text="@{@string/my_data_description(AppConfig.INSTANCE.persistDataDays)}"
             tools:text="@string/my_data_description"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:visibleOrGone="@{vm.descriptionVisible}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textStats" />
