@@ -75,12 +75,31 @@ class ConfirmationVM(
 
     fun sendData() {
         exportDisposable?.dispose()
-        exportDisposable = exporter.export(prefs.getLastUploadTimestamp()).subscribe({
-            uploadToStorage(it)
-        }, {
-            handleError(it)
+        val buid = prefs.getDeviceBuid()
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val data = hashMapOf(
+                        "buid" to buid
+                    )
+                    val active = functions.getHttpsCallable("isBuidActive").call(data).await().data as? Boolean ?: false
+                    if (!active) {
+                        publish(LogoutEvent())
+                    }
+                    else {
+                        exportDisposable = exporter.export(prefs.getLastUploadTimestamp()).subscribe({
+                            uploadToStorage(it)
+                        }, {
+                            handleError(it)
+                        })
+                    }
+                }
+                catch (e: Exception) {
+                    handleError(e)
+                }
+            }
         }
-        )
     }
 
     private fun uploadToStorage(path: String) {
@@ -110,5 +129,4 @@ class ConfirmationVM(
             publish(ErrorEvent(e))
         }
     }
-
 }

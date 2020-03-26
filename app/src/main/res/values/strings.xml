@@ -127,4 +127,5 @@
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
+    <string name="automatic_logout_warning">Váš účet již neexistuje, byli jste odhlášeni.</string>
 </resources>
