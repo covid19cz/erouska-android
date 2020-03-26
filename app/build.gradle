@@ -112,10 +112,7 @@ dependencies {
 
     //RxPermisssions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-
-    //RxBLE
-    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.1"
-
+    
     // BLE Scanner Compat
     implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
 

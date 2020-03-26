@@ -46,9 +46,7 @@ class BluetoothRepository(
     //private var scanDisposable: Disposable? = null
     private var gattFailDisposable: Disposable? = null
 
-    var scanner = BluetoothLeScannerCompat.getScanner()
-
-    private val scanCallback = object: ScanCallback(){
+    private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             L.d("On scan result")
             onScanResult(result)
@@ -56,12 +54,14 @@ class BluetoothRepository(
 
         override fun onScanFailed(errorCode: Int) {
             L.d("Scan failed with error $errorCode")
+            isScanning = false
+            BluetoothLeScannerCompat.getScanner().stopScan(this)
             super.onScanFailed(errorCode)
         }
 
         override fun onBatchScanResults(results: MutableList<ScanResult>) {
             L.d("Batch scan result")
-            results.forEach{
+            results.forEach {
                 onScanResult(it)
             }
             super.onBatchScanResults(results)
@@ -158,12 +158,10 @@ class BluetoothRepository(
 
     val lastScanResultTime: MutableLiveData<Long> = MutableLiveData(0)
 
-    fun startScanning(useScanFilter: Boolean = true) {
+    fun startScanning() {
         if (isScanning) {
             stopScanning()
         }
-
-        L.d("Starting BLE scanning ${if (useScanFilter) "with" else "without"} filter")
 
         if (!isBtEnabled()) {
             L.d("Bluetooth disabled, can't start scanning")
@@ -172,26 +170,17 @@ class BluetoothRepository(
 
         L.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
-        // "Some" scan filter needed for background scanning since Android 8.1.
-        // However, some devices (at least Samsung S10e...) consider empty filter == no filter.
-/*        val scanFilter: ScanFilter = if (useScanFilter) {
-            val builder = ScanFilter.Builder()
-            builder.setServiceUuid(ParcelUuid(SERVICE_UUID))
-            builder.build()
-        } else {
-            ScanFilter.Builder().build()
-        }*/
-
         val settings: ScanSettings = ScanSettings.Builder()
             .setLegacy(false)
             .setScanMode(AppConfig.scanMode)
             .setUseHardwareFilteringIfSupported(true)
             .build()
 
-        val filters: MutableList<ScanFilter> = ArrayList()
-        filters.add(ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build())
-        scanner.startScan(filters, settings, scanCallback)
-
+        BluetoothLeScannerCompat.getScanner().startScan(
+            listOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
+            settings,
+            scanCallback
+        )
         isScanning = true
     }
 

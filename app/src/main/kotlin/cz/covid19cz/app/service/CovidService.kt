@@ -106,10 +106,7 @@ class CovidService : Service() {
     private var bleScanningDisposable: Disposable? = null
 
     private lateinit var deviceBuid: String
-    private var useScanFilter: Boolean = false
     private var servicePaused = false
-
-    private var screenOfDetectionTimer: CountDownTimer? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -162,10 +159,10 @@ class CovidService : Service() {
             ACTION_SCREEN_STATE_CHANGE -> {
                 L.d("Screen state change: ${intent.getStringExtra(EXTRA_SCREEN_STATE)}")
 
-                when (intent.getStringExtra(EXTRA_SCREEN_STATE)) {
-                    Intent.ACTION_SCREEN_OFF -> startScreenOffScanningCheck()
-                    Intent.ACTION_SCREEN_ON -> screenOfDetectionTimer?.cancel()
-                }
+/*                when (intent.getStringExtra(EXTRA_SCREEN_STATE)) {
+                    Intent.ACTION_SCREEN_OFF ->
+                    Intent.ACTION_SCREEN_ON ->
+                }*/
             }
         }
         return START_STICKY
@@ -241,7 +238,7 @@ class CovidService : Service() {
         bleScanningDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
-                    btUtils.startScanning(useScanFilter)
+                    btUtils.startScanning()
                 } else {
                     bleScanningDisposable?.dispose()
                 }
@@ -249,7 +246,6 @@ class CovidService : Service() {
             .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
             .doOnNext {
                 btUtils.stopScanning()
-                screenOfDetectionTimer?.cancel()
             }
             .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
             .repeat()
@@ -285,40 +281,6 @@ class CovidService : Service() {
             powerManager.locationPowerSaveMode == PowerManager.LOCATION_MODE_ALL_DISABLED_WHEN_SCREEN_OFF
         } else {
             true
-        }
-    }
-
-    /**
-     * Starts regular check to ensure we're reading data when the screen is off.
-     */
-    private fun startScreenOffScanningCheck() {
-        Handler(Looper.getMainLooper()).post {
-            val switchedOffSince = System.currentTimeMillis()
-
-            /**
-             * Wait up-to 30s, try every 10 seconds.
-             * If the check passes, this timer is stopped.
-             * If onFinish is invoked, it means the test didn't passed => we have to restart scanning.
-             */
-            screenOfDetectionTimer =
-                object : CountDownTimer(30 * 1000, 10 * 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        btUtils.lastScanResultTime.value?.let { lastResultTime ->
-                            L.d("Checking if it's still scanning")
-                            if (lastResultTime > switchedOffSince + 1000) { // 1s tolerance
-                                // Device does support scanning on background with empty filter
-                                screenOfDetectionTimer?.cancel() // cancel this check, it's not needed anymore
-                            }
-                        }
-                    }
-
-                    override fun onFinish() {
-                        L.d("Device does NOT support scanning on background with empty filter, restarting")
-                        useScanFilter = true
-                        btUtils.stopScanning()
-                        btUtils.startScanning(useScanFilter = true)
-                    }
-                }.start()
         }
     }
 }
