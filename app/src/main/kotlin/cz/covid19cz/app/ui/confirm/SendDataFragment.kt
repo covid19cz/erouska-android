@@ -2,17 +2,15 @@ package cz.covid19cz.app.ui.confirm
 
 import cz.covid19cz.app.R
 
-class SendDataFragment: ConfirmationFragment() {
-    override val confirmDescription by lazy { getString(R.string.upload_confirmation) }
-    override val confirmButtonTextRes = R.string.yes_send
-    override val successShortText: String by lazy { getString(R.string.upload_data_success_text) }
-    override val successDescription: String by lazy { getString(R.string.upload_data_success_description) }
-
-    override fun doOnConfirm() {
+class SendDataFragment : ConfirmationFragment() {
+    override val description by lazy { getString(R.string.upload_confirmation) }
+    override val buttonTextRes = R.string.yes_send
+    override fun confirmedClicked() {
         viewModel.sendData()
     }
 
-    override fun doOnClose() {
-        navController().navigateUp()
+    override fun doWhenFinished() {
+        navigate(R.id.action_nav_send_data_to_nav_send_data_success)
     }
+
 }
