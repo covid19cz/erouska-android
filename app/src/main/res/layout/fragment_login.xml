@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="cz.covid19cz.app.ui.login.LoginVM" />
@@ -86,22 +87,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_error"
+                app:layout_constraintBottom_toTopOf="@id/error_message"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/error_message" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/error_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                tools:text="Error text"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Error text" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/error_button_back"
@@ -158,11 +159,11 @@
                     android:id="@+id/login_verif_phone_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
                     android:imeOptions="actionDone"
+                    android:inputType="phone"
                     android:lines="1"
-                    android:text="+420"
-                    android:maxLength="13" />
+                    android:maxLength="13"
+                    android:text="+420" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,11 +172,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                tools:text="@string/login_phone_number_sms_sent"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/login_phone_number_sms_sent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_verif_code"
@@ -196,7 +197,8 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:lines="1" />
+                    android:lines="1"
+                    android:maxLength="6" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
