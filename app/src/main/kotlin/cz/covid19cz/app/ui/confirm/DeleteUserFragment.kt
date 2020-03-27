@@ -7,7 +7,6 @@ import cz.covid19cz.app.utils.Auth
 class DeleteUserFragment : ConfirmationFragment() {
     override val description by lazy { getString(R.string.delete_user_desc, Auth.getPhoneNumber())}
     override val buttonTextRes = R.string.delete_registration
-
     override fun confirmedClicked() {
         context?.let {
             it.startService(CovidService.stopService(it))
@@ -16,6 +15,7 @@ class DeleteUserFragment : ConfirmationFragment() {
     }
 
     override fun doWhenFinished() {
-        navController().navigate(R.id.action_deleteUserFragment_to_nav_welcome_fragment)
+        navigate(R.id.action_nav_delete_user_to_nav_delete_user_success)
     }
+
 }

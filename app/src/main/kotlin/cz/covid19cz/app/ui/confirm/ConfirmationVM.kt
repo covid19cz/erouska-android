@@ -51,7 +51,7 @@ class ConfirmationVM(
                     )
                     functions.getHttpsCallable("deleteUploads").call(data).await()
                     database.clear()
-                    publish(FinishedEvent())
+                    publish(FinishedEvent)
                 } catch (e: Exception) {
                     handleError(e)
                 }
@@ -67,7 +67,7 @@ class ConfirmationVM(
                     database.clear()
                     prefs.clear()
                     Auth.signOut()
-                    publish(FinishedEvent())
+                    publish(FinishedEvent)
                 } catch (e: Exception) {
                     handleError(e)
                 }
@@ -87,7 +87,7 @@ class ConfirmationVM(
                     )
                     val active = functions.getHttpsCallable("isBuidActive").call(data).await().data as? Boolean ?: false
                     if (!active) {
-                        publish(LogoutEvent())
+                        publish(LogoutEvent)
                     }
                     else {
                         exportDisposable = exporter.export(prefs.getLastUploadTimestamp()).subscribe({
@@ -116,7 +116,7 @@ class ConfirmationVM(
         }
         ref.putBytes(csv, metadata).addOnSuccessListener {
             prefs.saveLastUploadTimestamp(timestamp)
-            publish(FinishedEvent())
+            publish(FinishedEvent)
         }.addOnFailureListener {
             handleError(it)
         }
@@ -125,9 +125,9 @@ class ConfirmationVM(
     private fun handleError(e: Throwable) {
         L.e(e)
         if (e is FirebaseFunctionsException && e.code == FirebaseFunctionsException.Code.UNAUTHENTICATED) {
-            publish(LogoutEvent())
+            publish(LogoutEvent)
         } else if (e is StorageException && e.errorCode == StorageException.ERROR_NOT_AUTHENTICATED) {
-            publish(LogoutEvent())
+            publish(LogoutEvent)
         } else {
             publish(ErrorEvent(e))
         }

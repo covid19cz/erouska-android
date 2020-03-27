@@ -41,7 +41,7 @@
     <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o Vašem okolí.\n\nSpusťte znovu sběr dat a chraňte Vás i Vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
     <string name="dashboard_secondary">Když budete označeni jako nakažení, kontaktujeme Vás na čísle %s. Požádáme Vás o zaslání anonymizovaného seznamu telefonů, který naleznete v sekci Moje data.</string>
-    <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu..</string>
+    <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
     <string name="share_app">Sdílet aplikaci</string>
     <string name="upload_data">Kontaktovali mě hygienici</string>
@@ -77,10 +77,16 @@
     <string name="my_data_tab_all_title">Všechna data</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
 
-    <plurals name="my_data_today_count">
-        <item quantity="one">Potkali jste %d člověka s eRouškou.</item>
-        <item quantity="few">Potkali jste %d lidi s eRouškou.</item>
-        <item quantity="other">Potkali jste %d lidí s eRouškou.</item>
+    <plurals name="my_data_count_part_1">
+        <item quantity="one">Za posledních 24 hodin</item>
+        <item quantity="few">Za poslední %d dny</item>
+        <item quantity="other">Za posledních %d dní</item>
+    </plurals>
+
+    <plurals name="my_data_count_part_2">
+        <item quantity="one">jste potkali %d uživatele aplikace eRouška.</item>
+        <item quantity="few">jste potkali %d uživatele aplikace eRouška.</item>
+        <item quantity="other">jste potkali %d uživatelů aplikace eRouška.</item>
     </plurals>
 
     <string name="my_data_column_date">Datum</string>
@@ -123,11 +129,16 @@
     <string name="delete_data_description">Opravdu chcete smazat naměřená nebo odeslaná data?\n\nHygienici tak přijdou o možnost využít vaše kontakty v případě, že budete nakažen.</string>
     <string name="delete_data_button">Smazat všechna data</string>
     <string name="delete_data">Smazat data</string>
-    <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z vašeho okolí.\n\nDojde-li k potvrzení nákazy u vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s tímto telefonním číslem %s.</string>
+    <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace Vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z vašeho okolí.\n\nDojde-li k potvrzení nákazy u Vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s tímto telefonním číslem %s.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
     <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
     <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
     <string name="automatic_logout_warning">Váš účet již neexistuje, byli jste odhlášeni.</string>
+    <string name="delete_data_success_text">Všechna data jsme odstranili</string>
+    <string name="upload_data_success_text">Data jsme úspěšně odeslali</string>
+    <string name="upload_data_success_description">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.\n\nZůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
+    <string name="delete_user_success_text">Registraci Vašeho telefonního čísla jsme zrušili</string>
+    <string name="confirmation_button_close">Zavřít</string>
 </resources>

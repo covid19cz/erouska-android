@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MyDataVM(
-    val dbRepo: DatabaseRepository,
+    private val dbRepo: DatabaseRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
@@ -22,25 +22,15 @@ class MyDataVM(
     val criticalItems = ObservableArrayList<ScanDataEntity>()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    val todayCount = SafeMutableLiveData(0)
     val allCount = SafeMutableLiveData(0)
     val allCriticalCount = SafeMutableLiveData(0)
-
-    val descriptionVisible = SafeMutableLiveData(true)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         subscribeToDb()
     }
 
-    fun subscribeToDb() {
-
-        val todayBeginCalendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-        }
-
+    private fun subscribeToDb() {
         subscribe(dbRepo.getAllDesc(), {
             L.e(it)
         }) { newData ->
@@ -53,10 +43,6 @@ class MyDataVM(
         }) { newData ->
             criticalItems.clear()
             criticalItems.addAll(newData)
-        }
-
-        subscribe(dbRepo.getBuidCount(todayBeginCalendar.timeInMillis), { L.e(it) }) {
-            todayCount.value = it
         }
 
         subscribe(dbRepo.getBuidCount(0), { L.e(it) }) {
@@ -85,7 +71,7 @@ class MyDataVM(
         }
     }
 
-    fun toggleDescription() {
-        descriptionVisible.postValue(!descriptionVisible.value)
+    fun showDescription() {
+        publish(ShowDescriptionEvent)
     }
 }

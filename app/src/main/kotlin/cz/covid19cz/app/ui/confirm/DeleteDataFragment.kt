@@ -15,6 +15,7 @@ class DeleteDataFragment : ConfirmationFragment() {
     }
 
     override fun doWhenFinished() {
-        navController().navigateUp()
+        navigate(R.id.action_nav_delete_data_to_nav_delete_data_success)
     }
+
 }

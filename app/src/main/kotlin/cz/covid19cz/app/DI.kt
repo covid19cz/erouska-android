@@ -25,6 +25,7 @@ import cz.covid19cz.app.ui.mydata.MyDataVM
 import cz.covid19cz.app.ui.permissions.PermissionDisabledVM
 import cz.covid19cz.app.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.app.ui.sandbox.SandboxVM
+import cz.covid19cz.app.ui.success.SuccessVM
 import cz.covid19cz.app.ui.welcome.WelcomeVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -44,6 +45,7 @@ val viewModelModule = module {
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { MyDataVM(get(), get()) }
     viewModel { ConfirmationVM(get(), get(), get()) }
+    viewModel { SuccessVM() }
 }
 
 val databaseModule = module {
