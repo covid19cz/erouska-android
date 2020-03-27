@@ -230,10 +230,13 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_send_data_success"
         android:name="cz.covid19cz.app.ui.success.SendDataSuccessFragment"
         android:label="@string/send_data" />
-
 </navigation>
