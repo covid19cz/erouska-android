@@ -23,14 +23,14 @@ class CsvExporter(private val repository: DatabaseRepository) {
         )
     }
 
-    fun export(lastUploadTimestamp: Long): Single<ByteArray> {
+    fun export(): Single<ByteArray> {
         val stream = ByteArrayOutputStream()
         val csvWriter = CsvListWriter(
             OutputStreamWriter(stream, Charset.forName("utf-8")),
             CsvPreference.STANDARD_PREFERENCE
         )
 
-        return repository.getAllFromTimestamp(lastUploadTimestamp)
+        return repository.getAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { entities ->

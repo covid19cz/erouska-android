@@ -90,7 +90,7 @@ class ConfirmationVM(
                         publish(LogoutEvent)
                     }
                     else {
-                        exportDisposable = exporter.export(prefs.getLastUploadTimestamp()).subscribe({
+                        exportDisposable = exporter.export().subscribe({
                             uploadToStorage(it)
                         }, {
                             handleError(it)
