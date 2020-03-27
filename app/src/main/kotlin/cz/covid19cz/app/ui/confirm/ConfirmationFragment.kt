@@ -2,6 +2,7 @@ package cz.covid19cz.app.ui.confirm
 
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.storage.StorageException
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentHelpBinding
@@ -17,25 +18,30 @@ import kotlinx.android.synthetic.main.fragment_confirmation.*
 
 abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, ConfirmationVM>(R.layout.fragment_confirmation, ConfirmationVM::class) {
 
-    abstract val description: String
-    abstract val buttonTextRes: Int
-    abstract fun confirmedClicked()
-    abstract fun doWhenFinished()
+    abstract val confirmDescription: String
+    abstract val successShortText: String
+    open val successDescription: String = ""
+    abstract val confirmButtonTextRes: Int
+
+    abstract fun doOnConfirm()
+    abstract fun doOnClose()
+    open fun doOnSuccess() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(FinishedEvent::class) {
-            doWhenFinished()
+            showSuccessScreen()
+            doOnSuccess()
         }
         subscribe(ErrorEvent::class) {
-            confirm_desc.show()
             confirm_button.hide()
             confirm_progress.hide()
-            confirm_desc.text = when ((it.exception as? StorageException)?.errorCode) {
+            description.text = when ((it.exception as? StorageException)?.errorCode) {
                 StorageException.ERROR_RETRY_LIMIT_EXCEEDED -> getString(R.string.upload_error)
                 else -> it.exception.message
             }
+            description.show()
         }
         subscribe(LogoutEvent::class) {
             logoutWhenNotSignedIn()
@@ -45,18 +51,34 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        confirm_desc.text = description
-        confirm_button.setText(buttonTextRes)
+        description.text = confirmDescription
+        confirm_button.setText(confirmButtonTextRes)
         confirm_button.setOnClickListener {
             requireContext().withInternet {
-                confirm_desc.hide()
+                description.hide()
                 confirm_button.hide()
                 confirm_progress.show()
-                confirmedClicked()
+                doOnConfirm()
             }
         }
-        confirm_desc.show()
-        confirm_button.show()
+        close_button.setOnClickListener {
+            doOnClose()
+        }
+    }
+
+    private fun showSuccessScreen() {
         confirm_progress.hide()
+        success_image.text = successShortText
+        success_image.show()
+
+        // move success image to center if there is no text
+        if (successDescription.isBlank()) {
+            val params = success_image.layoutParams as ConstraintLayout.LayoutParams
+            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        }
+
+        description.text = successDescription
+        description.show()
+        close_button.show()
     }
 }

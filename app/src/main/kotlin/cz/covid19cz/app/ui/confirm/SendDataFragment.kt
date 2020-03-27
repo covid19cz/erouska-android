@@ -1,24 +1,18 @@
 package cz.covid19cz.app.ui.confirm
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cz.covid19cz.app.R
 
 class SendDataFragment: ConfirmationFragment() {
-    override val description by lazy { getString(R.string.upload_confirmation) }
-    override val buttonTextRes = R.string.yes_send
+    override val confirmDescription by lazy { getString(R.string.upload_confirmation) }
+    override val confirmButtonTextRes = R.string.yes_send
+    override val successShortText: String by lazy { getString(R.string.upload_data_success_text) }
+    override val successDescription: String by lazy { getString(R.string.upload_data_success_description) }
 
-    override fun confirmedClicked() {
+    override fun doOnConfirm() {
         viewModel.sendData()
     }
 
-    override fun doWhenFinished() {
-        MaterialAlertDialogBuilder(context)
-            .setMessage(R.string.upload_successful)
-            .setPositiveButton(getString(android.R.string.ok))
-            { _, _ ->
-                navController().navigateUp()
-            }
-            .show()
+    override fun doOnClose() {
+        navController().navigateUp()
     }
-
 }
