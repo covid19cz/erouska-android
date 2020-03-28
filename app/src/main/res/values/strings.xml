@@ -29,11 +29,11 @@
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve Vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
 
     <string name="location_disabled_title">Zapněte Polohové služby</string>
-    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
+    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nI když polohová data nijak nevyužíváme, zapněte je prosím pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
     <string name="enable_location_button">Zapnout Polohové služby</string>
 
     <string name="bt_location_disabled_title">Zapněte Bluetooth a Polohové služby</string>
-    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a Polohové služby\”.</string>
+    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nI když polohová data nijak nevyužíváme, zapněte prosím obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a Polohové služby\”.</string>
     <string name="enable_bt_location_button">Zapnout BT a Polohové služby</string>
 
     <string name="dashboard_title_running">Aplikace je aktivní</string>
