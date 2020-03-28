@@ -8,6 +8,7 @@ import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import cz.covid19cz.app.AppConfig
+import cz.covid19cz.app.AppConfig.FIREBASE_REGION
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.db.export.CsvExporter
@@ -33,7 +34,7 @@ class ConfirmationVM(
         const val UPLOAD_TIMEOUT_MILLIS = 30000L
     }
 
-    private val functions = Firebase.functions("europe-west2")
+    private val functions = Firebase.functions(FIREBASE_REGION)
     private var exportDisposable: Disposable? = null
     private val storage = Firebase.storage
 
