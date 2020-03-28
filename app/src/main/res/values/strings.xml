@@ -136,7 +136,7 @@
     <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
     <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
     <string name="automatic_logout_warning">Váš účet již neexistuje, byli jste odhlášeni.</string>
-    <string name="delete_data_success_text">Všechna data jsme odstranili</string>
+    <string name="delete_data_success_text">Všechna data byla odstraněna a sbírání dat bylo pozastaveno.</string>
     <string name="upload_data_success_text">Data jsme úspěšně odeslali</string>
     <string name="upload_data_success_description">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.\n\nZůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
     <string name="delete_user_success_text">Registraci Vašeho telefonního čísla jsme zrušili</string>
