@@ -14,7 +14,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
-    val phoneNumber = Auth.getPhoneNumber().formatPhoneNumber()
+    val phoneNumber = Auth.getPhoneNumber()
 
     private val serviceObserver = Observer<Boolean> { isRunning ->
         if (!isRunning && !prefs.getAppPaused()) {
@@ -40,11 +40,4 @@ class DashboardVM(
     fun start() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
-}
-
-val PHONE_REGEX = Regex("""(\+\d{1,3})?\s*(\d{1,3})\s*(\d{1,3})\s*(\d{1,3})""")
-
-private fun String.formatPhoneNumber(): String {
-    val match = PHONE_REGEX.matchEntire(this) ?: return this
-    return match.groupValues.drop(1).joinToString(" ")
 }

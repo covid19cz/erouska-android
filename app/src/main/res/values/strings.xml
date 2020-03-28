@@ -29,11 +29,11 @@
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůžeme vytvářet seznam telefonů ve Vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
 
     <string name="location_disabled_title">Zapněte Polohové služby</string>
-    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
+    <string name="location_disabled_desc">Bez zapnutých polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nI když polohová data nijak nevyužíváme, zapněte je prosím pro správné fungování Bluetooth pomocí tlačítka \"Zapnout Polohové služby\".</string>
     <string name="enable_location_button">Zapnout Polohové služby</string>
 
     <string name="bt_location_disabled_title">Zapněte Bluetooth a Polohové služby</string>
-    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nIkdyž polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a Polohové služby\”.</string>
+    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a Polohových služeb nemůžeme vytvářet seznam telefonů ve Vašem okolí. \n\nI když polohová data nijak nevyužíváme, zapněte prosím obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a Polohové služby\”.</string>
     <string name="enable_bt_location_button">Zapnout BT a Polohové služby</string>
 
     <string name="dashboard_title_running">Aplikace je aktivní</string>
@@ -56,7 +56,7 @@
     <string name="permission_onboarding_desc_minor">Aplikace data nikdy sama neodesílá. Anonymizovaná data o telefonech, které byly ve Vaší blízkosti, odešle pouze v případě, že k tomu dáte jednoznačný pokyn stisknutím tlačítka \"Odeslat data\".</string>
     <string name="permission_onboarding_toolbar_title">Povolení</string>
     <string name="login_toolbar_title">Aktivace</string>
-    <string name="help_desc"><![CDATA[<b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve Vašem okolí a také mají aplikaci nainstalovanou.</b><br/><br/>Následně zaznamená ID aplikací a bez Vašeho souhlasu je nikam nezasílá.<br/><br/><b>K odeslání dat z aplikace dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b><br/><br/>Data odesílejte až v momentě, kdy Vás kontaktují hygienici.<br/><br/><b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b><br/><br/>Více v jejich <a href="%s">prohlášení o podpoře</a> naší aplikace.<br/><br/><b>Vaši aplikaci spárujeme se zadaným telefonním číslem.</b><br/><br/>Pracovník hygienické stanice Vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.<br/><br/><b>Co se děje s údaji o telefonech na seznamu osob, které jsem potkal?</b><br/><br/>Data jsou po celou dobu uchovávána ve Vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy to bude nutné. Nejprve Vás bude kontaktovat pracovník hygienické stanice a požádá Vás k odeslání dat.<br/><br/><b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b><br/><br/><a href="%s">Návod pro Váš telefon %s</a><br/><br/><b>Kdo aplikaci provozuje?</b><br/><br/>Aplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.]]></string>
+    <string name="help_desc"><![CDATA[<b>Aplikace pomocí technologie Bluetooth sleduje telefony, které se pohybují ve Vašem okolí a také mají aplikaci nainstalovanou.</b><br/><br/>Následně zaznamená ID aplikací a bez Vašeho souhlasu je nikam nezasílá.<br/><br/><b>K odeslání dat z aplikace dojde pouze v případě, že budete mít podezření na nákazu koronavirem.</b><br/><br/>Data odesílejte až v momentě, kdy Vás kontaktují hygienici.<br/><br/><b>Aplikaci auditovali na bezpečnost a důvěryhodnost lidé z ČVUT.</b><br/><br/>Více v jejich <a href="%s">prohlášení o podpoře</a> naší aplikace.<br/><br/><b>Vaši aplikaci spárujeme se zadaným telefonním číslem.</b><br/><br/>Pracovník hygienické stanice Vás bude kontaktovat na telefonní číslo v případě, že se ocitnete v okruhu lidí s podezřením na nákazu koronavirem.<br/><br/><b>Co se děje s údaji o telefonech, které jsem potkal?</b><br/><br/>Data jsou po celou dobu uchovávána ve Vašem telefonu a nikam je neodesíláme. K odeslání dat dojde až ve chvíli, kdy to bude nutné. Nejprve Vás bude kontaktovat pracovník hygienické stanice a požádá Vás o odeslání dat.<br/><br/><b>Je nutné, aby aplikace běžela na pozadí. Některé telefony ale kvůli úspoře baterie aplikace vypínají. Je potřeba přidat aplikaci na seznam aplikací běžících na pozadí.</b><br/><br/><a href="%s">Návod pro Váš telefon %s</a><br/><br/><b>Kdo aplikaci provozuje?</b><br/><br/>Aplikaci provozují dobrovolníci z několika českých firem pod záštitou a dohledem XYZ.]]></string>
     <string name="login_desc">Na toto telefonní číslo Vás mohou kontaktovat pouze hygienici v případě, že se u někoho z Vašeho okolí potvrdí nákaza koronavirem.</string>
     <string name="login_statement">Přečetl jsem si a aktivací souhlasím s podmínkami zpracování osobních údajů po dobu nouzového stavu.</string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
@@ -64,7 +64,7 @@
     <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
     <string name="login_send">Odeslat</string>
     <string name="login_code_input">Zadejte kód z SMS</string>
-    <string name="login_phone_input_error">Neplatné telefonní číslo</string>
+    <string name="login_phone_input_error">Neplatné telefonní číslo (musí obsahovat předvolbu)</string>
     <string name="login_code_input_error">Nevalidní kód</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
     <string name="login_too_many_attempts_error">Moc pokusů o ověření telefonního čísla. Znovu to můžete zkusit za několik hodin.</string>
@@ -130,7 +130,7 @@
     <string name="upload_error">Nepodařilo se nahrát data na server. Zkuste prosím opakovat později.</string>
     <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
     <string name="automatic_logout_warning">Váš účet již neexistuje, byli jste odhlášeni.</string>
-    <string name="delete_data_success_text">Všechna data jsme odstranili</string>
+    <string name="delete_data_success_text">Všechna data byla odstraněna a sbírání dat bylo pozastaveno.</string>
     <string name="upload_data_success_text">Data jsme úspěšně odeslali</string>
     <string name="upload_data_success_description">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.\n\nZůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
     <string name="delete_user_success_text">Registraci Vašeho telefonního čísla jsme zrušili</string>
