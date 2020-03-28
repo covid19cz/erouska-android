@@ -63,10 +63,10 @@ class ConfirmationVM(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-//                    functions.getHttpsCallable("deleteUser").call().await()
-//                    database.clear()
-//                    prefs.clear()
-//                    Auth.signOut()
+                    functions.getHttpsCallable("deleteUser").call().await()
+                    database.clear()
+                    prefs.clear()
+                    Auth.signOut()
                     publish(FinishedEvent)
                 } catch (e: Exception) {
                     handleError(e)
