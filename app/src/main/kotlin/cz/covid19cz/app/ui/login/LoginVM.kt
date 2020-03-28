@@ -13,6 +13,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
+import cz.covid19cz.app.AppConfig.FIREBASE_REGION
 import cz.covid19cz.app.R
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.ui.base.BaseVM
@@ -74,7 +75,7 @@ class LoginVM(
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val functions = Firebase.functions("europe-west2")
+    private val functions = Firebase.functions(FIREBASE_REGION)
     private lateinit var phoneNumber: String
 
     init {

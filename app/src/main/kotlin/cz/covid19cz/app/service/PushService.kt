@@ -4,6 +4,7 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import cz.covid19cz.app.AppConfig.FIREBASE_REGION
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.utils.Auth
 import cz.covid19cz.app.utils.L
@@ -24,7 +25,7 @@ class PushService : FirebaseMessagingService() {
                 "buid" to prefs.getDeviceBuid(),
                 "pushRegistrationToken" to token
             )
-            Firebase.functions("europe-west2").getHttpsCallable("changePushToken").call(data)
+            Firebase.functions(FIREBASE_REGION).getHttpsCallable("changePushToken").call(data)
                 .addOnSuccessListener {
                     L.d("Push token updated")
                 }.addOnFailureListener {
