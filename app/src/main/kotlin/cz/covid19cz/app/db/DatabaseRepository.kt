@@ -49,7 +49,7 @@ class ExpositionRepositoryImpl(private val dao: ScanDataDao) :
     }
 
     override fun getBuidCount(since: Long): Flowable<Int> {
-        return dao.getBuidCount(since, -100)
+        return dao.getBuidCount(since, -150)
     }
 
     override fun delete(scanData: ScanDataEntity) {

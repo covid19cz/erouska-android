@@ -77,16 +77,10 @@
     <string name="my_data_tab_all_title">Všechna data</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
 
-    <plurals name="my_data_count_part_1">
-        <item quantity="one">Za posledních 24 hodin</item>
-        <item quantity="few">Za poslední %d dny</item>
-        <item quantity="other">Za posledních %d dní</item>
-    </plurals>
-
-    <plurals name="my_data_count_part_2">
-        <item quantity="one">jste potkali %d uživatele aplikace eRouška.</item>
-        <item quantity="few">jste potkali %d uživatele aplikace eRouška.</item>
-        <item quantity="other">jste potkali %d uživatelů aplikace eRouška.</item>
+    <plurals name="my_data_count">
+        <item quantity="one">Za posledních %d dní jste potkali %d uživatele aplikace eRouška.</item>
+        <item quantity="few">Za posledních %d dní jste potkali %d uživatele aplikace eRouška.</item>
+        <item quantity="other">Za posledních %d dní jste potkali %d uživatelů aplikace eRouška.</item>
     </plurals>
 
     <string name="my_data_column_date">Datum</string>
