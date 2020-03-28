@@ -7,6 +7,7 @@ import cz.covid19cz.app.R
 import cz.covid19cz.app.db.SharedPrefsRepository
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
+import cz.covid19cz.app.ui.notifications.CovidNotificationManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -35,6 +36,7 @@ object Auth: KoinComponent {
 fun BaseFragment<*,*>.logoutWhenNotSignedIn() {
     with(requireContext()){
         startService(CovidService.stopService(this))
+        CovidNotificationManager.hideAllNotifications(this)
     }
     Auth.signOut()
 

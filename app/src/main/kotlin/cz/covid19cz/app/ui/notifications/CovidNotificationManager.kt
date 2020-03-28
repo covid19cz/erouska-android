@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
@@ -24,6 +25,10 @@ class CovidNotificationManager(private val service: CovidService) {
         const val SERVICE_CHANNEL_ID = "ForegroundServiceChannel"
         const val ALERT_CHANNEL_ID = "ForegroundServiceAlertChannel"
         const val NOTIFICATION_ID = 1
+
+        fun hideAllNotifications(context: Context) {
+            context.getSystemService<NotificationManager>()?.cancelAll()
+        }
     }
 
     private fun createNotificationChannel() {
@@ -157,5 +162,4 @@ class CovidNotificationManager(private val service: CovidService) {
     ) {
         fun isOk() = bluetoothEnabled && locationEnabled && !batterySaverEnabled
     }
-
 }
