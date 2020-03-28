@@ -64,7 +64,7 @@
     <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
     <string name="login_send">Odeslat</string>
     <string name="login_code_input">Zadejte kód z SMS</string>
-    <string name="login_phone_input_error">Neplatné telefonní číslo</string>
+    <string name="login_phone_input_error">Neplatné telefonní číslo (musí obsahovat předvolbu)</string>
     <string name="login_code_input_error">Nevalidní kód</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k datové síti.</string>
     <string name="login_too_many_attempts_error">Moc pokusů o ověření telefonního čísla. Znovu to můžete zkusit za několik hodin.</string>
