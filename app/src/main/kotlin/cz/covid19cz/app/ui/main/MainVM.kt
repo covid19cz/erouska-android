@@ -3,6 +3,7 @@ package cz.covid19cz.app.ui.main
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.db.DatabaseRepository
 import cz.covid19cz.app.ext.execute
 import cz.covid19cz.app.ui.base.BaseVM
@@ -20,7 +21,7 @@ class MainVM(val database : DatabaseRepository): BaseVM() {
     }
 
     private fun deleteOldData(){
-        Single.just(true).map {
+        Single.just(AppConfig.persistDataDays).map {
             L.d("Deleting data older than $it days")
             database.deleteOldData()
         }.execute({
