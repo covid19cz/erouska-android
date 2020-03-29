@@ -248,7 +248,7 @@ class BluetoothRepository(
 
     private fun onScanResult(result: ScanResult) {
         lastScanResultTime.value = System.currentTimeMillis()
-        L.d("Scan 1 result")
+        L.d("Scan by UUID onResult")
 
         if (result.scanRecord?.bytes != null) {
             if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true || canBeIosOnBackground(result.scanRecord?.bytes!!)) {
@@ -266,6 +266,7 @@ class BluetoothRepository(
     }
 
     private fun onScanIosOnBackgroundResult(result: ScanResult) {
+        L.d("Scan All onResult")
         if (result.scanRecord?.bytes != null) {
             if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) != true && canBeIosOnBackground(result.scanRecord?.bytes!!)) {
                 // It's time to handle iOS Device in background
@@ -275,7 +276,7 @@ class BluetoothRepository(
     }
 
     private fun canBeIosOnBackground(bytes: ByteArray): Boolean {
-        return (bytes[bytes.size - 9] == 0x00.toByte() && bytes[bytes.size - 8] == 0x02.toByte() && bytes[bytes.size - 7] == 0x00.toByte())
+        return (bytes.size > 9 && (bytes[bytes.size - 9] == 0x00.toByte() && bytes[bytes.size - 8] == 0x02.toByte() && bytes[bytes.size - 7] == 0x00.toByte()))
     }
 
     private fun handleAndroidDevice(result: ScanResult, deviceId: String) {
