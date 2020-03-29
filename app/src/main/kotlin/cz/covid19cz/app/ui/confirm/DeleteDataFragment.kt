@@ -8,14 +8,13 @@ class DeleteDataFragment : ConfirmationFragment() {
     override val buttonTextRes = R.string.delete_data_button
 
     override fun confirmedClicked() {
-        context?.let {
-            it.startService(CovidService.stopService(it))
-        }
         viewModel.deleteAllData()
     }
 
     override fun doWhenFinished() {
+        context?.let {
+            it.startService(CovidService.stopService(it))
+        }
         navigate(R.id.action_nav_delete_data_to_nav_delete_data_success)
     }
-
 }

@@ -41,6 +41,7 @@ class CovidService : Service() {
         const val ACTION_MASK_STOPPED = "action_service_stopped"
 
         const val EXTRA_SCREEN_STATE = "SCREEN_STATE"
+        const val EXTRA_HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
 
         fun startService(c: Context): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
@@ -48,9 +49,10 @@ class CovidService : Service() {
             return serviceIntent
         }
 
-        fun stopService(c: Context): Intent {
+        fun stopService(c: Context, hideNotification: Boolean = false): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.action = ACTION_STOP
+            serviceIntent.putExtra(EXTRA_HIDE_NOTIFICATION, hideNotification)
             return serviceIntent
         }
 
@@ -134,7 +136,12 @@ class CovidService : Service() {
                     stopForeground(true)
                 }
                 stopSelf()
-                createNotification()
+                if (intent.getBooleanExtra(EXTRA_HIDE_NOTIFICATION, false)) {
+                    notificationManager.hideNotification(this)
+                }
+                else {
+                    createNotification()
+                }
             }
             ACTION_UPDATE -> {
                 createNotification()
