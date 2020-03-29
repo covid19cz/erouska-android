@@ -20,15 +20,10 @@ import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.main.MainActivity
 
 class CovidNotificationManager(private val service: CovidService) {
-
     companion object {
         const val SERVICE_CHANNEL_ID = "ForegroundServiceChannel"
         const val ALERT_CHANNEL_ID = "ForegroundServiceAlertChannel"
         const val NOTIFICATION_ID = 1
-
-        fun hideAllNotifications(context: Context) {
-            context.getSystemService<NotificationManager>()?.cancelAll()
-        }
     }
 
     private fun createNotificationChannel() {
@@ -132,6 +127,10 @@ class CovidNotificationManager(private val service: CovidService) {
                     }
                 }
         }
+    }
+
+    fun hideNotification(context: Context) {
+        NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID)
     }
 
     private fun getBatterySaverSettingsIntent(): Intent {
