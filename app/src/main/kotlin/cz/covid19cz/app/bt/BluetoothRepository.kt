@@ -7,7 +7,6 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import cz.covid19cz.app.AppConfig
@@ -42,6 +41,7 @@ class BluetoothRepository(
 
     var isAdvertising = false
     var isScanning = false
+    var isScanningIosOnBackground = false
 
     //private var scanDisposable: Disposable? = null
     private var gattFailDisposable: Disposable? = null
@@ -66,7 +66,25 @@ class BluetoothRepository(
             }
             super.onBatchScanResults(results)
         }
+    }
 
+    private val scanIosOnBackgroundCallback = object : ScanCallback() {
+        override fun onScanResult(callbackType: Int, result: ScanResult) {
+            onScanIosOnBackgroundResult(result)
+        }
+
+        override fun onScanFailed(errorCode: Int) {
+            isScanningIosOnBackground = false
+            BluetoothLeScannerCompat.getScanner().stopScan(this)
+            super.onScanFailed(errorCode)
+        }
+
+        override fun onBatchScanResults(results: MutableList<ScanResult>) {
+            results.forEach {
+                onScanIosOnBackgroundResult(it)
+            }
+            super.onBatchScanResults(results)
+        }
     }
 
     private val advertisingCallback = object : AdvertiseCallback() {
@@ -177,17 +195,27 @@ class BluetoothRepository(
             .build()
 
         BluetoothLeScannerCompat.getScanner().startScan(
+            //listOf(ScanFilter.Builder().build(), ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
             listOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
             settings,
             scanCallback
+        )
+        isScanningIosOnBackground = true
+
+        BluetoothLeScannerCompat.getScanner().startScan(
+            listOf(ScanFilter.Builder().build()),
+            settings,
+            scanIosOnBackgroundCallback
         )
         isScanning = true
     }
 
     fun stopScanning() {
         isScanning = false
+        isScanningIosOnBackground = false
         L.d("Stopping BLE scanning")
         BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
+        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
         saveDataAndClearScanResults()
     }
 
@@ -220,43 +248,66 @@ class BluetoothRepository(
 
     private fun onScanResult(result: ScanResult) {
         lastScanResultTime.value = System.currentTimeMillis()
+        L.d("Scan by UUID onResult")
 
-        if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true && result.scanRecord?.bytes != null) {
-            val deviceId = getBuidFromAdvertising(result.scanRecord?.bytes!!)
+        if (result.scanRecord?.bytes != null) {
+            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true || canBeIosOnBackground(result.scanRecord?.bytes!!)) {
+                val deviceId = getBuidFromAdvertising(result.scanRecord?.bytes!!)
 
-            if (deviceId == null) {
-                // It's time to handle iOS Device
-                if (!discoveredIosDevices.containsKey(result.device.address)) {
-                    L.d("Found new iOS")
-                    getBuidFromGatt(result)
+                if (deviceId != null) {
+                    // It's time to handle Android Device
+                    handleAndroidDevice(result, deviceId)
                 } else {
-                    discoveredIosDevices[result.device.address]?.let {
-                        if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
-                            scanResultsMap[it.deviceId] = it
-                            scanResultsList.add(it)
-                        }
-                        it.addRssi(result.rssi)
-                        L.d("Device ${it.deviceId} - RSSI ${result.rssi}")
-                    }
-                    return
+                    // It's time to handle iOS Device
+                    handleIosDevice(result)
                 }
             }
+        }
+    }
 
-            deviceId?.let {
-                // It's time to handle Android Device
-                if (!scanResultsMap.containsKey(deviceId)) {
-                    val newEntity = ScanSession(deviceId, result.device.address)
-                    newEntity.addRssi(result.rssi)
-                    scanResultsList.add(newEntity)
-                    scanResultsMap[deviceId] = newEntity
-                    L.d("Found new Android: $deviceId")
-                }
-
-                scanResultsMap[deviceId]?.let { entity ->
-                    entity.addRssi(result.rssi)
-                    L.d("Device $deviceId - RSSI ${result.rssi}")
-                }
+    private fun onScanIosOnBackgroundResult(result: ScanResult) {
+        L.d("Scan All onResult")
+        if (result.scanRecord?.bytes != null) {
+            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) != true && canBeIosOnBackground(result.scanRecord?.bytes!!)) {
+                // It's time to handle iOS Device in background
+                handleIosDevice(result)
             }
+        }
+    }
+
+    private fun canBeIosOnBackground(bytes: ByteArray): Boolean {
+        return (bytes.size > 9 && (bytes[bytes.size - 9] == 0x00.toByte() && bytes[bytes.size - 8] == 0x02.toByte() && bytes[bytes.size - 7] == 0x00.toByte()))
+    }
+
+    private fun handleAndroidDevice(result: ScanResult, deviceId: String) {
+        if (!scanResultsMap.containsKey(deviceId)) {
+            val newEntity = ScanSession(deviceId, result.device.address)
+            newEntity.addRssi(result.rssi)
+            scanResultsList.add(newEntity)
+            scanResultsMap[deviceId] = newEntity
+            L.d("Found new Android: $deviceId")
+        }
+
+        scanResultsMap[deviceId]?.let { entity ->
+            entity.addRssi(result.rssi)
+            L.d("Device $deviceId - RSSI ${result.rssi}")
+        }
+    }
+
+    private fun handleIosDevice(result: ScanResult) {
+        if (!discoveredIosDevices.containsKey(result.device.address)) {
+            L.d("Found new iOS")
+            getBuidFromGatt(result)
+        } else {
+            discoveredIosDevices[result.device.address]?.let {
+                if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
+                    scanResultsMap[it.deviceId] = it
+                    scanResultsList.add(it)
+                }
+                it.addRssi(result.rssi)
+                L.d("Device ${it.deviceId} - RSSI ${result.rssi}")
+            }
+            return
         }
     }
 
@@ -288,7 +339,9 @@ class BluetoothRepository(
                 break
             } else if (type == 0x16.toByte()) { //16 bit Service UUID (rare cases)
                 // +2 (skip lenght byte and type byte), +2 (skip 16 bit Service UUID)
-                bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
+                if (bytes.size > (currIndex + 2 + 2 + 10)) {
+                    bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
+                }
                 break
             } else if (type == 0x20.toByte()) { //32 bit Service UUID (just in case)
                 // +2 (skip lenght byte and type byte), +4 (skip 32 bit Service UUID)
