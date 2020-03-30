@@ -135,4 +135,7 @@
     <string name="upload_data_success_description">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.\n\nZůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
     <string name="delete_user_success_text">Registraci Vašeho telefonního čísla jsme zrušili</string>
     <string name="confirmation_button_close">Zavřít</string>
+    <string name="disable_battery_saver">Vypnout spořič baterie</string>
+    <string name="battery_saver_disabled_desc">Spořič baterie popis .... </string>
+    <string name="battery_saver_disabled_title">Vypnout spořič baterie</string>
 </resources>

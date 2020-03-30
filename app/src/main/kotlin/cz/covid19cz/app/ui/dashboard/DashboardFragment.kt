@@ -16,6 +16,7 @@ import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.app.ext.hasLocationPermission
+import cz.covid19cz.app.ext.isBatterySaverEnabled
 import cz.covid19cz.app.ext.isLocationEnabled
 import cz.covid19cz.app.service.CovidService
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -64,6 +65,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.UPDATE_STATE -> {
                     checkRequirements(onFailed = {
                         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    }, onBatterySaverEnabled = {
+                        navigate(R.id.action_nav_dashboard_to_nav_battery_saver)
                     })
                 }
             }
@@ -145,12 +148,14 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         )
     }
 
-    private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}) {
+    private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}, onBatterySaverEnabled: () -> Unit = {}) {
         with(requireContext()) {
             if (viewModel.bluetoothRepository.hasBle(this)) {
                 if (!viewModel.bluetoothRepository.isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
                     onFailed()
                     return
+                } else if (isBatterySaverEnabled()) {
+                    onBatterySaverEnabled()
                 } else {
                     onPassed()
                 }
@@ -168,8 +173,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                     CovidService.startService(requireContext())
                 )
             },
-            { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) }
-
+            { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
+            { navigate(R.id.action_nav_dashboard_to_nav_battery_saver) }
         )
     }
 
