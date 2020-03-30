@@ -7,8 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.location.LocationManager
-import android.os.*
-import androidx.core.content.ContextCompat
+import android.os.Build
+import android.os.IBinder
+import android.os.PowerManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.bt.BluetoothRepository
@@ -83,7 +84,7 @@ class CovidService : Service() {
 
         fun isRunning(context: Context): Boolean {
             val manager =
-            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
             for (service in manager!!.getRunningServices(Int.MAX_VALUE)) {
                 if (CovidService::class.java.name == service.service.className) {
                     return true
@@ -165,11 +166,6 @@ class CovidService : Service() {
             }
             ACTION_SCREEN_STATE_CHANGE -> {
                 L.d("Screen state change: ${intent.getStringExtra(EXTRA_SCREEN_STATE)}")
-
-/*                when (intent.getStringExtra(EXTRA_SCREEN_STATE)) {
-                    Intent.ACTION_SCREEN_OFF ->
-                    Intent.ACTION_SCREEN_ON ->
-                }*/
             }
         }
         return START_STICKY
