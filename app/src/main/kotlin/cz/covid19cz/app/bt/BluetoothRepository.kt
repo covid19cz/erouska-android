@@ -34,6 +34,7 @@ class BluetoothRepository(
 
     private val SERVICE_UUID = UUID.fromString("1440dd68-67e4-11ea-bc55-0242ac130003")
     private val GATT_CHARACTERISTIC_UUID = UUID.fromString("9472fbde-04ff-4fff-be1c-b9d3287e8f28")
+    private val APPLE_MANUFACTURER_ID = 76
 
     val scanResultsMap = HashMap<String, ScanSession>()
     val discoveredIosDevices = HashMap<String, ScanSession>()
@@ -196,18 +197,21 @@ class BluetoothRepository(
 
         BluetoothLeScannerCompat.getScanner().startScan(
             //listOf(ScanFilter.Builder().build(), ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
-            listOf(ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
+            listOf(
+                ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build(),
+                ScanFilter.Builder().setManufacturerData(APPLE_MANUFACTURER_ID, byteArrayOf(), byteArrayOf()).build()
+                ),
             settings,
             scanCallback
         )
-        isScanningIosOnBackground = true
+//        isScanningIosOnBackground = true
 
-        BluetoothLeScannerCompat.getScanner().startScan(
-            listOf(ScanFilter.Builder().build()),
-            settings,
-            scanIosOnBackgroundCallback
-        )
-        isScanning = true
+//        BluetoothLeScannerCompat.getScanner().startScan(
+//            listOf(ScanFilter.Builder().setManufacturerData(76, byteArrayOf(), byteArrayOf()).build()),
+//            settings,
+//            scanIosOnBackgroundCallback
+//        )
+//        isScanning = true
     }
 
     fun stopScanning() {
@@ -215,7 +219,7 @@ class BluetoothRepository(
         isScanningIosOnBackground = false
         L.d("Stopping BLE scanning")
         BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
-        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
+//        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
         saveDataAndClearScanResults()
     }
 
