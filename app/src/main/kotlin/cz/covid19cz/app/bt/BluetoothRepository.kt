@@ -190,7 +190,7 @@ class BluetoothRepository(
         L.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
         val settings: ScanSettings = ScanSettings.Builder()
-            .setLegacy(false)
+            .setLegacy(true)
             .setScanMode(AppConfig.scanMode)
             .setUseHardwareFilteringIfSupported(true)
             .build()
