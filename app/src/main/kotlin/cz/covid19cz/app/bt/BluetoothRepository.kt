@@ -284,7 +284,7 @@ class BluetoothRepository(
     }
 
     private fun canBeIosOnBackground(bytes: ByteArray): Boolean {
-        return (bytes.size > 9 && (bytes[bytes.size - 9] == 0x00.toByte() && bytes[bytes.size - 8] == 0x02.toByte() && bytes[bytes.size - 7] == 0x00.toByte()))
+        return (bytes.size > 31 && (bytes[29] == 0x00.toByte() && bytes[30] == 0x02.toByte() && bytes[31] == 0x00.toByte()))
     }
 
     private fun handleAndroidDevice(result: ScanResult, deviceId: String) {
