@@ -189,29 +189,33 @@ class BluetoothRepository(
 
         L.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
-        val settings: ScanSettings = ScanSettings.Builder()
+        val androidScannerSettings: ScanSettings = ScanSettings.Builder()
             .setLegacy(true)
             .setScanMode(AppConfig.scanMode)
             .setUseHardwareFilteringIfSupported(true)
             .build()
 
+        val iOSScannerSettings: ScanSettings = ScanSettings.Builder()
+            .setLegacy(false)
+            .setScanMode(AppConfig.scanMode)
+            .setUseHardwareFilteringIfSupported(true)
+            .build()
+
         BluetoothLeScannerCompat.getScanner().startScan(
-            //listOf(ScanFilter.Builder().build(), ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()),
             listOf(
-                ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build(),
-                ScanFilter.Builder().setManufacturerData(APPLE_MANUFACTURER_ID, byteArrayOf(), byteArrayOf()).build()
-                ),
-            settings,
+                ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()
+            ),
+            androidScannerSettings,
             scanCallback
         )
-//        isScanningIosOnBackground = true
+        isScanningIosOnBackground = true
 
-//        BluetoothLeScannerCompat.getScanner().startScan(
-//            listOf(ScanFilter.Builder().setManufacturerData(76, byteArrayOf(), byteArrayOf()).build()),
-//            settings,
-//            scanIosOnBackgroundCallback
-//        )
-//        isScanning = true
+        BluetoothLeScannerCompat.getScanner().startScan(
+            listOf(ScanFilter.Builder().setManufacturerData(APPLE_MANUFACTURER_ID, byteArrayOf(), byteArrayOf()).build()),
+            iOSScannerSettings,
+            scanIosOnBackgroundCallback
+        )
+        isScanning = true
     }
 
     fun stopScanning() {
@@ -219,7 +223,7 @@ class BluetoothRepository(
         isScanningIosOnBackground = false
         L.d("Stopping BLE scanning")
         BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
-//        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
+        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
         saveDataAndClearScanResults()
     }
 
