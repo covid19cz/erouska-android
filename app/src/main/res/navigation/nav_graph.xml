@@ -129,13 +129,6 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_battery_saver"
-            app:destination="@id/nav_battery_saver"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
@@ -246,9 +239,4 @@
         android:id="@+id/nav_send_data_success"
         android:name="cz.covid19cz.app.ui.success.SendDataSuccessFragment"
         android:label="@string/send_data" />
-    <fragment
-        android:id="@+id/nav_battery_saver"
-        android:name="cz.covid19cz.app.ui.batterysaver.BatterySaverFragment"
-        android:label="@string/battery_saver_disabled_title"
-        tools:layout="@layout/fragment_battery_saver"/>
 </navigation>

@@ -1,16 +1,16 @@
 package cz.covid19cz.app.ui.dashboard
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
@@ -66,7 +66,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                     checkRequirements(onFailed = {
                         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
                     }, onBatterySaverEnabled = {
-                        navigate(R.id.action_nav_dashboard_to_nav_battery_saver)
+                        showBatterySaverDialog()
                     })
                 }
             }
@@ -77,6 +77,33 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         checkIfSignedIn()
 
         viewModel.init()
+    }
+
+    private fun showBatterySaverDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setMessage(R.string.battery_saver_disabled_desc)
+            .setPositiveButton(R.string.disable_battery_saver)
+            { dialog, which ->
+                dialog.dismiss()
+                navigateToBatterySaverSettings()
+            }
+            .setNegativeButton(getString(R.string.confirmation_button_close))
+            { dialog, which -> dialog.dismiss() }
+            .show()
+    }
+
+    private fun navigateToBatterySaverSettings() {
+        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
+        } else {
+            val intent = Intent()
+            intent.component = ComponentName(
+                "com.android.settings",
+                "com.android.settings.Settings\$BatterySaverSettingsActivity"
+            )
+            intent
+        }
+        startActivity(batterySaverIntent)
     }
 
     private fun checkIfSignedIn() {
@@ -174,7 +201,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 )
             },
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
-            { navigate(R.id.action_nav_dashboard_to_nav_battery_saver) }
+            { showBatterySaverDialog() }
         )
     }
 
