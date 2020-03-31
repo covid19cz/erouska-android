@@ -47,7 +47,7 @@ class MyDataFragment :
     private fun showMessageDialog(message: String) {
         MaterialAlertDialogBuilder(context)
             .setMessage(message)
-            .setPositiveButton(getString(android.R.string.ok))
+            .setPositiveButton(getString(R.string.confirmation_button_close))
             { dialog, _ ->
                 dialog.dismiss()
             }
