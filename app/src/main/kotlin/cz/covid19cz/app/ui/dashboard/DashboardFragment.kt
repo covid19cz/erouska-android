@@ -22,6 +22,7 @@ import cz.covid19cz.app.ui.base.BaseFragment
 import cz.covid19cz.app.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.app.utils.Auth
 import cz.covid19cz.app.utils.L
+import cz.covid19cz.app.utils.logoutWhenNotSignedIn
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 
@@ -77,7 +78,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun checkIfSignedIn() {
         if (!Auth.isSignedIn()) {
-            navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+            logoutWhenNotSignedIn()
         }
     }
 

@@ -25,28 +25,26 @@
             android:layout_marginTop="@dimen/fragment_padding"
             android:layout_marginLeft="@dimen/fragment_padding"
             android:layout_marginRight="@dimen/fragment_padding"
-            android:text="@{@plurals/my_data_today_count(vm.todayCount,vm.todayCount)}"
-            tools:text="@plurals/my_data_today_count"
+            android:text="@{@plurals/my_data_count(vm.allCount, AppConfig.INSTANCE.persistDataDays, vm.allCount)}"
+            tools:text="Za posledních 14 dní jste potkali 980 uživatelů aplikace eRouška"
             android:textSize="16sp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/descriptionInfo"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="@dimen/fragment_padding"
-            android:layout_marginRight="@dimen/fragment_padding"
-            android:text="@{@string/my_data_description(AppConfig.INSTANCE.persistDataDays)}"
-            tools:text="@string/my_data_description"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintStart_toStartOf="parent"
+        <ImageView
+            android:id="@+id/descriptionInfo"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="@dimen/fragment_padding"
+            android:src="@drawable/ic_info"
+            android:onClick="@{() -> vm.showDescription()}"
+            app:layout_constraintStart_toEndOf="@id/textStats"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textStats" />
+            app:layout_constraintTop_toTopOf="@id/textStats"
+            app:layout_constraintBottom_toBottomOf="@id/textStats"
+            app:tint="?colorPrimary" />
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="0dp"
@@ -55,7 +53,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/textDescription"/>
+            app:layout_constraintTop_toBottomOf="@id/textStats"/>
 
         <include
             android:id="@+id/header"

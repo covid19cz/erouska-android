@@ -7,6 +7,7 @@ import cz.covid19cz.app.utils.L
 object AppConfig {
 
     const val CSV_VERSION = 3
+    const val FIREBASE_REGION = "europe-west1"
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds

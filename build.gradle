@@ -20,7 +20,7 @@ buildscript {
         targetSdkVersion = 29
 
         final VERSION_MAJOR = 0
-        final VERSION_MINOR = 13
+        final VERSION_MINOR = 16
 
         versionName = "${VERSION_MAJOR}.${VERSION_MINOR}.${commitCount()}"
 
@@ -34,8 +34,6 @@ buildscript {
                 room                : '2.2.5',
                 rxjava              : '2.2.15',
                 rxandroid           : '2.1.1',
-                stetho              : '1.5.0',
-                work_manager        : '1.0.1',
                 super_csv           : '2.4.0'
         ]
     }

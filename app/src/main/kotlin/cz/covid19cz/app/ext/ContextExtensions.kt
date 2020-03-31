@@ -3,12 +3,15 @@ package cz.covid19cz.app.ext
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.getSystemService
+import cz.covid19cz.app.R
 
 
 fun Context.isLocationEnabled(): Boolean {
@@ -50,4 +53,25 @@ fun getLocationPermission(): String {
     } else {
         android.Manifest.permission.ACCESS_FINE_LOCATION
     }
+}
+
+@Suppress("DEPRECATION")
+fun Context.isNetworkAvailable(): Boolean {
+    val connectivityManager =
+        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    with(connectivityManager) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            activeNetworkInfo?.isConnected
+        } else {
+            getNetworkCapabilities(activeNetwork)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        } ?: false
+    }
+}
+
+fun Context.withInternet(onlineAction: () -> Unit) {
+    if (isNetworkAvailable()) onlineAction() else Toast.makeText(
+        this,
+        R.string.no_internet,
+        Toast.LENGTH_SHORT
+    ).show()
 }

@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface DatabaseRepository {
-
+    fun getAll(): Single<List<ScanDataEntity>>
     fun getAllDesc(): Flowable<List<ScanDataEntity>>
     fun getCriticalDesc(): Flowable<List<ScanDataEntity>>
     fun getAllFromTimestamp(timestamp: Long): Single<List<ScanDataEntity>>
@@ -20,6 +20,10 @@ interface DatabaseRepository {
 
 class ExpositionRepositoryImpl(private val dao: ScanDataDao) :
     DatabaseRepository {
+
+    override fun getAll(): Single<List<ScanDataEntity>> {
+        return dao.getAll()
+    }
 
     override fun getAllDesc() : Flowable<List<ScanDataEntity>>{
         return dao.getAllDesc()
@@ -45,7 +49,7 @@ class ExpositionRepositoryImpl(private val dao: ScanDataDao) :
     }
 
     override fun getBuidCount(since: Long): Flowable<Int> {
-        return dao.getBuidCount(since, -100)
+        return dao.getBuidCount(since, -150)
     }
 
     override fun delete(scanData: ScanDataEntity) {

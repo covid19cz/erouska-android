@@ -46,7 +46,7 @@
     </entry>
     <entry>
         <key>faqLink</key>
-        <value>https://koronavirus.mzcr.cz/otazky-odpovedi</value>
+        <value>https://koronavirus.mzcr.cz/otazky-a-odpovedi</value>
     </entry>
     <entry>
         <key>importantLink</key>
@@ -70,7 +70,7 @@
     </entry>
     <entry>
         <key>aboutApi</key>
-        <value>http://www.erouska.cz/tym/json</value>
+        <value>https://files.jenda.eu/covid-about/output.json</value>
     </entry>
     <entry>
         <key>aboutWeb</key>

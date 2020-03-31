@@ -41,8 +41,12 @@ class LoginFragment :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                viewModel.backPressed()
-                return true
+                val handled = onBackPressed()
+                return if (handled) {
+                    true
+                } else {
+                    super.onOptionsItemSelected(item)
+                }
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -198,7 +202,7 @@ class LoginFragment :
     }
 
     override fun onBackPressed(): Boolean {
-        return if (viewModel.state.value is LoginError) {
+        return if (viewModel.state.value !is EnterPhoneNumber) {
             viewModel.backPressed()
             true
         } else false

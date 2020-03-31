@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import cz.covid19cz.app.AppConfig
 import cz.covid19cz.app.R
 import cz.covid19cz.app.databinding.FragmentMyDataBinding
 import cz.covid19cz.app.ui.base.BaseFragment
@@ -22,15 +23,18 @@ class MyDataFragment :
         subscribe(ExportEvent.Confirmation::class) {
             navigate(R.id.action_nav_my_data_to_nav_send_data)
         }
-
+        subscribe(ShowDescriptionEvent::class) {
+            showMessageDialog(getString(R.string.my_data_description, AppConfig.persistDataDays))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enableUpInToolbar(false)
         setupTabs()
     }
 
-    fun setupTabs(){
+    private fun setupTabs(){
         viewPager.adapter = MyDataPagerAdapter(requireContext())
         tabs.setupWithViewPager(viewPager)
     }
