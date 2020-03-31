@@ -12,7 +12,7 @@
     <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
     <string name="notification_text_paused">Aplikace pozastavená. Nezapomeňte ji spustit.</string>
     <string name="notification_action_resume">Spustit</string>
-    <string name="notification_text_resumed">Aplikace běží a zaznamenává anonymně telefony ve Vašem okolí.</string>
+    <string name="notification_text_resumed">Aplikace běží a zaznamenává anonymně telefony ve vašem okolí.</string>
     <string name="notification_action_pause">Pozastavit</string>
 
     <string name="notification_action_enable_bluetooth">Zapnout bluetooth</string>
@@ -40,7 +40,7 @@
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
-    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o Vašem okolí.\n\nSpusťte znovu sběr dat a chraňte Vás i Vaše okolí. Nezapomínejte na to v momentě, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o vašem okolí.\n\nSpusťte znovu sběr dat a chraňte sebe i své okolí. Nezapomínejte na to zejména v momentě, kdy opouštíte svůj domov.</string>
     <string name="dashboard_secondary">Při podezření na nákazu vás budeme kontaktovat na čísle %s. Požádáme vás o zaslání anonymizovaného seznamu telefonů, který naleznete v sekci Moje data.</string>
     <string name="bt_enabled_desc">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="bt_enabled_toolbar_title">Odesláno</string>
@@ -88,8 +88,8 @@
     <string name="my_data_column_buid">ID</string>
     <string name="my_data_column_rssi">RSSI</string>
 
-    <string name="about_title">Tým eRoušky</string>
-    <string name="about_intro">Aplikace vznikla v rámci iniciativy Covid19CZ. Vyvíjeli jsme jí s důrazem na soukromí, abychom jí bez obav mohli používat i my. Nijak Vás nešmírujeme, data se ukládají jen do Vašeho zařízení a nelze z nich zjistit, kde jste se pohybovali. Děkujeme, že aplikaci používáte a věříme, že se nám společně podaří epidemii zvládnout.</string>
+    <string name="about_title">O aplikaci</string>
+    <string name="about_intro">Aplikaci jsme vyvíjeli s důrazem na bezpečnost a ochranu soukromí, abychom ji bez obav mohli používat i my. Anonymizovaná data o Bluetooth zařízeních, které jste potkali, bez vašeho vědomí nikam neodesíláme. Aplikace nepoužívá vaši polohu a z nasbíraných dat nelze zjistit, kde jste se pohybovali. Věříme, že se nám společně podaří epidemii zastavit, tým eRoušky, iniciativa COVID19CZ.</string>
     <string name="about_managers">Řízení projektu</string>
     <string name="about_app_devs">Vývoj aplikace</string>
     <string name="about_ux_ui">UX/UI</string>
@@ -129,10 +129,10 @@
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
     <string name="share_app_text">Ahoj, používám aplikaci Mobilní rouška. Nainstaluj si ji taky a společně pomožme zastavit šíření koronaviru. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
-    <string name="delete_data_description">Opravdu chcete smazat naměřená data?\n\nHygienici tak přijdou o možnost využít Vaše kontakty v případě, že budete nakažen.\n\nPo smazání dat dojde k automatickému pozastavení eRoušky.</string>
+    <string name="delete_data_description">Opravdu chcete smazat naměřená data?\n\nHygienici tak přijdou o možnost využít vaše kontakty v případě, že budete nakažen.\n\nPo smazání dat dojde k automatickému pozastavení eRoušky.</string>
     <string name="delete_data_button">Smazat všechna data</string>
     <string name="delete_data">Smazat data</string>
-    <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace Vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z Vašeho okolí.\n\nDojde-li k potvrzení nákazy u Vás, nebudeme mít možnost kontaktovat nikoho z Vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s tímto telefonním číslem %s.</string>
+    <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace vás nemůžeme kontaktovat v případě, že dojde k potvrzení nákazy u někoho z vašeho okolí.\n\nDojde-li k potvrzení nákazy u vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace ve všech zařízeních registrovaných s telefonním číslem %s.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
@@ -142,7 +142,7 @@
     <string name="delete_data_success_text">Všechna data jsme odstranili a eRoušku pozastavili</string>
     <string name="upload_data_success_text">Data jste úspěšně odeslali</string>
     <string name="upload_data_success_description">Děkujeme, že pomáháte bojovat proti šíření koronaviru.\n\nSpolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.\n\nZůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
-    <string name="delete_user_success_text">Registraci Vašeho telefonního čísla jsme zrušili</string>
+    <string name="delete_user_success_text">Registraci vašeho telefonního čísla jsme zrušili</string>
     <string name="confirmation_button_close">Zavřít</string>
     <string name="disable_battery_saver">Vypnout spořič baterie</string>
     <string name="battery_saver_disabled_desc">eRouška potřebuje běžet i na pozadí, ale telefon ji nyní automaticky vypíná kvůli úspoře baterie.\n\nSpořič baterie vypněte v nastavení po stisknutí tlačítka “Vypnout spořič baterie”.</string>
