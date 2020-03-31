@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_welcome_fragment"
-        android:name="cz.covid19cz.app.ui.welcome.WelcomeFragment"
+        android:name="cz.covid19cz.erouska.ui.welcome.WelcomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/nav_sandbox"
-        android:name="cz.covid19cz.app.ui.sandbox.SandboxFragment"
+        android:name="cz.covid19cz.erouska.ui.sandbox.SandboxFragment"
         android:label="Test"
         tools:layout="@layout/fragment_sandbox">
         <action
@@ -84,13 +84,13 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="cz.covid19cz.app.ui.help.HelpFragment"
+        android:name="cz.covid19cz.erouska.ui.help.HelpFragment"
         android:label="@string/help_toolbar_title"
         tools:layout="@layout/fragment_help" />
 
     <fragment
         android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.app.ui.permissions.PermissionsDisabledFragment"
+        android:name="cz.covid19cz.erouska.ui.permissions.PermissionsDisabledFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_permissionss_disabled">
         <action
@@ -104,7 +104,7 @@
 
     <fragment
         android:id="@+id/nav_dashboard"
-        android:name="cz.covid19cz.app.ui.dashboard.DashboardFragment"
+        android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -132,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
-        android:name="cz.covid19cz.app.ui.permissions.onboarding.PermissionsOnboardingFragment"
+        android:name="cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingFragment"
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
         <action
@@ -158,7 +158,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_login"
-        android:name="cz.covid19cz.app.ui.login.LoginFragment"
+        android:name="cz.covid19cz.erouska.ui.login.LoginFragment"
         android:label="@string/login_toolbar_title"
         tools:layout="@layout/fragment_login">
         <action
@@ -175,7 +175,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_my_data"
-        android:name="cz.covid19cz.app.ui.mydata.MyDataFragment"
+        android:name="cz.covid19cz.erouska.ui.mydata.MyDataFragment"
         android:label="@string/my_data_title">
         <action
             android:id="@+id/action_nav_my_data_to_nav_send_data"
@@ -183,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_contacts"
-        android:name="cz.covid19cz.app.ui.contacts.ContactsFragment"
+        android:name="cz.covid19cz.erouska.ui.contacts.ContactsFragment"
         android:label="@string/contacts_title"
         tools:layout="@layout/fragment_contacts" />
     <fragment
@@ -192,7 +192,7 @@
         android:label="AlertDialogFragment" />
     <fragment
         android:id="@+id/nav_delete_data"
-        android:name="cz.covid19cz.app.ui.confirm.DeleteDataFragment"
+        android:name="cz.covid19cz.erouska.ui.confirm.DeleteDataFragment"
         android:label="@string/delete_data">
         <action
             android:id="@+id/action_nav_delete_data_to_nav_delete_data_success"
@@ -201,7 +201,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_delete_user"
-        android:name="cz.covid19cz.app.ui.confirm.DeleteUserFragment"
+        android:name="cz.covid19cz.erouska.ui.confirm.DeleteUserFragment"
         android:label="@string/delete_registration">
         <action
             android:id="@+id/action_nav_delete_user_to_nav_delete_user_success"
@@ -209,7 +209,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_send_data"
-        android:name="cz.covid19cz.app.ui.confirm.SendDataFragment"
+        android:name="cz.covid19cz.erouska.ui.confirm.SendDataFragment"
         android:label="@string/send_data">
         <action
             android:id="@+id/action_nav_send_data_to_nav_send_data_success"
@@ -218,11 +218,11 @@
     </fragment>
     <fragment
         android:id="@+id/nav_delete_data_success"
-        android:name="cz.covid19cz.app.ui.success.DeleteDataSuccessFragment"
+        android:name="cz.covid19cz.erouska.ui.success.DeleteDataSuccessFragment"
         android:label="@string/delete_data" />
     <fragment
         android:id="@+id/nav_delete_user_success"
-        android:name="cz.covid19cz.app.ui.success.DeleteUserSuccessFragment"
+        android:name="cz.covid19cz.erouska.ui.success.DeleteUserSuccessFragment"
         android:label="@string/delete_registration">
         <action
             android:id="@+id/action_nav_delete_user_success_to_nav_welcome_fragment"
@@ -237,6 +237,6 @@
     </fragment>
     <fragment
         android:id="@+id/nav_send_data_success"
-        android:name="cz.covid19cz.app.ui.success.SendDataSuccessFragment"
+        android:name="cz.covid19cz.erouska.ui.success.SendDataSuccessFragment"
         android:label="@string/send_data" />
 </navigation>

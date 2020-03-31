@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="cz.covid19cz.app.R"/>
-        <import type="cz.covid19cz.app.BuildConfig"/>
+        <import type="cz.covid19cz.erouska.R"/>
+        <import type="cz.covid19cz.erouska.BuildConfig"/>
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.sandbox.SandboxVM" />
+            type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
         <variable
             name="lifecycle"
             type="androidx.lifecycle.LifecycleOwner" />

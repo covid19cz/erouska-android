@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.help.HelpVM" />
+            type="cz.covid19cz.erouska.ui.help.HelpVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
