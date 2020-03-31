@@ -37,7 +37,7 @@ class LoginFragment :
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.help, menu)
+        inflater.inflate(R.menu.onboarding, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

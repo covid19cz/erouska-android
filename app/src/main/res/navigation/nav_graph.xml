@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         tools:layout="@layout/fragment_welcome">
         <action
-            android:id="@+id/action_nav_welcome_fragment_to_nav_sandbox"
+            android:id="@+id/action_nav_welcome_fragment_to_nav_dashboard"
             app:destination="@id/nav_dashboard"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -119,13 +119,25 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/nav_delete_data" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/nav_delete_user" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
@@ -135,13 +147,6 @@
         android:name="cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingFragment"
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
-        <action
-            android:id="@+id/action_nav_bt_onboard_to_nav_sandbox"
-            app:destination="@id/nav_sandbox"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_bt_onboard_to_nav_login"
             app:destination="@id/nav_login"
@@ -179,6 +184,10 @@
         android:label="@string/my_data_title">
         <action
             android:id="@+id/action_nav_my_data_to_nav_send_data"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/nav_send_data" />
     </fragment>
     <fragment
@@ -197,6 +206,10 @@
         <action
             android:id="@+id/action_nav_delete_data_to_nav_delete_data_success"
             app:destination="@id/nav_delete_data_success"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/nav_my_data" />
     </fragment>
     <fragment
@@ -205,6 +218,10 @@
         android:label="@string/delete_registration">
         <action
             android:id="@+id/action_nav_delete_user_to_nav_delete_user_success"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/nav_delete_user_success" />
     </fragment>
     <fragment
@@ -214,6 +231,10 @@
         <action
             android:id="@+id/action_nav_send_data_to_nav_send_data_success"
             app:destination="@id/nav_send_data_success"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/nav_my_data" />
     </fragment>
     <fragment
@@ -243,6 +264,14 @@
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"
         tools:layout="@layout/fragment_about"
-        android:label="@string/about_title" />
+        android:label="@string/about_title" >
+        <action
+            android:id="@+id/action_nav_about_to_nav_sandbox"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:destination="@id/nav_sandbox" />
+    </fragment>
 
 </navigation>
