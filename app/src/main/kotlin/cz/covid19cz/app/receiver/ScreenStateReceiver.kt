@@ -7,14 +7,12 @@ import cz.covid19cz.app.service.CovidService
 
 class ScreenStateReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
-        intent?.let {
-            it.action?.let { action ->
-                when (action) {
-                    Intent.ACTION_SCREEN_OFF, Intent.ACTION_SCREEN_ON -> CovidService.screenStateChange(
-                        context,
-                        action
-                    )
-                }
+        intent?.action?.let { action ->
+            when (action) {
+                Intent.ACTION_SCREEN_OFF, Intent.ACTION_SCREEN_ON -> CovidService.screenStateChange(
+                    context,
+                    action
+                )
             }
         }
     }
