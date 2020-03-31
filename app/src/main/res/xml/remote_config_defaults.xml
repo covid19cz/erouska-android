@@ -76,4 +76,32 @@
         <key>aboutWeb</key>
         <value>http://www.erouska.cz/tym</value>
     </entry>
+    <entry>
+        <key>showBatteryOptimizationTutorial</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationHuaweiLink</key>
+        <value>https://dontkillmyapp.com/huawei</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationAsusLink</key>
+        <value>https://dontkillmyapp.com/asus</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationLenovoLink</key>
+        <value>https://dontkillmyapp.com/lenovo</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationSamsungLink</key>
+        <value>https://dontkillmyapp.com/samsung</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationSonyLink</key>
+        <value>https://dontkillmyapp.com/sony</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationXiaomiLink</key>
+        <value>https://dontkillmyapp.com/xiaomi</value>
+    </entry>
 </defaultsMap>

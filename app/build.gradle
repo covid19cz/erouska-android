@@ -108,6 +108,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.browser:browser:1.2.0"
 
     // Arch
     implementation project(':arch')

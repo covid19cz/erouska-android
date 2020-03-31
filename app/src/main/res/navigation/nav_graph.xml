@@ -119,26 +119,26 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
+            app:destination="@id/nav_delete_data"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_delete_data" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteUserFragment"
+            app:destination="@id/nav_delete_user"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_delete_user" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -177,6 +177,13 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_login_to_batteryOptimizationFragment"
+            app:destination="@id/nav_battery_optimization"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_my_data"
@@ -184,11 +191,11 @@
         android:label="@string/my_data_title">
         <action
             android:id="@+id/action_nav_my_data_to_nav_send_data"
+            app:destination="@id/nav_send_data"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_send_data" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_contacts"
@@ -218,11 +225,11 @@
         android:label="@string/delete_registration">
         <action
             android:id="@+id/action_nav_delete_user_to_nav_delete_user_success"
+            app:destination="@id/nav_delete_user_success"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_delete_user_success" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_send_data"
@@ -263,15 +270,32 @@
     <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"
-        tools:layout="@layout/fragment_about"
-        android:label="@string/about_title" >
+        android:label="@string/about_title"
+        tools:layout="@layout/fragment_about">
         <action
             android:id="@+id/action_nav_about_to_nav_sandbox"
+            app:destination="@id/nav_sandbox"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_sandbox" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_battery_optimization"
+        android:name="cz.covid19cz.erouska.ui.help.BatteryOptimizationFragment"
+        android:label="@string/battery_opt_label">
+        <action
+            android:id="@+id/action_batteryOptimizationFragment_to_nav_dashboard"
+            app:destination="@id/nav_dashboard"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
 
 </navigation>

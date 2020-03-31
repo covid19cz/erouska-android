@@ -15,11 +15,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLoginBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.Text
-import cz.covid19cz.erouska.utils.focusAndShowKeyboard
-import cz.covid19cz.erouska.utils.hideKeyboard
-import cz.covid19cz.erouska.utils.setOnDoneListener
-import kotlinx.android.synthetic.main.fragment_help.*
+import cz.covid19cz.erouska.utils.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -175,14 +171,18 @@ class LoginFragment :
 
     private fun showSignedIn() {
         if (navController().currentDestination?.id == R.id.nav_login) {
-            navigate(
-                R.id.action_nav_login_to_nav_dashboard, null,
-                Builder()
-                    .setPopUpTo(
-                        R.id.nav_graph,
-                        true
-                    ).build()
-            )
+            if (BatteryOptimization.isTutorialNeeded()) {
+                navigate(R.id.action_nav_login_to_batteryOptimizationFragment)
+            } else {
+                navigate(
+                    R.id.action_nav_login_to_nav_dashboard, null,
+                    Builder()
+                        .setPopUpTo(
+                            R.id.nav_graph,
+                            true
+                        ).build()
+                )
+            }
         }
     }
 

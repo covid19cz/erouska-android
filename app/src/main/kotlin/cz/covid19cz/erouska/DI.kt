@@ -15,10 +15,11 @@ import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
 import cz.covid19cz.erouska.receiver.ScreenStateReceiver
 import cz.covid19cz.erouska.service.WakeLockManager
-import cz.covid19cz.erouska.ui.confirm.ConfirmationVM
 import cz.covid19cz.erouska.ui.about.AboutVM
+import cz.covid19cz.erouska.ui.confirm.ConfirmationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
+import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
 import cz.covid19cz.erouska.ui.help.HelpVM
 import cz.covid19cz.erouska.ui.login.LoginVM
 import cz.covid19cz.erouska.ui.main.MainVM
@@ -48,6 +49,7 @@ val viewModelModule = module {
     viewModel { MyDataVM(get(), get()) }
     viewModel { ConfirmationVM(get(), get(), get()) }
     viewModel { SuccessVM() }
+    viewModel { BatteryOptimizationVM() }
 }
 
 val databaseModule = module {

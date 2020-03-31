@@ -146,4 +146,10 @@
     <string name="confirmation_button_close">Zavřít</string>
     <string name="disable_battery_saver">Vypnout spořič baterie</string>
     <string name="battery_saver_disabled_desc">eRouška potřebuje běžet i na pozadí, ale telefon ji nyní automaticky vypíná kvůli úspoře baterie.\n\nSpořič baterie vypněte v nastavení po stisknutí tlačítka “Vypnout spořič baterie”.</string>
+    <string name="battery_opt_title">eRouška potřebuje běžet i když s ní právě nepracujete</string>
+    <string name="battery_opt_desc">Váš telefon automaticky vypíná některé aplikace pokud s nimi nepracujete, kvůli úspoře baterie.</string>
+    <string name="battery_opt_desc_2">Povolte běh aplikace na pozadí v nastavení telefonu. Návod pro svůj telefon najdete níže.</string>
+    <string name="battery_opt_done">Nastavení dokončeno</string>
+    <string name="battery_opt_label">Aplikace na pozadí</string>
+    <string name="guide_for">Návod pro %s</string>
 </resources>
