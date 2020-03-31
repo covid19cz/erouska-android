@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="cz.covid19cz.app.utils.ColorUtils" />
-        <import type="cz.covid19cz.app.AppConfig" />
+        <import type="cz.covid19cz.erouska.utils.ColorUtils" />
+        <import type="cz.covid19cz.erouska.AppConfig" />
 
-        <import type="cz.covid19cz.app.R" />
+        <import type="cz.covid19cz.erouska.R" />
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.mydata.MyDataVM" />
+            type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

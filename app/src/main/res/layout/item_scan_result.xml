@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="cz.covid19cz.app.utils.ColorUtils"/>
+        <import type="cz.covid19cz.erouska.utils.ColorUtils"/>
         <variable
             name="item"
-            type="cz.covid19cz.app.bt.entity.ScanSession" />
+            type="cz.covid19cz.erouska.bt.entity.ScanSession" />
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.sandbox.SandboxVM" />
+            type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
     </data>
 
     <androidx.cardview.widget.CardView

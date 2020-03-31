@@ -2,14 +2,14 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="cz.covid19cz.app.R"/>
-        <import type="cz.covid19cz.app.ui.about.AboutRecyclerLayoutStrategy"/>
+        <import type="cz.covid19cz.erouska.R"/>
+        <import type="cz.covid19cz.erouska.ui.about.AboutRecyclerLayoutStrategy"/>
         <variable
             name="item"
-            type="cz.covid19cz.app.ui.about.entity.AboutProfileItem" />
+            type="cz.covid19cz.erouska.ui.about.entity.AboutProfileItem" />
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.about.AboutVM" />
+            type="cz.covid19cz.erouska.ui.about.AboutVM" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

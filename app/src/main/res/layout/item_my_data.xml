@@ -5,15 +5,15 @@
 
     <data>
 
-        <import type="cz.covid19cz.app.utils.ColorUtils" />
+        <import type="cz.covid19cz.erouska.utils.ColorUtils" />
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.mydata.MyDataVM" />
+            type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
 
         <variable
             name="item"
-            type="cz.covid19cz.app.db.ScanDataEntity" />
+            type="cz.covid19cz.erouska.db.ScanDataEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

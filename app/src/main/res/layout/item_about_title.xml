@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="cz.covid19cz.app.R"/>
+        <import type="cz.covid19cz.erouska.R"/>
         <variable
             name="item"
             type="String" />
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.about.AboutVM" />
+            type="cz.covid19cz.erouska.ui.about.AboutVM" />
     </data>
 
     <TextView

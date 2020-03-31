@@ -22,17 +22,34 @@ jobs:
       with:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-    - name: Build release app
+    - name: Download release certificate
+      id: release_cert
+      uses: timheuer/base64-to-file@v1.0.3
+      with:
+        fileName: 'erouska_release.jks'
+        encodedString: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+    - name: Build release apps
       run: ./gradlew assembleRelease
+      env:
+        EROUSKA_RELEASE_KEYSTORE_PATH: ${{ steps.release_cert.outputs.filePath }}
+        EROUSKA_RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+        EROUSKA_RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
     - name: Publish artefact
       uses: actions/upload-artifact@v1
       with:
-        name: app-release
-        path: app/build/outputs/apk/release/covid19-cz-release.apk
-    - name: Upload app to Firebase App Distribution
+        name: app-releases
+        path: app/build/outputs/apk
+    - name: Upload DEV app to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
-        appId: 1:1077972356575:android:27fb3236d490d49361886a
+        appId: 1:1077972356575:android:75624eb96818aa0d61886a
         token: ${{ secrets.FIREBASE_TOKEN }}
         groups: internal-test
-        file: app/build/outputs/apk/release/covid19-cz-release.apk
+        file: app/build/outputs/apk/dev/release/covid19-cz-dev-release.apk
+    - name: Upload PROD app to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+      with:
+        appId: 1:941144972907:android:937903c1584d72a673db2e
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: internal-test
+        file: app/build/outputs/apk/prod/release/covid19-cz-prod-release.apk

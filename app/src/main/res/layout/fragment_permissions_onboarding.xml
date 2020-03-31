@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.permissions.BasePermissionsVM" />
+            type="cz.covid19cz.erouska.ui.permissions.BasePermissionsVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

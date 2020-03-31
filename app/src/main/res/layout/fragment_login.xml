@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.app.ui.login.LoginVM" />
+            type="cz.covid19cz.erouska.ui.login.LoginVM" />
     </data>
 
     <ScrollView
@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context="cz.covid19cz.app.ui.login.LoginActivity">
+            tools:context="cz.covid19cz.erouska.ui.login.LoginActivity">
 
             <ImageView
                 android:id="@+id/login_image"
