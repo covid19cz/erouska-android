@@ -58,11 +58,11 @@
     </entry>
     <entry>
         <key>proclamationLink</key>
-        <value>http://www.erouska.cz</value>
+        <value>https://www.erouska.cz</value>
     </entry>
     <entry>
         <key>tutorialLink</key>
-        <value>http://www.erouska.cz/navody</value>
+        <value>https://www.erouska.cz/navody</value>
     </entry>
     <entry>
         <key>aboutApi</key>
@@ -70,7 +70,7 @@
     </entry>
     <entry>
         <key>aboutWeb</key>
-        <value>http://www.erouska.cz/tym</value>
+        <value>https://www.erouska.cz/tym</value>
     </entry>
     <entry>
         <key>showBatteryOptimizationTutorial</key>
