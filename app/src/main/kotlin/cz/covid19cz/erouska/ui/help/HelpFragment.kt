@@ -41,9 +41,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
 
         val helpDescription: String = String.format(
             getString(R.string.help_desc),
-            viewModel.getProclamationUrl(),
-            viewModel.getTutorialUrl(),
-            viewModel.getDeviceName()
+            viewModel.getTutorialUrl()
         )
 
         help_desc.text = HtmlCompat.fromHtml(helpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)

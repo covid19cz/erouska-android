@@ -7,7 +7,7 @@ class AboutProfileItem(
     val name : String,
     @SerializedName("surname")
     val surname : String,
-    @SerializedName("photo")
+    @SerializedName("photoUrl")
     val photoUrl : String,
     @SerializedName("linkedin")
     val linkedin : String ) {

@@ -77,35 +77,6 @@ fun Context.makeCall(phone: String) {
     startActivity(this, intent, null)
 }
 
-fun Context.sendEmail(subject: String, toAddress: String, text: String? = null, ccAddress: String? = null) {
-    L.i("Send email")
-    val to = arrayOf(toAddress)
-    val emailIntent = Intent(Intent.ACTION_SEND)
-
-    emailIntent.data = Uri.parse("mailto:")
-    emailIntent.type = "message/rfc822"
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, to)
-    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-    text?.let {
-        emailIntent.putExtra(Intent.EXTRA_TEXT, text)
-    }
-
-    ccAddress?.let {
-        val cc = arrayOf(it)
-        emailIntent.putExtra(Intent.EXTRA_CC, cc)
-    }
-    try {
-        startActivity(this, Intent.createChooser(emailIntent, getString(R.string.send_email_chooser)), null)
-        L.i("Finished sending email...")
-    } catch (ex: ActivityNotFoundException) {
-        val th = this
-        Toast.makeText(
-            this,
-            getString(R.string.no_emal_client), Toast.LENGTH_SHORT
-        ).show()
-    }
-}
-
 fun Context.openChromeTab(url: String) {
     val builder = Builder()
     builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))

@@ -10,6 +10,7 @@ import cz.covid19cz.erouska.ui.about.entity.AboutProfileItem
 import cz.covid19cz.erouska.ui.about.entity.AboutRoleItem
 import cz.covid19cz.app.ui.base.UrlEvent
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.ui.about.entity.AboutIntroItem
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable

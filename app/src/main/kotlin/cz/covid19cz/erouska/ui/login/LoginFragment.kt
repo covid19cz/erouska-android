@@ -1,10 +1,12 @@
 package cz.covid19cz.erouska.ui.login
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.text.HtmlCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
@@ -17,6 +19,7 @@ import cz.covid19cz.erouska.utils.Text
 import cz.covid19cz.erouska.utils.focusAndShowKeyboard
 import cz.covid19cz.erouska.utils.hideKeyboard
 import cz.covid19cz.erouska.utils.setOnDoneListener
+import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -76,6 +79,14 @@ class LoginFragment :
         setupListeners()
 
         enableUpInToolbar(true)
+
+        val loginStatement: String = String.format(
+            getString(R.string.login_statement),
+            viewModel.getTermsAndConditions()
+        )
+
+        login_statement.text = HtmlCompat.fromHtml(loginStatement, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        login_statement.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun setupListeners() {
