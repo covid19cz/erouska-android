@@ -100,4 +100,12 @@
         <key>batteryOptimizationXiaomiLink</key>
         <value>https://dontkillmyapp.com/xiaomi</value>
     </entry>
+    <entry>
+        <key>termsAndConditionsLink</key>
+        <value>https://www.erouska.cz</value>
+    </entry>
+    <entry>
+        <key>homepageLink</key>
+        <value>https://www.erouska.cz</value>
+    </entry>
 </defaultsMap>
