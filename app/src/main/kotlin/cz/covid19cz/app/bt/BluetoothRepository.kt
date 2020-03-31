@@ -259,7 +259,7 @@ class BluetoothRepository(
         L.d("Scan by UUID onResult")
 
         if (result.scanRecord?.bytes != null) {
-            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true || canBeIosOnBackground(result.scanRecord?.bytes!!)) {
+            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) == true || canBeIosOnBackground(result.scanRecord)) {
                 val deviceId = getBuidFromAdvertising(result.scanRecord?.bytes!!)
 
                 if (deviceId != null) {
@@ -276,15 +276,26 @@ class BluetoothRepository(
     private fun onScanIosOnBackgroundResult(result: ScanResult) {
         L.d("Scan All onResult")
         if (result.scanRecord?.bytes != null) {
-            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) != true && canBeIosOnBackground(result.scanRecord?.bytes!!)) {
+            if (result.scanRecord?.serviceUuids?.contains(ParcelUuid(SERVICE_UUID)) != true && canBeIosOnBackground(result.scanRecord)) {
                 // It's time to handle iOS Device in background
                 handleIosDevice(result)
             }
         }
     }
 
-    private fun canBeIosOnBackground(bytes: ByteArray): Boolean {
-        return (bytes.size > 31 && (bytes[29] == 0x00.toByte() && bytes[30] == 0x02.toByte() && bytes[31] == 0x00.toByte()))
+    /**
+     * iOS doesn't send UUID with screen off and app in background so we have to find another way
+     * how to detect if there is an iOS device on the other side.
+     *
+     * iOS devices send manufacturer specific data that look something like this:
+     * 0x4C000100000000000000000200000000000000
+     *
+     * This checks for the apple inc. key and then matches the data against the above
+     */
+    private fun canBeIosOnBackground(scanRecord: ScanRecord?): Boolean {
+        return scanRecord?.manufacturerSpecificData?.get(APPLE_MANUFACTURER_ID)?.let { data ->
+            data.size > 10 && data[0] == 0x01.toByte() && data[1] == 0x00.toByte() && data[9] == 0x02.toByte()
+        } ?: false
     }
 
     private fun handleAndroidDevice(result: ScanResult, deviceId: String) {
