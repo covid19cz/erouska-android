@@ -60,7 +60,7 @@ class AboutVM : BaseVM() {
             L.e(it)
             loading.value = false
             //Show website if api fails
-            aboutWebUrl.value = AppConfig.aboutWeb
+            aboutWebUrl.value = AppConfig.aboutLink
         }, {
             loading.value = false
             items.add(AboutIntroItem())
@@ -70,11 +70,9 @@ class AboutVM : BaseVM() {
     }
 
     fun profileClick(item: AboutProfileItem) {
-        publish(UrlEvent(item.linkedin))
-    }
-
-    fun logoClick(){
-        publish(UrlEvent("https://covid19cz.cz"))
+        item.linkedin?.let {
+            publish(UrlEvent(it))
+        }
     }
 
     fun versionClick() : Boolean{

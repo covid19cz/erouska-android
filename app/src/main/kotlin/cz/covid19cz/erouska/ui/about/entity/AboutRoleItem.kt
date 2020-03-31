@@ -6,9 +6,9 @@ import cz.covid19cz.erouska.ui.about.entity.AboutProfileItem
 
 data class AboutRoleItem(
     @SerializedName("id")
-    val id: String,
+    val id: Int?,
     @SerializedName("name")
-    val title: String,
+    val title: String?,
     @SerializedName("people")
-    val items : ObservableArrayList<AboutProfileItem>
+    val items : ObservableArrayList<AboutProfileItem>?
 )

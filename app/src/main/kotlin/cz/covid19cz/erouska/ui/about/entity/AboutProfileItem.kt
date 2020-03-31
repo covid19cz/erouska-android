@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 class AboutProfileItem(
     @SerializedName("name")
-    val name : String,
+    val name : String?,
     @SerializedName("surname")
-    val surname : String,
+    val surname : String?,
     @SerializedName("photoUrl")
-    val photoUrl : String,
+    val photoUrl : String?,
     @SerializedName("linkedin")
-    val linkedin : String ) {
+    val linkedin : String? ) {
 }

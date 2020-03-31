@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
+        android:focusable="@{item.linkedin != null}"
+        android:clickable="@{item.linkedin != null}"
         android:foreground="@drawable/highlight_selector"
         android:onClick="@{() -> vm.profileClick(item)}">
 

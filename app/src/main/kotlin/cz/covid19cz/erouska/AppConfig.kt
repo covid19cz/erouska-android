@@ -46,8 +46,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("tutorialLink")
     val aboutApi
         get() = firebaseRemoteConfig.getString("aboutApi")
-    val aboutWeb
-        get() = firebaseRemoteConfig.getString("aboutWeb")
+    val aboutLink
+        get() = firebaseRemoteConfig.getString("aboutLink")
     val termsAndConditionsLink
         get() = firebaseRemoteConfig.getString("termsAndConditionsLink")
     val homepageLink
@@ -66,7 +66,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("batteryOptimizationXiaomiLink")
     val batteryOptimizationHuaweiLink
         get() = firebaseRemoteConfig.getString("batteryOptimizationHuaweiLink")
-
 
     var overrideAdvertiseTxPower : Int? = null
 
