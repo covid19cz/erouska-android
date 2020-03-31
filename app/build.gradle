@@ -9,7 +9,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "cz.covid19cz.app"
+        applicationId "cz.covid19cz.erouska"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.commitCount()
@@ -20,9 +20,27 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions "environment"
+
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+        }
+        prod {
+            dimension "environment"
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file("../meta/debug.keystore")
+        }
+        release {
+            storeFile file(System.getenv("EROUSKA_RELEASE_KEYSTORE_PATH") ?: "No CI")
+            storePassword System.getenv("EROUSKA_RELEASE_KEYSTORE_PASSWORD")
+            keyAlias "covid19cz"
+            keyPassword System.getenv("EROUSKA_RELEASE_KEY_PASSWORD")
         }
     }
 
@@ -31,14 +49,12 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
-            // TODO: Change all this before going to Play Store
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
             minifyEnabled false
-            applicationIdSuffix ".dev"
             signingConfig signingConfigs.debug
         }
     }
@@ -111,7 +127,7 @@ dependencies {
 
     //RxPermisssions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-    
+
     // BLE Scanner Compat
     implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
 
