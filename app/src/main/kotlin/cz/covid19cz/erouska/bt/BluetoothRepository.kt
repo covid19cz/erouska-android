@@ -5,6 +5,7 @@ import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
@@ -12,12 +13,15 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.entity.ScanSession
 import cz.covid19cz.erouska.db.DatabaseRepository
 import cz.covid19cz.erouska.db.ScanDataEntity
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.asHexLower
 import cz.covid19cz.erouska.ext.execute
 import cz.covid19cz.erouska.ext.hexAsByteArray
+import cz.covid19cz.erouska.ext.hoursToMilis
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.isBluetoothEnabled
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
@@ -28,7 +32,8 @@ import kotlin.collections.HashMap
 class BluetoothRepository(
     val context: Context,
     private val db: DatabaseRepository,
-    private val btManager: BluetoothManager
+    private val btManager: BluetoothManager,
+    private val prefs : SharedPrefsRepository
 ) {
 
     private companion object {
@@ -250,7 +255,7 @@ class BluetoothRepository(
 
                     db.add(scanResult)
                 }
-
+                dbCleanup()
                 tempArray.size
             }.execute({
                 L.d("$it records saved")
@@ -442,4 +447,13 @@ class BluetoothRepository(
         isAdvertising = false
         btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }
+
+    private fun dbCleanup(){
+        if (System.currentTimeMillis() - prefs.getLastDbCleanupTimestamp() > 24.hoursToMilis()) {
+                L.d("Deleting data older than ${AppConfig.persistDataDays} days")
+                val rows = db.deleteOldData()
+                L.d("$rows records deleted")
+                prefs.saveLastDbCleanupTimestamp(System.currentTimeMillis())
+            }
+        }
 }

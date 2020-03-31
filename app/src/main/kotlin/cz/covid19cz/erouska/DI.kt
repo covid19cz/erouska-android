@@ -36,7 +36,7 @@ import org.koin.dsl.module
 
 
 val viewModelModule = module {
-    viewModel { MainVM(get()) }
+    viewModel { MainVM() }
     viewModel { SandboxVM(get(), get(), get()) }
     viewModel { LoginVM(get()) }
     viewModel { WelcomeVM(get(), get()) }
@@ -74,7 +74,7 @@ val repositoryModule = module {
     }
 
     single { provideDatabaseRepository(get()) }
-    single { BluetoothRepository(get(), get(), get()) }
+    single { BluetoothRepository(get(), get(), get(), get()) }
     single { SharedPrefsRepository(get()) }
 }
 
