@@ -38,7 +38,7 @@
     </entry>
     <entry>
         <key>persistDataDays</key>
-        <value>14</value>
+        <value>30</value>
     </entry>
     <entry>
         <key>shareAppDynamicLink</key>
@@ -51,10 +51,6 @@
     <entry>
         <key>importantLink</key>
         <value>https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy</value>
-    </entry>
-    <entry>
-        <key>aboutApi</key>
-        <value>http://erouska.betaversion.cz/peoples.json</value>
     </entry>
     <entry>
         <key>emergencyNumber</key>

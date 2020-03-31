@@ -10,6 +10,7 @@ class SharedPrefsRepository(c : Context) {
         const val DEVICE_BUID = "DEVICE_BUID"
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_UPLOAD_TIMESTAMP = "preference.last_upload_timestamp"
+        const val LAST_DB_CLEANUP_TIMESTAMP = "preference.last_db_cleanup_timestamp"
     }
 
     val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -36,6 +37,14 @@ class SharedPrefsRepository(c : Context) {
 
     fun getLastUploadTimestamp(): Long {
         return prefs.getLong(LAST_UPLOAD_TIMESTAMP, -1)
+    }
+
+    fun saveLastDbCleanupTimestamp(timestamp: Long) {
+        prefs.edit().putLong(LAST_DB_CLEANUP_TIMESTAMP, timestamp).apply()
+    }
+
+    fun getLastDbCleanupTimestamp(): Long {
+        return prefs.getLong(LAST_DB_CLEANUP_TIMESTAMP, 0)
     }
 
     fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)
