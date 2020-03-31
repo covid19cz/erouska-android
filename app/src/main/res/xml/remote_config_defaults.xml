@@ -38,7 +38,7 @@
     </entry>
     <entry>
         <key>persistDataDays</key>
-        <value>14</value>
+        <value>30</value>
     </entry>
     <entry>
         <key>shareAppDynamicLink</key>
@@ -63,5 +63,49 @@
     <entry>
         <key>tutorialLink</key>
         <value>http://www.erouska.cz/navody</value>
+    </entry>
+    <entry>
+        <key>aboutApi</key>
+        <value>https://files.jenda.eu/covid-about/output.json</value>
+    </entry>
+    <entry>
+        <key>aboutWeb</key>
+        <value>http://www.erouska.cz/tym</value>
+    </entry>
+    <entry>
+        <key>showBatteryOptimizationTutorial</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationHuaweiLink</key>
+        <value>https://dontkillmyapp.com/huawei</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationAsusLink</key>
+        <value>https://dontkillmyapp.com/asus</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationLenovoLink</key>
+        <value>https://dontkillmyapp.com/lenovo</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationSamsungLink</key>
+        <value>https://dontkillmyapp.com/samsung</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationSonyLink</key>
+        <value>https://dontkillmyapp.com/sony</value>
+    </entry>
+    <entry>
+        <key>batteryOptimizationXiaomiLink</key>
+        <value>https://dontkillmyapp.com/xiaomi</value>
+    </entry>
+    <entry>
+        <key>termsAndConditionsLink</key>
+        <value>https://www.erouska.cz</value>
+    </entry>
+    <entry>
+        <key>homepageLink</key>
+        <value>https://www.erouska.cz</value>
     </entry>
 </defaultsMap>

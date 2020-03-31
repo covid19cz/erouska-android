@@ -3,7 +3,7 @@ package cz.covid19cz.erouska.ui.contacts
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent
-import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.EMAIL
+import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.WEB
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.EMERGENCY
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.FAQ
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.IMPORTANT
@@ -22,8 +22,8 @@ class ContactsVM : BaseVM() {
         publish(ContactsCommandEvent(EMERGENCY))
     }
 
-    fun email() {
-        publish(ContactsCommandEvent(EMAIL))
+    fun openWeb() {
+        publish(ContactsCommandEvent(WEB))
     }
 
     fun getFaqUrl() : String {
@@ -36,5 +36,9 @@ class ContactsVM : BaseVM() {
 
     fun getEmergencyNumber() : String {
         return AppConfig.emergencyNumber
+    }
+
+    fun getHomepageLink() : String {
+        return AppConfig.homepageLink
     }
 }

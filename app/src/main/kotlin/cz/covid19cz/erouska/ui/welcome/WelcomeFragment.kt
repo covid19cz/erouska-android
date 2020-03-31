@@ -26,7 +26,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
         }
 
         if (Auth.isSignedIn()) {
-            navigate(R.id.action_nav_welcome_fragment_to_nav_sandbox, null,
+            navigate(R.id.action_nav_welcome_fragment_to_nav_dashboard, null,
                 NavOptions.Builder()
                     .setPopUpTo(R.id.nav_graph,
                         true).build())

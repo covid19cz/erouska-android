@@ -84,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.email()}"
-                android:text="@string/contacts_email"
+                android:onClick="@{() -> vm.openWeb()}"
+                android:text="@string/contacts_go_to_web"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contacts_improve" />
 
