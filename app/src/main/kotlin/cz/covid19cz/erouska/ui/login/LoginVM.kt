@@ -13,6 +13,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -112,6 +113,8 @@ class LoginVM(
     fun backPressed() {
         mutableState.postValue(EnterPhoneNumber(false))
     }
+
+    fun getTermsAndConditions() = AppConfig.termsAndConditionsLink
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().signInWithCredential(credential)

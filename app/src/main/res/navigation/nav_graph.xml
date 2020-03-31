@@ -238,7 +238,7 @@
     <fragment
         android:id="@+id/nav_send_data_success"
         android:name="cz.covid19cz.erouska.ui.success.SendDataSuccessFragment"
-        android:label="@string/send_data" />
+        android:label="@string/data_sent" />
     <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"

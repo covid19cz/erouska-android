@@ -8,7 +8,7 @@ class ContactsCommandEvent(val command: Command) : LiveEvent() {
         IMPORTANT,
         FAQ,
         EMERGENCY,
-        EMAIL,
+        WEB,
     }
 
 }

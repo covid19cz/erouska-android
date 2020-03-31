@@ -10,8 +10,8 @@ internal class MyDataPagerAdapter(val context: Context) : PagerAdapter() {
 
     override fun instantiateItem(view: View, position: Int): Any {
         val resId = when (position) {
-            0 -> R.id.pageCritical
-            1 -> R.id.pageAll
+            0 -> R.id.pageAll
+            1 -> R.id.pageCritical
             else -> throw IndexOutOfBoundsException()
         }
         return view.findViewById(resId)
@@ -23,8 +23,8 @@ internal class MyDataPagerAdapter(val context: Context) : PagerAdapter() {
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> context.getString(R.string.my_data_tab_critical_title)
-            1 -> context.getString(R.string.my_data_tab_all_title)
+            0 -> context.getString(R.string.my_data_tab_all_title)
+            1 -> context.getString(R.string.my_data_tab_critical_title)
             else -> throw IndexOutOfBoundsException()
         }
     }
