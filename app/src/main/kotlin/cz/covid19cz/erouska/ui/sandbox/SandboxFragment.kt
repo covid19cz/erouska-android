@@ -16,6 +16,8 @@ import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.hide
+import cz.covid19cz.erouska.utils.show
 import io.reactivex.disposables.CompositeDisposable
 
 class SandboxFragment :
@@ -62,6 +64,7 @@ class SandboxFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+        binding.easter.hide()
     }
 
     override fun onBluetoothEnabled() {
@@ -95,6 +98,7 @@ class SandboxFragment :
         with(requireContext()){
             startService(CovidService.stopService(this))
         }
+        binding.easter.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -110,6 +114,7 @@ class SandboxFragment :
             ContextCompat.startForegroundService(this, CovidService.startService(this))
         }
         viewModel.confirmStart()
+        binding.easter.hide()
     }
 
     override fun onDestroy() {

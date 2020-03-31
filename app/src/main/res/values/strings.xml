@@ -71,7 +71,6 @@
     <string name="login_too_many_attempts_error">Moc pokusů o ověření telefonního čísla. Znovu to můžete zkusit za několik hodin.</string>
     <string name="login_session_expired">Platnost kódu vypršela. Zašlete si nový kód a zadejte ho do 3 minut.</string>
     <string name="menu_help">Nápověda</string>
-    <string name="sandbox">Test</string>
 
     <string name="my_data_title">Moje data</string>
     <string name="my_data_description">V tabulce najdete veškeré záznamy měření signálů okolních telefonů s eRouškou. Data neobsahují informace o poloze ani osobní údaje a odeslat hygienikům je můžete pouze Vy. Záznamy starší než %d dní se automaticky mažou.</string>

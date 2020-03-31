@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="cz.covid19cz.erouska.R"/>
-        <import type="cz.covid19cz.erouska.ui.about.AboutRecyclerLayoutStrategy"/>
+
+        <import type="cz.covid19cz.erouska.R" />
+
+        <import type="cz.covid19cz.erouska.ui.about.AboutRecyclerLayoutStrategy" />
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.about.AboutVM" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:viewModel="@{vm}"
-        app:items="@{vm.items}"
-        app:layoutStrategy="@{AboutRecyclerLayoutStrategy.INSTANCE}"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false"
-        />
+        android:layout_height="match_parent">
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:url="@{vm.aboutWebUrl}"
-        app:java_script_enabled="@{true}"
-        app:visibleOrGone="@{vm.aboutWebUrl != null}"/>
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="v1.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:items="@{vm.items}"
+            app:layoutStrategy="@{AboutRecyclerLayoutStrategy.INSTANCE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/version"
+            app:viewModel="@{vm}" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:java_script_enabled="@{true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/version"
+            app:url="@{vm.aboutWebUrl}"
+            app:visibleOrGone="@{vm.aboutWebUrl != null}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

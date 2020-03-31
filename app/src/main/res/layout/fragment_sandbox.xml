@@ -1,120 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="cz.covid19cz.erouska.R"/>
-        <import type="cz.covid19cz.erouska.BuildConfig"/>
+
+        <import type="cz.covid19cz.erouska.R" />
+
+        <import type="cz.covid19cz.erouska.BuildConfig" />
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
+
         <variable
             name="lifecycle"
             type="androidx.lifecycle.LifecycleOwner" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/layoutSettngs"
-    app:cardCornerRadius="@dimen/card_radius"
-    app:contentPadding="16dp"
-    android:layout_margin="16dp"
-    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textBuid"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layoutSettngs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:contentPadding="16dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textBuid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("BUID: %s", vm.buid)}'
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="BUID: 1234567890" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{vm.advertisingSupportText}'
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textBuid"
+                    tools:text="Podporuje vysílání" />
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibleOrGone="@{vm.serviceRunning}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:enabled="@{!vm.buid.empty &amp;&amp; !vm.serviceRunning}"
+                    android:onClick="@{() -> vm.start()}"
+                    android:text="ZAP"
+                    app:layout_constraintEnd_toStartOf="@id/buttonStop"
+                    app:layout_constraintTop_toTopOf="@id/buttonStop" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonStop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="@{vm.serviceRunning}"
+                    android:onClick="@{() -> vm.stop()}"
+                    android:text="VYP"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textBuid" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("verze %s",BuildConfig.VERSION_NAME)}'
+                    android:textColor="#ccc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="1.0.0" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonDbExplorer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> vm.openDbExplorer()}"
+                    android:text="DB"
+                    app:layout_constraintStart_toStartOf="@id/buttonStart"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:items="@{vm.devices}"
+            app:layoutId="@{R.layout.item_scan_result}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutSettngs"
+            app:lifecycle="@{lifecycle}" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="BUID: 1234567890"
-            android:text='@{String.format("BUID: %s", vm.buid)}'
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textBuid"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Podporuje vysílání"
-            android:textSize="12sp"
-            android:text='@{vm.advertisingSupportText}' />
-
-        <ProgressBar
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="16dp"
-            app:visibleOrGone="@{vm.serviceRunning}"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonStart"
-            app:layout_constraintTop_toTopOf="@id/buttonStop"
-            app:layout_constraintEnd_toStartOf="@id/buttonStop"
-            android:layout_marginRight="8dp"
-            android:enabled="@{!vm.buid.empty &amp;&amp; !vm.serviceRunning}"
-            android:text="ZAP"
-            android:onClick="@{() -> vm.start()}"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonStop"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/textBuid"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:enabled="@{vm.serviceRunning}"
-            android:text="VYP"
-            android:onClick="@{() -> vm.stop()}"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{String.format("verze %s",BuildConfig.VERSION_NAME)}'
-            tools:text="1.0.0"
-            android:textColor="#ccc"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonDbExplorer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="DB"
-            android:onClick="@{() -> vm.openDbExplorer()}"
-            app:layout_constraintStart_toStartOf="@id/buttonStart"
-            app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
+            android:id="@+id/easter"
+            android:src="@drawable/velvoff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutSettngs" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.cardview.widget.CardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/layoutSettngs"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:items="@{vm.devices}"
-        app:layoutId="@{R.layout.item_scan_result}"
-        app:lifecycle="@{lifecycle}"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>
