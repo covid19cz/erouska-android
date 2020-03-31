@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
@@ -27,6 +28,9 @@ fun Context.isLocationEnabled(): Boolean {
         mode != Settings.Secure.LOCATION_MODE_OFF
     }
 }
+
+fun Context.isBatterySaverEnabled() =
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getSystemService<PowerManager>()?.isPowerSaveMode ?: false
 
 fun Context.hasLocationPermission(): Boolean {
     return PermissionChecker.checkSelfPermission(
