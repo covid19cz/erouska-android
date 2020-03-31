@@ -48,6 +48,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("aboutApi")
     val aboutWeb
         get() = firebaseRemoteConfig.getString("aboutWeb")
+    val termsAndConditionsLink
+        get() = firebaseRemoteConfig.getString("termsAndConditionsLink")
+    val homepageLink
+        get() = firebaseRemoteConfig.getString("homepageLink")
 
     var overrideAdvertiseTxPower : Int? = null
 
