@@ -4,12 +4,14 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
+import arch.livedata.SafeMutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.ui.about.entity.AboutProfileItem
 import cz.covid19cz.erouska.ui.about.entity.AboutRoleItem
 import cz.covid19cz.app.ui.base.UrlEvent
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.about.entity.AboutIntroItem
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
@@ -26,6 +28,7 @@ class AboutVM : BaseVM() {
 
     val items = ObservableArrayList<Any>()
     val aboutWebUrl = MutableLiveData<String>()
+    val loading = SafeMutableLiveData(false)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -33,7 +36,7 @@ class AboutVM : BaseVM() {
     }
 
     fun loadData() {
-
+        loading.value = true
         subscribe(Observable.just(AppConfig.aboutApi).map { url ->
             val urlConnection = URL(url).openConnection() as HttpURLConnection
 
@@ -55,10 +58,12 @@ class AboutVM : BaseVM() {
             return@map roles
         }, {
             L.e(it)
+            loading.value = false
             //Show website if api fails
             aboutWebUrl.value = AppConfig.aboutWeb
         }, {
-            //items.add(AboutIntroItem())
+            loading.value = false
+            items.add(AboutIntroItem())
             items.addAll(it)
         }
         )
@@ -66,5 +71,14 @@ class AboutVM : BaseVM() {
 
     fun profileClick(item: AboutProfileItem) {
         publish(UrlEvent(item.linkedin))
+    }
+
+    fun logoClick(){
+        publish(UrlEvent("https://covid19cz.cz"))
+    }
+
+    fun versionClick() : Boolean{
+        navigate(R.id.nav_sandbox)
+        return true
     }
 }

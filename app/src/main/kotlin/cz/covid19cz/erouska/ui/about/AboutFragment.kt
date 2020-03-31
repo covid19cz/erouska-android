@@ -23,11 +23,5 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutVM>(R.layout.fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        @SuppressLint("SetTextI18n")
-        binding.version.text = "v${BuildConfig.VERSION_NAME}"
-        binding.version.setOnLongClickListener {
-            navigate(R.id.action_nav_about_to_nav_sandbox)
-            return@setOnLongClickListener true
-        }
     }
 }
