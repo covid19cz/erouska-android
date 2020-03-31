@@ -35,10 +35,12 @@
 
         <ImageView
             android:id="@+id/descriptionInfo"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginEnd="@dimen/fragment_padding"
             android:src="@drawable/ic_info"
+            android:padding="4dp"
+            android:foreground="@drawable/circle_highlight_selector"
             android:onClick="@{() -> vm.showDescription()}"
             app:layout_constraintStart_toEndOf="@id/textStats"
             app:layout_constraintEnd_toEndOf="parent"
