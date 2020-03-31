@@ -7,6 +7,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.Auth
+import cz.covid19cz.erouska.utils.formatPhoneNumber
 
 class DashboardVM(
     val bluetoothRepository: BluetoothRepository,
@@ -14,7 +15,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
-    val phoneNumber = Auth.getPhoneNumber()
+    val phoneNumber = Auth.getPhoneNumber().formatPhoneNumber()
 
     private val serviceObserver = Observer<Boolean> { isRunning ->
         if (!isRunning && !prefs.getAppPaused()) {
