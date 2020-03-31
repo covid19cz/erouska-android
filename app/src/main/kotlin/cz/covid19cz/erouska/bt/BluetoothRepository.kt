@@ -272,9 +272,8 @@ class BluetoothRepository(
         L.d("Scan by UUID onResult")
 
         result.scanRecord?.bytes?.let { bytes ->
-            if (isServiceUUIDMatch(result) || canBeIosOnBackground(bytes)) {
+            if (isServiceUUIDMatch(result) || canBeIosOnBackground(result.scanRecord)) {
                 val deviceId = getBuidFromAdvertising(bytes)
-
                 if (deviceId != null) {
                     // It's time to handle Android Device
                     handleAndroidDevice(result, deviceId)
@@ -289,8 +288,8 @@ class BluetoothRepository(
     private fun onScanIosOnBackgroundResult(result: ScanResult) {
         L.d("Scan All onResult")
 
-        result.scanRecord?.bytes?.let { bytes ->
-            if (!isServiceUUIDMatch(result) && canBeIosOnBackground(bytes)) {
+        result.scanRecord?.let {
+            if (!isServiceUUIDMatch(result) && canBeIosOnBackground(it)) {
                 // It's time to handle iOS Device in background
                 handleIosDevice(result)
             }
@@ -310,8 +309,10 @@ class BluetoothRepository(
      *
      * This checks for the apple inc. key and then matches the data against the above
      */
-    private fun canBeIosOnBackground(bytes: ByteArray): Boolean {
-        return (bytes.size > 31 && (bytes[29] == 0x00.toByte() && bytes[30] == 0x02.toByte() && bytes[31] == 0x00.toByte()))
+    private fun canBeIosOnBackground(scanRecord: ScanRecord?): Boolean {
+        return scanRecord?.manufacturerSpecificData?.get(APPLE_MANUFACTURER_ID)?.let { data ->
+            data.size > 10 && data[0] == 0x01.toByte() && data[1] == 0x00.toByte() && data[9] == 0x02.toByte()
+        } ?: false
     }
 
     private fun handleAndroidDevice(result: ScanResult, deviceId: String) {
