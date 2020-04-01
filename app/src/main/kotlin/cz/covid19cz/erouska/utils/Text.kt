@@ -57,3 +57,10 @@ fun @receiver:PluralsRes Int.toQuantityText(quantity: Int, vararg formatArgs: An
 fun setText(textView: TextView, text: Text?) {
     textView.text = text?.toCharSequence(textView.context)
 }
+
+private val PHONE_REGEX = Regex("""(\+\d+)?\s*(\d{3})\s*(\d{3})\s*(\d{3})""")
+
+fun String.formatPhoneNumber(): String {
+    val match = PHONE_REGEX.matchEntire(this) ?: return this
+    return match.groupValues.drop(1).joinToString(" ")
+}

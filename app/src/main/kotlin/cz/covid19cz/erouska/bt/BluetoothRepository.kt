@@ -55,23 +55,18 @@ class BluetoothRepository(
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
-            L.d("On scan result")
             onScanResult(result)
         }
 
         override fun onScanFailed(errorCode: Int) {
-            L.d("Scan failed with error $errorCode")
             isScanning = false
             BluetoothLeScannerCompat.getScanner().stopScan(this)
-            super.onScanFailed(errorCode)
         }
 
         override fun onBatchScanResults(results: MutableList<ScanResult>) {
-            L.d("Batch scan result")
             results.forEach {
                 onScanResult(it)
             }
-            super.onBatchScanResults(results)
         }
     }
 
@@ -83,14 +78,12 @@ class BluetoothRepository(
         override fun onScanFailed(errorCode: Int) {
             isScanningIosOnBackground = false
             BluetoothLeScannerCompat.getScanner().stopScan(this)
-            super.onScanFailed(errorCode)
         }
 
         override fun onBatchScanResults(results: MutableList<ScanResult>) {
             results.forEach {
                 onScanIosOnBackgroundResult(it)
             }
-            super.onBatchScanResults(results)
         }
     }
 
@@ -98,13 +91,11 @@ class BluetoothRepository(
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
             L.d("BLE advertising started.")
             isAdvertising = true
-            super.onStartSuccess(settingsInEffect)
         }
 
         override fun onStartFailure(errorCode: Int) {
             isAdvertising = false
             L.e("BLE advertising failed: $errorCode")
-            super.onStartFailure(errorCode)
         }
     }
 
@@ -167,10 +158,8 @@ class BluetoothRepository(
             val characteristic =
                 gatt.getService(SERVICE_UUID)?.getCharacteristic(GATT_CHARACTERISTIC_UUID)
             if (characteristic != null) {
-                L.d("GATT characteristic found")
                 gatt.readCharacteristic(characteristic)
             } else {
-                L.d("GATT characteristic not found")
                 disconnectFromGatt(gatt)
             }
         }
@@ -269,8 +258,6 @@ class BluetoothRepository(
     }
 
     private fun onScanResult(result: ScanResult) {
-        L.d("Scan by UUID onResult")
-
         result.scanRecord?.bytes?.let { bytes ->
             if (isServiceUUIDMatch(result) || canBeIosOnBackground(result.scanRecord)) {
                 val deviceId = getBuidFromAdvertising(bytes)
@@ -286,8 +273,6 @@ class BluetoothRepository(
     }
 
     private fun onScanIosOnBackgroundResult(result: ScanResult) {
-        L.d("Scan All onResult")
-
         result.scanRecord?.let {
             if (!isServiceUUIDMatch(result) && canBeIosOnBackground(it)) {
                 // It's time to handle iOS Device in background

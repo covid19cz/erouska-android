@@ -58,19 +58,19 @@
     </entry>
     <entry>
         <key>proclamationLink</key>
-        <value>https://www.erouska.cz</value>
+        <value>https://erouska.cz</value>
     </entry>
     <entry>
         <key>tutorialLink</key>
-        <value>https://www.erouska.cz/navody</value>
+        <value>https://erouska.cz/navody</value>
     </entry>
     <entry>
         <key>aboutApi</key>
         <value>https://files.jenda.eu/covid-about/output.json</value>
     </entry>
     <entry>
-        <key>aboutWeb</key>
-        <value>https://www.erouska.cz/tym</value>
+        <key>aboutLink</key>
+        <value>https://erouska.cz/tym</value>
     </entry>
     <entry>
         <key>showBatteryOptimizationTutorial</key>
@@ -102,10 +102,10 @@
     </entry>
     <entry>
         <key>termsAndConditionsLink</key>
-        <value>https://www.erouska.cz</value>
+        <value>https://erouska.cz</value>
     </entry>
     <entry>
         <key>homepageLink</key>
-        <value>https://www.erouska.cz</value>
+        <value>https://erouska.cz</value>
     </entry>
 </defaultsMap>

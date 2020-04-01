@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.permissions
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -13,6 +14,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.permissions.onboarding.event.PermissionsOnboarding
 import io.reactivex.disposables.CompositeDisposable
 import kotlin.reflect.KClass
+
 
 open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int, viewModelClass: KClass<T>) :
     BaseFragment<FragmentPermissionsOnboardingBinding, T>(
@@ -64,16 +66,21 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
     }
 
     private fun showPermissionRequiredDialog() {
+        val layout = layoutInflater.inflate(R.layout.alert_dialog_title, null)
+        layout.findViewById<TextView>(R.id.alert_title)?.let {
+            it.text = getString(R.string.permission_rationale_title)
+        }
+
         MaterialAlertDialogBuilder(context)
-            .setTitle(getString(R.string.permission_rationale_title))
+            .setCustomTitle(layout)
             .setMessage(getString(R.string.permission_rationale_body))
             .setPositiveButton(getString(R.string.permission_rationale_settings))
-            { dialog, which ->
+            { dialog, _ ->
                 dialog.dismiss()
                 requireContext().openPermissionsScreen()
             }
             .setNegativeButton(getString(R.string.permission_rationale_dismiss))
-            { dialog, which -> dialog.dismiss() }
+            { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
@@ -84,5 +91,4 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
     private fun enableBluetooth() {
         requestEnableBt()
     }
-
-    }
+}
