@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.getSystemService
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 
 
@@ -78,4 +79,12 @@ fun Context.withInternet(onlineAction: () -> Unit) {
         R.string.no_internet,
         Toast.LENGTH_SHORT
     ).show()
+}
+
+fun Context.shareApp() {
+    val text = getString(R.string.share_app_text, AppConfig.shareAppDynamicLink)
+    val intent = Intent(Intent.ACTION_SEND)
+    intent.type = "text/plain"
+    intent.putExtra(Intent.EXTRA_TEXT, text)
+    startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
 }
