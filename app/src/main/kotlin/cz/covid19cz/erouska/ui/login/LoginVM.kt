@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.login
 
 import android.os.Build
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
@@ -21,7 +22,9 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.toText
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 class LoginVM(
     private val sharedPrefsRepository: SharedPrefsRepository
@@ -66,6 +69,9 @@ class LoginVM(
             this@LoginVM.verificationId = verificationId
             resendToken = token
             mutableState.postValue(EnterCode(false, phoneNumber))
+            smsCountDownTimer.cancel()
+            smsCountDownTimer.start()
+
         }
 
         override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
@@ -78,6 +84,19 @@ class LoginVM(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val functions = Firebase.functions(FIREBASE_REGION)
     private lateinit var phoneNumber: String
+    private var smsCountDownTimer: CountDownTimer = object: CountDownTimer(AppConfig.smsTimeoutSeconds * 1000, 1000) {
+        override fun onFinish() {
+            mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            val df = SimpleDateFormat("mm:ss")
+            remainingTime.postValue(df.format(millisUntilFinished))
+        }
+
+    }
+
+    val remainingTime = MutableLiveData<String>("")
 
     init {
         auth.setLanguageCode("cs")
@@ -110,7 +129,13 @@ class LoginVM(
         }
     }
 
+    override fun onCleared() {
+        smsCountDownTimer.cancel()
+        super.onCleared()
+    }
+
     fun backPressed() {
+        smsCountDownTimer.cancel()
         mutableState.postValue(EnterPhoneNumber(false))
     }
 

@@ -72,19 +72,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/battery_opt_desc" />
 
+                <View
+                    android:id="@+id/divider_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ECECEC"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guide_btn" />
+
+                <TextView
+                    android:id="@+id/guide_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?selectableItemBackground"
+                    android:drawableStart="@drawable/ic_help"
+                    android:drawablePadding="16dp"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/battery_opt_desc_2"
+                    tools:text="Návod pro Huawei" />
+
+                <View
+                    android:id="@+id/divider_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ECECEC"
+                    app:layout_constraintBottom_toBottomOf="@+id/guide_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/guide_btn"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Návod pro Huawei"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/done_btn" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/done_btn"

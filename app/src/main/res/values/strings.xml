@@ -47,8 +47,8 @@
     <string name="share_app">Sdílet aplikaci</string>
     <string name="upload_data">Kontaktovali mě hygienici</string>
     <string name="show_my_data">Zobrazit moje data</string>
-    <string name="pause_app">Pozastavit sbírání dat</string>
-    <string name="start_app">Spustit sbírání dat</string>
+    <string name="pause_app">Pozastavit eRoušku</string>
+    <string name="start_app">Spustit eRoušku</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška pro správné fungování potřebuje používat Bluetooth</string>
@@ -107,6 +107,7 @@
     <string name="login_verify">Ověřit</string>
     <string name="login_verification_code">Ověřovací kód</string>
     <string name="login_phone_number_sms_sent">Na telefonní číslo %s jsme vám zaslali SMS s\u00A0ověřovacím kódem.</string>
+    <string name="login_phone_sms_timeout">Platnost kódu vyprší za %1$s.</string>
     <string name="login_code_read_automatically">Ověřovací kód jsme automaticky předvyplnili z\u00A0SMS zprávy.</string>
     <string name="contacts_title">Kontakty</string>
     <string name="contacts_suspicion_desc"><b>Máte podezření na koronavirus?</b>\n\nZůstaňte doma a\u00A0kontaktuje svého praktického lékaře nebo příslušnou hygienickou stanici.</string>
