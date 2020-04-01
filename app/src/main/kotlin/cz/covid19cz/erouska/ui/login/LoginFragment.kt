@@ -69,7 +69,8 @@ class LoginFragment :
             login_verif_code,
             login_statement,
             error_button_back,
-            phone_number_code
+            phone_number_code,
+            code_timeout
         )
 
         setupListeners()
@@ -135,7 +136,8 @@ class LoginFragment :
                     phone_number_code,
                     login_verif_code_input,
                     login_verif_code,
-                    login_verif_code_send_btn
+                    login_verif_code_send_btn,
+                    code_timeout
                 )
                 phone_number_code.text =
                     getString(R.string.login_phone_number_sms_sent, state.phoneNumber)
