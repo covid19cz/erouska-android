@@ -19,7 +19,6 @@ import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
-import cz.covid19cz.erouska.receiver.ScreenStateReceiver
 import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable
@@ -36,12 +35,10 @@ class CovidService : Service() {
         const val ACTION_UPDATE = "ACTION_UPDATE"
         const val ACTION_PAUSE = "ACTION_PAUSE"
         const val ACTION_RESUME = "ACTION_RESUME"
-        const val ACTION_SCREEN_STATE_CHANGE = "ACTION_SCREEN_STATE_CHANGE"
 
         const val ACTION_MASK_STARTED = "action_service_started"
         const val ACTION_MASK_STOPPED = "action_service_stopped"
 
-        const val EXTRA_SCREEN_STATE = "SCREEN_STATE"
         const val EXTRA_HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
         const val EXTRA_CLEAR_DATA = "CLEAR_DATA"
 
@@ -81,13 +78,6 @@ class CovidService : Service() {
             return serviceIntent
         }
 
-        fun screenStateChange(c: Context, newState: String) {
-            val intent = Intent(c, CovidService::class.java)
-            intent.action = ACTION_SCREEN_STATE_CHANGE
-            intent.putExtra(EXTRA_SCREEN_STATE, newState)
-            c.startService(intent)
-        }
-
         fun isRunning(context: Context): Boolean {
             val manager =
                 context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
@@ -103,7 +93,6 @@ class CovidService : Service() {
     private val locationStateReceiver by inject<LocationStateReceiver>()
     private val bluetoothStateReceiver by inject<BluetoothStateReceiver>()
     private val batterySaverStateReceiver by inject<BatterSaverStateReceiver>()
-    private val screenStateReceiver by inject<ScreenStateReceiver>()
     private val btUtils by inject<BluetoothRepository>()
     private val prefs by inject<SharedPrefsRepository>()
     private val wakeLockManager by inject<WakeLockManager>()
@@ -126,57 +115,62 @@ class CovidService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             // null intent is in case service is restarted by system
-            ACTION_START, null -> {
-                servicePaused = false
-                prefs.setAppPaused(false)
-                createNotification()
-                turnMaskOn()
-                wakeLockManager.acquire()
-            }
-            ACTION_STOP -> {
-                wakeLockManager.release()
-                servicePaused = true
-                prefs.setAppPaused(true)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    stopForeground(STOP_FOREGROUND_DETACH)
-                } else {
-                    stopForeground(true)
-                }
-                stopSelf()
-                if (intent.getBooleanExtra(EXTRA_HIDE_NOTIFICATION, false)) {
-                    notificationManager.hideNotification(this)
-                } else {
-                    createNotification()
-                }
-                if (intent.getBooleanExtra(EXTRA_CLEAR_DATA, false)) {
-                    btUtils.clearScanResults()
-                }
-            }
-            ACTION_UPDATE -> {
-                createNotification()
-                if (isLocationEnabled() && btUtils.isBtEnabled()) {
-                    turnMaskOn()
-                } else {
-                    turnMaskOff()
-                }
-            }
-            ACTION_PAUSE -> {
-                servicePaused = true
-                prefs.setAppPaused(true)
-                createNotification()
-                turnMaskOff()
-            }
-            ACTION_RESUME -> {
-                servicePaused = false
-                prefs.setAppPaused(false)
-                createNotification()
-                turnMaskOn()
-            }
-            ACTION_SCREEN_STATE_CHANGE -> {
-                L.d("Screen state change: ${intent.getStringExtra(EXTRA_SCREEN_STATE)}")
-            }
+            ACTION_START, null -> start()
+            ACTION_STOP -> stop(intent)
+            ACTION_UPDATE -> update()
+            ACTION_PAUSE -> pause()
+            ACTION_RESUME -> resume()
         }
         return START_STICKY
+    }
+
+    private fun pause() {
+        servicePaused = true
+        prefs.setAppPaused(true)
+        createNotification()
+        turnMaskOff()
+    }
+
+    private fun update() {
+        createNotification()
+        if (isLocationEnabled() && btUtils.isBtEnabled()) {
+            turnMaskOn()
+        } else {
+            turnMaskOff()
+        }
+    }
+
+    private fun start() {
+        resume()
+        wakeLockManager.acquire()
+    }
+
+    private fun resume() {
+        servicePaused = false
+        prefs.setAppPaused(false)
+        createNotification()
+        turnMaskOn()
+    }
+
+    private fun stop(intent: Intent) {
+        wakeLockManager.release()
+        servicePaused = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            stopForeground(STOP_FOREGROUND_DETACH)
+        } else {
+            stopForeground(true)
+        }
+        stopSelf()
+        if (intent.getBooleanExtra(EXTRA_HIDE_NOTIFICATION, false)) {
+            notificationManager.hideNotification(this)
+        } else {
+            createNotification()
+        }
+        if (intent.getBooleanExtra(EXTRA_CLEAR_DATA, false)) {
+            btUtils.clearScanResults()
+        } else {
+            prefs.setAppPaused(true)
+        }
     }
 
     override fun onDestroy() {
@@ -232,17 +226,12 @@ class CovidService : Service() {
 
         val batterySaverFilter = IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
         registerReceiver(batterySaverStateReceiver, batterySaverFilter)
-
-        val screenStateFilter = IntentFilter(Intent.ACTION_SCREEN_OFF)
-        screenStateFilter.addAction(Intent.ACTION_SCREEN_ON)
-        registerReceiver(screenStateReceiver, screenStateFilter)
     }
 
     private fun unsubscribeFromReceivers() {
         unregisterReceiver(locationStateReceiver)
         unregisterReceiver(bluetoothStateReceiver)
         unregisterReceiver(batterySaverStateReceiver)
-        unregisterReceiver(screenStateReceiver)
     }
 
     private fun startBleScanning() {
