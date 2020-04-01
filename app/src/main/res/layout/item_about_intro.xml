@@ -13,23 +13,17 @@
             type="cz.covid19cz.erouska.ui.about.AboutVM" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:cardCornerRadius="16dp"
-        app:contentPadding="16dp">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding">
 
             <TextView
                 android:id="@+id/textIntro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textSize="14sp"
                 android:text="@string/about_intro"
                 app:layout_constraintTop_toTopOf="parent"
                 />
@@ -49,5 +43,4 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 </layout>

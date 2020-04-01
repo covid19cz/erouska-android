@@ -89,7 +89,7 @@
     <string name="my_data_column_rssi">RSSI</string>
 
     <string name="about_title">O\u00A0aplikaci</string>
-    <string name="about_intro">Aplikace vznikla v\u00A0rámci iniciativy Covid19CZ. Vyvíjeli jsme ji s\u00A0důrazem na ochranu soukromí, abychom jí bez obav mohli používat i\u00A0my. Data se ukládají jen do vašeho zařízení a\u00A0nelze z\u00A0nich zjistit, kde jste se pohybovali. Děkujeme, že aplikaci používáte a\u00A0věříme, že se nám společně podaří epidemii zvládnout.\n\nTým eRoušky</string>
+    <string name="about_intro">Aplikace vznikla v\u00A0rámci iniciativy Covid19CZ. Vyvíjeli jsme ji s\u00A0důrazem na ochranu soukromí, abychom ji bez obav mohli používat i\u00A0my. Data se ukládají jen do vašeho zařízení a\u00A0nelze z\u00A0nich zjistit, kde jste se pohybovali. Děkujeme, že aplikaci používáte a\u00A0věříme, že se nám společně podaří epidemii zvládnout.\n\nTým eRoušky</string>
     <string name="about_managers">Řízení projektu</string>
     <string name="about_app_devs">Vývoj aplikace</string>
     <string name="about_ux_ui">UX/UI</string>
