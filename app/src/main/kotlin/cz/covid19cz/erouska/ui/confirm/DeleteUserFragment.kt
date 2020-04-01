@@ -1,6 +1,8 @@
 package cz.covid19cz.erouska.ui.confirm
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.service.CovidService
@@ -16,7 +18,7 @@ class DeleteUserFragment : ConfirmationFragment() {
 
     override fun doWhenFinished() {
         context?.let {
-            it.startService(CovidService.stopService(it, true))
+            it.startService(CovidService.stopService(it, hideNotification = true, clearData = true))
         }
         navigate(R.id.action_nav_delete_user_to_nav_delete_user_success)
     }
@@ -24,5 +26,10 @@ class DeleteUserFragment : ConfirmationFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.CLOSE)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.onboarding, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

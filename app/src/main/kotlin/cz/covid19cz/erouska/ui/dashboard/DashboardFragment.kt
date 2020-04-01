@@ -71,12 +71,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 }
             }
         }
+        viewModel.init()
 
         checkIfServiceIsRunning()
-
         checkIfSignedIn()
-
-        viewModel.init()
     }
 
     private fun showBatterySaverDialog() {
@@ -136,6 +134,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         return when (item.itemId) {
             R.id.menu_share -> {
                 shareApp()
+                true
+            }
+            R.id.nav_about -> {
+                navigate(R.id.nav_about)
                 true
             }
             else -> super.onOptionsItemSelected(item)
