@@ -1,4 +1,4 @@
-package cz.covid19cz.app.ui.base
+package cz.covid19cz.erouska.ui.base
 
 import arch.event.LiveEvent
 

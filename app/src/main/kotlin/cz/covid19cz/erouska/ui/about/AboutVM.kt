@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.ui.about.entity.AboutProfileItem
 import cz.covid19cz.erouska.ui.about.entity.AboutRoleItem
-import cz.covid19cz.app.ui.base.UrlEvent
+import cz.covid19cz.erouska.ui.base.UrlEvent
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.about.entity.AboutIntroItem

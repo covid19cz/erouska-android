@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.R
@@ -50,5 +51,20 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
 
     fun goBack() {
         navController().navigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_about -> {
+                navigate(R.id.nav_about, Bundle().apply {
+                    // replicate the
+                    putBoolean("fullscreen", arguments?.getBoolean("fullscreen") ?: false)
+                })
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }
