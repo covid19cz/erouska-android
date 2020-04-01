@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.confirm
 
+import android.view.Menu
+import android.view.MenuInflater
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.service.CovidService
 
@@ -13,8 +15,13 @@ class DeleteDataFragment : ConfirmationFragment() {
 
     override fun doWhenFinished() {
         context?.let {
-            it.startService(CovidService.stopService(it))
+            it.startService(CovidService.stopService(it, clearData = true))
         }
         navigate(R.id.action_nav_delete_data_to_nav_delete_data_success)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.onboarding, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

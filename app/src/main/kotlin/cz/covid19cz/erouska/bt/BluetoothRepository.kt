@@ -399,7 +399,7 @@ class BluetoothRepository(
         return if (resultHex != "00000000000000000000") resultHex else null
     }
 
-    private fun clearScanResults() {
+    fun clearScanResults() {
         scanResultsList.clear()
         scanResultsMap.clear()
         clearIosDevices()

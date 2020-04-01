@@ -79,6 +79,9 @@ class MainActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.nav_about -> {
+                false
+            }
             R.id.nav_help -> {
                 navigate(R.id.nav_help, Bundle().apply { putBoolean("fullscreen", true) })
                 true

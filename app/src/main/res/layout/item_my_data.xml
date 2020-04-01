@@ -23,61 +23,63 @@
         <TextView
             android:id="@+id/textDate"
             android:layout_width="0dp"
-            android:layout_height="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textTime"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
             android:gravity="center"
-            tools:text="25.3.2020"
+            android:text="@{vm.formatDate(item.timestampEnd)}"
             android:textColor="@color/textColorPrimary"
-            android:text="@{vm.formatDate(item.timestampEnd)}" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="25.3.2020" />
 
 
         <TextView
             android:id="@+id/textTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/textDate"
-            app:layout_constraintEnd_toStartOf="@id/textBuid"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            tools:text="02:02"
+            android:text="@{vm.formatTime(item.timestampEnd)}"
             android:textColor="@color/textColorPrimary"
-            android:text="@{vm.formatTime(item.timestampEnd)}" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textBuid"
+            app:layout_constraintStart_toEndOf="@id/textDate"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="02:02" />
 
         <TextView
             android:id="@+id/textBuid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/textTime"
-            app:layout_constraintEnd_toStartOf="@id/textRssi"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            tools:text="...1234"
+            android:text="@{item.maskedBuid}"
             android:textColor="@color/textColorPrimary"
-            android:text="@{item.maskedBuid}" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textRssi"
+            app:layout_constraintStart_toEndOf="@id/textTime"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="...1234" />
 
         <TextView
             android:id="@+id/textRssi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/textBuid"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
             android:text='@{String.format("%d dBm",item.rssiMed)}'
-            tools:text="-70 db"
-            app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.rssiMed)}" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textBuid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.rssiMed)}"
+            tools:text="-70 db" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="#ECECEC"/>
+            android:background="#ECECEC"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

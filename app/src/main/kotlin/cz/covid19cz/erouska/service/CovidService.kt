@@ -43,6 +43,7 @@ class CovidService : Service() {
 
         const val EXTRA_SCREEN_STATE = "SCREEN_STATE"
         const val EXTRA_HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
+        const val EXTRA_CLEAR_DATA = "CLEAR_DATA"
 
         fun startService(c: Context): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
@@ -50,10 +51,15 @@ class CovidService : Service() {
             return serviceIntent
         }
 
-        fun stopService(c: Context, hideNotification: Boolean = false): Intent {
+        fun stopService(
+            c: Context,
+            hideNotification: Boolean = false,
+            clearData: Boolean = false
+        ): Intent {
             val serviceIntent = Intent(c, CovidService::class.java)
             serviceIntent.action = ACTION_STOP
             serviceIntent.putExtra(EXTRA_HIDE_NOTIFICATION, hideNotification)
+            serviceIntent.putExtra(EXTRA_CLEAR_DATA, clearData)
             return serviceIntent
         }
 
@@ -139,9 +145,11 @@ class CovidService : Service() {
                 stopSelf()
                 if (intent.getBooleanExtra(EXTRA_HIDE_NOTIFICATION, false)) {
                     notificationManager.hideNotification(this)
-                }
-                else {
+                } else {
                     createNotification()
+                }
+                if (intent.getBooleanExtra(EXTRA_CLEAR_DATA, false)) {
+                    btUtils.clearScanResults()
                 }
             }
             ACTION_UPDATE -> {
