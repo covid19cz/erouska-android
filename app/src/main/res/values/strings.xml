@@ -47,8 +47,8 @@
     <string name="share_app">Sdílet aplikaci</string>
     <string name="upload_data">Kontaktovali mě hygienici</string>
     <string name="show_my_data">Zobrazit moje data</string>
-    <string name="pause_app">Pozastavit sbírání dat</string>
-    <string name="start_app">Spustit sbírání dat</string>
+    <string name="pause_app">Pozastavit eRoušku</string>
+    <string name="start_app">Spustit eRoušku</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška pro správné fungování potřebuje používat Bluetooth</string>
