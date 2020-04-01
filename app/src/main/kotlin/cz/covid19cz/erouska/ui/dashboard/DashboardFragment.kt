@@ -18,6 +18,7 @@ import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.hasLocationPermission
 import cz.covid19cz.erouska.ext.isBatterySaverEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
+import cz.covid19cz.erouska.ext.shareApp
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -133,7 +134,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_share -> {
-                shareApp()
+                requireContext().shareApp()
                 true
             }
             R.id.nav_about -> {
@@ -205,17 +206,5 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
         )
-    }
-
-    private fun shareApp() {
-        val text = getString(R.string.share_app_text, AppConfig.shareAppDynamicLink)
-        shareLink(text)
-    }
-
-    private fun shareLink(link: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, link)
-        startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
     }
 }
