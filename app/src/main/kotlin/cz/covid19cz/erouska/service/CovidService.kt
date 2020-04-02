@@ -10,6 +10,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.BluetoothRepository
@@ -170,6 +171,13 @@ class CovidService : Service() {
             btUtils.clearScanResults()
         } else {
             prefs.setAppPaused(true)
+        }
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        if (!isRunning(this)) {
+            ContextCompat.startForegroundService(this, Companion.startService(this))
         }
     }
 
