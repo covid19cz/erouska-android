@@ -84,7 +84,7 @@ class LoginVM(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val functions = Firebase.functions(FIREBASE_REGION)
     private lateinit var phoneNumber: String
-    private var smsCountDownTimer: CountDownTimer = object: CountDownTimer(AppConfig.smsTimeoutSeconds * 1000, 1000) {
+    private var smsCountDownTimer: CountDownTimer = object: CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
         override fun onFinish() {
             mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
         }
