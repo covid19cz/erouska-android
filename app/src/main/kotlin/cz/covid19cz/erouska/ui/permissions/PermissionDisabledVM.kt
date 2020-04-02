@@ -28,12 +28,12 @@ class PermissionDisabledVM(
         }
 
         if (state.value == ScreenState.ALL_ENABLED) {
-            navigate(R.id.nav_dashboard)
+            navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
         }
     }
 
     override fun goToNextScreen() {
-        navigate(R.id.nav_dashboard)
+        navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
     }
 
     @StringRes fun getButtonTitle():  Int {
