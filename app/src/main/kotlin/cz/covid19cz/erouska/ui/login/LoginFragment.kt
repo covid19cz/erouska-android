@@ -152,7 +152,8 @@ class LoginFragment :
                     phone_number_code,
                     login_verif_code_input,
                     login_verif_code,
-                    login_verif_code_send_btn
+                    login_verif_code_send_btn,
+                    code_timeout
                 )
                 phone_number_code.setText(R.string.login_code_read_automatically)
                 login_verif_code.isErrorEnabled = false

@@ -77,10 +77,15 @@
     <string name="my_data_tab_all_title">Všechny</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
 
-    <plurals name="my_data_count">
-        <item quantity="one">Za posledních %d\u00A0den jste potkali %d\u00A0uživatele aplikace eRouška.</item>
-        <item quantity="few">Za posledních %d\u00A0dní jste potkali %d\u00A0uživatele aplikace eRouška.</item>
-        <item quantity="other">Za posledních %d\u00A0dní jste potkali %d\u00A0uživatelů aplikace eRouška.</item>
+    <plurals name="my_data_count_part_1">
+        <item quantity="one">Za poslední %d\u00A0den</item>
+        <item quantity="few">Za poslední %d\u00A0dny</item>
+        <item quantity="other">Za posledních %d\u00A0dní</item>
+    </plurals>
+
+    <plurals name="my_data_count_part_2">
+        <item quantity="one">jste potkali %d\u00A0uživatele aplikace eRouška.</item>
+        <item quantity="other">jste potkali %d\u00A0uživatelů aplikace eRouška.</item>
     </plurals>
 
     <string name="my_data_column_date">Datum</string>
@@ -150,7 +155,7 @@
     <string name="battery_opt_title">eRouška potřebuje běžet i\u00A0když s\u00A0ní právě nepracujete</string>
     <string name="battery_opt_desc">Váš telefon automaticky vypíná některé aplikace pokud s\u00A0nimi nepracujete, kvůli úspoře baterie.</string>
     <string name="battery_opt_desc_2">Povolte běh aplikace na pozadí v\u00A0nastavení telefonu. Návod pro svůj telefon najdete níže.</string>
-    <string name="battery_opt_done">Nastavení dokončeno</string>
+    <string name="battery_opt_done">Dokončit aktivaci</string>
     <string name="battery_opt_label">Aplikace na pozadí</string>
     <string name="guide_for">Návod pro %s</string>
 </resources>
