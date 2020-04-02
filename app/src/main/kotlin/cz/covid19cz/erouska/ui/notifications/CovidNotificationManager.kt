@@ -33,7 +33,7 @@ class CovidNotificationManager(private val service: CovidService) {
                     SERVICE_CHANNEL_ID,
                     service.getString(R.string.foreground_service_channel),
                     NotificationManager.IMPORTANCE_LOW
-                ),
+                ).apply { setShowBadge(false) },
                 NotificationChannel(
                     ALERT_CHANNEL_ID,
                     service.getString(R.string.foreground_service_alert_channel),
