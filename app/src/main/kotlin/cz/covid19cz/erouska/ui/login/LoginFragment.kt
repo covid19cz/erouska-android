@@ -199,7 +199,7 @@ class LoginFragment :
         val phoneNumber = login_verif_phone_input.text.toString()
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber, // Phone number to verify
-            AppConfig.smsTimeoutSeconds, // Timeout duration
+            AppConfig.smsAutoRetrievalSeconds, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             requireActivity(), // Activity (for callback binding)
             viewModel.verificationCallbacks

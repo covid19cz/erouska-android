@@ -28,6 +28,11 @@
         <key>smsTimeoutSeconds</key>
         <value>900</value>
     </entry>
+<!--    Sms-auto-retrieval timeout supports only duration between 0-120 seconds -->
+    <entry>
+        <key>smsAutoRetrievalSeconds</key>
+        <value>120</value>
+    </entry>
     <entry>
         <key>criticalExpositionRssi</key>
         <value>-75</value>

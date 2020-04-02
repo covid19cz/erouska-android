@@ -22,6 +22,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("scanMode").toInt()
     val smsTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
+    val smsAutoRetrievalSeconds
+        get() = firebaseRemoteConfig.getLong("smsAutoRetrievalSeconds")
     val advertiseRestartMinutes
         get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
     val criticalExpositionRssi
