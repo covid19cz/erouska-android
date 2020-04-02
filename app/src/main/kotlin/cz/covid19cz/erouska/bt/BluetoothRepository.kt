@@ -43,7 +43,7 @@ class BluetoothRepository(
     }
 
     private val scanResultsMap = HashMap<String, ScanSession>()
-    private val discoveredIosDevices = HashMap<String, ScanSession>()
+    private var discoveredIosDevices: MutableMap<String, ScanSession> = mutableMapOf()
     private val gattQueue: Queue<GattConnectionQueueEntry> = LinkedList()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
@@ -108,14 +108,6 @@ class BluetoothRepository(
                 L.d("GATT connected. Mac: ${gatt.device.address}")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                if (discoveredIosDevices[mac]?.deviceId == ScanSession.DEFAULT_BUID) {
-                    gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
-                        // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
-                        L.d("Unlocking GATT slot. Mac: ${gatt.device.address}")
-                        discoveredIosDevices.remove(gatt.device.address)
-                        gattFailDisposable?.dispose()
-                    }
-                }
                 disconnectFromGatt(gatt)
                 L.d("GATT disconnected. Mac: ${gatt.device.address}")
             }
@@ -358,6 +350,14 @@ class BluetoothRepository(
     private fun disconnectFromGatt(gatt: BluetoothGatt) {
         gatt.disconnect()
         gatt.close()
+        if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID) {
+            gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
+                // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
+                L.d("Unlocking GATT slot. Mac: ${gatt.device.address}")
+                discoveredIosDevices.remove(gatt.device.address)
+                gattFailDisposable?.dispose()
+            }
+        }
         gattQueue.poll()?.let {
             L.d("Removing finished GATT connection. Mac:${it.macAddress}")
         }
@@ -406,10 +406,12 @@ class BluetoothRepository(
     }
 
     private fun clearIosDevices() {
-        // Don't clear whole iOS device cache to preventing DDOS GATT
-        for (device in discoveredIosDevices) {
-            device.value.reset()
-        }
+        // Don't clear whole iOS device cache to preventing DDOS GATT, but remove UNKNOWN devices
+        discoveredIosDevices = discoveredIosDevices.filterValues {
+            it.deviceId != ScanSession.DEFAULT_BUID
+        }.apply {
+            forEach { it.value.reset() }
+        }.toMutableMap()
     }
 
     fun supportsAdvertising(): Boolean {
