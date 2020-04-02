@@ -21,6 +21,7 @@ import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
 import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
+import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -176,7 +177,7 @@ class CovidService : Service() {
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
-        if (!isRunning(this)) {
+        if (BatteryOptimization.isMiUI()) {
             ContextCompat.startForegroundService(this, Companion.startService(this))
         }
     }
