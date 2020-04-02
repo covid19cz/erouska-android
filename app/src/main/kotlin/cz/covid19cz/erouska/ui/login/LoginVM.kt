@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.ui.login
 
-import android.os.Build
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,11 +18,11 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.toText
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class LoginVM(
@@ -187,10 +186,10 @@ class LoginVM(
                 val pushToken = task.result?.token
                 val data = hashMapOf(
                     "platform" to "android",
-                    "platformVersion" to Build.VERSION.RELEASE,
-                    "manufacturer" to Build.MANUFACTURER,
-                    "model" to Build.MODEL,
-                    "locale" to Locale.getDefault().toString(),
+                    "platformVersion" to DeviceInfo.getAndroidVersion(),
+                    "manufacturer" to DeviceInfo.getManufacturer(),
+                    "model" to DeviceInfo.getDeviceName(),
+                    "locale" to DeviceInfo.getLocale(),
                     "pushRegistrationToken" to pushToken
                 )
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
