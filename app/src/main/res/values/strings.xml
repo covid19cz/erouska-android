@@ -61,7 +61,7 @@
     <string name="login_desc">Na toto telefonní číslo vás může kontaktovat pouze pracovník hygiencké stanice v\u00A0případě, že se u\u00A0někoho z\u00A0vašeho okolí potvrdí nákaza koronavirem.</string>
     <string name="login_statement"><![CDATA[Pokračováním v&nbsp;aktivaci souhlasíte, aby Ministerstvo zdravotnictví pracovalo s&nbsp;telefonním číslem a&nbsp;údaji o&nbsp;setkání s&nbsp;jinými uživateli aplikace podle <a href="%s">podmínek zpracování</a> za účelem epidemiologického šetření. Souhlas můžete odvolat a&nbsp;pokud nesouhlasíte, nepokračujte v aktivaci.]]></string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
-    <string name="login_finish_activation">Dokončit aktivaci</string>
+    <string name="login_finish_activation">Pokračovat</string>
     <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
     <string name="login_send">Odeslat</string>
     <string name="login_code_input">Ověřovací kód</string>
