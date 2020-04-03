@@ -1,18 +1,20 @@
 package cz.covid19cz.erouska.bt.entity
 
 import arch.livedata.SafeMutableLiveData
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
+class ScanSession(var deviceId: String = UNKNOWN_BUID, val mac: String) {
 
     companion object{
-        const val DEFAULT_BUID = "UNKNOWN"
+        const val UNKNOWN_BUID = "UNKNOWN"
     }
 
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
+    val lastGattAttempt = SafeMutableLiveData("")
 
     var avgRssi = 0
     var medRssi = 0
@@ -22,11 +24,13 @@ class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
         get() = rssiList.lastOrNull()?.timestamp ?: 0L
     val rssiCount: Int
         get() = rssiList.size
+    var gattAttemptTimestamp: Long = 0
 
     fun addRssi(rssiVal: Int) {
         val rssi = Rssi(rssiVal)
         rssiList.add(rssi)
         currRssi.postValue(rssiVal)
+        lastGattAttempt.postValue(lastGattAttemptAsString())
     }
 
     fun calculate() {
@@ -60,4 +64,11 @@ class ScanSession(var deviceId: String = DEFAULT_BUID, val mac: String) {
         avgRssi = 0
         medRssi = 0
     }
+
+    fun lastGattAttemptAsString() : String {
+        Date(gattAttemptTimestamp).apply {
+            return SimpleDateFormat("hh:mm:ss").format(this)
+        }
+    }
+
 }

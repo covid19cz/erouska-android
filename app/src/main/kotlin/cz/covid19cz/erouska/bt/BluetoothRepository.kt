@@ -5,7 +5,6 @@ import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList
@@ -21,7 +20,6 @@ import cz.covid19cz.erouska.ext.hoursToMilis
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.isBluetoothEnabled
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
@@ -124,16 +122,10 @@ class BluetoothRepository(
 
                 if (buid != null) {
                     L.d("GATT BUID found. Mac ${gatt.device.address}. BUID: $buid")
-                    discoveredIosDevices[mac]?.let { s ->
-                        Observable.just(s).map { session ->
+                    discoveredIosDevices[mac]?.let { session ->
                             session.deviceId = buid
                             scanResultsMap[buid] = session
                             session
-                        }.execute({
-                            scanResultsList.add(it)
-                        }, {
-                            L.e(it)
-                        })
                     }
                 } else {
                     L.e("GATT BUID not found on $mac")
@@ -310,12 +302,21 @@ class BluetoothRepository(
     private fun handleIosDevice(result: ScanResult) {
         if (!discoveredIosDevices.containsKey(result.device.address)) {
             L.d("Found new iOS: Mac: ${result.device.address}")
-            getBuidFromGatt(result)
+            registerIOSDevice(result)
         } else {
             discoveredIosDevices[result.device.address]?.let {
-                if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
+                if (it.deviceId == ScanSession.UNKNOWN_BUID) {
+                    if (it.gattAttemptTimestamp + 5000 < System.currentTimeMillis()) {
+                        getBuidFromGatt(it)
+                    } else {
+                        L.d("Skipping GATT connection. Mac: ${it.mac}")
+                    }
+                } else if (!scanResultsMap.containsKey(it.deviceId)) {
                     scanResultsMap[it.deviceId] = it
-                    scanResultsList.add(it)
+                } else {
+                    if (!scanResultsList.contains(it)) {
+                        scanResultsList.add(it)
+                    }
                 }
                 it.addRssi(result.rssi)
                 L.d("Device (iOS) ${it.deviceId} - RSSI ${result.rssi}")
@@ -324,14 +325,19 @@ class BluetoothRepository(
         }
     }
 
-    private fun getBuidFromGatt(result: ScanResult) {
+    private fun registerIOSDevice(result: ScanResult) {
         val mac = result.device.address
         val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         discoveredIosDevices[mac] = session
-        L.d("Enqueued for GATT discovery. Mac:$mac")
-        gattQueue.offer(GattConnectionQueueEntry(result.device.address))
+        scanResultsList.add(session)
+    }
+
+    private fun getBuidFromGatt(session: ScanSession) {
+        L.d("Enqueued for GATT discovery. Mac:${session.mac}")
+        gattQueue.offer(GattConnectionQueueEntry(session.mac))
         connectToGatt()
+        session.gattAttemptTimestamp = System.currentTimeMillis()
     }
 
     private fun connectToGatt() {
@@ -350,14 +356,6 @@ class BluetoothRepository(
     private fun disconnectFromGatt(gatt: BluetoothGatt) {
         gatt.disconnect()
         gatt.close()
-        if (discoveredIosDevices[gatt.device.address]?.deviceId == ScanSession.DEFAULT_BUID) {
-            gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
-                // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
-                L.d("Unlocking GATT slot. Mac: ${gatt.device.address}")
-                discoveredIosDevices.remove(gatt.device.address)
-                gattFailDisposable?.dispose()
-            }
-        }
         gattQueue.poll()?.let {
             L.d("Removing finished GATT connection. Mac:${it.macAddress}")
         }
@@ -408,7 +406,7 @@ class BluetoothRepository(
     private fun clearIosDevices() {
         // Don't clear whole iOS device cache to preventing DDOS GATT, but remove UNKNOWN devices
         discoveredIosDevices = discoveredIosDevices.filterValues {
-            it.deviceId != ScanSession.DEFAULT_BUID
+            it.deviceId != ScanSession.UNKNOWN_BUID
         }.apply {
             forEach { it.value.reset() }
         }.toMutableMap()
