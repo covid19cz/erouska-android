@@ -14,6 +14,7 @@ class App : BaseApp(), KoinComponent{
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         setupKoin()
         // SQLScout - Database viewer for Android Studio
         SqlScoutServer.create(this, packageName)
@@ -36,5 +37,9 @@ class App : BaseApp(), KoinComponent{
         val file = File(path)
         val length: Long = file.length() // File size
         L.d("Database size: ${length/1024} kB")
+    }
+
+    companion object {
+        lateinit var instance: App
     }
 }
