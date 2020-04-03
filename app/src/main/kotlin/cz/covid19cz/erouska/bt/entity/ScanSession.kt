@@ -6,15 +6,22 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ScanSession(var deviceId: String = UNKNOWN_BUID, val mac: String) {
+class ScanSession(deviceId: String = UNKNOWN_BUID, val mac: String) {
 
     companion object{
         const val UNKNOWN_BUID = "UNKNOWN"
     }
 
+    var deviceId: String = deviceId
+        set(value) {
+            field = value
+            observableDeviceId.postValue(value)
+        }
+
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
     val lastGattAttempt = SafeMutableLiveData("")
+    val observableDeviceId = SafeMutableLiveData(deviceId)
 
     var avgRssi = 0
     var medRssi = 0
@@ -31,6 +38,11 @@ class ScanSession(var deviceId: String = UNKNOWN_BUID, val mac: String) {
         rssiList.add(rssi)
         currRssi.postValue(rssiVal)
         lastGattAttempt.postValue(lastGattAttemptAsString())
+    }
+
+    fun updatedDeviceId(deviceId: String) {
+        this.deviceId = deviceId
+        observableDeviceId.postValue(deviceId)
     }
 
     fun calculate() {
@@ -66,6 +78,9 @@ class ScanSession(var deviceId: String = UNKNOWN_BUID, val mac: String) {
     }
 
     fun lastGattAttemptAsString() : String {
+        if (gattAttemptTimestamp == 0L) {
+            return "N/A (Android)"
+        }
         Date(gattAttemptTimestamp).apply {
             return SimpleDateFormat("hh:mm:ss").format(this)
         }

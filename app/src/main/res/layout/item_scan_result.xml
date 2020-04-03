@@ -42,7 +42,7 @@
             android:id="@+id/textBuid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.deviceId}"
+            android:text="@{item.observableDeviceId}"
             android:textColor="@color/textColorSecondary"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

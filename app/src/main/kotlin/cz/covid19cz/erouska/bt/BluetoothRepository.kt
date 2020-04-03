@@ -42,7 +42,6 @@ class BluetoothRepository(
 
     private val scanResultsMap = HashMap<String, ScanSession>()
     private var discoveredIosDevices: MutableMap<String, ScanSession> = mutableMapOf()
-    private val gattQueue: Queue<GattConnectionQueueEntry> = LinkedList()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
     private var isAdvertising = false
@@ -308,8 +307,6 @@ class BluetoothRepository(
                 if (it.deviceId == ScanSession.UNKNOWN_BUID) {
                     if (it.gattAttemptTimestamp + 5000 < System.currentTimeMillis()) {
                         getBuidFromGatt(it)
-                    } else {
-                        L.d("Skipping GATT connection. Mac: ${it.mac}")
                     }
                 } else if (!scanResultsMap.containsKey(it.deviceId)) {
                     scanResultsMap[it.deviceId] = it
@@ -334,32 +331,20 @@ class BluetoothRepository(
     }
 
     private fun getBuidFromGatt(session: ScanSession) {
-        L.d("Enqueued for GATT discovery. Mac:${session.mac}")
-        gattQueue.offer(GattConnectionQueueEntry(session.mac))
-        connectToGatt()
+        connectToGatt(session.mac)
         session.gattAttemptTimestamp = System.currentTimeMillis()
     }
 
-    private fun connectToGatt() {
-        gattQueue.peek()?.let { connectionQueueEntry ->
-            if (!connectionQueueEntry.isRunning) {
-                L.d("Connecting to GATT . Mac:${connectionQueueEntry.macAddress}")
-                val device = btManager.adapter?.getRemoteDevice(connectionQueueEntry.macAddress)
-                device?.connectGatt(context, false, gattCallback)
-                connectionQueueEntry.isRunning = true
-            } else {
-                L.d("Waiting for previous GATT operation to finish. Currently running: Mac:${connectionQueueEntry.macAddress}")
-            }
-        }
+    private fun connectToGatt(mac: String) {
+        L.d("Connecting to GATT . Mac:${mac}")
+        val device = btManager.adapter?.getRemoteDevice(mac)
+        device?.connectGatt(context, false, gattCallback)
     }
 
     private fun disconnectFromGatt(gatt: BluetoothGatt) {
+        L.d("Disconnecting from GATT . Mac:${gatt.device.address}")
         gatt.disconnect()
         gatt.close()
-        gattQueue.poll()?.let {
-            L.d("Removing finished GATT connection. Mac:${it.macAddress}")
-        }
-        connectToGatt()
     }
 
     private fun getBuidFromAdvertising(bytes: ByteArray): String? {
