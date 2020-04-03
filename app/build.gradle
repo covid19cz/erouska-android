@@ -154,7 +154,6 @@ dependencies {
 
     implementation "net.sf.supercsv:super-csv:$versions.super_csv"
     implementation 'com.android.support:customtabs:28.0.0'
-    implementation 'com.jaredrummler:android-device-names:2.0.0'
 
     // Tests
     testImplementation 'junit:junit:4.12'

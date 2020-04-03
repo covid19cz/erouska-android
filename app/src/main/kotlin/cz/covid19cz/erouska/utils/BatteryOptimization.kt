@@ -1,9 +1,7 @@
 package cz.covid19cz.erouska.utils
 
-import android.annotation.SuppressLint
 import android.os.Build
 import cz.covid19cz.erouska.AppConfig
-import java.lang.reflect.Method
 import java.util.*
 
 object BatteryOptimization {
@@ -23,14 +21,5 @@ object BatteryOptimization {
 
     fun getTutorialLink(): String? {
         return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]
-    }
-
-    @SuppressLint("PrivateApi")
-    fun isMiUI(): Boolean {
-        val c = Class.forName("android.os.SystemProperties")
-        val get: Method = c.getMethod("get", String::class.java)
-        return (get.invoke(c, "ro.miui.ui.version.code") as? String)?.run {
-            isNotEmpty()
-        } ?: false
     }
 }

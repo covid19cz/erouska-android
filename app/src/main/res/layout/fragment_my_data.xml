@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/fragment_padding"
             android:layout_marginLeft="@dimen/fragment_padding"
             android:layout_marginRight="@dimen/fragment_padding"
-            android:text="@{@plurals/my_data_count_part_1(AppConfig.INSTANCE.persistDataDays, AppConfig.INSTANCE.persistDataDays) + ` ` + @plurals/my_data_count_part_2(vm.allCount, vm.allCount)}"
+            android:text="@{@plurals/my_data_count(vm.allCount, AppConfig.INSTANCE.persistDataDays, vm.allCount)}"
             tools:text="Za posledních 14 dní jste potkali 980 uživatelů aplikace eRouška"
             android:textSize="16sp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"

@@ -5,6 +5,7 @@ import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
 import androidx.databinding.ObservableArrayList

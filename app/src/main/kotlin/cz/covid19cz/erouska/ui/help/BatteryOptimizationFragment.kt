@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,7 +18,6 @@ import cz.covid19cz.erouska.databinding.FragmentBatteryOptimizationBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import cz.covid19cz.erouska.utils.DeviceInfo
 
 class BatteryOptimizationFragment :
     BaseFragment<FragmentBatteryOptimizationBinding, BatteryOptimizationVM>(
@@ -60,7 +60,7 @@ class BatteryOptimizationFragment :
                     ).build()
             )
         }
-        binding.guideBtn.text = getString(R.string.guide_for, DeviceInfo.getManufacturer())
+        binding.guideBtn.text = getString(R.string.guide_for, Build.MANUFACTURER)
         binding.guideBtn.setOnClickListener {
             showGuide()
         }

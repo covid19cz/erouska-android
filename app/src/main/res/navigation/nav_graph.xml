@@ -98,11 +98,8 @@
             app:destination="@id/nav_dashboard"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -115,7 +112,7 @@
             app:destination="@id/nav_permisions_disabled"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
             app:destination="@id/nav_delete_data"

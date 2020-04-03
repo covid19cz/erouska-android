@@ -110,7 +110,7 @@ class LoginFragment :
             viewModel.codeEntered(login_verif_code_input.text.toString())
         }
         error_button_back.setOnClickListener {
-            goBack()
+            viewModel.backPressed()
         }
     }
 
@@ -152,8 +152,7 @@ class LoginFragment :
                     phone_number_code,
                     login_verif_code_input,
                     login_verif_code,
-                    login_verif_code_send_btn,
-                    code_timeout
+                    login_verif_code_send_btn
                 )
                 phone_number_code.setText(R.string.login_code_read_automatically)
                 login_verif_code.isErrorEnabled = false
@@ -215,14 +214,9 @@ class LoginFragment :
         }
     }
 
-    private fun goBack() {
-        view?.hideKeyboard()
-        viewModel.backPressed()
-    }
-
     override fun onBackPressed(): Boolean {
         return if (viewModel.state.value !is EnterPhoneNumber) {
-            goBack()
+            viewModel.backPressed()
             true
         } else false
     }
