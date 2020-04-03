@@ -10,6 +10,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.BluetoothRepository
@@ -20,6 +21,7 @@ import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
 import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
+import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -170,6 +172,13 @@ class CovidService : Service() {
             btUtils.clearScanResults()
         } else {
             prefs.setAppPaused(true)
+        }
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        if (BatteryOptimization.isMiUI()) {
+            ContextCompat.startForegroundService(this, Companion.startService(this))
         }
     }
 
