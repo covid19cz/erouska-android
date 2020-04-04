@@ -51,9 +51,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerServiceStateReceivers()
-
         rxPermissions = RxPermissions(this)
+        updateState()
+        subsribeToViewModel()
+        viewModel.init()
+        checkIfServiceIsRunning()
+        checkIfSignedIn()
+    }
 
+    private fun subsribeToViewModel() {
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
@@ -62,19 +68,17 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 }
                 DashboardCommandEvent.Command.PAUSE -> pauseService()
                 DashboardCommandEvent.Command.RESUME -> resumeService()
-                DashboardCommandEvent.Command.UPDATE_STATE -> {
-                    checkRequirements(onFailed = {
-                        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-                    }, onBatterySaverEnabled = {
-                        showBatterySaverDialog()
-                    })
-                }
+                DashboardCommandEvent.Command.UPDATE_STATE -> updateState()
             }
         }
-        viewModel.init()
+    }
 
-        checkIfServiceIsRunning()
-        checkIfSignedIn()
+    private fun updateState() {
+        checkRequirements(onFailed = {
+            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+        }, onBatterySaverEnabled = {
+            showBatterySaverDialog()
+        })
     }
 
     private fun showBatterySaverDialog() {
