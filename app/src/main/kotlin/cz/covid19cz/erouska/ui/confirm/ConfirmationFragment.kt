@@ -34,7 +34,7 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
             confirm_progress.hide()
             confirm_desc.text = when ((it.exception as? StorageException)?.errorCode) {
                 StorageException.ERROR_RETRY_LIMIT_EXCEEDED -> getString(R.string.upload_error)
-                else -> it.exception.message
+                else -> getString(R.string.unexpected_error_text)
             }
         }
         subscribe(LogoutEvent::class) {

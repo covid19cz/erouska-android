@@ -161,4 +161,5 @@
     <string name="consent_warning">Souhlas s podmínkami zpracování je nezbytný pro aktivaci aplikace. Bez vašeho souhlasu nemůže aplikace fungovat.</string>
     <string name="guide_completed">Přidal jsem do seznamu</string>
     <string name="guide">Návod</string>
+    <string name="unexpected_error_text">Nastala neočekávaná chyba. Zkuste to později. Pokud se chyba opakuje delší dobu, konktaktujte naší podporu.</string>
 </resources>
