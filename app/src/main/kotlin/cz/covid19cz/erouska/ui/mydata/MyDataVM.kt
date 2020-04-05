@@ -6,9 +6,9 @@ import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.DatabaseRepository
-import cz.covid19cz.erouska.db.ScanDataEntity
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,8 +18,8 @@ class MyDataVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    val allItems = ObservableArrayList<ScanDataEntity>()
-    val criticalItems = ObservableArrayList<ScanDataEntity>()
+    val allItems = ObservableArrayList<Any>()
+    val criticalItems = ObservableArrayList<Any>()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val allCount = SafeMutableLiveData(0)
@@ -36,6 +36,9 @@ class MyDataVM(
         }) { newData ->
             allItems.clear()
             allItems.addAll(newData)
+            if (BatteryOptimization.isTutorialNeeded()) {
+                allItems.add(BatteryOptimizationFooter())
+            }
         }
 
         subscribe(dbRepo.getCriticalDesc(), {
@@ -43,6 +46,9 @@ class MyDataVM(
         }) { newData ->
             criticalItems.clear()
             criticalItems.addAll(newData)
+            if (BatteryOptimization.isTutorialNeeded()) {
+                criticalItems.add(BatteryOptimizationFooter())
+            }
         }
 
         subscribe(dbRepo.getBuidCount(0), { L.e(it) }) {
@@ -74,4 +80,14 @@ class MyDataVM(
     fun showDescription() {
         publish(ShowDescriptionEvent)
     }
+
+    fun openGuide() {
+        BatteryOptimization.getTutorialLink()?.let {
+            publish(ShowBatteryOptimizationGuide(it))
+        }
+    }
+
+    val layoutStrategy = MyDataFragment.MyDataLayoutStrategy()
+
+    class BatteryOptimizationFooter()
 }
