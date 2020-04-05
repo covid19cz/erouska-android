@@ -107,7 +107,7 @@
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
     <string name="welcome_activation">Pokračovat k\u00A0aktivaci</string>
-    <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u&nbsp;majitele kteréhokoliv z&nbsp;nich potvrdí nákaza koronavirem, telefonicky vás kontaktuje pracovník hygienické stanice.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, hygienická stanice bude kontaktovat všechny ostatní uživatele aplikace, s&nbsp;kterými jste se potkali.<br/><br/><a href="%s">Několik nezávislých auditů</a> garantuje, že aplikace neodesílá vaše osobní údaje bez vašeho vědomí. Odešlete je vy sami a&nbsp;pouze hygienikům.]]></string>
+    <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u&nbsp;majitele kteréhokoliv z&nbsp;nich potvrdí nákaza koronavirem, telefonicky vás kontaktuje pracovník hygienické stanice.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, hygienická stanice bude kontaktovat všechny ostatní uživatele aplikace, s&nbsp;kterými jste se potkali.<br/><br/><a href="%s">Nezávislý audit</a> garantuje, že aplikace neodesílá vaše osobní údaje bez vašeho vědomí. Odešlete je vy sami a&nbsp;pouze hygienikům.]]></string>
     <string name="welcome_title">Díky eRoušce ochráníte sebe i\u00A0ostatní ve svém okolí</string>
     <string name="login_verify">Ověřit</string>
     <string name="login_verification_code">Ověřovací kód</string>
