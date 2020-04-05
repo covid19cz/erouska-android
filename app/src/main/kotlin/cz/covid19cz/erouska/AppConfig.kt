@@ -68,6 +68,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("batteryOptimizationXiaomiLink")
     val batteryOptimizationHuaweiLink
         get() = firebaseRemoteConfig.getString("batteryOptimizationHuaweiLink")
+    val helpMarkdown
+        get() = firebaseRemoteConfig.getString("helpMarkdown")
 
     var overrideAdvertiseTxPower : Int? = null
 

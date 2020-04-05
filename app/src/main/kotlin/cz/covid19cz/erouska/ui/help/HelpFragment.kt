@@ -1,19 +1,21 @@
 package cz.covid19cz.erouska.ui.help
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.text.HtmlCompat
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
+import io.noties.markwon.Markwon
 import kotlinx.android.synthetic.main.fragment_help.*
 
 class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
+
+    lateinit var markwon: Markwon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
                 HelpCommandEvent.Command.GO_BACK -> goBack()
             }
         }
+        markwon = Markwon.builder(requireContext()).build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -40,13 +43,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             welcome_continue_btn.visibility = View.GONE
         }
 
-        val helpDescription: String = String.format(
-            getString(R.string.help_desc),
-            viewModel.getTutorialUrl()
-        )
-
-        help_desc.text = HtmlCompat.fromHtml(helpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        help_desc.movementMethod = LinkMovementMethod.getInstance()
+        markwon.setMarkdown(help_desc, AppConfig.helpMarkdown.replace("\\n", "\n"))
     }
 
     fun goBack() {
