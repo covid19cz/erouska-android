@@ -5,10 +5,10 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
+import cz.covid19cz.erouska.ext.makeCall
+import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent
-import cz.covid19cz.erouska.utils.makeCall
-import cz.covid19cz.erouska.utils.openChromeTab
 import kotlinx.android.synthetic.main.fragment_contacts.*
 
 class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, ContactsVM>(
@@ -44,11 +44,11 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     }
 
     private fun openImportant() {
-        context?.openChromeTab(viewModel.getImportantUrl())
+        showWeb(viewModel.getImportantUrl())
     }
 
     private fun openFaq() {
-        context?.openChromeTab(viewModel.getFaqUrl())
+        showWeb(viewModel.getFaqUrl())
     }
 
     private fun callEmergency() {
@@ -56,6 +56,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     }
 
     private fun goToWeb() {
-        context?.openChromeTab(viewModel.getHomepageLink())
+        showWeb(viewModel.getHomepageLink())
     }
 }

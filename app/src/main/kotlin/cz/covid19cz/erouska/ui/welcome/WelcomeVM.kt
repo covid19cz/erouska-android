@@ -4,10 +4,10 @@ import android.app.Application
 import android.bluetooth.BluetoothManager
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ext.hasLocationPermission
+import cz.covid19cz.erouska.ext.isBluetoothEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
-import cz.covid19cz.erouska.utils.isBluetoothEnabled
 
 class WelcomeVM(private val app: Application,
                 private val bluetoothManager: BluetoothManager

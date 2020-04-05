@@ -12,12 +12,12 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
 import cz.covid19cz.erouska.ext.getLocationPermission
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.hide
-import cz.covid19cz.erouska.utils.show
 import io.reactivex.disposables.CompositeDisposable
 
 class SandboxFragment :

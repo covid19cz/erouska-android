@@ -10,12 +10,18 @@ import androidx.core.text.HtmlCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.PhoneAuthProvider
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLoginBinding
+import cz.covid19cz.erouska.ext.focusAndShowKeyboard
+import cz.covid19cz.erouska.ext.hideKeyboard
+import cz.covid19cz.erouska.ext.setOnDoneListener
+import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.*
+import cz.covid19cz.erouska.utils.BatteryOptimization
+import cz.covid19cz.erouska.utils.Text
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -70,20 +76,22 @@ class LoginFragment :
             login_statement,
             error_button_back,
             phone_number_code,
-            code_timeout
+            code_timeout,
+            login_checkbox
         )
 
         setupListeners()
 
         enableUpInToolbar(true)
 
-        val loginStatement: String = String.format(
+        login_statement.text = HtmlCompat.fromHtml(
             getString(R.string.login_statement),
-            viewModel.getTermsAndConditions()
+            HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-
-        login_statement.text = HtmlCompat.fromHtml(loginStatement, HtmlCompat.FROM_HTML_MODE_LEGACY)
         login_statement.movementMethod = LinkMovementMethod.getInstance()
+        login_statement.setOnClickListener {
+            showWeb(AppConfig.termsAndConditionsLink)
+        }
     }
 
     private fun setupListeners() {
@@ -91,12 +99,10 @@ class LoginFragment :
             login_verif_phone.isErrorEnabled = false
         })
         login_verif_phone_input.setOnDoneListener {
-            login_verif_activate_btn.hideKeyboard()
-            viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
+            phoneNumberSent()
         }
         login_verif_activate_btn.setOnClickListener {
-            login_verif_activate_btn.hideKeyboard()
-            viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
+            phoneNumberSent()
         }
         login_verif_code_input.addTextChangedListener(afterTextChanged = {
             login_verif_code.isErrorEnabled = false
@@ -114,6 +120,21 @@ class LoginFragment :
         }
     }
 
+    private fun phoneNumberSent() {
+        if (login_checkbox.isChecked) {
+            login_verif_activate_btn.hideKeyboard()
+            viewModel.phoneNumberEntered(login_verif_phone_input.text.toString())
+        } else {
+            MaterialAlertDialogBuilder(context)
+                .setMessage(R.string.consent_warning)
+                .setPositiveButton(R.string.confirmation_button_close)
+                { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+    }
+
     private fun updateState(state: LoginState) {
         when (state) {
             is EnterPhoneNumber -> {
@@ -124,7 +145,8 @@ class LoginFragment :
                     login_verif_phone,
                     login_verif_phone_input,
                     login_statement,
-                    login_verif_activate_btn
+                    login_verif_activate_btn,
+                    login_checkbox
                 )
                 login_verif_phone.isErrorEnabled = state.invalidPhoneNumber
                 if (state.invalidPhoneNumber) {

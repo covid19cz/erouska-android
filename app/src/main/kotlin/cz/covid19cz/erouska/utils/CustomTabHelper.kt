@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
 import androidx.browser.customtabs.CustomTabsService
+import cz.covid19cz.erouska.App
+import cz.covid19cz.erouska.AppConfig
 
 object CustomTabHelper {
 
@@ -15,7 +17,11 @@ object CustomTabHelper {
     val DEV_PACKAGE = "com.chrome.dev"
     val LOCAL_PACKAGE = "com.google.android.apps.chrome"
 
-    fun getPackageNameToUse(context: Context, url: String): String? {
+    val chromePackageName by lazy {
+        return@lazy CustomTabHelper.getPackageNameToUse(App.instance, AppConfig.homepageLink)
+    }
+
+    private fun getPackageNameToUse(context: Context, url: String): String? {
 
         sPackageNameToUse?.let {
             return it

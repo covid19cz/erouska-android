@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.hasLocationPermission
+import cz.covid19cz.erouska.ext.isBluetoothEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
-import cz.covid19cz.erouska.utils.isBluetoothEnabled
 
 class PermissionDisabledVM(
     private val bluetoothManager: BluetoothManager,

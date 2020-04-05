@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.utils
+package cz.covid19cz.erouska.ext
 
 import android.bluetooth.BluetoothManager
 

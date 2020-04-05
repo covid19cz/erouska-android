@@ -1,13 +1,12 @@
 package cz.covid19cz.erouska.ui.main
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.browser.customtabs.CustomTabsClient
+import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -22,6 +21,7 @@ import cz.covid19cz.erouska.ext.hasLocationPermission
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseActivity
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
@@ -30,6 +30,17 @@ class MainActivity :
 
     private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val bluetoothRepository by inject<BluetoothRepository>()
+    private val customTabsConnection = object : CustomTabsServiceConnection() {
+        override fun onCustomTabsServiceConnected(
+            name: ComponentName,
+            client: CustomTabsClient
+        ) {
+            client.warmup(0)
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+        }
+    }
 
     private val serviceStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -93,6 +104,22 @@ class MainActivity :
                 ) || super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (CustomTabHelper.chromePackageName != null) {
+            CustomTabsClient.bindCustomTabsService(
+                this,
+                CustomTabHelper.chromePackageName,
+                customTabsConnection
+            )
+        }
+    }
+
+    override fun onStop() {
+        unbindService(customTabsConnection)
+        super.onStop()
     }
 
     private fun updateTitle(destination: NavDestination) {

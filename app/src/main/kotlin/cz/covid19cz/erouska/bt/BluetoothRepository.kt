@@ -13,14 +13,9 @@ import cz.covid19cz.erouska.bt.entity.ScanSession
 import cz.covid19cz.erouska.db.DatabaseRepository
 import cz.covid19cz.erouska.db.ScanDataEntity
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.ext.asHexLower
-import cz.covid19cz.erouska.ext.execute
-import cz.covid19cz.erouska.ext.hexAsByteArray
-import cz.covid19cz.erouska.ext.hoursToMilis
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.isBluetoothEnabled
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
