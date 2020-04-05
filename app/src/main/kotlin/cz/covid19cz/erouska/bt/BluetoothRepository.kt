@@ -37,8 +37,7 @@ class BluetoothRepository(
     }
 
     private val scanResultsMap = HashMap<String, ScanSession>()
-    private val discoveredIosDevices = HashMap<String, ScanSession>()
-    private val gattQueue: Queue<GattConnectionQueueEntry> = LinkedList()
+    private var discoveredIosDevices: MutableMap<String, ScanSession> = mutableMapOf()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
     private var isAdvertising = false
@@ -102,14 +101,6 @@ class BluetoothRepository(
                 L.d("GATT connected. Mac: ${gatt.device.address}")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                if (discoveredIosDevices[mac]?.deviceId == ScanSession.DEFAULT_BUID) {
-                    gattFailDisposable = Observable.timer(5, TimeUnit.SECONDS).subscribe {
-                        // Unlock mac address slot for retry after 5 seconds (prevent DDOSing GATT server)
-                        L.d("Unlocking GATT slot. Mac: ${gatt.device.address}")
-                        discoveredIosDevices.remove(gatt.device.address)
-                        gattFailDisposable?.dispose()
-                    }
-                }
                 disconnectFromGatt(gatt)
                 L.d("GATT disconnected. Mac: ${gatt.device.address}")
             }
@@ -126,16 +117,10 @@ class BluetoothRepository(
 
                 if (buid != null) {
                     L.d("GATT BUID found. Mac ${gatt.device.address}. BUID: $buid")
-                    discoveredIosDevices[mac]?.let { s ->
-                        Observable.just(s).map { session ->
+                    discoveredIosDevices[mac]?.let { session ->
                             session.deviceId = buid
                             scanResultsMap[buid] = session
                             session
-                        }.execute({
-                            scanResultsList.add(it)
-                        }, {
-                            L.e(it)
-                        })
                     }
                 } else {
                     L.e("GATT BUID not found on $mac")
@@ -312,12 +297,19 @@ class BluetoothRepository(
     private fun handleIosDevice(result: ScanResult) {
         if (!discoveredIosDevices.containsKey(result.device.address)) {
             L.d("Found new iOS: Mac: ${result.device.address}")
-            getBuidFromGatt(result)
+            registerIOSDevice(result)
         } else {
             discoveredIosDevices[result.device.address]?.let {
-                if (it.deviceId != ScanSession.DEFAULT_BUID && !scanResultsMap.containsKey(it.deviceId)) {
+                if (it.deviceId == ScanSession.UNKNOWN_BUID) {
+                    if (it.gattAttemptTimestamp + 5000 < System.currentTimeMillis()) {
+                        getBuidFromGatt(it)
+                    }
+                } else if (!scanResultsMap.containsKey(it.deviceId)) {
                     scanResultsMap[it.deviceId] = it
-                    scanResultsList.add(it)
+                } else {
+                    if (!scanResultsList.contains(it)) {
+                        scanResultsList.add(it)
+                    }
                 }
                 it.addRssi(result.rssi)
                 L.d("Device (iOS) ${it.deviceId} - RSSI ${result.rssi}")
@@ -326,36 +318,29 @@ class BluetoothRepository(
         }
     }
 
-    private fun getBuidFromGatt(result: ScanResult) {
+    private fun registerIOSDevice(result: ScanResult) {
         val mac = result.device.address
         val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         discoveredIosDevices[mac] = session
-        L.d("Enqueued for GATT discovery. Mac:$mac")
-        gattQueue.offer(GattConnectionQueueEntry(result.device.address))
-        connectToGatt()
+        scanResultsList.add(session)
     }
 
-    private fun connectToGatt() {
-        gattQueue.peek()?.let { connectionQueueEntry ->
-            if (!connectionQueueEntry.isRunning) {
-                L.d("Connecting to GATT . Mac:${connectionQueueEntry.macAddress}")
-                val device = btManager.adapter?.getRemoteDevice(connectionQueueEntry.macAddress)
-                device?.connectGatt(context, false, gattCallback)
-                connectionQueueEntry.isRunning = true
-            } else {
-                L.d("Waiting for previous GATT operation to finish. Currently running: Mac:${connectionQueueEntry.macAddress}")
-            }
-        }
+    private fun getBuidFromGatt(session: ScanSession) {
+        connectToGatt(session.mac)
+        session.gattAttemptTimestamp = System.currentTimeMillis()
+    }
+
+    private fun connectToGatt(mac: String) {
+        L.d("Connecting to GATT . Mac:${mac}")
+        val device = btManager.adapter?.getRemoteDevice(mac)
+        device?.connectGatt(context, false, gattCallback)
     }
 
     private fun disconnectFromGatt(gatt: BluetoothGatt) {
+        L.d("Disconnecting from GATT . Mac:${gatt.device.address}")
         gatt.disconnect()
         gatt.close()
-        gattQueue.poll()?.let {
-            L.d("Removing finished GATT connection. Mac:${it.macAddress}")
-        }
-        connectToGatt()
     }
 
     private fun getBuidFromAdvertising(bytes: ByteArray): String? {
@@ -400,10 +385,12 @@ class BluetoothRepository(
     }
 
     private fun clearIosDevices() {
-        // Don't clear whole iOS device cache to preventing DDOS GATT
-        for (device in discoveredIosDevices) {
-            device.value.reset()
-        }
+        // Don't clear whole iOS device cache to preventing DDOS GATT, but remove UNKNOWN devices
+        discoveredIosDevices = discoveredIosDevices.filterValues {
+            it.deviceId != ScanSession.UNKNOWN_BUID
+        }.apply {
+            forEach { it.value.reset() }
+        }.toMutableMap()
     }
 
     fun supportsAdvertising(): Boolean {

@@ -7,10 +7,13 @@ import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.bt.BluetoothRepository
+import cz.covid19cz.erouska.bt.entity.ScanSession
 import cz.covid19cz.erouska.db.DatabaseRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SandboxVM(
     val bluetoothRepository: BluetoothRepository,
@@ -61,7 +64,4 @@ class SandboxVM(
     fun openDbExplorer(){
         navigate(R.id.action_nav_sandbox_to_nav_my_data)
     }
-
-
-
 }
