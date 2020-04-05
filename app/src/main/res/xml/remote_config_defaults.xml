@@ -82,28 +82,28 @@
         <value>true</value>
     </entry>
     <entry>
-        <key>batteryOptimizationHuaweiLink</key>
-        <value>https://dontkillmyapp.com/huawei</value>
+        <key>batteryOptimizationHuaweiMarkdown</key>
+        <value># Huawei\n## 1. PowerGenie\n\nNa některých telefonech s EMUI 9+ (Android P+) je předinstalována aplikace PowerGenie, která neumožňuje aplikacím práci na pozadí a nelze ji nijak nastavit.\nNa některých telefonech je možné do příštího restartu deaktivovat PowerGenie pomocí následujících kroků:\n\n1. Otevřete **Nastavení telefonu**\n2. Přejděte na položku **Aplikace**\n3. V seznamu aplikací najděte **PowerGenie**\n4. Stiskněte **Deaktivovat** a **Vynutit ukončení**\n\nToto nastavení je potřeba zopakovat po každém restartu telefonu.\n\n## 2. Jiné mechanismy\nJe možné, že vaše aplikace mohou být ukončovány i jiným mechanismem - vyzkoušejte i následující kroky (mohou platit pouze pro některé verze telefonů):\n\n*   Nastavení telefonu > Pokročilá nastavení > Správa baterie > Správa napájení\n    *   Nastavte na **Normální** nebo **Výkon**\n*   Nastavení telefonu > Pokročilá nastavení > Správa baterie > Chráněné aplikace\n    *   Nastavte pro eRoušku na *Chráněno*\n*   Nastavení telefonu > Aplikace > Vaše aplikace > Baterie\n    *   Vypněte **Dotazovat na energeticky náročné aplikace**\n    *   Zapněte **Nechat spuštěné po vypnutí obrazovky**\n*   Nastavení telefonu > Aplikace > Pokročilé (Dole) > Ignorovat optimalizace > Zvolte **Povoleno**> Všechny aplikace\n    *   Na seznamu najděte eRoušku a nastavte na **Povoleno**\n*   Nastavení telefonu > Aplikace > Nastavení > Zvláštní oprávnění > Ignorovat optimalizaci baterie\n    *   Pro eRoušku zvolte **Povolit**.\n*   Nastavení telefonu > Baterie > Spouštění aplikací\n    *   Pro eRoušku zvolte **Nastavit ručně** a ujistěte se, že všechny položky zde jsou zapnuty.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
-        <key>batteryOptimizationAsusLink</key>
-        <value>https://dontkillmyapp.com/asus</value>
+        <key>batteryOptimizationAsusMarkdown</key>
+        <value># Asus\n\nNa telefonech Asus je předinstalovaná aplikace *PowerMaster*, která ve výchozím nastavení např. blokuje start aplikací a ukončuje běh aplikací na pozadí při zhasnutí displeje.\n\nPro zajištění bezproblémového běhu aplikací proveďte následující kroky:\n\n1. Spusťte **Mobilní správce**(Mobile Manager)\n2. Ťukněte na **PowerMaster**\n3. Ťukněte na **Možnosti šetření baterie** (Battery-saving options)\n4. Vypněte možnost **Vyčistit v režimu spánku** (Clean up in suspend)\n5. Vypněte možnost **Automatický zákaz zapnutí aplikací po startu** (Auto-deny apps from auto starting).\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
-        <key>batteryOptimizationLenovoLink</key>
-        <value>https://dontkillmyapp.com/lenovo</value>
+        <key>batteryOptimizationLenovoMarkdown</key>
+        <value># Lenovo\n\n_Návod platí pro Lenovo P2, u ostatních Lenovo telefonů mohou být drobné rozdíly._\n\nAby aplikace běžela dlouhodobě, je třeba:\n\n1. otevřít přehled běžících aplikací (přepínač aplikací)\n2. na aplikaci eRouška povolit **ikonu zámku v pravém horním rohu**\n\nJen pak systém aplikace po krátkém čase neukončí.\n\nPOZOR: Pokud aplikaci zavřete swipnutím (smýknutím prstu přes displej), bude i přesto ukončena.\n\nPOZNÁMKA: Nezáleží přitom na tom, jestli je v **Nastavení -> Aplikace -> eRouška -> Baterie** povolena optimalizace baterie či nikoliv.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
-        <key>batteryOptimizationSamsungLink</key>
-        <value>https://dontkillmyapp.com/samsung</value>
+        <key>batteryOptimizationSamsungMarkdown</key>
+        <value># Samsung\nSamsung na mnoha svých telefonech automaticky ukončuje aplikace běžící na pozadí.\n\nAbychom ukončování zabránili, potřebujeme:\n*   vypnout funkci **Přepnout nepoužívané aplikace do režimu spánku**\n*   vypnout funkci **Automaticky odpojit nepoužívané aplikace**\n*   odstranit eRoušku ze seznamu aplikací v režimu spánku\n*   vypnout pro eRoušku omezení běhu na pozadí\n\nJak na to:\n1. Otevřete Nastavení telefonu → Péče o zařízení\n2. Ťukněte na Baterie\n3. Ťukněte na tři tečky v pravém horním rohu → Nastavení\n4. Vypněte tato nastavení:\n    1. **Adaptivní baterie**\n    2. **Přepnout nepoužívané aplikace do režimu spánku**\n    3. **Automaticky odpojit nepoužívané aplikace**\n5. Dále ťukněte na Aplikace v režimu spánku / Uspané aplikace\n6. Probuďte všechny aplikace tapnutím na odpadkový koš vpravo nahoře\n\nUPOZORNĚNÍ: Ujistěte se, že **Přepnout nepoužívané aplikace do režimu spánku (Přep. nepouž. apl. do r. spánku)**a **Automaticky odpojit nepoužívané aplikace** jsou opravdu vypnuté. V opačném případě Samsung aplikace po třech dnech znovu uspí – i přesto, že jste je ručně aktivovali.\n\n## App power monitor\n\nNa Vašem telefonu může být předinstalovaná aplikace **App power monitor**, která ukončuje aplikace běžící na pozadí. Aby eRouška fungovala správně, odstraňte ji z **App power monitoru**.\n\nJak na to:\n1. Otevřete Nastavení telefonu → Péče o zařízení\n2. Ťukněte na Baterie\n3. Sjeďte úplně dolů, kde uvidíte položku **Nemonitorované aplikace.**Ťukněte na ni.\n4. Nyní v pravém horním rohu ťukněte na tři tečky a následně na **přidat aplikaci.**\n5. Přidejte eRoušku.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
-        <key>batteryOptimizationSonyLink</key>
-        <value>https://dontkillmyapp.com/sony</value>
+        <key>batteryOptimizationSonyMarkdown</key>
+        <value># Sony\n\nTelefony Sony mají **režim Stamina** pro šetření baterie. Pokud je tento režim zapnutý, neumožňuje aplikacím pracovat na pozadí a blokuje všechna upozornění.\n\nNepoužívejte režim Stamina, pokud chcete, aby váš telefon dělal něco užitečného i tehdy, když jej právě aktivně nepoužíváte. Režim Stamina se může zapínat i automaticky.\n\nAbyste zabránili režimu Stamina, aby se zapínal automaticky, postupujte takto:\n\n1. Otevřete **Nastavení telefonu** (Phone settings)\n2. Přejděte do **Baterie** (Battery)\n3. Přejděte do sekce **Stamina mód**\n4. Označte **Nikdy nezapínat**\n\nPro vyjmutí pouze konkrétní aplikace z režimu Stamina postupujte takto:\n\n1. Otevřete **Nastavení telefonu** (Phone settings)\n2. Přejděte do **Baterie** (Battery)\n3. Stiskněte **Tři tečky v pravém horním rohu**\n4. Přejděte do **Optimalizace baterie** (Battery optimization)\n5. Přejděte na položku **Aplikace** (Apps), a najděte aplikaci eRouška.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
-        <key>batteryOptimizationXiaomiLink</key>
-        <value>https://dontkillmyapp.com/xiaomi</value>
+        <key>batteryOptimizationXiaomiMarkdown</key>
+        <value># Xiaomi\nVe výchozím nastavení telefonu nemohou aplikace pracovat na pozadí.\n\n## Správa baterie (Power management)\n*   Nastavení telefonu > Pokročilé nastavení > Správce baterie > Režim\n    *   Nastavte na **Výkon** nebo **Normální**\n*   Nastavení telefonu > Pokročilé nastavení > Správce baterie > Chráněné aplikace\n    *   Nastavte eRoušku jako **Chráněnou**\n*   Nastavení telefonu > Aplikace > eRouška > Baterie\n    *   Zaškrtněte **Náročná na baterii** (Power-intensive)\n    *   Zaškrtněte **Nechat běžet po zhasnutí displeje** (Keep running after screen off)\n*   Nastavení telefonu > Další nastavení > Baterie a výkon > Správa využití baterie podle aplikací\n    *   Přepněte **Úsporné režimy** na Vypnuto\n    *   Úspora energie na pozadí > Vyberte aplikaci > eRouška  > Nastavení na pozadí > vyberte možnost **Bez omezení**\n\n## Šetřič baterie (App battery saver)\n*   Zabezpečení > Baterie > Šetřič baterie > eRouška\n    *   Vyberte možnost **Bez omezení.**\n\n## Automatické spouštění\n*   Zabezpečení > Oprávnění > Automatické spouštění\n    *   Vyhledejte *eRoušku* a klepněte na ni.\n\n## Připnutí aplikace (App pinning)\n1. Otevřete seznam nedávno spuštěných aplikací a najděte eRoušku.\n2. Přetáhněte aplikaci dolů - připne se. Tím pádem zůstane spuštěna i pokud promažete seznam nedávno spuštěných aplikací. Pokud ji chcete odepnout, opět ji přetáhněte dolů.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com)\n</value>
     </entry>
     <entry>
         <key>termsAndConditionsLink</key>
@@ -115,164 +115,6 @@
     </entry>
     <entry>
         <key>helpMarkdown</key>
-        <value>### Proč je eRouška potřeba? Dokáže mě vůbec efektivně uchránit před
-            nákazou?\n\nCílem aplikace eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá
-            co nejdříve izolovat potenciálně nakažené osoby od ostatních. Tím by měla umožnit
-            postupné uvolňování celostátní karantény a snížit dopady pandemie na společnost a
-            ekonomiku ČR. Aplikace na podobném principu fungují i v dalších státech a většinou jsou
-            velmi účinným prostředkem v boji proti šíření koronaviru.\n\nAplikace eRouška je jeden
-            ze tří konceptů, které COVID19CZ používá, a je z nich nejšetrnější k soukromí. Aplikace
-            se přes Bluetooth spojí s dalšími telefony s eRouškou v nejbližším okolí a uloží jejich
-            identifikátory. Pokud bude později jeden z uživatelů eRoušky označen pracovníkem hygieny
-            jako nakažený, epidemiologický model vyhodnotí, zda jste s ním byli v kontaktu dost
-            dlouho na to, aby bylo nutné vás varovat a směřovat k dalšímu vyšetření.\n\n### Má smysl
-            si eRoušku instalovat, když ji nebude používat dost lidí?\n\nFunguje to jako běžné
-            roušky - čím více nás bude eRoušku používat, tím lépe bude fungovat. Snažíme se ve
-            spolupráci s vládou ČR i dalšími organizacemi, aby se o eRoušce dozvědělo co nejvíce
-            lidí a začali ji používat. Pomozte nám i vy. Instalací aplikace se můžete aktivně
-            zapojit do boje proti koronaviru.\n\n### Proč chce aplikace znát mé telefonní
-            číslo?\n\nTelefonní číslo potřebuje hygienická stanice, aby vás mohla co nejdříve
-            kontaktovat v případě, že bude mít na základě informací z eRoušky nakaženého člověka
-            podezření, že jste s ním byli v rizikovém kontaktu. Proto telefonní číslo registrujete
-            hned při první spuštění eRoušky.\n\n### Jak se eRouška liší od toho, co dělají
-            Mapy.cz?\n\nObě aplikace jsou součástí “chytré karantény”, mohou pomáhat souběžně, ale
-            jsou postavené na odlišném principu. Aplikace eRouška místo GPS využívá Bluetooth.
-            Nesbírá tedy informace o vaší poloze, ale pouze zjišťuje, se kterými dalšími uživateli
-            aplikace jste přišli do bližšího kontaktu, třeba v metru, kde signál GPS není.\n\nKromě
-            toho eRouška sama od sebe informace nikam neodesílá, zůstávají uložené ve vašem
-            zařízení. Ke sdílení dat s hygienickou stanicí může dojít až ve chvíli, kdy pracovník
-            hygieny kontaktuje uživatele na základě jeho pozitivního testu a požádá ho o souhlas se
-            zpracováním dat, která aplikace sesbírala.\n\nTakto sdílená data vyhodnotí pověřený
-            pracovník hygienické stanice. Registrované uživatele aplikace eRouška, kteří byli delší
-            dobu v kritické vzdálenosti od nakaženého, kontaktuje pracovník hygienické stanice s
-            pokyny dalšího postupu.\n\n### Jak mám postupovat, když mi test potvrdí nákazu?\n\nV
-            první řadě byste měli kontaktovat hygienickou stanici, pod kterou místně spadáte, pokud
-            vás již nekontaktovala sama. Hygiena vám poskytne informace o tom, jak dále postupovat,
-            a případně vás požádá o souhlas se sdílením dat z aplikace. Dále byste měli zavolat
-            svému obvodnímu lékaři, který vám indikuje léčbu. V případě závažných zdravotních
-            komplikací volejte linky **112** a **155**.\n\nAktuální informace se dozvíte vždy na
-            celostátní informační call lince: **1212** nebo na webu Ministerstva zdravotnictví -
-            [https://koronavirus.mzcr.cz/](https://koronavirus.mzcr.cz/).\n\n### Takže všichni budou
-            vědět, že mám COVID19? To mě zlynčují…\n\nNebudou. Pracovník hygienické stanice
-            kontaktuje registrované uživatele, kteří byli podle dat z aplikace nakaženého v
-            rizikovém kontaktu, projde s nimi epidemiologické šetření a podle míry epidemiologické
-            závažnosti kontaktu nastaví další opatření. Informaci o tom, kdo je nakažený, nesmí
-            hygienická stanice bez Vašeho souhlasu s nikým sdílet.\n\n### Co když někdo nepřizná, že
-            je nemocný?\n\nI to se může stát. Věříme však, že uživatelé eRoušky chtějí aktivně
-            pomáhat v zastavení dalšího šíření nákazy a aplikaci využijí, aby mohli co nejdřívě
-            varovat osoby, které s nimi byly v rizikovém kontaktu. Nezapomínejme, že záměrné šíření
-            koronaviru je v ČR považováno za trestný čin.\n\n### Co je to inteligentní/chytrá
-            karanténa? Jakou v ním hraje roli eRouška?\n\nInteligentní karanténa je soubor moderních
-            informačních nástrojů, který vytvořila skupina technologických expertů COVID19cz za
-            účelem rychlé identifikace a dohledání rizikových kontaktů, jejich předání k testování
-            na koronavirus, případné izolace a dodržování karantény. Vláda (Ústřední krizový štáb)
-            vnímá chytrou karanténu jako sérii opatření, jejichž součástí jsou různá technologické
-            řešení včetně eRoušky.\n\nNabízíme řešení, které neomezuje svobodu tolik jako plošná
-            celostátní karanténa a zároveň nezasahuje lidem do soukromí.\n\n### Pozná eRouška, když
-            poruším lékařem nařízenou karanténu nebo třeba pojedu na chatu?\n\nAplikace nesleduje
-            vaši polohu, není to její účel a ani pro to není navržena. Má naopak pomoci k tomu, aby
-            v karanténě byly pouze osoby s diagnostikovaným onemocněním nebo s vážným podezřením
-            nákazy.\n\n\[\[Doplnění na zvážení:\]\] Pokud u vás test potvrdil nákazu koronavirem, a
-            vy i přesto porušíte karanténu a nakazíte další osoby, dopouštíte se trestného činu bez
-            ohledu na to, jestli jste uživatelem aplikace eRouška.\n\n### Jak dlouho do minulosti
-            jsou data k dispozici? Kdy a jak probíhá jejich mazání?\n\nDobu, po kterou zůstávají
-            sesbíraná data uložená ve vaší aplikaci eRouška, případně na serveru, pokud je tam
-            odešlete, naleznete v Zásadách zpracování údajů ODKAZ. Jsou zde i informace o
-            provozovatelích serverů a správcích dat.\n\n### Co když mi telefon ukradnou nebo ho
-            ztratím?\n\nV aplikaci eRouška jsou lokálně uložené jen anonymní informace o dalších
-            zařízeních, která eRouška zaznamenala ve svém okolí. Žádné riziko to nepřináší pro vás
-            ani pro majitele takto zaznamenaných zařízení. To, že se někdo nepovolaný zmocnil vašich
-            e-mailů, fotografií nebo hesel, je výrazně větší problém. Mějte proto svůj telefon
-            chráněný kódem nebo biometricky (otiskem prstu, nebo obličejem).\n\n### Je aplikace
-            eRouška v souladu s GDPR?\n\nCelý systém aplikace eRouška včetně podpůrných webových
-            stránek jsou navržené plně v souladu se Zákonem o ochraně osobních údajů a GDPR.\n\nZde
-            naleznete bližší informace:\n\n* Zásady ochrany soukromí aplikace a webu eRouška\n*
-            Audit zdrojového kódu aplikace\n* Závazek datové důvěry iniciativy
-            COVID19CZ\n\nTechnické dotazy\n----------------\n\n### Na jakých telefonech aplikace
-            eRouška funguje?\n\nPokud váš telefon není s eRouškou kompatibilní, Google Play ani App
-            Store vám neumožní aplikaci nainstalovat. Pro instalaci aplikace eRouška potřebujete
-            chytrý telefon s těmito parametry:\n\n* iOS verze 11 a vyšší\n* OS Android verze 5.0 a
-            vyšší s Google services (nemá jen malé procento telefonů Huawei)\n* Bluetooth LE (Low
-            Energy) \*\n\n\* Některé starší modely telefonů (např. Google Nexus 5) mohou fungovat
-            jen částečně - vidí přes Bluetooth telefony v okolí, ale ostatní smartphony je bohužel
-            zpětně nevidí. Důvodem je, že ještě nejsou vybavené funkcí Bluetooth LE Advertising. I
-            přesto má jejich použití smysl.\n\n### Jak probíhá sběr dat a jejich
-            zpracování?\n\nChytrý telefon s aplikací eRouška zaznamená přes Bluetooth anonymní
-            identifikátor (ID) z jiných zařízení s touto aplikací, pokud jsou blíže než cca 4 metry.
-            Informaci o “setkání” a jeho délce ukládá do své vnitřní paměti.\n\nÚdaje můžete odeslat
-            do centrální databáze hygieny v případě, že budete osloveni hygienickou stanicí z důvodu
-            pozitivního testu, nebo kvůli podezření na rizikový kontakt s nakaženým. Pokud tak
-            učiníte, získají k nim přístup pouze pověření pracovníci hygieny, kteří budou schopni
-            spojit identifikátor aplikace s registrovaným telefonním číslem a upozornit další
-            uživatele eRoušky, kteří s vámi byli v rizikovém kontaktu.\n\n_Aplikace si automaticky
-            ukládá pouze následující informace: 31.3.2020 od 12:15 do 13:15 byla ve vaší blízkosti
-            aplikace s identifikátorem ID 29091._\n\n### Musím mít Bluetooth zapnutý
-            neustále?\n\nAno. Bez zapnutého Bluetooth není možné zjišťovat blízkost dalších zařízení
-            s nainstalovanou aplikací eRouška. Tuto funkci máte zapnutou možná i nyní, například v
-            případě, že používáte bezdrátová sluchátka, chytrý náramek nebo hodinky.\n\n### Kolik
-            baterie aplikace a zapnutý Bluetooth spotřebují?\n\nPodle výsledků našeho testování s
-            neustále zapnutým Bluetooth a ukládáním dat do aplikace byla denní spotřeba energie v
-            řádu jednotek procent. Ve většině případů to je méně než 15 % kapacity baterie za den.
-            Záleží přitom na konkrétním chytrém telefonu, stylu jeho používání a stavu
-            baterie.\n\n### Proč aplikace používá zrovna Bluetooth? Neexistuje lepší řešení jako GPS
-            nebo triangulace od operátorů?\n\nSoukromí uživatelů je pro nás na prvním místě a právě
-            technologie Bluetooth nabízí nejvyváženější poměr přesnosti záznamu a minimálního zásahu
-            do soukromí. Technologie GPS, ani triangulace vysílačů od operátorů nemohou poskytnout
-            potřebné údaje s požadovanou přesností. Mimo jiné i proto, že jejich funkčnost je v
-            budovách, garážích či metru velmi omezená. Aplikace eRouška potřebuje pro svoji funkci
-            informace o tom, že došlo k setkání, na jakou vzdálenost a po jakou dobu. Není důležité,
-            kde k setkání došlo.\n\n### Nemůže se stát, že eRouška mylně vyhodnotí kontakt s jinou
-            osobou, která je například vedle v autě na křižovatce, za dveřmi nebo tenkou
-            zdí?\n\nAplikace eRouška funguje na principu měření síly signálu mezi dvěma zařízeními.
-            Technicky nelze vyloučit, že dojde k mylné detekci - například blízký kontakt skrz
-            tenkou zeď se podobá vzdálenějšímu kontaktu bez překážky. Těmto omylům, byť jsou
-            výjimečné, se nedá úplně zabránit. Proto je při zpracování dat bereme v potaz a
-            vycházíme z toho, že eRouška má sloužit k přesnějšímu výběru okruhu osob, které
-            potřebuje hygiena kontaktovat kvůli epidemiologickému šetření.\n\n### Proč je potřeba
-            aplikaci povolit přístup k GPS/polohovým/lokačním údajům?\n\nAplikace eRouška nevyužívá
-            a nesbírá ke své činnosti data z GPS. Avšak operační systém Android zahrnuje pod
-            určování polohy také některé služby Bluetooth LE (LE = low energy), které eRouška pro
-            své fungování potřebuje. Proto je nutný souhlas uživatele s přístupem aplikace k
-            polohovým údajům. V iOS tento souhlas nutný není.\n\nVíce informací je k dispozici na
-            webu OS Android pro vývojáře.\n\n### Může mě někdo pomocí aplikace eRouška
-            sledovat?\n\nNe. Aplikace nesbírá údaje o vaší poloze a k uloženým datům máte přístup
-            pouze vy. Samotné údaje, které aplikace po vašem souhlasu odesílá, nemohou být použity k
-            vašemu sledování.\n\n_Aplikace automaticky ukládá pouze informace typu: 31.3.2020 od
-            12:15 do 13:15 byla ve vaší blízkosti aplikace s identifikátorem ID 29091._\n\n### Lze
-            ověřit, že aplikace nezaznamenává moji polohu?\n\nAno. Nasbíraná data lze kdykoli
-            zobrazit na záložce Moje data. Aplikace eRouška je publikována s otevřeným zdrojovým
-            kódem, takže znalý člověk může snadno ověřit, že údaje o poloze opravdu
-            nesbíráme.\n\nZdrojové kódy aplikace eRouška byly prověřeny nezávislými autoritami
-            \[\[odkaz\]\], jejichž kontrola potvrdila, že aplikace dělá pouze to, co uvádí.\n\n###
-            Lze identifikátor aplikace (ID) uživatele spárovat s konkrétní osobou?\n\nID lze spojit
-            pouze s konkrétním zařízením a telefonním číslem uživatele. Tuto pravomoc ovšem mají
-            jenom určení pracovníci hygienické stanice, a to jen v případě vašeho výslovného
-            souhlasu.\n\n### Kdo má (může mít) přístup k mým datům?\n\nPouze vy. Až když se
-            dobrovolně rozhodnete odeslat data hygienické stanici, přístup získají také její
-            pověření pracovníci.\n\n### Jak zjistím, která všechna data přesně aplikace ukládá a
-            odesílá hygienické stanici?\n\nNasbíraná data lze kdykoli v aplikaci zobrazit na záložce
-            Moje data.\n\n### Jak uživatele chráníte před zneužitím dat?\n\nUživatele chráníme
-            především minimálním rozsahem zaznamenávaných dat a jejich ukládáním přímo do zařízení.
-            Data uživatelů se bez jejich vědomí a souhlasu nikam neposílají ani nezpracovávají. Do
-            telefonu se zaznamenávají anonymní identifikátory (ID) zařízení s nainstalovanou
-            aplikaci eRouška a informace o čase a délce jejich výskytu v blízkosti uživatele.
-            Zpracovat je mohou po výslovném souhlasu uživatele jen určení pracovníci hygieny.\n\n###
-            Dohlíží na zabezpečení dat z aplikace nějaká nezávislá organizace?\n\nCelý systém
-            aplikace eRouška včetně podpůrných webových stránek je navržený plně v souladu se
-            Zákonem o ochraně osobních údajů a GDPR. Kód aplikace je volně otevřený (open-source) a
-            prošel auditem nezávislých vzdělávacích institucí.\n\nDalší informace naleznete v
-            Zásadách ochrany soukromí aplikace a webu eRouška a v Závazku datové důvěry iniciativy
-            COVID19CZ.\n\n### Můžu si používání aplikace kdykoli rozmyslet? Budu moci smazat své
-            telefonní číslo a data, která jsem předal hygienikům?\n\nAno. V aplikaci je možné smazat
-            veškerá nasbíraná data - jak z vašeho zařízení, tak i ze serveru hygieniků. Stejně tak
-            je možné smazat telefonní číslo, které jste poskytli při aktivaci aplikace.\n\nPamatujte
-            ale, že po smazání čísla vás nebudou moci hygienici kontaktovat v případě podezření na
-            rizikové setkání s nakaženou osobou.\n\n### Co se bude dít s daty, až pandemie
-            skončí?\n\nProvozovatel aplikace všechna data smaže nejpozději po skončení pandemie. O
-            ukončení pandemie, respektive možnosti odesílání dat a jejich ukládání do databáze,
-            rozhodnou orgány státní správy. Vy můžete všechna sesbíraná data i registrované
-            telefonní číslo smazat kdykoliv přímo z aplikace eRouška. Stejně tak se můžete kdykoliv
-            rozhodnout a přestat aplikaci zcela používat.
-        </value>
+        <value>### Proč je eRouška potřeba? Dokáže mě vůbec efektivně uchránit před nákazou?\n\nCílem aplikace eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá co nejdříve izolovat potenciálně nakažené osoby od ostatních. Tím by měla umožnit postupné uvolňování celostátní karantény a snížit dopady pandemie na společnost a ekonomiku ČR. Aplikace na podobném principu fungují i v dalších státech a většinou jsou velmi účinným prostředkem v boji proti šíření koronaviru.\n\nAplikace eRouška je jeden ze tří konceptů, které COVID19CZ používá, a je z nich nejšetrnější k soukromí. Aplikace se přes Bluetooth spojí s dalšími telefony s eRouškou v nejbližším okolí a uloží jejich identifikátory. Pokud bude později jeden z uživatelů eRoušky označen pracovníkem hygieny jako nakažený, epidemiologický model vyhodnotí, zda jste s ním byli v kontaktu dost dlouho na to, aby bylo nutné vás varovat a směřovat k dalšímu vyšetření.\n\n### Má smysl si eRoušku instalovat, když ji nebude používat dost lidí?\n\nFunguje to jako běžné roušky - čím více nás bude eRoušku používat, tím lépe bude fungovat. Snažíme se ve spolupráci s vládou ČR i dalšími organizacemi, aby se o eRoušce dozvědělo co nejvíce lidí a začali ji používat. Pomozte nám i vy. Instalací aplikace se můžete aktivně zapojit do boje proti koronaviru.\n\n### Proč chce aplikace znát mé telefonní číslo?\n\nTelefonní číslo potřebuje hygienická stanice, aby vás mohla co nejdříve kontaktovat v případě, že bude mít na základě informací z eRoušky nakaženého člověka podezření, že jste s ním byli v rizikovém kontaktu. Proto telefonní číslo registrujete hned při první spuštění eRoušky.\n\n### Jak se eRouška liší od toho, co dělají Mapy.cz?\n\nObě aplikace jsou součástí “chytré karantény”, mohou pomáhat souběžně, ale jsou postavené na odlišném principu. Aplikace eRouška místo GPS využívá Bluetooth. Nesbírá tedy informace o vaší poloze, ale pouze zjišťuje, se kterými dalšími uživateli aplikace jste přišli do bližšího kontaktu, třeba v metru, kde signál GPS není.\n\nKromě toho eRouška sama od sebe informace nikam neodesílá, zůstávají uložené ve vašem zařízení. Ke sdílení dat s hygienickou stanicí může dojít až ve chvíli, kdy pracovník hygieny kontaktuje uživatele na základě jeho pozitivního testu a požádá ho o souhlas se zpracováním dat, která aplikace sesbírala.\n\nTakto sdílená data vyhodnotí pověřený pracovník hygienické stanice. Registrované uživatele aplikace eRouška, kteří byli delší dobu v kritické vzdálenosti od nakaženého, kontaktuje pracovník hygienické stanice s pokyny dalšího postupu.\n\n### Jak mám postupovat, když mi test potvrdí nákazu?\n\nV první řadě byste měli kontaktovat hygienickou stanici, pod kterou místně spadáte, pokud vás již nekontaktovala sama. Hygiena vám poskytne informace o tom, jak dále postupovat, a případně vás požádá o souhlas se sdílením dat z aplikace. Dále byste měli zavolat svému obvodnímu lékaři, který vám indikuje léčbu. V případě závažných zdravotních komplikací volejte linky **112** a **155**.\n\nAktuální informace se dozvíte vždy na celostátní informační call lince: **1212** nebo na webu Ministerstva zdravotnictví - [https://koronavirus.mzcr.cz/](https://koronavirus.mzcr.cz/).\n\n### Takže všichni budou vědět, že mám COVID19? To mě zlynčují…\n\nNebudou. Pracovník hygienické stanice kontaktuje registrované uživatele, kteří byli podle dat z aplikace nakaženého v rizikovém kontaktu, projde s nimi epidemiologické šetření a podle míry epidemiologické závažnosti kontaktu nastaví další opatření. Informaci o tom, kdo je nakažený, nesmí hygienická stanice bez Vašeho souhlasu s nikým sdílet.\n\n### Co když někdo nepřizná, že je nemocný?\n\nI to se může stát. Věříme však, že uživatelé eRoušky chtějí aktivně pomáhat v zastavení dalšího šíření nákazy a aplikaci využijí, aby mohli co nejdřívě varovat osoby, které s nimi byly v rizikovém kontaktu. Nezapomínejme, že záměrné šíření koronaviru je v ČR považováno za trestný čin.\n\n### Co je to inteligentní/chytrá karanténa? Jakou v ním hraje roli eRouška?\n\nInteligentní karanténa je soubor moderních informačních nástrojů, který vytvořila skupina technologických expertů COVID19cz za účelem rychlé identifikace a dohledání rizikových kontaktů, jejich předání k testování na koronavirus, případné izolace a dodržování karantény. Vláda (Ústřední krizový štáb) vnímá chytrou karanténu jako sérii opatření, jejichž součástí jsou různá technologické řešení včetně eRoušky.\n\nNabízíme řešení, které neomezuje svobodu tolik jako plošná celostátní karanténa a zároveň nezasahuje lidem do soukromí.\n\n### Pozná eRouška, když poruším lékařem nařízenou karanténu nebo třeba pojedu na chatu?\n\nAplikace nesleduje vaši polohu, není to její účel a ani pro to není navržena. Má naopak pomoci k tomu, aby v karanténě byly pouze osoby s diagnostikovaným onemocněním nebo s vážným podezřením nákazy.\n\n\[\[Doplnění na zvážení:\]\] Pokud u vás test potvrdil nákazu koronavirem, a vy i přesto porušíte karanténu a nakazíte další osoby, dopouštíte se trestného činu bez ohledu na to, jestli jste uživatelem aplikace eRouška.\n\n### Jak dlouho do minulosti jsou data k dispozici? Kdy a jak probíhá jejich mazání?\n\nDobu, po kterou zůstávají sesbíraná data uložená ve vaší aplikaci eRouška, případně na serveru, pokud je tam odešlete, naleznete v Zásadách zpracování údajů ODKAZ. Jsou zde i informace o provozovatelích serverů a správcích dat.\n\n### Co když mi telefon ukradnou nebo ho ztratím?\n\nV aplikaci eRouška jsou lokálně uložené jen anonymní informace o dalších zařízeních, která eRouška zaznamenala ve svém okolí. Žádné riziko to nepřináší pro vás ani pro majitele takto zaznamenaných zařízení. To, že se někdo nepovolaný zmocnil vašich e-mailů, fotografií nebo hesel, je výrazně větší problém. Mějte proto svůj telefon chráněný kódem nebo biometricky (otiskem prstu, nebo obličejem).\n\n### Je aplikace eRouška v souladu s GDPR?\n\nCelý systém aplikace eRouška včetně podpůrných webových stránek jsou navržené plně v souladu se Zákonem o ochraně osobních údajů a GDPR.\n\nZde naleznete bližší informace:\n\n*   Zásady ochrany soukromí aplikace a webu eRouška\n*   Audit zdrojového kódu aplikace\n*   Závazek datové důvěry iniciativy COVID19CZ\n\nTechnické dotazy\n----------------\n\n### Na jakých telefonech aplikace eRouška funguje?\n\nPokud váš telefon není s eRouškou kompatibilní, Google Play ani App Store vám neumožní aplikaci nainstalovat. Pro instalaci aplikace eRouška potřebujete chytrý telefon s těmito parametry:\n\n*   iOS verze 11 a vyšší\n*   OS Android verze 5.0 a vyšší s Google services (nemá jen malé procento telefonů Huawei)\n*   Bluetooth LE (Low Energy) \*\n\n\* Některé starší modely telefonů (např. Google Nexus 5) mohou fungovat jen částečně - vidí přes Bluetooth telefony v okolí, ale ostatní smartphony je bohužel zpětně nevidí. Důvodem je, že ještě nejsou vybavené funkcí Bluetooth LE Advertising. I přesto má jejich použití smysl.\n\n### Jak probíhá sběr dat a jejich zpracování?\n\nChytrý telefon s aplikací eRouška zaznamená přes Bluetooth anonymní identifikátor (ID) z jiných zařízení s touto aplikací, pokud jsou blíže než cca 4 metry. Informaci o “setkání” a jeho délce ukládá do své vnitřní paměti.\n\nÚdaje můžete odeslat do centrální databáze hygieny v případě, že budete osloveni hygienickou stanicí z důvodu pozitivního testu, nebo kvůli podezření na rizikový kontakt s nakaženým. Pokud tak učiníte, získají k nim přístup pouze pověření pracovníci hygieny, kteří budou schopni spojit identifikátor aplikace s registrovaným telefonním číslem a upozornit další uživatele eRoušky, kteří s vámi byli v rizikovém kontaktu.\n\n_Aplikace si automaticky ukládá pouze následující informace: 31.3.2020 od 12:15 do 13:15 byla ve vaší blízkosti aplikace s identifikátorem ID 29091._\n\n### Musím mít Bluetooth zapnutý neustále?\n\nAno. Bez zapnutého Bluetooth není možné zjišťovat blízkost dalších zařízení s nainstalovanou aplikací eRouška. Tuto funkci máte zapnutou možná i nyní, například v případě, že používáte bezdrátová sluchátka, chytrý náramek nebo hodinky.\n\n### Kolik baterie aplikace a zapnutý Bluetooth spotřebují?\n\nPodle výsledků našeho testování s neustále zapnutým Bluetooth a ukládáním dat do aplikace byla denní spotřeba energie v řádu jednotek procent. Ve většině případů to je méně než 15 % kapacity baterie za den. Záleží přitom na konkrétním chytrém telefonu, stylu jeho používání a stavu baterie.\n\n### Proč aplikace používá zrovna Bluetooth? Neexistuje lepší řešení jako GPS nebo triangulace od operátorů?\n\nSoukromí uživatelů je pro nás na prvním místě a právě technologie Bluetooth nabízí nejvyváženější poměr přesnosti záznamu a minimálního zásahu do soukromí. Technologie GPS, ani triangulace vysílačů od operátorů nemohou poskytnout potřebné údaje s požadovanou přesností. Mimo jiné i proto, že jejich funkčnost je v budovách, garážích či metru velmi omezená. Aplikace eRouška potřebuje pro svoji funkci informace o tom, že došlo k setkání, na jakou vzdálenost a po jakou dobu. Není důležité, kde k setkání došlo.\n\n### Nemůže se stát, že eRouška mylně vyhodnotí kontakt s jinou osobou, která je například vedle v autě na křižovatce, za dveřmi nebo tenkou zdí?\n\nAplikace eRouška funguje na principu měření síly signálu mezi dvěma zařízeními. Technicky nelze vyloučit, že dojde k mylné detekci - například blízký kontakt skrz tenkou zeď se podobá vzdálenějšímu kontaktu bez překážky. Těmto omylům, byť jsou výjimečné, se nedá úplně zabránit. Proto je při zpracování dat bereme v potaz a vycházíme z toho, že eRouška má sloužit k přesnějšímu výběru okruhu osob, které potřebuje hygiena kontaktovat kvůli epidemiologickému šetření.\n\n### Proč je potřeba aplikaci povolit přístup k GPS/polohovým/lokačním údajům?\n\nAplikace eRouška nevyužívá a nesbírá ke své činnosti data z GPS. Avšak operační systém Android zahrnuje pod určování polohy také některé služby Bluetooth LE (LE = low energy), které eRouška pro své fungování potřebuje. Proto je nutný souhlas uživatele s přístupem aplikace k polohovým údajům. V iOS tento souhlas nutný není.\n\nVíce informací je k dispozici na webu OS Android pro vývojáře.\n\n### Může mě někdo pomocí aplikace eRouška sledovat?\n\nNe. Aplikace nesbírá údaje o vaší poloze a k uloženým datům máte přístup pouze vy. Samotné údaje, které aplikace po vašem souhlasu odesílá, nemohou být použity k vašemu sledování.\n\n_Aplikace automaticky ukládá pouze informace typu: 31.3.2020 od 12:15 do 13:15 byla ve vaší blízkosti aplikace s identifikátorem ID 29091._\n\n### Lze ověřit, že aplikace nezaznamenává moji polohu?\n\nAno. Nasbíraná data lze kdykoli zobrazit na záložce Moje data. Aplikace eRouška je publikována s otevřeným zdrojovým kódem, takže znalý člověk může snadno ověřit, že údaje o poloze opravdu nesbíráme.\n\nZdrojové kódy aplikace eRouška byly prověřeny nezávislými autoritami \[\[odkaz\]\], jejichž kontrola potvrdila, že aplikace dělá pouze to, co uvádí.\n\n### Lze identifikátor aplikace (ID) uživatele spárovat s konkrétní osobou?\n\nID lze spojit pouze s konkrétním zařízením a telefonním číslem uživatele. Tuto pravomoc ovšem mají jenom určení pracovníci hygienické stanice, a to jen v případě vašeho výslovného souhlasu.\n\n### Kdo má (může mít) přístup k mým datům?\n\nPouze vy. Až když se dobrovolně rozhodnete odeslat data hygienické stanici, přístup získají také její pověření pracovníci.\n\n### Jak zjistím, která všechna data přesně aplikace ukládá a odesílá hygienické stanici?\n\nNasbíraná data lze kdykoli v aplikaci zobrazit na záložce Moje data.\n\n### Jak uživatele chráníte před zneužitím dat?\n\nUživatele chráníme především minimálním rozsahem zaznamenávaných dat a jejich ukládáním přímo do zařízení. Data uživatelů se bez jejich vědomí a souhlasu nikam neposílají ani nezpracovávají. Do telefonu se zaznamenávají anonymní identifikátory (ID) zařízení s nainstalovanou aplikaci eRouška a informace o čase a délce jejich výskytu v blízkosti uživatele. Zpracovat je mohou po výslovném souhlasu uživatele jen určení pracovníci hygieny.\n\n### Dohlíží na zabezpečení dat z aplikace nějaká nezávislá organizace?\n\nCelý systém aplikace eRouška včetně podpůrných webových stránek je navržený plně v souladu se Zákonem o ochraně osobních údajů a GDPR. Kód aplikace je volně otevřený (open-source) a prošel auditem nezávislých vzdělávacích institucí.\n\nDalší informace naleznete v Zásadách ochrany soukromí aplikace a webu eRouška a v Závazku datové důvěry iniciativy COVID19CZ.\n\n### Můžu si používání aplikace kdykoli rozmyslet? Budu moci smazat své telefonní číslo a data, která jsem předal hygienikům?\n\nAno. V aplikaci je možné smazat veškerá nasbíraná data - jak z vašeho zařízení, tak i ze serveru hygieniků. Stejně tak je možné smazat telefonní číslo, které jste poskytli při aktivaci aplikace.\n\nPamatujte ale, že po smazání čísla vás nebudou moci hygienici kontaktovat v případě podezření na rizikové setkání s nakaženou osobou.\n\n### Co se bude dít s daty, až pandemie skončí?\n\nProvozovatel aplikace všechna data smaže nejpozději po skončení pandemie. O ukončení pandemie, respektive možnosti odesílání dat a jejich ukládání do databáze, rozhodnou orgány státní správy. Vy můžete všechna sesbíraná data i registrované telefonní číslo smazat kdykoliv přímo z aplikace eRouška. Stejně tak se můžete kdykoliv rozhodnout a přestat aplikaci zcela používat.</value>
     </entry>
 </defaultsMap>

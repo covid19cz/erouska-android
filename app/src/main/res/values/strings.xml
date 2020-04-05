@@ -159,4 +159,6 @@
     <string name="battery_opt_label">Aplikace na pozadí</string>
     <string name="guide_for">Návod pro %s</string>
     <string name="consent_warning">Souhlas s podmínkami zpracování je nezbytný pro aktivaci aplikace. Bez vašeho souhlasu nemůže aplikace fungovat.</string>
+    <string name="guide_completed">Přidal jsem do seznamu</string>
+    <string name="guide">Návod</string>
 </resources>

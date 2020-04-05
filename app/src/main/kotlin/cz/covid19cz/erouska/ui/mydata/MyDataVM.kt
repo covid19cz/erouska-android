@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.DatabaseRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
@@ -82,9 +83,7 @@ class MyDataVM(
     }
 
     fun openGuide() {
-        BatteryOptimization.getTutorialLink()?.let {
-            publish(ShowBatteryOptimizationGuide(it))
-        }
+        navigate(R.id.action_nav_my_data_to_nav_guide)
     }
 
     val layoutStrategy = MyDataFragment.MyDataLayoutStrategy()

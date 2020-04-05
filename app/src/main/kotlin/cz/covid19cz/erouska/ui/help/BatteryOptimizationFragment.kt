@@ -7,9 +7,7 @@ import android.view.View
 import androidx.navigation.NavOptions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentBatteryOptimizationBinding
-import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.DeviceInfo
 
 class BatteryOptimizationFragment :
@@ -34,7 +32,7 @@ class BatteryOptimizationFragment :
         }
         binding.guideBtn.text = getString(R.string.guide_for, DeviceInfo.getManufacturer())
         binding.guideBtn.setOnClickListener {
-            BatteryOptimization.getTutorialLink()?.let { it1 -> showWeb(it1) }
+            navigate(R.id.action_nav_battery_optimization_to_nav_guide)
         }
     }
 

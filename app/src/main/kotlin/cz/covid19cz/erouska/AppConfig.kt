@@ -56,18 +56,18 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("homepageLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
-    val batteryOptimizationAsusLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationAsusLink")
-    val batteryOptimizationLenovoLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationLenovoLink")
-    val batteryOptimizationSamsungLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationSamsungLink")
-    val batteryOptimizationSonyLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationSonyLink")
-    val batteryOptimizationXiaomiLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationXiaomiLink")
-    val batteryOptimizationHuaweiLink
-        get() = firebaseRemoteConfig.getString("batteryOptimizationHuaweiLink")
+    val batteryOptimizationAsusMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationAsusMarkdown")
+    val batteryOptimizationLenovoMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationLenovoMarkdown")
+    val batteryOptimizationSamsungMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationSamsungMarkdown")
+    val batteryOptimizationSonyMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationSonyMarkdown")
+    val batteryOptimizationXiaomiMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationXiaomiMarkdown")
+    val batteryOptimizationHuaweiMarkdown
+        get() = firebaseRemoteConfig.getString("batteryOptimizationHuaweiMarkdown")
     val helpMarkdown
         get() = firebaseRemoteConfig.getString("helpMarkdown")
 

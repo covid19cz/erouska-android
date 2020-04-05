@@ -8,4 +8,3 @@ sealed class ExportEvent : LiveEvent() {
 }
 
 object ShowDescriptionEvent: LiveEvent()
-data class ShowBatteryOptimizationGuide(val url: String): LiveEvent()
