@@ -6,7 +6,6 @@ import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.room.Room
-import com.google.firebase.analytics.FirebaseAnalytics
 import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.db.*
 import cz.covid19cz.erouska.db.export.CsvExporter
@@ -19,6 +18,7 @@ import cz.covid19cz.erouska.ui.confirm.ConfirmationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
+import cz.covid19cz.erouska.ui.help.GuideVM
 import cz.covid19cz.erouska.ui.help.HelpVM
 import cz.covid19cz.erouska.ui.login.LoginVM
 import cz.covid19cz.erouska.ui.main.MainVM
@@ -49,6 +49,7 @@ val viewModelModule = module {
     viewModel { ConfirmationVM(get(), get(), get()) }
     viewModel { SuccessVM() }
     viewModel { BatteryOptimizationVM() }
+    viewModel { GuideVM() }
 }
 
 val databaseModule = module {
@@ -81,7 +82,6 @@ val appModule = module {
     single { LocationStateReceiver() }
     single { BluetoothStateReceiver() }
     single { BatterSaverStateReceiver() }
-    single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { LocalBroadcastManager.getInstance(androidApplication()) }
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }

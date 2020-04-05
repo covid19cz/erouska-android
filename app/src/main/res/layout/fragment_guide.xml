@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.help.HelpVM" />
+            type="cz.covid19cz.erouska.ui.help.GuideVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/help_desc"
+                android:id="@+id/guide_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/fragment_padding"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:onClick="@{() -> vm.goBack()}"
-            android:text="@string/go_back_button"
+            android:text="@string/guide_completed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

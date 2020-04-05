@@ -7,6 +7,7 @@ import java.util.*
 
 object DeviceInfo {
 
+    @JvmStatic
     fun getManufacturer(): String {
         return Build.MANUFACTURER.capitalize()
     }

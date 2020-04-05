@@ -5,14 +5,14 @@ import android.view.View
 import com.google.firebase.storage.StorageException
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.withInternet
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.confirm.event.ErrorEvent
 import cz.covid19cz.erouska.ui.confirm.event.FinishedEvent
 import cz.covid19cz.erouska.ui.confirm.event.LogoutEvent
-import cz.covid19cz.erouska.utils.hide
 import cz.covid19cz.erouska.utils.logoutWhenNotSignedIn
-import cz.covid19cz.erouska.utils.show
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 
 abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, ConfirmationVM>(R.layout.fragment_confirmation, ConfirmationVM::class) {
@@ -34,7 +34,7 @@ abstract class ConfirmationFragment : BaseFragment<FragmentHelpBinding, Confirma
             confirm_progress.hide()
             confirm_desc.text = when ((it.exception as? StorageException)?.errorCode) {
                 StorageException.ERROR_RETRY_LIMIT_EXCEEDED -> getString(R.string.upload_error)
-                else -> it.exception.message
+                else -> getString(R.string.unexpected_error_text)
             }
         }
         subscribe(LogoutEvent::class) {

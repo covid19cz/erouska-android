@@ -1,26 +1,11 @@
-package cz.covid19cz.erouska.utils
+package cz.covid19cz.erouska.ext
 
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
-import androidx.browser.customtabs.CustomTabsIntent.Builder
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import cz.covid19cz.erouska.R
-import kotlin.math.roundToInt
-
-fun Context.dpToPx(dp: Int): Int {
-    val displayMetrics = getResources().getDisplayMetrics()
-    return (dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT.toFloat())).roundToInt()
-}
 
 fun EditText.setOnDoneListener(onDone: () -> Unit) {
     setOnEditorActionListener { _, actionId, _ ->
@@ -70,18 +55,6 @@ fun View.focusAndShowKeyboard() {
 fun View.hideKeyboard() {
     val im = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     im.hideSoftInputFromWindow(this.windowToken, 0);
-}
-
-fun Context.makeCall(phone: String) {
-    val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
-    startActivity(this, intent, null)
-}
-
-fun Context.openChromeTab(url: String) {
-    val builder = Builder()
-    builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-    val customTabsIntent = builder.build()
-    customTabsIntent.launchUrl(this, Uri.parse(url))
 }
 
 fun View.hide() {

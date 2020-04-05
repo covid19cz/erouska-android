@@ -1,7 +1,9 @@
 package cz.covid19cz.erouska.ext
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -10,10 +12,15 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.core.content.getSystemService
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.utils.CustomTabHelper.chromePackageName
+import cz.covid19cz.erouska.utils.L
 
 
 fun Context.isLocationEnabled(): Boolean {
@@ -87,4 +94,37 @@ fun Context.shareApp() {
     intent.type = "text/plain"
     intent.putExtra(Intent.EXTRA_TEXT, text)
     startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
+}
+
+fun Context.makeCall(phone: String) {
+    val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
+    ContextCompat.startActivity(this, intent, null)
+}
+
+fun BaseFragment<*, *>.showWeb(url: String) {
+    val intent = CustomTabsIntent.Builder()
+        .setShowTitle(true)
+        .setToolbarColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        .setCloseButtonIcon(
+            BitmapFactory.decodeResource(
+                resources,
+                R.drawable.ic_action_up
+            )
+        )
+        .build()
+    if (chromePackageName != null) {
+        intent.launchUrl(requireContext(), Uri.parse(url))
+    } else {
+        // Custom Tabs not available
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(url)
+                )
+            )
+        } catch (e: ActivityNotFoundException) {
+            L.e(e)
+        }
+    }
 }

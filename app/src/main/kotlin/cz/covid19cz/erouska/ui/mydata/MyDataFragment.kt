@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import arch.adapter.RecyclerLayoutStrategy
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
@@ -52,5 +53,14 @@ class MyDataFragment :
                 dialog.dismiss()
             }
             .show()
+    }
+
+    class MyDataLayoutStrategy: RecyclerLayoutStrategy {
+        override fun getLayoutId(item: Any): Int {
+            return when (item) {
+                is MyDataVM.BatteryOptimizationFooter -> R.layout.my_data_battery_optimization
+                else -> R.layout.item_my_data
+            }
+        }
     }
 }

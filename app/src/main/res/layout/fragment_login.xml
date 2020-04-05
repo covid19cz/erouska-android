@@ -66,19 +66,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_title" />
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/login_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_verif_phone" />
+
             <TextView
                 android:id="@+id/login_statement"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fragment_padding"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/highlight_selector"
                 android:layout_marginEnd="@dimen/fragment_padding"
                 android:text="@string/login_statement"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/login_checkbox"
                 app:layout_constraintTop_toBottomOf="@+id/login_verif_phone" />
 
 

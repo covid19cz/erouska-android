@@ -9,20 +9,20 @@ import java.util.*
 object BatteryOptimization {
 
     private val urls = mapOf(
-        "huawei" to AppConfig.batteryOptimizationHuaweiLink,
-        "asus" to AppConfig.batteryOptimizationAsusLink,
-        "lenovo" to AppConfig.batteryOptimizationLenovoLink,
-        "samsung" to AppConfig.batteryOptimizationSamsungLink,
-        "sony" to AppConfig.batteryOptimizationSonyLink,
-        "xiaomi" to AppConfig.batteryOptimizationXiaomiLink
+        "huawei" to AppConfig.batteryOptimizationHuaweiMarkdown,
+        "asus" to AppConfig.batteryOptimizationAsusMarkdown,
+        "lenovo" to AppConfig.batteryOptimizationLenovoMarkdown,
+        "samsung" to AppConfig.batteryOptimizationSamsungMarkdown,
+        "sony" to AppConfig.batteryOptimizationSonyMarkdown,
+        "xiaomi" to AppConfig.batteryOptimizationXiaomiMarkdown
     )
 
     fun isTutorialNeeded(): Boolean {
-        return AppConfig.showBatteryOptimizationTutorial && getTutorialLink() != null
+        return AppConfig.showBatteryOptimizationTutorial && getTutorialMarkdown() != null
     }
 
-    fun getTutorialLink(): String? {
-        return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]
+    fun getTutorialMarkdown(): String? {
+        return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]?.replace("\\n", "\n")
     }
 
     @SuppressLint("PrivateApi")

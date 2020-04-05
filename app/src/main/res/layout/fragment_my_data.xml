@@ -6,7 +6,6 @@
     <data>
         <import type="cz.covid19cz.erouska.utils.ColorUtils" />
         <import type="cz.covid19cz.erouska.AppConfig" />
-
         <import type="cz.covid19cz.erouska.R" />
 
         <variable
@@ -82,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/pageCritical"
                     app:items="@{vm.criticalItems}"
-                    app:layoutId="@{R.layout.item_my_data}"
+                    app:layoutStrategy="@{vm.layoutStrategy}"
                     app:viewModel="@{vm}" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -90,7 +89,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/pageAll"
                     app:items="@{vm.allItems}"
-                    app:layoutId="@{R.layout.item_my_data}"
+                    app:layoutStrategy="@{vm.layoutStrategy}"
                     app:viewModel="@{vm}" />
 
             </androidx.viewpager.widget.ViewPager>

@@ -170,7 +170,7 @@ class LoginVM(
         } else if (e is FirebaseNetworkException) {
             mutableState.postValue(LoginError(R.string.login_network_error.toText()))
         } else {
-            mutableState.postValue(LoginError(e.message?.toText()))
+            mutableState.postValue(LoginError(R.string.unexpected_error_text.toText()))
         }
     }
 
