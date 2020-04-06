@@ -4,7 +4,6 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.WEB
-import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.EMERGENCY
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.FAQ
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent.Command.IMPORTANT
 
@@ -16,10 +15,6 @@ class ContactsVM : BaseVM() {
 
     fun faq() {
         publish(ContactsCommandEvent(FAQ))
-    }
-
-    fun emergency() {
-        publish(ContactsCommandEvent(EMERGENCY))
     }
 
     fun openWeb() {

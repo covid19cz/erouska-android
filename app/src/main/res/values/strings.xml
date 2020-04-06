@@ -118,7 +118,6 @@
     <string name="contacts_help_desc"><![CDATA[<b>Potřebujete poradit?</b><br/><br/>Veškeré otázky a&nbsp;nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince %s.]]></string>
     <string name="contacts_faq">Často kladené dotazy</string>
     <string name="contacts_important">Důležité kontakty</string>
-    <string name="contacts_emergency">Zavolejte na %s</string>
     <string name="contacts_improve_desc"><![CDATA[<b>O aplikaci eRouška</b><br/><br/>Potřebujete poradit s&nbsp;aplikací nebo vás zajímá, jak funguje a&nbsp;jak zpracováváme osobní údaje? Podívejte se na web erouska.cz]]></string>
     <string name="contacts_go_to_web">přejít na web erouska.cz</string>
     <string name="send_email_chooser">Odeslat email…</string>

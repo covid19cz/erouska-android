@@ -5,7 +5,6 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
-import cz.covid19cz.erouska.ext.makeCall
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent
@@ -23,7 +22,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
             when (commandEvent.command) {
                 ContactsCommandEvent.Command.IMPORTANT -> openImportant()
                 ContactsCommandEvent.Command.FAQ -> openFaq()
-                ContactsCommandEvent.Command.EMERGENCY -> callEmergency()
                 ContactsCommandEvent.Command.WEB -> goToWeb()
             }
         }
@@ -38,7 +36,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
             viewModel.getEmergencyNumber()
         )
         contacts_help.text = HtmlCompat.fromHtml(contactsHelpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        contacts_emergency.text = getString(R.string.contacts_emergency, viewModel.getEmergencyNumber())
 
         contacts_improve.text = HtmlCompat.fromHtml(getString(R.string.contacts_improve_desc), HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
@@ -49,10 +46,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
 
     private fun openFaq() {
         showWeb(viewModel.getFaqUrl())
-    }
-
-    private fun callEmergency() {
-        context?.makeCall(viewModel.getEmergencyNumber())
     }
 
     private fun goToWeb() {
