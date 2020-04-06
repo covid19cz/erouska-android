@@ -22,6 +22,7 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.Text
+import cz.covid19cz.erouska.utils.formatPhoneNumber
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -61,7 +62,6 @@ class LoginFragment :
         super.onViewCreated(view, savedInstanceState)
 
         views = listOf(
-            login_image,
             login_progress,
             login_verif_activate_btn,
             login_verif_code_send_btn,
@@ -69,7 +69,6 @@ class LoginFragment :
             error_image,
             login_verif_phone_input,
             login_verif_code_input,
-            login_title,
             login_desc,
             login_verif_phone,
             login_verif_code,
@@ -139,8 +138,6 @@ class LoginFragment :
         when (state) {
             is EnterPhoneNumber -> {
                 show(
-                    login_image,
-                    login_title,
                     login_desc,
                     login_verif_phone,
                     login_verif_phone_input,
@@ -161,8 +158,10 @@ class LoginFragment :
                     login_verif_code_send_btn,
                     code_timeout
                 )
-                phone_number_code.text =
-                    getString(R.string.login_phone_number_sms_sent, state.phoneNumber)
+                phone_number_code.text = getString(
+                    R.string.login_phone_number_sms_sent,
+                    state.phoneNumber.formatPhoneNumber()
+                )
                 login_verif_code.isErrorEnabled = state.invalidCode
                 if (state.invalidCode) {
                     login_verif_code.error = getString(R.string.login_code_input_error)

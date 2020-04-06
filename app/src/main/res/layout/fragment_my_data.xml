@@ -82,6 +82,8 @@
                     android:id="@+id/pageCritical"
                     app:items="@{vm.criticalItems}"
                     app:layoutStrategy="@{vm.layoutStrategy}"
+                    android:paddingBottom="72dp"
+                    android:clipToPadding="false"
                     app:viewModel="@{vm}" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -90,6 +92,8 @@
                     android:id="@+id/pageAll"
                     app:items="@{vm.allItems}"
                     app:layoutStrategy="@{vm.layoutStrategy}"
+                    android:paddingBottom="72dp"
+                    android:clipToPadding="false"
                     app:viewModel="@{vm}" />
 
             </androidx.viewpager.widget.ViewPager>
