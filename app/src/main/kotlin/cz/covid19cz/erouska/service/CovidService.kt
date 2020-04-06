@@ -196,6 +196,7 @@ class CovidService : Service() {
 
     private fun turnMaskOn() {
         if (isLocationEnabled() && btUtils.isBtEnabled()) {
+            wakeLockManager.acquire()
             localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
             startBleAdvertising()
             startBleScanning()
@@ -208,6 +209,7 @@ class CovidService : Service() {
         localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STOPPED))
         btUtils.stopScanning()
         btUtils.stopAdvertising()
+        wakeLockManager.release()
 
         bleScanningDisposable?.dispose()
         bleScanningDisposable = null
