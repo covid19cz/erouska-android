@@ -32,7 +32,9 @@ class BatteryOptimizationFragment :
         }
         binding.guideBtn.text = getString(R.string.guide_for, DeviceInfo.getManufacturer())
         binding.guideBtn.setOnClickListener {
-            navigate(R.id.action_nav_battery_optimization_to_nav_guide)
+            navigate(R.id.action_nav_battery_optimization_to_nav_guide, Bundle().apply {
+                putBoolean("fullscreen", true)
+            })
         }
     }
 
