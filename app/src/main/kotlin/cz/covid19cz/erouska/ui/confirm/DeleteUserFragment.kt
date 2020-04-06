@@ -18,7 +18,11 @@ class DeleteUserFragment : ConfirmationFragment() {
 
     override fun doWhenFinished() {
         context?.let {
-            it.startService(CovidService.stopService(it, hideNotification = true, clearData = true))
+            it.startService(CovidService.stopService(
+                context = it,
+                hideNotification = true,
+                clearScanningData = true)
+            )
         }
         navigate(R.id.action_nav_delete_user_to_nav_delete_user_success)
     }
