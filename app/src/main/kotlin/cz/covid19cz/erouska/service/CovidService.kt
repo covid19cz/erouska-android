@@ -43,39 +43,42 @@ class CovidService : Service() {
 
         const val EXTRA_HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
         const val EXTRA_CLEAR_DATA = "CLEAR_DATA"
+        const val EXTRA_PERSIST_STATE = "PERSIST_STATE"
 
-        fun startService(c: Context): Intent {
-            val serviceIntent = Intent(c, CovidService::class.java)
+        fun startService(context: Context): Intent {
+            val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_START
             return serviceIntent
         }
 
         fun stopService(
-            c: Context,
+            context: Context,
             hideNotification: Boolean = false,
-            clearData: Boolean = false
+            clearScanningData: Boolean = false,
+            persistState: Boolean = true
         ): Intent {
-            val serviceIntent = Intent(c, CovidService::class.java)
+            val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_STOP
             serviceIntent.putExtra(EXTRA_HIDE_NOTIFICATION, hideNotification)
-            serviceIntent.putExtra(EXTRA_CLEAR_DATA, clearData)
+            serviceIntent.putExtra(EXTRA_CLEAR_DATA, clearScanningData)
+            serviceIntent.putExtra(EXTRA_PERSIST_STATE, persistState)
             return serviceIntent
         }
 
-        fun update(c: Context) {
-            val serviceIntent = Intent(c, CovidService::class.java)
+        fun update(context: Context) {
+            val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_UPDATE
-            c.startService(serviceIntent)
+            context.startService(serviceIntent)
         }
 
-        fun pause(c: Context): Intent {
-            val serviceIntent = Intent(c, CovidService::class.java)
+        fun pause(context: Context): Intent {
+            val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_PAUSE
             return serviceIntent
         }
 
-        fun resume(c: Context): Intent {
-            val serviceIntent = Intent(c, CovidService::class.java)
+        fun resume(context: Context): Intent {
+            val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_RESUME
             return serviceIntent
         }
@@ -170,7 +173,8 @@ class CovidService : Service() {
         }
         if (intent.getBooleanExtra(EXTRA_CLEAR_DATA, false)) {
             btUtils.clearScanResults()
-        } else {
+        }
+        if (intent.getBooleanExtra(EXTRA_PERSIST_STATE, true)) {
             prefs.setAppPaused(true)
         }
     }
@@ -196,6 +200,7 @@ class CovidService : Service() {
 
     private fun turnMaskOn() {
         if (isLocationEnabled() && btUtils.isBtEnabled()) {
+            wakeLockManager.acquire()
             localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
             startBleAdvertising()
             startBleScanning()
@@ -208,6 +213,7 @@ class CovidService : Service() {
         localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STOPPED))
         btUtils.stopScanning()
         btUtils.stopAdvertising()
+        wakeLockManager.release()
 
         bleScanningDisposable?.dispose()
         bleScanningDisposable = null

@@ -96,11 +96,6 @@ fun Context.shareApp() {
     startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
 }
 
-fun Context.makeCall(phone: String) {
-    val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
-    ContextCompat.startActivity(this, intent, null)
-}
-
 fun BaseFragment<*, *>.showWeb(url: String) {
     val intent = CustomTabsIntent.Builder()
         .setShowTitle(true)

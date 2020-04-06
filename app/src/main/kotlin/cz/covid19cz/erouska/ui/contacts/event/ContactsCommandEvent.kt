@@ -7,7 +7,6 @@ class ContactsCommandEvent(val command: Command) : LiveEvent() {
     enum class Command{
         IMPORTANT,
         FAQ,
-        EMERGENCY,
         WEB,
     }
 

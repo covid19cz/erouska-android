@@ -80,9 +80,7 @@
                     android:layout_marginTop="8dp"
                     android:paddingBottom="80dp"
                     android:text="@string/permission_onboarding_desc_minor"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/bluetooth_onboard_desc_2" />
