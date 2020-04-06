@@ -15,10 +15,13 @@ class DeleteDataFragment : ConfirmationFragment() {
 
     override fun doWhenFinished() {
         context?.let {
-            it.startService(CovidService.stopService(
-                context = it,
-                clearScanningData = true,
-                persistState = true))
+            it.startService(
+                CovidService.stopService(
+                    context = it,
+                    clearScanningData = true,
+                    persistState = true
+                )
+            )
         }
         navigate(R.id.action_nav_delete_data_to_nav_delete_data_success)
     }

@@ -34,10 +34,13 @@ object Auth: KoinComponent {
 
 fun BaseFragment<*,*>.logoutWhenNotSignedIn() {
     with(requireContext()){
-        startService(CovidService.stopService(
-            context = this,
-            hideNotification = true,
-            clearScanningData = true)
+        startService(
+            CovidService.stopService(
+                context = this,
+                hideNotification = true,
+                clearScanningData = true,
+                persistState = false
+            )
         )
     }
     Auth.signOut()
