@@ -43,7 +43,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/contacts_emergency" />
+                app:layout_constraintTop_toBottomOf="@id/contacts_faq_btn" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_faq_btn"
@@ -56,16 +56,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contacts_help" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/contacts_emergency"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.emergency()}"
-                android:text="@string/contacts_emergency"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contacts_faq_btn" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_important_btn"
