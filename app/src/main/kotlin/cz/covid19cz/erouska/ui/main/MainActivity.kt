@@ -35,12 +35,15 @@ class MainActivity :
             name: ComponentName,
             client: CustomTabsClient
         ) {
+            connectedToCustomTabsService = true
             client.warmup(0)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
+            connectedToCustomTabsService = false
         }
     }
+    private var connectedToCustomTabsService = false
 
     private val serviceStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -118,7 +121,9 @@ class MainActivity :
     }
 
     override fun onStop() {
-        unbindService(customTabsConnection)
+        if (connectedToCustomTabsService) {
+            unbindService(customTabsConnection)
+        }
         super.onStop()
     }
 
