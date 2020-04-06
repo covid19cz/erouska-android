@@ -29,6 +29,7 @@ import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 
+
 class CovidService : Service() {
 
     companion object {
@@ -40,10 +41,15 @@ class CovidService : Service() {
 
         const val ACTION_MASK_STARTED = "action_service_started"
         const val ACTION_MASK_STOPPED = "action_service_stopped"
+        const val ACTION_TUID_ROTATED = "action_tuid_rotated"
+
 
         const val EXTRA_HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
         const val EXTRA_CLEAR_DATA = "CLEAR_DATA"
         const val EXTRA_PERSIST_STATE = "PERSIST_STATE"
+        const val EXTRA_TUID = "EXTRA_TUID"
+
+        const val INVALID_TUID = "00000000000000000000"
 
         fun startService(context: Context): Intent {
             val serviceIntent = Intent(context, CovidService::class.java)
@@ -108,12 +114,10 @@ class CovidService : Service() {
     private var bleAdvertisingDisposable: Disposable? = null
     private var bleScanningDisposable: Disposable? = null
 
-    private lateinit var deviceBuid: String
     private var servicePaused = false
 
     override fun onCreate() {
         super.onCreate()
-        deviceBuid = prefs.getDeviceBuid() ?: "00000000000000000000"
         subscribeToReceivers()
     }
 
@@ -277,7 +281,8 @@ class CovidService : Service() {
         bleAdvertisingDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled()) {
-                    btUtils.startAdvertising(deviceBuid)
+                    val nextTuid = getNextTuid()
+                    btUtils.startAdvertising(nextTuid)
                 } else {
                     bleAdvertisingDisposable?.dispose()
                 }
@@ -289,6 +294,19 @@ class CovidService : Service() {
                 { L.d("Restarting BLE advertising") },
                 { L.e(it) }
             )
+    }
+
+    private fun getNextTuid(): String {
+        return (prefs.getRandomTuid(prefs.getCurrentTuid()) ?: INVALID_TUID).also {
+            prefs.setCurrentTuid(it)
+            L.d("New broadcasted TUID: $it")
+            localBroadcastManager.sendBroadcast(Intent(ACTION_TUID_ROTATED).apply {
+                putExtra(
+                    EXTRA_TUID,
+                    it
+                )
+            })
+        }
     }
 
     private fun batterySaverRestrictsLocation(): Boolean {

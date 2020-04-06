@@ -15,7 +15,7 @@ class CsvExporter(private val repository: DatabaseRepository) {
     companion object {
         // represents the structure of the csv file
         val HEADERS: Array<String> = arrayOf(
-            "buid",
+            "tuid",
             "timestampStart",
             "timestampEnd",
             "avgRssi",
@@ -40,7 +40,7 @@ class CsvExporter(private val repository: DatabaseRepository) {
                 // write entities
                 entities.forEach {
                     csvWriter.write(
-                        it.buid,
+                        it.tuid,
                         it.timestampStart,
                         it.timestampEnd,
                         it.rssiAvg,

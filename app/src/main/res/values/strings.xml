@@ -89,7 +89,7 @@
 
     <string name="my_data_column_date">Datum</string>
     <string name="my_data_column_time">Čas</string>
-    <string name="my_data_column_buid">ID</string>
+    <string name="my_data_column_tuid">ID</string>
     <string name="my_data_column_rssi">RSSI</string>
 
     <string name="about_title">O\u00A0aplikaci</string>
@@ -161,4 +161,5 @@
     <string name="guide_completed">Pokračovat</string>
     <string name="guide">Návod</string>
     <string name="unexpected_error_text">Nastala neočekávaná chyba. Zkuste to později. Pokud se chyba opakuje delší dobu, konktaktujte naší podporu.</string>
+    <string name="data_description">O zobrazených datech</string>
 </resources>

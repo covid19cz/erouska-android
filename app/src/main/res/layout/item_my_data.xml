@@ -44,17 +44,17 @@
             android:text="@{vm.formatTime(item.timestampEnd)}"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textBuid"
+            app:layout_constraintEnd_toStartOf="@id/textTuid"
             app:layout_constraintStart_toEndOf="@id/textDate"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="02:02" />
 
         <TextView
-            android:id="@+id/textBuid"
+            android:id="@+id/textTuid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{item.maskedBuid}"
+            android:text="@{item.maskedTuid}"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textRssi"
@@ -70,7 +70,7 @@
             android:text='@{String.format("%d dBm",item.rssiMed)}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textBuid"
+            app:layout_constraintStart_toEndOf="@id/textTuid"
             app:layout_constraintTop_toTopOf="parent"
             app:textColorResource="@{ColorUtils.INSTANCE.rssiToColor(item.rssiMed)}"
             tools:text="-70 db" />

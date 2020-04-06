@@ -10,8 +10,8 @@ data class ScanDataEntity(
     @ColumnInfo(name = COLUMN_ID)
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @ColumnInfo(name = COLUMN_BUID)
-    val buid: String,
+    @ColumnInfo(name = COLUMN_TUID)
+    val tuid: String,
     @ColumnInfo(name = COLUMN_TIMESTAMP_START)
     val timestampStart: Long,
     @ColumnInfo(name = COLUMN_TIMESTAMP_END)
@@ -25,7 +25,7 @@ data class ScanDataEntity(
 ){
     companion object {
         const val COLUMN_ID = "id"
-        const val COLUMN_BUID = "buid"
+        const val COLUMN_TUID = "tuid"
         const val COLUMN_TIMESTAMP_START = "timestampStart"
         const val COLUMN_TIMESTAMP_END = "timestampEnd"
         const val COLUMN_RSSI_AVG = "rssiAvg"
@@ -33,8 +33,8 @@ data class ScanDataEntity(
         const val COLUMN_RSSI_COUNT = "rssiCount"
     }
 
-    fun getMaskedBuid() : String{
-        return "...${buid.substring(14)}"
+    fun getMaskedTuid() : String{
+        return "...${tuid.substring(14)}"
     }
 
     fun getMedDistance() : String{
