@@ -42,6 +42,6 @@ interface ScanDataDao {
     @Query("DELETE FROM $TABLE_NAME")
     fun clear()
 
-    @Query("SELECT count(DISTINCT ${ScanDataEntity.COLUMN_BUID}) FROM $TABLE_NAME WHERE ${ScanDataEntity.COLUMN_TIMESTAMP_END} > :since AND ${ScanDataEntity.COLUMN_RSSI_MED} >= :rssi")
-    fun getBuidCount(since: Long, rssi : Int) : Flowable<Int>
+    @Query("SELECT count(DISTINCT ${ScanDataEntity.COLUMN_TUID}) FROM $TABLE_NAME WHERE ${ScanDataEntity.COLUMN_TIMESTAMP_END} > :since AND ${ScanDataEntity.COLUMN_RSSI_MED} >= :rssi")
+    fun getTuidCount(since: Long, rssi : Int) : Flowable<Int>
 }

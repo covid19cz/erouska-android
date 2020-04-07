@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.mydata
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import arch.adapter.RecyclerLayoutStrategy
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -24,9 +25,6 @@ class MyDataFragment :
         subscribe(ExportEvent.Confirmation::class) {
             navigate(R.id.action_nav_my_data_to_nav_send_data)
         }
-        subscribe(ShowDescriptionEvent::class) {
-            showMessageDialog(getString(R.string.my_data_description, AppConfig.persistDataDays))
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +41,15 @@ class MyDataFragment :
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.my_data, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.data_description) {
+            showMessageDialog(getString(R.string.my_data_description, AppConfig.persistDataDays))
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun showMessageDialog(message: String) {

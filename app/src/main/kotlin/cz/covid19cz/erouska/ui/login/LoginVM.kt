@@ -13,6 +13,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
@@ -21,7 +22,6 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.toText
-import org.json.JSONObject
 import java.text.SimpleDateFormat
 
 
@@ -193,8 +193,9 @@ class LoginVM(
                     "pushRegistrationToken" to pushToken
                 )
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
-                    val buid = JSONObject(it.data.toString()).getString("buid")
-                    sharedPrefsRepository.putDeviceBuid(buid)
+                    val response = Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
+                    sharedPrefsRepository.putDeviceBuid(response.buid)
+                    sharedPrefsRepository.putDeviceTuids(response.tuids)
                     getUser()
                 }.addOnFailureListener {
                     handleError(it)
@@ -208,4 +209,6 @@ class LoginVM(
         val buid = checkNotNull(sharedPrefsRepository.getDeviceBuid())
         mutableState.postValue(SignedIn(fuid, phoneNumber, buid))
     }
+
+    data class RegistrationResponse(val buid: String, val tuids: List<String>)
 }

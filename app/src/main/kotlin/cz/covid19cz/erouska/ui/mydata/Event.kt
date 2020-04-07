@@ -6,5 +6,3 @@ sealed class ExportEvent : LiveEvent() {
     data class PleaseWait(val minutes: Int): ExportEvent()
     object Confirmation: ExportEvent()
 }
-
-object ShowDescriptionEvent: LiveEvent()

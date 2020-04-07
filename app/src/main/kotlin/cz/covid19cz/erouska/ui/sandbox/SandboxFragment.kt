@@ -1,12 +1,14 @@
 package cz.covid19cz.erouska.ui.sandbox
 
-import android.app.ActivityManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import arch.livedata.SafeMutableLiveData
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.R
@@ -15,16 +17,32 @@ import cz.covid19cz.erouska.ext.getLocationPermission
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.service.CovidService
+import cz.covid19cz.erouska.service.CovidService.Companion.ACTION_TUID_ROTATED
+import cz.covid19cz.erouska.service.CovidService.Companion.EXTRA_TUID
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
+    }
+
+    private val localBroadcastManager by inject<LocalBroadcastManager>()
+
+    private val tuidRotationReceiver = object :BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.action?.let {
+                if (it == ACTION_TUID_ROTATED) {
+                    viewModel.tuid.postValue(intent.getStringExtra(EXTRA_TUID) ?: "")
+                }
+            }
+        }
+
     }
 
     private lateinit var rxPermissions: RxPermissions
@@ -34,6 +52,11 @@ class SandboxFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         rxPermissions = RxPermissions(this)
+        localBroadcastManager.registerReceiver(
+            tuidRotationReceiver,
+            IntentFilter(
+            ACTION_TUID_ROTATED)
+        )
 
         subscribe(DashboardCommandEvent::class) {
             when (it.command) {
@@ -48,17 +71,6 @@ class SandboxFragment :
         } else {
             L.d("Service Covid is not running")
         }
-    }
-
-    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
-        val manager =
-            context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
-        for (service in manager!!.getRunningServices(Int.MAX_VALUE)) {
-            if (serviceClass.name == service.service.className) {
-                return true
-            }
-        }
-        return false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,6 +131,7 @@ class SandboxFragment :
 
     override fun onDestroy() {
         compositeDisposable.dispose()
+        localBroadcastManager.unregisterReceiver(tuidRotationReceiver)
         super.onDestroy()
     }
 }

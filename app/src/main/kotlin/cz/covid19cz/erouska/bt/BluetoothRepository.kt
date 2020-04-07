@@ -19,7 +19,6 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 
@@ -112,18 +111,18 @@ class BluetoothRepository(
             status: Int
         ) {
             if (GATT_CHARACTERISTIC_UUID == characteristic?.uuid) {
-                val buid = characteristic.value?.asHexLower
+                val tuid = characteristic.value?.asHexLower
                 val mac = gatt.device?.address
 
-                if (buid != null) {
-                    L.d("GATT BUID found. Mac ${gatt.device.address}. BUID: $buid")
+                if (tuid != null) {
+                    L.d("GATT TUID found. Mac ${gatt.device.address}. TUID: $tuid")
                     discoveredIosDevices[mac]?.let { session ->
-                            session.deviceId = buid
-                            scanResultsMap[buid] = session
+                            session.deviceId = tuid
+                            scanResultsMap[tuid] = session
                             session
                     }
                 } else {
-                    L.e("GATT BUID not found on $mac")
+                    L.e("GATT TUID not found on $mac")
                 }
                 disconnectFromGatt(gatt)
             }
@@ -239,7 +238,7 @@ class BluetoothRepository(
     private fun onScanResult(result: ScanResult) {
         result.scanRecord?.bytes?.let { bytes ->
             if (isServiceUUIDMatch(result) || canBeIosOnBackground(result.scanRecord)) {
-                val deviceId = getBuidFromAdvertising(bytes)
+                val deviceId = getTuidFromAdvertising(bytes)
                 if (deviceId != null) {
                     // It's time to handle Android Device
                     handleAndroidDevice(result, deviceId)
@@ -300,9 +299,9 @@ class BluetoothRepository(
             registerIOSDevice(result)
         } else {
             discoveredIosDevices[result.device.address]?.let {
-                if (it.deviceId == ScanSession.UNKNOWN_BUID) {
+                if (it.deviceId == ScanSession.UNKNOWN_TUID) {
                     if (it.gattAttemptTimestamp + 5000 < System.currentTimeMillis()) {
-                        getBuidFromGatt(it)
+                        getTuidFromGatt(it)
                     }
                 } else if (!scanResultsMap.containsKey(it.deviceId)) {
                     scanResultsMap[it.deviceId] = it
@@ -326,7 +325,7 @@ class BluetoothRepository(
         scanResultsList.add(session)
     }
 
-    private fun getBuidFromGatt(session: ScanSession) {
+    private fun getTuidFromGatt(session: ScanSession) {
         connectToGatt(session.mac)
         session.gattAttemptTimestamp = System.currentTimeMillis()
     }
@@ -343,7 +342,7 @@ class BluetoothRepository(
         gatt.close()
     }
 
-    private fun getBuidFromAdvertising(bytes: ByteArray): String? {
+    private fun getTuidFromAdvertising(bytes: ByteArray): String? {
         val result = ByteArray(10)
 
         var currIndex = 0
@@ -387,7 +386,7 @@ class BluetoothRepository(
     private fun clearIosDevices() {
         // Don't clear whole iOS device cache to preventing DDOS GATT, but remove UNKNOWN devices
         discoveredIosDevices = discoveredIosDevices.filterValues {
-            it.deviceId != ScanSession.UNKNOWN_BUID
+            it.deviceId != ScanSession.UNKNOWN_TUID
         }.apply {
             forEach { it.value.reset() }
         }.toMutableMap()
@@ -397,7 +396,7 @@ class BluetoothRepository(
         return btManager.adapter?.isMultipleAdvertisementSupported ?: false
     }
 
-    fun startAdvertising(buid: String) {
+    fun startAdvertising(tuid: String) {
         val power = AppConfig.advertiseTxPower
 
         if (isAdvertising) {
@@ -425,7 +424,7 @@ class BluetoothRepository(
             .build()
 
         val scanData = AdvertiseData.Builder()
-            .addServiceData(parcelUuid, buid.hexAsByteArray).build()
+            .addServiceData(parcelUuid, tuid.hexAsByteArray).build()
 
         btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
             settings,

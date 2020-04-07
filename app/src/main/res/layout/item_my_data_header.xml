@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/textDate"
-            app:layout_constraintEnd_toStartOf="@id/textBuid"
+            app:layout_constraintEnd_toStartOf="@id/textTuid"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
@@ -46,7 +46,7 @@
             android:text="@string/my_data_column_time" />
 
         <TextView
-            android:id="@+id/textBuid"
+            android:id="@+id/textTuid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/textTime"
@@ -56,13 +56,13 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textStyle="bold"
-            android:text="@string/my_data_column_buid" />
+            android:text="@string/my_data_column_tuid" />
 
         <TextView
             android:id="@+id/textRssi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/textBuid"
+            app:layout_constraintStart_toEndOf="@id/textTuid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
