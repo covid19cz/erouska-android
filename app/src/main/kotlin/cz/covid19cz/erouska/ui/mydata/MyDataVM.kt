@@ -23,8 +23,6 @@ class MyDataVM(
     val criticalItems = ObservableArrayList<Any>()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    val allCount = SafeMutableLiveData(0)
-    val allCriticalCount = SafeMutableLiveData(0)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -51,14 +49,6 @@ class MyDataVM(
                 criticalItems.add(BatteryOptimizationFooter())
             }
         }
-
-        subscribe(dbRepo.getBuidCount(0), { L.e(it) }) {
-            allCount.value = it
-        }
-
-        subscribe(dbRepo.getCriticalBuidCount(0), { L.e(it) }) {
-            allCriticalCount.value = it
-        }
     }
 
     fun formatDate(timestamp: Long): String {
@@ -76,10 +66,6 @@ class MyDataVM(
         } else {
             publish(ExportEvent.Confirmation)
         }
-    }
-
-    fun showDescription() {
-        publish(ShowDescriptionEvent)
     }
 
     fun openGuide() {

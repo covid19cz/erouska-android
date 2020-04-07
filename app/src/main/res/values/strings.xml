@@ -89,7 +89,7 @@
 
     <string name="my_data_column_date">Datum</string>
     <string name="my_data_column_time">Čas</string>
-    <string name="my_data_column_buid">ID</string>
+    <string name="my_data_column_tuid">ID</string>
     <string name="my_data_column_rssi">RSSI</string>
 
     <string name="about_title">O\u00A0aplikaci</string>
@@ -153,7 +153,7 @@
     <string name="battery_opt_title">eRouška potřebuje běžet i\u00A0když s\u00A0ní právě nepracujete</string>
     <string name="battery_opt_desc">Váš telefon automaticky vypíná některé aplikace pokud s\u00A0nimi nepracujete, kvůli úspoře baterie.</string>
     <string name="battery_opt_desc_2">Povolte běh aplikace na pozadí v\u00A0nastavení telefonu. Návod pro svůj telefon najdete níže.</string>
-    <string name="battery_opt_my_data">Může docházet k automatickému vypínání aplikace ve chvíli, kdy s\u00A0ní nepracujete.\nZkontrolujete nastavení svého telefonu.</string>
+    <string name="battery_opt_my_data">Potkali jste během dne více lidí? Zkontrolujte nastavení svého telefonu. Je možné, že aplikaci automaticky vypíná.</string>
     <string name="battery_opt_done">Dokončit aktivaci</string>
     <string name="battery_opt_label">Aplikace na pozadí</string>
     <string name="guide_for">Návod pro %s</string>
@@ -161,4 +161,5 @@
     <string name="guide_completed">Pokračovat</string>
     <string name="guide">Návod</string>
     <string name="unexpected_error_text">Nastala neočekávaná chyba. Zkuste to později. Pokud se chyba opakuje delší dobu, konktaktujte naší podporu.</string>
+    <string name="data_description">O zobrazených datech</string>
 </resources>

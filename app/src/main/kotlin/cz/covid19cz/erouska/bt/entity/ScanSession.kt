@@ -6,13 +6,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ScanSession(deviceId: String = UNKNOWN_BUID, val mac: String) {
+class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
 
     companion object{
-        const val UNKNOWN_BUID = "UNKNOWN"
+        const val UNKNOWN_TUID = "UNKNOWN"
     }
 
-    var deviceId: String = deviceId
+    var deviceId: String = tuid
         set(value) {
             field = value
             observableDeviceId.postValue(value)
@@ -21,7 +21,7 @@ class ScanSession(deviceId: String = UNKNOWN_BUID, val mac: String) {
     private val rssiList = ArrayList<Rssi>()
     val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
     val lastGattAttempt = SafeMutableLiveData("")
-    val observableDeviceId = SafeMutableLiveData(deviceId)
+    val observableDeviceId = SafeMutableLiveData(tuid)
 
     var avgRssi = 0
     var medRssi = 0

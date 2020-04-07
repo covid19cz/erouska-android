@@ -7,4 +7,10 @@
         android:title="@string/delete_data"
         android:visible="true"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/data_description"
+        android:icon="@drawable/ic_help"
+        app:showAsAction="always"
+        app:iconTint="?colorControlNormal"
+        android:title="@string/data_description" />
 </menu>
