@@ -87,7 +87,6 @@ class LoginFragment :
             getString(R.string.login_statement),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-        login_statement.movementMethod = LinkMovementMethod.getInstance()
         login_statement.setOnClickListener {
             showWeb(AppConfig.termsAndConditionsLink)
         }
