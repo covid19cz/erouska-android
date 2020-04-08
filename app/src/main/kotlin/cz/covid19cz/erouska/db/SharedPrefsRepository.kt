@@ -10,6 +10,7 @@ class SharedPrefsRepository(c : Context) {
         const val DEVICE_BUID = "DEVICE_BUID"
         const val DEVICE_TUIDS = "DEVICE_TUIDS"
         const val CURRENT_TUID = "CURRENT_TUID"
+        const val DB_ENCRYPTED_KEY = "DB_ENCRYPTED_KEY"
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_UPLOAD_TIMESTAMP = "preference.last_upload_timestamp"
         const val LAST_DB_CLEANUP_TIMESTAMP = "preference.last_db_cleanup_timestamp"
@@ -76,6 +77,12 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)
+
+    fun getDbEncryptedKey(): String? = prefs.getString(DB_ENCRYPTED_KEY, null)
+
+    fun setDbEncryptedKey(key: String) {
+        prefs.edit().putString(DB_ENCRYPTED_KEY, key).apply()
+    }
 
     fun clear(){
         prefs.edit().clear().apply()

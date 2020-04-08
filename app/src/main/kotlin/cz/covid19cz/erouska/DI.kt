@@ -7,6 +7,7 @@ import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.room.Room
 import cz.covid19cz.erouska.bt.BluetoothRepository
+import cz.covid19cz.erouska.crypto.getDatabaseEncryptionKey
 import cz.covid19cz.erouska.db.*
 import cz.covid19cz.erouska.db.export.CsvExporter
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
@@ -28,6 +29,8 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.success.SuccessVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import net.sqlcipher.database.SQLiteDatabase.getBytes
+import net.sqlcipher.database.SupportFactory
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -53,8 +56,11 @@ val viewModelModule = module {
 }
 
 val databaseModule = module {
-    fun provideDatabase(application: Application): AppDatabase {
+    fun provideDatabase(prefs: SharedPrefsRepository, application: Application): AppDatabase {
+        val key = getDatabaseEncryptionKey(prefs, application.baseContext)
+        val factory = SupportFactory(key)
         return Room.databaseBuilder(application, AppDatabase::class.java, "database")
+            .openHelperFactory(factory)
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -63,7 +69,7 @@ val databaseModule = module {
         return database.scanResultsDao
     }
 
-    single { provideDatabase(androidApplication()) }
+    single { provideDatabase(get(), androidApplication()) }
     single { provideDao(get()) }
     single { CsvExporter(get()) }
 }
