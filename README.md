@@ -51,3 +51,5 @@ On the command line:
 ## Releasing
 
 We have CI (GitHub Actions) for that. With any push to master branch, the app is built and published to [Firebase App Distribution](https://firebase.google.com/docs/app-distribution). We have two variants of the app: DEV and PROD. PROD app is also built as an App Bundle artefact, which needs to be manually uploaded to Google Play.
+
+Versioning is automatic: major and minor version is in Git, patch is versionCode, which is number of commits from the start.
