@@ -42,6 +42,10 @@ We are initiative consisting from people from various Czech IT companies called 
 
 We are happy to accept pull requests. If you want to help more, discuss with us etc., please join [COVID19CZ](https://covid19cz.cz) Slack (channel #erouska), internally we use [Trello](https://trello.com/b/4xN2Eeqv/bug-wf) for bugs.
 
+## Git flow
+
+Do all work in feature branches or in forks, then send pull requests to `develop` branch. Pull requests are merged with `squash commits`. Only admins merge `develop` to `master` with `rebase` strategy, which triggers the release build.
+
 ## How to build the app
 
 It should be easy - just checkout the project and import it to Android Studio.
