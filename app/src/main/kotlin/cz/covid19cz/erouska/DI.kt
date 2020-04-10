@@ -87,7 +87,7 @@ val appModule = module {
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
-    single { Markdown() }
+    single { Markdown(androidContext()) }
 }
 
 

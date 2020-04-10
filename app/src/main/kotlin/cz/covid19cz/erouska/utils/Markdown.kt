@@ -1,14 +1,14 @@
 package cz.covid19cz.erouska.utils
 
+import android.content.Context
 import android.widget.TextView
-import cz.covid19cz.erouska.App
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.glide.GlideImagesPlugin
 
-class Markdown {
+class Markdown(val context: Context) {
     private val markwon by lazy {
-        Markwon.builder(App.instance)
-            .usePlugin(GlideImagesPlugin.create(App.instance))
+        Markwon.builder(context)
+            .usePlugin(GlideImagesPlugin.create(context))
             .build()
     }
 
