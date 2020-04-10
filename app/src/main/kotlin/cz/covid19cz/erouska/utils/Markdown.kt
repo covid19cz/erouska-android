@@ -13,9 +13,8 @@ object Markdown {
     }
 
     fun show(textView: TextView, markdown: String?) {
-        if (markdown != null) {
-            val newLinesFixed = markdown.replace("\\n", "\n")
-            markwon.setMarkdown(textView, newLinesFixed)
+       markdown?.replace("\\n", "\n")?.let {
+            markwon.setMarkdown(textView, it)
         }
     }
 }
