@@ -18,15 +18,13 @@ class SharedPrefsRepository(c : Context) {
     val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
 
     fun putDeviceBuid(buid : String){
-        prefs.edit().putString(DEVICE_BUID, buid).apply()
+        // commit needed to avoid race conditions
+        prefs.edit().putString(DEVICE_BUID, buid).commit()
     }
 
     fun putDeviceTuids(tuids : List<String>){
-        prefs.edit().putStringSet(DEVICE_TUIDS, tuids.toSet()).apply()
-    }
-
-    fun removeDeviceBuid(){
-        prefs.edit().remove(DEVICE_BUID).apply()
+        // commit needed to avoid race conditions
+        prefs.edit().putStringSet(DEVICE_TUIDS, tuids.toSet()).commit()
     }
 
     fun getDeviceBuid() : String?{
