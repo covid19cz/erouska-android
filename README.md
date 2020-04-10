@@ -20,6 +20,7 @@ Read more at [our FAQ](https://erouska.cz/faq)
 We got inspired by similar apps in other countries:
 - [Singapur](https://github.com/OpenTrace-Community)
 - [Poland](https://github.com/ProteGO-app)
+- [Slovakia](https://github.com/CovidWorld)
 
 We are open-source from day one and we will be happy to work with people in other countries, if they want to launch similar app. Contact [David Vávra](mailto:david.vavra@erouska.cz) for technical details.
 
