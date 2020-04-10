@@ -109,7 +109,8 @@ class LoginVM(
     fun phoneNumberEntered(phoneNumber: String) {
         this.phoneNumber = phoneNumber
         if (phoneNumber.length >= 8) {
-            mutableState.postValue(StartVerification)
+            mutableState.postValue(SigningProgress)
+            publish(StartVerificationEvent)
         } else {
             mutableState.postValue(EnterPhoneNumber(true))
         }
