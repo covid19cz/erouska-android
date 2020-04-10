@@ -10,12 +10,11 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
-import io.noties.markwon.Markwon
+import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_help.*
 
 class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
 
-    lateinit var markwon: Markwon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
                 HelpCommandEvent.Command.GO_BACK -> goBack()
             }
         }
-        markwon = Markwon.builder(requireContext()).build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -43,7 +41,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             welcome_continue_btn.visibility = View.GONE
         }
 
-        markwon.setMarkdown(help_desc, AppConfig.helpMarkdown.replace("\\n", "\n"))
+        Markdown.show(help_desc, AppConfig.helpMarkdown)
     }
 
     fun goBack() {

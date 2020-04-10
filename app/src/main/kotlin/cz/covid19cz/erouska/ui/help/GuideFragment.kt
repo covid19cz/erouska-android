@@ -7,12 +7,11 @@ import cz.covid19cz.erouska.databinding.FragmentGuideBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.BatteryOptimization
-import io.noties.markwon.Markwon
+import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_guide.*
 
-class GuideFragment : BaseFragment<FragmentGuideBinding, GuideVM>(R.layout.fragment_guide, GuideVM::class) {
-
-    lateinit var markwon: Markwon
+class GuideFragment :
+    BaseFragment<FragmentGuideBinding, GuideVM>(R.layout.fragment_guide, GuideVM::class) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +21,12 @@ class GuideFragment : BaseFragment<FragmentGuideBinding, GuideVM>(R.layout.fragm
                 HelpCommandEvent.Command.GO_BACK -> goBack()
             }
         }
-        markwon = Markwon.builder(requireContext()).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-
-        BatteryOptimization.getTutorialMarkdown()?.let { markwon.setMarkdown(guide_desc, it) }
+        Markdown.show(guide_desc, BatteryOptimization.getTutorialMarkdown())
     }
 
     private fun goBack() {

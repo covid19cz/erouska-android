@@ -18,11 +18,12 @@ object BatteryOptimization {
     )
 
     fun isTutorialNeeded(): Boolean {
-        return AppConfig.showBatteryOptimizationTutorial && getTutorialMarkdown() != null
+        val markdown = getTutorialMarkdown()
+        return AppConfig.showBatteryOptimizationTutorial && markdown != null && !markdown.contains("<!-- do-not-show -->")
     }
 
     fun getTutorialMarkdown(): String? {
-        return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]?.replace("\\n", "\n")
+        return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]
     }
 
     @SuppressLint("PrivateApi")
