@@ -50,6 +50,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.setTitle(R.string.app_name)
         registerServiceStateReceivers()
         rxPermissions = RxPermissions(this)
         updateState()
