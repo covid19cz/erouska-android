@@ -27,7 +27,7 @@ We are open-source from day one and we will be happy to work with people in othe
 ## Technical details
 
 - Bluetooth Low Energy
-- For Android-Android, we don't connect devices, ID is only broadcasted in broadcast payload
+- For Android-Android, we don't connect to devices, ID is only broadcasted in broadcast payload
 - For Android-iOS, we need to connect to the iOS device via GATT to get the ID
 - We use [Firebase Phone Number Authentication](https://firebase.google.com/docs/auth/android/phone-auth) for verifying phone numbers and authentication
 - We use [Firebase Storage](https://firebase.google.com/docs/storage) for uploading user data in CSV format
@@ -36,7 +36,7 @@ We are open-source from day one and we will be happy to work with people in othe
 
 ## Who is behind the app?
 
-We are initiative consisting from people from various Czech IT companies called [COVID19CZ](https://covid19cz.cz). We are all unpaid volunteers. We got backing from [Ministry of healthcare](https://www.mzcr.cz/).  
+We are initiative consisting from people from various Czech IT companies called [COVID19CZ](https://covid19cz.cz). We are all unpaid volunteers. We got backing from [Czech Ministry of Healthcare](https://www.mzcr.cz/).  
 
 ## Contributing
 
