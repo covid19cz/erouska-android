@@ -1,13 +1,13 @@
 # erouska-android
 
-Erouška ("rouška" means "face mask" in Czech) is an app which helps to fight against COVID-19. When turned on, it scans other users of the app via Bluetooth and saves this data locally. When some user tests positive for COVID-19, he/she is asked to upload their data. Then operators from the state can see phone numbers of users of the app which were in close contact with the infected and can call them about further measures.
+Erouška ("rouška" means "face mask" in Czech) is an app which helps to fight against COVID-19. When turned on, it scans other users of the app via Bluetooth and saves this data locally. When some user tests positive for COVID-19, he/she is asked to upload their data. Then healtcare authorities can see phone numbers of users of the app which were in close contact with the infected and can call them about further measures.
 
 Read more at [our website](https://erouska.cz).
 
 [Download from Google Play](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
 
 ## How do we protect user's privacy?
-- All data are saved only locally, they are uploaded only with user's consent
+- All data is saved only locally, they are uploaded only with user's consent
 - User can always turn the scanning off
 - We change broadcasted ID every hour. Nobody can track you using this ID (only our backend has knowledge which ID corresponds to which phone number)
 - We delete data on backend after 6 hours from upload
