@@ -9,9 +9,12 @@ import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_guide.*
+import org.koin.android.ext.android.inject
 
 class GuideFragment :
     BaseFragment<FragmentGuideBinding, GuideVM>(R.layout.fragment_guide, GuideVM::class) {
+
+    private val markdown by inject<Markdown>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,7 @@ class GuideFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        Markdown.show(guide_desc, BatteryOptimization.getTutorialMarkdown())
+        markdown.show(guide_desc, BatteryOptimization.getTutorialMarkdown())
     }
 
     private fun goBack() {

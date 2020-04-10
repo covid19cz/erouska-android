@@ -28,6 +28,7 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.success.SuccessVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import cz.covid19cz.erouska.utils.Markdown
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -86,6 +87,7 @@ val appModule = module {
     single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
+    single { Markdown() }
 }
 
 
