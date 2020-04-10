@@ -19,6 +19,7 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.toText
@@ -83,28 +84,25 @@ class LoginVM(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val functions = Firebase.functions(FIREBASE_REGION)
     private lateinit var phoneNumber: String
-    private var smsCountDownTimer: CountDownTimer = object: CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
-        override fun onFinish() {
-            mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
-        }
+    private var smsCountDownTimer: CountDownTimer =
+        object : CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
+            override fun onFinish() {
+                mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+            }
 
-        override fun onTick(millisUntilFinished: Long) {
-            val df = SimpleDateFormat("mm:ss")
-            remainingTime.postValue(df.format(millisUntilFinished))
-        }
+            override fun onTick(millisUntilFinished: Long) {
+                val df = SimpleDateFormat("mm:ss")
+                remainingTime.postValue(df.format(millisUntilFinished))
+            }
 
-    }
+        }
 
     val remainingTime = MutableLiveData<String>("")
 
     init {
         auth.setLanguageCode("cs")
-        if (auth.currentUser != null) {
-            if (sharedPrefsRepository.getDeviceBuid() == null) {
-                registerDevice()
-            } else {
-                getUser()
-            }
+        if (Auth.isSignedIn()) {
+            mutableState.postValue(SignedIn)
         }
     }
 
@@ -137,8 +135,6 @@ class LoginVM(
         smsCountDownTimer.cancel()
         mutableState.postValue(EnterPhoneNumber(false))
     }
-
-    fun getTermsAndConditions() = AppConfig.termsAndConditionsLink
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().signInWithCredential(credential)
@@ -193,21 +189,15 @@ class LoginVM(
                     "pushRegistrationToken" to pushToken
                 )
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
-                    val response = Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
+                    val response =
+                        Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
                     sharedPrefsRepository.putDeviceBuid(response.buid)
                     sharedPrefsRepository.putDeviceTuids(response.tuids)
-                    getUser()
+                    mutableState.postValue(SignedIn)
                 }.addOnFailureListener {
                     handleError(it)
                 }
             })
-    }
-
-    private fun getUser() {
-        val fuid = checkNotNull(auth.uid)
-        val phoneNumber = checkNotNull(auth.currentUser?.phoneNumber)
-        val buid = checkNotNull(sharedPrefsRepository.getDeviceBuid())
-        mutableState.postValue(SignedIn(fuid, phoneNumber, buid))
     }
 
     data class RegistrationResponse(val buid: String, val tuids: List<String>)
