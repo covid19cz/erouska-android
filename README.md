@@ -7,7 +7,7 @@ Read more at [our website](https://erouska.cz).
 [Download from Google Play](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
 
 ## How do we protect user's privacy?
-- All data is saved only locally, they are uploaded only with user's consent
+- All data is saved only locally, it is uploaded only with user's consent
 - User can always turn the scanning off
 - We change broadcasted ID every hour. Nobody can track you using this ID (only our backend has knowledge which ID corresponds to which phone number)
 - We delete data on backend after 6 hours from upload
