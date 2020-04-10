@@ -9,4 +9,4 @@ data class EnterCode(val invalidCode: Boolean, val phoneNumber: String): LoginSt
 data class CodeReadAutomatically(val code: String): LoginState()
 object SigningProgress: LoginState()
 data class LoginError(val text: Text?): LoginState()
-data class SignedIn(val fuid: String, val phoneNumber: String, val buid: String): LoginState()
+object SignedIn: LoginState()
