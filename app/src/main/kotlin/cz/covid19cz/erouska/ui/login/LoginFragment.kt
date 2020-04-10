@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.login
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -36,6 +35,13 @@ class LoginFragment :
         super.onStart()
         viewModel.state.observe(this) {
             updateState(it)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        subscribe(StartVerificationEvent::class) {
+            verifyPhoneNumber()
         }
     }
 
@@ -182,7 +188,6 @@ class LoginFragment :
             SigningProgress -> show(login_progress)
             is LoginError -> showError(state.text)
             is SignedIn -> showSignedIn()
-            StartVerification -> verifyPhoneNumber()
         }
 
         if (state is EnterCode || state is CodeReadAutomatically) {
@@ -215,7 +220,6 @@ class LoginFragment :
     }
 
     private fun verifyPhoneNumber() {
-        show(login_progress)
         val phoneNumber = login_verif_phone_input.text.toString()
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber, // Phone number to verify
