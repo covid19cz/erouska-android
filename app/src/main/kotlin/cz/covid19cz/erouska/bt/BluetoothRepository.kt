@@ -236,9 +236,9 @@ class BluetoothRepository(
     }
 
     private fun onScanResult(result: ScanResult) {
-        result.scanRecord?.bytes?.let { bytes ->
-            if (isServiceUUIDMatch(result) || canBeIosOnBackground(result.scanRecord)) {
-                val deviceId = getTuidFromAdvertising(bytes)
+        result.scanRecord?.let { scanRecord ->
+            if (isServiceUUIDMatch(result) || canBeIosOnBackground(scanRecord)) {
+                val deviceId = getTuidFromAdvertising(scanRecord)
                 if (deviceId != null) {
                     // It's time to handle Android Device
                     handleAndroidDevice(result, deviceId)
@@ -342,39 +342,11 @@ class BluetoothRepository(
         gatt.close()
     }
 
-    private fun getTuidFromAdvertising(bytes: ByteArray): String? {
-        val result = ByteArray(10)
-
-        var currIndex = 0
-        var len = -1
-        var type: Byte
-
-        while (currIndex < bytes.size && len != 0) {
-            len = bytes[currIndex].toInt()
-            type = bytes[currIndex + 1]
-
-            if (type == 0x21.toByte()) { //128 bit Service UUID (most cases)
-                // +2 (skip lenght byte and type byte), +16 (skip 128 bit Service UUID)
-                bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
-                break
-            } else if (type == 0x16.toByte()) { //16 bit Service UUID (rare cases)
-                // +2 (skip lenght byte and type byte), +2 (skip 16 bit Service UUID)
-                if (bytes.size > (currIndex + 2 + 2 + 10)) {
-                    bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
-                }
-                break
-            } else if (type == 0x20.toByte()) { //32 bit Service UUID (just in case)
-                // +2 (skip lenght byte and type byte), +4 (skip 32 bit Service UUID)
-                bytes.copyInto(result, 0, currIndex + 2 + 4, currIndex + 2 + 4 + 10)
-                break
-            } else {
-                currIndex += len + 1
-            }
+    private fun getTuidFromAdvertising(scanRecord: ScanRecord): String? {
+        scanRecord.serviceData?.apply {
+            return get(ParcelUuid(SERVICE_UUID))?.asHexLower ?: get(keys.first())?.asHexLower
         }
-
-        val resultHex = result.asHexLower
-
-        return if (resultHex != "00000000000000000000") resultHex else null
+        return null
     }
 
     fun clearScanResults() {
