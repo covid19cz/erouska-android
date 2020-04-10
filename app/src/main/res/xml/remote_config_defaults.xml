@@ -104,4 +104,8 @@
         <key>waitingSeconds</key>
         <value>0</value>
     </entry>
+    <entry>
+        <key>showBatteryOptimizationTutorial</key>
+        <value>true</value>
+    </entry>
 </defaultsMap>
