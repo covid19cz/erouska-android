@@ -164,4 +164,5 @@
     <string name="verify_later_desc">Nedorazila vám SMS zpráva s ověřovacím kódem? Začněte aplikaci používat hned a ověřte telefonní číslo později.</string>
     <string name="verify_later_button">Dokončím ověření později</string>
     <string name="verify_phone_number">ověřit telefonní číslo</string>
+    <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
 </resources>
