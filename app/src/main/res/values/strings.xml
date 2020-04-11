@@ -165,4 +165,5 @@
     <string name="verify_later_button">Dokončím ověření později</string>
     <string name="verify_phone_number">ověřit telefonní číslo</string>
     <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
+    <string name="dashboard_not_verified_secondary">Ověřte prosím své telefonní číslo, abychom vás mohli kontaktovat v případě podezření na nákazu koronavirem.</string>
 </resources>

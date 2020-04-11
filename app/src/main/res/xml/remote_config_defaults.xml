@@ -116,4 +116,8 @@
         <key>showVerifyLaterTimeoutSeconds</key>
         <value>30</value>
     </entry>
+    <entry>
+        <key>uploadWaitingMinutes</key>
+        <value>15</value>
+    </entry>
 </defaultsMap>
