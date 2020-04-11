@@ -15,7 +15,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
-    val phoneNumber = Auth.getPhoneNumber().formatPhoneNumber()
+    val phoneNumber = prefs.getAuthPhoneNumber()?.formatPhoneNumber()
 
     private val serviceObserver = Observer<Boolean> { isRunning ->
         if (!isRunning && !prefs.getAppPaused()) {
