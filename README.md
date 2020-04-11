@@ -1,67 +1,89 @@
 # erouska-android
 
-eRouška ("rouška" means "face mask" in Czech) is an app which helps to fight against COVID-19. When turned on, it scans other users of the app via Bluetooth and saves this data locally. When some user tests positive for COVID-19, he/she is asked to upload their data. Then healtcare authorities can see phone numbers of users of the app which were in close contact with the infected and can call them about further measures.
+## [erouska.cz](https://erouska.cz)
+## [Download from Google Play](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
 
-Read more at [our website](https://erouska.cz).
+Read our [**FAQ** (Czech only)](https://erouska.cz/caste-dotazy)
 
-[Download from Google Play](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
+eRouška (_rouška_ = _face mask_ in Czech) helps to fight against COVID-19.
 
-## How do we protect user's privacy?
-- All data is saved only locally, it is uploaded only with user's consent
-- User can always turn the scanning off
-- We change broadcasted ID every hour. Nobody can track you using this ID (only our backend has knowledge which ID corresponds to which phone number)
-- We delete data on backend after 6 hours from upload
-- You can always delete your data, including your phone number
-- This app is open-source from the start, so anyone can check our claims are true
+eRouška uses Bluetooth to scan the area around the device for other eRouška users and saves the data of these encounters.
 
-Read more at [our FAQ](https://erouska.cz/caste-dotazy)
+When an eRouška user tests positive for COVID-19, the user is contacted by a healthcare authority and asked to upload the data to create a map of potential secondary infections.
+
+The healthcare authorities then analyse the data and contact the possibly newly infected for further measures (quarantine, testing).
+
+The App is registered with a phone number. The phone numbers are available only for the healthcare authorities.
+
+
+## How do we protect the user's privacy?
+
+- User can remove all collected data, including the phone number.
+- All data are saved locally on the user's device. Data are uploaded only with user's consent after a healthcare authority's request.
+- The scanning can be turned off manually at any time.
+- The broadcasted _Device ID_ is changed every hour, so a user cannot be tracked with it. (Only our backend has a knowledge of which _Device ID_'s correspond to which phone number.)
+- The data are kept on backend for 6 hours, then deleted.
+- eRouška is developed open-source from day one.
+
+## Who is developing eRouška?
+
+We are an initiative consisting of people from various Czech IT companies and volunteers called [COVID19CZ](https://covid19cz.cz). We are all unpaid volunteers. 
+
+We are on Slack! [covid19cz.slack.com](covid19cz.slack.com), channel _#erouska_.
+
+The development was subsequently approved by [Czech Ministry of Healthcare](https://www.mzcr.cz/). 
 
 ## International cooperation
 
-We got inspired by similar apps in other countries:
-- [Singapur](https://github.com/OpenTrace-Community)
-- [Poland](https://github.com/ProteGO-app)
-- [Slovakia](https://github.com/CovidWorld)
+We are open-source from day one and we will be happy to work with people in other countries if they want to develop a similar app. Contact [David Vávra](mailto:david.vavra@erouska.cz) for technical details.
 
-We are open-source from day one and we will be happy to work with people in other countries, if they want to launch similar app. Contact [David Vávra](mailto:david.vavra@erouska.cz) for technical details.
+We got inspired by similar apps in other countries:
+- [**OpenTrace** from Singapore](https://github.com/OpenTrace-Community)
+- [**ProteGO-app** from Poland](https://github.com/ProteGO-app)
+- [**Covid World** from Slovakia](https://github.com/CovidWorld)
 
 ## Technical details
 
-- Bluetooth Low Energy
-- For Android-Android, we don't connect to devices, ID is only broadcasted in broadcast payload
-- For Android-iOS, we need to connect to the iOS device via GATT to get the ID
-- We use [Firebase Phone Number Authentication](https://firebase.google.com/docs/auth/android/phone-auth) for verifying phone numbers and authentication
-- We use [Firebase Storage](https://firebase.google.com/docs/storage) for uploading user data in CSV format
-- We use [Firebase Functions](https://firebase.google.com/docs/functions) for getting the IDs to broadcast after registration
-- We use [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) for monitoring crashes from the app
+- eRouška uses: 
+	- Bluetooth Low Energy (BLE)
+	- [Firebase Phone Number Authentication](https://firebase.google.com/docs/auth/android/phone-auth) for phone number verification and authentication
+	- [Firebase Storage](https://firebase.google.com/docs/storage) for uploading the collected user data in CSV format
+	- [Firebase Functions](https://firebase.google.com/docs/functions) for getting the _Device ID_'s to broadcast after registration
+	- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) for app crash monitoring
 
-More details:
-- [Technical documentation](https://github.com/covid19cz/erouska-android/wiki/Technical-documentation)
-- [iOS app code](https://github.com/covid19cz/erouska-ios)
-- [Firebase Functions code](https://github.com/covid19cz/erouska-firebase)
-- [Website code](https://github.com/covid19cz/erouska-homepage)
+- For Android <-> Android Bluetooth connection, the App doesn't need to connect to the other device as the _Device ID_ is broadcasted in the broadcast payload.
+- For Android <-> iOS Bluetooth connection, the App needs to connect to the iOS device via GATT to get the _Device ID_.
 
-## Who is behind the app?
-
-We are initiative consisting from people from various Czech IT companies called [COVID19CZ](https://covid19cz.cz). We are all unpaid volunteers. We got backing from [Czech Ministry of Healthcare](https://www.mzcr.cz/).  
-
-## Contributing
-
-We are happy to accept pull requests. If you want to help more, discuss with us etc., please join [COVID19CZ](https://covid19cz.cz) Slack (channel #erouska), internally we use [Trello](https://trello.com/b/4xN2Eeqv/bug-wf) for bugs.
-
-## Git flow
-
-Do all work in feature branches or in forks, then send pull requests to `develop` branch. Pull requests are merged with `squash commits`. Only admins merge `develop` to `master` with `rebase` strategy, which triggers the release build.
+More details about eRouška:
+- [Technical documentation in Wiki](https://github.com/covid19cz/erouska-android/wiki/Technical-documentation)
+- [erouska-ios](https://github.com/covid19cz/erouska-ios): iOS source code
+- [erouska-firebase](https://github.com/covid19cz/erouska-firebase): Firebase Functions source code
+- [erouska-homepage](https://github.com/covid19cz/erouska-homepage): erouska.cz webpage source code
 
 ## How to build the app
 
-It should be easy - just checkout the project and import it to Android Studio.
+Clone this repository and import the project into Android Studio.
 
-On the command line:
+In a terminal:
 `./gradlew assembleDevDebug`
 
-## Releasing
+## Contributing
+We are happy to accept pull requests! See [Git Workflow](#git-workflow).
 
-We have CI (GitHub Actions) for that. With any push to master branch, the app is built and published to [Firebase App Distribution](https://firebase.google.com/docs/app-distribution). We have two variants of the app: DEV and PROD. PROD app is also built as an App Bundle artefact, which needs to be manually uploaded to Google Play.
+We are on Slack! [covid19cz.slack.com](covid19cz.slack.com), channel _#erouska_.
 
-Versioning is automatic: major and minor version is in Git, patch is versionCode, which is number of commits from the start.
+We use a private [Trello](https://trello.com/b/4xN2Eeqv/bug-wf) for bug tracking, contact us on Slack.
+
+## <a name="git-workflow"></a>Git workflow
+
+- Do all work in a fork, then send a pull request to the `develop` branch. 
+- Pull requests are merged with `squash commits`.
+- Admins merge `develop` to `master` with a `rebase` strategy. This triggers a release build.
+
+## eRouška release process
+
+eRouška uses GitHub Actions. A push to master branch triggers an app build. Then the app is published to [Firebase App Distribution](https://firebase.google.com/docs/app-distribution). 
+
+There are two variants of the App: **DEV** and **PROD**. **PROD** is also built as an App Bundle artefact, that needs to be manually uploaded to Google Play.
+
+Versioning is automatic: major and minor version is in Git, patch is _versionCode_ (a number of commits from the start).
