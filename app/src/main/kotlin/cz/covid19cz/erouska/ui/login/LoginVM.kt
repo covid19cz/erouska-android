@@ -194,6 +194,7 @@ class LoginVM(
                         Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
                     sharedPrefsRepository.putDeviceBuid(response.buid)
                     sharedPrefsRepository.putDeviceTuids(response.tuids)
+                    sharedPrefsRepository.saveAuthPhoneNumber(phoneNumber)
                     mutableState.postValue(SignedIn)
                 }.addOnFailureListener {
                     handleError(it)

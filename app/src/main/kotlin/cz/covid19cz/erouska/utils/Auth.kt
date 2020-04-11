@@ -24,7 +24,7 @@ object Auth: KoinComponent {
     }
 
     fun getPhoneNumber(): String {
-        return checkNotNull(auth.currentUser?.phoneNumber)
+        return auth.currentUser?.phoneNumber?.let { it } ?: prefs.getAuthPhoneNumber()
     }
 
     fun signOut() {
