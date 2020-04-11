@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import cz.covid19cz.erouska.utils.Auth
 
 class SharedPrefsRepository(c : Context) {
 
@@ -67,7 +68,7 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun saveAuthPhoneNumber(phoneNumber: String) {
-        prefs.edit().putString(AUTH_PHONE_NUMBER, phoneNumber).apply()
+        prefs.edit().putString(AUTH_PHONE_NUMBER, Auth.getPhoneNumber()?.let {it} ?: "-").apply()
     }
 
     fun getAuthPhoneNumber(): String? {

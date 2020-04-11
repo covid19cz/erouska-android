@@ -23,8 +23,8 @@ object Auth: KoinComponent {
         return checkNotNull(auth.currentUser?.uid)
     }
 
-    fun getPhoneNumber(): String {
-        return checkNotNull(auth.currentUser?.phoneNumber)
+    fun getPhoneNumber(): String? {
+        return auth.currentUser?.phoneNumber
     }
 
     fun signOut() {
