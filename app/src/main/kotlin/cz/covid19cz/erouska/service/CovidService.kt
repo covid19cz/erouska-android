@@ -254,6 +254,7 @@ class CovidService : Service() {
     }
 
     private fun startBleScanning() {
+        bleScanningDisposable?.dispose()
         bleScanningDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
