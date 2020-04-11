@@ -4,12 +4,10 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
@@ -82,6 +80,17 @@ class LoginVM(
             this@LoginVM.verificationId = verificationId
         }
     }
+
+    private val registrationCompleteListener = OnCompleteListener<AuthResult> { task ->
+        if (task.isSuccessful) {
+            // Sign in success, update UI with the signed-in user's information
+            registerDevice(true)
+        } else {
+            // Sign in failed, display a message and update the UI
+            task.exception?.let { handleError(it) }
+        }
+    }
+
     private var autoVerifiedCredential: PhoneAuthCredential? = null
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
@@ -168,26 +177,10 @@ class LoginVM(
         if (isConnectingAnonymousAccount()) {
             // Link anonymous user
             FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        registerDevice(true)
-                    } else {
-                        // Sign in failed, display a message and update the UI
-                        task.exception?.let { handleError(it) }
-                    }
-                }
+                ?.addOnCompleteListener(registrationCompleteListener)
         } else {
             FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        registerDevice(true)
-                    } else {
-                        // Sign in failed, display a message and update the UI
-                        task.exception?.let { handleError(it) }
-                    }
-                }
+                .addOnCompleteListener(registrationCompleteListener)
         }
     }
 

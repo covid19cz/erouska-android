@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.db
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -18,11 +19,13 @@ class SharedPrefsRepository(c : Context) {
 
     val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
 
+    @SuppressLint("ApplySharedPref")
     fun putDeviceBuid(buid : String){
         // commit needed to avoid race conditions
         prefs.edit().putString(DEVICE_BUID, buid).commit()
     }
 
+    @SuppressLint("ApplySharedPref")
     fun putDeviceTuids(tuids : List<String>){
         // commit needed to avoid race conditions
         prefs.edit().putStringSet(DEVICE_TUIDS, tuids.toSet()).commit()
@@ -66,6 +69,7 @@ class SharedPrefsRepository(c : Context) {
         return prefs.getLong(LAST_UPLOAD_TIMESTAMP, -1)
     }
 
+    @SuppressLint("ApplySharedPref")
     fun saveAuthPhoneNumber(phoneNumber: String) {
         // needed
         prefs.edit().putString(AUTH_PHONE_NUMBER, phoneNumber).commit()
