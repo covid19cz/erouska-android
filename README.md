@@ -11,6 +11,7 @@ Read more at [our website](https://erouska.cz).
 - User can always turn the scanning off
 - We change broadcasted ID every hour. Nobody can track you using this ID (only our backend has knowledge which ID corresponds to which phone number)
 - We delete data on backend after 6 hours from upload
+- You can always delete your data, including your phone number
 - This app is open-source from the start, so anyone can check our claims are true
 
 Read more at [our FAQ](https://erouska.cz/caste-dotazy)
