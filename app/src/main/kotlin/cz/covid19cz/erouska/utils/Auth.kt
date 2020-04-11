@@ -19,12 +19,21 @@ object Auth: KoinComponent {
         return auth.currentUser != null && prefs.getDeviceBuid() != null
     }
 
+    fun isPhoneNumberVerified(): Boolean {
+        return !auth.currentUser?.phoneNumber.isNullOrEmpty()
+    }
+
     fun getFuid(): String {
         return checkNotNull(auth.currentUser?.uid)
     }
 
     fun getPhoneNumber(): String {
-        return auth.currentUser?.phoneNumber?.let { it } ?: prefs.getAuthPhoneNumber()
+        val firebasePhoneNumber = auth.currentUser?.phoneNumber
+        return if (firebasePhoneNumber.isNullOrEmpty()) {
+            return prefs.getAuthPhoneNumber()
+        } else {
+            firebasePhoneNumber
+        }
     }
 
     fun signOut() {

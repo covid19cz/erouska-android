@@ -12,3 +12,4 @@ data class LoginError(val text: Text?): LoginState()
 object SignedIn: LoginState()
 
 object StartVerificationEvent: LiveEvent()
+object ShowVerifyLaterEvent: LiveEvent()

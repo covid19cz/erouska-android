@@ -7,7 +7,7 @@ import cz.covid19cz.erouska.utils.L
 object AppConfig {
 
     const val CSV_VERSION = 4
-    const val FIREBASE_REGION = "europe-west3"
+    const val FIREBASE_REGION = "europe-west1"
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     val collectionSeconds
@@ -22,6 +22,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("scanMode").toInt()
     val smsTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
+    val showVerifyLaterTimeoutSeconds
+        get() = firebaseRemoteConfig.getLong("showVerifyLaterTimeoutSeconds")
     val smsErrorTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsErrorTimeoutSeconds")
     val advertiseRestartMinutes
@@ -56,6 +58,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("homepageLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
+    val allowVerifyLater
+        get() = firebaseRemoteConfig.getBoolean("allowVerifyLater")
     val batteryOptimizationAsusMarkdown
         get() = firebaseRemoteConfig.getString("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
