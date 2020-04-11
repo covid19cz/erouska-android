@@ -45,11 +45,11 @@ We got inspired by similar apps in other countries:
 ## Technical details
 
 eRouška uses: 
-	- Bluetooth Low Energy (BLE)
-	- [Firebase Phone Number Authentication](https://firebase.google.com/docs/auth/android/phone-auth) for phone number verification and authentication
-	- [Firebase Storage](https://firebase.google.com/docs/storage) for uploading the collected user data in CSV format
-	- [Firebase Functions](https://firebase.google.com/docs/functions) for getting the _Device ID_'s to broadcast after registration
-	- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) for app crash monitoring
+- Bluetooth Low Energy (BLE)
+- [Firebase Phone Number Authentication](https://firebase.google.com/docs/auth/android/phone-auth) for phone number verification and authentication
+- [Firebase Storage](https://firebase.google.com/docs/storage) for uploading the collected user data in CSV format
+- [Firebase Functions](https://firebase.google.com/docs/functions) for getting the _Device ID_'s to broadcast after registration
+- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) for App crash monitoring
 
 - For Android <-> Android Bluetooth connection, the App doesn't need to connect to the other device as the _Device ID_ is broadcasted in the broadcast payload.
 - For Android <-> iOS Bluetooth connection, the App needs to connect to the iOS device via GATT to get the _Device ID_.
@@ -60,7 +60,7 @@ More details about eRouška:
 - [erouska-firebase](https://github.com/covid19cz/erouska-firebase): Firebase Functions source code
 - [erouska-homepage](https://github.com/covid19cz/erouska-homepage): erouska.cz webpage source code
 
-## Building the app from the source code
+## Building the App from the source code
 
 Clone this repository and import the project into Android Studio.
 
@@ -82,7 +82,7 @@ We use a private [Trello](https://trello.com/b/4xN2Eeqv/bug-wf) for bug tracking
 
 ## eRouška release process
 
-eRouška uses GitHub Actions. A push to master branch triggers an app build. Then the app is published to [Firebase App Distribution](https://firebase.google.com/docs/app-distribution). 
+eRouška uses GitHub Actions. A push to master branch triggers an App build. Then the App is published to [Firebase App Distribution](https://firebase.google.com/docs/app-distribution). 
 
 There are two variants of the App: **DEV** and **PROD**. **PROD** is also built as an App Bundle artefact, that needs to be manually uploaded to Google Play.
 
