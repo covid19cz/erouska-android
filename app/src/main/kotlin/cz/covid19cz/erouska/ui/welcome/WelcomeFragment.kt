@@ -24,7 +24,10 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
                 WelcomeCommandEvent.Command.HELP -> openHelpPage()
             }
         }
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         if (Auth.isSignedIn()) {
             navigate(R.id.action_nav_welcome_fragment_to_nav_dashboard, null,
                 NavOptions.Builder()
