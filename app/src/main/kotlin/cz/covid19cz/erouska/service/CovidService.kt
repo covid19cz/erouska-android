@@ -254,6 +254,7 @@ class CovidService : Service() {
     }
 
     private fun startBleScanning() {
+        bleScanningDisposable?.dispose()
         bleScanningDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled() && isLocationEnabled()) {
@@ -278,6 +279,7 @@ class CovidService : Service() {
     }
 
     private fun startBleAdvertising() {
+        bleAdvertisingDisposable?.dispose()
         bleAdvertisingDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled()) {
