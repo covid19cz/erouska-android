@@ -94,7 +94,7 @@ class LoginFragment :
             getString(R.string.login_statement, AppConfig.termsAndConditionsLink),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-        login_statement.movementMethod = LinkMovementMethod()
+        login_statement.movementMethod = LinkMovementMethod.getInstance()
         login_statement.setOnClickListener { login_checkbox.toggle() }
     }
 
