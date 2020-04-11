@@ -10,7 +10,7 @@ import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.formatPhoneNumber
 
 class DeleteUserFragment : ConfirmationFragment() {
-    override val description by lazy { getString(R.string.delete_user_desc, viewModel.phoneNumber)}
+    override val description by lazy { getString(R.string.delete_user_desc, Auth.getPhoneNumber().formatPhoneNumber())}
     override val buttonTextRes = R.string.delete_registration
     override fun confirmedClicked() {
         viewModel.deleteUser()

@@ -38,7 +38,6 @@ class ConfirmationVM(
     private val functions = Firebase.functions(FIREBASE_REGION)
     private var exportDisposable: Disposable? = null
     private val storage = Firebase.storage
-    val phoneNumber = prefs.getAuthPhoneNumber()?.formatPhoneNumber()
 
     override fun onCleared() {
         super.onCleared()
