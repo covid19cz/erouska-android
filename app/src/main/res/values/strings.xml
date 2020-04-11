@@ -132,7 +132,7 @@
     <string name="upload_confirmation"><![CDATA[Požádal vás pracovník hygienické stanice o&nbsp;zaslání seznamu telefonů, se kterými jste se setkali?<br/><br/>S odeslanými daty bude Ministerstvo zdravotnictví a&nbsp;jemu podřízení hygienici pracovat na základě vašeho souhlasu podle <a href="%s">podmínek zpracování</a>.]]></string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
-    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a\u00A0společně pomozme zastavit šíření koronaviru. Aplikace sbírá anonymní údaje o\u00A0telefonech v\u00A0blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
+    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a\u00A0společně pomozme zastavit šíření koronaviru. Aplikace sbírá anonymní údaje o\u00A0telefonech v\u00A0blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s</string>
     <string name="delete_data_description">Opravdu chcete smazat naměřená data?\n\nHygienici tak přijdou o\u00A0možnost využít vaše kontakty v\u00A0případě, že budete nakažen.\n\nPo smazání dat dojde k\u00A0automatickému pozastavení eRoušky.</string>
     <string name="delete_data_button">Smazat všechna data</string>
     <string name="delete_data">Smazat data</string>
