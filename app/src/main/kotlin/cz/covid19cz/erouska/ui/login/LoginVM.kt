@@ -153,10 +153,17 @@ class LoginVM(
         mutableState.postValue(EnterPhoneNumber(false))
     }
 
-    fun verifyLater() {
+    fun verifyLater(unverifiedPhoneNumber: String) {
         mutableState.postValue(SigningProgress)
-        FirebaseAuth.getInstance().signInAnonymously()
-        registerDevice(false)
+        FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                registerDevice(unverifiedPhoneNumber)
+            }
+            else {
+                L.d("signInAnonymously:failure")
+                task.exception?.let { handleError(it) }
+            }
+        }
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
@@ -164,7 +171,7 @@ class LoginVM(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    registerDevice(true)
+                    registerDevice(null)
                 } else {
                     // Sign in failed, display a message and update the UI
                     L.d("signInWithCredential:failure")
@@ -193,7 +200,7 @@ class LoginVM(
         }
     }
 
-    private fun registerDevice(phoneNumberVerified: Boolean) {
+    private fun registerDevice(unverifiedPhoneNumber: String?) {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -203,16 +210,17 @@ class LoginVM(
 
                 // Get new Instance ID token
                 val pushToken = task.result?.token
-                val unverifiedPhoneNumber = if (phoneNumberVerified) phoneNumber else null
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to DeviceInfo.getAndroidVersion(),
                     "manufacturer" to DeviceInfo.getManufacturer(),
                     "model" to DeviceInfo.getDeviceName(),
                     "locale" to DeviceInfo.getLocale(),
-                    "pushRegistrationToken" to pushToken,
-                    "unverifiedPhoneNumber" to unverifiedPhoneNumber
+                    "pushRegistrationToken" to pushToken
                 )
+                if (unverifiedPhoneNumber != null) {
+                    data["unverifiedPhoneNumber"] = unverifiedPhoneNumber
+                }
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
                     val response =
                         Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)

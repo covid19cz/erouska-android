@@ -102,10 +102,10 @@ class LoginFragment :
             showWeb(AppConfig.termsAndConditionsLink)
         }
         login_verify_later_button.setOnClickListener {
-            viewModel.verifyLater()
+            viewModel.verifyLater(login_verif_phone_input.text.toString())
         }
         error_verify_later.setOnClickListener {
-            viewModel.verifyLater()
+            viewModel.verifyLater(login_verif_phone_input.text.toString())
         }
         login_verif_phone_input.addTextChangedListener(afterTextChanged = {
             login_verif_phone.isErrorEnabled = false
