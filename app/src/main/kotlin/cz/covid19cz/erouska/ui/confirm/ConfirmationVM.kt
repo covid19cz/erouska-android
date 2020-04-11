@@ -18,6 +18,7 @@ import cz.covid19cz.erouska.ui.confirm.event.FinishedEvent
 import cz.covid19cz.erouska.ui.confirm.event.LogoutEvent
 import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.formatPhoneNumber
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

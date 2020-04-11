@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import cz.covid19cz.erouska.utils.Auth
 
 class SharedPrefsRepository(c : Context) {
 
@@ -13,6 +14,7 @@ class SharedPrefsRepository(c : Context) {
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_UPLOAD_TIMESTAMP = "preference.last_upload_timestamp"
         const val LAST_DB_CLEANUP_TIMESTAMP = "preference.last_db_cleanup_timestamp"
+        const val AUTH_PHONE_NUMBER = "preference.auth_phone_number"
     }
 
     val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -63,6 +65,14 @@ class SharedPrefsRepository(c : Context) {
 
     fun getLastUploadTimestamp(): Long {
         return prefs.getLong(LAST_UPLOAD_TIMESTAMP, -1)
+    }
+
+    fun saveAuthPhoneNumber(phoneNumber: String) {
+        prefs.edit().putString(AUTH_PHONE_NUMBER, phoneNumber).apply()
+    }
+
+    fun getAuthPhoneNumber(): String {
+        return prefs.getString(AUTH_PHONE_NUMBER, "-") ?: "-"
     }
 
     fun saveLastDbCleanupTimestamp(timestamp: Long) {
