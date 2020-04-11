@@ -88,15 +88,18 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             .setPositiveButton(R.string.disable_battery_saver)
             { dialog, which ->
                 dialog.dismiss()
-                navigateToBatterySaverSettings()
+                navigateToBatterySaverSettings {
+                    showSnackBar(R.string.battery_saver_settings_not_found)
+                    dialog.dismiss()
+                }
             }
             .setNegativeButton(getString(R.string.confirmation_button_close))
             { dialog, which -> dialog.dismiss() }
             .show()
     }
 
-    private fun navigateToBatterySaverSettings() {
-        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).resolveActivity(requireContext().packageManager) != null) {
+    private fun navigateToBatterySaverSettings(onBatterySaverNotFound: () -> Unit ) {
+        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
         } else {
             val intent = Intent()
@@ -106,7 +109,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             )
             intent
         }
-        startActivity(batterySaverIntent)
+        try {
+            startActivity(batterySaverIntent)
+        } catch (ex: ActivityNotFoundException) {
+            onBatterySaverNotFound()
+        }
     }
 
     private fun checkIfSignedIn() {
