@@ -98,7 +98,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:paddingBottom="80dp"
-                    android:text="@{@string/dashboard_secondary(vm.phoneNumber)}"
+                    tools:text="@string/dashboard_not_verified_secondary"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="@color/colorOnSurface"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"

@@ -4,9 +4,9 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
@@ -191,9 +191,9 @@ class LoginVM(
         }
         if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_PHONE_NUMBER") {
             mutableState.postValue(EnterPhoneNumber(true))
-        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_VERIFICATION_CODE") {
+        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_VERIFICATION_CODE" || e is FirebaseAuthInvalidCredentialsException) {
             mutableState.postValue(EnterCode(true, phoneNumber))
-        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_TOO_MANY_REQUESTS") {
+        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_TOO_MANY_REQUESTS" || e is FirebaseTooManyRequestsException) {
             mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
         } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_SESSION_EXPIRED") {
             mutableState.postValue(LoginError(R.string.login_session_expired.toText()))

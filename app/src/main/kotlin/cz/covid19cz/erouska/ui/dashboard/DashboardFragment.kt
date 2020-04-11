@@ -24,7 +24,9 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.logoutWhenNotSignedIn
+import cz.covid19cz.erouska.utils.toText
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
 
 
@@ -134,6 +136,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+        updateSecondaryText()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -168,6 +171,14 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun resumeService() {
         requireContext().run {
             startService(CovidService.resume(this))
+        }
+    }
+
+    private fun updateSecondaryText() {
+        if (Auth.isPhoneNumberVerified()) {
+            app_running_body_secondary.text = getString(R.string.dashboard_secondary, Auth.getPhoneNumber())
+        } else {
+            app_running_body_secondary.setText(R.string.dashboard_not_verified_secondary)
         }
     }
 
