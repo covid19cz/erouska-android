@@ -22,6 +22,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("scanMode").toInt()
     val smsTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
+    val showVerifyLaterTimeoutSeconds
+        get() = firebaseRemoteConfig.getLong("showVerifyLaterTimeoutSeconds")
     val smsErrorTimeoutSeconds
         get() = firebaseRemoteConfig.getLong("smsErrorTimeoutSeconds")
     val advertiseRestartMinutes
@@ -56,6 +58,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("homepageLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
+    val allowVerifyLater
+        get() = firebaseRemoteConfig.getBoolean("allowVerifyLater")
     val batteryOptimizationAsusMarkdown
         get() = firebaseRemoteConfig.getString("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown

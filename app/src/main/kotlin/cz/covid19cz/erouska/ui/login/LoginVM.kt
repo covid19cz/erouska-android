@@ -70,7 +70,11 @@ class LoginVM(
             resendToken = token
             mutableState.postValue(EnterCode(false, phoneNumber))
             smsCountDownTimer.cancel()
+            showVerifyLaterTimer.cancel()
             smsCountDownTimer.start()
+            if (AppConfig.allowVerifyLater) {
+                showVerifyLaterTimer.start()
+            }
 
         }
 
@@ -93,6 +97,16 @@ class LoginVM(
             override fun onTick(millisUntilFinished: Long) {
                 val df = SimpleDateFormat("mm:ss")
                 remainingTime.postValue(df.format(millisUntilFinished))
+            }
+
+        }
+    private var showVerifyLaterTimer: CountDownTimer =
+        object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
+            override fun onFinish() {
+                publish(ShowVerifyLaterEvent)
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
             }
 
         }
@@ -129,12 +143,20 @@ class LoginVM(
 
     override fun onCleared() {
         smsCountDownTimer.cancel()
+        showVerifyLaterTimer.cancel()
         super.onCleared()
     }
 
     fun backPressed() {
         smsCountDownTimer.cancel()
+        showVerifyLaterTimer.cancel()
         mutableState.postValue(EnterPhoneNumber(false))
+    }
+
+    fun verifyLater() {
+        mutableState.postValue(SigningProgress)
+        FirebaseAuth.getInstance().signInAnonymously()
+        registerDevice(false)
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
@@ -142,7 +164,7 @@ class LoginVM(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    registerDevice()
+                    registerDevice(true)
                 } else {
                     // Sign in failed, display a message and update the UI
                     L.d("signInWithCredential:failure")
@@ -171,7 +193,7 @@ class LoginVM(
         }
     }
 
-    private fun registerDevice() {
+    private fun registerDevice(phoneNumberVerified: Boolean) {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -181,13 +203,15 @@ class LoginVM(
 
                 // Get new Instance ID token
                 val pushToken = task.result?.token
+                val unverifiedPhoneNumber = if (phoneNumberVerified) phoneNumber else null
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to DeviceInfo.getAndroidVersion(),
                     "manufacturer" to DeviceInfo.getManufacturer(),
                     "model" to DeviceInfo.getDeviceName(),
                     "locale" to DeviceInfo.getLocale(),
-                    "pushRegistrationToken" to pushToken
+                    "pushRegistrationToken" to pushToken,
+                    "unverifiedPhoneNumber" to unverifiedPhoneNumber
                 )
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
                     val response =

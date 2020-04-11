@@ -14,10 +14,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLoginBinding
-import cz.covid19cz.erouska.ext.focusAndShowKeyboard
-import cz.covid19cz.erouska.ext.hideKeyboard
-import cz.covid19cz.erouska.ext.setOnDoneListener
-import cz.covid19cz.erouska.ext.showWeb
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.Text
@@ -42,6 +39,9 @@ class LoginFragment :
         super.onCreate(savedInstanceState)
         subscribe(StartVerificationEvent::class) {
             verifyPhoneNumber()
+        }
+        subscribe(ShowVerifyLaterEvent::class) {
+            login_verify_later_section.show()
         }
     }
 
@@ -82,7 +82,9 @@ class LoginFragment :
             error_button_back,
             phone_number_code,
             code_timeout,
-            login_checkbox
+            login_checkbox,
+            login_verify_later_section,
+            error_verify_later
         )
 
         setupListeners()
@@ -93,12 +95,18 @@ class LoginFragment :
             getString(R.string.login_statement),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-        login_statement.setOnClickListener {
-            showWeb(AppConfig.termsAndConditionsLink)
-        }
     }
 
     private fun setupListeners() {
+        login_statement.setOnClickListener {
+            showWeb(AppConfig.termsAndConditionsLink)
+        }
+        login_verify_later_button.setOnClickListener {
+            viewModel.verifyLater()
+        }
+        error_verify_later.setOnClickListener {
+            viewModel.verifyLater()
+        }
         login_verif_phone_input.addTextChangedListener(afterTextChanged = {
             login_verif_phone.isErrorEnabled = false
         })
@@ -216,7 +224,7 @@ class LoginFragment :
 
     private fun showError(text: Text?) {
         error_message.text = text?.toCharSequence(requireContext())
-        show(error_message, error_button_back, error_image)
+        show(error_message, error_button_back, error_image, error_verify_later)
     }
 
     private fun verifyPhoneNumber() {
