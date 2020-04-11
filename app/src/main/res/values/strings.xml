@@ -58,7 +58,7 @@
     <string name="permission_onboarding_toolbar_title">Povolení</string>
     <string name="login_toolbar_title">Telefonní číslo</string>
     <string name="login_desc">Zadejte telefonní číslo, na které vás bude kontaktovat pracovník hygienické stanice pouze v\u00A0případě, že se u\u00A0někoho z\u00A0vašeho okolí potvrdí nákaza koronavirem.</string>
-    <string name="login_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo se zadaným telefonním číslem a údaji o setkání s jinými uživateli aplikace podle <u>podmínek zpracování</u> za účelem epidemiologického šetření.]]></string>
+    <string name="login_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo se zadaným telefonním číslem a údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření.]]></string>
     <string name="login_phone_number_input">Telefonní číslo (povinné)</string>
     <string name="login_finish_activation">Pokračovat</string>
     <string name="login_phone_input_hint">Zadejte své telefonní číslo</string>
