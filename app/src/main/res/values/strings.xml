@@ -162,4 +162,5 @@
     <string name="guide">Návod</string>
     <string name="unexpected_error_text">Nastala neočekávaná chyba. Zkuste to později. Pokud se chyba opakuje delší dobu, konktaktujte naší podporu.</string>
     <string name="data_description">O zobrazených datech</string>
+    <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
 </resources>
