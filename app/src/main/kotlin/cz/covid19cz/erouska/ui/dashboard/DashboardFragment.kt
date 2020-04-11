@@ -96,7 +96,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun navigateToBatterySaverSettings() {
-        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).resolveActivity(requireContext().packageManager) != null) {
             Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
         } else {
             val intent = Intent()
