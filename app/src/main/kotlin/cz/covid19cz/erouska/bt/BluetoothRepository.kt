@@ -41,7 +41,6 @@ class BluetoothRepository(
 
     private var isAdvertising = false
     private var isScanning = false
-    private var isScanningIosOnBackground = false
 
     private var gattFailDisposable: Disposable? = null
 
@@ -68,7 +67,6 @@ class BluetoothRepository(
         }
 
         override fun onScanFailed(errorCode: Int) {
-            isScanningIosOnBackground = false
             BluetoothLeScannerCompat.getScanner().stopScan(this)
         }
 
@@ -184,7 +182,6 @@ class BluetoothRepository(
             androidScannerSettings,
             scanCallback
         )
-        isScanningIosOnBackground = true
 
         BluetoothLeScannerCompat.getScanner().startScan(
             listOf(
@@ -199,11 +196,12 @@ class BluetoothRepository(
     }
 
     fun stopScanning() {
-        isScanning = false
-        isScanningIosOnBackground = false
         L.d("Stopping BLE scanning")
-        BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
-        BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
+        if (btManager.isBluetoothEnabled()) {
+            isScanning = false
+            BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
+            BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
+        }
         saveDataAndClearScanResults()
         gattFailDisposable?.dispose()
     }
