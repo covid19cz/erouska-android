@@ -90,7 +90,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 dialog.dismiss()
                 navigateToBatterySaverSettings {
                     showSnackBar(R.string.battery_saver_settings_not_found)
-                    dialog.dismiss()
                 }
             }
             .setNegativeButton(getString(R.string.confirmation_button_close))
