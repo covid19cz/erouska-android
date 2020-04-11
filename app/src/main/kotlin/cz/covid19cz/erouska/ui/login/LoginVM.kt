@@ -115,7 +115,7 @@ class LoginVM(
 
     init {
         auth.setLanguageCode("cs")
-        if (Auth.isSignedIn()) {
+        if (Auth.isSignedIn() && Auth.isPhoneNumberVerified()) {
             mutableState.postValue(SignedIn)
         }
     }
@@ -155,22 +155,40 @@ class LoginVM(
 
     fun verifyLater() {
         mutableState.postValue(SigningProgress)
-        FirebaseAuth.getInstance().signInAnonymously()
-        registerDevice(false)
+        FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                registerDevice(false)
+            }
+            else {
+                task.exception?.let { handleError(it) }
+            }
+        }
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener { task ->
+        if (Auth.isSignedIn() && !Auth.isPhoneNumberVerified()) {
+            // Link anonymous user
+            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     registerDevice(true)
                 } else {
                     // Sign in failed, display a message and update the UI
-                    L.d("signInWithCredential:failure")
                     task.exception?.let { handleError(it) }
                 }
             }
+        } else {
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        registerDevice(true)
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        task.exception?.let { handleError(it) }
+                    }
+                }
+        }
     }
 
     private fun handleError(e: Exception) {
@@ -203,16 +221,17 @@ class LoginVM(
 
                 // Get new Instance ID token
                 val pushToken = task.result?.token
-                val unverifiedPhoneNumber = if (phoneNumberVerified) phoneNumber else null
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to DeviceInfo.getAndroidVersion(),
                     "manufacturer" to DeviceInfo.getManufacturer(),
                     "model" to DeviceInfo.getDeviceName(),
                     "locale" to DeviceInfo.getLocale(),
-                    "pushRegistrationToken" to pushToken,
-                    "unverifiedPhoneNumber" to unverifiedPhoneNumber
+                    "pushRegistrationToken" to pushToken
                 )
+                if (!phoneNumberVerified) {
+                    data["unverifiedPhoneNumber"] = phoneNumber
+                }
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
                     val response =
                         Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)

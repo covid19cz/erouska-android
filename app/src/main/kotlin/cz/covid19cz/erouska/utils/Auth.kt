@@ -19,6 +19,10 @@ object Auth: KoinComponent {
         return auth.currentUser != null && prefs.getDeviceBuid() != null
     }
 
+    fun isPhoneNumberVerified(): Boolean {
+        return auth.currentUser?.phoneNumber != null
+    }
+
     fun getFuid(): String {
         return checkNotNull(auth.currentUser?.uid)
     }
