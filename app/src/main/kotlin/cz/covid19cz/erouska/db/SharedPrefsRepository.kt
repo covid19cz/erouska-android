@@ -68,7 +68,7 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun saveAuthPhoneNumber(phoneNumber: String) {
-        prefs.edit().putString(AUTH_PHONE_NUMBER, "-").apply()
+        prefs.edit().putString(AUTH_PHONE_NUMBER, phoneNumber).apply()
     }
 
     fun getAuthPhoneNumber(): String {
