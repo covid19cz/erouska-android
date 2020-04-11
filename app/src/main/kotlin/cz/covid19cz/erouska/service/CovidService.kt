@@ -279,6 +279,7 @@ class CovidService : Service() {
     }
 
     private fun startBleAdvertising() {
+        bleAdvertisingDisposable?.dispose()
         bleAdvertisingDisposable = Observable.just(true)
             .doOnNext {
                 if (btUtils.isBtEnabled()) {
