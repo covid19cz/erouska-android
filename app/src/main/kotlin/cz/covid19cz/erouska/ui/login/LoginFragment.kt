@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.login
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -92,9 +93,11 @@ class LoginFragment :
         enableUpInToolbar(true)
 
         login_statement.text = HtmlCompat.fromHtml(
-            getString(R.string.login_statement),
+            getString(R.string.login_statement, AppConfig.termsAndConditionsLink),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+        login_statement.movementMethod = LinkMovementMethod.getInstance()
+        login_statement.setOnClickListener { login_checkbox.toggle() }
     }
 
     private fun setupListeners() {
