@@ -13,7 +13,7 @@ Read more at [our website](https://erouska.cz).
 - We delete data on backend after 6 hours from upload
 - This app is open-source from the start, so anyone can check our claims are true
 
-Read more at [our FAQ](https://erouska.cz/faq)
+Read more at [our FAQ](https://erouska.cz/caste-dotazy)
 
 ## International cooperation
 
