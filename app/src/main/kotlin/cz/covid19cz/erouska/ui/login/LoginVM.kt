@@ -72,7 +72,7 @@ class LoginVM(
             smsCountDownTimer.cancel()
             showVerifyLaterTimer.cancel()
             smsCountDownTimer.start()
-            if (AppConfig.allowVerifyLater) {
+            if (AppConfig.allowVerifyLater && !isConnectingAnonymousAccount()) {
                 showVerifyLaterTimer.start()
             }
 
@@ -158,25 +158,25 @@ class LoginVM(
         FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 registerDevice(false)
-            }
-            else {
+            } else {
                 task.exception?.let { handleError(it) }
             }
         }
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        if (Auth.isSignedIn() && !Auth.isPhoneNumberVerified()) {
+        if (isConnectingAnonymousAccount()) {
             // Link anonymous user
-            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    registerDevice(true)
-                } else {
-                    // Sign in failed, display a message and update the UI
-                    task.exception?.let { handleError(it) }
+            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        registerDevice(true)
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        task.exception?.let { handleError(it) }
+                    }
                 }
-            }
         } else {
             FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener { task ->
@@ -243,6 +243,10 @@ class LoginVM(
                     handleError(it)
                 }
             })
+    }
+
+    private fun isConnectingAnonymousAccount(): Boolean {
+        return Auth.isSignedIn() && !Auth.isPhoneNumberVerified()
     }
 
     data class RegistrationResponse(val buid: String, val tuids: List<String>)

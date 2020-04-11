@@ -20,7 +20,7 @@ object Auth: KoinComponent {
     }
 
     fun isPhoneNumberVerified(): Boolean {
-        return auth.currentUser?.phoneNumber != null
+        return !auth.currentUser?.phoneNumber.isNullOrEmpty()
     }
 
     fun getFuid(): String {
@@ -28,7 +28,12 @@ object Auth: KoinComponent {
     }
 
     fun getPhoneNumber(): String {
-        return auth.currentUser?.phoneNumber?.let { it } ?: prefs.getAuthPhoneNumber()
+        val firebasePhoneNumber = auth.currentUser?.phoneNumber
+        return if (firebasePhoneNumber.isNullOrEmpty()) {
+            return prefs.getAuthPhoneNumber()
+        } else {
+            firebasePhoneNumber
+        }
     }
 
     fun signOut() {
