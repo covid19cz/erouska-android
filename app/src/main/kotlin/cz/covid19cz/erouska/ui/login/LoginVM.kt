@@ -4,12 +4,10 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
@@ -70,7 +68,11 @@ class LoginVM(
             resendToken = token
             mutableState.postValue(EnterCode(false, phoneNumber))
             smsCountDownTimer.cancel()
+            showVerifyLaterTimer.cancel()
             smsCountDownTimer.start()
+            if (AppConfig.allowVerifyLater && !isConnectingAnonymousAccount()) {
+                showVerifyLaterTimer.start()
+            }
 
         }
 
@@ -78,6 +80,17 @@ class LoginVM(
             this@LoginVM.verificationId = verificationId
         }
     }
+
+    private val registrationCompleteListener = OnCompleteListener<AuthResult> { task ->
+        if (task.isSuccessful) {
+            // Sign in success, update UI with the signed-in user's information
+            registerDevice(true)
+        } else {
+            // Sign in failed, display a message and update the UI
+            task.exception?.let { handleError(it) }
+        }
+    }
+
     private var autoVerifiedCredential: PhoneAuthCredential? = null
     private lateinit var verificationId: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
@@ -96,12 +109,22 @@ class LoginVM(
             }
 
         }
+    private var showVerifyLaterTimer: CountDownTimer =
+        object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
+            override fun onFinish() {
+                publish(ShowVerifyLaterEvent)
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+            }
+
+        }
 
     val remainingTime = MutableLiveData<String>("")
 
     init {
         auth.setLanguageCode("cs")
-        if (Auth.isSignedIn()) {
+        if (Auth.isSignedIn() && Auth.isPhoneNumberVerified()) {
             mutableState.postValue(SignedIn)
         }
     }
@@ -129,26 +152,36 @@ class LoginVM(
 
     override fun onCleared() {
         smsCountDownTimer.cancel()
+        showVerifyLaterTimer.cancel()
         super.onCleared()
     }
 
     fun backPressed() {
         smsCountDownTimer.cancel()
+        showVerifyLaterTimer.cancel()
         mutableState.postValue(EnterPhoneNumber(false))
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    registerDevice()
-                } else {
-                    // Sign in failed, display a message and update the UI
-                    L.d("signInWithCredential:failure")
-                    task.exception?.let { handleError(it) }
-                }
+    fun verifyLater() {
+        mutableState.postValue(SigningProgress)
+        FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                registerDevice(false)
+            } else {
+                task.exception?.let { handleError(it) }
             }
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        if (isConnectingAnonymousAccount()) {
+            // Link anonymous user
+            FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
+                ?.addOnCompleteListener(registrationCompleteListener)
+        } else {
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener(registrationCompleteListener)
+        }
     }
 
     private fun handleError(e: Exception) {
@@ -171,7 +204,7 @@ class LoginVM(
         }
     }
 
-    private fun registerDevice() {
+    private fun registerDevice(phoneNumberVerified: Boolean) {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -189,6 +222,9 @@ class LoginVM(
                     "locale" to DeviceInfo.getLocale(),
                     "pushRegistrationToken" to pushToken
                 )
+                if (!phoneNumberVerified) {
+                    data["unverifiedPhoneNumber"] = phoneNumber
+                }
                 functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
                     val response =
                         Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
@@ -200,6 +236,10 @@ class LoginVM(
                     handleError(it)
                 }
             })
+    }
+
+    private fun isConnectingAnonymousAccount(): Boolean {
+        return Auth.isSignedIn() && !Auth.isPhoneNumberVerified()
     }
 
     data class RegistrationResponse(val buid: String, val tuids: List<String>)

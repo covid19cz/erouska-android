@@ -108,4 +108,12 @@
         <key>showBatteryOptimizationTutorial</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>allowVerifyLater</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>showVerifyLaterTimeoutSeconds</key>
+        <value>30</value>
+    </entry>
 </defaultsMap>

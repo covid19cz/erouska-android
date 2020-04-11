@@ -20,6 +20,35 @@
             android:layout_height="wrap_content"
             tools:context="cz.covid19cz.erouska.ui.login.LoginActivity">
 
+            <LinearLayout
+                android:id="@+id/login_verify_later_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="?colorSurface"
+                android:elevation="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fragment_padding"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="@dimen/fragment_padding"
+                    android:text="@string/verify_later_desc"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login_verify_later_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:textAlignment="textEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="@string/verify_later_button" />
+            </LinearLayout>
+
             <ProgressBar
                 android:id="@+id/login_progress"
                 android:layout_width="wrap_content"
@@ -27,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/login_verify_later_section" />
 
             <TextView
                 android:id="@+id/login_desc"
@@ -40,14 +69,14 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/login_verify_later_section" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/login_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_verif_phone" />
 
@@ -56,8 +85,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/highlight_selector"
                 android:layout_marginEnd="@dimen/fragment_padding"
+                android:background="@drawable/highlight_selector"
                 android:text="@string/login_statement"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="14sp"
@@ -86,17 +115,27 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_verify_later_section"
                 tools:text="Error text" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/error_verify_later"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verify_later_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/error_message" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/error_button_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:text="@string/login_try_again"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/error_message" />
+                app:layout_constraintTop_toBottomOf="@id/error_verify_later" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -161,7 +200,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_verify_later_section"
                 tools:text="@string/login_phone_number_sms_sent" />
 
             <TextView
