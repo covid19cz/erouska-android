@@ -34,6 +34,12 @@ We are open-source from day one and we will be happy to work with people in othe
 - We use [Firebase Functions](https://firebase.google.com/docs/functions) for getting the IDs to broadcast after registration
 - We use [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) for monitoring crashes from the app
 
+More details:
+- [Technical documentation](https://github.com/covid19cz/erouska-android/wiki/Technical-documentation)
+- [iOS app code](https://github.com/covid19cz/erouska-ios)
+- [Firebase Functions code](https://github.com/covid19cz/erouska-firebase)
+- [Website code](https://github.com/covid19cz/erouska-homepage)
+
 ## Who is behind the app?
 
 We are initiative consisting from people from various Czech IT companies called [COVID19CZ](https://covid19cz.cz). We are all unpaid volunteers. We got backing from [Czech Ministry of Healthcare](https://www.mzcr.cz/).  
