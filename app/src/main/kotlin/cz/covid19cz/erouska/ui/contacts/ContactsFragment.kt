@@ -16,7 +16,7 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     R.layout.fragment_contacts,
     ContactsVM::class
 ) {
-    private val customTabHelper: CustomTabHelper by inject()
+    private val customTabHelper by inject<CustomTabHelper>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

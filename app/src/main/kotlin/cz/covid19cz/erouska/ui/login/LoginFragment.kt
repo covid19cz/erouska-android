@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 class LoginFragment :
     BaseFragment<FragmentLoginBinding, LoginVM>(R.layout.fragment_login, LoginVM::class) {
 
-    private val customTabHelper: CustomTabHelper by inject()
+    private val customTabHelper by inject<CustomTabHelper>()
 
     private lateinit var views: List<View>
 

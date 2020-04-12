@@ -17,7 +17,7 @@ class BatteryOptimizationFragment :
         BatteryOptimizationVM::class
     ) {
 
-    private val deviceInfo : DeviceInfo by inject()
+    private val deviceInfo by inject<DeviceInfo>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

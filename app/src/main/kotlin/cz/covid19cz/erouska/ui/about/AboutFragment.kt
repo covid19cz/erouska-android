@@ -12,7 +12,7 @@ import org.koin.android.ext.android.inject
 
 class AboutFragment : BaseFragment<FragmentAboutBinding, AboutVM>(R.layout.fragment_about, AboutVM::class) {
 
-    private val customTabHelper: CustomTabHelper by inject()
+    private val customTabHelper by inject<CustomTabHelper>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
