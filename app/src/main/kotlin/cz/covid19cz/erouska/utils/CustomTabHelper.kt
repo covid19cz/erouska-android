@@ -7,12 +7,10 @@ import android.net.Uri
 import android.text.TextUtils
 import androidx.browser.customtabs.CustomTabsService
 import cz.covid19cz.erouska.AppConfig
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-object CustomTabHelper : KoinComponent {
-
-    val context: Context by inject()
+class CustomTabHelper(
+    private val context: Context
+) {
 
     var sPackageNameToUse: String? = null
     val STABLE_PACKAGE = "com.android.chrome"
@@ -21,7 +19,7 @@ object CustomTabHelper : KoinComponent {
     val LOCAL_PACKAGE = "com.google.android.apps.chrome"
 
     val chromePackageName by lazy {
-        return@lazy CustomTabHelper.getPackageNameToUse(context, AppConfig.homepageLink)
+        return@lazy getPackageNameToUse(context, AppConfig.homepageLink)
     }
 
     private fun getPackageNameToUse(context: Context, url: String): String? {

@@ -18,14 +18,18 @@ import cz.covid19cz.erouska.databinding.FragmentLoginBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.BatteryOptimization
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.Text
 import cz.covid19cz.erouska.utils.formatPhoneNumber
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 
 class LoginFragment :
     BaseFragment<FragmentLoginBinding, LoginVM>(R.layout.fragment_login, LoginVM::class) {
+
+    private val customTabHelper: CustomTabHelper by inject()
 
     private lateinit var views: List<View>
 
@@ -102,7 +106,7 @@ class LoginFragment :
 
     private fun setupListeners() {
         login_statement.setOnClickListener {
-            showWeb(AppConfig.termsAndConditionsLink)
+            showWeb(AppConfig.termsAndConditionsLink, customTabHelper)
         }
         login_verify_later_button.setOnClickListener {
             viewModel.verifyLater()

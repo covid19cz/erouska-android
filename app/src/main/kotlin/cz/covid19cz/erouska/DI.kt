@@ -28,6 +28,7 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.success.SuccessVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
 import org.koin.android.ext.koin.androidApplication
@@ -90,6 +91,7 @@ val appModule = module {
     single { androidContext().getSystemService<BluetoothManager>() }
     single { Markdown(androidContext()) }
     single { DeviceInfo(androidContext()) }
+    single { CustomTabHelper(androidContext()) }
 }
 
 

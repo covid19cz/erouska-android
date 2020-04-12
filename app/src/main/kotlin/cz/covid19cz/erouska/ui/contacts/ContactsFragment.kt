@@ -8,12 +8,15 @@ import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.contacts.event.ContactsCommandEvent
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.fragment_contacts.*
+import org.koin.android.ext.android.inject
 
 class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, ContactsVM>(
     R.layout.fragment_contacts,
     ContactsVM::class
 ) {
+    private val customTabHelper: CustomTabHelper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +44,14 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     }
 
     private fun openImportant() {
-        showWeb(viewModel.getImportantUrl())
+        showWeb(viewModel.getImportantUrl(), customTabHelper)
     }
 
     private fun openFaq() {
-        showWeb(viewModel.getFaqUrl())
+        showWeb(viewModel.getFaqUrl(), customTabHelper)
     }
 
     private fun goToWeb() {
-        showWeb(viewModel.getHomepageLink())
+        showWeb(viewModel.getHomepageLink(), customTabHelper)
     }
 }
