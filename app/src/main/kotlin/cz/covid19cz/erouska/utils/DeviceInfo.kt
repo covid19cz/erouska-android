@@ -4,16 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import com.jaredrummler.android.device.DeviceName
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.util.*
 
-object DeviceInfo : KoinComponent {
-
-    val context: Context by inject()
+class DeviceInfo(
+    private val context: Context
+) {
 
     @SuppressLint("DefaultLocale")
-    @JvmStatic
     fun getManufacturer(): String {
         return Build.MANUFACTURER.capitalize()
     }

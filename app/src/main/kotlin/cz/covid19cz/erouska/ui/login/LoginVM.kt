@@ -4,7 +4,6 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
@@ -25,7 +24,8 @@ import java.text.SimpleDateFormat
 
 
 class LoginVM(
-    private val sharedPrefsRepository: SharedPrefsRepository
+    private val sharedPrefsRepository: SharedPrefsRepository,
+    private val deviceInfo: DeviceInfo
 ) : BaseVM() {
 
     private val mutableState = MutableLiveData<LoginState>(EnterPhoneNumber(false))
@@ -216,10 +216,10 @@ class LoginVM(
                 val pushToken = task.result?.token
                 val data = hashMapOf(
                     "platform" to "android",
-                    "platformVersion" to DeviceInfo.getAndroidVersion(),
-                    "manufacturer" to DeviceInfo.getManufacturer(),
-                    "model" to DeviceInfo.getDeviceName(),
-                    "locale" to DeviceInfo.getLocale(),
+                    "platformVersion" to deviceInfo.getAndroidVersion(),
+                    "manufacturer" to deviceInfo.getManufacturer(),
+                    "model" to deviceInfo.getDeviceName(),
+                    "locale" to deviceInfo.getLocale(),
                     "pushRegistrationToken" to pushToken
                 )
                 if (!phoneNumberVerified) {
