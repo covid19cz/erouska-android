@@ -32,22 +32,24 @@ class CsvExporter(private val repository: DatabaseRepository) {
 
         return repository.getAll()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .map { entities ->
-                // write metadata
-                csvWriter.writeHeader(*HEADERS)
+                csvWriter.use { writer ->
+                    // write metadata
+                    writer.writeHeader(*HEADERS)
 
-                // write entities
-                entities.forEach {
-                    csvWriter.write(
-                        it.tuid,
-                        it.timestampStart,
-                        it.timestampEnd,
-                        it.rssiAvg,
-                        it.rssiMed
-                    )
+                    // write entities
+                    entities.forEach { entity ->
+                        writer.write(
+                            entity.tuid,
+                            entity.timestampStart,
+                            entity.timestampEnd,
+                            entity.rssiAvg,
+                            entity.rssiMed
+                        )
+                    }
                 }
-                csvWriter.close()
-            }.map { stream.toByteArray() }
+            }
+            .map { stream.toByteArray() }
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }
