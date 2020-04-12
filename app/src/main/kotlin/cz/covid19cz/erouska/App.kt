@@ -10,11 +10,10 @@ import org.koin.core.context.startKoin
 import java.io.File
 
 
-class App : BaseApp(), KoinComponent{
+class App : BaseApp(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         setupKoin()
         // SQLScout - Database viewer for Android Studio
         SqlScoutServer.create(this, packageName)
@@ -31,15 +30,11 @@ class App : BaseApp(), KoinComponent{
         }
     }
 
-    private fun getDatabaseSize(){
+    private fun getDatabaseSize() {
         val path: String = getDatabasePath(AppDatabase.DATABASE_NAME).toString()
 
         val file = File(path)
         val length: Long = file.length() // File size
-        L.d("Database size: ${length/1024} kB")
-    }
-
-    companion object {
-        lateinit var instance: App
+        L.d("Database size: ${length / 1024} kB")
     }
 }

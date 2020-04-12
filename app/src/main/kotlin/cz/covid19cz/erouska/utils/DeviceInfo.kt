@@ -1,19 +1,25 @@
 package cz.covid19cz.erouska.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import com.jaredrummler.android.device.DeviceName
-import cz.covid19cz.erouska.App
+import org.koin.core.KoinComponent
+import org.koin.core.get
 import java.util.*
 
-object DeviceInfo {
+object DeviceInfo : KoinComponent {
 
+    val context: Context = get()
+
+    @SuppressLint("DefaultLocale")
     @JvmStatic
     fun getManufacturer(): String {
         return Build.MANUFACTURER.capitalize()
     }
 
     fun getDeviceName(): String {
-        return DeviceName.getDeviceInfo(App.instance).marketName
+        return DeviceName.getDeviceInfo(context).marketName
     }
 
     fun getAndroidVersion(): String {
