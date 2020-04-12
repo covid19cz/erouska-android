@@ -8,11 +8,11 @@ import android.text.TextUtils
 import androidx.browser.customtabs.CustomTabsService
 import cz.covid19cz.erouska.AppConfig
 import org.koin.core.KoinComponent
-import org.koin.core.get
+import org.koin.core.inject
 
 object CustomTabHelper : KoinComponent {
 
-    val context: Context = get()
+    val context: Context by inject()
 
     var sPackageNameToUse: String? = null
     val STABLE_PACKAGE = "com.android.chrome"

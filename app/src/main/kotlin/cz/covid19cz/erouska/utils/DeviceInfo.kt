@@ -5,12 +5,12 @@ import android.content.Context
 import android.os.Build
 import com.jaredrummler.android.device.DeviceName
 import org.koin.core.KoinComponent
-import org.koin.core.get
+import org.koin.core.inject
 import java.util.*
 
 object DeviceInfo : KoinComponent {
 
-    val context: Context = get()
+    val context: Context by inject()
 
     @SuppressLint("DefaultLocale")
     @JvmStatic
