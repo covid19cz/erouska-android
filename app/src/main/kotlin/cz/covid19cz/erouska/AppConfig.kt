@@ -3,6 +3,7 @@ package cz.covid19cz.erouska
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.LocaleUtils
 
 object AppConfig {
 
@@ -61,21 +62,21 @@ object AppConfig {
     val allowVerifyLater
         get() = firebaseRemoteConfig.getBoolean("allowVerifyLater")
     val batteryOptimizationAsusMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationAsusMarkdown")
+        get() = getLocalized("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationLenovoMarkdown")
+        get() = getLocalized("batteryOptimizationLenovoMarkdown")
     val batteryOptimizationSamsungMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationSamsungMarkdown")
+        get() = getLocalized("batteryOptimizationSamsungMarkdown")
     val batteryOptimizationSonyMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationSonyMarkdown")
+        get() = getLocalized("batteryOptimizationSonyMarkdown")
     val batteryOptimizationXiaomiMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationXiaomiMarkdown")
+        get() = getLocalized("batteryOptimizationXiaomiMarkdown")
     val batteryOptimizationHuaweiMarkdown
-        get() = firebaseRemoteConfig.getString("batteryOptimizationHuaweiMarkdown")
+        get() = getLocalized("batteryOptimizationHuaweiMarkdown")
     val helpMarkdown
-        get() = firebaseRemoteConfig.getString("helpMarkdown")
+        get() = getLocalized("helpMarkdown")
 
-    var overrideAdvertiseTxPower : Int? = null
+    var overrideAdvertiseTxPower: Int? = null
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
@@ -88,9 +89,8 @@ object AppConfig {
         }
     }
 
-    fun fetchRemoteConfig(){
-        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener {
-                task ->
+    fun fetchRemoteConfig() {
+        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val updated = task.result
                 L.d("Config params updated: $updated")
@@ -104,6 +104,20 @@ object AppConfig {
     private fun print() {
         for (item in firebaseRemoteConfig.all) {
             L.d("${item.key}: ${item.value.asString()}")
+        }
+    }
+
+    private fun getLocalized(key: String): String {
+        val currentLanguage = LocaleUtils.getSupportedLanguage()
+        return if (currentLanguage == "cs") {
+            firebaseRemoteConfig.getString(key)
+        } else {
+            val translatedValue = firebaseRemoteConfig.getString(key + "_" + currentLanguage)
+            if (translatedValue.isEmpty()) {
+                firebaseRemoteConfig.getString(key)
+            } else {
+                return translatedValue
+            }
         }
     }
 }

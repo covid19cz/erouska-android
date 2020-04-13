@@ -33,7 +33,7 @@
     <string name="enable_location_button">Zapnout Polohové služby</string>
 
     <string name="bt_location_disabled_title">Zapněte Bluetooth a\u00A0Polohové služby</string>
-    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a\u00A0Polohových služeb nemůže eRouška vytvářet seznam telefonů ve vašem okolí. \n\nI\u00A0když polohová data nijak nevyužíváme, zapněte prosím obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a\u00A0Polohové služby\”.</string>
+    <string name="bt_location_disabled_desc">Bez zapnutého Bluetooth a\u00A0Polohových služeb nemůže eRouška vytvářet seznam telefonů ve vašem okolí. \n\nI\u00A0když polohová data nijak nevyužíváme, zapněte prosím obě funkce pro správné fungování Bluetooth pomocí tlačítka \"Zapnout BT a\u00A0Polohové služby\".</string>
     <string name="enable_bt_location_button">Zapnout BT a\u00A0Polohové služby</string>
 
     <string name="dashboard_title_running">eRouška je aktivní</string>

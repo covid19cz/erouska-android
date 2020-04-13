@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import com.jaredrummler.android.device.DeviceName
-import java.util.*
 
 class DeviceInfo(
     private val context: Context
@@ -21,9 +20,5 @@ class DeviceInfo(
 
     fun getAndroidVersion(): String {
         return Build.VERSION.RELEASE
-    }
-
-    fun getLocale(): String {
-        return Locale.getDefault().toString()
     }
 }
