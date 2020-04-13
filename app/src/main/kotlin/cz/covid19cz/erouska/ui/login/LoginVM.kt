@@ -17,10 +17,7 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.utils.Auth
-import cz.covid19cz.erouska.utils.DeviceInfo
-import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.toText
+import cz.covid19cz.erouska.utils.*
 import java.text.SimpleDateFormat
 
 
@@ -185,23 +182,49 @@ class LoginVM(
         }
     }
 
-    private fun handleError(e: Exception) {
-        L.e(e)
-        if (e is FirebaseAuthInvalidCredentialsException) {
-            L.d("Error code: ${e.errorCode}")
+    private fun handleError(exception: Exception) {
+        L.e(exception)
+        if (exception is FirebaseAuthInvalidCredentialsException) {
+            L.d("Error code: ${exception.errorCode}")
         }
-        if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_PHONE_NUMBER") {
-            mutableState.postValue(EnterPhoneNumber(true))
-        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_INVALID_VERIFICATION_CODE" || e is FirebaseAuthInvalidCredentialsException) {
-            mutableState.postValue(EnterCode(true, phoneNumber))
-        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_TOO_MANY_REQUESTS" || e is FirebaseTooManyRequestsException) {
-            mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
-        } else if (e is FirebaseAuthInvalidCredentialsException && e.errorCode == "ERROR_SESSION_EXPIRED") {
-            mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
-        } else if (e is FirebaseNetworkException) {
-            mutableState.postValue(LoginError(R.string.login_network_error.toText()))
-        } else {
-            mutableState.postValue(LoginError(R.string.unexpected_error_text.toText()))
+        when (exception) {
+            is FirebaseAuthInvalidCredentialsException -> {
+                exception.handle()
+            }
+            is FirebaseTooManyRequestsException -> {
+                mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
+            }
+            is FirebaseNetworkException -> {
+                mutableState.postValue(LoginError(R.string.login_network_error.toText()))
+            }
+            is FirebaseAuthUserCollisionException -> {
+                mutableState.postValue(LoginError(
+                    R.string.login_number_already_in_use_error.toText(phoneNumber.formatPhoneNumber())
+                ))
+            }
+            else -> {
+                mutableState.postValue(LoginError(R.string.unexpected_error_text.toText()))
+            }
+        }
+    }
+
+    private fun FirebaseAuthInvalidCredentialsException.handle() {
+        when (errorCode) {
+            "ERROR_INVALID_PHONE_NUMBER" -> {
+                mutableState.postValue(EnterPhoneNumber(true))
+            }
+            "ERROR_INVALID_VERIFICATION_CODE" -> {
+                mutableState.postValue(EnterCode(true, phoneNumber))
+            }
+            "ERROR_TOO_MANY_REQUESTS" -> {
+                mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
+            }
+            "ERROR_SESSION_EXPIRED" -> {
+                mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+            }
+            else -> {
+                mutableState.postValue(EnterCode(true, phoneNumber))
+            }
         }
     }
 

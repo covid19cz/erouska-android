@@ -67,6 +67,7 @@
     <string name="login_code_input_error">Ověřovací kód není správně zadaný.</string>
     <string name="login_network_error">Chyba při kontaktování serveru. Zkontrolujte připojení k\u00A0datové síti.</string>
     <string name="login_too_many_attempts_error">Moc pokusů o\u00A0ověření telefonního čísla. Znovu to můžete zkusit za několik hodin.</string>
+    <string name="login_number_already_in_use_error">Telefonní číslo nelze použít.\nTelefonní číslo %1$s nemůžete použít, protože jste s ním aktivovali aplikaci na jiném zařízení.</string>
     <string name="login_session_expired">Vypršela platnost ověřovacího kódu. Zkontrolujte telefonní číslo a\u00A0nechte si odeslat nový ověřovací kód.</string>
     <string name="menu_help">Nápověda</string>
 
@@ -136,6 +137,7 @@
     <string name="delete_data_button">Smazat všechna data</string>
     <string name="delete_data">Smazat data</string>
     <string name="delete_user_desc">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nPo zrušení registrace vás nemůžeme kontaktovat v\u00A0případě, že dojde k\u00A0potvrzení nákazy u\u00A0někoho z\u00A0vašeho okolí.\n\nDojde-li k\u00A0potvrzení nákazy u\u00A0vás, nebudeme mít možnost kontaktovat nikoho z\u00A0vašeho okolí.\n\nZrušením registrace dojde k\u00A0vypnutí aplikace ve všech zařízeních registrovaných s\u00A0telefonním číslem %s.</string>
+    <string name="delete_user_desc_unverified">Opravdu chcete zrušit registraci svého telefonního čísla?\n\nDojde-li k potvrzení nákazy u vás, nebudeme mít možnost kontaktovat nikoho z vašeho okolí.\n\nZrušením registrace dojde k vypnutí aplikace pouze v tomto zařízení, protože se vám nepodařilo dokončit aktivaci aplikace včetně ověření telefonního čísla.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O\u00A0aplikaci</string>
     <string name="yes_send">Ano, odeslat</string>
