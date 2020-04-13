@@ -19,7 +19,6 @@ import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import cz.covid19cz.erouska.utils.Text
 import cz.covid19cz.erouska.utils.formatPhoneNumber
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
@@ -38,15 +37,19 @@ class LoginFragment :
         viewModel.state.observe(this) {
             updateState(it)
         }
+        viewModel.verifyLaterShown.observe(this) {
+            if (it) {
+                login_verify_later_section.show()
+            } else {
+                login_verify_later_section.hide()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         subscribe(StartVerificationEvent::class) {
             verifyPhoneNumber()
-        }
-        subscribe(ShowVerifyLaterEvent::class) {
-            login_verify_later_section.show()
         }
     }
 
@@ -201,7 +204,7 @@ class LoginFragment :
                 login_verif_code_input.setText(state.code)
             }
             SigningProgress -> show(login_progress)
-            is LoginError -> showError(state.text)
+            is LoginError -> showError(state)
             is SignedIn -> showSignedIn()
         }
 
@@ -229,9 +232,13 @@ class LoginFragment :
         }
     }
 
-    private fun showError(text: Text?) {
-        error_message.text = text?.toCharSequence(requireContext())
-        show(error_message, error_button_back, error_image, error_verify_later)
+    private fun showError(error: LoginError) {
+        error_message.text = error.text?.toCharSequence(requireContext())
+        if (error.allowVerifyLater) {
+            show(error_message, error_button_back, error_image, error_verify_later)
+        } else {
+            show(error_message, error_button_back, error_image)
+        }
     }
 
     private fun verifyPhoneNumber() {
