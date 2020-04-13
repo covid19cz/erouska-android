@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="cz.covid19cz.erouska.utils.DeviceInfo"/>
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
@@ -47,7 +46,7 @@
             android:drawablePadding="16dp"
             android:gravity="center_vertical|start"
             android:paddingStart="16dp"
-            android:text="@{@string/guide_for(DeviceInfo.getManufacturer())}"
+            android:text="@{@string/guide_for(vm.deviceManufacturer)}"
             android:onClick="@{() -> vm.openGuide()}"
             android:paddingEnd="16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"

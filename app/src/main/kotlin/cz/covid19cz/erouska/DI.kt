@@ -28,6 +28,8 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.success.SuccessVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -38,7 +40,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get()) }
-    viewModel { LoginVM(get()) }
+    viewModel { LoginVM(get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
@@ -46,7 +48,7 @@ val viewModelModule = module {
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
-    viewModel { MyDataVM(get(), get()) }
+    viewModel { MyDataVM(get(), get(), get()) }
     viewModel { ConfirmationVM(get(), get(), get()) }
     viewModel { SuccessVM() }
     viewModel { BatteryOptimizationVM() }
@@ -88,6 +90,8 @@ val appModule = module {
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
     single { Markdown(androidContext()) }
+    single { DeviceInfo(androidContext()) }
+    single { CustomTabHelper(androidContext()) }
 }
 
 

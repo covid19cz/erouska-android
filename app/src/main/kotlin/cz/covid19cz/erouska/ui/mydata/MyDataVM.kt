@@ -3,24 +3,26 @@ package cz.covid19cz.erouska.ui.mydata
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
-import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.DatabaseRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.BatteryOptimization
+import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MyDataVM(
     private val dbRepo: DatabaseRepository,
-    private val prefs: SharedPrefsRepository
+    private val prefs: SharedPrefsRepository,
+    deviceInfo: DeviceInfo
 ) : BaseVM() {
 
     val allItems = ObservableArrayList<Any>()
     val criticalItems = ObservableArrayList<Any>()
+    val deviceManufacturer = deviceInfo.getManufacturer()
     private val dateFormatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
 
