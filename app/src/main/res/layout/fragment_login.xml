@@ -185,7 +185,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="phone"
                     android:lines="1"
-                    android:maxLength="13"
+                    android:maxLength="20"
                     android:text="+420" />
 
             </com.google.android.material.textfield.TextInputLayout>

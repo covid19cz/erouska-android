@@ -28,6 +28,7 @@ class LoginVM(
 
     private val mutableState = MutableLiveData<LoginState>(EnterPhoneNumber(false))
     val state = mutableState as LiveData<LoginState>
+    val verifyLaterShown = MutableLiveData(false)
     val verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -98,7 +99,7 @@ class LoginVM(
     private var smsCountDownTimer: CountDownTimer =
         object : CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
             override fun onFinish() {
-                mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+                mutableState.postValue(LoginError(R.string.login_session_expired.toText(), true))
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -110,7 +111,7 @@ class LoginVM(
     private var showVerifyLaterTimer: CountDownTimer =
         object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
             override fun onFinish() {
-                publish(ShowVerifyLaterEvent)
+                verifyLaterShown.postValue(true)
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -128,7 +129,8 @@ class LoginVM(
     }
 
     fun phoneNumberEntered(phoneNumber: String) {
-        this.phoneNumber = phoneNumber
+        // Ignore all spaces
+        this.phoneNumber = phoneNumber.replace(" ", "").trim()
         if (phoneNumber.length >= 8) {
             mutableState.postValue(SigningProgress)
             publish(StartVerificationEvent)
@@ -158,6 +160,7 @@ class LoginVM(
         smsCountDownTimer.cancel()
         showVerifyLaterTimer.cancel()
         mutableState.postValue(EnterPhoneNumber(false))
+        verifyLaterShown.postValue(false)
     }
 
     fun verifyLater() {
@@ -191,19 +194,27 @@ class LoginVM(
                 exception.handle()
             }
             is FirebaseTooManyRequestsException -> {
-                mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
+                mutableState.postValue(
+                    LoginError(
+                        R.string.login_too_many_attempts_error.toText(),
+                        true
+                    )
+                )
             }
             is FirebaseNetworkException -> {
-                mutableState.postValue(LoginError(R.string.login_network_error.toText()))
+                mutableState.postValue(LoginError(R.string.login_network_error.toText(), false))
             }
             is FirebaseAuthUserCollisionException -> {
-                mutableState.postValue(LoginError(
-                    R.string.login_number_already_in_use_error.toText(phoneNumber.formatPhoneNumber())
-                ))
+                mutableState.postValue(
+                    LoginError(
+                        R.string.login_number_already_in_use_error.toText(phoneNumber.formatPhoneNumber()),
+                        true
+                    )
+                )
             }
             else -> {
                 L.e(exception)
-                mutableState.postValue(LoginError(R.string.unexpected_error_text.toText()))
+                mutableState.postValue(LoginError(R.string.unexpected_error_text.toText(), true))
             }
         }
     }
@@ -217,10 +228,15 @@ class LoginVM(
                 mutableState.postValue(EnterCode(true, phoneNumber))
             }
             "ERROR_TOO_MANY_REQUESTS" -> {
-                mutableState.postValue(LoginError(R.string.login_too_many_attempts_error.toText()))
+                mutableState.postValue(
+                    LoginError(
+                        R.string.login_too_many_attempts_error.toText(),
+                        true
+                    )
+                )
             }
             "ERROR_SESSION_EXPIRED" -> {
-                mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
+                mutableState.postValue(LoginError(R.string.login_session_expired.toText(), true))
             }
             else -> {
                 L.e(ErrorCodeException(errorCode, this))
@@ -269,5 +285,6 @@ class LoginVM(
 
     data class RegistrationResponse(val buid: String, val tuids: List<String>)
 
-    class ErrorCodeException(errorCode: String, exception: Exception): Throwable(exception.message + " Error code: $errorCode", exception)
+    class ErrorCodeException(errorCode: String, exception: Exception) :
+        Throwable(exception.message + " Error code: $errorCode", exception)
 }
