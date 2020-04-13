@@ -7,8 +7,13 @@ import android.os.PowerManager
 import cz.covid19cz.erouska.ext.batterySaverRestrictsLocation
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.utils.L
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class LocationStateReceiver(private val powerManager: PowerManager) : BroadcastReceiver() {
+class LocationStateReceiver : BroadcastReceiver(), KoinComponent {
+
+    private val powerManager by inject<PowerManager>()
+
     override fun onReceive(context: Context, intent: Intent?) {
         val action = intent?.action
         L.d("Location state changed")
