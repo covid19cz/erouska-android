@@ -22,6 +22,7 @@ class ActivationTest {
     private val phoneNumberScreen = PhoneNumberScreen()
     private val smsScreen = SMSScreen()
     private val finishActivation = FinishActivation()
+    private val homeScreen = HomeScreen()
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
@@ -38,8 +39,11 @@ class ActivationTest {
             acceptWithAgreements()
             continueToSMSVerify()
         }
-        smsScreen.typeSMSCode()
-        smsScreen.verifySMSCode()
+        smsScreen.run {
+            typeSMSCode()
+            verifySMSCode()
+        }
         finishActivation.finish()
+        homeScreen.eRouskaIsActiv()
     }
 }
