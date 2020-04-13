@@ -182,7 +182,6 @@ class LoginVM(
     }
 
     private fun handleError(exception: Exception) {
-        L.e(exception)
         if (exception is FirebaseAuthInvalidCredentialsException) {
             L.d("Error code: ${exception.errorCode}")
         }
@@ -222,6 +221,7 @@ class LoginVM(
                 mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
             }
             else -> {
+                L.e(this)
                 mutableState.postValue(EnterCode(true, phoneNumber))
             }
         }
