@@ -13,9 +13,9 @@
     <item
         android:id="@+id/nav_contacts"
         android:icon="@drawable/ic_contacts"
-        android:title="Kontakty" />
+        android:title="@string/contacts_title" />
     <item
         android:id="@+id/nav_help"
         android:icon="@drawable/ic_help"
-        android:title="Nápověda" />
+        android:title="@string/help_toolbar_title" />
 </menu>
