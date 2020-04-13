@@ -82,7 +82,7 @@ val repositoryModule = module {
 }
 
 val appModule = module {
-    single { LocationStateReceiver() }
+    single { LocationStateReceiver(get()) }
     single { BluetoothStateReceiver() }
     single { BatterSaverStateReceiver() }
     single { LocalBroadcastManager.getInstance(androidApplication()) }

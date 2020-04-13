@@ -15,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.ext.batterySaverRestrictsLocation
 import cz.covid19cz.erouska.ext.execute
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
@@ -231,7 +232,7 @@ class CovidService : Service() {
                 servicePaused,
                 btUtils.isBtEnabled(),
                 isLocationEnabled(),
-                batterySaverRestrictsLocation()
+                powerManager.batterySaverRestrictsLocation()
             )
         )
     }
@@ -308,14 +309,6 @@ class CovidService : Service() {
                     it
                 )
             })
-        }
-    }
-
-    private fun batterySaverRestrictsLocation(): Boolean {
-        return powerManager.isPowerSaveMode && if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            powerManager.locationPowerSaveMode == PowerManager.LOCATION_MODE_ALL_DISABLED_WHEN_SCREEN_OFF
-        } else {
-            true
         }
     }
 }
