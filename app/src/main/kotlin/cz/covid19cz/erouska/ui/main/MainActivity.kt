@@ -30,6 +30,8 @@ class MainActivity :
 
     private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val bluetoothRepository by inject<BluetoothRepository>()
+    private val customTabHelper by inject<CustomTabHelper>()
+
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
             name: ComponentName,
@@ -111,12 +113,8 @@ class MainActivity :
 
     override fun onStart() {
         super.onStart()
-        if (CustomTabHelper.chromePackageName != null) {
-            CustomTabsClient.bindCustomTabsService(
-                this,
-                CustomTabHelper.chromePackageName,
-                customTabsConnection
-            )
+        customTabHelper.chromePackageName?.let {
+            CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
         }
     }
 

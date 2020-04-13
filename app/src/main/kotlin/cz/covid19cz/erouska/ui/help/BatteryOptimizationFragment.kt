@@ -9,12 +9,15 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentBatteryOptimizationBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.DeviceInfo
+import org.koin.android.ext.android.inject
 
 class BatteryOptimizationFragment :
     BaseFragment<FragmentBatteryOptimizationBinding, BatteryOptimizationVM>(
         R.layout.fragment_battery_optimization,
         BatteryOptimizationVM::class
     ) {
+
+    private val deviceInfo by inject<DeviceInfo>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +33,7 @@ class BatteryOptimizationFragment :
                     ).build()
             )
         }
-        binding.guideBtn.text = getString(R.string.guide_for, DeviceInfo.getManufacturer())
+        binding.guideBtn.text = getString(R.string.guide_for, deviceInfo.getManufacturer())
         binding.guideBtn.setOnClickListener {
             navigate(R.id.action_nav_battery_optimization_to_nav_guide, Bundle().apply {
                 putBoolean("fullscreen", true)

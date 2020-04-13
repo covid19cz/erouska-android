@@ -25,7 +25,8 @@ import java.text.SimpleDateFormat
 
 
 class LoginVM(
-    private val sharedPrefsRepository: SharedPrefsRepository
+    private val sharedPrefsRepository: SharedPrefsRepository,
+    private val deviceInfo: DeviceInfo
 ) : BaseVM() {
 
     private val mutableState = MutableLiveData<LoginState>(EnterPhoneNumber(false))
@@ -216,10 +217,10 @@ class LoginVM(
                 val pushToken = task.result?.token
                 val data = hashMapOf(
                     "platform" to "android",
-                    "platformVersion" to DeviceInfo.getAndroidVersion(),
-                    "manufacturer" to DeviceInfo.getManufacturer(),
-                    "model" to DeviceInfo.getDeviceName(),
-                    "locale" to DeviceInfo.getLocale(),
+                    "platformVersion" to deviceInfo.getAndroidVersion(),
+                    "manufacturer" to deviceInfo.getManufacturer(),
+                    "model" to deviceInfo.getDeviceName(),
+                    "locale" to deviceInfo.getLocale(),
                     "pushRegistrationToken" to pushToken
                 )
                 if (!phoneNumberVerified) {

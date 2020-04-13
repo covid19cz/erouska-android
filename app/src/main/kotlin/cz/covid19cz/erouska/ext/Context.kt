@@ -19,7 +19,7 @@ import androidx.core.content.getSystemService
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.CustomTabHelper.chromePackageName
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 
 
@@ -96,7 +96,7 @@ fun Context.shareApp() {
     startActivity(Intent.createChooser(intent, getString(R.string.share_app_title)))
 }
 
-fun BaseFragment<*, *>.showWeb(url: String) {
+fun BaseFragment<*, *>.showWeb(url: String, customTabHelper: CustomTabHelper) {
     val intent = CustomTabsIntent.Builder()
         .setShowTitle(true)
         .setToolbarColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
@@ -107,7 +107,7 @@ fun BaseFragment<*, *>.showWeb(url: String) {
             )
         )
         .build()
-    if (chromePackageName != null) {
+    if (customTabHelper.chromePackageName != null) {
         intent.launchUrl(requireContext(), Uri.parse(url))
     } else {
         // Custom Tabs not available
