@@ -16,6 +16,10 @@ android {
         versionName rootProject.ext.versionName
         archivesBaseName = "covid19-cz"
         multiDexEnabled true
+        // If we support another language, add it here
+        def supportedLanguages = ["cs", "en"]
+        resConfigs supportedLanguages
+        buildConfigField "String[]", "SUPPORTED_LANGUAGES", "{\"" + supportedLanguages.join("\",\"") + "\"}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

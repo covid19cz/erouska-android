@@ -123,7 +123,7 @@ class LoginVM(
     val remainingTime = MutableLiveData<String>("")
 
     init {
-        auth.setLanguageCode("cs")
+        auth.setLanguageCode(DeviceInfo.getSupportedLanguage())
         if (Auth.isSignedIn() && Auth.isPhoneNumberVerified()) {
             mutableState.postValue(SignedIn)
         }
