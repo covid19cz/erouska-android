@@ -2,8 +2,8 @@ package cz.covid19cz.erouska
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.LocaleUtils
 
 object AppConfig {
 
@@ -108,7 +108,7 @@ object AppConfig {
     }
 
     private fun getLocalized(key: String): String {
-        val currentLanguage = DeviceInfo.getSupportedLanguage()
+        val currentLanguage = LocaleUtils.getSupportedLanguage()
         return if (currentLanguage == "cs") {
             firebaseRemoteConfig.getString(key)
         } else {

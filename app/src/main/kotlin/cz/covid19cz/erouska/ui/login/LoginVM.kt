@@ -121,7 +121,7 @@ class LoginVM(
     val remainingTime = MutableLiveData<String>("")
 
     init {
-        auth.setLanguageCode(DeviceInfo.getSupportedLanguage())
+        auth.setLanguageCode(LocaleUtils.getSupportedLanguage())
         if (Auth.isSignedIn() && Auth.isPhoneNumberVerified()) {
             mutableState.postValue(SignedIn)
         }
@@ -244,7 +244,7 @@ class LoginVM(
                     "platformVersion" to deviceInfo.getAndroidVersion(),
                     "manufacturer" to deviceInfo.getManufacturer(),
                     "model" to deviceInfo.getDeviceName(),
-                    "locale" to deviceInfo.getLocale(),
+                    "locale" to LocaleUtils.getLocale(),
                     "pushRegistrationToken" to pushToken
                 )
                 if (!phoneNumberVerified) {
