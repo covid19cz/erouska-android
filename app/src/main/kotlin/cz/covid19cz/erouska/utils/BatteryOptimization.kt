@@ -19,12 +19,14 @@ object BatteryOptimization {
 
     fun isTutorialNeeded(): Boolean {
         val markdown = getTutorialMarkdown()
-        return AppConfig.showBatteryOptimizationTutorial && markdown != null && !markdown.contains("<!-- do-not-show -->")
+        return AppConfig.showBatteryOptimizationTutorial && markdown != null && !markdown.contains("<!-- do-not-show -->") && !isXiaomiWithAndroidOne()
     }
 
     fun getTutorialMarkdown(): String? {
         return urls[Build.MANUFACTURER.toLowerCase(Locale("cs"))]
     }
+
+    fun isXiaomiWithAndroidOne() = (Build.MANUFACTURER.toLowerCase(Locale("cs")) == "xiaomi" && !isMiUI())
 
     @SuppressLint("PrivateApi")
     fun isMiUI(): Boolean {
