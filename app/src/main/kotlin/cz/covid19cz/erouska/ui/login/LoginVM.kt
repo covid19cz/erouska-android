@@ -201,6 +201,7 @@ class LoginVM(
                 ))
             }
             else -> {
+                L.e(exception)
                 mutableState.postValue(LoginError(R.string.unexpected_error_text.toText()))
             }
         }
@@ -221,7 +222,7 @@ class LoginVM(
                 mutableState.postValue(LoginError(R.string.login_session_expired.toText()))
             }
             else -> {
-                L.e(this)
+                L.e(ErrorCodeException(errorCode, this))
                 mutableState.postValue(EnterCode(true, phoneNumber))
             }
         }
@@ -266,4 +267,6 @@ class LoginVM(
     }
 
     data class RegistrationResponse(val buid: String, val tuids: List<String>)
+
+    class ErrorCodeException(errorCode: String, exception: Exception): Throwable(exception.message + " Error code: $errorCode", exception)
 }
