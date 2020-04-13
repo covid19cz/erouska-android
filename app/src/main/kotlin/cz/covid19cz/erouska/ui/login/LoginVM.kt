@@ -22,6 +22,7 @@ import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.toText
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class LoginVM(
@@ -104,7 +105,7 @@ class LoginVM(
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                val df = SimpleDateFormat("mm:ss")
+                val df = SimpleDateFormat("mm:ss", Locale.getDefault())
                 remainingTime.postValue(df.format(millisUntilFinished))
             }
 
@@ -112,7 +113,7 @@ class LoginVM(
     private var showVerifyLaterTimer: CountDownTimer =
         object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
             override fun onFinish() {
-                publish(ShowVerifyLaterEvent)
+                    publish(ShowVerifyLaterEvent)
             }
 
             override fun onTick(millisUntilFinished: Long) {
