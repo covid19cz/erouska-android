@@ -55,11 +55,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         activity?.setTitle(R.string.app_name)
         registerServiceStateReceivers()
         rxPermissions = RxPermissions(this)
-        updateState()
         subsribeToViewModel()
         viewModel.init()
         checkIfServiceIsRunning()
         checkIfSignedIn()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        updateState()
     }
 
     private fun subsribeToViewModel() {
