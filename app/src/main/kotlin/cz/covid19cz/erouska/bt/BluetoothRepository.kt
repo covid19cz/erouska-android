@@ -61,22 +61,6 @@ class BluetoothRepository(
         }
     }
 
-    private val scanIosOnBackgroundCallback = object : ScanCallback() {
-        override fun onScanResult(callbackType: Int, result: ScanResult) {
-            onScanIosOnBackgroundResult(result)
-        }
-
-        override fun onScanFailed(errorCode: Int) {
-            BluetoothLeScannerCompat.getScanner().stopScan(this)
-        }
-
-        override fun onBatchScanResults(results: MutableList<ScanResult>) {
-            results.forEach {
-                onScanIosOnBackgroundResult(it)
-            }
-        }
-    }
-
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
             L.d("BLE advertising started.")
@@ -92,9 +76,7 @@ class BluetoothRepository(
     private val gattCallback = object : BluetoothGattCallback() {
 
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
-            val mac = gatt.device.address
-
-            if (newState == BluetoothProfile.STATE_CONNECTED) {
+          if (newState == BluetoothProfile.STATE_CONNECTED) {
                 L.d("GATT connected. Mac: ${gatt.device.address}")
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
@@ -141,8 +123,6 @@ class BluetoothRepository(
         }
     }
 
-
-
     fun hasBle(c: Context): Boolean {
         return c.packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)
     }
@@ -164,12 +144,6 @@ class BluetoothRepository(
         L.d("Starting BLE scanning in mode: ${AppConfig.scanMode}")
 
         val androidScannerSettings: ScanSettings = ScanSettings.Builder()
-            .setLegacy(true)
-            .setScanMode(AppConfig.scanMode)
-            .setUseHardwareFilteringIfSupported(true)
-            .build()
-
-        val iOSScannerSettings: ScanSettings = ScanSettings.Builder()
             .setLegacy(false)
             .setScanMode(AppConfig.scanMode)
             .setUseHardwareFilteringIfSupported(true)
@@ -177,21 +151,15 @@ class BluetoothRepository(
 
         BluetoothLeScannerCompat.getScanner().startScan(
             listOf(
-                ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build()
+                ScanFilter.Builder().setServiceUuid(ParcelUuid(SERVICE_UUID)).build(),
+                ScanFilter.Builder()
+                    .setManufacturerData(APPLE_MANUFACTURER_ID, byteArrayOf(), byteArrayOf())
+                    .build()
             ),
             androidScannerSettings,
             scanCallback
         )
 
-        BluetoothLeScannerCompat.getScanner().startScan(
-            listOf(
-                ScanFilter.Builder()
-                    .setManufacturerData(APPLE_MANUFACTURER_ID, byteArrayOf(), byteArrayOf())
-                    .build()
-            ),
-            iOSScannerSettings,
-            scanIosOnBackgroundCallback
-        )
         isScanning = true
     }
 
@@ -200,7 +168,6 @@ class BluetoothRepository(
         if (btManager.isBluetoothEnabled()) {
             isScanning = false
             BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
-            BluetoothLeScannerCompat.getScanner().stopScan(scanIosOnBackgroundCallback)
         }
         saveDataAndClearScanResults()
         gattFailDisposable?.dispose()
@@ -234,9 +201,11 @@ class BluetoothRepository(
     }
 
     private fun onScanResult(result: ScanResult) {
-        result.scanRecord?.bytes?.let { bytes ->
-            if (isServiceUUIDMatch(result) || canBeIosOnBackground(result.scanRecord)) {
-                val deviceId = getTuidFromAdvertising(bytes)
+        result.scanRecord?.let { scanRecord ->
+            if (isServiceUUIDMatch(result) || canBeIosOnBackground(scanRecord)) {
+                val deviceId = scanRecord.bytes?.let {
+                    getTuidFromAdvertising(scanRecord)
+                }
                 if (deviceId != null) {
                     // It's time to handle Android Device
                     handleAndroidDevice(result, deviceId)
@@ -320,6 +289,7 @@ class BluetoothRepository(
         val session = ScanSession(mac = mac)
         session.addRssi(result.rssi)
         discoveredIosDevices[mac] = session
+        getTuidFromGatt(session)
         scanResultsList.add(session)
     }
 
@@ -340,7 +310,8 @@ class BluetoothRepository(
         gatt.close()
     }
 
-    private fun getTuidFromAdvertising(bytes: ByteArray): String? {
+    private fun getTuidFromAdvertising(scanRecord: ScanRecord): String? {
+        val bytes = scanRecord.bytes!!
         val result = ByteArray(10)
 
         var currIndex = 0
@@ -353,17 +324,21 @@ class BluetoothRepository(
 
             if (type == 0x21.toByte()) { //128 bit Service UUID (most cases)
                 // +2 (skip lenght byte and type byte), +16 (skip 128 bit Service UUID)
-                bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
+                if (bytes.size >= (currIndex + 2 + 16 + 10)) {
+                    bytes.copyInto(result, 0, currIndex + 2 + 16, currIndex + 2 + 16 + 10)
+                }
                 break
             } else if (type == 0x16.toByte()) { //16 bit Service UUID (rare cases)
                 // +2 (skip lenght byte and type byte), +2 (skip 16 bit Service UUID)
-                if (bytes.size > (currIndex + 2 + 2 + 10)) {
+                if (bytes.size >= (currIndex + 2 + 2 + 10)) {
                     bytes.copyInto(result, 0, currIndex + 2 + 2, currIndex + 2 + 2 + 10)
                 }
                 break
             } else if (type == 0x20.toByte()) { //32 bit Service UUID (just in case)
                 // +2 (skip lenght byte and type byte), +4 (skip 32 bit Service UUID)
-                bytes.copyInto(result, 0, currIndex + 2 + 4, currIndex + 2 + 4 + 10)
+                if (bytes.size >= (currIndex + 2 + 4 + 10)) {
+                    bytes.copyInto(result, 0, currIndex + 2 + 4, currIndex + 2 + 4 + 10)
+                }
                 break
             } else {
                 currIndex += len + 1
