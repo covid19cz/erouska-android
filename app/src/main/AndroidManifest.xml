@@ -36,6 +36,17 @@
             <nav-graph android:value="@navigation/nav_graph" />
         </activity>
 
+        <!-- This is invisible activity just for handling of app shortcuts. -->
+        <activity
+            android:name=".ui.ShortcutActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="erouska" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".service.CovidService"
             android:enabled="true"
@@ -63,8 +74,14 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.BluetoothStateReceiver"/>
-        <receiver android:name=".receiver.LocationStateReceiver"/>
+        <receiver android:name=".receiver.ActionsReceiver">
+            <intent-filter>
+                <action android:name="cz.covid19cz.erouska.EROUSKA_PAUSE" />
+                <action android:name="cz.covid19cz.erouska.EROUSKA_RESUME" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.BluetoothStateReceiver" />
+        <receiver android:name=".receiver.LocationStateReceiver" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
