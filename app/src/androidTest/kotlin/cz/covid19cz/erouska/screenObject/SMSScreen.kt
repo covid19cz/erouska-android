@@ -10,7 +10,7 @@ import cz.covid19cz.erouska.screenObject.PhoneNumberScreen.Companion.PHONE_NUMBE
 
 class SMSScreen {
     companion object {
-        const val SMS_CODE = "123456"
+        const val SMS_CODE = "000000"
     }
 
     fun typeSMSCode() {
