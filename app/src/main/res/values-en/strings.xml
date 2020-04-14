@@ -60,6 +60,7 @@
     <string name="login_code_input_error">Verification code is entered incorrectly.</string>
     <string name="login_network_error">Error contacting server. Check network connection.</string>
     <string name="login_too_many_attempts_error">Too many phone number verification requests. You can try again in a couple of hours.</string>
+    <string name="login_number_already_in_use_error">You can\'t use this number.\nPhone number %1$s can\'t be used, because you used it for activation on a different device.</string>
     <string name="login_session_expired">Verification code\'s validity expired. Check phone number and request a new verification code.</string>
     <string name="menu_help">Help</string>
     <string name="my_data_title">My data</string>
@@ -122,6 +123,7 @@
     <string name="delete_data_button">Delete all data</string>
     <string name="delete_data">Delete data</string>
     <string name="delete_user_desc">Are you sure you want to cancel your phone\'s registration?\n\nAfter cancelling your phone registration we can no longer contact you in case somebody from your surroundings gets tested positive.\n\nIf you are the one who gets tested positive, we will not be able to contact anybody from your surroundings.\n\nWith cancelling the registration, all the devices registered on phone number %s will have their application turned off.</string>
+    <string name="delete_user_desc_unverified">Are you sure you want to cancel your phone\'s registration?\n\nAfter cancelling your registration, we can no longer contact you in case somebody from your surroundings gets tested positive.\n\nCancelling registration turns off the app only on this device, because you didn\'t finish verification of phone number.=</string>
     <string name="delete_registration">Delete registration</string>
     <string name="about">About application</string>
     <string name="yes_send">Yes, send</string>

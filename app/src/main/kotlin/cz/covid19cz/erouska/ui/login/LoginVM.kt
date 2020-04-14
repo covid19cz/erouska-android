@@ -189,6 +189,7 @@ class LoginVM(
         if (exception is FirebaseAuthInvalidCredentialsException) {
             L.d("Error code: ${exception.errorCode}")
         }
+        verifyLaterShown.postValue(false)
         when (exception) {
             is FirebaseAuthInvalidCredentialsException -> {
                 exception.handle()

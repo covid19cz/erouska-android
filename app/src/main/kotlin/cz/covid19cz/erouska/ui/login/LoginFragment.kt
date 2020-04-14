@@ -112,9 +112,11 @@ class LoginFragment :
             showWeb(AppConfig.termsAndConditionsLink, customTabHelper)
         }
         login_verify_later_button.setOnClickListener {
+            login_verif_code_send_btn.hideKeyboard()
             viewModel.verifyLater()
         }
         error_verify_later.setOnClickListener {
+            login_verif_code_send_btn.hideKeyboard()
             viewModel.verifyLater()
         }
         login_verif_phone_input.addTextChangedListener(afterTextChanged = {

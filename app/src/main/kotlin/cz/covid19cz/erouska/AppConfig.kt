@@ -46,17 +46,15 @@ object AppConfig {
     val emergencyNumber
         get() = firebaseRemoteConfig.getString("emergencyNumber")
     val proclamationLink
-        get() = firebaseRemoteConfig.getString("proclamationLink")
-    val tutorialLink
-        get() = firebaseRemoteConfig.getString("tutorialLink")
+        get() = getLocalized("proclamationLink")
     val aboutApi
-        get() = firebaseRemoteConfig.getString("aboutApi")
+        get() = getLocalized("aboutApi")
     val aboutLink
-        get() = firebaseRemoteConfig.getString("aboutLink")
+        get() = getLocalized("aboutLink")
     val termsAndConditionsLink
-        get() = firebaseRemoteConfig.getString("termsAndConditionsLink")
+        get() = getLocalized("termsAndConditionsLink")
     val homepageLink
-        get() = firebaseRemoteConfig.getString("homepageLink")
+        get() = getLocalized("homepageLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
     val allowVerifyLater
