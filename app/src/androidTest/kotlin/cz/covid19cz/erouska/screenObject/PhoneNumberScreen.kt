@@ -9,7 +9,7 @@ import cz.covid19cz.erouska.R
 
 class PhoneNumberScreen {
     companion object {
-        const val PHONE_NUMBER = "666 666 666"
+        const val PHONE_NUMBER = "731 000 000"
     }
 
     fun typePhoneNumber() {
