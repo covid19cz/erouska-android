@@ -180,7 +180,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun updateSecondaryText() {
         if (Auth.isPhoneNumberVerified()) {
-            app_running_body_secondary.text = getString(R.string.dashboard_secondary, Auth.getPhoneNumber())
+            app_running_body_secondary.text = getString(R.string.dashboard_secondary, viewModel.phoneNumber)
         } else {
             app_running_body_secondary.setText(R.string.dashboard_not_verified_secondary)
         }
