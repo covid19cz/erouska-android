@@ -9,8 +9,8 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.help.HelpFragment.InfoType.DataCollectionType
-import cz.covid19cz.erouska.ui.help.HelpFragment.InfoType.HelpType
+import cz.covid19cz.erouska.ui.help.InfoType.DATA_COLLECTION
+import cz.covid19cz.erouska.ui.help.InfoType.HELP
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -31,16 +31,17 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             }
         }
 
-        isFullscreen = arguments?.getBoolean("fullscreen") == true
-        type = when (arguments?.getString("type")) {
-            "help" -> HelpType()
-            "data_collection" -> DataCollectionType()
-            else -> HelpType()
-        }
+        type = arguments?.let {
+            HelpFragmentArgs.fromBundle(it).type
+        } ?: HELP
+
+        isFullscreen = arguments?.let {
+            HelpFragmentArgs.fromBundle(it).fullscreen
+        } ?: false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (type is HelpType) {
+        if (type == HELP) {
             inflater.inflate(R.menu.help, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -50,11 +51,11 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         when (type) {
-            is HelpType -> {
+            HELP -> {
                 enableUpInToolbar(isFullscreen, IconType.CLOSE)
                 markdown.show(help_desc, AppConfig.helpMarkdown)
             }
-            is DataCollectionType -> {
+            DATA_COLLECTION -> {
                 enableUpInToolbar(true)
                 markdown.show(help_desc, AppConfig.dataCollectionMarkdown)
             }
@@ -74,20 +75,12 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_about -> {
-                navigate(R.id.nav_about, Bundle().apply {
-                    // replicate the
-                    putBoolean("fullscreen", isFullscreen)
-                })
+                navigate(HelpFragmentDirections.actionNavHelpToNavAbout(isFullscreen))
                 true
             }
             else -> {
                 super.onOptionsItemSelected(item)
             }
         }
-    }
-
-    sealed class InfoType {
-        class DataCollectionType : InfoType()
-        class HelpType : InfoType()
     }
 }

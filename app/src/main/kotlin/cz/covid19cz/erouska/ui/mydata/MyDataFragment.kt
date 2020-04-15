@@ -11,6 +11,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentMyDataBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.ui.help.InfoType.DATA_COLLECTION
 import kotlinx.android.synthetic.main.fragment_my_data.*
 
 class MyDataFragment :
@@ -33,7 +34,7 @@ class MyDataFragment :
         setupTabs()
 
         data_collection_info.setOnClickListener {
-            navigate(MyDataFragmentDirections.actionNavMyDataToNavHelp(type = "data_collection"))
+            navigate(MyDataFragmentDirections.actionNavMyDataToNavHelp(DATA_COLLECTION, false))
         }
     }
 
