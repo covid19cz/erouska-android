@@ -34,6 +34,5 @@ class HomeScreen {
         }
         // click on close button
         onView(withId(R.id.close_button)).perform(click())
-
     }
 }
