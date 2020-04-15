@@ -12,6 +12,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.VISIBILITY_SECRET
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
@@ -22,6 +23,7 @@ import cz.covid19cz.erouska.ui.main.MainActivity
 class CovidNotificationManager(private val service: CovidService) {
     companion object {
         const val SERVICE_CHANNEL_ID = "ForegroundServiceChannel"
+        const val SERVICE_CHANNEL_ID_2 = "ForegroundServiceChannel_v2"
         const val ALERT_CHANNEL_ID = "ForegroundServiceAlertChannel"
         const val NOTIFICATION_ID = 1
     }
@@ -30,10 +32,13 @@ class CovidNotificationManager(private val service: CovidService) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channels = listOf(
                 NotificationChannel(
-                    SERVICE_CHANNEL_ID,
+                    SERVICE_CHANNEL_ID_2,
                     service.getString(R.string.foreground_service_channel),
                     NotificationManager.IMPORTANCE_LOW
-                ).apply { setShowBadge(false) },
+                ).apply {
+                    setShowBadge(false)
+                    lockscreenVisibility = VISIBILITY_SECRET
+                },
                 NotificationChannel(
                     ALERT_CHANNEL_ID,
                     service.getString(R.string.foreground_service_alert_channel),
@@ -43,7 +48,11 @@ class CovidNotificationManager(private val service: CovidService) {
             val manager = service.getSystemService<NotificationManager>()
             channels.forEach {
                 manager?.createNotificationChannel(it)
+
             }
+
+            // clean old channels
+            manager?.deleteNotificationChannel(SERVICE_CHANNEL_ID)
         }
     }
 
