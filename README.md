@@ -71,6 +71,12 @@ If you want to become a more permanent part of the team, join [our Slack](covid1
 
 We use a private [Trello](https://trello.com/b/4xN2Eeqv/bug-wf) for bug tracking, contact us on Slack.
 
+## Translations
+
+Help us translate to your language or if you see a problem with translation, fix it. Our translation is open to volunteers [at OneSky](https://covid19cz.oneskyapp.com/).
+
+Because our app is for Czechia, our primary language is Czech. But we have most of the app translated to English.
+
 ## <a name="git-workflow"></a>Git workflow
 
 - Work in a fork then send a pull request to the `develop` branch. 
