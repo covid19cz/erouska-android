@@ -86,7 +86,24 @@
         android:id="@+id/nav_help"
         android:name="cz.covid19cz.erouska.ui.help.HelpFragment"
         android:label="@string/help_toolbar_title"
-        tools:layout="@layout/fragment_help" />
+        tools:layout="@layout/fragment_help" >
+        <argument
+            android:name="type"
+            android:defaultValue="HELP"
+            app:argType="cz.covid19cz.erouska.ui.help.InfoType" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_help_to_nav_about"
+            app:destination="@id/nav_about"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_permisions_disabled"
@@ -209,6 +226,13 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/nav_guide" />
+        <action
+            android:id="@+id/action_nav_my_data_to_nav_help"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:destination="@id/nav_help" />
     </fragment>
     <fragment
         android:id="@+id/nav_contacts"
@@ -292,6 +316,11 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_battery_optimization"

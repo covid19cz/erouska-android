@@ -16,13 +16,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/my_data_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/textColorSecondary"
+            android:padding="16dp"
+            android:text="@string/data_content_info"/>
+
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#ECECEC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_data_info" />
+
+        <TextView
+            android:id="@+id/data_collection_info"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="?selectableItemBackground"
+            android:drawableStart="@drawable/ic_info_gray"
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical|start"
+            android:paddingStart="16dp"
+            android:text="@string/data_collection_info"
+            android:paddingEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_top"
+            />
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#ECECEC"
+            app:layout_constraintBottom_toBottomOf="@+id/data_collection_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.google.android.material.tabs.TabLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tabs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/divider_bottom"/>
 
         <include
             android:id="@+id/header"

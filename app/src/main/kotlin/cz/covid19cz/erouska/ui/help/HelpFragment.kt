@@ -9,6 +9,8 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.ui.help.InfoType.DATA_COLLECTION
+import cz.covid19cz.erouska.ui.help.InfoType.HELP
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -17,6 +19,8 @@ import org.koin.android.ext.android.inject
 class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
 
     private val markdown by inject<Markdown>()
+    private var isFullscreen: Boolean = false
+    private lateinit var type: InfoType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,24 +30,42 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
                 HelpCommandEvent.Command.GO_BACK -> goBack()
             }
         }
+
+        type = arguments?.let {
+            HelpFragmentArgs.fromBundle(it).type
+        } ?: HELP
+
+        isFullscreen = arguments?.let {
+            HelpFragmentArgs.fromBundle(it).fullscreen
+        } ?: false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.help, menu)
+        if (type == HELP) {
+            inflater.inflate(R.menu.help, menu)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(arguments?.getBoolean("fullscreen") == true, IconType.CLOSE)
 
-        if(arguments?.getBoolean("fullscreen") == true){
+        when (type) {
+            HELP -> {
+                enableUpInToolbar(isFullscreen, IconType.CLOSE)
+                markdown.show(help_desc, AppConfig.helpMarkdown)
+            }
+            DATA_COLLECTION -> {
+                enableUpInToolbar(true)
+                markdown.show(help_desc, AppConfig.dataCollectionMarkdown)
+            }
+        }
+
+        if (isFullscreen) {
             welcome_continue_btn.visibility = View.VISIBLE
         } else {
             welcome_continue_btn.visibility = View.GONE
         }
-
-        markdown.show(help_desc, AppConfig.helpMarkdown)
     }
 
     fun goBack() {
@@ -53,10 +75,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_about -> {
-                navigate(R.id.nav_about, Bundle().apply {
-                    // replicate the
-                    putBoolean("fullscreen", arguments?.getBoolean("fullscreen") ?: false)
-                })
+                navigate(HelpFragmentDirections.actionNavHelpToNavAbout(isFullscreen))
                 true
             }
             else -> {
