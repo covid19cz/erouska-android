@@ -91,6 +91,9 @@ There are two variants of the App: **DEV** and **PROD**. **PROD** is also built 
 
 Versioning is automatic: major and minor version is in Git, patch is _versionCode_ (a number of commits from the start).
 
+Release is done by executing the release.sh script. Right click it on Android Studio and hit Run 'release.sh' or execute via command line.
+If it fails, it fails. Most likely your master has different history from origin. That should never be the case, so you should fix it.
+
 ## Automation support
 
 As was proposed in [#149](https://github.com/covid19cz/erouska-android/issues/149), the app now supports
