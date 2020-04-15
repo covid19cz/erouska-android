@@ -32,6 +32,7 @@ class ActivationTest {
 
     @Test
     fun activation() {
+        // activation
         welcomeScreen.continueToActivation()
         bluetoothPermissionScreen.allowPermission()
         phoneNumberScreen.run {
@@ -45,5 +46,9 @@ class ActivationTest {
         }
         finishActivation.finish()
         homeScreen.eRouskaIsActiv()
+
+        //deactivation
+        homeScreen.cancelRegistration()
+
     }
 }
