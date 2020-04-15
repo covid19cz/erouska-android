@@ -220,7 +220,12 @@ class LoginFragment :
     private fun showSignedIn() {
         if (navController().currentDestination?.id == R.id.nav_login) {
             if (BatteryOptimization.isTutorialNeeded()) {
-                navigate(R.id.action_nav_login_to_batteryOptimizationFragment)
+                navigate(R.id.action_nav_login_to_batteryOptimizationFragment, null,
+                    Builder()
+                        .setPopUpTo(
+                            R.id.nav_graph,
+                            true
+                        ).build())
             } else {
                 navigate(
                     R.id.action_nav_login_to_nav_dashboard, null,
