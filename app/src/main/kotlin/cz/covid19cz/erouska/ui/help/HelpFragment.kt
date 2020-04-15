@@ -9,6 +9,8 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.ui.help.HelpFragment.InfoType.DataCollectionType
+import cz.covid19cz.erouska.ui.help.HelpFragment.InfoType.HelpType
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -17,6 +19,8 @@ import org.koin.android.ext.android.inject
 class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
 
     private val markdown by inject<Markdown>()
+    private var isFullscreen: Boolean = false
+    private lateinit var type: InfoType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +30,17 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
                 HelpCommandEvent.Command.GO_BACK -> goBack()
             }
         }
+
+        isFullscreen = arguments?.getBoolean("fullscreen") == true
+        type = when (arguments?.getString("type")) {
+            "help" -> HelpType()
+            "data_collection" -> DataCollectionType()
+            else -> HelpType()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if(arguments?.getString("type").equals("help")) {
+        if (type is HelpType) {
             inflater.inflate(R.menu.help, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -37,24 +48,23 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(arguments?.getString("type").equals("data_collection")) {
-            enableUpInToolbar(true)
-        } else {
-            enableUpInToolbar(arguments?.getBoolean("fullscreen") == true, IconType.CLOSE)
+
+        when (type) {
+            is HelpType -> {
+                enableUpInToolbar(isFullscreen, IconType.CLOSE)
+                markdown.show(help_desc, AppConfig.helpMarkdown)
+            }
+            is DataCollectionType -> {
+                enableUpInToolbar(true)
+                markdown.show(help_desc, AppConfig.dataCollectionMarkdown)
+            }
         }
 
-        if(arguments?.getBoolean("fullscreen") == true){
+        if (isFullscreen) {
             welcome_continue_btn.visibility = View.VISIBLE
         } else {
             welcome_continue_btn.visibility = View.GONE
         }
-
-        if(arguments?.getString("type").equals("data_collection")){
-            markdown.show(help_desc, AppConfig.dataCollectionMarkdown)
-        } else {
-            markdown.show(help_desc, AppConfig.helpMarkdown)
-        }
-
     }
 
     fun goBack() {
@@ -66,7 +76,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             R.id.nav_about -> {
                 navigate(R.id.nav_about, Bundle().apply {
                     // replicate the
-                    putBoolean("fullscreen", arguments?.getBoolean("fullscreen") ?: false)
+                    putBoolean("fullscreen", isFullscreen)
                 })
                 true
             }
@@ -74,5 +84,10 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    sealed class InfoType {
+        class DataCollectionType : InfoType()
+        class HelpType : InfoType()
     }
 }

@@ -33,7 +33,7 @@ class MyDataFragment :
         setupTabs()
 
         data_collection_info.setOnClickListener {
-            navigate(R.id.action_nav_my_data_to_nav_help, Bundle().apply { putString("type", "data_collection") })
+            navigate(MyDataFragmentDirections.actionNavMyDataToNavHelp(type = "data_collection"))
         }
     }
 
