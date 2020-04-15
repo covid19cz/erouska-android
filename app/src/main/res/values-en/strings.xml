@@ -154,4 +154,6 @@
     <string name="verify_phone_number">verify phone number</string>
     <string name="battery_saver_settings_not_found">Disable Battery Saver manually, please.</string>
     <string name="dashboard_not_verified_secondary">Please verify your phone number so that we can contact you in case of being suspected of coronavirus infection.</string>
+    <string name="data_collection_info">Data collection</string>
+    <string name="data_content_info">The following data contains all records of signal measurement of surrounding devices with eRouška.</string>
 </resources>
