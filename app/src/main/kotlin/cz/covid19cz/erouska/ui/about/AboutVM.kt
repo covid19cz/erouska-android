@@ -30,6 +30,7 @@ class AboutVM : BaseVM() {
     val items = ObservableArrayList<Any>()
     val aboutWebUrl = MutableLiveData<String>()
     val loading = SafeMutableLiveData(false)
+    var dataLoaded = false
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -60,12 +61,15 @@ class AboutVM : BaseVM() {
         }, {
             L.e(it)
             loading.value = false
+            dataLoaded = false
             //Show website if api fails
             aboutWebUrl.value = AppConfig.aboutLink
         }, {
+            aboutWebUrl.value = null
             loading.value = false
             items.add(AboutIntroItem())
             items.addAll(it)
+            dataLoaded = true
         }
         )
     }
