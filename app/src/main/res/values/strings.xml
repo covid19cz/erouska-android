@@ -168,4 +168,6 @@
     <string name="verify_phone_number">ověřit telefonní číslo</string>
     <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
     <string name="dashboard_not_verified_secondary">Ověřte prosím své telefonní číslo, abychom vás mohli kontaktovat v případě podezření na nákazu koronavirem.</string>
+    <string name="data_collection_info">Informace o sběru dat</string>
+    <string name="data_content_info">Následující data jsou veškeré záznamy o měření signálu okolních telefonů s eRouškou.</string>
 </resources>

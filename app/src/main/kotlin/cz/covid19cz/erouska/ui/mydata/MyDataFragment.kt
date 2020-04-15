@@ -31,6 +31,10 @@ class MyDataFragment :
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
         setupTabs()
+
+        data_collection_info.setOnClickListener {
+            navigate(R.id.action_nav_my_data_to_nav_help, Bundle().apply { putString("type", "data_collection") })
+        }
     }
 
     private fun setupTabs(){

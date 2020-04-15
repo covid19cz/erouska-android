@@ -29,13 +29,19 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.help, menu)
+        if(arguments?.getString("type").equals("help")) {
+            inflater.inflate(R.menu.help, menu)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(arguments?.getBoolean("fullscreen") == true, IconType.CLOSE)
+        if(arguments?.getString("type").equals("data_collection")) {
+            enableUpInToolbar(true)
+        } else {
+            enableUpInToolbar(arguments?.getBoolean("fullscreen") == true, IconType.CLOSE)
+        }
 
         if(arguments?.getBoolean("fullscreen") == true){
             welcome_continue_btn.visibility = View.VISIBLE
@@ -43,7 +49,12 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
             welcome_continue_btn.visibility = View.GONE
         }
 
-        markdown.show(help_desc, AppConfig.helpMarkdown)
+        if(arguments?.getString("type").equals("data_collection")){
+            markdown.show(help_desc, AppConfig.dataCollectionMarkdown)
+        } else {
+            markdown.show(help_desc, AppConfig.helpMarkdown)
+        }
+
     }
 
     fun goBack() {

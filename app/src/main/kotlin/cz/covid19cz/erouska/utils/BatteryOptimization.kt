@@ -18,8 +18,9 @@ object BatteryOptimization {
     )
 
     fun isTutorialNeeded(): Boolean {
-        val markdown = getTutorialMarkdown()
-        return AppConfig.showBatteryOptimizationTutorial && markdown != null && !markdown.contains("<!-- do-not-show -->") && !isXiaomiWithAndroidOne()
+//        val markdown = getTutorialMarkdown()
+//        return AppConfig.showBatteryOptimizationTutorial && markdown != null && !markdown.contains("<!-- do-not-show -->") && !isXiaomiWithAndroidOne()
+        return true
     }
 
     fun getTutorialMarkdown(): String? {

@@ -73,6 +73,8 @@ object AppConfig {
         get() = getLocalized("batteryOptimizationHuaweiMarkdown")
     val helpMarkdown
         get() = getLocalized("helpMarkdown")
+    val dataCollectionMarkdown
+        get() = getLocalized("dataCollectionMarkdown")
 
     var overrideAdvertiseTxPower: Int? = null
 

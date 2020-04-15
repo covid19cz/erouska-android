@@ -11,6 +11,7 @@
         android:id="@+id/data_description"
         android:icon="@drawable/ic_help"
         app:showAsAction="always"
+        android:visible="false"
         app:iconTint="?colorControlNormal"
         android:title="@string/data_description" />
 </menu>
