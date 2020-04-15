@@ -23,7 +23,6 @@ import cz.covid19cz.erouska.ui.main.MainActivity
 class CovidNotificationManager(private val service: CovidService) {
     companion object {
         const val SERVICE_CHANNEL_ID = "ForegroundServiceChannel"
-        const val SERVICE_CHANNEL_ID_2 = "ForegroundServiceChannel_v2"
         const val ALERT_CHANNEL_ID = "ForegroundServiceAlertChannel"
         const val NOTIFICATION_ID = 1
     }
@@ -32,13 +31,10 @@ class CovidNotificationManager(private val service: CovidService) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channels = listOf(
                 NotificationChannel(
-                    SERVICE_CHANNEL_ID_2,
+                    SERVICE_CHANNEL_ID,
                     service.getString(R.string.foreground_service_channel),
                     NotificationManager.IMPORTANCE_LOW
-                ).apply {
-                    setShowBadge(false)
-                    lockscreenVisibility = VISIBILITY_SECRET
-                },
+                ).apply { setShowBadge(false) },
                 NotificationChannel(
                     ALERT_CHANNEL_ID,
                     service.getString(R.string.foreground_service_alert_channel),
@@ -50,9 +46,6 @@ class CovidNotificationManager(private val service: CovidService) {
                 manager?.createNotificationChannel(it)
 
             }
-
-            // clean old channels
-            manager?.deleteNotificationChannel(SERVICE_CHANNEL_ID)
         }
     }
 
@@ -106,6 +99,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 actionText = R.string.notification_action_enable_location
             }
             else -> {
+                builder.setVisibility(VISIBILITY_SECRET)
                 title = R.string.notification_title
                 text = R.string.notification_text_resumed
                 icon = R.drawable.ic_notification_normal
