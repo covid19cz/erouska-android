@@ -169,5 +169,5 @@
     <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
     <string name="dashboard_not_verified_secondary">Ověřte prosím své telefonní číslo, abychom vás mohli kontaktovat v případě podezření na nákazu koronavirem.</string>
     <string name="data_collection_info">Informace o sběru dat</string>
-    <string name="data_content_info">Následující data jsou veškeré záznamy o měření signálu okolních telefonů s eRouškou.</string>
+    <string name="data_content_info">Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</string>
 </resources>

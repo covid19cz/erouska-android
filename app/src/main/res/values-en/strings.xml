@@ -155,5 +155,5 @@
     <string name="battery_saver_settings_not_found">Disable Battery Saver manually, please.</string>
     <string name="dashboard_not_verified_secondary">Please verify your phone number so that we can contact you in case of being suspected of coronavirus infection.</string>
     <string name="data_collection_info">Data collection</string>
-    <string name="data_content_info">The following data contains all records of signal measurement of surrounding devices with eRouška.</string>
+    <string name="data_content_info">Here is a history of contacts with other users of eRouška. It doesn\'t indicate infection of the users.</string>
 </resources>
