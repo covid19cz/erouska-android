@@ -81,7 +81,7 @@ Because our app is for Czechia, our primary language is Czech. But we have most 
 
 - Work in a fork then send a pull request to the `develop` branch. 
 - Pull requests are merged with `squash commits`.
-- Admins force-push `develop` to `master`. This triggers a release build.
+- Admins rebase `develop` to `master` using the script below. This triggers a release build.
 
 ## eRouška release process
 
@@ -90,6 +90,9 @@ eRouška uses GitHub Actions. A push to master branch triggers an App build. The
 There are two variants of the App: **DEV** and **PROD**. **PROD** is also built as an App Bundle artefact, that needs to be manually uploaded to Google Play.
 
 Versioning is automatic: major and minor version is in Git, patch is _versionCode_ (a number of commits from the start).
+
+Release is done by executing the release.sh script. Right click it on Android Studio and hit Run 'release.sh' or execute via command line.
+If it fails, it fails. Most likely your master has different history from origin. That should never be the case, so you should fix it.
 
 ## Automation support
 
