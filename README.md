@@ -81,7 +81,7 @@ Because our app is for Czechia, our primary language is Czech. But we have most 
 
 - Work in a fork then send a pull request to the `develop` branch. 
 - Pull requests are merged with `squash commits`.
-- Admins force-push `develop` to `master`. This triggers a release build.
+- Admins rebase `develop` to `master` using the script below. This triggers a release build.
 
 ## eRouška release process
 
