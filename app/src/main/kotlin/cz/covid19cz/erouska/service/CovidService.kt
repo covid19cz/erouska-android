@@ -21,6 +21,7 @@ import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
+import cz.covid19cz.erouska.ui.main.ShortcutsManager
 import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
@@ -28,7 +29,6 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
-
 
 
 class CovidService : Service() {
@@ -111,6 +111,7 @@ class CovidService : Service() {
     private val powerManager by inject<PowerManager>()
     private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val notificationManager = CovidNotificationManager(this)
+    private val shortcutsManager = ShortcutsManager(this)
 
     private var bleAdvertisingDisposable: Disposable? = null
     private var bleScanningDisposable: Disposable? = null
@@ -120,6 +121,7 @@ class CovidService : Service() {
     override fun onCreate() {
         super.onCreate()
         subscribeToReceivers()
+        updateAppShortcuts()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -139,6 +141,7 @@ class CovidService : Service() {
         prefs.setAppPaused(true)
         createNotification()
         turnMaskOff()
+        updateAppShortcuts()
     }
 
     private fun update() {
@@ -160,11 +163,14 @@ class CovidService : Service() {
         prefs.setAppPaused(false)
         createNotification()
         turnMaskOn()
+        updateAppShortcuts()
     }
 
     private fun stop(intent: Intent) {
         wakeLockManager.release()
         servicePaused = true
+        updateAppShortcuts()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             stopForeground(STOP_FOREGROUND_DETACH)
         } else {
@@ -310,5 +316,9 @@ class CovidService : Service() {
                 )
             })
         }
+    }
+
+    private fun updateAppShortcuts() {
+        shortcutsManager.updateShortcuts(!servicePaused)
     }
 }

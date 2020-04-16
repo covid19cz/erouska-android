@@ -90,3 +90,16 @@ eRouška uses GitHub Actions. A push to master branch triggers an App build. The
 There are two variants of the App: **DEV** and **PROD**. **PROD** is also built as an App Bundle artefact, that needs to be manually uploaded to Google Play.
 
 Versioning is automatic: major and minor version is in Git, patch is _versionCode_ (a number of commits from the start).
+
+## Automation support
+
+As was proposed in [#149](https://github.com/covid19cz/erouska-android/issues/149), the app now supports
+controlling from other apps by sending broadcasted intents.  
+In your favorite automation app (Automate, Tasker, MacroDroid, ...) it should be enough to use an intent
+broadcast with these params:
+
+|Name|Value|
+|----|-----|
+|Package|`cz.covid19cz.erouska`|
+|Receiver/class|`cz.covid19cz.erouska.receiver.ActionsReceiver`|
+|Action|`cz.covid19cz.erouska.EROUSKA_PAUSE`/`cz.covid19cz.erouska.EROUSKA_RESUME`|

@@ -25,12 +25,15 @@ import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
+
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
     private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val bluetoothRepository by inject<BluetoothRepository>()
     private val customTabHelper by inject<CustomTabHelper>()
+
+    private val shortcutsManager = ShortcutsManager(this)
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
@@ -63,6 +66,7 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         registerServiceStateReceivers()
+
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
                 navigate(
@@ -71,11 +75,13 @@ class MainActivity :
                 )
                 true
             }
+
             it.addOnDestinationChangedListener { _, destination, arguments ->
                 updateTitle(destination)
                 updateBottomNavigation(destination, arguments)
             }
         }
+
         viewModel.serviceRunning.observe(this, Observer { isRunning ->
             ContextCompat.getColor(
                 this,
@@ -85,7 +91,10 @@ class MainActivity :
             }
         })
 
-        viewModel.serviceRunning.value = CovidService.isRunning(this)
+        val isRunning = CovidService.isRunning(this)
+
+        viewModel.serviceRunning.value = isRunning
+        shortcutsManager.updateShortcuts(isRunning)
     }
 
     override fun onDestroy() {
@@ -161,5 +170,4 @@ class MainActivity :
     private fun passesRequirements(): Boolean {
         return bluetoothRepository.isBtEnabled() && isLocationEnabled() && hasLocationPermission()
     }
-
 }
