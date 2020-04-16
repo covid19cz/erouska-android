@@ -47,10 +47,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("emergencyNumber")
     val proclamationLink
         get() = getLocalized("proclamationLink")
-    val aboutApi
-        get() = getLocalized("aboutApi")
-    val aboutLink
-        get() = getLocalized("aboutLink")
+    val aboutJson
+        get() = getLocalized("aboutJson")
     val termsAndConditionsLink
         get() = getLocalized("termsAndConditionsLink")
     val homepageLink

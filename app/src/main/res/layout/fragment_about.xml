@@ -4,6 +4,7 @@
     <data>
 
         <import type="cz.covid19cz.erouska.R" />
+
         <import type="cz.covid19cz.erouska.ui.about.AboutRecyclerLayoutStrategy" />
 
         <variable
@@ -26,25 +27,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:viewModel="@{vm}" />
-
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:java_script_enabled="@{true}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:url="@{vm.aboutWebUrl}"
-            app:visibleOrGone="@{vm.aboutWebUrl != null}" />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:visibleOrGone="@{vm.loading}"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
