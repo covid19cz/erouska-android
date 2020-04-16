@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.tests
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
@@ -27,7 +28,7 @@ class ActivationTest {
     private val bluetoothPermissionScreen = BluetoothPermissionScreen()
     private val phoneNumberScreen = PhoneNumberScreen()
     private val smsScreen = SMSScreen()
-    private val finishActivation = FinishActivation()
+    private val finishActivation = FinishActivationScreen()
     private val homeScreen = HomeScreen()
 
     @get:Rule
@@ -54,7 +55,7 @@ class ActivationTest {
         }
         // samsung baterry saver screen
         finishActivation.finish()
-        homeScreen.eRouskaIsActiv()
+        homeScreen.isErouskaActive()
 
         //deactivation
         homeScreen.cancelRegistration()
@@ -71,7 +72,7 @@ class ActivationTest {
         }
         // samsung baterry saver screen
         finishActivation.finish()
-        homeScreen.eRouskaIsActiv()
+        homeScreen.isErouskaActive()
 
     }
 }

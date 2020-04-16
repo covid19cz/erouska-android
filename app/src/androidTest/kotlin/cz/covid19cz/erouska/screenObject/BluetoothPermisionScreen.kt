@@ -2,8 +2,6 @@ package cz.covid19cz.erouska.screenObject
 
 import android.os.Build
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -14,8 +12,8 @@ class BluetoothPermissionScreen {
     private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     fun allowPermission() {
-        onView(withText(R.string.permission_onboarding_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.enable_bluetooth_btn)).perform(click())
+        onView(withText(R.string.permission_onboarding_title)).checkDisplayed()
+        onView(withId(R.id.enable_bluetooth_btn)).click()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val allowLocation = findUiObject("com.android.permissioncontroller:id/permission_allow_foreground_only_button")
