@@ -13,7 +13,6 @@ import cz.covid19cz.erouska.db.export.CsvExporter
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
-import cz.covid19cz.erouska.service.WakeLockManager
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.confirm.ConfirmationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
@@ -87,7 +86,6 @@ val appModule = module {
     single { BluetoothStateReceiver() }
     single { BatterSaverStateReceiver() }
     single { LocalBroadcastManager.getInstance(androidApplication()) }
-    single { WakeLockManager(androidContext().getSystemService()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }
     single { androidContext().getSystemService<AlarmManager>() }

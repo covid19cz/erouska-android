@@ -68,7 +68,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 text = R.string.notification_text_paused
                 icon = R.drawable.ic_notification_normal
                 color = R.color.exposition_level_6
-                actionIntent = CovidService.startService(service).wrapAsForegroundService()
+                actionIntent = CovidService.startService(service).wrapAsForegroundService(service)
                 actionText = R.string.notification_action_resume
             }
             serviceStatus.batterySaverEnabled -> {
@@ -104,7 +104,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 text = R.string.notification_text_resumed
                 icon = R.drawable.ic_notification_normal
                 color = R.color.green
-                actionIntent = CovidService.stopService(service).wrapAsService()
+                actionIntent = CovidService.stopService(service).wrapAsService(service)
                 actionText = R.string.notification_action_pause
             }
         }
@@ -144,16 +144,6 @@ class CovidNotificationManager(private val service: CovidService) {
         }
     }
 
-    private fun Intent.wrapAsService() = PendingIntent.getService(service, 0, this, 0)
-
-    private fun Intent.wrapAsForegroundService(): PendingIntent {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            PendingIntent.getForegroundService(service, 0, this, 0)
-        } else {
-            wrapAsService()
-        }
-    }
-
     private fun Intent.wrapAsActivity() = PendingIntent.getActivity(service, 0, this, 0)
 
     data class ServiceStatus(
@@ -161,7 +151,16 @@ class CovidNotificationManager(private val service: CovidService) {
         val bluetoothEnabled: Boolean,
         val locationEnabled: Boolean,
         val batterySaverEnabled: Boolean
-    ) {
-        fun isOk() = bluetoothEnabled && locationEnabled && !batterySaverEnabled
+    )
+}
+
+fun Intent.wrapAsForegroundService(context: Context): PendingIntent {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        PendingIntent.getForegroundService(context, 0, this, 0)
+    } else {
+        wrapAsService(context)
     }
 }
+
+fun Intent.wrapAsService(context: Context): PendingIntent = PendingIntent.getService(context, 0, this, 0)
+

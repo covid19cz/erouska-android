@@ -1,27 +1,20 @@
 package cz.covid19cz.erouska.bt.entity
 
+import android.os.SystemClock
 import arch.livedata.SafeMutableLiveData
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
+open class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
 
     companion object{
         const val UNKNOWN_TUID = "UNKNOWN"
     }
 
-    var deviceId: String = tuid
-        set(value) {
-            field = value
-            observableDeviceId.postValue(value)
-        }
-
+    open var deviceId: String = tuid
     private val rssiList = ArrayList<Rssi>()
-    val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
-    val lastGattAttempt = SafeMutableLiveData("")
-    val observableDeviceId = SafeMutableLiveData(tuid)
 
     var avgRssi = 0
     var medRssi = 0
@@ -33,16 +26,23 @@ class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
         get() = rssiList.size
     var gattAttemptTimestamp: Long = 0
 
-    fun addRssi(rssiVal: Int) {
-        val rssi = Rssi(rssiVal)
+    open fun addRssi(rssiVal: Int, timestampMilis: Long) {
+        val rssi = Rssi(rssiVal, timestampMilis)
         rssiList.add(rssi)
-        currRssi.postValue(rssiVal)
-        lastGattAttempt.postValue(lastGattAttemptAsString())
     }
 
-    fun updatedDeviceId(deviceId: String) {
-        this.deviceId = deviceId
-        observableDeviceId.postValue(deviceId)
+    fun fold(interval: Long): List<ScanSession> {
+        return rssiList.fold(mutableListOf(), { acc, item ->
+                acc.lastOrNull()
+                ?.takeIf { item.timestamp - timestampStart < interval }
+                ?.apply { addRssi(item.rssi, item.timestamp) }
+            ?:
+                ScanSession(deviceId, mac).apply {
+                    acc.add(this)
+                    addRssi(item.rssi, item.timestamp)
+                }
+                acc
+        })
     }
 
     fun calculate() {
@@ -86,4 +86,25 @@ class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
         }
     }
 
+
+
+}
+
+class ObservableScanSession(tuid: String = UNKNOWN_TUID, mac: String): ScanSession(tuid, mac) {
+
+    override var deviceId: String = tuid
+        set(value) {
+            field = value
+            observableDeviceId.postValue(value)
+        }
+
+    val currRssi = SafeMutableLiveData(Int.MAX_VALUE)
+    val lastGattAttempt = SafeMutableLiveData("")
+    val observableDeviceId = SafeMutableLiveData(tuid)
+
+    override fun addRssi(rssiVal: Int, timestampMilis: Long) {
+        super.addRssi(rssiVal, timestampMilis)
+        currRssi.postValue(rssiVal)
+        lastGattAttempt.postValue(lastGattAttemptAsString())
+    }
 }
