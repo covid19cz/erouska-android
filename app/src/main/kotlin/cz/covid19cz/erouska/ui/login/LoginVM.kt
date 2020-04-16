@@ -254,7 +254,7 @@ class LoginVM(
                 }
 
                 // Get new Instance ID token
-                val pushToken = task.result?.token
+                val pushToken = task.result?.token ?: "error"
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to deviceInfo.getAndroidVersion(),
