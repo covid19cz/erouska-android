@@ -248,14 +248,13 @@ class LoginVM(
 
     private fun registerDevice(phoneNumberVerified: Boolean) {
         FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
+            .addOnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    task.exception?.let { handleError(it) }
-                    return@OnCompleteListener
+                    task.exception?.let { L.e(it) }
                 }
 
                 // Get new Instance ID token
-                val pushToken = task.result?.token
+                val pushToken = task.result?.token ?: "error"
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to deviceInfo.getAndroidVersion(),
@@ -277,7 +276,7 @@ class LoginVM(
                 }.addOnFailureListener {
                     handleError(it)
                 }
-            })
+            }
     }
 
     private fun isConnectingAnonymousAccount(): Boolean {
