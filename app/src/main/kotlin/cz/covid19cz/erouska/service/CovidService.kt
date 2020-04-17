@@ -78,6 +78,9 @@ class CovidService : Service() {
             context.startService(serviceIntent)
         }
 
+        /**
+         * Note: this keeps the notification in ongoing state (it cannot by "swiped" away).
+         */
         fun pause(context: Context): Intent {
             val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_PAUSE
