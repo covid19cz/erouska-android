@@ -249,12 +249,13 @@ class LoginVM(
     private fun registerDevice(phoneNumberVerified: Boolean) {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
+                val pushToken = if (!task.isSuccessful) {
                     task.exception?.let { L.e(it) }
+                    "error"
+                } else {
+                    task.result?.token ?: "error"
                 }
 
-                // Get new Instance ID token
-                val pushToken = task.result?.token ?: "error"
                 val data = hashMapOf(
                     "platform" to "android",
                     "platformVersion" to deviceInfo.getAndroidVersion(),

@@ -73,6 +73,8 @@ object AppConfig {
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
+    val myDataText
+        get() = getLocalized("myDataText")
 
     var overrideAdvertiseTxPower: Int? = null
 
