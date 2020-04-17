@@ -2,6 +2,7 @@ package cz.covid19cz.erouska
 
 import arch.BaseApp
 import com.idescout.sql.SqlScoutServer
+import com.jakewharton.threetenabp.AndroidThreeTen
 import cz.covid19cz.erouska.db.AppDatabase
 import cz.covid19cz.erouska.utils.L
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +22,7 @@ class App : BaseApp(), KoinComponent {
         if (BuildConfig.DEBUG) {
             getDatabaseSize()
         }
+        AndroidThreeTen.init(this);
     }
 
     private fun setupKoin() {

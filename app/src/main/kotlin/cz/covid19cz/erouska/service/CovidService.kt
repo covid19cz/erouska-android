@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.service
 
 import android.app.ActivityManager
+import android.app.AlarmManager
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
@@ -18,6 +19,8 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.batterySaverRestrictsLocation
 import cz.covid19cz.erouska.ext.execute
 import cz.covid19cz.erouska.ext.isLocationEnabled
+import cz.covid19cz.erouska.jobs.AutoRestartJob
+import cz.covid19cz.erouska.receiver.AutoRestartReceiver
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
 import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
@@ -113,11 +116,14 @@ class CovidService : Service() {
     private val wakeLockManager by inject<WakeLockManager>()
     private val powerManager by inject<PowerManager>()
     private val localBroadcastManager by inject<LocalBroadcastManager>()
+    private val alarmManager by inject<AlarmManager>()
     private val notificationManager = CovidNotificationManager(this)
     private val shortcutsManager = ShortcutsManager(this)
 
     private var bleAdvertisingDisposable: Disposable? = null
     private var bleScanningDisposable: Disposable? = null
+
+    private val autoRestartJob = AutoRestartJob()
 
     private var servicePaused = false
 
@@ -130,7 +136,7 @@ class CovidService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             // null intent is in case service is restarted by system
-            ACTION_START, null -> start()
+            ACTION_START, null -> start(intent)
             ACTION_STOP -> stop(intent)
             ACTION_UPDATE -> update()
             ACTION_PAUSE -> pause()
@@ -156,9 +162,13 @@ class CovidService : Service() {
         }
     }
 
-    private fun start() {
+    private fun start(intent: Intent?) {
         resume()
         wakeLockManager.acquire()
+
+        if (intent?.getBooleanExtra(AutoRestartReceiver.EXTRAKEY_START, true) == true) {
+            autoRestartJob.setUp(this, alarmManager)
+        }
     }
 
     private fun resume() {
@@ -173,6 +183,10 @@ class CovidService : Service() {
         wakeLockManager.release()
         servicePaused = true
         updateAppShortcuts()
+
+        if (intent.getBooleanExtra(AutoRestartReceiver.EXTRAKEY_CANCEL, true)) {
+            autoRestartJob.cancel()
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             stopForeground(STOP_FOREGROUND_DETACH)
