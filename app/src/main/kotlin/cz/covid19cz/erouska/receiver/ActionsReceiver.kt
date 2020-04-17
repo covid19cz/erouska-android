@@ -16,10 +16,10 @@ class ActionsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         when (intent?.action) {
             ACTION_PAUSE -> {
-                context.startService(CovidService.pause(context))
+                context.startService(CovidService.stopService(context))
             }
             ACTION_RESUME -> {
-                context.startService(CovidService.resume(context))
+                context.startService(CovidService.startService(context))
             }
         }
     }
