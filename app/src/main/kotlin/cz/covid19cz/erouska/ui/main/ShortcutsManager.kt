@@ -25,10 +25,10 @@ class ShortcutsManager(private val context: Context) {
         if (intent.action == Intent.ACTION_RUN) {
             when (intent.data) {
                 ShortcutsActions.URL_PAUSE -> {
-                    context.startService(CovidService.pause(context))
+                    context.startService(CovidService.stopService(context))
                 }
                 ShortcutsActions.URL_RESUME -> {
-                    context.startService(CovidService.resume(context))
+                    context.startService(CovidService.startService(context))
                 }
             }
         }
