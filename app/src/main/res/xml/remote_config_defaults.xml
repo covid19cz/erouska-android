@@ -132,4 +132,12 @@
         <key>waitingSeconds</key>
         <value>0</value>
     </entry>
+    <entry>
+        <key>myDataText</key>
+        <value>Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</value>
+    </entry>
+    <entry>
+        <key>myDataText_en</key>
+        <value>Here is a history of contacts with other users of eRouška. It doesn't indicate infection of the users.</value>
+    </entry>
 </defaultsMap>
