@@ -1,17 +1,13 @@
 package cz.covid19cz.erouska.screenObject
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
 import org.awaitility.Awaitility.await
 import java.util.concurrent.TimeUnit
 
-class FinishActivationScreen {
-    companion object {
-        const val TITLE = "eRouška potřebuje běžet i když s ní právě nepracujete"
-    }
+object FinishActivationScreen {
+    const val TITLE = "eRouška potřebuje běžet i když s ní právě nepracujete"
 
     fun finish() {
 

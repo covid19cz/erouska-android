@@ -4,10 +4,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import cz.covid19cz.erouska.R
 
-class PhoneNumberScreen {
-    companion object {
-        const val PHONE_NUMBER = "731 000 000"
-    }
+object PhoneNumberScreen {
+    const val PHONE_NUMBER = "731 000 000"
 
     fun typePhoneNumber() {
         onView(withId(R.id.login_desc)).checkDisplayed()

@@ -2,7 +2,6 @@ package cz.covid19cz.erouska.tests
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
@@ -24,12 +23,12 @@ import java.util.concurrent.TimeUnit
  */
 @RunWith(AndroidJUnit4::class)
 class ActivationTest {
-    private val welcomeScreen = WelcomeScreen()
-    private val bluetoothPermissionScreen = BluetoothPermissionScreen()
-    private val phoneNumberScreen = PhoneNumberScreen()
-    private val smsScreen = SMSScreen()
-    private val finishActivation = FinishActivationScreen()
-    private val homeScreen = HomeScreen()
+    private val welcomeScreen = WelcomeScreen
+    private val bluetoothPermissionScreen = BluetoothPermissionScreen
+    private val phoneNumberScreen = PhoneNumberScreen
+    private val smsScreen = SMSScreen
+    private val finishActivation = FinishActivationScreen
+    private val homeScreen = HomeScreen
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()

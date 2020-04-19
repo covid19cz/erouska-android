@@ -6,11 +6,8 @@ import org.awaitility.Awaitility.await
 import org.hamcrest.CoreMatchers.endsWith
 import java.util.concurrent.TimeUnit
 
-class HomeScreen {
-    companion object {
-        const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
-    }
-
+object HomeScreen {
+    const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
 
     fun isErouskaActive() {
 
