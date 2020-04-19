@@ -4,13 +4,11 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.awaitility.Awaitility.await
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.screenObject.PhoneNumberScreen.Companion.PHONE_NUMBER
+import cz.covid19cz.erouska.screenObject.PhoneNumberScreen.PHONE_NUMBER
 import java.util.concurrent.TimeUnit
 
-class SMSScreen {
-    companion object {
-        const val SMS_CODE = "000000"
-    }
+object SMSScreen {
+    const val SMS_CODE = "000000"
 
     fun typeSMSCode() {
         await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {
