@@ -8,7 +8,6 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.entity.ScanSession
@@ -130,7 +129,7 @@ class BluetoothRepository(
     }
 
     fun startScanning() {
-        stopScanning()
+        resetScanning()
 
         if (!isBtEnabled()) {
             L.d("Bluetooth disabled, can't start scanning")
@@ -160,10 +159,15 @@ class BluetoothRepository(
 
     fun stopScanning() {
         L.d("Stopping BLE scanning")
+        resetScanning()
+
+        saveDataAndClearScanResults()
+    }
+
+    private fun resetScanning() {
         if (btManager.isBluetoothEnabled()) {
             BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
         }
-        saveDataAndClearScanResults()
         gattFailDisposable?.dispose()
     }
 
