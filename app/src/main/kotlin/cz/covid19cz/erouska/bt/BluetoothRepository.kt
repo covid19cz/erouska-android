@@ -2,11 +2,13 @@ package cz.covid19cz.erouska.bt
 
 import android.bluetooth.*
 import android.bluetooth.le.AdvertiseCallback
+import android.bluetooth.le.AdvertiseCallback.*
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.ParcelUuid
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.bt.entity.ScanSession
@@ -18,6 +20,7 @@ import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import no.nordicsemi.android.support.v18.scanner.*
+import no.nordicsemi.android.support.v18.scanner.ScanCallback.*
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -39,9 +42,6 @@ class BluetoothRepository(
     private var discoveredIosDevices: MutableMap<String, ScanSession> = mutableMapOf()
     val scanResultsList = ObservableArrayList<ScanSession>()
 
-    private var isAdvertising = false
-    private var isScanning = false
-
     private var gattFailDisposable: Disposable? = null
 
     private val scanCallback = object : ScanCallback() {
@@ -50,7 +50,7 @@ class BluetoothRepository(
         }
 
         override fun onScanFailed(errorCode: Int) {
-            isScanning = false
+            L.e(ScanFailedException(errorCode))
             BluetoothLeScannerCompat.getScanner().stopScan(this)
         }
 
@@ -64,12 +64,10 @@ class BluetoothRepository(
     private val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
             L.d("BLE advertising started.")
-            isAdvertising = true
         }
 
         override fun onStartFailure(errorCode: Int) {
-            isAdvertising = false
-            L.e("BLE advertising failed: $errorCode")
+            L.e(AdvertisingFailedException(errorCode))
         }
     }
 
@@ -132,9 +130,7 @@ class BluetoothRepository(
     }
 
     fun startScanning() {
-        if (isScanning) {
-            stopScanning()
-        }
+        stopScanning()
 
         if (!isBtEnabled()) {
             L.d("Bluetooth disabled, can't start scanning")
@@ -160,13 +156,11 @@ class BluetoothRepository(
             scanCallback
         )
 
-        isScanning = true
     }
 
     fun stopScanning() {
         L.d("Stopping BLE scanning")
         if (btManager.isBluetoothEnabled()) {
-            isScanning = false
             BluetoothLeScannerCompat.getScanner().stopScan(scanCallback)
         }
         saveDataAndClearScanResults()
@@ -213,15 +207,6 @@ class BluetoothRepository(
                     // It's time to handle iOS Device
                     handleIosDevice(result)
                 }
-            }
-        }
-    }
-
-    private fun onScanIosOnBackgroundResult(result: ScanResult) {
-        result.scanRecord?.let {
-            if (!isServiceUUIDMatch(result) && canBeIosOnBackground(it)) {
-                // It's time to handle iOS Device in background
-                handleIosDevice(result)
             }
         }
     }
@@ -372,9 +357,7 @@ class BluetoothRepository(
     fun startAdvertising(tuid: String) {
         val power = AppConfig.advertiseTxPower
 
-        if (isAdvertising) {
-            stopAdvertising()
-        }
+        stopAdvertising()
 
         if (!isBtEnabled()) {
             L.d("Bluetooth disabled, can't start advertising")
@@ -409,7 +392,6 @@ class BluetoothRepository(
 
     fun stopAdvertising() {
         L.d("Stopping BLE advertising")
-        isAdvertising = false
         btManager.adapter?.bluetoothLeAdvertiser?.stopAdvertising(advertisingCallback)
     }
 
@@ -422,5 +404,38 @@ class BluetoothRepository(
         }
     }
 
-    data class GattConnectionQueueEntry(val macAddress: String, var isRunning: Boolean = false)
+    class ScanFailedException(errorCode: Int): Exception(errorCodeToMessage(errorCode)) {
+        companion object {
+            fun errorCodeToMessage(errorCode: Int): String {
+               return when (errorCode) {
+                    SCAN_FAILED_ALREADY_STARTED -> "SCAN_FAILED_ALREADY_STARTED"
+                    SCAN_FAILED_APPLICATION_REGISTRATION_FAILED -> "SCAN_FAILED_APPLICATION_REGISTRATION_FAILED"
+                    SCAN_FAILED_INTERNAL_ERROR -> "SCAN_FAILED_INTERNAL_ERROR"
+                    SCAN_FAILED_FEATURE_UNSUPPORTED -> "SCAN_FAILED_FEATURE_UNSUPPORTED"
+                    SCAN_FAILED_OUT_OF_HARDWARE_RESOURCES -> "SCAN_FAILED_OUT_OF_HARDWARE_RESOURCES"
+                    SCAN_FAILED_SCANNING_TOO_FREQUENTLY -> "SCAN_FAILED_SCANNING_TOO_FREQUENTLY"
+                    else -> "UNKNOWN ERROR"
+                }.run {
+                    "Scan failed with error: $this"
+                }
+            }
+        }
+    }
+
+    class AdvertisingFailedException(errorCode: Int): Exception(errorCodeToMessage(errorCode)) {
+        companion object {
+            fun errorCodeToMessage(errorCode: Int): String {
+                return when (errorCode) {
+                    ADVERTISE_FAILED_DATA_TOO_LARGE -> "ADVERTISE_FAILED_DATA_TOO_LARGE"
+                    ADVERTISE_FAILED_TOO_MANY_ADVERTISERS -> "ADVERTISE_FAILED_TOO_MANY_ADVERTISERS"
+                    ADVERTISE_FAILED_ALREADY_STARTED -> "ADVERTISE_FAILED_ALREADY_STARTED"
+                    ADVERTISE_FAILED_INTERNAL_ERROR -> "ADVERTISE_FAILED_INTERNAL_ERROR"
+                    ADVERTISE_FAILED_FEATURE_UNSUPPORTED -> "ADVERTISE_FAILED_FEATURE_UNSUPPORTED"
+                    else -> "UNKNOWN ERROR"
+                }.run {
+                    "Advertising failed with error: $this"
+                }
+            }
+        }
+    }
 }
