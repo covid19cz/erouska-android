@@ -83,6 +83,13 @@
         <receiver android:name=".receiver.BluetoothStateReceiver" />
         <receiver android:name=".receiver.LocationStateReceiver" />
 
+        <receiver android:name=".receiver.AutoRestartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+                <data android:scheme="@string/uri_scheme" android:path="restart" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_normal" />
