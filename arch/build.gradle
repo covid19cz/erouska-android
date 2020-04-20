@@ -37,6 +37,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
 
+    // Dependencies for JDK 9+
+    if (JavaVersion.current().ordinal() >= JavaVersion.VERSION_1_9.ordinal()) {
+        kapt "com.sun.xml.bind:jaxb-core:2.3.0.1"
+        kapt "javax.xml.bind:jaxb-api:2.3.1"
+        kapt "com.sun.xml.bind:jaxb-impl:2.3.2"
+
+        annotationProcessor "com.sun.xml.bind:jaxb-core:2.3.0.1"
+        annotationProcessor "javax.xml.bind:jaxb-api:2.3.1"
+    }
+
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.nav"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.nav"
