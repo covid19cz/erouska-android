@@ -59,7 +59,7 @@ More details about eRouška:
 
 ## Building the App from the source code
 
-Clone this repository and import the project into Android Studio.
+Clone this repository and import the project into Android Studio. Make sure you have JDK 8.
 
 Run:
 `./gradlew assembleDevDebug`
