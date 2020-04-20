@@ -33,7 +33,9 @@ class AutoRestartJob {
 
         this.alarmManager = alarmManager
 
-        val first = ZonedDateTime.now().plusDays(1).withHour(2).withMinute(0)
+        val now = ZonedDateTime.now()
+        // set it to the closest 2:00 (even when if it's 0:00 - 2:00 now)
+        val first = (if (now.hour < 2) now else now.plusDays(1)).withHour(2).withMinute(0)
 
         L.d("Planning auto-restart with interval 24h, first: $first")
 
