@@ -372,7 +372,7 @@ class BluetoothRepository(
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AppConfig.advertiseMode)
-            .setConnectable(true)
+            .setConnectable(false)
             .setTimeout(0)
             .setTxPowerLevel(power)
             .build()
@@ -384,6 +384,7 @@ class BluetoothRepository(
             .build()
 
         val scanData = AdvertiseData.Builder()
+            .setIncludeDeviceName(false)
             .addServiceData(parcelUuid, tuid.hexAsByteArray).build()
 
         btManager.adapter?.bluetoothLeAdvertiser?.startAdvertising(
