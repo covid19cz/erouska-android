@@ -10,7 +10,7 @@ import org.awaitility.Awaitility.await
 import java.util.concurrent.TimeUnit
 
 object BatterySaverInfoScreen {
-    const val TITLE = "eRouška potřebuje běžet i když s ní právě nepracujete"
+    private const val TITLE = "eRouška potřebuje běžet i když s ní právě nepracujete"
 
     fun finish() {
 

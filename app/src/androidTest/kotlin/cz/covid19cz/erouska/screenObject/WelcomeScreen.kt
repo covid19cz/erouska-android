@@ -8,7 +8,7 @@ import cz.covid19cz.erouska.helpers.checkMatchesContainsString
 import cz.covid19cz.erouska.helpers.click
 
 object WelcomeScreen {
-    const val PART_OF_HELP_TITLE = "Proč je eRouška potřeba?"
+    private const val PART_OF_HELP_TITLE = "Proč je eRouška potřeba?"
 
     fun startActivation() {
         onView(withText(R.string.welcome_title)).check(matches(isDisplayed()))

@@ -11,7 +11,7 @@ import cz.covid19cz.erouska.screenObject.PhoneNumberScreen.PHONE_NUMBER
 import java.util.concurrent.TimeUnit
 
 object SMSScreen {
-    const val SMS_CODE = "000000"
+    private const val SMS_CODE = "000000"
 
     fun typeSMSCode() {
         await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {

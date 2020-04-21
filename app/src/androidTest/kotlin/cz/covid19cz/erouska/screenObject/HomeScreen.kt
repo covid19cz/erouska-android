@@ -10,7 +10,7 @@ import org.hamcrest.CoreMatchers.endsWith
 import java.util.concurrent.TimeUnit
 
 object HomeScreen {
-    const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
+    private const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
     private const val TIMEOUT = 5L
 
     fun isErouskaActive() {
