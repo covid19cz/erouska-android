@@ -6,7 +6,7 @@ import cz.covid19cz.erouska.R
 import org.awaitility.Awaitility.await
 import java.util.concurrent.TimeUnit
 
-object FinishActivationScreen {
+object BatterySaverInfoScreen {
     const val TITLE = "eRouška potřebuje běžet i když s ní právě nepracujete"
 
     fun finish() {

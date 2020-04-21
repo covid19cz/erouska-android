@@ -23,12 +23,6 @@ import java.util.concurrent.TimeUnit
  */
 @RunWith(AndroidJUnit4::class)
 class ActivationTest {
-    private val welcomeScreen = WelcomeScreen
-    private val bluetoothPermissionScreen = BluetoothPermissionScreen
-    private val phoneNumberScreen = PhoneNumberScreen
-    private val smsScreen = SMSScreen
-    private val finishActivation = FinishActivationScreen
-    private val homeScreen = HomeScreen
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
@@ -39,29 +33,29 @@ class ActivationTest {
     @Test
     fun activation() {
         // how to work
-        welcomeScreen.howToWorkScreen()
+        WelcomeScreen.howToWorkScreen()
         // activation
-        welcomeScreen.startActivation()
-        bluetoothPermissionScreen.allowPermission()
-        phoneNumberScreen.run {
+        WelcomeScreen.startActivation()
+        BluetoothPermissionScreen.allowPermission()
+        PhoneNumberScreen.run {
             typePhoneNumber()
             acceptWithAgreements()
             continueToSMSVerify()
         }
-        smsScreen.run {
+        SMSScreen.run {
             typeSMSCode()
             verifySMSCode()
         }
-        // samsung baterry saver screen
-        finishActivation.finish()
-        homeScreen.isErouskaActive()
+
+        BatterySaverInfoScreen.finish()
+        HomeScreen.isErouskaActive()
 
         //deactivation
-        homeScreen.cancelRegistration()
+        HomeScreen.cancelRegistration()
 
         // activation without sms code, wait 30s
-        welcomeScreen.startActivation()
-        phoneNumberScreen.run {
+        WelcomeScreen.startActivation()
+        PhoneNumberScreen.run {
             typePhoneNumber()
             acceptWithAgreements()
             continueToSMSVerify()
@@ -69,9 +63,9 @@ class ActivationTest {
         Awaitility.await().ignoreExceptions().atMost(35, TimeUnit.SECONDS).untilAsserted {
             onView(ViewMatchers.withId(R.id.login_verify_later_button)).perform(click())
         }
-        // samsung baterry saver screen
-        finishActivation.finish()
-        homeScreen.isErouskaActive()
+
+        BatterySaverInfoScreen.finish()
+        HomeScreen.isErouskaActive()
 
     }
 }
