@@ -15,13 +15,13 @@ object SMSScreen {
 
     fun typeSMSCode() {
         await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {
-            onView(withId(R.id.phone_number_code)).checkMatchesSubString(PHONE_NUMBER)
+            checkMatchesSubString(R.id.phone_number_code, PHONE_NUMBER)
         }
-        onView(withId(R.id.login_verif_code_input)).typeText(SMS_CODE)
+        typeText(R.id.login_verif_code_input, SMS_CODE)
     }
 
     fun verifySMSCode() {
-        onView(withId(R.id.login_verif_code_send_btn)).click()
+        click(R.id.login_verif_code_send_btn)
     }
 
     fun verifyLater() {
@@ -41,6 +41,6 @@ object SMSScreen {
                     )
                 )
             }
-        onView(withId(R.id.login_verify_later_button)).click()
+        click(R.id.login_verify_later_button)
     }
 }

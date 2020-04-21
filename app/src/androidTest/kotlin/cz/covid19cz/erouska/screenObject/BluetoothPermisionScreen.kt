@@ -15,7 +15,7 @@ object BluetoothPermissionScreen {
 
     fun allowPermission() {
         onView(withText(R.string.permission_onboarding_title)).checkDisplayed()
-        onView(withId(R.id.enable_bluetooth_btn)).click()
+        click(R.id.enable_bluetooth_btn)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val allowLocation = findUiObject("com.android.permissioncontroller:id/permission_allow_foreground_only_button")

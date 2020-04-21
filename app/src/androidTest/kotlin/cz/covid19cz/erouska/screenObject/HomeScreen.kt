@@ -27,12 +27,12 @@ object HomeScreen {
         // click on button Zrusit registraci
         onView(withText(R.string.delete_registration)).click()
         // click on second button Zrusit registraci
-        onView(withId(R.id.confirm_button)).click()
+        click(R.id.confirm_button)
         // text assert
         await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
-            onView(withId(R.id.success_title)).checkMatchesString(CANCEL_REGISTRATION_TITLE)
+            checkMatchesString(R.id.success_title, CANCEL_REGISTRATION_TITLE)
         }
         // click on close button
-        onView(withId(R.id.close_button)).click()
+        click(R.id.close_button)
     }
 }

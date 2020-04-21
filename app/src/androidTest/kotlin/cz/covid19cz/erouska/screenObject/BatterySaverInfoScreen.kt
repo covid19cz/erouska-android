@@ -18,10 +18,10 @@ object BatterySaverInfoScreen {
         if(!ManufacturerHelper.isBatteryTutorialNeeded()) return
 
         await().ignoreExceptions().atMost(15, TimeUnit.SECONDS).untilAsserted {
-            onView(withId(R.id.battery_opt_title)).checkMatchesString(TITLE)
+            checkMatchesString(R.id.battery_opt_title, TITLE)
         }
 
-        onView(withId(R.id.done_btn)).click()
+        click(R.id.done_btn)
     }
 
 }

@@ -12,12 +12,12 @@ object WelcomeScreen {
 
     fun startActivation() {
         onView(withText(R.string.welcome_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.welcome_continue_btn)).click()
+        click(R.id.welcome_continue_btn)
     }
 
     fun howToWorkScreen() {
-        onView(withId(R.id.welcome_help_btn)).click()
-        onView(withId(R.id.help_desc)).checkMatchesContainsString(PART_OF_HELP_TITLE)
+        click(R.id.welcome_help_btn)
+        checkMatchesContainsString(R.id.help_desc, PART_OF_HELP_TITLE)
         onView(withContentDescription("Přejít nahoru")).click()
     }
 }

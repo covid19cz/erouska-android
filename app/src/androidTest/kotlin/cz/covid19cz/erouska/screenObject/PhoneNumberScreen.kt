@@ -12,14 +12,14 @@ object PhoneNumberScreen {
 
     fun typePhoneNumber() {
         onView(withId(R.id.login_desc)).checkDisplayed()
-        onView(withId(R.id.login_verif_phone_input)).typeText(PHONE_NUMBER)
+        typeText(R.id.login_verif_phone_input, PHONE_NUMBER)
     }
 
     fun acceptWithAgreements() {
-        onView(withId(R.id.login_checkbox)).click()
+        click(R.id.login_checkbox)
     }
 
     fun continueToSMSVerify() {
-        onView(withId(R.id.login_verif_activate_btn)).click()
+        click(R.id.login_verif_activate_btn)
     }
 }
