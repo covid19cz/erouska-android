@@ -11,10 +11,11 @@ import java.util.concurrent.TimeUnit
 
 object HomeScreen {
     const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
+    private const val TIMEOUT = 5L
 
     fun isErouskaActive() {
 
-        await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             onView(withText(R.string.dashboard_title_running)).checkDisplayed()
         }
     }
@@ -27,7 +28,7 @@ object HomeScreen {
         // click on second button Zrusit registraci
         onView(withId(R.id.confirm_button)).click()
         // text assert
-        await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             onView(withId(R.id.success_title)).checkMatchesString(CANCEL_REGISTRATION_TITLE)
         }
         // click on close button
