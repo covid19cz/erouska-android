@@ -30,6 +30,12 @@ fun ViewInteraction.checkDisplayed(): ViewInteraction = check(
     )
 )
 
+fun checkDisplayed(id: Int): ViewInteraction = onView(withId(id)).check(
+    ViewAssertions.matches(
+        isDisplayed()
+    )
+)
+
 fun typeText(id: Int, @StringRes text: String): ViewInteraction = onView(withId(id)).perform(ViewActions.typeText(text),
     ViewActions.closeSoftKeyboard()
 )

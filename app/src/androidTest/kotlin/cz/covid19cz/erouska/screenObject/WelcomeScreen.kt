@@ -11,7 +11,7 @@ object WelcomeScreen {
     private const val PART_OF_HELP_TITLE = "Proč je eRouška potřeba?"
 
     fun startActivation() {
-        onView(withText(R.string.welcome_title)).checkDisplayed()
+        checkDisplayed(R.id.welcome_title)
         click(R.id.welcome_continue_btn)
     }
 

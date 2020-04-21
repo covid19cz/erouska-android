@@ -1,7 +1,5 @@
 package cz.covid19cz.erouska.screenObject
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.checkDisplayed
 import cz.covid19cz.erouska.helpers.click
@@ -11,7 +9,7 @@ object PhoneNumberScreen {
     const val PHONE_NUMBER = "731 000 000"
 
     fun typePhoneNumber() {
-        onView(withId(R.id.login_desc)).checkDisplayed()
+        checkDisplayed(R.id.login_desc)
         typeText(R.id.login_verif_phone_input, PHONE_NUMBER)
     }
 
