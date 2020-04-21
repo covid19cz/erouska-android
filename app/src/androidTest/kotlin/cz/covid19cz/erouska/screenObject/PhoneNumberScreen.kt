@@ -9,7 +9,7 @@ object PhoneNumberScreen {
 
     fun typePhoneNumber() {
         onView(withId(R.id.login_desc)).checkDisplayed()
-        onView(withId(R.id.login_verif_phone_input)).typeText(PHONE_NUMBER.replace(" ", ""))
+        onView(withId(R.id.login_verif_phone_input)).typeText(PHONE_NUMBER)
     }
 
     fun acceptWithAgreements() {
