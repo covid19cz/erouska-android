@@ -23,4 +23,10 @@ object SMSScreen {
     fun verifySMSCode() {
         onView(withId(R.id.login_verif_code_send_btn)).click()
     }
+
+    fun verifyLater() {
+        await().ignoreExceptions().atMost(35, TimeUnit.SECONDS).untilAsserted {
+            onView(withId(R.id.login_verify_later_button)).click()
+        }
+    }
 }

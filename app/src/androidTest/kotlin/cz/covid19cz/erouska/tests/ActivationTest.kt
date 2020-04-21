@@ -60,9 +60,8 @@ class ActivationTest {
             acceptWithAgreements()
             continueToSMSVerify()
         }
-        Awaitility.await().ignoreExceptions().atMost(35, TimeUnit.SECONDS).untilAsserted {
-            onView(ViewMatchers.withId(R.id.login_verify_later_button)).perform(click())
-        }
+
+        SMSScreen.verifyLater()
 
         BatterySaverInfoScreen.finish()
         HomeScreen.isErouskaActive()
