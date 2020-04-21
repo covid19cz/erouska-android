@@ -3,7 +3,6 @@
     <color name="colorPrimary">#2f80ed</color>
     <color name="colorPrimaryVariant">#2874ed</color>
     <color name="colorSecondary">#EE225B</color>
-    <color name="colorSecondaryVariant">#C50F42</color>
     <color name="colorSurface">@color/white</color>
     <color name="colorOnSurface">#717171</color>
 
@@ -11,11 +10,9 @@
     <color name="textColorSecondary">#444</color>
 
     <color name="white">#fff</color>
-    <color name="black">#000</color>
     <color name="red">#ff0000</color>
     <color name="redDark">#d81d49</color>
     <color name="green">#8cc23f</color>
-    <color name="gray">#99000000</color>
     <color name="orange">#DB7627</color>
 
     <color name="exposition_level_1">#4CAF50</color>
