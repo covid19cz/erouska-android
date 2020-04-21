@@ -1,4 +1,5 @@
 package cz.covid19cz.erouska.screenObject
+
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
