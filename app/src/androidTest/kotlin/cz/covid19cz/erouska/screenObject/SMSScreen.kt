@@ -4,6 +4,9 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.awaitility.Awaitility.await
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.helpers.checkMatchesSubString
+import cz.covid19cz.erouska.helpers.click
+import cz.covid19cz.erouska.helpers.typeText
 import cz.covid19cz.erouska.screenObject.PhoneNumberScreen.PHONE_NUMBER
 import java.util.concurrent.TimeUnit
 

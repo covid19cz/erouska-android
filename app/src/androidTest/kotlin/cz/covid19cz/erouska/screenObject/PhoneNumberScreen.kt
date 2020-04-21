@@ -3,6 +3,9 @@ package cz.covid19cz.erouska.screenObject
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.helpers.checkDisplayed
+import cz.covid19cz.erouska.helpers.click
+import cz.covid19cz.erouska.helpers.typeText
 
 object PhoneNumberScreen {
     const val PHONE_NUMBER = "731 000 000"

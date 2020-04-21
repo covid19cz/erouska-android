@@ -7,6 +7,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.helpers.checkDisplayed
+import cz.covid19cz.erouska.helpers.click
 
 object BluetoothPermissionScreen {
     private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())

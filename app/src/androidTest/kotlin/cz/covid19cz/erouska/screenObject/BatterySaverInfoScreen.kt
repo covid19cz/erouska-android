@@ -4,6 +4,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.ManufacturerHelper
+import cz.covid19cz.erouska.helpers.checkMatchesString
+import cz.covid19cz.erouska.helpers.click
 import org.awaitility.Awaitility.await
 import java.util.concurrent.TimeUnit
 

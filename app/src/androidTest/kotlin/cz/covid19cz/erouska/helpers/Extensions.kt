@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.screenObject
+package cz.covid19cz.erouska.helpers
 
 import androidx.annotation.StringRes
 import androidx.test.espresso.ViewInteraction
