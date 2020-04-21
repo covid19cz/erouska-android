@@ -327,10 +327,7 @@ class CovidService : Service() {
             prefs.setCurrentTuid(it)
             L.d("New broadcasted TUID: $it")
             localBroadcastManager.sendBroadcast(Intent(ACTION_TUID_ROTATED).apply {
-                putExtra(
-                    EXTRA_TUID,
-                    it
-                )
+                putExtra(EXTRA_TUID, it)
             })
         }
     }
