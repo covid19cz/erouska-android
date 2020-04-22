@@ -1,8 +1,6 @@
 package cz.covid19cz.erouska.screenObject
 
 import android.os.Build
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
@@ -14,7 +12,7 @@ object BluetoothPermissionScreen {
     private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     fun allowPermission() {
-        onView(withText(R.string.permission_onboarding_title)).checkDisplayed()
+        checkDisplayed(R.id.bluetooth_onboard_title)
         click(R.id.enable_bluetooth_btn)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

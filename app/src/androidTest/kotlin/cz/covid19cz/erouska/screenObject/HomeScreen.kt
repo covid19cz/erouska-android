@@ -17,7 +17,7 @@ object HomeScreen {
     fun isErouskaActive() {
 
         await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
-            onView(withText(R.string.dashboard_title_running)).checkDisplayed()
+            checkDisplayed(R.id.app_running_title)
         }
     }
 

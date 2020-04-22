@@ -24,12 +24,6 @@ fun checkMatchesContainsString(id: Int, @StringRes stringId: String): ViewIntera
     ViewAssertions.matches(withText(containsString(stringId)))
 )
 
-fun ViewInteraction.checkDisplayed(): ViewInteraction = check(
-    ViewAssertions.matches(
-        isDisplayed()
-    )
-)
-
 fun checkDisplayed(id: Int): ViewInteraction = onView(withId(id)).check(
     ViewAssertions.matches(
         isDisplayed()
