@@ -14,7 +14,7 @@ object SMSScreen {
     private const val SMS_CODE = "000000"
 
     fun typeSMSCode() {
-        await().ignoreExceptions().atMost(5, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(RETRY_TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             checkMatchesSubString(R.id.phone_number_code, PHONE_NUMBER)
         }
         typeText(R.id.login_verif_code_input, SMS_CODE)

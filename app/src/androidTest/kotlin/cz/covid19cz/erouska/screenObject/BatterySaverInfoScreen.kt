@@ -1,9 +1,8 @@
 package cz.covid19cz.erouska.screenObject
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.ManufacturerHelper
+import cz.covid19cz.erouska.helpers.RETRY_TIMEOUT
 import cz.covid19cz.erouska.helpers.checkMatchesString
 import cz.covid19cz.erouska.helpers.click
 import org.awaitility.Awaitility.await
@@ -17,7 +16,7 @@ object BatterySaverInfoScreen {
         // skip this screen for devices that does not require it
         if(!ManufacturerHelper.isBatteryTutorialNeeded()) return
 
-        await().ignoreExceptions().atMost(15, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(RETRY_TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             checkMatchesString(R.id.battery_opt_title, TITLE)
         }
 

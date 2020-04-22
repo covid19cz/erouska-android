@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.screenObject
 
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.helpers.RETRY_TIMEOUT
 import cz.covid19cz.erouska.helpers.checkDisplayed
 import cz.covid19cz.erouska.helpers.checkMatchesString
 import cz.covid19cz.erouska.helpers.click
@@ -11,11 +12,10 @@ import java.util.concurrent.TimeUnit
 
 object HomeScreen {
     private const val CANCEL_REGISTRATION_TITLE = "Registraci vašeho telefonního čísla jsme zrušili"
-    private const val TIMEOUT = 5L
 
     fun isErouskaActive() {
 
-        await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(RETRY_TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             checkDisplayed(R.id.app_running_title)
         }
     }
@@ -28,7 +28,7 @@ object HomeScreen {
         // click on second button Zrusit registraci
         click(R.id.confirm_button)
         // text assert
-        await().ignoreExceptions().atMost(TIMEOUT, TimeUnit.SECONDS).untilAsserted {
+        await().ignoreExceptions().atMost(RETRY_TIMEOUT, TimeUnit.SECONDS).untilAsserted {
             checkMatchesString(R.id.success_title, CANCEL_REGISTRATION_TITLE)
         }
         // click on close button

@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.tests
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import cz.covid19cz.erouska.helpers.DatabaseFiller
 import cz.covid19cz.erouska.screenObject.*
 import cz.covid19cz.erouska.testRules.DisableAnimationsRule
 import cz.covid19cz.erouska.ui.main.MainActivity
@@ -43,7 +44,16 @@ class ActivationTest {
         BatterySaverInfoScreen.finish()
         HomeScreen.isErouskaActive()
 
+        // send Data to server
+        DatabaseFiller.addDataToDb()
+        NavigationPanelScreen.goToMyDataTab()
+        MyDataScreen.run {
+            areDataPresent()
+            sendData()
+        }
+
         //deactivation
+        NavigationPanelScreen.goToHomeTab()
         HomeScreen.cancelRegistration()
 
         // activation without sms code, wait 30s

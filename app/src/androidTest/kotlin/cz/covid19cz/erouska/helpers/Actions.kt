@@ -13,6 +13,8 @@ import androidx.test.uiautomator.UiSelector
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.Matcher
 
+const val RETRY_TIMEOUT = 10L
+
 private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
 fun click(element: Matcher<View>): ViewInteraction = onView(element).perform(ViewActions.click())
@@ -34,6 +36,12 @@ fun checkMatchesContainsString(id: Int, @StringRes stringId: String): ViewIntera
 )
 
 fun checkDisplayed(id: Int): ViewInteraction = onView(withId(id)).check(
+    ViewAssertions.matches(
+        isDisplayed()
+    )
+)
+
+fun checkDisplayed(text: String): ViewInteraction = onView(withText(text)).check(
     ViewAssertions.matches(
         isDisplayed()
     )
