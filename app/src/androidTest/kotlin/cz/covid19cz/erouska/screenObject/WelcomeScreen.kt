@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.screenObject
 
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.checkDisplayed
@@ -18,6 +17,6 @@ object WelcomeScreen {
     fun howToWorkScreen() {
         click(R.id.welcome_help_btn)
         checkMatchesContainsString(R.id.help_desc, PART_OF_HELP_TITLE)
-        onView(withContentDescription("Přejít nahoru")).click()
+        click(withContentDescription("Přejít nahoru"))
     }
 }

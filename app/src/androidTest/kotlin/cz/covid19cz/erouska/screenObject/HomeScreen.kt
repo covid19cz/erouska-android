@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.screenObject
 
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.checkDisplayed
@@ -23,9 +22,9 @@ object HomeScreen {
 
     fun cancelRegistration() {
         // open menu
-        onView(withClassName(endsWith("OverflowMenuButton"))).click()
+        click(withClassName(endsWith("OverflowMenuButton")))
         // click on button Zrusit registraci
-        onView(withText(R.string.delete_registration)).click()
+        click(withText(R.string.delete_registration))
         // click on second button Zrusit registraci
         click(R.id.confirm_button)
         // text assert

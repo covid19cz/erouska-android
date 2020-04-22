@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.helpers
 
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
@@ -10,12 +11,13 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import org.hamcrest.CoreMatchers.containsString
+import org.hamcrest.Matcher
 
 private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-fun ViewInteraction.click(): ViewInteraction = perform(ViewActions.click())
+fun click(element: Matcher<View>): ViewInteraction = onView(element).perform(ViewActions.click())
 
-fun click(id: Int): ViewInteraction =  onView(withId(id)).click()
+fun click(id: Int): ViewInteraction =  click(withId(id))
 
 fun clickUiAutomator(id: String) = device.findObject(UiSelector().resourceId(id)).click()
 
