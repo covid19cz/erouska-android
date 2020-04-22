@@ -27,12 +27,12 @@ object SMSScreen {
     fun verifyLater() {
 
         await().ignoreExceptions()
-            .atLeast(25, TimeUnit.SECONDS)
-            .atMost(35, TimeUnit.SECONDS)
+            .between(25,TimeUnit.SECONDS, 35, TimeUnit.SECONDS) // button should appear after 30 seconds so we wait 25-35 s
+            .pollInterval(5, TimeUnit.SECONDS) // do not spam logcat with tries that often check once per 5s is enough
             .untilAsserted {
                 onView(withId(R.id.login_verify_later_button)).check(
                     matches(
-                        not(
+                        not( // button is displayed and clickable in tree even if it has size 0,0 for Espresso
                             ViewSizeMatcher(
                                 0,
                                 0
