@@ -1,7 +1,9 @@
-package cz.covid19cz.erouska.service
+    package cz.covid19cz.erouska.service
 
 import android.app.ActivityManager
 import android.app.AlarmManager
+import android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP
+import android.app.PendingIntent
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
@@ -11,6 +13,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.erouska.AppConfig
@@ -26,6 +29,7 @@ import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
 import cz.covid19cz.erouska.receiver.LocationStateReceiver
 import cz.covid19cz.erouska.ui.main.ShortcutsManager
 import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
+import cz.covid19cz.erouska.ui.notifications.wrapAsForegroundService
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.Observable
@@ -54,6 +58,8 @@ class CovidService : Service() {
         const val EXTRA_TUID = "EXTRA_TUID"
 
         const val INVALID_TUID = "00000000000000000000"
+
+        const val WAKE_UP_INTERVAL_MINUTES = 30
 
         fun startService(context: Context): Intent {
             val serviceIntent = Intent(context, CovidService::class.java)
@@ -108,16 +114,16 @@ class CovidService : Service() {
         }
     }
 
+    private lateinit var alarmPendingIntent: PendingIntent
     private val locationStateReceiver by inject<LocationStateReceiver>()
     private val bluetoothStateReceiver by inject<BluetoothStateReceiver>()
     private val batterySaverStateReceiver by inject<BatterSaverStateReceiver>()
     private val btUtils by inject<BluetoothRepository>()
     private val prefs by inject<SharedPrefsRepository>()
-    private val wakeLockManager by inject<WakeLockManager>()
     private val powerManager by inject<PowerManager>()
     private val localBroadcastManager by inject<LocalBroadcastManager>()
-    private val alarmManager by inject<AlarmManager>()
     private val notificationManager = CovidNotificationManager(this)
+    private val alarmManager by inject<AlarmManager>()
     private val shortcutsManager = ShortcutsManager(this)
 
     private var bleAdvertisingDisposable: Disposable? = null
@@ -129,6 +135,7 @@ class CovidService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        alarmPendingIntent = startService(this).wrapAsForegroundService(this)
         subscribeToReceivers()
         updateAppShortcuts()
     }
@@ -148,6 +155,7 @@ class CovidService : Service() {
     private fun pause() {
         servicePaused = true
         prefs.setAppPaused(true)
+        alarmManager.cancel(alarmPendingIntent)
         createNotification()
         turnMaskOff()
         updateAppShortcuts()
@@ -164,7 +172,11 @@ class CovidService : Service() {
 
     private fun start(intent: Intent?) {
         resume()
-        wakeLockManager.acquire()
+        alarmManager.set(
+            ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime() + 1000 * 60 * WAKE_UP_INTERVAL_MINUTES,
+            alarmPendingIntent
+        )
 
         if (intent?.getBooleanExtra(AutoRestartReceiver.EXTRAKEY_START, true) == true) {
             autoRestartJob.setUp(this, alarmManager)
@@ -180,8 +192,8 @@ class CovidService : Service() {
     }
 
     private fun stop(intent: Intent) {
-        wakeLockManager.release()
         servicePaused = true
+        alarmManager.cancel(alarmPendingIntent)
         updateAppShortcuts()
 
         if (intent.getBooleanExtra(AutoRestartReceiver.EXTRAKEY_CANCEL, true)) {
@@ -215,7 +227,6 @@ class CovidService : Service() {
     }
 
     override fun onDestroy() {
-        wakeLockManager.release()
         turnMaskOff()
         unsubscribeFromReceivers()
 
@@ -228,7 +239,6 @@ class CovidService : Service() {
 
     private fun turnMaskOn() {
         if (isLocationEnabled() && btUtils.isBtEnabled()) {
-            wakeLockManager.acquire()
             localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
             startBleAdvertising()
             startBleScanning()
@@ -241,7 +251,6 @@ class CovidService : Service() {
         localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STOPPED))
         btUtils.stopScanning()
         btUtils.stopAdvertising()
-        wakeLockManager.release()
 
         bleScanningDisposable?.dispose()
         bleScanningDisposable = null
@@ -288,10 +297,12 @@ class CovidService : Service() {
                 }
             }
             .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
+            .throttleFirst(AppConfig.collectionSeconds, TimeUnit.SECONDS)
             .doOnNext {
                 btUtils.stopScanning()
             }
             .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
+            .throttleFirst(AppConfig.waitingSeconds, TimeUnit.SECONDS)
             .repeat()
             .execute(
                 { L.d("Restarting BLE scanning") },
