@@ -176,30 +176,29 @@ class BluetoothRepository(
 
     private fun saveDataAndClearScanResults() {
         L.d("Saving data to database")
-        Observable.fromIterable(scanResultsMap.values.toList())
-            .map { it.fold(AppConfig.collectionSeconds * 1000) }
-            .map { sessions ->
-                for (item in sessions) {
-                    item.calculate()
+        scanResultsMap.values.toList().map {
+            it.fold(AppConfig.collectionSeconds * 1000)
+        }.flatten().apply {
+            Observable.fromIterable(this)
+                .map { session ->
+                    session.calculate()
                     val scanResult = ScanDataEntity(
                         0,
-                        item.deviceId,
-                        item.timestampStart,
-                        item.timestampEnd,
-                        item.avgRssi,
-                        item.medRssi,
-                        item.rssiCount
+                        session.deviceId,
+                        session.timestampStart,
+                        session.timestampEnd,
+                        session.avgRssi,
+                        session.medRssi,
+                        session.rssiCount
                     )
                     L.d("Saving: $scanResult")
-
                     db.add(scanResult)
-                }
-                dbCleanup()
-                sessions.size
-            }.execute({
-                L.d("$it records saved")
-                clearScanResults()
-            }, { L.e(it) })
+                }.execute({
+                    L.d("$it records saved")
+                    clearScanResults()
+                    dbCleanup()
+                }, { L.e(it) })
+        }
     }
 
     private fun onScanResult(result: ScanResult) {
