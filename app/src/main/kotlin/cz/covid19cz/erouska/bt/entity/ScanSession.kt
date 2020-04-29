@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.bt.entity
 
 import android.os.SystemClock
 import arch.livedata.SafeMutableLiveData
+import cz.covid19cz.erouska.utils.L
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -32,17 +33,23 @@ open class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
     }
 
     fun fold(interval: Long): List<ScanSession> {
+        fun MutableList<ScanSession>.getValidScanSession(rssi: Rssi): ScanSession {
+            return lastOrNull()?.takeIf {
+                L.d("Saving data to database ${rssi.timestamp - timestampStart}")
+                rssi.timestamp - timestampStart < interval
+            } ?: ScanSession(deviceId, mac).apply {
+                this@getValidScanSession.add(this)
+            }
+        }
+
         return rssiList.fold(mutableListOf(), { acc, item ->
-                acc.lastOrNull()
-                ?.takeIf { item.timestamp - timestampStart < interval }
-                ?.apply { addRssi(item.rssi, item.timestamp) }
-            ?:
-                ScanSession(deviceId, mac).apply {
-                    acc.add(this)
-                    addRssi(item.rssi, item.timestamp)
+                acc.getValidScanSession(item).apply {
+                    this.addRssi(item.rssi, item.timestamp)
                 }
                 acc
         })
+
+
     }
 
     fun calculate() {
