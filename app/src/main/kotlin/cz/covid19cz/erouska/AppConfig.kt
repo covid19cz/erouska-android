@@ -107,6 +107,11 @@ object AppConfig {
         }
     }
 
+    /**
+     * It tries current supported language first.
+     * If it's not found, it tries English.
+     * If English is not found, it shows Czech.
+     */
     private fun getLocalized(key: String): String {
         val currentLanguage = LocaleUtils.getSupportedLanguage()
         return if (currentLanguage == "cs") {
@@ -114,9 +119,14 @@ object AppConfig {
         } else {
             val translatedValue = firebaseRemoteConfig.getString(key + "_" + currentLanguage)
             if (translatedValue.isEmpty()) {
-                firebaseRemoteConfig.getString(key)
+                val englishTranslatedValue = firebaseRemoteConfig.getString(key + "_en")
+                if (englishTranslatedValue.isEmpty()) {
+                    firebaseRemoteConfig.getString(key)
+                } else {
+                    englishTranslatedValue
+                }
             } else {
-                return translatedValue
+                translatedValue
             }
         }
     }

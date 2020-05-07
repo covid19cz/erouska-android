@@ -14,7 +14,7 @@ object LocaleUtils {
         return if (BuildConfig.SUPPORTED_LANGUAGES.contains(currentLanguage)) {
             currentLanguage
         } else {
-            "cs"
+            "en"
         }
     }
 }
