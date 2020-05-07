@@ -21,7 +21,7 @@ fun click(element: Matcher<View>): ViewInteraction = onView(element).perform(Vie
 
 fun click(id: Int): ViewInteraction =  click(withId(id))
 
-fun clickUiAutomator(id: String) = device.findObject(UiSelector().resourceId(id)).click()
+fun clickUiAutomator(buttonText: String) = device.findObject(UiSelector().clickable(true).textStartsWith(buttonText)).click() // startsWith because it is case insensitive
 
 fun checkMatchesString(id: Int, @StringRes stringId: String): ViewInteraction = onView(withId(id)).check(
     ViewAssertions.matches(withText(stringId))
