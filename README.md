@@ -36,7 +36,7 @@ We are open-source from day one and we will be happy to work with people in othe
 
 We got inspired by similar apps in other countries:
 - [**OpenTrace** from Singapore](https://github.com/OpenTrace-Community)
-- [**ProteGO-app** from Poland](https://github.com/ProteGO-app)
+- [**ProteGO-app** from Poland](https://github.com/ProteGO-Safe)
 - [**Covid World** from Slovakia](https://github.com/CovidWorld)
 
 ## Technical details
