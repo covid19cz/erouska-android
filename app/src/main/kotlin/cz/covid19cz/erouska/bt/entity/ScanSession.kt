@@ -35,8 +35,7 @@ open class ScanSession(tuid: String = UNKNOWN_TUID, val mac: String) {
     fun fold(interval: Long): List<ScanSession> {
         fun MutableList<ScanSession>.getValidScanSession(rssi: Rssi): ScanSession {
             return lastOrNull()?.takeIf {
-                L.d("Saving data to database ${rssi.timestamp - timestampStart}")
-                rssi.timestamp - timestampStart < interval
+                rssi.timestamp - it.timestampStart < interval
             } ?: ScanSession(deviceId, mac).apply {
                 this@getValidScanSession.add(this)
             }

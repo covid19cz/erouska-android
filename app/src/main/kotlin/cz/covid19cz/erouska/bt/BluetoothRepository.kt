@@ -193,10 +193,10 @@ class BluetoothRepository(
                     )
                     L.d("Saving: $scanResult")
                     db.add(scanResult)
+                    dbCleanup()
                 }.execute({
                     L.d("$it records saved")
                     clearScanResults()
-                    dbCleanup()
                 }, { L.e(it) })
         }
     }
