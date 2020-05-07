@@ -9,7 +9,7 @@ import cz.covid19cz.erouska.service.CovidService
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class OnBootReceiver : BroadcastReceiver(), KoinComponent {
+class AutoStartReceiver : BroadcastReceiver(), KoinComponent {
 
     private val prefs by inject<SharedPrefsRepository>()
 
