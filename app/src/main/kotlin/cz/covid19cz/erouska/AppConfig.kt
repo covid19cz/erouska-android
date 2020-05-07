@@ -120,7 +120,7 @@ object AppConfig {
             val translatedValue = firebaseRemoteConfig.getString(key + "_" + currentLanguage)
             if (translatedValue.isEmpty()) {
                 val englishTranslatedValue = firebaseRemoteConfig.getString(key + "_en")
-                if (translatedValue.isEmpty()) {
+                if (englishTranslatedValue.isEmpty()) {
                     firebaseRemoteConfig.getString(key)
                 } else {
                     englishTranslatedValue
