@@ -185,6 +185,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation "org.koin:koin-test:2.0.1"
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     androidTestUtil 'androidx.test:orchestrator:1.2.0'
 
     debugImplementation 'com.idescout.sql:sqlscout-server:4.1'

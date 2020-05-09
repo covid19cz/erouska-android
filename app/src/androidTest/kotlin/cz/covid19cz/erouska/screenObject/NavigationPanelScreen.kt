@@ -9,4 +9,5 @@ object NavigationPanelScreen {
 
     fun goToHomeTab() = click(R.id.nav_dashboard)
 
+    fun goToContactsTab() = click(R.id.nav_contacts)
 }

@@ -26,12 +26,11 @@ class ActivationTest {
 
     @Test
     fun activation() {
-        // how to work
-        WelcomeScreen.howToWorkScreen()
         // activation
         WelcomeScreen.startActivation()
         BluetoothPermissionScreen.allowPermission()
         PhoneNumberScreen.run {
+            verifyTermsLink()
             typePhoneNumber()
             acceptWithAgreements()
             continueToSMSVerify()
@@ -52,6 +51,10 @@ class ActivationTest {
             sendData()
         }
 
+        // verify contacts screen and links there
+        NavigationPanelScreen.goToContactsTab()
+        ContactsScreen.verifyLinks()
+
         //deactivation
         NavigationPanelScreen.goToHomeTab()
         HomeScreen.cancelRegistration()
@@ -69,5 +72,21 @@ class ActivationTest {
         BatterySaverInfoScreen.finish()
         HomeScreen.isErouskaActive()
 
+    }
+
+    /**
+     * check links on welcome screen, help screen and about us screen
+     */
+    @Test
+    fun linkTest() {
+        // check if welcome screen link works
+        WelcomeScreen.checkAuditLink()
+        WelcomeScreen.goToHelpScreen()
+
+        // check if Help screen link works
+        HelpScreen.verifyLinks()
+        HelpScreen.goToAboutApp()
+        // verify one LinkedIn link on about app screen
+        AboutAppScreen.verifyLinkedInLink()
     }
 }
