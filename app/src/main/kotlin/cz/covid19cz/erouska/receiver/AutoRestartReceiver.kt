@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import androidx.core.content.ContextCompat
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.utils.L
@@ -36,9 +37,9 @@ class AutoRestartReceiver : BroadcastReceiver() {
 
                 Handler().postDelayed({
                     L.d("Auto-restart of service - starting")
-                    context.startService(
-                        CovidService.startService(context)
-                            .putExtra(EXTRAKEY_START, false)
+                    ContextCompat.startForegroundService(
+                        context,
+                        CovidService.startService(context).putExtra(EXTRAKEY_START, false)
                     )
                 }, 2000);
             }
