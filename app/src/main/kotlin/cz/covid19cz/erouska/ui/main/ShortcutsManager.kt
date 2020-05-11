@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.main
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -28,7 +29,10 @@ class ShortcutsManager(private val context: Context) {
                     context.startService(CovidService.stopService(context))
                 }
                 ShortcutsActions.URL_RESUME -> {
-                    context.startService(CovidService.startService(context))
+                    ContextCompat.startForegroundService(
+                        context,
+                        CovidService.startService(context)
+                    )
                 }
             }
         }
