@@ -46,6 +46,7 @@ class CovidService : Service() {
         const val ACTION_UPDATE = "ACTION_UPDATE"
         const val ACTION_PAUSE = "ACTION_PAUSE"
         const val ACTION_RESUME = "ACTION_RESUME"
+        const val ACTION_PING = "ACTION_PING"
 
         const val ACTION_MASK_STARTED = "action_service_started"
         const val ACTION_MASK_STOPPED = "action_service_stopped"
@@ -85,6 +86,12 @@ class CovidService : Service() {
             val serviceIntent = Intent(context, CovidService::class.java)
             serviceIntent.action = ACTION_UPDATE
             context.startService(serviceIntent)
+        }
+
+        fun pingService(context: Context): Intent {
+            val serviceIntent = Intent(context, CovidService::class.java)
+            serviceIntent.action = ACTION_PING
+            return serviceIntent
         }
 
         /**
@@ -135,7 +142,7 @@ class CovidService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        alarmPendingIntent = startService(this).wrapAsForegroundService(this)
+        alarmPendingIntent = pingService(this).wrapAsForegroundService(this)
         subscribeToReceivers()
         updateAppShortcuts()
     }
