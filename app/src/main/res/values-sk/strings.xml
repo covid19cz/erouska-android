@@ -93,8 +93,7 @@
     <string name="contacts_help_desc"><![CDATA[<b>Potřebujete poradit?</b><br/><br/>Veškeré otázky a&nbsp;nejasnosti týkající se koronaviru by vám měli zodpovědět na webu MZČR nebo na bezplatné infolince %s.]]></string>
     <string name="contacts_faq">Často kladené dotazy</string>
     <string name="contacts_important">Důležité kontakty</string>
-    <string name="contacts_improve_desc"><![CDATA[<b>O aplikaci eRouška</b><br/><br/>Potřebujete poradit s&nbsp;aplikací nebo vás zajímá, jak funguje a&nbsp;jak zpracováváme osobní údaje? Podívejte se na web erouska.cz]]></string>
-    <string name="contacts_go_to_web">přejít na web erouska.cz</string>
+    <string name="contacts_improve_desc"><![CDATA[<b>O aplikaci eRouška</b><br/><br/>Potřebujete poradit s&nbsp;aplikací nebo vás zajímá, jak funguje? Napište Anežce, podpoře eRoušky.]]></string>
     <string name="send_data">Odeslat data</string>
     <string name="data_sent">Odesláno</string>
     <string name="please_wait_upload">Data jste již odeslali. Znovu budete moci odeslat data za %d minut.</string>
@@ -139,4 +138,6 @@
     <string name="dashboard_not_verified_secondary">Ověřte prosím své telefonní číslo, abychom vás mohli kontaktovat v případě podezření na nákazu koronavirem.</string>
     <string name="data_collection_info">Informace o sběru dat</string>
     <string name="data_content_info">Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</string>
+    <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
+    <string name="contacts_open_chatbot">Anežka – podpora eroušky</string>
 </resources>

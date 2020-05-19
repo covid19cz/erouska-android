@@ -53,6 +53,8 @@ object AppConfig {
         get() = getLocalized("termsAndConditionsLink")
     val homepageLink
         get() = getLocalized("homepageLink")
+    val chatBotLink
+        get() = getLocalized("chatBotLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
     val allowVerifyLater

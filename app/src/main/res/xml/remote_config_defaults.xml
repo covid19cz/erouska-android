@@ -140,4 +140,8 @@
         <key>myDataText_en</key>
         <value>Here is a history of contacts with other users of eRouška. It doesn't indicate infection of the users.</value>
     </entry>
+    <entry>
+        <key>chatBotLink</key>
+        <value>https://erouska.cz/#chat-open</value>
+    </entry>
 </defaultsMap>
