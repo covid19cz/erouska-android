@@ -24,7 +24,8 @@ class CovidNotificationManager(private val service: CovidService) {
     companion object {
         const val SERVICE_CHANNEL_ID = "ForegroundServiceChannel"
         const val ALERT_CHANNEL_ID = "ForegroundServiceAlertChannel"
-        const val NOTIFICATION_ID = 1
+        const val MAIN_NOTIFICATION_ID = 1
+        const val ERROR_NOTIFICATION_ID = 2
     }
 
     private fun createNotificationChannel() {
@@ -61,6 +62,7 @@ class CovidNotificationManager(private val service: CovidService) {
         val notificationIntent = Intent(service, MainActivity::class.java)
         @StringRes val actionText: Int?
         val actionIntent: PendingIntent
+        val notificationId: Int
 
         when {
             serviceStatus.paused -> {
@@ -70,6 +72,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 color = R.color.exposition_level_6
                 actionIntent = CovidService.startService(service).wrapAsForegroundService(service)
                 actionText = R.string.notification_action_resume
+                notificationId = getNotificationId()
             }
             serviceStatus.batterySaverEnabled -> {
                 builder.setChannelId(ALERT_CHANNEL_ID)
@@ -79,6 +82,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 color = R.color.red
                 actionIntent = getBatterySaverSettingsIntent().wrapAsActivity()
                 actionText = R.string.notification_action_disable_battery_saver
+                notificationId = getNotificationId()
             }
             !serviceStatus.bluetoothEnabled -> {
                 builder.setChannelId(ALERT_CHANNEL_ID)
@@ -88,6 +92,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 color = R.color.red
                 actionIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE).wrapAsActivity()
                 actionText = R.string.notification_action_enable_bluetooth
+                notificationId = getNotificationId()
             }
             !serviceStatus.locationEnabled -> {
                 builder.setChannelId(ALERT_CHANNEL_ID)
@@ -97,6 +102,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 color = R.color.red
                 actionIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).wrapAsActivity()
                 actionText = R.string.notification_action_enable_location
+                notificationId = getNotificationId()
             }
             else -> {
                 builder.setVisibility(VISIBILITY_SECRET)
@@ -106,6 +112,7 @@ class CovidNotificationManager(private val service: CovidService) {
                 color = R.color.green
                 actionIntent = CovidService.stopService(service).wrapAsService(service)
                 actionText = R.string.notification_action_pause
+                notificationId = MAIN_NOTIFICATION_ID
             }
         }
         builder.addAction(0, service.getString(actionText), actionIntent)
@@ -124,16 +131,31 @@ class CovidNotificationManager(private val service: CovidService) {
                 .build()
                 .run {
                     if (serviceStatus.paused) {
-                        NotificationManagerCompat.from(service).notify(NOTIFICATION_ID, this)
+                        NotificationManagerCompat.from(service).notify(notificationId, this)
                     } else {
-                        startForeground(NOTIFICATION_ID, this)
+                        startForeground(notificationId, this)
                     }
                 }
         }
     }
 
     fun hideNotification(context: Context) {
-        NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID)
+        NotificationManagerCompat.from(context).cancel(MAIN_NOTIFICATION_ID)
+    }
+
+    private fun getNotificationId(): Int {
+        val notificationDisabled = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManagerCompat
+                .from(service)
+                .getNotificationChannel(SERVICE_CHANNEL_ID)
+                ?.importance == NotificationManager.IMPORTANCE_NONE
+        } else false
+
+        return if (notificationDisabled) {
+            ERROR_NOTIFICATION_ID
+        } else {
+            MAIN_NOTIFICATION_ID
+        }
     }
 
     private fun getBatterySaverSettingsIntent(): Intent {
