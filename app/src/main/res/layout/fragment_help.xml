@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.help.HelpVM" />
@@ -12,13 +13,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/chat_container"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:onClick="@{() -> vm.openChatBot()}"
+            android:background="@drawable/highlight_selector"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/chat_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintBottom_toBottomOf="@+id/chat_container"
+            app:layout_constraintStart_toStartOf="@id/chat_container"
+            app:layout_constraintTop_toTopOf="@id/chat_container" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/help_write_chabot"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintBottom_toBottomOf="@+id/chat_container"
+            app:layout_constraintEnd_toEndOf="@+id/chat_container"
+            app:layout_constraintStart_toEndOf="@id/chat_icon"
+            app:layout_constraintTop_toTopOf="@id/chat_container" />
+
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#cccccc"
+            app:layout_constraintEnd_toEndOf="@id/chat_container"
+            app:layout_constraintStart_toStartOf="@id/chat_container"
+            app:layout_constraintTop_toBottomOf="@+id/chat_container" />
+
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/chat_container">
 
             <TextView
                 android:id="@+id/help_desc"

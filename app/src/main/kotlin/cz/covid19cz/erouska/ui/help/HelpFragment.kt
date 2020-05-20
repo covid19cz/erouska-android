@@ -8,10 +8,12 @@ import android.view.View
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
+import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.InfoType.DATA_COLLECTION
 import cz.covid19cz.erouska.ui.help.InfoType.HELP
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
+import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.fragment_help.*
 import org.koin.android.ext.android.inject
@@ -21,6 +23,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
     private val markdown by inject<Markdown>()
     private var isFullscreen: Boolean = false
     private lateinit var type: InfoType
+    private val customTabHelper by inject<CustomTabHelper>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
         subscribe(HelpCommandEvent::class) {
             when (it.command) {
                 HelpCommandEvent.Command.GO_BACK -> goBack()
+                HelpCommandEvent.Command.OPEN_CHATBOT -> openChatBot()
             }
         }
 
@@ -38,6 +42,10 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment
         isFullscreen = arguments?.let {
             HelpFragmentArgs.fromBundle(it).fullscreen
         } ?: false
+    }
+
+    private fun openChatBot() {
+        showWeb(AppConfig.chatBotLink, customTabHelper)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -25,7 +25,7 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
             when (commandEvent.command) {
                 ContactsCommandEvent.Command.IMPORTANT -> openImportant()
                 ContactsCommandEvent.Command.FAQ -> openFaq()
-                ContactsCommandEvent.Command.WEB -> goToWeb()
+                ContactsCommandEvent.Command.CHATBOT -> openChatBot()
             }
         }
     }
@@ -51,7 +51,7 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
         showWeb(viewModel.getFaqUrl(), customTabHelper)
     }
 
-    private fun goToWeb() {
-        showWeb(viewModel.getHomepageLink(), customTabHelper)
+    private fun openChatBot() {
+        showWeb(viewModel.getChatBotLink(), customTabHelper)
     }
 }

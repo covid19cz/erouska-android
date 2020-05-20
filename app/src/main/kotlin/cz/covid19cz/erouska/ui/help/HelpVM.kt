@@ -8,4 +8,8 @@ class HelpVM : BaseVM() {
     fun goBack() {
         publish(HelpCommandEvent(HelpCommandEvent.Command.GO_BACK))
     }
+
+    fun openChatBot() {
+        publish(HelpCommandEvent(HelpCommandEvent.Command.OPEN_CHATBOT))
+    }
 }

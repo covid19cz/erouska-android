@@ -71,7 +71,7 @@
     <string name="welcome_help">How does it work?</string>
     <string name="welcome_activation">Continue to activation</string>
     <string name="welcome_description"><![CDATA[The application will be monitoring your surroundings continuously and will record all other phones of users with the eRouška application you encounter.<br/><br/>If any of them test positive for coronavirus, a public health officer will call you.<br/><br/>If you test positive, the public health office will contact all the other application users you encountered.<br/><br/><a href="%s">The independent audit</a> guarantees that the application does not send any personal data without your knowledge. Only you may send them and only to the public health officers.]]></string>
-    <string name="welcome_title">Thanks to eRouška you will keep yourself and others safe</string>
+    <string name="welcome_title">Thanks to eRou\u0161ka you will keep yourself and others safe</string>
     <string name="login_verify">Verify</string>
     <string name="login_verification_code">Verification code</string>
     <string name="login_phone_number_sms_sent">We sent a verification code to phone number %s.</string>
@@ -79,11 +79,10 @@
     <string name="login_code_read_automatically">Verification code was automatically filled from the SMS.</string>
     <string name="contacts_title">Contacts</string>
     <string name="contacts_suspicion_desc"><b>Thinking you are positive for coronavirus?</b>\n\nStay home and contact your general practitioner or your local public health office.</string>
-    <string name="contacts_help_desc"><b>Do you need advice?</b>&lt;br/&gt;&lt;br/&gt;All questions and concerns about coronavirus should be answered on the Ministry\'s website or free phone line %s.</string>
+    <string name="contacts_help_desc"><![CDATA[<b>Do you need advice?</b><br/><br/>All questions and concerns about coronavirus should be answered on the Ministry\'s website or free phone line %s.]]></string>
     <string name="contacts_faq">Frequently asked questions</string>
     <string name="contacts_important">Important contacts</string>
-    <string name="contacts_improve_desc"><![CDATA[<b>About application eRouška</b><br/><br/>Do you need help with the application or you want to know how it works and how we process personal data? Take a look at web erouska.cz]]></string>
-    <string name="contacts_go_to_web">Go to web erouska.cz</string>
+    <string name="contacts_improve_desc"><![CDATA[<b>About application eRouška</b><br/><br/>Do you need help with the application or you want to know how it works? Write Anežka, eRouška support bot.]]></string>
     <string name="send_data">Send data</string>
     <string name="data_sent">Sent</string>
     <string name="please_wait_upload">Data was already sent. You can send it again in %d minutes.</string>
@@ -128,4 +127,6 @@
     <string name="dashboard_not_verified_secondary">Please verify your phone number so that we can contact you in case you have been infected.</string>
     <string name="data_collection_info">Data collection</string>
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
+    <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
+    <string name="contacts_open_chatbot">Anežka – eRouška support</string>
 </resources>
