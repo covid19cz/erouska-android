@@ -3,15 +3,14 @@ package cz.covid19cz.erouska.ui.dashboard
 import androidx.lifecycle.Observer
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.formatPhoneNumber
 
 class DashboardVM(
-    val bluetoothRepository: BluetoothRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 

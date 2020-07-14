@@ -1,8 +1,10 @@
 package cz.covid19cz.erouska.ext
 
+import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.LocationManager
 import android.net.ConnectivityManager
@@ -22,6 +24,14 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 
+fun Context.hasBle(c: Context): Boolean {
+    return c.packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)
+}
+
+fun Context.isBtEnabled(): Boolean {
+    val btManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager;
+    return btManager.adapter.isEnabled
+}
 
 fun Context.isLocationEnabled(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

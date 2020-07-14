@@ -7,7 +7,6 @@ import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.room.Room
-import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.db.*
 import cz.covid19cz.erouska.db.export.CsvExporter
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
@@ -31,6 +30,7 @@ import cz.covid19cz.erouska.ui.welcome.WelcomeVM
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -44,7 +44,7 @@ val viewModelModule = module {
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
-    viewModel { DashboardVM(get(), get()) }
+    viewModel { DashboardVM(get()) }
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
@@ -77,8 +77,8 @@ val repositoryModule = module {
     }
 
     single { provideDatabaseRepository(get()) }
-    single { BluetoothRepository(get(), get(), get(), get()) }
     single { SharedPrefsRepository(get()) }
+    single { ExposureNotificationsRepo(get()) }
 }
 
 val appModule = module {

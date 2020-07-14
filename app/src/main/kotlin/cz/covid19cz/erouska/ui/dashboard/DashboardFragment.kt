@@ -14,10 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
-import cz.covid19cz.erouska.ext.hasLocationPermission
-import cz.covid19cz.erouska.ext.isBatterySaverEnabled
-import cz.covid19cz.erouska.ext.isLocationEnabled
-import cz.covid19cz.erouska.ext.shareApp
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -205,8 +202,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}, onBatterySaverEnabled: () -> Unit = {}) {
         with(requireContext()) {
-            if (viewModel.bluetoothRepository.hasBle(this)) {
-                if (!viewModel.bluetoothRepository.isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
+            if (hasBle(this)) {
+                if (!isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
                     onFailed()
                     return
                 } else if (isBatterySaverEnabled()) {

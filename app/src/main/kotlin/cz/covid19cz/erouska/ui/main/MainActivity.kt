@@ -15,9 +15,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.hasLocationPermission
+import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseActivity
@@ -30,7 +30,6 @@ class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
     private val localBroadcastManager by inject<LocalBroadcastManager>()
-    private val bluetoothRepository by inject<BluetoothRepository>()
     private val customTabHelper by inject<CustomTabHelper>()
 
     private val shortcutsManager = ShortcutsManager(this)
@@ -168,6 +167,6 @@ class MainActivity :
     }
 
     private fun passesRequirements(): Boolean {
-        return bluetoothRepository.isBtEnabled() && isLocationEnabled() && hasLocationPermission()
+        return isBtEnabled() && isLocationEnabled() && hasLocationPermission()
     }
 }

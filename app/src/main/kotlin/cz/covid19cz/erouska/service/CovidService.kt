@@ -1,4 +1,4 @@
-    package cz.covid19cz.erouska.service
+package cz.covid19cz.erouska.service
 
 import android.app.ActivityManager
 import android.app.AlarmManager
@@ -16,11 +16,10 @@ import android.os.PowerManager
 import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.ext.batterySaverRestrictsLocation
-import cz.covid19cz.erouska.ext.execute
+import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.jobs.AutoRestartJob
 import cz.covid19cz.erouska.receiver.AutoRestartReceiver
@@ -32,10 +31,8 @@ import cz.covid19cz.erouska.ui.notifications.CovidNotificationManager
 import cz.covid19cz.erouska.ui.notifications.wrapAsForegroundService
 import cz.covid19cz.erouska.utils.BatteryOptimization
 import cz.covid19cz.erouska.utils.L
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import org.koin.android.ext.android.inject
-import java.util.concurrent.TimeUnit
 
 
 class CovidService : Service() {
@@ -125,7 +122,7 @@ class CovidService : Service() {
     private val locationStateReceiver by inject<LocationStateReceiver>()
     private val bluetoothStateReceiver by inject<BluetoothStateReceiver>()
     private val batterySaverStateReceiver by inject<BatterSaverStateReceiver>()
-    private val btUtils by inject<BluetoothRepository>()
+    private val exposureNotificationsRepo by inject<ExposureNotificationsRepo>()
     private val prefs by inject<SharedPrefsRepository>()
     private val powerManager by inject<PowerManager>()
     private val localBroadcastManager by inject<LocalBroadcastManager>()
@@ -170,7 +167,7 @@ class CovidService : Service() {
 
     private fun update() {
         createNotification()
-        if (isLocationEnabled() && btUtils.isBtEnabled()) {
+        if (isLocationEnabled() && isBtEnabled()) {
             turnMaskOn()
         } else {
             turnMaskOff()
@@ -218,9 +215,6 @@ class CovidService : Service() {
         } else {
             createNotification()
         }
-        if (intent.getBooleanExtra(EXTRA_CLEAR_DATA, false)) {
-            btUtils.clearScanResults()
-        }
         if (intent.getBooleanExtra(EXTRA_PERSIST_STATE, true)) {
             prefs.setAppPaused(true)
         }
@@ -245,10 +239,9 @@ class CovidService : Service() {
     }
 
     private fun turnMaskOn() {
-        if (isLocationEnabled() && btUtils.isBtEnabled()) {
+        if (isLocationEnabled() && isBtEnabled()) {
             localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
-            startBleAdvertising()
-            startBleScanning()
+            startExposureNotifications()
         } else {
             turnMaskOff()
         }
@@ -256,8 +249,7 @@ class CovidService : Service() {
 
     private fun turnMaskOff() {
         localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STOPPED))
-        btUtils.stopScanning()
-        btUtils.stopAdvertising()
+        stopExposureNotifications()
 
         bleScanningDisposable?.dispose()
         bleScanningDisposable = null
@@ -269,7 +261,7 @@ class CovidService : Service() {
         notificationManager.postNotification(
             CovidNotificationManager.ServiceStatus(
                 servicePaused,
-                btUtils.isBtEnabled(),
+                isBtEnabled(),
                 isLocationEnabled(),
                 powerManager.batterySaverRestrictsLocation()
             )
@@ -293,51 +285,12 @@ class CovidService : Service() {
         unregisterReceiver(batterySaverStateReceiver)
     }
 
-    private fun startBleScanning() {
-        bleScanningDisposable?.dispose()
-        bleScanningDisposable = Observable.just(true)
-            .doOnNext {
-                if (btUtils.isBtEnabled() && isLocationEnabled()) {
-                    btUtils.startScanning()
-                } else {
-                    bleScanningDisposable?.dispose()
-                }
-            }
-            .delay(AppConfig.collectionSeconds, TimeUnit.SECONDS)
-            .throttleFirst(AppConfig.collectionSeconds, TimeUnit.SECONDS)
-            .doOnNext {
-                btUtils.stopScanning()
-            }
-            .delay(AppConfig.waitingSeconds, TimeUnit.SECONDS)
-            .throttleFirst(AppConfig.waitingSeconds, TimeUnit.SECONDS)
-            .repeat()
-            .execute(
-                { L.d("Restarting BLE scanning") },
-                {
-                    pause(this)
-                    L.e(it)
-                }
-            )
+    private fun startExposureNotifications() {
+
     }
 
-    private fun startBleAdvertising() {
-        bleAdvertisingDisposable?.dispose()
-        bleAdvertisingDisposable = Observable.just(true)
-            .doOnNext {
-                if (btUtils.isBtEnabled()) {
-                    val nextTuid = getNextTuid()
-                    btUtils.startAdvertising(nextTuid)
-                } else {
-                    bleAdvertisingDisposable?.dispose()
-                }
-            }
-            .delay(AppConfig.advertiseRestartMinutes, TimeUnit.MINUTES)
-            .doOnNext { btUtils.stopAdvertising() }
-            .repeat()
-            .execute(
-                { L.d("Restarting BLE advertising") },
-                { L.e(it) }
-            )
+    private fun stopExposureNotifications() {
+
     }
 
     private fun getNextTuid(): String {

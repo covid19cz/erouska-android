@@ -5,7 +5,6 @@ import arch.view.BaseArchActivity
 import cz.covid19cz.erouska.R
 import kotlin.reflect.KClass
 
-
 open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(layoutId: Int, viewModelClass: KClass<VM>) :
     BaseArchActivity<B, VM>(layoutId, viewModelClass) {
     override fun onBackPressed() {

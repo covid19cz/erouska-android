@@ -86,8 +86,8 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     lintOptions {
@@ -104,7 +104,7 @@ androidExtensions {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
@@ -162,6 +162,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-rxjava2:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
 
     // Markdown
