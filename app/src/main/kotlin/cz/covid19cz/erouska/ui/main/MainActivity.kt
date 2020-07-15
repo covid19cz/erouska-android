@@ -16,9 +16,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
-import cz.covid19cz.erouska.ext.hasLocationPermission
 import cz.covid19cz.erouska.ext.isBtEnabled
-import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.utils.CustomTabHelper
@@ -167,6 +165,6 @@ class MainActivity :
     }
 
     private fun passesRequirements(): Boolean {
-        return isBtEnabled() && isLocationEnabled() && hasLocationPermission()
+        return isBtEnabled()
     }
 }

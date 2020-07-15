@@ -20,7 +20,6 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.ext.batterySaverRestrictsLocation
 import cz.covid19cz.erouska.ext.isBtEnabled
-import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.jobs.AutoRestartJob
 import cz.covid19cz.erouska.receiver.AutoRestartReceiver
 import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
@@ -167,7 +166,7 @@ class CovidService : Service() {
 
     private fun update() {
         createNotification()
-        if (isLocationEnabled() && isBtEnabled()) {
+        if (isBtEnabled()) {
             turnMaskOn()
         } else {
             turnMaskOff()
@@ -239,7 +238,7 @@ class CovidService : Service() {
     }
 
     private fun turnMaskOn() {
-        if (isLocationEnabled() && isBtEnabled()) {
+        if (isBtEnabled()) {
             localBroadcastManager.sendBroadcast(Intent(ACTION_MASK_STARTED))
             startExposureNotifications()
         } else {
@@ -262,7 +261,6 @@ class CovidService : Service() {
             CovidNotificationManager.ServiceStatus(
                 servicePaused,
                 isBtEnabled(),
-                isLocationEnabled(),
                 powerManager.batterySaverRestrictsLocation()
             )
         )

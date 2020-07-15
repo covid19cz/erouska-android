@@ -5,9 +5,7 @@ import android.bluetooth.BluetoothManager
 import androidx.annotation.StringRes
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.ext.hasLocationPermission
 import cz.covid19cz.erouska.ext.isBluetoothEnabled
-import cz.covid19cz.erouska.ext.isLocationEnabled
 
 class PermissionDisabledVM(
     private val bluetoothManager: BluetoothManager,
@@ -18,12 +16,9 @@ class PermissionDisabledVM(
 
     fun initViewModel() {
         val bluetoothDisabled = !bluetoothManager.isBluetoothEnabled()
-        val locationDisabled = !app.isLocationEnabled() || !app.hasLocationPermission()
 
         state.value = when {
-            bluetoothDisabled && locationDisabled -> ScreenState.BT_LOCATION_DISABLED
             bluetoothDisabled -> ScreenState.BT_DISABLED
-            locationDisabled -> ScreenState.LOCATION_DISABLED
             else -> ScreenState.ALL_ENABLED
         }
 

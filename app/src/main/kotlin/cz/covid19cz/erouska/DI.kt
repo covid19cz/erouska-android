@@ -28,7 +28,6 @@ import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
-import cz.covid19cz.erouska.exposurenotifications.db.ExposureNotificationDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -51,18 +50,12 @@ val viewModelModule = module {
 }
 
 val databaseModule = module {
-    fun provideDatabase(application: Application): ExposureNotificationDatabase {
-        return Room.databaseBuilder(application, ExposureNotificationDatabase::class.java, "database")
-            .fallbackToDestructiveMigration()
-            .build()
-    }
 
-    single { provideDatabase(androidApplication()) }
 }
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepo(get()) }
+    single { ExposureNotificationsRepo() }
 }
 
 val appModule = module {

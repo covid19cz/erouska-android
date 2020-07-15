@@ -33,33 +33,8 @@ fun Context.isBtEnabled(): Boolean {
     return btManager.adapter.isEnabled
 }
 
-fun Context.isLocationEnabled(): Boolean {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        // This is new method provided in API 28
-        getSystemService<LocationManager>()?.isLocationEnabled ?: false
-    } else {
-        // This is Deprecated in API 28
-        val mode = Settings.Secure.getInt(
-            this.contentResolver, Settings.Secure.LOCATION_MODE,
-            Settings.Secure.LOCATION_MODE_OFF
-        )
-        mode != Settings.Secure.LOCATION_MODE_OFF
-    }
-}
-
 fun Context.isBatterySaverEnabled() =
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getSystemService<PowerManager>()?.isPowerSaveMode ?: false
-
-fun Context.hasLocationPermission(): Boolean {
-    return PermissionChecker.checkSelfPermission(
-        this,
-        getLocationPermission()
-    ) == PermissionChecker.PERMISSION_GRANTED
-}
-
-fun Context.openLocationSettings() {
-    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-}
 
 fun Context.openPermissionsScreen() {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -67,14 +42,6 @@ fun Context.openPermissionsScreen() {
     val uri: Uri = Uri.fromParts("package", packageName, null)
     intent.data = uri
     startActivity(intent)
-}
-
-fun getLocationPermission(): String {
-    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-        android.Manifest.permission.ACCESS_COARSE_LOCATION
-    } else {
-        android.Manifest.permission.ACCESS_FINE_LOCATION
-    }
 }
 
 @Suppress("DEPRECATION")

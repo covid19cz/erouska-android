@@ -203,7 +203,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}, onBatterySaverEnabled: () -> Unit = {}) {
         with(requireContext()) {
             if (hasBle(this)) {
-                if (!isBtEnabled() || !isLocationEnabled() || !hasLocationPermission()) {
+                if (!isBtEnabled()) {
                     onFailed()
                     return
                 } else if (isBatterySaverEnabled()) {
