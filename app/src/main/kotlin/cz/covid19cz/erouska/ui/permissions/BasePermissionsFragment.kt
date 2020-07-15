@@ -16,11 +16,14 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlin.reflect.KClass
 
 
-open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int, viewModelClass: KClass<T>) :
-        BaseFragment<FragmentPermissionsOnboardingBinding, T>(
-                layout,
-                viewModelClass
-        ) {
+open class BasePermissionsFragment<T : BasePermissionsVM>(
+    @LayoutRes layout: Int,
+    viewModelClass: KClass<T>
+) :
+    BaseFragment<FragmentPermissionsOnboardingBinding, T>(
+        layout,
+        viewModelClass
+    ) {
 
     private lateinit var rxPermissions: RxPermissions
     private val compositeDisposable = CompositeDisposable()
@@ -55,14 +58,14 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
 
     private fun requestLocation() {
         compositeDisposable.add(rxPermissions
-                .request(getLocationPermission())
-                .subscribe { granted: Boolean ->
-                    if (granted) {
-                        viewModel.onLocationPermissionGranted()
-                    } else {
-                        viewModel.onLocationPermissionDenied()
-                    }
-                })
+            .request(getLocationPermission())
+            .subscribe { granted: Boolean ->
+                if (granted) {
+                    viewModel.onLocationPermissionGranted()
+                } else {
+                    viewModel.onLocationPermissionDenied()
+                }
+            })
     }
 
     private fun showPermissionRequiredDialog() {
@@ -72,16 +75,16 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
         }
 
         MaterialAlertDialogBuilder(context)
-                .setCustomTitle(layout)
-                .setMessage(getString(R.string.permission_rationale_body))
-                .setPositiveButton(getString(R.string.permission_rationale_settings))
-                { dialog, _ ->
-                    dialog.dismiss()
-                    requireContext().openPermissionsScreen()
-                }
-                .setNegativeButton(getString(R.string.permission_rationale_dismiss))
-                { dialog, _ -> dialog.dismiss() }
-                .show()
+            .setCustomTitle(layout)
+            .setMessage(getString(R.string.permission_rationale_body))
+            .setPositiveButton(getString(R.string.permission_rationale_settings))
+            { dialog, _ ->
+                dialog.dismiss()
+                requireContext().openPermissionsScreen()
+            }
+            .setNegativeButton(getString(R.string.permission_rationale_dismiss))
+            { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun enableLocation() {
@@ -89,13 +92,6 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
     }
 
     private fun enableBluetooth() {
-        MaterialAlertDialogBuilder(context)
-                .setView(R.layout.dialog_notification_info)
-                .setPositiveButton(R.string.enable) { dialog, _ ->
-                    dialog.dismiss()
-                    requestEnableBt()
-                }
-                .setNegativeButton(getString(R.string.dismiss)) { dialog, _ -> dialog.dismiss() }
-                .show()
+        requestEnableBt()
     }
 }

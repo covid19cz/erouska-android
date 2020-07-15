@@ -77,11 +77,10 @@ abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseDialogViewModel>
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
         binding.root.findViewById<Button>(R.id.button_positive)?.setOnClickListener { dispatchResult(BUTTON_POSITIVE) }
         binding.root.findViewById<Button>(R.id.button_negative)?.setOnClickListener { dispatchResult(BUTTON_NEGATIVE) }
         binding.root.findViewById<Button>(R.id.button_neutral)?.setOnClickListener { dispatchResult(BUTTON_NEUTRAL) }
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

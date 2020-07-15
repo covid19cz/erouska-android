@@ -20,7 +20,6 @@
     <string name="go_back_button">Возврат к приложению</string>
     <string name="enable_bluetooth_button">Включить Bluetooth</string>
     <string name="enable">Разрешить</string>
-    <string name="dismiss">Отменить</string>
     <string name="bt_disabled_title">Включите Bluetooth</string>
     <string name="bt_disabled_desc">При выключенном Bluetooth  eRouška не может составить список устройст вокруг Вас.\n\nВключите его нажатием на \"Включить Bluetooth\".</string>
     <string name="location_disabled_title">Включите  функцию определения местоположения</string>

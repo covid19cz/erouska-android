@@ -20,7 +20,6 @@
     <string name="go_back_button">Back to app</string>
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
-    <string name="dismiss">Dismiss</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
     <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot create a list of nearby phones.\n\nEnable it by pressing \"Enable Bluetooth\".</string>
     <string name="location_disabled_title">Enable Location Services</string>
@@ -130,10 +129,6 @@
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="contacts_open_chatbot">Anežka – eRouška support</string>
-    <string name="dialog_notifications_title">Enable notification about possible contact with infected person</string>
-    <string name="dialog_notifications_body_1">Application needs Bluetooth interface for secure gathering and sharing random IDs with other phones in your vicinity.</string>
-    <string name="dialog_notifications_body_2">Application eRouška can notify you in case of being in contact with person who had confirmed positive COVID-19 test.</string>
-    <string name="dialog_notifications_body_3">Application will have date of your contact with infected person, its duration and signal strength.</string>
     <string name="privacy_header_text">We value your privacy, sharing data is under your control</string>
     <string name="privacy_body_text_1">eRouška doesn\'t have any personal information about you and collects only anonymous data about other eRouška applications in your vicinity.</string>
     <string name="privacy_body_text_2">Only you can share your collected data when administration of hygienic station requests them.</string>
