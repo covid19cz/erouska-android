@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
 
 
 abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseDialogViewModel>(@LayoutRes layoutId: Int, viewModelClass: KClass<VM>) :
-    BaseArchDialogFragment<B, VM>(layoutId, viewModelClass) {
+        BaseArchDialogFragment<B, VM>(layoutId, viewModelClass) {
 
     companion object {
         const val CANCELED = Activity.RESULT_CANCELED
@@ -77,10 +77,11 @@ abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseDialogViewModel>
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding.root.findViewById<Button>(R.id.button_positive)?.setOnClickListener { dispatchResult(BUTTON_POSITIVE) }
         binding.root.findViewById<Button>(R.id.button_negative)?.setOnClickListener { dispatchResult(BUTTON_NEGATIVE) }
         binding.root.findViewById<Button>(R.id.button_neutral)?.setOnClickListener { dispatchResult(BUTTON_NEUTRAL) }
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

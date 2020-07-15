@@ -20,6 +20,7 @@
     <string name="go_back_button">Înapoi la aplicație</string>
     <string name="enable_bluetooth_button">Activează Bluetooth</string>
     <string name="enable">Activează</string>
+    <string name="dismiss">Respinge</string>
     <string name="bt_disabled_title">Activează Bluetooth</string>
     <string name="bt_disabled_desc">Cu Bluetooth dezactivat, eRouška nu poate crea o listă a telefoanelor din zonă.\n\nActivează prin apăsarea \"Activează Bluetooth\".</string>
     <string name="location_disabled_title">Activează Serviciile de Localizare</string>

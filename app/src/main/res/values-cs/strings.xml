@@ -22,7 +22,8 @@
     <string name="help_toolbar_title">Nápověda</string>
     <string name="go_back_button">Zpět do aplikace</string>
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
-    <string name="enable">Povolit</string>
+    <string name="enable">Zapnout</string>
+    <string name="dismiss">Zrušit</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
 
@@ -42,12 +43,17 @@
     <string name="pause_app">Pozastavit eRoušku</string>
     <string name="start_app">Spustit eRoušku</string>
 
+    <string name="dialog_notifications_title">Zapnout oznámení o možném kontaktu s onemocněním</string>
+    <string name="dialog_notifications_body_1">K bezpečnému shromažďování a sdílení náhodných ID s ostatními telefony v okolí je potřeba rozhraní Bluetooth.</string>
+    <string name="dialog_notifications_body_2">Aplikace eRouška vás může upozornit, pokud jste se ocitli blízko někoho, kdo nahlásil, že má COVID-19.</string>
+    <string name="dialog_notifications_body_3">Aplikace bude mít k dispozici datum vašeho kontaktu s tímto onemocněním, jeho trvání a sílu signálu.</string>
+
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
-    <string name="permission_onboarding_title">eRouška pro správné fungování potřebuje používat Bluetooth</string>
-    <string name="permission_onboarding_desc">Bluetooth je součástí polohových služeb. Proto vás po stisknutí tlačítka "Povolit" požádáme také o\u00A0přístup k\u00A0oprávnění Sledování polohy. Potvrďte obě žádosti, aby aplikace mohla správně fungovat.</string>
-    <string name="permission_onboarding_desc_2">Nasbíraná data můžete odeslat pouze vy, a\u00A0to ve chvíli, kdy vás k\u00A0tomu vyzve pracovník hygienické stanice.</string>
+    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
+    <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>
+    <string name="permission_onboarding_desc_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="permission_onboarding_desc_minor">Nemusíte se obávat, aplikace vaši polohu nikdy nesleduje ani neukládá.</string>
-    <string name="permission_onboarding_toolbar_title">Povolení</string>
+    <string name="permission_onboarding_toolbar_title">Oznámení</string>
     <string name="login_toolbar_title">Telefonní číslo</string>
     <string name="login_desc">Zadejte telefonní číslo, na které vás bude kontaktovat pracovník hygienické stanice pouze v\u00A0případě, že se u\u00A0někoho z\u00A0vašeho okolí potvrdí nákaza koronavirem.</string>
     <string name="login_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo se zadaným telefonním číslem a údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření.]]></string>
