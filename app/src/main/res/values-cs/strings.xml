@@ -23,7 +23,6 @@
     <string name="go_back_button">Zpět do aplikace</string>
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="enable">Zapnout</string>
-    <string name="dismiss">Zrušit</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
 
@@ -42,11 +41,6 @@
     <string name="dashboard_secondary">Při podezření na nákazu vás budeme kontaktovat na čísle %s. Požádáme vás o\u00A0zaslání anonymizovaného seznamu telefonů, který naleznete v\u00A0sekci Moje data.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
     <string name="start_app">Spustit eRoušku</string>
-
-    <string name="dialog_notifications_title">Zapnout oznámení o možném kontaktu s onemocněním</string>
-    <string name="dialog_notifications_body_1">K bezpečnému shromažďování a sdílení náhodných ID s ostatními telefony v okolí je potřeba rozhraní Bluetooth.</string>
-    <string name="dialog_notifications_body_2">Aplikace eRouška vás může upozornit, pokud jste se ocitli blízko někoho, kdo nahlásil, že má COVID-19.</string>
-    <string name="dialog_notifications_body_3">Aplikace bude mít k dispozici datum vašeho kontaktu s tímto onemocněním, jeho trvání a sílu signálu.</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
