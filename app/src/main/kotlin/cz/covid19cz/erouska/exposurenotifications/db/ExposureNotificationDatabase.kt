@@ -30,33 +30,13 @@ import androidx.room.TypeConverters
  * ensure compliance with all applicable laws and requirements with respect to encryption, storage,
  * and retention polices for end user data.
  */
-@Database(entities = [PositiveDiagnosisEntity::class, ExposureEntity::class], version = 1, exportSchema = false)
+@Database(entities = [PositiveDiagnosisEntity::class, ExposureEntity::class], version = 9, exportSchema = false)
 @TypeConverters(ZonedDateTimeTypeConverter::class)
-internal abstract class ExposureNotificationDatabase : RoomDatabase() {
-    abstract fun positiveDiagnosisDao(): PositiveDiagnosisDao?
-    abstract fun exposureDao(): ExposureDao?
+abstract class ExposureNotificationDatabase : RoomDatabase() {
+    abstract fun positiveDiagnosisDao(): PositiveDiagnosisDao
+    abstract fun exposureDao(): ExposureDao
 
     companion object {
-        private const val DATABASE_NAME = "exposurenotification"
-
-        @Volatile
-        // Singleton pattern.
-        private var INSTANCE: ExposureNotificationDatabase? = null
-
-        @Synchronized
-        fun getInstance(context: Context): ExposureNotificationDatabase? {
-            if (INSTANCE == null) {
-                INSTANCE = buildDatabase(context)
-            }
-            return INSTANCE
-        }
-
-        private fun buildDatabase(context: Context): ExposureNotificationDatabase {
-            return Room.databaseBuilder(
-                context.applicationContext, ExposureNotificationDatabase::class.java, DATABASE_NAME
-            )
-                .fallbackToDestructiveMigration()
-                .build()
-        }
+        const val DATABASE_NAME = "database"
     }
 }

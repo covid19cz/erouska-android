@@ -213,13 +213,6 @@
         android:name="cz.covid19cz.erouska.ui.mydata.MyDataFragment"
         android:label="@string/my_data_title">
         <action
-            android:id="@+id/action_nav_my_data_to_nav_send_data"
-            app:destination="@id/nav_send_data"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_my_data_to_nav_guide"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -243,67 +236,6 @@
         android:id="@+id/nav_alert"
         android:name="arch.view.AlertDialogFragment"
         android:label="AlertDialogFragment" />
-    <fragment
-        android:id="@+id/nav_delete_data"
-        android:name="cz.covid19cz.erouska.ui.confirm.DeleteDataFragment"
-        android:label="@string/delete_data">
-        <action
-            android:id="@+id/action_nav_delete_data_to_nav_delete_data_success"
-            app:destination="@id/nav_delete_data_success"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_my_data" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_delete_user"
-        android:name="cz.covid19cz.erouska.ui.confirm.DeleteUserFragment"
-        android:label="@string/delete_registration">
-        <action
-            android:id="@+id/action_nav_delete_user_to_nav_delete_user_success"
-            app:destination="@id/nav_delete_user_success"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_send_data"
-        android:name="cz.covid19cz.erouska.ui.confirm.SendDataFragment"
-        android:label="@string/send_data">
-        <action
-            android:id="@+id/action_nav_send_data_to_nav_send_data_success"
-            app:destination="@id/nav_send_data_success"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_my_data" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_delete_data_success"
-        android:name="cz.covid19cz.erouska.ui.success.DeleteDataSuccessFragment"
-        android:label="@string/delete_data" />
-    <fragment
-        android:id="@+id/nav_delete_user_success"
-        android:name="cz.covid19cz.erouska.ui.success.DeleteUserSuccessFragment"
-        android:label="@string/delete_registration">
-        <action
-            android:id="@+id/action_nav_delete_user_success_to_nav_welcome_fragment"
-            app:destination="@id/nav_graph"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="true"
-            app:argType="boolean" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_send_data_success"
-        android:name="cz.covid19cz.erouska.ui.success.SendDataSuccessFragment"
-        android:label="@string/data_sent" />
     <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"

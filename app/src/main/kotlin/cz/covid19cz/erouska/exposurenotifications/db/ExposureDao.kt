@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.Flow
  * Dao for the bucket [ExposureEntity] in the exposure notification database.
  */
 @Dao
-internal abstract class ExposureDao {
+abstract class ExposureDao {
     @Query("SELECT * FROM ExposureEntity ORDER BY date_millis_since_epoch DESC")
     abstract suspend fun getAll() : MutableList<ExposureEntity>
 

@@ -10,9 +10,7 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.utils.Auth
 import cz.covid19cz.erouska.utils.formatPhoneNumber
 
-class DashboardVM(
-    private val prefs: SharedPrefsRepository
-) : BaseVM() {
+class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
     val phoneNumber = Auth.getPhoneNumber().formatPhoneNumber()

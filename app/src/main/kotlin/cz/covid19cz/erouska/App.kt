@@ -3,7 +3,7 @@ package cz.covid19cz.erouska
 import arch.BaseApp
 import com.idescout.sql.SqlScoutServer
 import com.jakewharton.threetenabp.AndroidThreeTen
-import cz.covid19cz.erouska.db.AppDatabase
+import cz.covid19cz.erouska.exposurenotifications.db.ExposureNotificationDatabase
 import cz.covid19cz.erouska.utils.L
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
@@ -33,7 +33,7 @@ class App : BaseApp(), KoinComponent {
     }
 
     private fun getDatabaseSize() {
-        val path: String = getDatabasePath(AppDatabase.DATABASE_NAME).toString()
+        val path: String = getDatabasePath(ExposureNotificationDatabase.DATABASE_NAME).toString()
 
         val file = File(path)
         val length: Long = file.length() // File size

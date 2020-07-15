@@ -25,7 +25,7 @@ import androidx.room.Query
  * Dao for the bucket [PositiveDiagnosisEntity] in the exposure notification database.
  */
 @Dao
-internal abstract class PositiveDiagnosisDao {
+abstract class PositiveDiagnosisDao {
     @Query("SELECT * FROM PositiveDiagnosisEntity")
     abstract suspend fun getAll() : PositiveDiagnosisEntity
 
