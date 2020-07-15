@@ -115,6 +115,9 @@ class LoginFragment :
         privacy_verif_activate_btn.setOnClickListener {
             privacyChecked()
         }
+        try_again_btn.setOnClickListener {
+            viewModel.activate()
+        }
 //        login_verify_later_button.setOnClickListener {
 //            login_verif_code_send_btn.hideKeyboard()
 //            viewModel.verifyLater()
@@ -150,7 +153,6 @@ class LoginFragment :
 
     private fun privacyChecked() {
         if (privacy_checkbox.isChecked) {
-            // TODO Call activation on BE
             viewModel.activate()
         } else {
             MaterialAlertDialogBuilder(context)
@@ -227,21 +229,18 @@ class LoginFragment :
             SigningProgress -> {
 //                show(login_progress)
             }
-            is ActivationStart -> {
-                Toast.makeText(context, "Activation start", Toast.LENGTH_SHORT).show()
-            }
-            is ActivationFinished -> {
-                Toast.makeText(context, "Activation end", Toast.LENGTH_SHORT).show()
-            }
+            is ActivationStart -> onActivationStart()
+            is ActivationFinished -> onActivationSuccess()
+            is ActivationFailed -> onActivationFailed()
             is LoginError -> showError(state)
             is SignedIn -> showSignedIn()
         }
 
-        if (state is EnterCode || state is CodeReadAutomatically) {
-            activity?.setTitle(R.string.login_verification_code)
-        } else {
-            activity?.setTitle(R.string.login_toolbar_title)
-        }
+//        if (state is EnterCode || state is CodeReadAutomatically) {
+//            activity?.setTitle(R.string.login_verification_code)
+//        } else {
+//            activity?.setTitle(R.string.login_toolbar_title)
+//        }
     }
 
     private fun showSignedIn() {
@@ -293,6 +292,31 @@ class LoginFragment :
 //        this.views.subtract(views.toList()).forEach {
 //            it.visibility = View.GONE
 //        }
+    }
+
+    private fun onActivationStart() {
+//        Toast.makeText(context, "Activation start", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onActivationSuccess() {
+//        Toast.makeText(context, "Activation end", Toast.LENGTH_SHORT).show()
+        showSignedIn()
+    }
+
+    private fun onActivationFailed() {
+        img_error.show()
+        error_header.show()
+        error_body.show()
+        try_again_btn.show()
+        activity?.setTitle(R.string.activation_error_title)
+
+        img_privacy.hide()
+        privacy_header.hide()
+        privacy_checkbox.hide()
+        privacy_body_1.hide()
+        privacy_body_2.hide()
+        privacy_verif_activate_btn.hide()
+        privacy_statement.hide()
     }
 
     private fun goBack() {

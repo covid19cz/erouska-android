@@ -48,6 +48,18 @@
     <string name="dialog_notifications_body_2">Aplikace eRouška vás může upozornit, pokud jste se ocitli blízko někoho, kdo nahlásil, že má COVID-19.</string>
     <string name="dialog_notifications_body_3">Aplikace bude mít k dispozici datum vašeho kontaktu s tímto onemocněním, jeho trvání a sílu signálu.</string>
 
+    <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
+    <string name="privacy_body_text_1">eRouška nemá žádné osobní údaje o vás a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
+    <string name="privacy_body_text_2">Nasbíraná data můžete odeslat pouze vy, a to ve chvíli, kdy vás k tomu vyzve pracovník hygienické stanice.</string>
+    <string name="privacy_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo s údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření]]></string>
+    <string name="privacy_finish">Dokončit aktivaci</string>
+    <string name="privacy_toolbar_title">Soukromí</string>
+
+    <string name="activation_error_title">Chyba</string>
+    <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
+    <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
+    <string name="activation_try_again">Zkusit znovu</string>
+
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška pro správné fungování potřebuje používat Bluetooth</string>
     <string name="permission_onboarding_desc">Bluetooth je součástí polohových služeb. Proto vás po stisknutí tlačítka "Povolit" požádáme také o\u00A0přístup k\u00A0oprávnění Sledování polohy. Potvrďte obě žádosti, aby aplikace mohla správně fungovat.</string>

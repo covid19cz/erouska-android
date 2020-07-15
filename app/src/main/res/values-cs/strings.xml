@@ -53,6 +53,12 @@
     <string name="privacy_body_text_2">Nasbíraná data můžete odeslat pouze vy, a to ve chvíli, kdy vás k tomu vyzve pracovník hygienické stanice.</string>
     <string name="privacy_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo s údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření]]></string>
     <string name="privacy_finish">Dokončit aktivaci</string>
+    <string name="privacy_toolbar_title">Soukromí</string>
+
+    <string name="activation_error_title">Chyba</string>
+    <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
+    <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
+    <string name="activation_try_again">Zkusit znovu</string>
 
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>

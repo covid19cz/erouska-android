@@ -6,6 +6,7 @@ import cz.covid19cz.erouska.utils.Text
 sealed class LoginState
 object ActivationStart : LoginState()
 object ActivationFinished : LoginState()
+object ActivationFailed : LoginState()
 data class EnterPhoneNumber(val invalidPhoneNumber: Boolean) : LoginState()
 data class EnterCode(val invalidCode: Boolean, val phoneNumber: String) : LoginState()
 data class CodeReadAutomatically(val code: String) : LoginState()

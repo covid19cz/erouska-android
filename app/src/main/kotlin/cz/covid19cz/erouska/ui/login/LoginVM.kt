@@ -18,6 +18,7 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.user.*
 import cz.covid19cz.erouska.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat
 
 
 class LoginVM(
+        private val activationRepository: ActivationRepository,
         private val sharedPrefsRepository: SharedPrefsRepository,
         private val deviceInfo: DeviceInfo
 ) : BaseVM() {
@@ -158,8 +160,10 @@ class LoginVM(
         viewModelScope.launch(Dispatchers.IO) {
             mutableState.postValue(ActivationStart)
             // Mock delay
-            delay(2000)
-            mutableState.postValue(ActivationFinished)
+            when (activationRepository.activate()) {
+                ActivationResponse.SUCCESS -> mutableState.postValue(ActivationFinished)
+                else -> mutableState.postValue(ActivationFailed)
+            }
         }
     }
 

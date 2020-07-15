@@ -187,7 +187,7 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="cz.covid19cz.erouska.ui.login.LoginFragment"
-        android:label="@string/login_toolbar_title"
+        android:label="@string/privacy_toolbar_title"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_nav_login_to_nav_dashboard"

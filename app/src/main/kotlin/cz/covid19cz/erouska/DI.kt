@@ -28,6 +28,8 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.success.SuccessVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import cz.covid19cz.erouska.user.ActivationRepository
+import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
@@ -40,7 +42,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get()) }
-    viewModel { LoginVM(get(), get()) }
+    viewModel { LoginVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
@@ -58,8 +60,8 @@ val viewModelModule = module {
 val databaseModule = module {
     fun provideDatabase(application: Application): AppDatabase {
         return Room.databaseBuilder(application, AppDatabase::class.java, "database")
-            .fallbackToDestructiveMigration()
-            .build()
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     fun provideDao(database: AppDatabase): ScanDataDao {
@@ -79,6 +81,7 @@ val repositoryModule = module {
     single { provideDatabaseRepository(get()) }
     single { BluetoothRepository(get(), get(), get(), get()) }
     single { SharedPrefsRepository(get()) }
+    single { ActivationRepositoryImpl() as ActivationRepository }
 }
 
 val appModule = module {

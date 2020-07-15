@@ -139,4 +139,9 @@
     <string name="privacy_body_text_2">Only you can share your collected data when administration of hygienic station requests them.</string>
     <string name="privacy_statement"><![CDATA[I agree that the Ministry of Health can process data about contact with other application users according to the <a href="%1$s">terms and conditions</a> to carry out epidemiological investigation.]]></string>
     <string name="privacy_finish">Finish activation</string>
+    <string name="privacy_toolbar_title">Privacy</string>
+    <string name="activation_error_title">Error</string>
+    <string name="activation_error_header">Activation couldn\'t be finished</string>
+    <string name="activation_error_body">Check yout internet connection and try again to activate your application. If problems persist, contact us at info@erouska.cz</string>
+    <string name="activation_try_again">Try again</string>
 </resources>

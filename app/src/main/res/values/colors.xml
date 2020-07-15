@@ -34,4 +34,5 @@
     <color name="exposition_level_8_bg">#33F44336</color>
 
     <color name="text_color_statement">#757575</color>
+    <color name="text_color_error_header">#DF6061</color>
 </resources>
