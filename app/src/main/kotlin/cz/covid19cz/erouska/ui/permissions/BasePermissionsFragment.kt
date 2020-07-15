@@ -89,13 +89,6 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(@LayoutRes layout: Int
     }
 
     private fun enableBluetooth() {
-        MaterialAlertDialogBuilder(context)
-                .setView(R.layout.dialog_notification_info)
-                .setPositiveButton(R.string.enable) { dialog, _ ->
-                    dialog.dismiss()
-                    requestEnableBt()
-                }
-                .setNegativeButton(getString(R.string.dismiss)) { dialog, _ -> dialog.dismiss() }
-                .show()
+        requestEnableBt()
     }
 }
