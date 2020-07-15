@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.login
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
@@ -18,12 +19,15 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 
 class LoginVM(
-    private val sharedPrefsRepository: SharedPrefsRepository,
-    private val deviceInfo: DeviceInfo
+        private val sharedPrefsRepository: SharedPrefsRepository,
+        private val deviceInfo: DeviceInfo
 ) : BaseVM() {
 
     private val mutableState = MutableLiveData<LoginState>(EnterPhoneNumber(false))
@@ -55,8 +59,8 @@ class LoginVM(
         }
 
         override fun onCodeSent(
-            verificationId: String,
-            token: PhoneAuthProvider.ForceResendingToken
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
         ) {
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
@@ -97,27 +101,27 @@ class LoginVM(
     private val functions = Firebase.functions(FIREBASE_REGION)
     private lateinit var phoneNumber: String
     private var smsCountDownTimer: CountDownTimer =
-        object : CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
-            override fun onFinish() {
-                mutableState.postValue(LoginError(R.string.login_session_expired.toText(), true))
-            }
+            object : CountDownTimer(AppConfig.smsErrorTimeoutSeconds * 1000, 1000) {
+                override fun onFinish() {
+                    mutableState.postValue(LoginError(R.string.login_session_expired.toText(), true))
+                }
 
-            override fun onTick(millisUntilFinished: Long) {
-                val df = SimpleDateFormat("mm:ss")
-                remainingTime.postValue(df.format(millisUntilFinished))
-            }
+                override fun onTick(millisUntilFinished: Long) {
+                    val df = SimpleDateFormat("mm:ss")
+                    remainingTime.postValue(df.format(millisUntilFinished))
+                }
 
-        }
+            }
     private var showVerifyLaterTimer: CountDownTimer =
-        object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
-            override fun onFinish() {
-                verifyLaterShown.postValue(true)
-            }
+            object : CountDownTimer(AppConfig.showVerifyLaterTimeoutSeconds * 1000, 1000) {
+                override fun onFinish() {
+                    verifyLaterShown.postValue(true)
+                }
 
-            override fun onTick(millisUntilFinished: Long) {
-            }
+                override fun onTick(millisUntilFinished: Long) {
+                }
 
-        }
+            }
 
     val remainingTime = MutableLiveData<String>("")
 
@@ -145,8 +149,17 @@ class LoginVM(
         } else {
             mutableState.postValue(SigningProgress)
             val credential =
-                autoVerifiedCredential ?: PhoneAuthProvider.getCredential(verificationId, code)
+                    autoVerifiedCredential ?: PhoneAuthProvider.getCredential(verificationId, code)
             signInWithPhoneAuthCredential(credential)
+        }
+    }
+
+    fun activate() {
+        viewModelScope.launch(Dispatchers.IO) {
+            mutableState.postValue(ActivationStart)
+            // Mock delay
+            delay(2000)
+            mutableState.postValue(ActivationFinished)
         }
     }
 
@@ -178,10 +191,10 @@ class LoginVM(
         if (isConnectingAnonymousAccount()) {
             // Link anonymous user
             FirebaseAuth.getInstance().currentUser?.linkWithCredential(credential)
-                ?.addOnCompleteListener(registrationCompleteListener)
+                    ?.addOnCompleteListener(registrationCompleteListener)
         } else {
             FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(registrationCompleteListener)
+                    .addOnCompleteListener(registrationCompleteListener)
         }
     }
 
@@ -196,10 +209,10 @@ class LoginVM(
             }
             is FirebaseTooManyRequestsException -> {
                 mutableState.postValue(
-                    LoginError(
-                        R.string.login_too_many_attempts_error.toText(),
-                        true
-                    )
+                        LoginError(
+                                R.string.login_too_many_attempts_error.toText(),
+                                true
+                        )
                 )
             }
             is FirebaseNetworkException -> {
@@ -207,10 +220,10 @@ class LoginVM(
             }
             is FirebaseAuthUserCollisionException -> {
                 mutableState.postValue(
-                    LoginError(
-                        R.string.login_number_already_in_use_error.toText(phoneNumber.formatPhoneNumber()),
-                        true
-                    )
+                        LoginError(
+                                R.string.login_number_already_in_use_error.toText(phoneNumber.formatPhoneNumber()),
+                                true
+                        )
                 )
             }
             else -> {
@@ -230,10 +243,10 @@ class LoginVM(
             }
             "ERROR_TOO_MANY_REQUESTS" -> {
                 mutableState.postValue(
-                    LoginError(
-                        R.string.login_too_many_attempts_error.toText(),
-                        true
-                    )
+                        LoginError(
+                                R.string.login_too_many_attempts_error.toText(),
+                                true
+                        )
                 )
             }
             "ERROR_SESSION_EXPIRED" -> {
@@ -248,36 +261,36 @@ class LoginVM(
 
     private fun registerDevice(phoneNumberVerified: Boolean) {
         FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener { task ->
-                val pushToken = if (!task.isSuccessful) {
-                    task.exception?.let { L.e(it) }
-                    "error"
-                } else {
-                    task.result?.token ?: "error"
-                }
+                .addOnCompleteListener { task ->
+                    val pushToken = if (!task.isSuccessful) {
+                        task.exception?.let { L.e(it) }
+                        "error"
+                    } else {
+                        task.result?.token ?: "error"
+                    }
 
-                val data = hashMapOf(
-                    "platform" to "android",
-                    "platformVersion" to deviceInfo.getAndroidVersion(),
-                    "manufacturer" to deviceInfo.getManufacturer(),
-                    "model" to deviceInfo.getDeviceName(),
-                    "locale" to LocaleUtils.getLocale(),
-                    "pushRegistrationToken" to pushToken
-                )
-                if (!phoneNumberVerified) {
-                    data["unverifiedPhoneNumber"] = phoneNumber
+                    val data = hashMapOf(
+                            "platform" to "android",
+                            "platformVersion" to deviceInfo.getAndroidVersion(),
+                            "manufacturer" to deviceInfo.getManufacturer(),
+                            "model" to deviceInfo.getDeviceName(),
+                            "locale" to LocaleUtils.getLocale(),
+                            "pushRegistrationToken" to pushToken
+                    )
+                    if (!phoneNumberVerified) {
+                        data["unverifiedPhoneNumber"] = phoneNumber
+                    }
+                    functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
+                        val response =
+                                Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
+                        sharedPrefsRepository.putDeviceBuid(response.buid)
+                        sharedPrefsRepository.putDeviceTuids(response.tuids)
+                        sharedPrefsRepository.saveAuthPhoneNumber(phoneNumber)
+                        mutableState.postValue(SignedIn)
+                    }.addOnFailureListener {
+                        handleError(it)
+                    }
                 }
-                functions.getHttpsCallable("registerBuid").call(data).addOnSuccessListener {
-                    val response =
-                        Gson().fromJson(it.data.toString(), RegistrationResponse::class.java)
-                    sharedPrefsRepository.putDeviceBuid(response.buid)
-                    sharedPrefsRepository.putDeviceTuids(response.tuids)
-                    sharedPrefsRepository.saveAuthPhoneNumber(phoneNumber)
-                    mutableState.postValue(SignedIn)
-                }.addOnFailureListener {
-                    handleError(it)
-                }
-            }
     }
 
     private fun isConnectingAnonymousAccount(): Boolean {
@@ -287,5 +300,5 @@ class LoginVM(
     data class RegistrationResponse(val buid: String, val tuids: List<String>)
 
     class ErrorCodeException(errorCode: String, exception: Exception) :
-        Throwable(exception.message + " Error code: $errorCode", exception)
+            Throwable(exception.message + " Error code: $errorCode", exception)
 }

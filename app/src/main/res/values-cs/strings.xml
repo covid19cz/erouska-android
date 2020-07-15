@@ -48,6 +48,12 @@
     <string name="dialog_notifications_body_2">Aplikace eRouška vás může upozornit, pokud jste se ocitli blízko někoho, kdo nahlásil, že má COVID-19.</string>
     <string name="dialog_notifications_body_3">Aplikace bude mít k dispozici datum vašeho kontaktu s tímto onemocněním, jeho trvání a sílu signálu.</string>
 
+    <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
+    <string name="privacy_body_text_1">eRouška nemá žádné osobní údaje o vás a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
+    <string name="privacy_body_text_2">Nasbíraná data můžete odeslat pouze vy, a to ve chvíli, kdy vás k tomu vyzve pracovník hygienické stanice.</string>
+    <string name="privacy_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo s údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření]]></string>
+    <string name="privacy_finish">Dokončit aktivaci</string>
+
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
     <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>
