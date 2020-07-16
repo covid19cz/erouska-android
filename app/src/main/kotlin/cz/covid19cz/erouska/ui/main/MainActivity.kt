@@ -14,6 +14,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.bt.BluetoothRepository
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
@@ -95,6 +97,19 @@ class MainActivity :
 
         viewModel.serviceRunning.value = isRunning
         shortcutsManager.updateShortcuts(isRunning)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Check if update is needed or is already running IMMEDIATE update flow
+        if (isObsolete()) {
+            AppUpdateHandler().checkForAppUpdate(this)
+        }
+    }
+
+    private fun isObsolete(): Boolean {
+        return AppConfig.minSupportedVersionCodeAndroid != 0L && BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
     }
 
     override fun onDestroy() {

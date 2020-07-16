@@ -77,7 +77,7 @@
     <string name="login_code_read_automatically">Codul de verificare a fost completat automat din SMS.</string>
     <string name="contacts_title">Contacte</string>
     <string name="contacts_suspicion_desc"><b>Crezi c\u0103 e\u0219ti pozitiv pentru coronavirus?</b>\n\nStai acas\u0103 \u0219i contacteaz\u0103-\u021bi medicul de familie sau oficiul de s\u0103n\u0103tate local.</string>
-    <string name="contacts_help_desc"><![CDATA[<b>Ai nevoie de sfaturi?</b><br/><br/>Toate întrebările și preocupările despre coronavirus ar trebui să aibă răspuns pe pagina Ministerului sau gratis la numărul %s.]]></string>
+    <string name="contacts_help_desc"><![CDATA[<b>Ai nevoie de sfaturi?</b><br/><br/>Toate întrebările și preocupările despre coronavirus ar trebui să aibă răspuns pe pagina Ministerului.]]></string>
     <string name="contacts_faq">Întrebări frecvente</string>
     <string name="contacts_important">Contacte importante</string>
     <string name="contacts_improve_desc"><![CDATA[<b>Despre aplicația eRouška</b><br/><br/>Ai nevoie de ajutor în aplicație sau vrei să știi cum funcționează și cum procesăm datele personale? Vizitează erouska.cz]]></string>
