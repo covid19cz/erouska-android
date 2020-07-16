@@ -140,4 +140,8 @@
         <key>chatBotLink</key>
         <value>https://erouska.cz/#chat-open</value>
     </entry>
+    <entry>
+        <key>minSupportedVersionCodeAndroid</key>
+        <value>437</value>
+    </entry>
 </defaultsMap>

@@ -99,19 +99,6 @@ class MainActivity :
         shortcutsManager.updateShortcuts(isRunning)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        // Check if update is needed or is already running IMMEDIATE update flow
-        if (isObsolete()) {
-            AppUpdateHandler().checkForAppUpdate(this)
-        }
-    }
-
-    private fun isObsolete(): Boolean {
-        return AppConfig.minSupportedVersionCodeAndroid != 0L && BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
-    }
-
     override fun onDestroy() {
         localBroadcastManager.unregisterReceiver(serviceStateReceiver)
         super.onDestroy()
