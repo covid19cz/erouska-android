@@ -26,6 +26,8 @@
 /.idea/runConfigurations.xml
 /.idea/vcs.xml
 .idea/caches
+.idea/.name
+.idea/navEditor.xml
 
 # Gradle:
 .idea/gradle.xml
