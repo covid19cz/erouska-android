@@ -79,7 +79,7 @@
     <string name="login_code_read_automatically">Verification code was automatically filled from the SMS.</string>
     <string name="contacts_title">Contacts</string>
     <string name="contacts_suspicion_desc"><b>Thinking you are positive for coronavirus?</b>\n\nStay home and contact your general practitioner or your local public health office.</string>
-    <string name="contacts_help_desc"><![CDATA[<b>Do you need advice?</b><br/><br/>All questions and concerns about coronavirus should be answered on the Ministry\'s website or free phone line %s.]]></string>
+    <string name="contacts_help_desc"><![CDATA[<b>Do you need advice?</b><br/><br/>All questions and concerns about coronavirus should be answered on the Ministry\'s website.]]></string>
     <string name="contacts_faq">Frequently asked questions</string>
     <string name="contacts_important">Important contacts</string>
     <string name="contacts_improve_desc"><![CDATA[<b>About application eRouška</b><br/><br/>Do you need help with the application or you want to know how it works? Write Anežka, eRouška support bot.]]></string>

@@ -43,8 +43,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("faqLink")
     val importantLink
         get() = firebaseRemoteConfig.getString("importantLink")
-    val emergencyNumber
-        get() = firebaseRemoteConfig.getString("emergencyNumber")
     val proclamationLink
         get() = getLocalized("proclamationLink")
     val aboutJson
@@ -77,6 +75,8 @@ object AppConfig {
         get() = getLocalized("dataCollectionMarkdown")
     val myDataText
         get() = getLocalized("myDataText")
+    val minSupportedVersionCodeAndroid
+        get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
 
     var overrideAdvertiseTxPower: Int? = null
 
