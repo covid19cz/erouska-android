@@ -13,7 +13,7 @@ android {
         applicationId "cz.covid19cz.erouska"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode rootProject.ext.commitCount()
         versionName rootProject.ext.versionName
         archivesBaseName = "covid19-cz"
         multiDexEnabled true
