@@ -69,7 +69,9 @@
     <string name="permission_rationale_settings">Setări</string>
     <string name="permission_rationale_dismiss">Respinge</string>
     <string name="welcome_help">Cum funcționează?</string>
+    <string name="welcome_activation">Continu\u0103 pentru activare</string>
     <string name="welcome_description"><![CDATA[Aplicația vă va monitoriza continuu mediul înconjurător și va înregistra toate celelalte telefoane de utilizator cu aplicația eRouška pe care o întâlnești. <br/> <br/> Dacă vreunul dintre ei este pozitiv pentru coronavirus, te va suna un agent de sănătate publică. <br /> <br/> Dacă se dovedește ca și tu ești pozitiv, biroul de sănătate publică va contacta toți ceilalți utilizatori ai aplicației pe care i-ai întâlnit. <br/> <br/> <a href="%s"> Auditul independent </a> garantează că aplicația nu trimite date personale fără cunoștința ta. Doar tu le poți trimite și numai către agenții de sănătate publică.]]></string>
+    <string name="welcome_title">Datorit\u0103 eRou\u0161ka te vei p\u0103stra \u00een siguran\u021b\u0103 pe tine \u0219i pe ceilal\u021bi</string>
     <string name="login_verify">Verifică</string>
     <string name="login_verification_code">Cod de verificare</string>
     <string name="login_phone_number_sms_sent">Am trimis un cod de verificare la acest num\u0103r %s.</string>
@@ -77,7 +79,7 @@
     <string name="login_code_read_automatically">Codul de verificare a fost completat automat din SMS.</string>
     <string name="contacts_title">Contacte</string>
     <string name="contacts_suspicion_desc"><b>Crezi c\u0103 e\u0219ti pozitiv pentru coronavirus?</b>\n\nStai acas\u0103 \u0219i contacteaz\u0103-\u021bi medicul de familie sau oficiul de s\u0103n\u0103tate local.</string>
-    <string name="contacts_help_desc"><![CDATA[<b>Ai nevoie de sfaturi?</b><br/><br/>Toate întrebările și preocupările despre coronavirus ar trebui să aibă răspuns pe pagina Ministerului sau gratis la numărul %s.]]></string>
+    <string name="contacts_help_desc"><![CDATA[<b>Ai nevoie de sfaturi?</b><br/><br/>Toate întrebările și preocupările despre coronavirus ar trebui să aibă răspuns pe pagina Ministerului.]]></string>
     <string name="contacts_faq">Întrebări frecvente</string>
     <string name="contacts_important">Contacte importante</string>
     <string name="contacts_improve_desc"><![CDATA[<b>Despre aplicația eRouška</b><br/><br/>Ai nevoie de ajutor în aplicație sau vrei să știi cum funcționează și cum procesăm datele personale? Vizitează erouska.cz]]></string>
@@ -94,6 +96,7 @@
     <string name="delete_user_desc">E\u0219ti sigur c\u0103 vrei s\u0103 anulezi \u00eenregistrarea telefonului t\u0103u?\n\nDup\u0103 anularea \u00eenregistrarii telefonului nu te vom mai putea contacta \u00een caz c\u0103 cineva din vecin\u0103tatea ta a fost testat pozitiv.\n\nDac\u0103 tu ai fost testat pozitiv, nu vom putea contacta pe nimeni care a intrat in contact cu tine.\n\nCu anularea \u00eenregistr\u0103rii, toate dispozitivele \u00eenregistrate cu num\u0103rul de telefon %s vor avea aplica\u021bia oprit\u0103.</string>
     <string name="delete_user_desc_unverified">Ești sigur că vrei să anulezi înregistrarea telefonului tău?\n\nDupă anularea înregistrarii telefonului nu te vom mai putea contacta în caz că cineva din vecinătatea ta a fost testat pozitiv.\n\nCu anularea înregistrării, doar aplicația de pe acest dispozitiv va fi întreruptă pentru că numărul de telefon nu a fost verificat.</string>
     <string name="delete_registration">Șterge înregistrarea</string>
+    <string name="about">Despre aplica\u021bie</string>
     <string name="yes_send">Da, trimite</string>
     <string name="upload_error">Încărcarea datelor a eșuat. Te rugăm să încerci mai târziu.</string>
     <string name="no_internet">Dispozitivul t\u0103u nu are o conexiune la internet activ\u0103.</string>
