@@ -1,4 +1,2 @@
-include ':play-services-nearby'
-include ':exposurenotifications'
 include ':app', ':arch'
 rootProject.name='bt-tracing-android'

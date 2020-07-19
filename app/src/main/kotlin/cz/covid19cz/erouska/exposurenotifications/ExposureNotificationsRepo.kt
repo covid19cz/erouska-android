@@ -1,7 +1,7 @@
 package cz.covid19cz.erouska.exposurenotifications
 
-class ExposureNotificationsRepo() {
+import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
 
-
+class ExposureNotificationsRepo {
 
 }
