@@ -12,7 +12,6 @@ import cz.covid19cz.erouska.ui.about.entity.AboutProfileItem
 import cz.covid19cz.erouska.ui.about.entity.AboutRoleItem
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.base.UrlEvent
-import cz.covid19cz.erouska.utils.Auth
 import java.lang.reflect.Type
 
 class AboutVM : BaseVM() {
@@ -38,9 +37,7 @@ class AboutVM : BaseVM() {
     }
 
     fun versionClick() : Boolean{
-        if (Auth.isSignedIn()) {
-            navigate(R.id.nav_sandbox)
-        }
+        navigate(R.id.nav_sandbox)
         return true
     }
 }

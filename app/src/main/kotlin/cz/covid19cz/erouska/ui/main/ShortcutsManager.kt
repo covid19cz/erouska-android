@@ -9,7 +9,6 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.service.CovidService
 
 class ShortcutsManager(private val context: Context) {
 
@@ -26,13 +25,10 @@ class ShortcutsManager(private val context: Context) {
         if (intent.action == Intent.ACTION_RUN) {
             when (intent.data) {
                 ShortcutsActions.URL_PAUSE -> {
-                    context.startService(CovidService.stopService(context))
+
                 }
                 ShortcutsActions.URL_RESUME -> {
-                    ContextCompat.startForegroundService(
-                        context,
-                        CovidService.startService(context)
-                    )
+
                 }
             }
         }

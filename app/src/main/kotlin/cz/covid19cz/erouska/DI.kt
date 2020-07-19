@@ -1,23 +1,17 @@
 package cz.covid19cz.erouska
 
 import android.app.AlarmManager
-import android.app.Application
 import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.room.Room
 import cz.covid19cz.erouska.db.*
-import cz.covid19cz.erouska.receiver.BatterSaverStateReceiver
-import cz.covid19cz.erouska.receiver.BluetoothStateReceiver
-import cz.covid19cz.erouska.receiver.LocationStateReceiver
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
 import cz.covid19cz.erouska.ui.help.GuideVM
 import cz.covid19cz.erouska.ui.help.HelpVM
-import cz.covid19cz.erouska.ui.login.LoginVM
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.ui.mydata.MyDataVM
 import cz.covid19cz.erouska.ui.permissions.PermissionDisabledVM
@@ -36,7 +30,6 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get()) }
-    viewModel { LoginVM(get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
@@ -59,9 +52,6 @@ val repositoryModule = module {
 }
 
 val appModule = module {
-    single { LocationStateReceiver() }
-    single { BluetoothStateReceiver() }
-    single { BatterSaverStateReceiver() }
     single { LocalBroadcastManager.getInstance(androidApplication()) }
     single { androidContext().getSystemService<PowerManager>() }
     single { androidContext().getSystemService<BluetoothManager>() }

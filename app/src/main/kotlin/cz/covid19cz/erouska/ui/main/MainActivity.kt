@@ -17,7 +17,6 @@ import androidx.navigation.ui.NavigationUI
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.isBtEnabled
-import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,22 +46,10 @@ class MainActivity :
     }
     private var connectedToCustomTabsService = false
 
-    private val serviceStateReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.let {
-                when (it.action) {
-                    CovidService.ACTION_MASK_STARTED -> viewModel.serviceRunning.value = true
-                    CovidService.ACTION_MASK_STOPPED -> viewModel.serviceRunning.value = false
-                }
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
-        registerServiceStateReceivers()
 
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
@@ -87,16 +74,6 @@ class MainActivity :
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
         })
-
-        val isRunning = CovidService.isRunning(this)
-
-        viewModel.serviceRunning.value = isRunning
-        shortcutsManager.updateShortcuts(isRunning)
-    }
-
-    override fun onDestroy() {
-        localBroadcastManager.unregisterReceiver(serviceStateReceiver)
-        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -151,17 +128,6 @@ class MainActivity :
             } else {
                 VISIBLE
             }
-    }
-
-    private fun registerServiceStateReceivers() {
-        localBroadcastManager.registerReceiver(
-            serviceStateReceiver,
-            IntentFilter(CovidService.ACTION_MASK_STARTED)
-        )
-        localBroadcastManager.registerReceiver(
-            serviceStateReceiver,
-            IntentFilter(CovidService.ACTION_MASK_STOPPED)
-        )
     }
 
     private fun passesRequirements(): Boolean {

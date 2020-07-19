@@ -8,20 +8,14 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
-import cz.covid19cz.erouska.service.CovidService
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
-import cz.covid19cz.erouska.utils.Auth
-import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.logoutWhenNotSignedIn
-import cz.covid19cz.erouska.utils.toText
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -36,26 +30,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private lateinit var rxPermissions: RxPermissions
     private val localBroadcastManager by inject<LocalBroadcastManager>()
 
-    private val serviceStateReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.let {
-                when (it.action) {
-                    CovidService.ACTION_MASK_STARTED -> viewModel.serviceRunning.value = true
-                    CovidService.ACTION_MASK_STOPPED -> viewModel.serviceRunning.value = false
-                }
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.setTitle(R.string.app_name)
-        registerServiceStateReceivers()
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
-        viewModel.init()
-        checkIfServiceIsRunning()
-        checkIfSignedIn()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,12 +46,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
-                DashboardCommandEvent.Command.TURN_OFF -> context?.let {
-                    it.startService(CovidService.stopService(it))
-                }
-                DashboardCommandEvent.Command.PAUSE -> pauseService()
-                DashboardCommandEvent.Command.RESUME -> resumeService()
-                DashboardCommandEvent.Command.UPDATE_STATE -> updateState()
+                DashboardCommandEvent.Command.TURN_OFF -> stopService()
             }
         }
     }
@@ -118,26 +92,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun checkIfSignedIn() {
-        if (!Auth.isSignedIn()) {
-            logoutWhenNotSignedIn()
-        }
-    }
-
-    private fun checkIfServiceIsRunning() {
-        if (CovidService.isRunning(requireContext())) {
-            L.d("Service Covid is running")
-            viewModel.serviceRunning.value = true
-        } else {
-            viewModel.serviceRunning.value = false
-            L.d("Service Covid is not running")
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
-        updateSecondaryText()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -165,39 +122,19 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     override fun onDestroy() {
         compositeDisposable.dispose()
-        localBroadcastManager.unregisterReceiver(serviceStateReceiver)
         super.onDestroy()
     }
 
     private fun resumeService() {
-        requireContext().run {
-            startService(CovidService.resume(this))
-        }
-    }
-
-    private fun updateSecondaryText() {
-        if (Auth.isPhoneNumberVerified()) {
-            app_running_body_secondary.text = getString(R.string.dashboard_secondary, viewModel.phoneNumber)
-        } else {
-            app_running_body_secondary.setText(R.string.dashboard_not_verified_secondary)
-        }
+        //TODO: Implement
     }
 
     private fun pauseService() {
-        requireContext().run {
-            startService(CovidService.pause(this))
-        }
+        //TODO: Implement
     }
 
-    private fun registerServiceStateReceivers() {
-        localBroadcastManager.registerReceiver(
-            serviceStateReceiver,
-            IntentFilter(CovidService.ACTION_MASK_STARTED)
-        )
-        localBroadcastManager.registerReceiver(
-            serviceStateReceiver,
-            IntentFilter(CovidService.ACTION_MASK_STOPPED)
-        )
+    private fun stopService(){
+        //TODO: Implement
     }
 
     private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}, onBatterySaverEnabled: () -> Unit = {}) {
@@ -220,10 +157,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun tryStartBtService() {
         checkRequirements(
             {
-                ContextCompat.startForegroundService(
-                    requireContext(),
-                    CovidService.startService(requireContext())
-                )
+                resumeService()
             },
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
