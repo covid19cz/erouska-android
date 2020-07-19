@@ -99,6 +99,7 @@ object AppConfig {
                 print()
             } else {
                 L.e("Config params update failed")
+                task.exception?.printStackTrace()
             }
         }
     }
