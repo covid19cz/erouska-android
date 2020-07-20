@@ -74,7 +74,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             .show()
     }
 
-    private fun navigateToBatterySaverSettings(onBatterySaverNotFound: () -> Unit ) {
+    private fun navigateToBatterySaverSettings(onBatterySaverNotFound: () -> Unit) {
         val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
         } else {
@@ -133,23 +133,23 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         //TODO: Implement
     }
 
-    private fun stopService(){
+    private fun stopService() {
         //TODO: Implement
     }
 
-    private fun checkRequirements(onPassed: () -> Unit = {}, onFailed: () -> Unit = {}, onBatterySaverEnabled: () -> Unit = {}) {
+    private fun checkRequirements(
+        onPassed: () -> Unit = {},
+        onFailed: () -> Unit = {},
+        onBatterySaverEnabled: () -> Unit = {}
+    ) {
         with(requireContext()) {
-            if (hasBle(this)) {
-                if (!isBtEnabled()) {
-                    onFailed()
-                    return
-                } else if (isBatterySaverEnabled()) {
-                    onBatterySaverEnabled()
-                } else {
-                    onPassed()
-                }
+            if (!isBtEnabled()) {
+                onFailed()
+                return
+            } else if (isBatterySaverEnabled()) {
+                onBatterySaverEnabled()
             } else {
-                showSnackBar(R.string.error_ble_unsupported)
+                onPassed()
             }
         }
     }

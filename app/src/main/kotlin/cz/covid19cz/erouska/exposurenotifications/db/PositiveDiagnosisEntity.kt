@@ -31,31 +31,13 @@ import java.util.*
  * and retention polices for end user data.
  */
 @Entity
-class PositiveDiagnosisEntity(testTimestamp: ZonedDateTime, shared: Boolean) {
+data class PositiveDiagnosisEntity(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-
+    val id: Long = 0,
     @ColumnInfo(name = "created_timestamp_ms")
-    var createdTimestampMs: Long = System.currentTimeMillis()
-
+    val createdTimestampMs: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "test_timestamp")
-    var testTimestamp: ZonedDateTime = testTimestamp
-
+    val testTimestamp: ZonedDateTime,
     @ColumnInfo(name = "shared")
-    var isShared: Boolean = shared
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
-            return true
-        }
-        if (o == null || javaClass != o.javaClass) {
-            return false
-        }
-        val entity = o as PositiveDiagnosisEntity
-        return id == entity.id && createdTimestampMs == entity.createdTimestampMs && isShared == entity.isShared && testTimestamp == entity.testTimestamp
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(id, createdTimestampMs, testTimestamp, isShared)
-    }
-}
+    val isShared: Boolean
+)

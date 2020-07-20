@@ -65,8 +65,7 @@ internal abstract class ExposureDao {
                 // No existing ExposureEntity with the given date, must add an entity for this window.
                 somethingAdded = true
                 upsert(
-                    ExposureEntity
-                        .create(exposureWindow.dateMillisSinceEpoch, System.currentTimeMillis())
+                    ExposureEntity(dateMillisSinceEpoch = exposureWindow.dateMillisSinceEpoch)
                 )
             }
         }

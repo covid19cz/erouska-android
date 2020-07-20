@@ -31,39 +31,14 @@ import java.util.*
  * and retention polices for end user data.
  */
 @Entity
-class ExposureEntity internal constructor(
-    /**
-     * The dateMillisSinceEpoch provided by the ExposureInformation in the Exposure Notifications
-     * API.
-     *
-     *
-     * Represents a date of an exposure in millis since epoch rounded to the day.
-     */
-    @field:ColumnInfo(name = "date_millis_since_epoch") var dateMillisSinceEpoch: Long,
-    /**
-     * The timestamp in millis since epoch for when the exposure notification status update was
-     * received.
-     */
-    @field:ColumnInfo(name = "received_timestamp_ms") var receivedTimestampMs: Long
-) {
+data class ExposureEntity (
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
-            return true
-        }
-        if (o == null || javaClass != o.javaClass) {
-            return false
-        }
-        val that = o as ExposureEntity
-        return id == that.id && dateMillisSinceEpoch == that.dateMillisSinceEpoch && receivedTimestampMs == that.receivedTimestampMs
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(id, dateMillisSinceEpoch, receivedTimestampMs)
-    }
-
+    val id: Long = 0,
+    @ColumnInfo(name = "date_millis_since_epoch")
+    val dateMillisSinceEpoch: Long,
+    @ColumnInfo(name = "received_timestamp_ms")
+    val receivedTimestampMs: Long = System.currentTimeMillis()
+) {
     override fun toString(): String {
         return "ExposureEntity{" +
                 "id=" + id +
@@ -73,19 +48,4 @@ class ExposureEntity internal constructor(
                 "(" + Instant.ofEpochMilli(receivedTimestampMs) + ")" +
                 '}'
     }
-
-    companion object {
-        /**
-         * Creates an ExposureEntity.
-         *
-         * @param dateMillisSinceEpoch the date of an exposure in millis since epoch rounded to the day of
-         * the detected exposure
-         * @param receivedTimestampMs  the timestamp in milliseconds since epoch for when the exposure was
-         * received by the app
-         */
-        fun create(dateMillisSinceEpoch: Long, receivedTimestampMs: Long): ExposureEntity {
-            return ExposureEntity(dateMillisSinceEpoch, receivedTimestampMs)
-        }
-    }
-
 }

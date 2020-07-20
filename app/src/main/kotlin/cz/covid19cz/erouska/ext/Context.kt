@@ -24,10 +24,6 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 
-fun Context.hasBle(c: Context): Boolean {
-    return c.packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)
-}
-
 fun Context.isBtEnabled(): Boolean {
     val btManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager;
     return btManager.adapter.isEnabled
