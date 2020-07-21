@@ -35,8 +35,7 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
         enableUpInToolbar(false)
 
         val contactsHelpDescription: String = String.format(
-            getString(R.string.contacts_help_desc),
-            viewModel.getEmergencyNumber()
+            getString(R.string.contacts_help_desc)
         )
         contacts_help.text = HtmlCompat.fromHtml(contactsHelpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
 

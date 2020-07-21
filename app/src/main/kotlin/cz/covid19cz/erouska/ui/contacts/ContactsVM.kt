@@ -27,10 +27,6 @@ class ContactsVM : BaseVM() {
         return AppConfig.importantLink
     }
 
-    fun getEmergencyNumber() : String {
-        return AppConfig.emergencyNumber
-    }
-
     fun getChatBotLink() : String {
         return AppConfig.chatBotLink
     }

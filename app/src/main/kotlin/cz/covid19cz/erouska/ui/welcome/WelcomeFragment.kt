@@ -9,7 +9,6 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentWelcomeBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
-import cz.covid19cz.erouska.utils.Auth
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
@@ -20,19 +19,8 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
         subscribe(WelcomeCommandEvent::class) {
             when (it.command) {
                 WelcomeCommandEvent.Command.OPEN_BT_ONBOARD -> openBluetoothOnboard()
-                WelcomeCommandEvent.Command.VERIFY_APP -> openAppVerification()
                 WelcomeCommandEvent.Command.HELP -> openHelpPage()
             }
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (Auth.isSignedIn()) {
-            navigate(R.id.action_nav_welcome_fragment_to_nav_dashboard, null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph,
-                        true).build())
         }
     }
 
@@ -52,10 +40,6 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
 
     fun openBluetoothOnboard() {
         navigate(R.id.action_nav_welcome_fragment_to_nav_bt_onboard)
-    }
-
-    fun openAppVerification() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_login)
     }
 
     fun openHelpPage() {

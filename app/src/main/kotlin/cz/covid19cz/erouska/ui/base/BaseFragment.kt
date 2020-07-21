@@ -13,13 +13,14 @@ import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
 import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
-import cz.covid19cz.erouska.ui.sandbox.SandboxFragment.Companion
 import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutId: Int, viewModelClass: KClass<VM>) :
-    BaseArchFragment<B, VM>(layoutId, viewModelClass) {
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutId: Int, viewModelClass: KClass<VM>) : BaseArchFragment<B, VM>(layoutId, viewModelClass) {
+
+    companion object {
+        const val REQUEST_BT_ENABLE = 1000
+    }
 
     protected open fun showSnackBar(@StringRes stringRes : Int) {
         showSnackBar(getString(stringRes))
@@ -67,7 +68,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
 
     fun requestEnableBt() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        startActivityForResult(enableBtIntent, SandboxFragment.REQUEST_BT_ENABLE)
+        startActivityForResult(enableBtIntent, REQUEST_BT_ENABLE)
     }
 
     fun requestLocationEnable(){
@@ -77,7 +78,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            Companion.REQUEST_BT_ENABLE -> {
+            REQUEST_BT_ENABLE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     onBluetoothEnabled()
                 }

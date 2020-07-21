@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="cz.covid19cz.erouska.utils.ColorUtils" />
-        <import type="cz.covid19cz.erouska.AppConfig" />
-        <import type="cz.covid19cz.erouska.R" />
-
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
@@ -15,117 +11,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/my_data_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/textColorSecondary"
-            android:padding="16dp"
-            android:text="@string/data_content_info"/>
-
-        <View
-            android:id="@+id/divider_top"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#ECECEC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_data_info" />
-
-        <TextView
-            android:id="@+id/data_collection_info"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="?selectableItemBackground"
-            android:drawableStart="@drawable/ic_info_gray"
-            android:drawablePadding="16dp"
-            android:gravity="center_vertical|start"
-            android:paddingStart="16dp"
-            android:text="@string/data_collection_info"
-            android:paddingEnd="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_top"
-            />
-
-        <View
-            android:id="@+id/divider_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#ECECEC"
-            app:layout_constraintBottom_toBottomOf="@+id/data_collection_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabs"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_bottom"/>
-
-        <include
-            android:id="@+id/header"
-            layout="@layout/item_my_data_header"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabs" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header"
-                app:layout_constraintVertical_bias="0.0">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/pageCritical"
-                    app:items="@{vm.criticalItems}"
-                    app:layoutStrategy="@{vm.layoutStrategy}"
-                    android:paddingBottom="72dp"
-                    android:clipToPadding="false"
-                    app:viewModel="@{vm}" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/pageAll"
-                    app:items="@{vm.allItems}"
-                    app:layoutStrategy="@{vm.layoutStrategy}"
-                    android:paddingBottom="72dp"
-                    android:clipToPadding="false"
-                    app:viewModel="@{vm}" />
-
-            </androidx.viewpager.widget.ViewPager>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/enable_bluetooth_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.sendData()}"
-            android:text="@string/send_data"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
