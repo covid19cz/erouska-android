@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.helpers
 
 import cz.covid19cz.erouska.db.DatabaseRepository
-import cz.covid19cz.erouska.db.ScanDataEntity
 import org.koin.test.KoinTest
 import org.koin.test.inject
 

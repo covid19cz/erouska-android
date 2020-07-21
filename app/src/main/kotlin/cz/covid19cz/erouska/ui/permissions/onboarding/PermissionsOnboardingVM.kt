@@ -8,6 +8,6 @@ import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
 class PermissionsOnboardingVM(bluetoothManager: BluetoothManager, app: Application) :
     BasePermissionsVM(bluetoothManager, app) {
     override fun goToNextScreen() {
-        navigate(R.id.action_nav_bt_onboard_to_nav_login)
+
     }
 }
