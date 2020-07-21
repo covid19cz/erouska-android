@@ -11,6 +11,7 @@ interface ActivationRepository {
 class ActivationRepositoryImpl : ActivationRepository {
 
     override suspend fun activate(): ActivationResponse {
+        // Mock delay
         delay(2000)
         return ActivationResponse.FAILURE
     }
