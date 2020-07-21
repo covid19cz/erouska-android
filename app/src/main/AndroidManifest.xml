@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.covid19cz.erouska">
 
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+    <uses-feature android:name="android.hardware.bluetooth" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -46,23 +42,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".service.CovidService"
-            android:enabled="true"
-            android:foregroundServiceType="location">
-            <meta-data
-                android:name="longScanForcingEnabled"
-                android:value="true" />
-        </service>
-
-        <service
-            android:name=".service.PushService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <receiver
             android:name=".receiver.AutoStartReceiver"
             android:enabled="true"
@@ -73,22 +52,6 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".receiver.ActionsReceiver">
-            <intent-filter>
-                <action android:name="cz.covid19cz.erouska.EROUSKA_PAUSE" />
-                <action android:name="cz.covid19cz.erouska.EROUSKA_RESUME" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.BluetoothStateReceiver" />
-        <receiver android:name=".receiver.LocationStateReceiver" />
-
-        <receiver android:name=".receiver.AutoRestartReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.RUN" />
-                <data android:scheme="@string/uri_scheme" android:path="restart" />
             </intent-filter>
         </receiver>
 

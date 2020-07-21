@@ -7,8 +7,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionsOnboardingBinding
-import cz.covid19cz.erouska.ext.getLocationPermission
-import cz.covid19cz.erouska.ext.openLocationSettings
 import cz.covid19cz.erouska.ext.openPermissionsScreen
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.permissions.onboarding.event.PermissionsOnboarding
@@ -36,7 +34,6 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(
             when (it.command) {
                 PermissionsOnboarding.Command.ENABLE_BT -> enableBluetooth()
                 PermissionsOnboarding.Command.REQUEST_LOCATION_PERMISSION -> requestLocation()
-                PermissionsOnboarding.Command.ENABLE_LOCATION -> enableLocation()
                 PermissionsOnboarding.Command.PERMISSION_REQUIRED -> showPermissionRequiredDialog()
             }
         }
@@ -56,16 +53,9 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(
         viewModel.onBluetoothEnabled()
     }
 
+    // TODO: Remove
     private fun requestLocation() {
-        compositeDisposable.add(rxPermissions
-            .request(getLocationPermission())
-            .subscribe { granted: Boolean ->
-                if (granted) {
-                    viewModel.onLocationPermissionGranted()
-                } else {
-                    viewModel.onLocationPermissionDenied()
-                }
-            })
+        viewModel.onLocationPermissionGranted()
     }
 
     private fun showPermissionRequiredDialog() {
@@ -85,10 +75,6 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(
             .setNegativeButton(getString(R.string.permission_rationale_dismiss))
             { dialog, _ -> dialog.dismiss() }
             .show()
-    }
-
-    private fun enableLocation() {
-        requireContext().openLocationSettings()
     }
 
     private fun enableBluetooth() {

@@ -43,9 +43,8 @@
     <string name="start_app">Spustit eRoušku</string>
 
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
-    <string name="privacy_body_text_1">eRouška nemá žádné osobní údaje o vás a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
-    <string name="privacy_body_text_2">Nasbíraná data můžete odeslat pouze vy, a to ve chvíli, kdy vás k tomu vyzve pracovník hygienické stanice.</string>
-    <string name="privacy_statement"><![CDATA[Souhlasím, aby Ministerstvo zdravotnictví pracovalo s údaji o setkání s jinými uživateli aplikace podle <a href="%1$s">podmínek zpracování</a> za účelem epidemiologického šetření]]></string>
+    <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
+    <string name="privacy_body_text_2"><a href="">Několik nezávislých auditů</a> garantuje, že aplikace neodesílá vaše osobní údaje bez vašeho vědomí. Odešlete je vy sami a pouze hygienikům.</string>
     <string name="privacy_finish">Dokončit aktivaci</string>
     <string name="privacy_toolbar_title">Soukromí</string>
 

@@ -32,8 +32,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_welcome_fragment_to_nav_login"
-            app:destination="@id/nav_login"
+            android:id="@+id/action_nav_welcome_fragment_to_nav_activation"
+            app:destination="@id/nav_activation"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -57,21 +57,12 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_sandbox_to_nav_login"
-            app:destination="@id/nav_login"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
             android:id="@+id/action_nav_sandbox_to_nav_my_data"
             app:destination="@id/nav_my_data"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
         <action
             android:id="@+id/action_nav_sandbox_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
@@ -158,8 +149,8 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_login"
-            app:destination="@id/nav_login"
+            android:id="@+id/action_nav_dashboard_to_nav_activation"
+            app:destination="@id/nav_activation"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -171,8 +162,8 @@
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
         <action
-            android:id="@+id/action_nav_bt_onboard_to_nav_login"
-            app:destination="@id/nav_login"
+            android:id="@+id/action_nav_bt_onboard_to_nav_activation"
+            app:destination="@id/nav_activation"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -185,12 +176,12 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/nav_login"
-        android:name="cz.covid19cz.erouska.ui.login.LoginFragment"
+        android:id="@+id/nav_activation"
+        android:name="cz.covid19cz.erouska.ui.activation.ActivationFragment"
         android:label="@string/privacy_toolbar_title"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/fragment_activation">
         <action
-            android:id="@+id/action_nav_login_to_nav_dashboard"
+            android:id="@+id/action_nav_activation_to_nav_dashboard"
             app:destination="@id/nav_dashboard"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -200,25 +191,11 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_nav_login_to_batteryOptimizationFragment"
-            app:destination="@id/nav_battery_optimization"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_my_data"
         android:name="cz.covid19cz.erouska.ui.mydata.MyDataFragment"
         android:label="@string/my_data_title">
-        <action
-            android:id="@+id/action_nav_my_data_to_nav_send_data"
-            app:destination="@id/nav_send_data"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_my_data_to_nav_guide"
             app:destination="@id/nav_guide"
@@ -301,6 +278,11 @@
         android:id="@+id/nav_send_data_success"
         android:name="cz.covid19cz.erouska.ui.success.SendDataSuccessFragment"
         android:label="@string/data_sent" />
+
+    <fragment
+        android:id="@+id/nav_alert"
+        android:name="arch.view.AlertDialogFragment"
+        android:label="AlertDialogFragment" />
     <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"

@@ -86,8 +86,8 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     lintOptions {
@@ -104,7 +104,7 @@ androidExtensions {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
@@ -142,9 +142,6 @@ dependencies {
     //RxPermisssions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
-    // BLE Scanner Compat
-    implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
-
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
@@ -163,6 +160,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-rxjava2:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
 
     // Markdown
@@ -171,10 +169,11 @@ dependencies {
     implementation 'com.atlassian.commonmark:commonmark-ext-autolink:0.12.1'
 
     // Others
-    implementation "net.sf.supercsv:super-csv:$versions.super_csv"
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'com.jaredrummler:android-device-names:2.0.0'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // Tests
     testImplementation 'junit:junit:4.12'

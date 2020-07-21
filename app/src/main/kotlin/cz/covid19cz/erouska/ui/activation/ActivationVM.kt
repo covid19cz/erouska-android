@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.login
+package cz.covid19cz.erouska.ui.activation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,14 +14,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class LoginVM(
+class ActivationVM(
     private val activationRepository: ActivationRepository,
     private val sharedPrefsRepository: SharedPrefsRepository,
     private val deviceInfo: DeviceInfo
 ) : BaseVM() {
 
-    private val mutableState = MutableLiveData<LoginState>()
-    val state = mutableState as LiveData<LoginState>
+    private val mutableState = MutableLiveData<ActivationState>()
+    val state = mutableState as LiveData<ActivationState>
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 

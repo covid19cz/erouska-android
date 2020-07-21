@@ -1,13 +1,12 @@
-package cz.covid19cz.erouska.ui.login
+package cz.covid19cz.erouska.ui.activation
 
 import arch.event.LiveEvent
-import cz.covid19cz.erouska.utils.Text
 
-sealed class LoginState
-object ActivationStart : LoginState()
-object ActivationFinished : LoginState()
-object ActivationFailed : LoginState()
-object ActivationInit : LoginState()
+sealed class ActivationState
+object ActivationStart : ActivationState()
+object ActivationFinished : ActivationState()
+object ActivationFailed : ActivationState()
+object ActivationInit : ActivationState()
 //data class EnterPhoneNumber(val invalidPhoneNumber: Boolean) : LoginState()
 //data class EnterCode(val invalidCode: Boolean, val phoneNumber: String) : LoginState()
 //data class CodeReadAutomatically(val code: String) : LoginState()
