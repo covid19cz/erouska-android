@@ -35,6 +35,18 @@
     <string name="dashboard_secondary">P\u0159i podez\u0159en\u00ed na n\u00e1kazu v\u00e1s budeme kontaktovat na \u010d\u00edsle %s. Po\u017e\u00e1d\u00e1me v\u00e1s o\u00a0zasl\u00e1n\u00ed anonymizovan\u00e9ho seznamu telefon\u016f, kter\u00fd naleznete v\u00a0sekci Moje data.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
     <string name="start_app">Spustit eRoušku</string>
+
+    <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
+    <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
+    <string name="privacy_body_text_2"><![CDATA[<a href="%1$s">Několik nezávislých auditů</a> garantuje, že aplikace neodesílá vaše osobní údaje bez vašeho vědomí. Odešlete je vy sami a pouze hygienikům.]]></string>
+    <string name="privacy_finish">Dokončit aktivaci</string>
+    <string name="privacy_toolbar_title">Soukromí</string>
+
+    <string name="activation_error_title">Chyba</string>
+    <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
+    <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
+    <string name="activation_try_again">Zkusit znovu</string>
+
     <string name="error_ble_unsupported">Vaše zařízení nepodporuje Bluetooth LE</string>
     <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
     <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>

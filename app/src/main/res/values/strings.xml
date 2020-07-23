@@ -129,4 +129,14 @@
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="contacts_open_chatbot">Anežka – eRouška support</string>
+    <string name="privacy_header_text">We value your privacy, sharing data is under your control</string>
+    <string name="privacy_body_text_1">eRouška doesn\'t have any personal information about you and collects only anonymous data about other eRouška applications in your vicinity.</string>
+    <string name="privacy_body_text_2"><![CDATA[<a href="%1$s">Multiple independent audits</a> guarantee that the application doesn\'t share your data without your consent. Only you can share your collected data when administration of hygienic station requests them.]]></string>
+<!--    <a href="%1$s">Několik nezávislých auditů</a> garantuje, že aplikace neodesílá vaše osobní údaje bez vašeho vědomí. Odešlete je vy sami a pouze hygienikům.-->
+    <string name="privacy_finish">Finish activation</string>
+    <string name="privacy_toolbar_title">Privacy</string>
+    <string name="activation_error_title">Error</string>
+    <string name="activation_error_header">Activation couldn\'t be finished</string>
+    <string name="activation_error_body">Check yout internet connection and try again to activate your application. If problems persist, contact us at info@erouska.cz</string>
+    <string name="activation_try_again">Try again</string>
 </resources>
