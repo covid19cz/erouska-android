@@ -140,4 +140,5 @@
     <string name="data_content_info">Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</string>
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
     <string name="contacts_open_chatbot">Anežka – podpora eroušky</string>
+    <string name="risky_contacts_title">Riziková setkání</string>
 </resources>

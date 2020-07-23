@@ -129,4 +129,5 @@
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="contacts_open_chatbot">Anežka – eRouška support</string>
+    <string name="risky_contacts_title">Risky contacts</string>
 </resources>
