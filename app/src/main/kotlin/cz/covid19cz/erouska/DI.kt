@@ -26,16 +26,11 @@ import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.ui.activation.ActivationVM
-import cz.covid19cz.erouska.user.ActivationService
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 val viewModelModule = module {
     viewModel { MainVM() }
@@ -73,25 +68,4 @@ val appModule = module {
     single { CustomTabHelper(androidContext()) }
 }
 
-val remotesModule = module {
-    single { provideRetrofit() }
-    single { provideActivationAPI(get()) }
-}
-
-
-val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule, remotesModule)
-
-fun provideActivationAPI(retrofit: Retrofit): ActivationService {
-    return retrofit.create(ActivationService::class.java)
-}
-
-fun provideRetrofit(): Retrofit {
-//    TODO Configure retrofit for BE communication
-    val clientBuilder = OkHttpClient.Builder()
-
-    return Retrofit.Builder()
-        .baseUrl("")
-        .client(clientBuilder.build())
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-        .build()
-}
+val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)

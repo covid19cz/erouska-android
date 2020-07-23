@@ -5,13 +5,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationBinding
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
+import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.fragment_activation.*
@@ -19,7 +22,10 @@ import org.koin.android.ext.android.inject
 
 
 class ActivationFragment :
-    BaseFragment<FragmentActivationBinding, ActivationVM>(R.layout.fragment_activation, ActivationVM::class) {
+    BaseFragment<FragmentActivationBinding, ActivationVM>(
+        R.layout.fragment_activation,
+        ActivationVM::class
+    ) {
 
     private val customTabHelper by inject<CustomTabHelper>()
 
@@ -56,15 +62,14 @@ class ActivationFragment :
 
         enableUpInToolbar(true)
 
-//        privacy_statement.text = HtmlCompat.fromHtml(
-//            getString(R.string.privacy_statement, AppConfig.termsAndConditionsLink),
-//            HtmlCompat.FROM_HTML_MODE_LEGACY
-//        )
-//        privacy_statement.movementMethod = LinkMovementMethod.getInstance()
-//        privacy_statement.setOnClickListener { privacy_checkbox.toggle() }
+        privacy_body_2.text = HtmlCompat.fromHtml(
+            getString(R.string.privacy_body_text_2, AppConfig.termsAndConditionsLink),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
     }
 
     private fun setupListeners() {
+        privacy_body_2.setOnClickListener { showWeb("https://erouska.cz/audit-kod", customTabHelper) }
         activate_btn.setOnClickListener { viewModel.activate() }
         try_again_btn.setOnClickListener { viewModel.activate() }
     }
