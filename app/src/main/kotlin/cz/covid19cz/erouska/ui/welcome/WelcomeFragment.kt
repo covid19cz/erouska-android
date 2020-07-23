@@ -11,14 +11,15 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
-class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
+class WelcomeFragment :
+    BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(WelcomeCommandEvent::class) {
             when (it.command) {
-                WelcomeCommandEvent.Command.OPEN_BT_ONBOARD -> openBluetoothOnboard()
+                WelcomeCommandEvent.Command.VERIFY_APP -> openAppActivation()
                 WelcomeCommandEvent.Command.HELP -> openHelpPage()
             }
         }
@@ -33,16 +34,19 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout
             viewModel.getProclamationUrl()
         )
 
-        welcome_desc.text = HtmlCompat.fromHtml(welcomeDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        welcome_desc.text =
+            HtmlCompat.fromHtml(welcomeDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
         welcome_desc.movementMethod = LinkMovementMethod.getInstance()
 
     }
 
-    fun openBluetoothOnboard() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_bt_onboard)
+    private fun openAppActivation() {
+        navigate(R.id.action_nav_welcome_fragment_to_nav_activation)
     }
 
-    fun openHelpPage() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_help, Bundle().apply { putBoolean("fullscreen", true) })
+    private fun openHelpPage() {
+        navigate(
+            R.id.action_nav_welcome_fragment_to_nav_help,
+            Bundle().apply { putBoolean("fullscreen", true) })
     }
 }

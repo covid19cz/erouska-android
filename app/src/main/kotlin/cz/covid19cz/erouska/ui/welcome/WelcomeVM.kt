@@ -12,11 +12,7 @@ class WelcomeVM(private val app: Application,
 ) : BaseVM() {
 
     fun nextStep() {
-        if (needsPermisssions()) {
-            publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.VERIFY_APP))
-        } else {
-            publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.OPEN_BT_ONBOARD))
-        }
+        publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.VERIFY_APP))
     }
 
     private fun needsPermisssions() = bluetoothManager.isBluetoothEnabled()
