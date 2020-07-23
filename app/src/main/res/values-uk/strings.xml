@@ -54,14 +54,6 @@
     <string name="login_number_already_in_use_error">Номер телефону не можна використати\nТелефонний номер  %1$s не можна використати, оскільки ви з ним активували додаток на іншому пристрої.</string>
     <string name="login_session_expired">\u041c\u0438\u043d\u0443\u0432 \u0442\u0435\u0440\u043c\u0456\u043d \u0434\u0456\u0457 \u043a\u043e\u0434\u0443 \u043f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0436\u0435\u043d\u043d\u044f. \u041f\u0435\u0440\u0435\u0432\u0456\u0440\u0442\u0435 \u043d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0443 \u0442\u0430 \u0437\u0430\u043f\u0440\u043e\u0441\u0456\u0442\u044c, \u0430\u0431\u0438 \u0432\u0430\u043c \u0431\u0443\u043b\u043e \u043d\u0430\u0434\u0456\u0441\u043b\u0430\u043d\u043e \u043d\u043e\u0432\u0438\u0439 \u043a\u043e\u0434 \u043f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0436\u0435\u043d\u043d\u044f.</string>
     <string name="menu_help">Підказка</string>
-    <string name="my_data_title">Мої дані</string>
-    <string name="my_data_description">Мова йде про списки усіх виміряних сигналів від навколишніх телефонів з додатком еМаска за останні %d днів. Дані не містять особисту інформацію чи відомості про місцезнаходження.</string>
-    <string name="my_data_tab_all_title">Все</string>
-    <string name="my_data_tab_critical_title">Близько контактні зустрічі</string>
-    <string name="my_data_column_date">Дата</string>
-    <string name="my_data_column_time">Час</string>
-    <string name="my_data_column_tuid">ID</string>
-    <string name="my_data_column_rssi">RSSI</string>
     <string name="about_title">\u041f\u0440\u043e \u0434\u043e\u0434\u0430\u0442\u043e\u043a</string>
     <string name="about_intro">\u0414\u043e\u0434\u0430\u0442\u043e\u043a \u0431\u0443\u043b\u043e \u0440\u043e\u0437\u0440\u043e\u0431\u043b\u0435\u043d\u043e \u0432 \u0440\u0430\u043c\u043a\u0430\u0445 \u0456\u043d\u0456\u0446\u0456\u0430\u0442\u0438\u0432\u0438 Covid19CZ.</string>
     <string name="permission_rationale_title">\u0414\u043b\u044f \u043d\u0430\u043b\u0435\u0436\u043d\u043e\u0433\u043e \u0444\u0443\u043d\u043a\u0446\u0456\u043e\u043d\u0443\u0432\u0430\u043d\u043d\u044f \u0434\u043e\u0434\u0430\u0442\u043a\u0443 \u043d\u0435\u043e\u0431\u0445\u0456\u0434\u043d\u0438\u0439 \u0434\u043e\u0437\u0432\u0456\u043b \u043d\u0430 \u043c\u0456\u0441\u0446\u0435\u0437\u043d\u0430\u0445\u043e\u0434\u0436\u0435\u043d\u043d\u044f.</string>

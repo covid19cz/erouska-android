@@ -13,7 +13,7 @@ import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
 import cz.covid19cz.erouska.ui.help.GuideVM
 import cz.covid19cz.erouska.ui.help.HelpVM
 import cz.covid19cz.erouska.ui.main.MainVM
-import cz.covid19cz.erouska.ui.mydata.MyDataVM
+import cz.covid19cz.erouska.ui.statistics.StatisticsVM
 import cz.covid19cz.erouska.ui.permissions.PermissionDisabledVM
 import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
@@ -37,7 +37,7 @@ val viewModelModule = module {
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
-    viewModel { MyDataVM() }
+    viewModel { StatisticsVM() }
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
 }

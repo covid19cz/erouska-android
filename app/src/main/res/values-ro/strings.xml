@@ -54,14 +54,6 @@
     <string name="login_number_already_in_use_error">Nu poți folosi acest număr.\nNumărul de telefon %1$s nu poate fi folosit pentru că l-ai folosit pentru activarea pe un alt dispozitiv.</string>
     <string name="login_session_expired">Codul de verificare a expirat. Verifica num\u0103rul de telefon \u0219i solicit\u0103 un nou cod de verificare.</string>
     <string name="menu_help">Ajutor</string>
-    <string name="my_data_title">Datele mele</string>
-    <string name="my_data_description">Aceasta este o listă de măsurători de semnal pentru telefoanele din zonă cu eRouška in ultimele %d zile. Aceste date nu conțin cooronate sau alte date personale. Ești singurul care poate trimite datele către ofițeri de sănătate publică.</string>
-    <string name="my_data_tab_all_title">Tot</string>
-    <string name="my_data_tab_critical_title">În apropiere</string>
-    <string name="my_data_column_date">Data</string>
-    <string name="my_data_column_time">Ora</string>
-    <string name="my_data_column_tuid">ID</string>
-    <string name="my_data_column_rssi">RSSI</string>
     <string name="about_title">Despre aplica\u021bie</string>
     <string name="about_intro">Aceast\u0103 aplica\u021bie a fost creat\u0103 sub ini\u021biativa Covid19CZ. Am dezvoltat-o cu accent pe protec\u021bia confiden\u021bialita\u021bii, a\u0219a cum am dorit sa o folosim \u0219i noi. Datele tale sunt stocate doar pe dispozitivul t\u0103u \u0219i istoria loca\u021biilor tale nu pot fi identificare din ele. V\u0103 mul\u021bumim ca folosi\u021bi aplica\u021bia \u0219i credem c\u0103 \u00eempreun\u0103 vom dep\u0103\u0219i aceast\u0103 epidemie.\n\nEchipa eRou\u0161ka</string>
     <string name="permission_rationale_title">Permisiunea pentru urm\u0103rirea loca\u021biei trebuie acordat\u0103 pentru a permite aplica\u021biei sp func\u021bioneze corect.</string>

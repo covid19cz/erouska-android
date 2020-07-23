@@ -51,7 +51,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_sandbox_to_nav_my_data"
-            app:destination="@id/nav_my_data"
+            app:destination="@id/nav_statistics"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -160,9 +160,9 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/nav_my_data"
-        android:name="cz.covid19cz.erouska.ui.mydata.MyDataFragment"
-        android:label="@string/my_data_title">
+        android:id="@+id/nav_statistics"
+        android:name="cz.covid19cz.erouska.ui.statistics.StatisticsFragment"
+        android:label="@string/statistics_title">
         <action
             android:id="@+id/action_nav_my_data_to_nav_guide"
             app:destination="@id/nav_guide"
@@ -195,7 +195,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_my_data" />
+            app:popUpTo="@id/nav_statistics" />
     </fragment>
     <fragment
         android:id="@+id/nav_delete_user"
@@ -220,7 +220,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_my_data" />
+            app:popUpTo="@id/nav_statistics" />
     </fragment>
     <fragment
         android:id="@+id/nav_delete_data_success"

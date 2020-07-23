@@ -54,14 +54,7 @@
     <string name="login_number_already_in_use_error">Telefonní číslo nelze použít.\nTelefonní číslo %1$s nemůžete použít, protože jste s ním aktivovali aplikaci na jiném zařízení.</string>
     <string name="login_session_expired">Vypr\u0161ela platnost ov\u011b\u0159ovac\u00edho k\u00f3du. Zkontrolujte telefonn\u00ed \u010d\u00edslo a\u00a0nechte si odeslat nov\u00fd ov\u011b\u0159ovac\u00ed k\u00f3d.</string>
     <string name="menu_help">Nápověda</string>
-    <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">Jedná se o veškeré záznamy měření signálu okolních telefonů s aplikací eRouška za posledních %d dní. Data neobsahují údaje o poloze ani jiné osobní údaje. Odeslat hygienikům je můžete pouze vy.</string>
-    <string name="my_data_tab_all_title">Vše</string>
-    <string name="my_data_tab_critical_title">Blízká setkání</string>
-    <string name="my_data_column_date">Datum</string>
-    <string name="my_data_column_time">Čas</string>
-    <string name="my_data_column_tuid">ID</string>
-    <string name="my_data_column_rssi">RSSI</string>
+    <string name="statistics_title">Statistika</string>
     <string name="about_title">O\u00a0aplikaci</string>
     <string name="about_intro">Aplikace vznikla v\u00a0r\u00e1mci iniciativy Covid19CZ. Vyv\u00edjeli jsme ji s\u00a0d\u016frazem na ochranu soukrom\u00ed, abychom ji bez obav mohli pou\u017e\u00edvat i\u00a0my. Data se ukl\u00e1daj\u00ed jen do va\u0161eho za\u0159\u00edzen\u00ed a\u00a0nelze z\u00a0nich zjistit, kde jste se pohybovali. D\u011bkujeme, \u017ee aplikaci pou\u017e\u00edv\u00e1te a\u00a0v\u011b\u0159\u00edme, \u017ee se n\u00e1m spole\u010dn\u011b poda\u0159\u00ed epidemii zvl\u00e1dnout.\n\nT\u00fdm eRou\u0161ky</string>
     <string name="permission_rationale_title">Pro spr\u00e1vnou funkci aplikace je nutn\u00e9 opr\u00e1vn\u011bn\u00ed k\u00a0p\u0159\u00edstupu k\u00a0poloze.</string>

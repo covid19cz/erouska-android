@@ -62,15 +62,7 @@
     <string name="login_session_expired">Vypršela platnost ověřovacího kódu. Zkontrolujte telefonní číslo a\u00A0nechte si odeslat nový ověřovací kód.</string>
     <string name="menu_help">Nápověda</string>
 
-    <string name="my_data_title">Moje data</string>
-    <string name="my_data_description">Jedná se o veškeré záznamy měření signálu okolních telefonů s aplikací eRouška za posledních %d dní. Data neobsahují údaje o poloze ani jiné osobní údaje. Odeslat hygienikům je můžete pouze vy.</string>
-    <string name="my_data_tab_all_title">Vše</string>
-    <string name="my_data_tab_critical_title">Blízká setkání</string>
-
-    <string name="my_data_column_date">Datum</string>
-    <string name="my_data_column_time">Čas</string>
-    <string name="my_data_column_tuid">ID</string>
-    <string name="my_data_column_rssi">RSSI</string>
+    <string name="statistics_title">Statistika</string>
 
     <string name="about_title">O\u00A0aplikaci</string>
     <string name="about_intro">Aplikace vznikla v\u00A0rámci iniciativy Covid19CZ. Vyvíjeli jsme ji s\u00A0důrazem na ochranu soukromí, abychom ji bez obav mohli používat i\u00A0my. Data se ukládají jen do vašeho zařízení a\u00A0nelze z\u00A0nich zjistit, kde jste se pohybovali. Děkujeme, že aplikaci používáte a\u00A0věříme, že se nám společně podaří epidemii zvládnout.\n\nTým eRoušky</string>

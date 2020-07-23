@@ -54,14 +54,6 @@
     <string name="login_number_already_in_use_error">Không thể sử dụng số điện thoại này.\nBạn không thể sử dụng số %1$s vì bạn đã dùng số điện thoại này để đăng ký vào ứng dụng trên thiết bị khác.</string>
     <string name="login_session_expired">M\u00e3 x\u00e1c minh \u0111\u00e3 h\u1ebft h\u1ea1n. H\u00e3y ki\u1ec3m tra s\u1ed1 \u0111i\u1ec7n tho\u1ea1i c\u1ee7a b\u1ea1n v\u00e0 y\u00eau c\u1ea7u g\u1eedi m\u00e3 x\u00e1c minh m\u1edbi.</string>
     <string name="menu_help">Trợ giúp</string>
-    <string name="my_data_title">Dữ liệu của tôi</string>
-    <string name="my_data_description">Đây là tất cả các sóng đo tín hiệu của các điện thoại xung quanhứng dụng eRouška trong vòng %d ngày qua. Dữ liệu không có vị trí hoặc thông tin cá nhân khác. Chỉ có bạn có thể gửi nó cho trạm vệ sinh.</string>
-    <string name="my_data_tab_all_title">Tất cả</string>
-    <string name="my_data_tab_critical_title">Sự gặp gần</string>
-    <string name="my_data_column_date">ngày tháng</string>
-    <string name="my_data_column_time">Thời gian</string>
-    <string name="my_data_column_tuid">ID</string>
-    <string name="my_data_column_rssi">RSSI</string>
     <string name="about_title">V\u1ec1 \u1ee9ng d\u1ee5ng</string>
     <string name="about_intro">\u1ee8ng d\u1ee5ng eRou\u0161ka \u0111\u01b0\u1ee3c s\u00e1ng l\u1eadp b\u1edfi nh\u00f3m Covid19CZ. \u1ee8ng d\u1ee5ng \u0111\u00e3 \u0111\u01b0\u1ee3c ph\u00e1t tri\u1ec3n v\u1edbi s\u1ef1 nh\u1ea5n m\u1ea1nh v\u00e0o quy\u1ec1n ri\u00eang t\u01b0 \u0111\u1ec3 ch\u00fang t\u00f4i c\u0169ng nh\u01b0 b\u1ea1n c\u00f3 th\u1ec3 s\u1eed d\u1ee5ng n\u00f3 b\u1ea1n m\u1ed9t c\u00e1ch t\u1ef1 tin v\u00e0 y\u00ean t\u00e2m. D\u1eef li\u1ec7u \u0111\u01b0\u1ee3c l\u01b0u tr\u00ean thi\u1ebft b\u1ecb c\u1ee7a b\u1ea1n. D\u1eef li\u1ec7u n\u00e0y kh\u00f4ng c\u00f3 th\u00f4ng tin v\u1ec1 v\u1ecb tr\u00ed c\u1ee7a b\u1ea1n. C\u1ea3m \u01a1n b\u1ea1n \u0111\u00e3 s\u1eafc \u0111\u1ecbnh s\u1eed d\u1ee5ng \u1ee9ng d\u1ee5ng n\u00e0y v\u00e0 hy v\u1ecdng c\u00f9ng nhau ch\u00fang m\u00ecnh s\u1ebd chi\u1ebfn th\u1eafng.\n\n\u001dNh\u00f3m eRou\u0161ky</string>
     <string name="permission_rationale_title">B\u1ea1n h\u00e3y \u0111\u1eb7t \u1ee9ng d\u1ee5ng eRou\u0161ka c\u00f3 th\u1ec3 truy c\u1eadp v\u1ecb tr\u00ed \u0111\u1ec3 s\u1eed d\u1ee5ng eRou\u0161ka \u0111\u00fang c\u00e1ch v\u00e0 hi\u1ec7u qu\u1ea3</string>

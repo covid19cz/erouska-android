@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
+            type="cz.covid19cz.erouska.ui.statistics.StatisticsVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
