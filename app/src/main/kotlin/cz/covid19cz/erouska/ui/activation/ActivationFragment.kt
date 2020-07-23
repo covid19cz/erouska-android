@@ -69,7 +69,7 @@ class ActivationFragment :
     }
 
     private fun setupListeners() {
-        privacy_body_2.setOnClickListener { showWeb("https://erouska.cz/audit-kod", customTabHelper) }
+        privacy_body_2.setOnClickListener { showWeb(AppConfig.proclamationLink, customTabHelper) }
         activate_btn.setOnClickListener { viewModel.activate() }
         try_again_btn.setOnClickListener { viewModel.activate() }
     }
