@@ -26,13 +26,13 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
         subscribe(SendDataCommandEvent::class) {
             when (it.command) {
-                SendDataCommandEvent.Command.INIT -> onInitState()
+                SendDataCommandEvent.Command.INIT -> onReset()
                 SendDataCommandEvent.Command.CODE_VALID -> onCodeValid()
                 SendDataCommandEvent.Command.CODE_INVALID -> onCodeInvalid()
                 SendDataCommandEvent.Command.CODE_EXPIRED -> onCodeExpired()
                 SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure()
                 SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
-                SendDataCommandEvent.Command.PROCESS -> onProcess()
+                SendDataCommandEvent.Command.PROCESSING -> onProcess()
             }
         }
     }
@@ -45,7 +45,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun setupListeners() {
         confirm_button.setOnClickListener { viewModel.verifyAndConfirm(code_input.text?.toString()) }
-        back_button.setOnClickListener { viewModel.initState() }
+        back_button.setOnClickListener { viewModel.reset() }
         try_again_button.setOnClickListener { viewModel.sendData() }
         close_button.setOnClickListener { navController().navigateUp() }
         success_close_button.setOnClickListener { navController().navigateUp() }
@@ -71,10 +71,9 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         success_body_2.hide()
         success_body_3.hide()
         success_close_button.hide()
-        runBlocking { delay(500) }
     }
 
-    private fun onInitState() {
+    private fun onReset() {
         progress.hide()
         code_input.focusAndShowKeyboard()
         enableUpInToolbar(true, IconType.UP)
@@ -164,8 +163,8 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     }
 
     override fun onBackPressed(): Boolean {
-        if (viewModel.mutableState.value == SendDataFailedState) {
-            viewModel.initState()
+        if (viewModel.state.value == SendDataFailedState) {
+            viewModel.reset()
             return true
         }
         return super.onBackPressed()

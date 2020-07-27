@@ -12,11 +12,11 @@ import kotlinx.coroutines.runBlocking
 
 class SendDataVM : BaseVM() {
 
-    val mutableState = MutableLiveData<SendDataState>()
+    val state = MutableLiveData<SendDataState>()
 
     init {
         publish(SendDataCommandEvent(SendDataCommandEvent.Command.INIT))
-        mutableState.value = SendDataInitState
+        state.value = SendDataInitState
     }
 
     fun verifyAndConfirm(input: String?) {
@@ -26,15 +26,15 @@ class SendDataVM : BaseVM() {
             return
         }
 
-        publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESS))
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESSING))
 
         // Try to send data
         sendData()
     }
 
-    fun initState() {
+    fun reset() {
         publish(SendDataCommandEvent(SendDataCommandEvent.Command.INIT))
-        mutableState.value = SendDataInitState
+        state.value = SendDataInitState
     }
 
     fun sendData() {
@@ -49,7 +49,7 @@ class SendDataVM : BaseVM() {
         }
 
         publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
-        mutableState.value = SendDataSuccessState
+        state.value = SendDataSuccessState
     }
 
     private fun isCodeValid(code: String): Boolean {

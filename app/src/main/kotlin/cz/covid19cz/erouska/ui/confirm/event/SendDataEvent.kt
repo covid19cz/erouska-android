@@ -6,7 +6,7 @@ class SendDataCommandEvent(val command: Command) : LiveEvent() {
 
     enum class Command {
         INIT,
-        PROCESS,
+        PROCESSING,
         CODE_VALID,
         CODE_INVALID,
         CODE_EXPIRED,
