@@ -13,7 +13,7 @@ class ActivationRepositoryImpl : ActivationRepository {
     override suspend fun activate(): ActivationResponse {
         // TODO Call registerEhrid
         // Mock delay
-        delay(2000)
+        delay(500)
         return ActivationResponse.SUCCESS
     }
 

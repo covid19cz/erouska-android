@@ -12,6 +12,7 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/nav_send_data"
         android:title="@string/send_data"
         app:showAsAction="never" />
 

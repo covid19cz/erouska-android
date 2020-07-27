@@ -152,4 +152,20 @@
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
     <string name="contacts_open_chatbot">Anežka – podpora eroušky</string>
     <string name="risky_contacts_title">Riziková setkání</string>
+
+    <string name="send_data_body">V případě potvrzené nákazy virem COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
+    <string name="send_data_verification_hint">Ověřovací kód</string>
+    <string name="send_data_button_text">Ověřit a odeslat data</string>
+    <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
+    <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
+    <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
+    <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
+    <string name="send_data_failure_body">Zkontroluje připojení k internetu a zkuste to znovu.</string>
+    <string name="send_data_back">Zpět</string>
+    <string name="send_data_close">Zavřít</string>
+    <string name="send_data_try_again">Zkusit znovu</string>
+    <string name="send_data_success_header">Data jste úspěšně odeslali</string>
+    <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření koronaviru.</string>
+    <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
+    <string name="send_data_success_body_3">Zůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
 </resources>
