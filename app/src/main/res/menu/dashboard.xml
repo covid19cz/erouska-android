@@ -8,12 +8,12 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_delete_user"
-        android:title="@string/delete_registration"
+        android:title="@string/risky_contacts_title"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/nav_about"
-        android:title="@string/about"
+        android:id="@+id/nav_send_data"
+        android:title="@string/send_data"
         app:showAsAction="never" />
+
 </menu>

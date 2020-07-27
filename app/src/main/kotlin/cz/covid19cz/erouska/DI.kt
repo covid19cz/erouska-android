@@ -26,6 +26,7 @@ import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.ui.confirm.SendDataVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -45,6 +46,7 @@ val viewModelModule = module {
     viewModel { MyDataVM() }
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
+    viewModel { SendDataVM() }
 }
 
 val databaseModule = module {
