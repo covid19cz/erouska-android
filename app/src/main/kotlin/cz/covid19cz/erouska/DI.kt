@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.gson.GsonBuilder
-import cz.covid19cz.erouska.db.*
+import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
+import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
+import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
@@ -24,10 +26,7 @@ import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
-import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
-import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
-import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -58,6 +57,7 @@ val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepo() }
     single { ActivationRepositoryImpl() as ActivationRepository }
+    single { ExposureServerRepository(get()) }
 }
 
 val appModule = module {
