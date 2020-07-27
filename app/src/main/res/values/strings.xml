@@ -155,4 +155,9 @@
     <string name="send_data_success_body_1">Thank you for fighting against the spread of coronavirus.</string>
     <string name="send_data_success_body_2">Please cooperate with workers of hygienic station on searching all people you were in contact with.</string>
     <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and hygienists.</string>
+
+    <string name="exposures_title">Risky contacts</string>
+    <string name="exposures_nav_main_symptoms">Main symptoms</string>
+    <string name="exposures_nav_spread_prevention">How to prevent spreading</string>
+    <string name="exposures_nav_earlier_exposures">Earlier exposures</string>
 </resources>

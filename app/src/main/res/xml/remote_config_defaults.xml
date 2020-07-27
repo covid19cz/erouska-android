@@ -144,4 +144,12 @@
         <key>minSupportedVersionCodeAndroid</key>
         <value>0</value>
     </entry>
+    <entry>
+        <key>exposureNotification</key>
+        <value>Dne %1$s jste se setkali s osobou u které byla potvrzena nákaza virem COVID-19.</value>
+    </entry>
+    <entry>
+        <key>exposureInfo</key>
+        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objeví příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší pohotovost.</value>
+    </entry>
 </defaultsMap>

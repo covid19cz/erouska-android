@@ -8,6 +8,7 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/nav_exposures"
         android:title="@string/risky_contacts_title"
         app:showAsAction="never" />
 

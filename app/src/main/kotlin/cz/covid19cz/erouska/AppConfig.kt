@@ -77,6 +77,10 @@ object AppConfig {
         get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
+    val exposureNotification
+        get() = firebaseRemoteConfig.getString("exposureNotification")
+    val exposureInfo
+        get() = firebaseRemoteConfig.getString("exposureInfo")
 
     var overrideAdvertiseTxPower: Int? = null
 
