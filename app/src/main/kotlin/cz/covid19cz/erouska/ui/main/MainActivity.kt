@@ -21,6 +21,7 @@ import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.L
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
@@ -98,9 +99,10 @@ class MainActivity :
 
     override fun onStart() {
         super.onStart()
-        customTabHelper.chromePackageName?.let {
-            CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
-        }
+        //TODO uncomment (temporary hack)
+        //customTabHelper.chromePackageName?.let {
+        //    CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
+        //}
     }
 
     override fun onStop() {
@@ -134,5 +136,10 @@ class MainActivity :
 
     private fun passesRequirements(): Boolean {
         return isBtEnabled()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        L.d("$requestCode")
     }
 }

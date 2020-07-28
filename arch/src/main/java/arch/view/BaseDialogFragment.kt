@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
 
 
 abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseDialogViewModel>(@LayoutRes layoutId: Int, viewModelClass: KClass<VM>) :
-    BaseArchDialogFragment<B, VM>(layoutId, viewModelClass) {
+        BaseArchDialogFragment<B, VM>(layoutId, viewModelClass) {
 
     companion object {
         const val CANCELED = Activity.RESULT_CANCELED

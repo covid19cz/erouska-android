@@ -42,6 +42,17 @@
             </intent-filter>
         </activity>
 
+        <!-- Receivers -->
+        <receiver
+            android:name=".exposurenotifications.receiver.ExposureNotificationBroadcastReceiver"
+            android:permission="com.google.android.gms.nearby.exposurenotification.EXPOSURE_CALLBACK"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_STATE_UPDATED" />
+                <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_NOT_FOUND" />
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name=".receiver.AutoStartReceiver"
             android:enabled="true"
@@ -54,13 +65,6 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_notification_normal" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorSecondary" />
     </application>
 
 </manifest>

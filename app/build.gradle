@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'io.fabric'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
@@ -36,7 +36,8 @@ android {
     productFlavors {
         dev {
             dimension "environment"
-            applicationIdSuffix ".dev"
+            applicationId = "com.google.android.apps.exposurenotification"
+            //applicationIdSuffix ".dev"
         }
         prod {
             dimension "environment"
@@ -156,6 +157,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions-ktx:19.0.2'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
     implementation 'com.google.firebase:firebase-messaging:20.1.3'
+
+    // Play Services
+    implementation 'com.google.android.play:core:1.7.3'
+    implementation 'com.google.android.gms:play-services-base:17.3.0'
+    implementation 'com.google.android.gms:play-services-basement:17.3.0'
+    implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.1.0'
 
     // Room
     implementation "androidx.room:room-runtime:$versions.room"

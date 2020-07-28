@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import android.app.Activity
 import android.content.*
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,7 @@ import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -25,6 +27,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     R.layout.fragment_dashboard,
     DashboardVM::class
 ) {
+
+    companion object{
+        const val REQUEST_GMS_ERROR_RESOLUTION = 42
+    }
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
@@ -48,6 +54,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
             }
+        }
+        subscribe(GmsApiErrorEvent::class){
+            //it.status.startResolutionForResult(requireActivity(), REQUEST_GMS_ERROR_RESOLUTION)
+            startIntentSenderForResult(it.status.resolution?.intentSender, REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
         }
     }
 
@@ -162,5 +172,16 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            REQUEST_GMS_ERROR_RESOLUTION -> {
+                if (resultCode == Activity.RESULT_OK){
+                    viewModel.start()
+                }
+
+            }
+        }
     }
 }

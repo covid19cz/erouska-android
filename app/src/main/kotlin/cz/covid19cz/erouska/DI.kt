@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.nearby.Nearby
 import cz.covid19cz.erouska.db.*
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
@@ -21,7 +22,7 @@ import cz.covid19cz.erouska.ui.welcome.WelcomeVM
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
-import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -33,7 +34,7 @@ val viewModelModule = module {
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
-    viewModel { DashboardVM(get()) }
+    viewModel { DashboardVM(get(), get()) }
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
@@ -48,7 +49,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepo() }
+    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get()) }
 }
 
 val appModule = module {
@@ -60,6 +61,5 @@ val appModule = module {
     single { DeviceInfo(androidContext()) }
     single { CustomTabHelper(androidContext()) }
 }
-
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)

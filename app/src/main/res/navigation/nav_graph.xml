@@ -70,7 +70,7 @@
         android:id="@+id/nav_help"
         android:name="cz.covid19cz.erouska.ui.help.HelpFragment"
         android:label="@string/help_toolbar_title"
-        tools:layout="@layout/fragment_help" >
+        tools:layout="@layout/fragment_help">
         <argument
             android:name="type"
             android:defaultValue="HELP"
@@ -86,7 +86,7 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -141,6 +141,13 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_nav_dashboard_to_nav_login"-->
+<!--            app:destination="@id/nav_login"-->
+<!--            app:enterAnim="@anim/nav_default_enter_anim"-->
+<!--            app:exitAnim="@anim/nav_default_exit_anim"-->
+<!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/nav_default_pop_exit_anim" />-->
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
@@ -158,28 +165,24 @@
         android:label="@string/my_data_title">
         <action
             android:id="@+id/action_nav_my_data_to_nav_guide"
+            app:destination="@id/nav_guide"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_guide" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_my_data_to_nav_help"
+            app:destination="@id/nav_help"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_help" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_contacts"
         android:name="cz.covid19cz.erouska.ui.contacts.ContactsFragment"
         android:label="@string/contacts_title"
         tools:layout="@layout/fragment_contacts" />
-    <fragment
-        android:id="@+id/nav_alert"
-        android:name="arch.view.AlertDialogFragment"
-        android:label="AlertDialogFragment" />
     <fragment
         android:id="@+id/nav_about"
         android:name="cz.covid19cz.erouska.ui.about.AboutFragment"
@@ -216,11 +219,11 @@
             app:argType="boolean" />
         <action
             android:id="@+id/action_nav_battery_optimization_to_nav_guide"
+            app:destination="@id/nav_guide"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:destination="@id/nav_guide" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_guide"
