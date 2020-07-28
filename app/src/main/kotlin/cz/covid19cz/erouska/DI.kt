@@ -5,9 +5,12 @@ import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.net.ExposureServerRepository
 import com.google.android.gms.nearby.Nearby
-import cz.covid19cz.erouska.db.*
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
+import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
@@ -19,10 +22,12 @@ import cz.covid19cz.erouska.ui.permissions.PermissionDisabledVM
 import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
+import cz.covid19cz.erouska.user.ActivationRepository
+import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
-import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ui.confirm.SendDataVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,6 +36,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get()) }
+    viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
@@ -41,6 +47,7 @@ val viewModelModule = module {
     viewModel { MyDataVM() }
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
+    viewModel { SendDataVM() }
 }
 
 val databaseModule = module {
@@ -50,6 +57,8 @@ val databaseModule = module {
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get()) }
+    single { ActivationRepositoryImpl() as ActivationRepository }
+    single { ExposureServerRepository(get()) }
 }
 
 val appModule = module {

@@ -31,6 +31,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_activation"
+            app:destination="@id/nav_activation"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="fullscreen"
             android:defaultValue="true"
@@ -125,13 +132,6 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_deleteUserFragment"
-            app:destination="@id/nav_delete_user"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -141,19 +141,45 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-<!--        <action-->
-<!--            android:id="@+id/action_nav_dashboard_to_nav_login"-->
-<!--            app:destination="@id/nav_login"-->
-<!--            app:enterAnim="@anim/nav_default_enter_anim"-->
-<!--            app:exitAnim="@anim/nav_default_exit_anim"-->
-<!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
-<!--            app:popExitAnim="@anim/nav_default_pop_exit_anim" />-->
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_activation"
+            app:destination="@id/nav_activation"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"
         android:name="cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingFragment"
         android:label="@string/permission_onboarding_toolbar_title"
         tools:layout="@layout/fragment_permissions_onboarding">
+        <action
+            android:id="@+id/action_nav_bt_onboard_to_nav_activation"
+            app:destination="@id/nav_activation"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/nav_welcome_fragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_activation"
+        android:name="cz.covid19cz.erouska.ui.activation.ActivationFragment"
+        android:label="@string/privacy_toolbar_title"
+        tools:layout="@layout/fragment_activation">
+        <action
+            android:id="@+id/action_nav_activation_to_nav_dashboard"
+            app:destination="@id/nav_dashboard"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="fullscreen"
             android:defaultValue="true"

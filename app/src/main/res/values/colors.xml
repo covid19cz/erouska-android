@@ -32,4 +32,7 @@
     <color name="exposition_level_6_bg">#33FF9800</color>
     <color name="exposition_level_7_bg">#33FF5722</color>
     <color name="exposition_level_8_bg">#33F44336</color>
+
+    <color name="text_color_statement">#757575</color>
+    <color name="text_color_error_header">#DF6061</color>
 </resources>
