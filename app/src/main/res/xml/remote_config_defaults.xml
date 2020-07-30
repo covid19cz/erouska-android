@@ -145,11 +145,87 @@
         <value>0</value>
     </entry>
     <entry>
-        <key>exposureNotification</key>
+        <key>exposureBodyTop</key>
         <value>Dne %1$s jste se setkali s osobou u které byla potvrzena nákaza virem COVID-19.</value>
     </entry>
     <entry>
-        <key>exposureInfo</key>
+        <key>exposureBodyMid</key>
         <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objeví příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší pohotovost.</value>
+    </entry>
+    <entry>
+        <key>exposureBodyBottom</key>
+        <value>Jestliže se u vás neprojevují příznaky onemocnění, nemusíte zůstávat doma. Dodržujte zásady bezpečného kontaktu.</value>
+    </entry>
+    <entry>
+        <key>noExposureHeader</key>
+        <value>V posledních 14 dnech nebyla ve vaší blízkosti žádná osoba s potvrzenou nákazou virem COVID-19</value>
+    </entry>
+    <entry>
+        <key>noExposureBody</key>
+        <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
+    </entry>
+    <entry>
+        <key>mainSymptoms</key>
+        <value>Hlavní příznaky</value>
+    </entry>
+    <entry>
+        <key>spreadPrevention</key>
+        <value>Zásady bezpečného kontaktu</value>
+    </entry>
+    <entry>
+        <key>earlierExposures</key>
+        <value>Předchozí riziková setkání</value>
+    </entry>
+    <entry>
+        <key>mainSymptomsBody</key>
+        <value>Příznaky se mohou objevit 2-14 dní po rizikovém setkání.</value>
+    </entry>
+    <entry>
+        <key>symptomTemperature</key>
+        <value>Zvýšená teplota</value>
+    </entry>
+    <entry>
+        <key>symptomCough</key>
+        <value>Kašel</value>
+    </entry>
+    <entry>
+        <key>symptomStuffiness</key>
+        <value>Dušnost</value>
+    </entry>
+    <entry>
+        <key>symptomThroatAche</key>
+        <value>Bolest v krku</value>
+    </entry>
+    <entry>
+        <key>symptomHeadAche</key>
+        <value>Bolest hlavy</value>
+    </entry>
+    <entry>
+        <key>preventionBody</key>
+        <value>Koronavirus se přenáší hlavně kapénkovou infekcí, která je přenášena vzduchem. Zasahuje nejčastěji sliznice horních a dolních dýchacích cest a spojivky. Přenášet se může také kontaminovanými předměty.</value>
+    </entry>
+    <entry>
+        <key>preventionCleanHandsLabel</key>
+        <value>Často a důkladně si myjte ruce mýdlem či dezinfekčním gelem.</value>
+    </entry>
+    <entry>
+        <key>preventionDisinfectionLabel</key>
+        <value>Pravidelně dezinfikujte také vlastní předměty (např. mobilní telefon).</value>
+    </entry>
+    <entry>
+        <key>preventionCoughLabel</key>
+        <value>Kašlete a kýchejte do jednorázového kapesníku či rukávu.</value>
+    </entry>
+    <entry>
+        <key>preventionTissuesLabel</key>
+        <value>Používejte jednorázové kapesníky a poté je vyhoďte.</value>
+    </entry>
+    <entry>
+        <key>preventionSocialDistancingLabel</key>
+        <value>Vyhýbejte se velkému uskupení osob a udržujte bezpečný odstup (cca 2 metry).</value>
+    </entry>
+    <entry>
+        <key>preventionNoContactLabel</key>
+        <value>Eliminujte kontakt s nemocnými lidmi a necestujte do zasažených lokalit.</value>
     </entry>
 </defaultsMap>

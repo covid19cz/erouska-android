@@ -168,8 +168,68 @@
         android:name="cz.covid19cz.erouska.ui.exposure.ExposuresFragment"
         android:label="@string/exposures_title"
         tools:layout="@layout/fragment_exposures">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_recent_exposures"
+            app:destination="@id/nav_recent_exposures"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_main_symptoms"
+            app:destination="@id/nav_main_symptoms"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_spread_prevention"
+            app:destination="@id/nav_spread_prevention"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_recent_exposures"
+        android:name="cz.covid19cz.erouska.ui.exposure.RecentExposuresFragment"
+        android:label="@string/exposures_nav_earlier_exposures"
+        tools:layout="@layout/fragment_recent_exposures">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_main_symptoms"
+        android:name="cz.covid19cz.erouska.ui.exposure.MainSymptomsFragment"
+        android:label="@string/main_symptoms_title"
+        tools:layout="@layout/fragment_main_symptoms">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_spread_prevention"
+        android:name="cz.covid19cz.erouska.ui.exposure.SpreadPreventionFragment"
+        android:label="@string/spread_prevention_title"
+        tools:layout="@layout/fragment_spread_prevention">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_permission_onboard"

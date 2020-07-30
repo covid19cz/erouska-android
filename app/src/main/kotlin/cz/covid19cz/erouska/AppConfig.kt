@@ -77,10 +77,47 @@ object AppConfig {
         get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
-    val exposureNotification
-        get() = firebaseRemoteConfig.getString("exposureNotification")
-    val exposureInfo
-        get() = firebaseRemoteConfig.getString("exposureInfo")
+    val exposureBodyTop
+        get() = firebaseRemoteConfig.getString("exposureBodyTop")
+    val exposureBodyMid
+        get() = firebaseRemoteConfig.getString("exposureBodyMid")
+    val noExposureHeader
+        get() = firebaseRemoteConfig.getString("noExposureHeader")
+    val noExposureBody
+        get() = firebaseRemoteConfig.getString("noExposureBody")
+    val mainSymptoms
+        get() = firebaseRemoteConfig.getString("mainSymptoms")
+    val spreadPrevention
+        get() = firebaseRemoteConfig.getString("spreadPrevention")
+    val earlierExposures
+        get() = firebaseRemoteConfig.getString("earlierExposures")
+    val mainSymptomsBody
+        get() = firebaseRemoteConfig.getString("mainSymptomsBody")
+    val symptomTemperature
+        get() = firebaseRemoteConfig.getString("symptomTemperature")
+    val symptomCough
+        get() = firebaseRemoteConfig.getString("symptomCough")
+    val symptomStuffiness
+        get() = firebaseRemoteConfig.getString("symptomStuffiness")
+    val symptomThroatAche
+        get() = firebaseRemoteConfig.getString("symptomThroatAche")
+    val symptomHeadAche
+        get() = firebaseRemoteConfig.getString("symptomHeadAche")
+    val preventionBody
+        get() = firebaseRemoteConfig.getString("preventionBody")
+    val preventionCleanHandsLabel
+        get() = firebaseRemoteConfig.getString("preventionCleanHandsLabel")
+    val preventionDisinfectionLabel
+        get() = firebaseRemoteConfig.getString("preventionDisinfectionLabel")
+    val preventionCoughLabel
+        get() = firebaseRemoteConfig.getString("preventionCoughLabel")
+    val preventionTissuesLabel
+        get() = firebaseRemoteConfig.getString("preventionTissuesLabel")
+    val preventionSocialDistancingLabel
+        get() = firebaseRemoteConfig.getString("preventionSocialDistancingLabel")
+    val preventionNoContactLabel
+        get() = firebaseRemoteConfig.getString("preventionNoContactLabel")
+
 
     var overrideAdvertiseTxPower: Int? = null
 

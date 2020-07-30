@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/prevention_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/clean_hands_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_clean_hands"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/prevention_text" />
+
+        <TextView
+            android:id="@+id/clean_hands_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/clean_hands_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clean_hands_img"
+            app:layout_constraintTop_toTopOf="@id/clean_hands_img" />
+
+        <ImageView
+            android:id="@+id/disinfection_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_disinfection"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clean_hands_img" />
+
+        <TextView
+            android:id="@+id/disinfection_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/disinfection_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/disinfection_img"
+            app:layout_constraintTop_toTopOf="@id/disinfection_img" />
+
+        <ImageView
+            android:id="@+id/cough_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_cough_prevention"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disinfection_img" />
+
+        <TextView
+            android:id="@+id/cough_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/cough_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cough_img"
+            app:layout_constraintTop_toTopOf="@id/cough_img" />
+
+        <ImageView
+            android:id="@+id/tissue_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_tissue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cough_img" />
+
+        <TextView
+            android:id="@+id/tissue_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/tissue_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tissue_img"
+            app:layout_constraintTop_toTopOf="@id/tissue_img" />
+
+        <ImageView
+            android:id="@+id/social_distance_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_social_distancing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tissue_img" />
+
+        <TextView
+            android:id="@+id/social_distance_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/social_distance_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/social_distance_img"
+            app:layout_constraintTop_toTopOf="@id/social_distance_img" />
+
+        <ImageView
+            android:id="@+id/no_contact_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_no_contact"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/social_distance_img" />
+
+        <TextView
+            android:id="@+id/no_contact_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/no_contact_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/no_contact_img"
+            app:layout_constraintTop_toTopOf="@id/no_contact_img" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

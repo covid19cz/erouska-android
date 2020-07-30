@@ -28,6 +28,9 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
 import cz.covid19cz.erouska.ui.exposure.ExposuresVM
+import cz.covid19cz.erouska.ui.exposure.MainSymptomsVM
+import cz.covid19cz.erouska.ui.exposure.RecentExposuresVM
+import cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -50,6 +53,9 @@ val viewModelModule = module {
     viewModel { GuideVM() }
     viewModel { SendDataVM() }
     viewModel { ExposuresVM() }
+    viewModel { RecentExposuresVM() }
+    viewModel { MainSymptomsVM() }
+    viewModel { SpreadPreventionVM() }
 }
 
 val databaseModule = module {

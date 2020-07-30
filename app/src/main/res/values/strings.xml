@@ -157,7 +157,10 @@
     <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and hygienists.</string>
 
     <string name="exposures_title">Risky contacts</string>
-    <string name="exposures_nav_main_symptoms">Main symptoms</string>
-    <string name="exposures_nav_spread_prevention">How to prevent spreading</string>
+
     <string name="exposures_nav_earlier_exposures">Earlier exposures</string>
+
+    <string name="spread_prevention_title">Transmission prevention</string>
+
+    <string name="main_symptoms_title">Main symptoms</string>
 </resources>

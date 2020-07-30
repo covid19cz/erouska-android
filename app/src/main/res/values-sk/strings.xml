@@ -170,7 +170,10 @@
     <string name="send_data_success_body_3">Zůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
 
     <string name="exposures_title">Riziková setkání</string>
-    <string name="exposures_nav_main_symptoms">Hlavní příznaky</string>
-    <string name="exposures_nav_spread_prevention">Jak zabránit přenosu</string>
+
     <string name="exposures_nav_earlier_exposures">Předchozí riziková setkání</string>
+
+    <string name="spread_prevention_title">Jak zabránit přenosu</string>
+
+    <string name="main_symptoms_title">Hlavní příznaky</string>
 </resources>
