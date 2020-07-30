@@ -177,6 +177,7 @@ dependencies {
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'com.jaredrummler:android-device-names:2.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    implementation 'net.lingala.zip4j:zip4j:2.6.1'
 
     // Tests
     testImplementation 'junit:junit:4.13'
