@@ -20,6 +20,8 @@ class MainSymptomsFragment : BaseFragment<FragmentMainSymptomsBinding, MainSympt
     }
 
     private fun initText() {
+        activity?.title = AppConfig.symptomsUITitle
+
         main_symptoms_body.text = AppConfig.mainSymptomsBody
         temperature_label.text = AppConfig.symptomTemperature
         cough_label.text = AppConfig.symptomCough

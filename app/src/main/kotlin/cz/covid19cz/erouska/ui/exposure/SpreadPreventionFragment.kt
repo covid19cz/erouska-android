@@ -16,6 +16,12 @@ class SpreadPreventionFragment : BaseFragment<FragmentSpreadPreventionBinding, S
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initText()
+    }
+
+    private fun initText() {
+        activity?.title = AppConfig.spreadPreventionUITitle
+
         prevention_text.text = AppConfig.preventionBody
         clean_hands_label.text = AppConfig.preventionCleanHandsLabel
         disinfection_label.text = AppConfig.preventionDisinfectionLabel
@@ -24,5 +30,6 @@ class SpreadPreventionFragment : BaseFragment<FragmentSpreadPreventionBinding, S
         social_distance_label.text = AppConfig.preventionSocialDistancingLabel
         no_contact_label.text = AppConfig.preventionNoContactLabel
     }
+
 
 }

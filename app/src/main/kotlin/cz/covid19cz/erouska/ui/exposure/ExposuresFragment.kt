@@ -20,6 +20,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
 
+        activity?.title = AppConfig.exposureUITitle
+
         symptoms_text.text = AppConfig.mainSymptoms
         spread_text.text = AppConfig.spreadPrevention
         earlier_exposures_text.text = AppConfig.earlierExposures

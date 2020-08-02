@@ -117,6 +117,14 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("preventionSocialDistancingLabel")
     val preventionNoContactLabel
         get() = firebaseRemoteConfig.getString("preventionNoContactLabel")
+    val exposureUITitle
+        get() = firebaseRemoteConfig.getString("exposureUITitle")
+    val symptomsUITitle
+        get() = firebaseRemoteConfig.getString("symptomsUITitle")
+    val spreadPreventionUITitle
+        get() = firebaseRemoteConfig.getString("spreadPreventionUITitle")
+    val recentExposuresUITitle
+        get() = firebaseRemoteConfig.getString("recentExposuresUITitle")
 
 
     var overrideAdvertiseTxPower: Int? = null

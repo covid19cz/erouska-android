@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.exposure
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentRecentExposuresBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -20,6 +21,8 @@ class RecentExposuresFragment : BaseFragment<FragmentRecentExposuresBinding, Rec
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.title = AppConfig.recentExposuresUITitle
 
         exposures_list.adapter = exposureAdapter
         exposures_list.setHasFixedSize(true)
