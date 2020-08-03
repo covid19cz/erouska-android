@@ -820,4 +820,8 @@
         <key>recentExposuresUITitle</key>
         <value>Předchozí riziková setkání</value>
     </entry>
+    <entry>
+        <key>exposureNotificationContent</key>
+        <value>Setkali jste se s osobou, u které byla prokázána nákaza virem COVID-19. Sledujte svůj zdravotní stav.</value>
+    </entry>
 </defaultsMap>

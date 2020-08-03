@@ -10,6 +10,11 @@ class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
 
+    init {
+        // TODO Check if there were any exposures
+        // If yes -> Post some event, how exposure notification (exposure_notification_container)
+    }
+
     fun pause() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
     }

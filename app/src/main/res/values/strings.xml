@@ -158,6 +158,8 @@
 
     <string name="exposures_title">Risky contacts</string>
 
+    <string name="exposure_notification_close">Close</string>
+    <string name="exposure_notification_more_info">More information</string>
     <string name="exposures_nav_earlier_exposures">Earlier exposures</string>
 
     <string name="spread_prevention_title">Transmission prevention</string>

@@ -37,5 +37,7 @@
     <color name="text_color_statement">#757575</color>
     <color name="text_color_error_header">#DF6061</color>
 
+    <color name="exposure_notification_bg">#DE1A1A</color>
+
     <color name="separator">#CCCCCC</color>
 </resources>
