@@ -12,14 +12,14 @@ import android.view.View
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
 
 
@@ -49,14 +49,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun subsribeToViewModel() {
-        subscribe(DashboardCommandEvent::class) { commandEvent ->
-            when (commandEvent.command) {
-                DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
-                DashboardCommandEvent.Command.TURN_OFF -> stopService()
-            }
+        subscribe(BluetoothDisabledEvent::class){
+            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
         }
         subscribe(GmsApiErrorEvent::class){
-            //it.status.startResolutionForResult(requireActivity(), REQUEST_GMS_ERROR_RESOLUTION)
             startIntentSenderForResult(it.status.resolution?.intentSender, REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
         }
     }
@@ -109,6 +105,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
+        if (BuildConfig.DEBUG){
+            menu.add(0, R.id.action_sandbox, 999, "Test")
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -122,12 +121,12 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 navigate(R.id.nav_about)
                 true
             }
+            R.id.action_sandbox -> {
+                navigate(R.id.nav_sandbox)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onBluetoothEnabled() {
-        tryStartBtService()
     }
 
     override fun onDestroy() {
@@ -136,15 +135,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun resumeService() {
-        //TODO: Implement
-    }
-
-    private fun pauseService() {
-        //TODO: Implement
-    }
-
-    private fun stopService() {
-        //TODO: Implement
+        viewModel.start()
     }
 
     private fun checkRequirements(
@@ -162,16 +153,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 onPassed()
             }
         }
-    }
-
-    private fun tryStartBtService() {
-        checkRequirements(
-            {
-                resumeService()
-            },
-            { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
-            { showBatterySaverDialog() }
-        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

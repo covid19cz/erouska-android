@@ -1,8 +1,10 @@
 package cz.covid19cz.erouska.exposurenotifications
 
+import android.bluetooth.BluetoothAdapter
 import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.gms.tasks.Task
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import kotlin.coroutines.resume
@@ -11,14 +13,13 @@ import kotlin.coroutines.suspendCoroutine
 
 class ExposureNotificationsRepository(
     private val exposureNotificationClient: ExposureNotificationClient,
+    private val btAdapter: BluetoothAdapter,
     private val prefs: SharedPrefsRepository
 ) {
 
-    val config = ExposureConfiguration.ExposureConfigurationBuilder()
-        .setDurationAtAttenuationThresholds(
-            prefs.getAttenuationThreshold1(50), prefs.getAttenuationThreshold2(60)
-        )
-        .build()
+    fun isBluetoothEnabled() : Boolean{
+        return btAdapter.isEnabled
+    }
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
         exposureNotificationClient.start()
@@ -53,6 +54,7 @@ class ExposureNotificationsRepository(
 
     suspend fun provideDiagnosisKeys(
         files: List<File>,
+        config: ExposureConfiguration,
         token: String?
     ): Void = suspendCoroutine { cont ->
         exposureNotificationClient.provideDiagnosisKeys(
@@ -67,6 +69,7 @@ class ExposureNotificationsRepository(
             }
     }
 
+    @Deprecated("v1 mode")
     suspend fun getExposureSummary(token: String): ExposureSummary =
         suspendCoroutine { cont ->
             exposureNotificationClient.getExposureSummary(token)

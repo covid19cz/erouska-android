@@ -13,9 +13,42 @@
             type="androidx.lifecycle.LifecycleOwner" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vm.serviceRunning}"
+            android:onClick="@{() -> vm.toggleExposureNotifications()}"
+            android:text="Exposure Notifications"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.minimumRiskScore}"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.attenuationThreshold}"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.attenuationScore}"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.durationScore}"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.transmissionScore}"/>
+
+        <include layout="@layout/layout_sandbox_config_values"
+            app:item="@{vm.daysSinceLastExposureScore}"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.saveConfig()}"
+            android:text="Save"/>
+
+    </LinearLayout>
 </layout>

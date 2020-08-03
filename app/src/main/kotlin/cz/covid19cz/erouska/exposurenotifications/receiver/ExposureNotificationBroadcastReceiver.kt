@@ -20,15 +20,18 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
+import cz.covid19cz.erouska.utils.L
 
 /**
  * Broadcast receiver for callbacks from exposure notification API.
  */
 class ExposureNotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val action = intent.action
-        if (ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED == action || ExposureNotificationClient.ACTION_EXPOSURE_NOT_FOUND == action) {
-            //StateUpdatedWorker.runOnce(context)
+        if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {
+            val token = intent.getStringExtra(ExposureNotificationClient.EXTRA_TOKEN)
+            L.d("Exposure state updated, token: $token")
+        } else if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_NOT_FOUND){
+            L.d("Exposure not found")
         }
     }
 }

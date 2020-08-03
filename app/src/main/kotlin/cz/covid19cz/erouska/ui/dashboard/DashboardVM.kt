@@ -5,11 +5,10 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
-import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -47,18 +46,22 @@ class DashboardVM(private val exposureNotificationsRepository: ExposureNotificat
     }
 
     fun start() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                exposureNotificationsRepository.start()
-            }.onSuccess {
-                serviceRunning.value = true
-                L.d("Exposure Notifications started")
-            }.onFailure {
-                if (it is ApiException){
-                    publish(GmsApiErrorEvent(it.status))
+        if (exposureNotificationsRepository.isBluetoothEnabled()) {
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    exposureNotificationsRepository.start()
+                }.onSuccess {
+                    serviceRunning.value = true
+                    L.d("Exposure Notifications started")
+                }.onFailure {
+                    if (it is ApiException) {
+                        publish(GmsApiErrorEvent(it.status))
+                    }
+                    L.e(it)
                 }
-                L.e(it)
             }
+        } else {
+            publish(BluetoothDisabledEvent())
         }
         //publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }

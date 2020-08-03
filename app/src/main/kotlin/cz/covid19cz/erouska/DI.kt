@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska
 
 import android.app.AlarmManager
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
@@ -35,7 +36,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get()) }
+    viewModel { SandboxVM(get(), get(), get()) }
     viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get()) }
     viewModel { HelpVM() }
@@ -56,7 +57,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get()) }
+    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
     single { ActivationRepositoryImpl() as ActivationRepository }
     single { ExposureServerRepository(get()) }
 }
@@ -69,6 +70,7 @@ val appModule = module {
     single { Markdown(androidContext()) }
     single { DeviceInfo(androidContext()) }
     single { CustomTabHelper(androidContext()) }
+    single { BluetoothAdapter.getDefaultAdapter() }
 }
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)
