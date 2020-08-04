@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_welcome_fragment">
+    app:startDestination="@id/nav_newsletter_fragment">
+    <!--    app:startDestination="@id/nav_welcome_fragment"-->
+
+    <fragment
+        android:id="@+id/nav_newsletter_fragment"
+        android:name="cz.covid19cz.erouska.ui.newsletter.NewsletterFragment"
+        android:label="@string/newsletter_title"
+        tools:layout="@layout/fragment_newsletter">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_welcome_fragment"
