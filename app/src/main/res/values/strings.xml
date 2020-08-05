@@ -154,7 +154,7 @@
     <string name="send_data_success_header">Data were successfully sent</string>
     <string name="send_data_success_body_1">Thank you for fighting against the spread of coronavirus.</string>
     <string name="send_data_success_body_2">Please cooperate with workers of public health office on searching all people you were in contact with.</string>
-    <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and hygienists.</string>
+    <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and health workers.</string>
 
     <string name="exposures_title">Risky contacts</string>
 

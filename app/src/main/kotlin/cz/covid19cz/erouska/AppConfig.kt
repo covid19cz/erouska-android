@@ -103,10 +103,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("spreadPreventionUITitle")
     val recentExposuresUITitle
         get() = firebaseRemoteConfig.getString("recentExposuresUITitle")
-    val symptomsContent
-        get() = getLocalized("symptomsContent")
-    val preventionContent
-        get() = getLocalized("preventionContent")
+    val symptomsContentJson
+        get() = getLocalized("symptomsContentJson")
+    val preventionContentJson
+        get() = getLocalized("preventionContentJson")
 
     var overrideAdvertiseTxPower: Int? = null
 

@@ -777,12 +777,12 @@
         <value>Předchozí riziková setkání</value>
     </entry>
     <entry>
-        <key>preventionContent</key>
+        <key>preventionContentJson</key>
         <value>[{"iconUrl":"","label":"Často a důkladně si myjte ruce mýdlem či dezinfekčním gelem."},{"iconUrl":"","label":"Pravidelně dezinfikujte také vlastní předměty (např. mobilní telefon)."},{"iconUrl":"","label":"Kašlete a kýchejte do kapesníku či rukávu."},{"iconUrl":"","label":"Používejte jednorázové kapesníky a poté je vyhoďte."},{"iconUrl":"","label":"Vyhýbejte se velkému uskupení osob a udržujte bezpečný odstup (cca 2 metry)."},{"iconUrl":"","label":"Eliminujte kontakt s nemocnými lidmi a necestujte do zasažených lokalit."}]</value>
     </entry>
 
     <entry>
-        <key>symptomsContent</key>
+        <key>symptomsContentJson</key>
         <value>[{"iconUrl":"","label":"Zvýšená teplota"},{"iconUrl":"","label":"Kašel"},{"iconUrl":"","label":"Dušnost"},{"iconUrl":"","label":"Bolest v krku"},{"iconUrl":"","label":"Bolest hlavy"}]</value>
     </entry>
 </defaultsMap>
