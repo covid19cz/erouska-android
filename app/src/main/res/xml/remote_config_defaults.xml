@@ -756,53 +756,9 @@
         <value>Příznaky se mohou objevit 2-14 dní po rizikovém setkání.</value>
     </entry>
     <entry>
-        <key>symptomTemperature</key>
-        <value>Zvýšená teplota</value>
-    </entry>
-    <entry>
-        <key>symptomCough</key>
-        <value>Kašel</value>
-    </entry>
-    <entry>
-        <key>symptomStuffiness</key>
-        <value>Dušnost</value>
-    </entry>
-    <entry>
-        <key>symptomThroatAche</key>
-        <value>Bolest v krku</value>
-    </entry>
-    <entry>
-        <key>symptomHeadAche</key>
-        <value>Bolest hlavy</value>
-    </entry>
-    <entry>
         <key>preventionBody</key>
         <value>Koronavirus se přenáší hlavně kapénkovou infekcí, která je přenášena vzduchem. Zasahuje nejčastěji sliznice horních a dolních dýchacích cest a spojivky. Přenášet se může také kontaminovanými předměty.
         </value>
-    </entry>
-    <entry>
-        <key>preventionCleanHandsLabel</key>
-        <value>Často a důkladně si myjte ruce mýdlem či dezinfekčním gelem.</value>
-    </entry>
-    <entry>
-        <key>preventionDisinfectionLabel</key>
-        <value>Pravidelně dezinfikujte také vlastní předměty (např. mobilní telefon).</value>
-    </entry>
-    <entry>
-        <key>preventionCoughLabel</key>
-        <value>Kašlete a kýchejte do jednorázového kapesníku či rukávu.</value>
-    </entry>
-    <entry>
-        <key>preventionTissuesLabel</key>
-        <value>Používejte jednorázové kapesníky a poté je vyhoďte.</value>
-    </entry>
-    <entry>
-        <key>preventionSocialDistancingLabel</key>
-        <value>Vyhýbejte se velkému uskupení osob a udržujte bezpečný odstup (cca 2 metry).</value>
-    </entry>
-    <entry>
-        <key>preventionNoContactLabel</key>
-        <value>Eliminujte kontakt s nemocnými lidmi a necestujte do zasažených lokalit.</value>
     </entry>
     <entry>
         <key>exposureUITitle</key>
@@ -819,5 +775,14 @@
     <entry>
         <key>recentExposuresUITitle</key>
         <value>Předchozí riziková setkání</value>
+    </entry>
+    <entry>
+        <key>preventionContent</key>
+        <value>[{"iconUrl":"","label":"Často a důkladně si myjte ruce mýdlem či dezinfekčním gelem."},{"iconUrl":"","label":"Pravidelně dezinfikujte také vlastní předměty (např. mobilní telefon)."},{"iconUrl":"","label":"Kašlete a kýchejte do kapesníku či rukávu."},{"iconUrl":"","label":"Používejte jednorázové kapesníky a poté je vyhoďte."},{"iconUrl":"","label":"Vyhýbejte se velkému uskupení osob a udržujte bezpečný odstup (cca 2 metry)."},{"iconUrl":"","label":"Eliminujte kontakt s nemocnými lidmi a necestujte do zasažených lokalit."}]</value>
+    </entry>
+
+    <entry>
+        <key>symptomsContent</key>
+        <value>[{"iconUrl":"","label":"Zvýšená teplota"},{"iconUrl":"","label":"Kašel"},{"iconUrl":"","label":"Dušnost"},{"iconUrl":"","label":"Bolest v krku"},{"iconUrl":"","label":"Bolest hlavy"}]</value>
     </entry>
 </defaultsMap>
