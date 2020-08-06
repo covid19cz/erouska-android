@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_welcome.*
 class WelcomeFragment :
     BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
 
+    private var newsShown = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +29,13 @@ class WelcomeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+
+        // TODO Create flag inside preferences
+        if (!newsShown) {
+            newsShown = true
+            navigate(R.id.action_nav_welcome_fragment_to_nav_newsletter)
+        }
+
 
         val welcomeDescription: String = String.format(
             getString(R.string.welcome_description),

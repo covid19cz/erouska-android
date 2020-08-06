@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_newsletter_fragment">
+    app:startDestination="@id/nav_welcome_fragment">
     <!--    app:startDestination="@id/nav_welcome_fragment"-->
 
     <fragment
@@ -22,6 +22,13 @@
         android:name="cz.covid19cz.erouska.ui.welcome.WelcomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_newsletter"
+            app:destination="@+id/nav_newsletter_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_dashboard"
             app:destination="@id/nav_dashboard"

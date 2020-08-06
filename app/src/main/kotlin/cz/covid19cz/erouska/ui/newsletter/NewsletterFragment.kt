@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.newsletter
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentNewsletterBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -72,11 +73,11 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
         newsletter_header.text = getString(R.string.newsletter_privacy_header)
         newsletter_body.text = getString(R.string.newsletter_privacy_body)
         newsletter_button.text = getString(R.string.newsletter_button_close)
-        newsletter_button.setOnClickListener { next() }
+        newsletter_button.setOnClickListener { finish() }
     }
 
     private fun finish() {
-
+navController().navigateUp()
     }
 
     private fun next() {
