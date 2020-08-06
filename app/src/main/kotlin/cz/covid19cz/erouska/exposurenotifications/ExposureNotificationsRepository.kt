@@ -48,10 +48,6 @@ class ExposureNotificationsRepository(
             }
     }
 
-    suspend fun getTemporaryExposureKeyHistory(): List<TemporaryExposureKey> {
-        return exposureNotificationClient.temporaryExposureKeyHistory.await()
-    }
-
     suspend fun provideDiagnosisKeys(
         files: List<File>,
         config: ExposureConfiguration,
@@ -79,6 +75,14 @@ class ExposureNotificationsRepository(
                     cont.resumeWithException(it)
                 }
         }
+
+    suspend fun getTemporaryExposureKeyHistory() : List<TemporaryExposureKey> = suspendCoroutine { cont ->
+        exposureNotificationClient.temporaryExposureKeyHistory.addOnSuccessListener {
+            cont.resume(it)
+        }.addOnFailureListener {
+            cont.resumeWithException(it)
+        }
+    }
 
     suspend fun getExposureWindows(): List<ExposureWindow> = suspendCoroutine { cont ->
         exposureNotificationClient.getExposureWindows(ExposureNotificationClient.TOKEN_A)

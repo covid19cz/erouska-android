@@ -20,15 +20,24 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.utils.L
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * Broadcast receiver for callbacks from exposure notification API.
  */
-class ExposureNotificationBroadcastReceiver : BroadcastReceiver() {
+class ExposureNotificationBroadcastReceiver : BroadcastReceiver(), KoinComponent {
+
+    val exposureNotificationsRepository : ExposureNotificationsRepository by inject()
+    val exposureServerRepository : ExposureServerRepository by inject()
+
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {
             val token = intent.getStringExtra(ExposureNotificationClient.EXTRA_TOKEN)
+
             L.d("Exposure state updated, token: $token")
         } else if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_NOT_FOUND){
             L.d("Exposure not found")

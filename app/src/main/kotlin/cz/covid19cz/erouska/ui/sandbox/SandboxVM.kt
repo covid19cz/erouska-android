@@ -14,6 +14,7 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.util.*
 
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
@@ -21,7 +22,7 @@ class SandboxVM(
     val prefs : SharedPrefsRepository
 ) : BaseVM() {
 
-    lateinit var config : ExposureConfiguration? = null
+    lateinit var config : ExposureConfiguration
     val serviceRunning = SafeMutableLiveData(false)
     val attenuationThreshold = SandboxConfigValues("Duration at Attenuation Thresholds", 2)
     val attenuationScore = SandboxConfigValues("Attenuation Scores", 8)
@@ -99,7 +100,8 @@ class SandboxVM(
         viewModelScope.launch {
             runCatching {
                 val files = serverRepository.downloadKeyExport()
-                exposureNotificationsRepository.provideDiagnosisKeys(files, config!!, token)
+                val token = UUID.randomUUID().toString()
+                exposureNotificationsRepository.provideDiagnosisKeys(files, config, token)
             }
         }
     }
