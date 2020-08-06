@@ -52,8 +52,6 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(
     }
 
     private fun isObsolete(): Boolean {
-        //TODO remove temporary hack
-        return false
         return BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
     }
 

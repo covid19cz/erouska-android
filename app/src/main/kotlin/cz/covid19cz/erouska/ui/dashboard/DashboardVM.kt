@@ -42,8 +42,8 @@ class DashboardVM(private val exposureNotificationsRepository: ExposureNotificat
                 L.e(it)
             }
         }
-        //publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
     }
+
 
     fun start() {
         if (exposureNotificationsRepository.isBluetoothEnabled()) {
@@ -63,6 +63,5 @@ class DashboardVM(private val exposureNotificationsRepository: ExposureNotificat
         } else {
             publish(BluetoothDisabledEvent())
         }
-        //publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
 }

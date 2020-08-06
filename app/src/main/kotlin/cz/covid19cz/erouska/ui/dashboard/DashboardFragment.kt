@@ -20,6 +20,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
 
 
@@ -28,7 +29,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     DashboardVM::class
 ) {
 
-    companion object{
+    companion object {
         const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
 
@@ -49,11 +50,19 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun subsribeToViewModel() {
-        subscribe(BluetoothDisabledEvent::class){
+        subscribe(BluetoothDisabledEvent::class) {
             navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
         }
-        subscribe(GmsApiErrorEvent::class){
-            startIntentSenderForResult(it.status.resolution?.intentSender, REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+        subscribe(GmsApiErrorEvent::class) {
+            startIntentSenderForResult(
+                it.status.resolution?.intentSender,
+                REQUEST_GMS_ERROR_RESOLUTION,
+                null,
+                0,
+                0,
+                0,
+                null
+            )
         }
     }
 
@@ -101,11 +110,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+
+        data_notification_close.setOnClickListener { closeDataNotification() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             menu.add(0, R.id.action_sandbox, 999, "Test")
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -156,13 +167,21 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when(requestCode){
+        when (requestCode) {
             REQUEST_GMS_ERROR_RESOLUTION -> {
-                if (resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     viewModel.start()
                 }
 
             }
         }
+    }
+
+    private fun showDataNotification() {
+        data_notification_container.show()
+    }
+
+    private fun closeDataNotification() {
+        data_notification_container.hide()
     }
 }
