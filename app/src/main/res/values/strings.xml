@@ -158,4 +158,7 @@
 
     <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
+
+    <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
+    <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>
 </resources>

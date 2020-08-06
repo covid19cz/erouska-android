@@ -13,6 +13,9 @@ class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
     init {
         // TODO Check last download time
         // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
+
+        // TODO Check if EN API is off
+        // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
     }
 
     fun pause() {

@@ -14,6 +14,12 @@ class PermissionsDisabledFragment :
         super.onCreate(savedInstanceState)
         enableUpInToolbar(false)
         viewModel.initViewModel()
+
+//        viewModel.state.observe(this) {
+//            when(it) {
+//                PermissionDisabledVM.ScreenState.EN_API_DISABLED -> showExposureNotificationsDisabled()
+//            }
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -33,5 +39,9 @@ class PermissionsDisabledFragment :
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showExposureNotificationsDisabled() {
+
     }
 }

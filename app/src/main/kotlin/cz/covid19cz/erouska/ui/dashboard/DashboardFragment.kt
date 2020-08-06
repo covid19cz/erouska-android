@@ -48,6 +48,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> showDataNotification()
+                DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
             }
         }
     }
@@ -173,5 +174,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun closeDataNotification() {
         data_notification_container.hide()
+    }
+
+    private fun showExposureNotificationsOff() {
+
     }
 }
