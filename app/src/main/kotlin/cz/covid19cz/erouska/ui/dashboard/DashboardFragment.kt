@@ -48,6 +48,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
+                DashboardCommandEvent.Command.RECENT_EXPOSURE -> showExposureNotification()
             }
         }
     }
@@ -97,7 +98,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onViewCreated(view, savedInstanceState)
 
         exposure_notification_content.text = AppConfig.exposureNotificationContent
-        exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
+        exposure_notification_close.setOnClickListener { hideExposureNotification() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
 
         enableUpInToolbar(false)
@@ -168,5 +169,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
         )
+    }
+
+    private fun showExposureNotification() {
+        exposure_notification_container.show()
+    }
+
+    private fun hideExposureNotification() {
+        exposure_notification_container.hide()
     }
 }

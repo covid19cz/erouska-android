@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/exposure_notification_bg"
+            android:elevation="16dp"
             android:paddingStart="16dp"
             android:paddingTop="20dp"
             android:paddingEnd="16dp"
