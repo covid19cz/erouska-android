@@ -16,12 +16,12 @@
 
         <ImageView
             android:id="@+id/symptom_img"
-            url="@{ item.iconUrl }"
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{ item.iconUrl }" />
 
         <TextView
             android:layout_width="0dp"
