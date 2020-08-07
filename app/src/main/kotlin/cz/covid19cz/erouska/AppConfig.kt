@@ -93,30 +93,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("earlierExposures")
     val mainSymptomsBody
         get() = firebaseRemoteConfig.getString("mainSymptomsBody")
-    val symptomTemperature
-        get() = firebaseRemoteConfig.getString("symptomTemperature")
-    val symptomCough
-        get() = firebaseRemoteConfig.getString("symptomCough")
-    val symptomStuffiness
-        get() = firebaseRemoteConfig.getString("symptomStuffiness")
-    val symptomThroatAche
-        get() = firebaseRemoteConfig.getString("symptomThroatAche")
-    val symptomHeadAche
-        get() = firebaseRemoteConfig.getString("symptomHeadAche")
     val preventionBody
         get() = firebaseRemoteConfig.getString("preventionBody")
-    val preventionCleanHandsLabel
-        get() = firebaseRemoteConfig.getString("preventionCleanHandsLabel")
-    val preventionDisinfectionLabel
-        get() = firebaseRemoteConfig.getString("preventionDisinfectionLabel")
-    val preventionCoughLabel
-        get() = firebaseRemoteConfig.getString("preventionCoughLabel")
-    val preventionTissuesLabel
-        get() = firebaseRemoteConfig.getString("preventionTissuesLabel")
-    val preventionSocialDistancingLabel
-        get() = firebaseRemoteConfig.getString("preventionSocialDistancingLabel")
-    val preventionNoContactLabel
-        get() = firebaseRemoteConfig.getString("preventionNoContactLabel")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("exposureUITitle")
     val symptomsUITitle
@@ -125,9 +103,12 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("spreadPreventionUITitle")
     val recentExposuresUITitle
         get() = firebaseRemoteConfig.getString("recentExposuresUITitle")
+    val symptomsContentJson
+        get() = getLocalized("symptomsContentJson")
+    val preventionContentJson
+        get() = getLocalized("preventionContentJson")
     val exposureNotificationContent
         get() = firebaseRemoteConfig.getString("exposureNotificationContent")
-
 
     var overrideAdvertiseTxPower: Int? = null
 

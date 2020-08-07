@@ -23,12 +23,6 @@ class SpreadPreventionFragment : BaseFragment<FragmentSpreadPreventionBinding, S
         activity?.title = AppConfig.spreadPreventionUITitle
 
         prevention_text.text = AppConfig.preventionBody
-        clean_hands_label.text = AppConfig.preventionCleanHandsLabel
-        disinfection_label.text = AppConfig.preventionDisinfectionLabel
-        cough_label.text = AppConfig.preventionCoughLabel
-        tissue_label.text = AppConfig.preventionTissuesLabel
-        social_distance_label.text = AppConfig.preventionSocialDistancingLabel
-        no_contact_label.text = AppConfig.preventionNoContactLabel
     }
 
 

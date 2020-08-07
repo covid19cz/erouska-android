@@ -15,6 +15,46 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/data_notification_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/data_notification_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/data_notification_content"
+                android:textColor="@color/textColorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/data_notification_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/data_notification_close"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/data_notification_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/exposure_notification_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Více informací"
+                android:text="@string/exposure_notification_more_info"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,13 +96,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Zavřít"
+                android:text="@string/exposure_notification_close"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/exposure_notification_more_info"
                 app:layout_constraintEnd_toStartOf="@id/exposure_notification_more_info"
                 app:layout_constraintTop_toTopOf="@id/exposure_notification_more_info" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -71,7 +110,7 @@
             android:layout_height="0dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/exposure_notification_container">
+            app:layout_constraintTop_toBottomOf="@+id/exposure_notification_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

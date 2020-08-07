@@ -10,7 +10,7 @@ class ExposuresVM : BaseArchViewModel() {
         // If yes -> Show RECENT_EXPOSURE
         // If not and there are some exposures in the past -> Show NO_RECENT_EXPOSURES
         // If there are NO exposures in the DB -> Show NO_EXPOSURES
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_EXPOSURES))
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
     }
 
 }

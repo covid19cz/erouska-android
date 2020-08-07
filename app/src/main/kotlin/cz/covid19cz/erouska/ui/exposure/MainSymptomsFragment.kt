@@ -23,11 +23,6 @@ class MainSymptomsFragment : BaseFragment<FragmentMainSymptomsBinding, MainSympt
         activity?.title = AppConfig.symptomsUITitle
 
         main_symptoms_body.text = AppConfig.mainSymptomsBody
-        temperature_label.text = AppConfig.symptomTemperature
-        cough_label.text = AppConfig.symptomCough
-        stuffiness_label.text = AppConfig.symptomStuffiness
-        throat_ache_label.text = AppConfig.symptomThroatAche
-        headache_label.text = AppConfig.symptomHeadAche
     }
 
 

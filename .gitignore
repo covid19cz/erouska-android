@@ -28,6 +28,7 @@
 .idea/caches
 .idea/.name
 .idea/navEditor.xml
+.idea/assetWizardSettings.xml
 
 # Gradle:
 .idea/gradle.xml

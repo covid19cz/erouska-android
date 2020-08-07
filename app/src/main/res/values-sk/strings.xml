@@ -169,6 +169,9 @@
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Zůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
 
+    <string name="data_notification_content">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
+    <string name="data_notification_close">Zavřít</string>
+
     <string name="exposures_title">Riziková setkání</string>
 
     <string name="exposure_notification_close">Zavřít</string>
