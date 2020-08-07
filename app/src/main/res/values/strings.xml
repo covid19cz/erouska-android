@@ -156,6 +156,9 @@
     <string name="send_data_success_body_2">Please cooperate with workers of public health office on searching all people you were in contact with.</string>
     <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and health workers.</string>
 
+    <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
+    <string name="data_notification_close">Close</string>
+
     <string name="exposures_title">Risky contacts</string>
 
     <string name="exposures_nav_earlier_exposures">Earlier exposures</string>

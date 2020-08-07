@@ -47,6 +47,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
+                DashboardCommandEvent.Command.DATA_OBSOLETE -> showDataNotification()
             }
         }
     }
@@ -95,6 +96,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
+
+        data_notification_close.setOnClickListener { closeDataNotification() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -162,5 +165,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
         )
+    }
+
+    private fun showDataNotification() {
+        data_notification_container.show()
+    }
+
+    private fun closeDataNotification() {
+        data_notification_container.hide()
     }
 }
