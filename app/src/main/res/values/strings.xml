@@ -145,7 +145,7 @@
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code is invalid</string>
     <string name="send_data_code_expired_header">Verification code is expired</string>
-    <string name="send_data_code_expired_body">Request new SMS message with new verification code from public health office.</string>
+    <string name="send_data_code_expired_body">Request new SMS message with new verification code from public health office administration.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
     <string name="send_data_failure_body">Check your internet connection and try again.</string>
     <string name="send_data_back">Back</string>
@@ -158,4 +158,12 @@
 
     <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
+
+    <string name="exposures_title">Risky contacts</string>
+
+    <string name="exposures_nav_earlier_exposures">Earlier exposures</string>
+
+    <string name="spread_prevention_title">Transmission prevention</string>
+
+    <string name="main_symptoms_title">Main symptoms</string>
 </resources>

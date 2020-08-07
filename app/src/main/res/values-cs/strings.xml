@@ -161,4 +161,12 @@
 
     <string name="data_notification_content">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
+
+    <string name="exposures_title">Riziková setkání</string>
+
+    <string name="exposures_nav_earlier_exposures">Předchozí riziková setkání</string>
+
+    <string name="spread_prevention_title">Jak zabránit přenosu</string>
+
+    <string name="main_symptoms_title">Hlavní příznaky</string>
 </resources>

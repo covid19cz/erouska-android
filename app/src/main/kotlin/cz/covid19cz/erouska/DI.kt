@@ -6,10 +6,8 @@ import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
-import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
@@ -26,6 +24,12 @@ import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepo
+import cz.covid19cz.erouska.ui.activation.ActivationVM
+import cz.covid19cz.erouska.ui.exposure.ExposuresVM
+import cz.covid19cz.erouska.ui.exposure.MainSymptomsVM
+import cz.covid19cz.erouska.ui.exposure.RecentExposuresVM
+import cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -47,6 +51,10 @@ val viewModelModule = module {
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
     viewModel { SendDataVM() }
+    viewModel { ExposuresVM() }
+    viewModel { RecentExposuresVM() }
+    viewModel { MainSymptomsVM() }
+    viewModel { SpreadPreventionVM() }
 }
 
 val databaseModule = module {
