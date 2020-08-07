@@ -19,7 +19,7 @@ class MainSymptomsVM : BaseVM() {
         val gson = Gson()
         val symptomListType: Type = object : TypeToken<ArrayList<SymptomItem>?>() {}.type
 
-        val symptoms: ArrayList<SymptomItem> = gson.fromJson(AppConfig.symptomsContent, symptomListType)
+        val symptoms: ArrayList<SymptomItem> = gson.fromJson(AppConfig.symptomsContentJson, symptomListType)
         items.clear()
         items.addAll(symptoms)
     }

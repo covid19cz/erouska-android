@@ -20,7 +20,7 @@ class SpreadPreventionVM : BaseArchViewModel() {
         val gson = Gson()
         val type: Type = object : TypeToken<ArrayList<PreventionItem>?>() {}.type
 
-        val preventions: ArrayList<PreventionItem> = gson.fromJson(AppConfig.preventionContent, type)
+        val preventions: ArrayList<PreventionItem> = gson.fromJson(AppConfig.preventionContentJson, type)
         items.clear()
         items.addAll(preventions)
 
