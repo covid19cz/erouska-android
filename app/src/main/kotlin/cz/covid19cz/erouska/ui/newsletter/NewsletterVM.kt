@@ -2,9 +2,12 @@ package cz.covid19cz.erouska.ui.newsletter
 
 import androidx.lifecycle.MutableLiveData
 import arch.viewmodel.BaseArchViewModel
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.newsletter.event.NewsletterEvent
 
-class NewsletterVM : BaseArchViewModel() {
+class NewsletterVM(
+    private val sharedPrefsRepository: SharedPrefsRepository
+) : BaseArchViewModel() {
 
     val state = MutableLiveData<NewsletterEvent>(NewsletterEvent.NewsletterExpansion)
 
@@ -29,6 +32,10 @@ class NewsletterVM : BaseArchViewModel() {
         }
 
         state.value = prev
+    }
+
+    fun finish() {
+        sharedPrefsRepository.removeAppPaused()
     }
 
 }

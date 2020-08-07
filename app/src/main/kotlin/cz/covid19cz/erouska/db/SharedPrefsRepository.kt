@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 
-class SharedPrefsRepository(c : Context) {
+class SharedPrefsRepository(c: Context) {
 
-    companion object{
+    companion object {
         const val APP_PAUSED = "preference.app_paused"
     }
 
-    val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
+    val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
 
     fun setAppPaused(appPaused: Boolean) {
         prefs.edit().putBoolean(APP_PAUSED, appPaused).apply()
@@ -19,7 +19,13 @@ class SharedPrefsRepository(c : Context) {
 
     fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)
 
-    fun clear(){
+    fun hasAppPaused() = prefs.contains(APP_PAUSED)
+
+    fun removeAppPaused() {
+        prefs.edit().remove(APP_PAUSED).apply()
+    }
+
+    fun clear() {
         prefs.edit().clear().apply()
     }
 }

@@ -48,7 +48,7 @@ val viewModelModule = module {
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
     viewModel { SendDataVM() }
-    viewModel { NewsletterVM() }
+    viewModel { NewsletterVM(get()) }
 }
 
 val databaseModule = module {

@@ -77,7 +77,8 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
     }
 
     private fun finish() {
-navController().navigateUp()
+        viewModel.finish()
+        navController().navigateUp()
     }
 
     private fun next() {
