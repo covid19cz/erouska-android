@@ -9,6 +9,7 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
 
 class WelcomeVM(private val app: Application,
+                private val prefs: SharedPrefsRepository,
                 private val bluetoothManager: BluetoothManager
 ) : BaseVM() {
 
@@ -24,5 +25,9 @@ class WelcomeVM(private val app: Application,
 
     fun getProclamationUrl(): String {
         return AppConfig.proclamationLink
+    }
+
+    fun wasAppUpdated(): Boolean {
+        return prefs.hasAppPaused()
     }
 }

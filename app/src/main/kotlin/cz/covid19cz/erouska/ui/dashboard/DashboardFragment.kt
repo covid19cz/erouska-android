@@ -96,9 +96,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
 
-        if (viewModel.wasAppUpdated()) {
-            navigate(R.id.action_nav_welcome_fragment_to_nav_newsletter)
-        }
+//        if (viewModel.wasAppUpdated()) {
+//            navigate(R.id.action_nav_welcome_fragment_to_nav_newsletter)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
