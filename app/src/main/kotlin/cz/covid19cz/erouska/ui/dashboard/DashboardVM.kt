@@ -16,6 +16,8 @@ class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
 
         // TODO Check if EN API is off
         // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
+
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF))
     }
 
     fun pause() {

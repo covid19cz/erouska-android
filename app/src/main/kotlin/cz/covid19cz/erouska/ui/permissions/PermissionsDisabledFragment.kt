@@ -8,18 +8,15 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.shareApp
 
 class PermissionsDisabledFragment :
-    BasePermissionsFragment<PermissionDisabledVM>(R.layout.fragment_permissionss_disabled, PermissionDisabledVM::class) {
+    BasePermissionsFragment<PermissionDisabledVM>(
+        R.layout.fragment_permissionss_disabled,
+        PermissionDisabledVM::class
+    ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableUpInToolbar(false)
         viewModel.initViewModel()
-
-//        viewModel.state.observe(this) {
-//            when(it) {
-//                PermissionDisabledVM.ScreenState.EN_API_DISABLED -> showExposureNotificationsDisabled()
-//            }
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -39,9 +36,5 @@ class PermissionsDisabledFragment :
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showExposureNotificationsDisabled() {
-
     }
 }

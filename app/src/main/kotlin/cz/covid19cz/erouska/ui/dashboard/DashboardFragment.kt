@@ -177,6 +177,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun showExposureNotificationsOff() {
-
+        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
 }
