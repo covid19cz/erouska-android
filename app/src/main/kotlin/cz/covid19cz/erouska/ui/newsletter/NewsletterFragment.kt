@@ -33,7 +33,7 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
 
     private fun showExpansionNews() {
         enableUpInToolbar(true, IconType.CLOSE)
-        newsletter_img.setImageResource(R.drawable.ic_expansion)
+        newsletter_img.setImageResource(R.drawable.ic_newsletter_expansion)
         newsletter_header.text = getString(R.string.newsletter_expansion_header)
         newsletter_body.text = getString(R.string.newsletter_expansion_body)
         newsletter_button.text = getString(R.string.newsletter_button_continue)
@@ -42,7 +42,7 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
 
     private fun showActiveNotificationNews() {
         enableUpInToolbar(true, IconType.UP)
-        newsletter_img.setImageResource(R.drawable.ic_active_notification)
+        newsletter_img.setImageResource(R.drawable.ic_newsletter_active_notification)
         newsletter_header.text = getString(R.string.newsletter_active_notification_header)
         newsletter_body.text = getString(R.string.newsletter_active_notification_body)
         newsletter_button.text = getString(R.string.newsletter_button_continue)
@@ -51,7 +51,7 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
 
     private fun showPhoneNumberNews() {
         enableUpInToolbar(true, IconType.UP)
-        newsletter_img.setImageResource(R.drawable.ic_phone)
+        newsletter_img.setImageResource(R.drawable.ic_newsletter_phone)
         newsletter_header.text = getString(R.string.newsletter_phone_header)
         newsletter_body.text = getString(R.string.newsletter_phone_body)
         newsletter_button.text = getString(R.string.newsletter_button_continue)
@@ -60,7 +60,7 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
 
     private fun showAccessibleNews() {
         enableUpInToolbar(true, IconType.UP)
-        newsletter_img.setImageResource(R.drawable.ic_accessible)
+        newsletter_img.setImageResource(R.drawable.ic_newsletter_accessible)
         newsletter_header.text = getString(R.string.newsletter_accessible_header)
         newsletter_body.text = getString(R.string.newsletter_accessible_body)
         newsletter_button.text = getString(R.string.newsletter_button_continue)
@@ -69,7 +69,7 @@ class NewsletterFragment : BaseFragment<FragmentNewsletterBinding, NewsletterVM>
 
     private fun showPrivacyNews() {
         enableUpInToolbar(true, IconType.UP)
-        newsletter_img.setImageResource(R.drawable.ic_privacy)
+        newsletter_img.setImageResource(R.drawable.ic_newsletter_privacy)
         newsletter_header.text = getString(R.string.newsletter_privacy_header)
         newsletter_body.text = getString(R.string.newsletter_privacy_body)
         newsletter_button.text = getString(R.string.newsletter_button_close)
