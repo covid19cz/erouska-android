@@ -166,4 +166,7 @@
     <string name="spread_prevention_title">Transmission prevention</string>
 
     <string name="main_symptoms_title">Main symptoms</string>
+
+    <string name="exposure_notification_close">Close</string>
+    <string name="exposure_notification_more_info">More information</string>
 </resources>

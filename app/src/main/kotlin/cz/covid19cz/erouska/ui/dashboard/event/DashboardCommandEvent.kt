@@ -7,6 +7,7 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
     enum class Command{
         TURN_ON,
         TURN_OFF,
-        DATA_OBSOLETE
+        DATA_OBSOLETE,
+        RECENT_EXPOSURE
     }
 }

@@ -107,6 +107,8 @@ object AppConfig {
         get() = getLocalized("symptomsContentJson")
     val preventionContentJson
         get() = getLocalized("preventionContentJson")
+    val exposureNotificationContent
+        get() = firebaseRemoteConfig.getString("exposureNotificationContent")
 
     var overrideAdvertiseTxPower: Int? = null
 
