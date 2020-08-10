@@ -30,7 +30,7 @@ class WelcomeFragment :
         enableUpInToolbar(false)
 
         if (viewModel.wasAppUpdated()) {
-            navigate(R.id.action_nav_welcome_fragment_to_nav_newsletter)
+            navigate(R.id.action_nav_welcome_fragment_to_nav_legacy_update)
         }
 
         val welcomeDescription: String = String.format(

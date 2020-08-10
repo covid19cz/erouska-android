@@ -19,9 +19,9 @@ class SharedPrefsRepository(c: Context) {
 
     fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)
 
-    fun hasAppPaused() = prefs.contains(APP_PAUSED)
+    fun isUpdateFromLegacyVersion() = prefs.contains(APP_PAUSED)
 
-    fun removeAppPaused() {
+    fun markUpdateFromLegacyVersionCompleted() {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 

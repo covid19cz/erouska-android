@@ -24,6 +24,6 @@ class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
     }
 
     fun wasAppUpdated(): Boolean {
-        return prefs.hasAppPaused()
+        return prefs.isUpdateFromLegacyVersion()
     }
 }

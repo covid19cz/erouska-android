@@ -28,6 +28,6 @@ class WelcomeVM(private val app: Application,
     }
 
     fun wasAppUpdated(): Boolean {
-        return prefs.hasAppPaused()
+        return prefs.isUpdateFromLegacyVersion()
     }
 }

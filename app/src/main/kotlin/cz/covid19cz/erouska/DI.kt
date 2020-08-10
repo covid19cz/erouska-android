@@ -31,7 +31,7 @@ import cz.covid19cz.erouska.ui.exposure.MainSymptomsVM
 import cz.covid19cz.erouska.ui.exposure.RecentExposuresVM
 import cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
-import cz.covid19cz.erouska.ui.newsletter.NewsletterVM
+import cz.covid19cz.erouska.ui.update.LegacyUpdateVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -56,7 +56,7 @@ val viewModelModule = module {
     viewModel { RecentExposuresVM() }
     viewModel { MainSymptomsVM() }
     viewModel { SpreadPreventionVM() }
-    viewModel { NewsletterVM(get()) }
+    viewModel { LegacyUpdateVM(get()) }
 }
 
 val databaseModule = module {
