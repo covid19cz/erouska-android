@@ -17,14 +17,13 @@ class PermissionDisabledVM(
     fun initViewModel() {
         // TODO Create exposureNotificationManager to detect if exposureNotifications are enabled
         // If not -> set state.value = ScreenState.EN_API_DISABLED
-        state.value = ScreenState.EN_API_DISABLED
 
         val bluetoothDisabled = !bluetoothManager.isBluetoothEnabled()
 
-//        state.value = when {
-//            bluetoothDisabled -> ScreenState.BT_DISABLED
-//            else -> ScreenState.ALL_ENABLED
-//        }
+        state.value = when {
+            bluetoothDisabled -> ScreenState.BT_DISABLED
+            else -> ScreenState.ALL_ENABLED
+        }
 
         if (state.value == ScreenState.ALL_ENABLED) {
             navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
