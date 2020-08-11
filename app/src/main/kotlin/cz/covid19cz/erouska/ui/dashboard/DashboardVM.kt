@@ -27,4 +27,8 @@ class DashboardVM(private val prefs: SharedPrefsRepository) : BaseVM() {
     fun start() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
     }
+
+    fun wasAppUpdated(): Boolean {
+        return prefs.isUpdateFromLegacyVersion()
+    }
 }
