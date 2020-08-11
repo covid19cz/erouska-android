@@ -21,6 +21,12 @@ import java.net.URL
 
 class ExposureServerRepository(private val context: Context) {
 
+    companion object {
+        private const val KEY_EXPORT_ROOT =
+            "https://storage.googleapis.com/exposure-notification-export-ejjud/"
+        private const val KEY_EXPORT_INDEX = "$KEY_EXPORT_ROOT/index.txt"
+    }
+
     private val okhttpBuilder by lazy {
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
@@ -76,35 +82,79 @@ class ExposureServerRepository(private val context: Context) {
         }
     }
 
-    suspend fun downloadKeyExport(): List<File> {
+    suspend fun downloadKeyExport(lastDownloadedFile: String): List<File> {
         return withContext(Dispatchers.IO) {
-            val connection = URL(context.getString(R.string.key_export_url)).openConnection()
-            val inputStream = connection.getInputStream()
-            val readBuffer = ByteArray(4096)
-            val zipStream = ZipInputStream(inputStream)
-            val extractedDir = File(context.cacheDir.path + "/export/" + System.currentTimeMillis())
-            extractedDir.mkdirs()
+
+
+            val indexConnection = URL(KEY_EXPORT_INDEX).openConnection()
+            val indexInputStream = indexConnection.getInputStream()
+
+            val indexFileNames = indexInputStream.readBytes().toString(Charsets.UTF_8)
+            val fileNames = indexFileNames.split('\n')
+
             val extractedFiles = mutableListOf<File>()
-            do {
-                val zipEntry = zipStream.nextEntry
-                if (zipEntry != null) {
-                    val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
-                    extractedFile.createNewFile()
-                    val outputStream = FileOutputStream(extractedFile)
-                    do {
-                        val readLen = zipStream.read(readBuffer)
-                        if (readLen == -1) {
-                            outputStream.close()
-                            extractedFiles.add(extractedFile)
-                        } else {
-                            outputStream.write(readBuffer, 0, readLen)
-                        }
-                    } while (readLen != -1)
-                } else {
-                    zipStream.close()
-                }
-            } while (zipEntry != null)
+            val indexUrls = fileNames.map { KEY_EXPORT_ROOT + it }
+            indexUrls.forEach {
+                val connection = URL(it).openConnection()
+                val inputStream = connection.getInputStream()
+                val readBuffer = ByteArray(4096)
+                val zipStream = ZipInputStream(inputStream)
+                val extractedDir =
+                    File(context.cacheDir.path + "/export/" + System.currentTimeMillis())
+                extractedDir.mkdirs()
+
+                do {
+                    val zipEntry = zipStream.nextEntry
+                    if (zipEntry != null) {
+                        val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
+                        extractedFile.createNewFile()
+                        val outputStream = FileOutputStream(extractedFile)
+                        do {
+                            val readLen = zipStream.read(readBuffer)
+                            if (readLen == -1) {
+                                outputStream.close()
+                                extractedFiles.add(extractedFile)
+                            } else {
+                                outputStream.write(readBuffer, 0, readLen)
+                            }
+                        } while (readLen != -1)
+                    } else {
+                        zipStream.close()
+                    }
+                } while (zipEntry != null)
+
+            }
+
             extractedFiles
+
+
+//            val connection = URL(context.getString(R.string.key_export_url)).openConnection()
+//            val inputStream = connection.getInputStream()
+//            val readBuffer = ByteArray(4096)
+//            val zipStream = ZipInputStream(inputStream)
+//            val extractedDir = File(context.cacheDir.path + "/export/" + System.currentTimeMillis())
+//            extractedDir.mkdirs()
+////            val extractedFiles = mutableListOf<File>()
+//            do {
+//                val zipEntry = zipStream.nextEntry
+//                if (zipEntry != null) {
+//                    val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
+//                    extractedFile.createNewFile()
+//                    val outputStream = FileOutputStream(extractedFile)
+//                    do {
+//                        val readLen = zipStream.read(readBuffer)
+//                        if (readLen == -1) {
+//                            outputStream.close()
+//                            extractedFiles.add(extractedFile)
+//                        } else {
+//                            outputStream.write(readBuffer, 0, readLen)
+//                        }
+//                    } while (readLen != -1)
+//                } else {
+//                    zipStream.close()
+//                }
+//            } while (zipEntry != null)
+//            extractedFiles
         }
     }
 
