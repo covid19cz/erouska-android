@@ -13,12 +13,23 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class DashboardVM(private val exposureNotificationsRepository: ExposureNotificationsRepository, private val prefs: SharedPrefsRepository) : BaseVM() {
+class DashboardVM(
+    private val exposureNotificationsRepository: ExposureNotificationsRepository,
+    private val prefs: SharedPrefsRepository
+) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
 
+    init {
+        // TODO Check last download time
+        // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
+
+        // TODO Check last exposure
+        // If last exposure occured in less than 14 days -> publish DashboardCommandEvent.Command.RECENT_EXPOSURE
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume(){
+    fun onResume() {
         viewModelScope.launch {
             kotlin.runCatching {
                 exposureNotificationsRepository.isEnabled()
@@ -63,5 +74,9 @@ class DashboardVM(private val exposureNotificationsRepository: ExposureNotificat
         } else {
             publish(BluetoothDisabledEvent())
         }
+    }
+
+    fun wasAppUpdated(): Boolean {
+        return prefs.isUpdateFromLegacyVersion()
     }
 }

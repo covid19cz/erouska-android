@@ -26,7 +26,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
         subscribe(SendDataCommandEvent::class) {
             when (it.command) {
-                SendDataCommandEvent.Command.INIT -> onReset()
+                SendDataCommandEvent.Command.INIT -> onInitState()
                 SendDataCommandEvent.Command.CODE_VALID -> onCodeValid()
                 SendDataCommandEvent.Command.CODE_INVALID -> onCodeInvalid()
                 SendDataCommandEvent.Command.CODE_EXPIRED -> onCodeExpired()
@@ -73,7 +73,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         success_close_button.hide()
     }
 
-    private fun onReset() {
+    private fun onInitState() {
         progress.hide()
         code_input.focusAndShowKeyboard()
         enableUpInToolbar(true, IconType.UP)

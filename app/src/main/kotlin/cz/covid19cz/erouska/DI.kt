@@ -11,7 +11,6 @@ import cz.covid19cz.erouska.net.ExposureServerRepository
 import com.google.android.gms.nearby.Nearby
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
-import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
@@ -28,7 +27,13 @@ import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.ui.activation.ActivationVM
+import cz.covid19cz.erouska.ui.exposure.ExposuresVM
+import cz.covid19cz.erouska.ui.exposure.MainSymptomsVM
+import cz.covid19cz.erouska.ui.exposure.RecentExposuresVM
+import cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
+import cz.covid19cz.erouska.ui.update.LegacyUpdateVM
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -38,7 +43,7 @@ val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get(), get()) }
     viewModel { ActivationVM(get(), get(), get()) }
-    viewModel { WelcomeVM(get(), get()) }
+    viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
     viewModel { DashboardVM(get(), get()) }
@@ -49,6 +54,11 @@ val viewModelModule = module {
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
     viewModel { SendDataVM() }
+    viewModel { ExposuresVM() }
+    viewModel { RecentExposuresVM() }
+    viewModel { MainSymptomsVM() }
+    viewModel { SpreadPreventionVM() }
+    viewModel { LegacyUpdateVM(get()) }
 }
 
 val databaseModule = module {

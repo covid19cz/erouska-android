@@ -31,7 +31,7 @@ class SandboxVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
-
+        refreshTeks()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

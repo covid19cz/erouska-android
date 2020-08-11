@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.sandbox
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
@@ -18,6 +20,13 @@ class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout
         subscribe(GmsApiErrorEvent::class){
             startIntentSenderForResult(it.status.resolution?.intentSender,
                 REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_GMS_ERROR_RESOLUTION && resultCode == Activity.RESULT_OK){
+            viewModel.refreshTeks()
         }
     }
 }
