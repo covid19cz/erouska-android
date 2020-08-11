@@ -181,4 +181,14 @@
     <string name="spread_prevention_title">Jak zabránit přenosu</string>
 
     <string name="main_symptoms_title">Hlavní příznaky</string>
+
+    <string name="legacy_update_title">Novinky</string>
+    <string name="legacy_update_expansion_header">eRouška se chystá do světa</string>
+    <string name="legacy_update_expansion_body">Připravujeme eRoušku na to, aby si rozuměla s podobnými aplikacemi na celém světě. Provedli jsme proto několik změn, které vám nyní představíme.</string>
+    <string name="legacy_update_active_notification_header">Přecházíme na aktivní oznámení</string>
+    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí nákaza virem COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
+    <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
+    <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
+    <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>
+    <string name="legacy_update_privacy_body">S těmito úpravami jsme mohli zrušit také podmínky zpracování. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla a ani jiné osobní údaje uživatelů eRoušky.</string>
 </resources>
