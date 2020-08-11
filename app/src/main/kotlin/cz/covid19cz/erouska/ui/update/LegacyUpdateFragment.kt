@@ -22,7 +22,6 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
                 LegacyUpdateEvent.LegacyUpdateExpansion -> showExpansionNews()
                 LegacyUpdateEvent.LegacyUpdatePhoneNumbers -> showPhoneNumberNews()
                 LegacyUpdateEvent.LegacyUpdateActiveNotification -> showActiveNotificationNews()
-                LegacyUpdateEvent.LegacyUpdateAccessible -> showAccessibleNews()
                 LegacyUpdateEvent.LegacyUpdatePrivacy -> showPrivacyNews()
                 LegacyUpdateEvent.LegacyUpdateFinish -> finish()
             }
@@ -53,15 +52,6 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         legacy_update_img.setImageResource(R.drawable.ic_update_phone)
         legacy_update_header.text = getString(R.string.legacy_update_phone_header)
         legacy_update_body.text = getString(R.string.legacy_update_phone_body)
-        legacy_update_button.text = getString(R.string.legacy_update_button_continue)
-        legacy_update_button.setOnClickListener { next() }
-    }
-
-    private fun showAccessibleNews() {
-        enableUpInToolbar(true, IconType.UP)
-        legacy_update_img.setImageResource(R.drawable.ic_update_accessible)
-        legacy_update_header.text = getString(R.string.legacy_update_accessible_header)
-        legacy_update_body.text = getString(R.string.legacy_update_accessible_body)
         legacy_update_button.text = getString(R.string.legacy_update_button_continue)
         legacy_update_button.setOnClickListener { next() }
     }

@@ -4,7 +4,6 @@ sealed class LegacyUpdateEvent {
     object LegacyUpdateExpansion : LegacyUpdateEvent()
     object LegacyUpdateActiveNotification : LegacyUpdateEvent()
     object LegacyUpdatePhoneNumbers : LegacyUpdateEvent()
-    object LegacyUpdateAccessible : LegacyUpdateEvent()
     object LegacyUpdatePrivacy : LegacyUpdateEvent()
     object LegacyUpdateFinish : LegacyUpdateEvent()
 }

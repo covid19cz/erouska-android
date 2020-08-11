@@ -15,8 +15,7 @@ class LegacyUpdateVM(
         val next = when (state.value) {
             LegacyUpdateEvent.LegacyUpdateExpansion -> LegacyUpdateEvent.LegacyUpdateActiveNotification
             LegacyUpdateEvent.LegacyUpdateActiveNotification -> LegacyUpdateEvent.LegacyUpdatePhoneNumbers
-            LegacyUpdateEvent.LegacyUpdatePhoneNumbers -> LegacyUpdateEvent.LegacyUpdateAccessible
-            LegacyUpdateEvent.LegacyUpdateAccessible -> LegacyUpdateEvent.LegacyUpdatePrivacy
+            LegacyUpdateEvent.LegacyUpdatePhoneNumbers -> LegacyUpdateEvent.LegacyUpdatePrivacy
             else -> LegacyUpdateEvent.LegacyUpdateFinish
         }
 
@@ -25,8 +24,7 @@ class LegacyUpdateVM(
 
     fun previous() {
         val prev = when (state.value) {
-            LegacyUpdateEvent.LegacyUpdatePrivacy -> LegacyUpdateEvent.LegacyUpdateAccessible
-            LegacyUpdateEvent.LegacyUpdateAccessible -> LegacyUpdateEvent.LegacyUpdatePhoneNumbers
+            LegacyUpdateEvent.LegacyUpdatePrivacy -> LegacyUpdateEvent.LegacyUpdatePhoneNumbers
             LegacyUpdateEvent.LegacyUpdatePhoneNumbers -> LegacyUpdateEvent.LegacyUpdateActiveNotification
             else -> LegacyUpdateEvent.LegacyUpdateExpansion
         }

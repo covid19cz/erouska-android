@@ -174,8 +174,6 @@
     <string name="legacy_update_active_notification_body">If you come in contact with anyone with confirmed COVID-19 infection, eRouška will notify you and advise how to proceed.</string>
     <string name="legacy_update_phone_header">We won\'t require phone numbers anymore</string>
     <string name="legacy_update_phone_body">We are canceling phone number register because they won\'t be necessary to communicate with public health office anymore. eRouška will recommend next steps in case of contact with infected person.</string>
-    <string name="legacy_update_accessible_header">eRouška works anytime and anywhere</string>
-    <string name="legacy_update_accessible_body">Your phone screen doesn\'t need to be on and placed on table. Use your phone as usual or lock it, eRouška will work always be active.</string>
     <string name="legacy_update_privacy_header">We think about your privacy</string>
     <string name="legacy_update_privacy_body">With these changes we were able to get rid of terms of usage. The main change being no longer having to register your phone number or any other personal information about eRouška users.</string>
     <string name="legacy_update_button_continue">Pokračovat</string>
