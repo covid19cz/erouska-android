@@ -7,8 +7,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import java.util.*
 
 
 class ExposureServerRepository(private val context: Context) {
@@ -82,80 +82,67 @@ class ExposureServerRepository(private val context: Context) {
         }
     }
 
-    suspend fun downloadKeyExport(lastDownloadedFile: String): List<File> {
+    suspend fun downloadKeyExport(lastDownloadedFile: String): KeyExportResult {
         return withContext(Dispatchers.IO) {
-
 
             val indexConnection = URL(KEY_EXPORT_INDEX).openConnection()
             val indexInputStream = indexConnection.getInputStream()
 
-            val indexFileNames = indexInputStream.readBytes().toString(Charsets.UTF_8)
-            val fileNames = indexFileNames.split('\n')
+            var fileNames = indexInputStream.readBytes()
+                .toString(Charsets.UTF_8)
+                .split('\n')
+
+            // Find index of last downloaded file and get everything after it
+            val indexOfLastDownload = fileNames.indexOf(lastDownloadedFile)
+            if (indexOfLastDownload != -1) {
+                fileNames = fileNames.subList(indexOfLastDownload + 1, fileNames.size)
+            }
 
             val extractedFiles = mutableListOf<File>()
             val indexUrls = fileNames.map { KEY_EXPORT_ROOT + it }
-            indexUrls.forEach {
-                val connection = URL(it).openConnection()
-                val inputStream = connection.getInputStream()
-                val readBuffer = ByteArray(4096)
-                val zipStream = ZipInputStream(inputStream)
-                val extractedDir =
-                    File(context.cacheDir.path + "/export/" + System.currentTimeMillis())
-                extractedDir.mkdirs()
 
-                do {
-                    val zipEntry = zipStream.nextEntry
-                    if (zipEntry != null) {
-                        val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
-                        extractedFile.createNewFile()
-                        val outputStream = FileOutputStream(extractedFile)
-                        do {
-                            val readLen = zipStream.read(readBuffer)
-                            if (readLen == -1) {
-                                outputStream.close()
-                                extractedFiles.add(extractedFile)
-                            } else {
-                                outputStream.write(readBuffer, 0, readLen)
-                            }
-                        } while (readLen != -1)
-                    } else {
-                        zipStream.close()
-                    }
-                } while (zipEntry != null)
+            val downloads = mutableListOf<Deferred<List<File>>>()
+            indexUrls.forEach { downloads.add(async { downloadKeyZip(it) }) }
+            extractedFiles.addAll(downloads.awaitAll().flatten())
 
-            }
-
-            extractedFiles
-
-
-//            val connection = URL(context.getString(R.string.key_export_url)).openConnection()
-//            val inputStream = connection.getInputStream()
-//            val readBuffer = ByteArray(4096)
-//            val zipStream = ZipInputStream(inputStream)
-//            val extractedDir = File(context.cacheDir.path + "/export/" + System.currentTimeMillis())
-//            extractedDir.mkdirs()
-////            val extractedFiles = mutableListOf<File>()
-//            do {
-//                val zipEntry = zipStream.nextEntry
-//                if (zipEntry != null) {
-//                    val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
-//                    extractedFile.createNewFile()
-//                    val outputStream = FileOutputStream(extractedFile)
-//                    do {
-//                        val readLen = zipStream.read(readBuffer)
-//                        if (readLen == -1) {
-//                            outputStream.close()
-//                            extractedFiles.add(extractedFile)
-//                        } else {
-//                            outputStream.write(readBuffer, 0, readLen)
-//                        }
-//                    } while (readLen != -1)
-//                } else {
-//                    zipStream.close()
-//                }
-//            } while (zipEntry != null)
-//            extractedFiles
+            // If there weren't any new ZIPs for download, keep last download the same
+            val newLastDownload =
+                if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
+            KeyExportResult(newLastDownload, extractedFiles)
         }
+    }
+
+    private fun downloadKeyZip(zipfile: String): List<File> {
+        val extractedFiles = mutableListOf<File>()
+        val connection = URL(zipfile).openConnection()
+        val inputStream = connection.getInputStream()
+        val readBuffer = ByteArray(4096)
+        val zipStream = ZipInputStream(inputStream)
+        val extractedDir = File(context.cacheDir.path + "/export/" + UUID.randomUUID().toString())
+        extractedDir.mkdirs()
+
+        do {
+            val zipEntry = zipStream.nextEntry
+            if (zipEntry != null) {
+                val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
+                extractedFile.createNewFile()
+                val outputStream = FileOutputStream(extractedFile)
+                do {
+                    val readLen = zipStream.read(readBuffer)
+                    if (readLen == -1) {
+                        outputStream.close()
+                        extractedFiles.add(extractedFile)
+                    } else {
+                        outputStream.write(readBuffer, 0, readLen)
+                        outputStream.flush()
+                    }
+                } while (readLen != -1)
+            } else {
+                zipStream.close()
+            }
+        } while (zipEntry != null)
+
+        return extractedFiles
     }
 
 }

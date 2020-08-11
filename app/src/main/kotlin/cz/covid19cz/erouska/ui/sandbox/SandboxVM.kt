@@ -9,13 +9,17 @@ import kotlinx.coroutines.launch
 
 class SandboxVM(
     private val serverRepository: ExposureServerRepository,
-    prefs : SharedPrefsRepository
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
     fun downloadKeyExport() {
         viewModelScope.launch {
-            val files = serverRepository.downloadKeyExport()
-            L.d("files=$files")
+            val lastKeyExport = prefs.lastKeyExport()
+            val result = serverRepository.downloadKeyExport(lastKeyExport)
+            val lastDownload = result.lastDownload
+            prefs.setLastKeyExport(lastDownload)
+
+            L.d("files=${result.files}")
         }
     }
 
