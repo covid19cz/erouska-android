@@ -2,8 +2,10 @@ package cz.covid19cz.erouska.net
 
 import android.content.Context
 import com.google.gson.GsonBuilder
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
@@ -19,12 +21,13 @@ import java.net.URL
 import java.util.*
 
 
-class ExposureServerRepository(private val context: Context) {
+class ExposureServerRepository(
+    private val context: Context,
+    private val prefs: SharedPrefsRepository
+) {
 
     companion object {
-        private const val KEY_EXPORT_ROOT =
-            "https://storage.googleapis.com/exposure-notification-export-ejjud/"
-        private const val KEY_EXPORT_INDEX = "$KEY_EXPORT_ROOT/index.txt"
+        private val KEY_EXPORT_INDEX = "${AppConfig.keyExportUrl}/index.txt"
     }
 
     private val okhttpBuilder by lazy {
@@ -82,15 +85,13 @@ class ExposureServerRepository(private val context: Context) {
         }
     }
 
-    suspend fun downloadKeyExport(lastDownloadedFile: String): KeyExportResult {
+    suspend fun downloadKeyExport(): List<File> {
         return withContext(Dispatchers.IO) {
+            val lastDownloadedFile = prefs.lastKeyExportFileName()
 
-            val indexConnection = URL(KEY_EXPORT_INDEX).openConnection()
-            val indexInputStream = indexConnection.getInputStream()
+            val urlContent = readURLContent(KEY_EXPORT_INDEX)
 
-            var fileNames = indexInputStream.readBytes()
-                .toString(Charsets.UTF_8)
-                .split('\n')
+            var fileNames = urlContent.split('\n')
 
             // Find index of last downloaded file and get everything after it
             val indexOfLastDownload = fileNames.indexOf(lastDownloadedFile)
@@ -99,7 +100,7 @@ class ExposureServerRepository(private val context: Context) {
             }
 
             val extractedFiles = mutableListOf<File>()
-            val indexUrls = fileNames.map { KEY_EXPORT_ROOT + it }
+            val indexUrls = fileNames.map { AppConfig.keyExportUrl + it }
 
             val downloads = mutableListOf<Deferred<List<File>>>()
             indexUrls.forEach { downloads.add(async { downloadKeyZip(it) }) }
@@ -108,8 +109,18 @@ class ExposureServerRepository(private val context: Context) {
             // If there weren't any new ZIPs for download, keep last download the same
             val newLastDownload =
                 if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
-            KeyExportResult(newLastDownload, extractedFiles)
+
+            prefs.setLastKeyExport(newLastDownload)
+
+            extractedFiles
         }
+    }
+
+    private fun readURLContent(url: String): String {
+        val indexConnection = URL(url).openConnection()
+        val indexInputStream = indexConnection.getInputStream()
+
+        return indexInputStream.readBytes().toString(Charsets.UTF_8)
     }
 
     private fun downloadKeyZip(zipfile: String): List<File> {

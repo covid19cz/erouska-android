@@ -18,7 +18,7 @@ class App : BaseApp(), KoinComponent {
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this);
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
         }
     }

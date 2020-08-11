@@ -13,7 +13,7 @@ class SharedPrefsRepository(c: Context) {
 
     private val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
 
-    fun lastKeyExport(): String {
+    fun lastKeyExportFileName(): String {
         return prefs.getString(LAST_KEY_EXPORT, "") ?: ""
     }
 

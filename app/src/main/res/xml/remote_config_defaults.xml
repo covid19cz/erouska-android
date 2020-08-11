@@ -244,4 +244,8 @@
         <key>exposureNotificationContent</key>
         <value>Setkali jste se s osobou, u které byla prokázána nákaza virem COVID-19. Sledujte svůj zdravotní stav.</value>
     </entry>
+    <entry>
+        <key>keyExportUrl</key>
+        <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
+    </entry>
 </defaultsMap>

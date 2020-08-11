@@ -8,18 +8,14 @@ import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
 class SandboxVM(
-    private val serverRepository: ExposureServerRepository,
-    private val prefs: SharedPrefsRepository
+    private val serverRepository: ExposureServerRepository
 ) : BaseVM() {
 
     fun downloadKeyExport() {
         viewModelScope.launch {
-            val lastKeyExport = prefs.lastKeyExport()
-            val result = serverRepository.downloadKeyExport(lastKeyExport)
-            val lastDownload = result.lastDownload
-            prefs.setLastKeyExport(lastDownload)
+            val files = serverRepository.downloadKeyExport()
 
-            L.d("files=${result.files}")
+            L.d("files=${files}")
         }
     }
 

@@ -39,7 +39,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get()) }
+    viewModel { SandboxVM(get()) }
     viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
@@ -67,7 +67,7 @@ val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepo() }
     single { ActivationRepositoryImpl() as ActivationRepository }
-    single { ExposureServerRepository(get()) }
+    single { ExposureServerRepository(get(), get()) }
 }
 
 val appModule = module {
