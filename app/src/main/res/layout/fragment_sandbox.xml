@@ -19,36 +19,26 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@={vm.serviceRunning}"
-            android:onClick="@{() -> vm.toggleExposureNotifications()}"
-            android:text="Exposure Notifications"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.minimumRiskScore}"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.attenuationThreshold}"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.attenuationScore}"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.durationScore}"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.transmissionScore}"/>
-
-        <include layout="@layout/layout_sandbox_config_values"
-            app:item="@{vm.daysSinceLastExposureScore}"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:lifecycle="@{lifecycle}"
+            app:viewModel="@{vm}"
+            app:items="@{vm.teks}"
+            app:layoutId="@{@layout/item_tek}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.saveConfig()}"
-            android:text="Save"/>
+            android:text="Refresh TEKs"
+            android:onClick="@{() -> vm.refreshTeks()}"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Report Exposure"
+            android:onClick="@{() -> vm.reportExposure()}"/>
 
     </LinearLayout>
 </layout>

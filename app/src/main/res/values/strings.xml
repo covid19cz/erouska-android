@@ -158,4 +158,9 @@
 
     <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
+
+    <string name="sandbox_tek_days_since_symptoms" translatable="false">Days since onset symptoms: %d</string>
+    <string name="sandbox_tek_report_type" translatable="false">Report type: %s</string>
+    <string name="sandbox_tek_rolling_period" translatable="false">Rolling period: %d</string>
+    <string name="sandbox_tek_rolling" translatable="false">Rolling start: %s, refresh %s</string>
 </resources>

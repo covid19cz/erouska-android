@@ -1,12 +1,15 @@
 package cz.covid19cz.erouska.net
 
 import android.content.Context
+import android.util.Base64
+import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.google.gson.GsonBuilder
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
+import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.lingala.zip4j.io.inputstream.ZipInputStream
@@ -17,6 +20,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.util.*
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
+import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 
 class ExposureServerRepository(private val context: Context) {
@@ -52,8 +61,8 @@ class ExposureServerRepository(private val context: Context) {
             .build().create(VerificationServerApi::class.java)
     }
 
-    suspend fun reportExposure(request: ExposureRequest) {
-        withContext(Dispatchers.IO) {
+    suspend fun reportExposure(request: ExposureRequest): ExposureResponse {
+        return withContext(Dispatchers.IO) {
             keyServerClient.reportExposure(request)
         }
     }
@@ -106,6 +115,34 @@ class ExposureServerRepository(private val context: Context) {
             } while (zipEntry != null)
             extractedFiles
         }
+    }
+
+    private fun hashedKeys(keys : List<TemporaryExposureKey>) : String? {
+        val cleartextSegments = ArrayList<String>()
+        for (k in keys) {
+            cleartextSegments.add(String.format(
+                    Locale.ENGLISH,
+                    "%s.%d.%d",
+                    Base64.encodeToString(k.keyData, Base64.DEFAULT),
+                    k.rollingStartIntervalNumber,
+                    k.rollingPeriod))
+        }
+        val cleartext = cleartextSegments.joinToString(",")
+        L.d( "${keys.size} keys for hashing prior to verification: [" + cleartext + "]")
+        try {
+            val mac = Mac.getInstance("HmacSHA256");
+            mac.init(SecretKeySpec(Base64.decode(newHmacKey(), Base64.DEFAULT), "HmacSHA256"))
+            return Base64.encodeToString(mac.doFinal(cleartext.toByteArray(StandardCharsets.UTF_8)), Base64.DEFAULT)
+        } catch (t : Throwable) {
+            L.e(t)
+        }
+        return null
+    }
+
+    fun newHmacKey(): String? {
+        val bytes = ByteArray(16)
+        Random.nextBytes(bytes)
+        return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
 }

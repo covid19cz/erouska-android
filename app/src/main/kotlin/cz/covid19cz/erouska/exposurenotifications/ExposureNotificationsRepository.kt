@@ -17,7 +17,7 @@ class ExposureNotificationsRepository(
     private val prefs: SharedPrefsRepository
 ) {
 
-    fun isBluetoothEnabled() : Boolean{
+    fun isBluetoothEnabled(): Boolean {
         return btAdapter.isEnabled
     }
 
@@ -49,14 +49,9 @@ class ExposureNotificationsRepository(
     }
 
     suspend fun provideDiagnosisKeys(
-        files: List<File>,
-        config: ExposureConfiguration,
-        token: String?
-    ): Void = suspendCoroutine { cont ->
+        files: List<File>): Void = suspendCoroutine { cont ->
         exposureNotificationClient.provideDiagnosisKeys(
-            files,
-            config,
-            token
+            files
         )
             .addOnSuccessListener {
                 cont.resume(it)
@@ -65,27 +60,18 @@ class ExposureNotificationsRepository(
             }
     }
 
-    @Deprecated("v1 mode")
-    suspend fun getExposureSummary(token: String): ExposureSummary =
-        suspendCoroutine { cont ->
-            exposureNotificationClient.getExposureSummary(token)
-                .addOnSuccessListener {
-                    cont.resume(it)
-                }.addOnFailureListener {
-                    cont.resumeWithException(it)
-                }
-        }
 
-    suspend fun getTemporaryExposureKeyHistory() : List<TemporaryExposureKey> = suspendCoroutine { cont ->
-        exposureNotificationClient.temporaryExposureKeyHistory.addOnSuccessListener {
-            cont.resume(it)
-        }.addOnFailureListener {
-            cont.resumeWithException(it)
+    suspend fun getTemporaryExposureKeyHistory(): List<TemporaryExposureKey> =
+        suspendCoroutine { cont ->
+            exposureNotificationClient.temporaryExposureKeyHistory.addOnSuccessListener {
+                cont.resume(it)
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
+            }
         }
-    }
 
     suspend fun getExposureWindows(): List<ExposureWindow> = suspendCoroutine { cont ->
-        exposureNotificationClient.getExposureWindows(ExposureNotificationClient.TOKEN_A)
+        exposureNotificationClient.exposureWindows
             .addOnSuccessListener {
                 cont.resume(it)
             }.addOnFailureListener {

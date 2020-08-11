@@ -1,19 +1,23 @@
 package cz.covid19cz.erouska.ui.sandbox
 
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
+import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.asHexLower
 import cz.covid19cz.erouska.net.ExposureServerRepository
+import cz.covid19cz.erouska.net.model.ExposureRequest
+import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class SandboxVM(
@@ -22,18 +26,12 @@ class SandboxVM(
     val prefs : SharedPrefsRepository
 ) : BaseVM() {
 
-    lateinit var config : ExposureConfiguration
+    val teks = ObservableArrayList<TemporaryExposureKey>()
     val serviceRunning = SafeMutableLiveData(false)
-    val attenuationThreshold = SandboxConfigValues("Duration at Attenuation Thresholds", 2)
-    val attenuationScore = SandboxConfigValues("Attenuation Scores", 8)
-    val durationScore = SandboxConfigValues("Duration Scores", 8)
-    val minimumRiskScore = SandboxConfigValues("Minimum Risk Scores", 1)
-    val transmissionScore = SandboxConfigValues("Transmission Scores", 8)
-    val daysSinceLastExposureScore = SandboxConfigValues("Days Since Last Exposure Scores", 8)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
-        loadSettings()
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -50,26 +48,54 @@ class SandboxVM(
         }
     }
 
-    fun stop() {
+    fun getExposureWindows(){
         viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.stop()
-                serviceRunning.value = false
+            kotlin.runCatching {
+                exposureNotificationsRepository.getExposureWindows()
             }.onSuccess {
-                L.d("Exposure Notifications started")
+                L.d("success")
             }.onFailure {
-                L.e(it)
+                L.e("failed")
             }
         }
     }
 
-    fun start() {
+    fun tekToString(tek : TemporaryExposureKey) : String{
+        return tek.keyData.asHexLower
+    }
+
+    fun reportTypeToString(reportType : Int) : String{
+        return when(reportType){
+            0 -> "UNKNOWN"
+            1 -> "CONFIRMED_TEST"
+            2 -> "CONFIRMED_CLINICAL_DIAGNOSIS"
+            3 -> "SELF_REPORT"
+            4 -> "RECURSIVE"
+            5 -> "REVOKED"
+            else -> reportType.toString()
+        }
+    }
+
+    fun rollingStartToString(rollingStart : Int) : String{
+        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        val dateTime = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
+            timeInMillis = (rollingStart.toLong() * 10 * 60 * 1000)
+        }
+        return formatter.format(dateTime.time)
+    }
+
+    fun rollingIntervalToString(rollingInterval : Int) : String{
+        return "${(rollingInterval * 10) / 60}h"
+    }
+
+    fun refreshTeks(){
+        teks.clear()
         viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.start()
+            kotlin.runCatching {
+                exposureNotificationsRepository.getTemporaryExposureKeyHistory()
             }.onSuccess {
-                serviceRunning.value = true
-                L.d("Exposure Notifications started")
+                teks.addAll(it.sortedByDescending { it.rollingStartIntervalNumber })
             }.onFailure {
                 if (it is ApiException){
                     publish(GmsApiErrorEvent(it.status))
@@ -77,16 +103,6 @@ class SandboxVM(
                 L.e(it)
             }
         }
-    }
-
-    fun loadSettings(){
-        durationScore.setValues(prefs.durationScore)
-        attenuationThreshold.setValues(prefs.attenuationThreshold)
-        attenuationScore.setValues(prefs.attenuationScore)
-        minimumRiskScore.setValues(listOf(prefs.minimumRiskScore))
-        transmissionScore.setValues(prefs.transmissionScore)
-        daysSinceLastExposureScore.setValues(prefs.daysSinceLastExposureScore)
-        buildConfig()
     }
 
     fun downloadKeyExport() {
@@ -100,38 +116,25 @@ class SandboxVM(
         viewModelScope.launch {
             runCatching {
                 val files = serverRepository.downloadKeyExport()
-                val token = UUID.randomUUID().toString()
-                exposureNotificationsRepository.provideDiagnosisKeys(files, config, token)
+                exposureNotificationsRepository.provideDiagnosisKeys(files)
             }
         }
     }
 
-    fun saveConfig(){
-        prefs.minimumRiskScore = minimumRiskScore.getIntValue(0)
-        prefs.attenuationThreshold = attenuationThreshold.getIntValues()
-        prefs.attenuationScore = attenuationScore.getIntValues()
-        prefs.durationScore = durationScore.getIntValues()
-        prefs.transmissionScore = transmissionScore.getIntValues()
-        prefs.daysSinceLastExposureScore = daysSinceLastExposureScore.getIntValues()
-        buildConfig()
-    }
-
-    private fun buildConfig(){
-        config = ExposureConfiguration.ExposureConfigurationBuilder()
-            .setMinimumRiskScore(minimumRiskScore.getIntValue(0))
-            .setDurationAtAttenuationThresholds(*attenuationThreshold.getIntValues().toIntArray())
-            .setAttenuationScores(*attenuationScore.getIntValues().toIntArray())
-            .setDaysSinceLastExposureScores(*daysSinceLastExposureScore.getIntValues().toIntArray())
-            .setTransmissionRiskScores(*transmissionScore.getIntValues().toIntArray())
-            .setDurationScores(*durationScore.getIntValues().toIntArray())
-            .build()
-    }
-
-    fun toggleExposureNotifications(){
-        if (!serviceRunning.value){
-            stop()
-        } else {
-            start()
+    fun reportExposure(){
+        viewModelScope.launch {
+            runCatching {
+                val keys = exposureNotificationsRepository.getTemporaryExposureKeyHistory()
+                val request = ExposureRequest(keys.map { TemporaryExposureKeyDto(it.keyData.toString(), it.rollingStartIntervalNumber, it.rollingPeriod, it.transmissionRiskLevel) }, null, null, null, null)
+                serverRepository.reportExposure(request)
+            }.onSuccess {
+                L.d("success")
+            }.onFailure {
+                if (it is ApiException){
+                    publish(GmsApiErrorEvent(it.status))
+                }
+                L.e(it)
+            }
         }
     }
 
