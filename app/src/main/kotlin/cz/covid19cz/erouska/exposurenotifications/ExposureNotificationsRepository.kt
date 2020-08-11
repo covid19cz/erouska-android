@@ -1,11 +1,10 @@
 package cz.covid19cz.erouska.exposurenotifications
 
 import android.bluetooth.BluetoothAdapter
-import com.google.android.gms.nearby.exposurenotification.*
-import com.google.android.gms.tasks.Task
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
+import com.google.android.gms.nearby.exposurenotification.ExposureWindow
+import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
-import kotlinx.coroutines.tasks.await
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

@@ -6,7 +6,6 @@ import android.os.Bundle
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 
 class SandboxFragment : BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {

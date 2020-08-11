@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.utils
 
 import android.util.Log
-import com.crashlytics.android.Crashlytics
 import cz.covid19cz.erouska.BuildConfig
 
 /**
