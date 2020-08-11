@@ -167,6 +167,9 @@
 
     <string name="main_symptoms_title">Main symptoms</string>
 
+    <string name="exposure_notification_close">Close</string>
+    <string name="exposure_notification_more_info">More information</string>
+
     <string name="legacy_update_title">Novinky</string>
     <string name="legacy_update_expansion_header">eRouška is expanding</string>
     <string name="legacy_update_expansion_body">We are preparing eRouška to be able to communicate with other similar application around the world. That\'s why we made few changes which we will now introduce.</string>
