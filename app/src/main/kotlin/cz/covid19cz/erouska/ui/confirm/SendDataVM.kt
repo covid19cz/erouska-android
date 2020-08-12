@@ -2,13 +2,11 @@ package cz.covid19cz.erouska.ui.confirm
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.confirm.event.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import cz.covid19cz.erouska.ui.confirm.event.SendDataCommandEvent
+import cz.covid19cz.erouska.ui.confirm.event.SendDataInitState
+import cz.covid19cz.erouska.ui.confirm.event.SendDataState
+import cz.covid19cz.erouska.ui.confirm.event.SendDataSuccessState
 
 class SendDataVM : BaseVM() {
 

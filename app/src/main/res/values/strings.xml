@@ -162,6 +162,11 @@
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>
 
+    <string name="sandbox_tek_days_since_symptoms" translatable="false">Days since onset symptoms: %d</string>
+    <string name="sandbox_tek_report_type" translatable="false">Report type: %s</string>
+    <string name="sandbox_tek_rolling_period" translatable="false">Rolling period: %d</string>
+    <string name="sandbox_tek_rolling" translatable="false">Rolling start: %s, refresh %s</string>
+
     <string name="exposures_title">Risky contacts</string>
 
     <string name="exposures_nav_earlier_exposures">Earlier exposures</string>

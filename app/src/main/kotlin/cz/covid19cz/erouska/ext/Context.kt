@@ -4,9 +4,7 @@ import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -16,7 +14,6 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.core.content.getSystemService
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R

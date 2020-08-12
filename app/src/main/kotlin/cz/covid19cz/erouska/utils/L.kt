@@ -31,14 +31,14 @@ object L {
 
     fun e(text: String) {
         val logStrings = createLogStrings(text)
-        Crashlytics.log(Log.ERROR, logStrings[0], logStrings[1])
+       Crashlytics.log(Log.ERROR, logStrings[0], logStrings[1])
     }
 
     fun e(throwable: Throwable) {
         if (BuildConfig.DEBUG) {
             Log.e("L", throwable.message, throwable)
         }
-        Crashlytics.logException(throwable)
+       Crashlytics.logException(throwable)
     }
 
     private fun createLogStrings(text: String): Array<String> {

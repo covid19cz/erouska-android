@@ -2,7 +2,6 @@ package cz.covid19cz.erouska.ui.confirm
 
 import android.os.Bundle
 import android.view.View
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.ext.focusAndShowKeyboard
@@ -13,8 +12,6 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.confirm.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.confirm.event.SendDataFailedState
 import kotlinx.android.synthetic.main.fragment_send_data.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     R.layout.fragment_send_data,

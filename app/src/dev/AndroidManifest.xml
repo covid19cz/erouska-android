@@ -10,13 +10,6 @@
                 <data android:scheme="erouska-dev" />
             </intent-filter>
         </activity>
-
-        <receiver android:name=".receiver.ActionsReceiver">
-            <intent-filter>
-                <action android:name="cz.covid19cz.erouska.dev.EROUSKA_PAUSE" />
-                <action android:name="cz.covid19cz.erouska.dev.EROUSKA_RESUME" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

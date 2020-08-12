@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="java.nio.charset.Charset"/>
+        <variable
+            name="item"
+            type="com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@{vm.tekToString(item)}"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/sandbox_tek_rolling(vm.rollingStartToString(item.rollingStartIntervalNumber), vm.rollingIntervalToString(item.rollingPeriod))}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{@string/sandbox_tek_report_type(vm.reportTypeToString(item.reportType))}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{@string/sandbox_tek_days_since_symptoms(item.daysSinceOnsetOfSymptoms)}"/>
+    </LinearLayout>
+</layout>
