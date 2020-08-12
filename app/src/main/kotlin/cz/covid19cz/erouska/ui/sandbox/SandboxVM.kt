@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.sandbox
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
@@ -16,6 +17,7 @@ import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.sandbox.event.SandboxEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -25,11 +27,16 @@ class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
-    val prefs : SharedPrefsRepository
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
+    val state = MutableLiveData<SandboxEvent>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
     val serviceRunning = SafeMutableLiveData(false)
+
+    init {
+        state.value = SandboxEvent.LastDownload(prefs.lastKeyExportFileName())
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
@@ -110,7 +117,12 @@ class SandboxVM(
     fun downloadKeyExport() {
         viewModelScope.launch {
             val files = serverRepository.downloadKeyExport()
-            L.d("files=$files")
+
+            val lastDownload = prefs.lastKeyExportFileName()
+
+            state.value = SandboxEvent.KeyExportDownloadDone(lastDownload, files.map { it.path.split('/').takeLast(2).joinToString("/") })
+
+            L.d("files=${files}")
         }
     }
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
@@ -12,32 +14,80 @@
             type="androidx.lifecycle.LifecycleOwner" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:lifecycle="@{lifecycle}"
-            app:viewModel="@{vm}"
-            app:items="@{vm.teks}"
-            app:layoutId="@{@layout/item_tek}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Refresh TEKs"
-            android:onClick="@{() -> vm.refreshTeks()}"/>
+            <TextView
+                android:id="@+id/sandbox_last_download_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LAST DOWNLOAD"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Report Exposure"
-            android:onClick="@{() -> vm.reportExposure()}"/>
+            <TextView
+                android:id="@+id/sandbox_last_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/sandbox_new_files_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="NEW FILES"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sandbox_new_files"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:onClick="@{() -> vm.downloadKeyExport()}"
+                android:text="Download keys" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LOCAL TEKs"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:items="@{vm.teks}"
+                app:layoutId="@{@layout/item_tek}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:lifecycle="@{lifecycle}"
+                app:viewModel="@{vm}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.refreshTeks()}"
+                android:text="Refresh TEKs" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.reportExposure()}"
+                android:text="Report Exposure" />
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

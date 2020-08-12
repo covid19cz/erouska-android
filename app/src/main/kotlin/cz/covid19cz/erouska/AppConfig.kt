@@ -109,6 +109,8 @@ object AppConfig {
         get() = getLocalized("preventionContentJson")
     val exposureNotificationContent
         get() = firebaseRemoteConfig.getString("exposureNotificationContent")
+    val keyExportUrl
+        get() = firebaseRemoteConfig.getString("keyExportUrl")
 
     var overrideAdvertiseTxPower: Int? = null
 

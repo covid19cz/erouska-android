@@ -1,7 +1,7 @@
 package cz.covid19cz.erouska
 
 import arch.BaseApp
-import com.google.firebase.FirebaseApp
+import com.facebook.stetho.Stetho
 import com.idescout.sql.SqlScoutServer
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
@@ -17,6 +17,10 @@ class App : BaseApp(), KoinComponent {
         SqlScoutServer.create(this, packageName)
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this);
+
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
     }
 
     private fun setupKoin() {

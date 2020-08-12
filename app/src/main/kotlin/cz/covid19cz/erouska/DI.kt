@@ -70,7 +70,7 @@ val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
     single { ActivationRepositoryImpl() as ActivationRepository }
-    single { ExposureServerRepository(get()) }
+    single { ExposureServerRepository(get(), get()) }
 }
 
 val appModule = module {

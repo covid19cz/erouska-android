@@ -8,9 +8,18 @@ class SharedPrefsRepository(c: Context) {
 
     companion object {
         const val APP_PAUSED = "preference.app_paused"
+        const val LAST_KEY_EXPORT = "preference.last_export"
     }
 
-    val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
+    private val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
+
+    fun lastKeyExportFileName(): String {
+        return prefs.getString(LAST_KEY_EXPORT, "") ?: ""
+    }
+
+    fun setLastKeyExportFileName(filename: String) {
+        prefs.edit().putString(LAST_KEY_EXPORT, filename).apply()
+    }
 
     fun setAppPaused(appPaused: Boolean) {
         prefs.edit().putBoolean(APP_PAUSED, appPaused).apply()
