@@ -61,8 +61,8 @@ class ExposureServerRepository(
             .build().create(VerificationServerApi::class.java)
     }
 
-    suspend fun reportExposure(request: ExposureRequest) {
-        withContext(Dispatchers.IO) {
+    suspend fun reportExposure(request: ExposureRequest): ExposureResponse {
+        return withContext(Dispatchers.IO) {
             keyServerClient.reportExposure(request)
         }
     }
@@ -155,5 +155,4 @@ class ExposureServerRepository(
 
         return extractedFiles
     }
-
 }

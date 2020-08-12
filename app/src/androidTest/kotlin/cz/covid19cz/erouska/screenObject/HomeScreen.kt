@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.screenObject
 
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.RETRY_TIMEOUT
 import cz.covid19cz.erouska.helpers.checkDisplayed

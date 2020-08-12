@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.text.HtmlCompat
-import androidx.navigation.NavOptions
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentWelcomeBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment

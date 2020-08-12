@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.main
 
-import android.content.*
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.GONE
@@ -14,13 +15,12 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.L
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
@@ -134,5 +134,10 @@ class MainActivity :
 
     private fun passesRequirements(): Boolean {
         return isBtEnabled()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        L.d("$requestCode")
     }
 }
