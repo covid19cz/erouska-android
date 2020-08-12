@@ -67,7 +67,7 @@ val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepo() }
     single { ActivationRepositoryImpl() as ActivationRepository }
-    single { ExposureServerRepository(get()) }
+    single { ExposureServerRepository(get(), get()) }
 }
 
 val appModule = module {

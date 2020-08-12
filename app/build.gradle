@@ -192,6 +192,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
     androidTestUtil 'androidx.test:orchestrator:1.2.0'
 
+    debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
     debugImplementation 'com.idescout.sql:sqlscout-server:4.1'
     releaseImplementation 'com.idescout.sql:sqlscout-server-noop:4.1'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
