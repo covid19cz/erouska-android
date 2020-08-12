@@ -39,7 +39,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get()) }
+    viewModel { SandboxVM(get(), get()) }
     viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }

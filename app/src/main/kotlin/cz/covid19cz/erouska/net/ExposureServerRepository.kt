@@ -110,7 +110,7 @@ class ExposureServerRepository(
             val newLastDownload =
                 if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
 
-            prefs.setLastKeyExport(newLastDownload)
+            prefs.setLastKeyExportFileName(newLastDownload)
 
             extractedFiles
         }

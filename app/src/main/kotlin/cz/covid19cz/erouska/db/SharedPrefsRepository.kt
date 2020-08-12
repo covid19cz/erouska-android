@@ -17,7 +17,7 @@ class SharedPrefsRepository(c: Context) {
         return prefs.getString(LAST_KEY_EXPORT, "") ?: ""
     }
 
-    fun setLastKeyExport(filename: String) {
+    fun setLastKeyExportFileName(filename: String) {
         prefs.edit().putString(LAST_KEY_EXPORT, filename).apply()
     }
 
