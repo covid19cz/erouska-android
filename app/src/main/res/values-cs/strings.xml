@@ -21,7 +21,7 @@
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="enable">Zapnout</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam telefonů ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam eRoušek ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
     <string name="location_disabled_title">Zapněte Polohové služby</string>
     <string name="location_disabled_desc">I\u00a0kdy\u017e polohov\u00e1 data nijak nevyu\u017e\u00edv\u00e1me, zapn\u011bte je pros\u00edm pro spr\u00e1vn\u00e9 fungov\u00e1n\u00ed Bluetooth pomoc\u00ed tla\u010d\u00edtka \"Zapnout Polohov\u00e9 slu\u017eby\".</string>
     <string name="enable_location_button">Zapnout Polohové služby</string>
@@ -161,6 +161,9 @@
 
     <string name="data_notification_content">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
+
+    <string name="exposure_notifications_off_title">Zapněte Oznámení o kontaktu s COVID-19</string>
+    <string name="exposure_notifications_off_body">eRouška nyní nemůže komunikovat s jinými eRouškami ve vašem okolí.\n\nZapněte Oznámení o kontaktu s COVID-19 pomocí tlačítka "Zapnout".</string>
 
     <string name="exposures_title">Riziková setkání</string>
 

@@ -8,7 +8,10 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.shareApp
 
 class PermissionsDisabledFragment :
-    BasePermissionsFragment<PermissionDisabledVM>(R.layout.fragment_permissionss_disabled, PermissionDisabledVM::class) {
+    BasePermissionsFragment<PermissionDisabledVM>(
+        R.layout.fragment_permissionss_disabled,
+        PermissionDisabledVM::class
+    ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

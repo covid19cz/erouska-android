@@ -21,6 +21,7 @@ import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
+import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -53,19 +54,26 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun subsribeToViewModel() {
-        subscribe(BluetoothDisabledEvent::class) {
-            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        }
-        subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(
-                it.status.resolution?.intentSender,
-                REQUEST_GMS_ERROR_RESOLUTION,
-                null,
-                0,
-                0,
-                0,
-                null
-            )
+        subscribe(DashboardCommandEvent::class) { commandEvent ->
+            when (commandEvent.command) {
+                DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
+                DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
+                DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
+            }
+            subscribe(BluetoothDisabledEvent::class) {
+                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+            }
+            subscribe(GmsApiErrorEvent::class) {
+                startIntentSenderForResult(
+                    it.status.resolution?.intentSender,
+                    REQUEST_GMS_ERROR_RESOLUTION,
+                    null,
+                    0,
+                    0,
+                    0,
+                    null
+                )
+            }
         }
     }
 
@@ -120,7 +128,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         enableUpInToolbar(false)
 
-        data_notification_close.setOnClickListener { closeDataNotification() }
+        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -186,13 +194,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun showDataNotification() {
-        data_notification_container.show()
+    private fun showExposureNotificationsOff() {
+        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
-
-    private fun closeDataNotification() {
-        data_notification_container.hide()
-    }
-
-
 }
