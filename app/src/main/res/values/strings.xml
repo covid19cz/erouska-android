@@ -145,7 +145,7 @@
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code is invalid</string>
     <string name="send_data_code_expired_header">Verification code is expired</string>
-    <string name="send_data_code_expired_body">Request new SMS message with new verification code from public health office.</string>
+    <string name="send_data_code_expired_body">Request new SMS message with new verification code from public health office administration.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
     <string name="send_data_failure_body">Check your internet connection and try again.</string>
     <string name="send_data_back">Back</string>
@@ -161,4 +161,27 @@
 
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>
+
+    <string name="exposures_title">Risky contacts</string>
+
+    <string name="exposures_nav_earlier_exposures">Earlier exposures</string>
+
+    <string name="spread_prevention_title">Transmission prevention</string>
+
+    <string name="main_symptoms_title">Main symptoms</string>
+
+    <string name="exposure_notification_close">Close</string>
+    <string name="exposure_notification_more_info">More information</string>
+
+    <string name="legacy_update_title">Novinky</string>
+    <string name="legacy_update_expansion_header">eRouška is expanding</string>
+    <string name="legacy_update_expansion_body">We are preparing eRouška to be able to communicate with other similar application around the world. That\'s why we made few changes which we will now introduce.</string>
+    <string name="legacy_update_active_notification_header">We support active notification</string>
+    <string name="legacy_update_active_notification_body">If you come in contact with anyone with confirmed COVID-19 infection, eRouška will notify you and advise how to proceed.</string>
+    <string name="legacy_update_phone_header">We won\'t require phone numbers anymore</string>
+    <string name="legacy_update_phone_body">We are canceling phone number register because they won\'t be necessary to communicate with public health office anymore. eRouška will recommend next steps in case of contact with infected person.</string>
+    <string name="legacy_update_privacy_header">We think about your privacy</string>
+    <string name="legacy_update_privacy_body">With these changes we were able to get rid of terms of usage. The main change being no longer having to register your phone number or any other personal information about eRouška users.</string>
+    <string name="legacy_update_button_continue">Pokračovat</string>
+    <string name="legacy_update_button_close">Zavřít</string>
 </resources>

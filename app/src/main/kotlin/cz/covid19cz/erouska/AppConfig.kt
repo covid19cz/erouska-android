@@ -77,6 +77,40 @@ object AppConfig {
         get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
+    val exposureBodyTop
+        get() = firebaseRemoteConfig.getString("exposureBodyTop")
+    val exposureBodyMid
+        get() = firebaseRemoteConfig.getString("exposureBodyMid")
+    val noExposureHeader
+        get() = firebaseRemoteConfig.getString("noExposureHeader")
+    val noExposureBody
+        get() = firebaseRemoteConfig.getString("noExposureBody")
+    val mainSymptoms
+        get() = firebaseRemoteConfig.getString("mainSymptoms")
+    val spreadPrevention
+        get() = firebaseRemoteConfig.getString("spreadPrevention")
+    val earlierExposures
+        get() = firebaseRemoteConfig.getString("earlierExposures")
+    val mainSymptomsBody
+        get() = firebaseRemoteConfig.getString("mainSymptomsBody")
+    val preventionBody
+        get() = firebaseRemoteConfig.getString("preventionBody")
+    val exposureUITitle
+        get() = firebaseRemoteConfig.getString("exposureUITitle")
+    val symptomsUITitle
+        get() = firebaseRemoteConfig.getString("symptomsUITitle")
+    val spreadPreventionUITitle
+        get() = firebaseRemoteConfig.getString("spreadPreventionUITitle")
+    val recentExposuresUITitle
+        get() = firebaseRemoteConfig.getString("recentExposuresUITitle")
+    val symptomsContentJson
+        get() = getLocalized("symptomsContentJson")
+    val preventionContentJson
+        get() = getLocalized("preventionContentJson")
+    val exposureNotificationContent
+        get() = firebaseRemoteConfig.getString("exposureNotificationContent")
+    val keyExportUrl
+        get() = firebaseRemoteConfig.getString("keyExportUrl")
 
     var overrideAdvertiseTxPower: Int? = null
 

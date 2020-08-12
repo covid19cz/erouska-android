@@ -11,6 +11,7 @@ import android.view.View
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
@@ -47,7 +48,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.TURN_ON -> tryStartBtService()
                 DashboardCommandEvent.Command.TURN_OFF -> stopService()
-                DashboardCommandEvent.Command.DATA_OBSOLETE -> showDataNotification()
+                DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
+                DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
             }
         }
@@ -96,9 +98,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(false)
 
-        data_notification_close.setOnClickListener { closeDataNotification() }
+        exposure_notification_content.text = AppConfig.exposureNotificationContent
+        exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
+        exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+        data_notification_close.setOnClickListener { data_notification_container.hide() }
+
+        enableUpInToolbar(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -166,14 +172,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) },
             { showBatterySaverDialog() }
         )
-    }
-
-    private fun showDataNotification() {
-        data_notification_container.show()
-    }
-
-    private fun closeDataNotification() {
-        data_notification_container.hide()
     }
 
     private fun showExposureNotificationsOff() {

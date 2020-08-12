@@ -14,6 +14,7 @@
     <color name="redDark">#d81d49</color>
     <color name="green">#8cc23f</color>
     <color name="orange">#DB7627</color>
+    <color name="gray">#8C8C8C</color>
 
     <color name="exposition_level_1">#4CAF50</color>
     <color name="exposition_level_2">#8BC34A</color>
@@ -35,4 +36,8 @@
 
     <color name="text_color_statement">#757575</color>
     <color name="text_color_error_header">#DF6061</color>
+
+    <color name="exposure_notification_bg">#DE1A1A</color>
+
+    <color name="separator">#CCCCCC</color>
 </resources>
