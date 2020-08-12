@@ -98,10 +98,9 @@ class MainActivity :
 
     override fun onStart() {
         super.onStart()
-        //TODO uncomment (temporary hack)
-        //customTabHelper.chromePackageName?.let {
-        //    CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
-        //}
+        customTabHelper.chromePackageName?.let {
+            CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
+        }
     }
 
     override fun onStop() {

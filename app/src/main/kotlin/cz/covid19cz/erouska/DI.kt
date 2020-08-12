@@ -8,6 +8,7 @@ import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.nearby.Nearby
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
@@ -41,7 +42,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get(), get()) }
+    viewModel { SandboxVM(get(), get(), get(), get()) }
     viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
@@ -81,6 +82,7 @@ val appModule = module {
     single { DeviceInfo(androidContext()) }
     single { CustomTabHelper(androidContext()) }
     single { BluetoothAdapter.getDefaultAdapter() }
+    single { ExposureCryptoTools() }
 }
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)

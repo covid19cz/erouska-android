@@ -8,6 +8,7 @@ import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ext.asHexLower
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -23,6 +24,7 @@ import java.util.*
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
+    private val cryptoTools: ExposureCryptoTools,
     val prefs : SharedPrefsRepository
 ) : BaseVM() {
 

@@ -13,7 +13,6 @@ class App : BaseApp(), KoinComponent {
     override fun onCreate() {
         super.onCreate()
         setupKoin()
-        FirebaseApp.initializeApp(this)
         // SQLScout - Database viewer for Android Studio
         SqlScoutServer.create(this, packageName)
         AppConfig.fetchRemoteConfig()
