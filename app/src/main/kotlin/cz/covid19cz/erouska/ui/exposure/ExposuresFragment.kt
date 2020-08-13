@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.exposure
 import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentExposuresBinding
 import cz.covid19cz.erouska.ext.hide
@@ -19,6 +20,10 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
+
+        if (BuildConfig.FLAVOR == "dev") {
+            debug_buttons_container.show()
+        }
 
         activity?.title = AppConfig.exposureUITitle
 

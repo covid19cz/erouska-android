@@ -54,4 +54,21 @@ class SendDataVM : BaseVM() {
         return code.length == 8 && code.isDigitsOnly()
     }
 
+    fun debugCodeExpired() {
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_EXPIRED))
+    }
+
+    fun debugSendSuccess() {
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
+    }
+
+    fun debugInit() {
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.INIT))
+        state.value = SendDataInitState
+    }
+
+    fun debugCodeInvalid() {
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
+    }
+
 }

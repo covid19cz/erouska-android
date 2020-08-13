@@ -121,6 +121,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (BuildConfig.FLAVOR == "dev") {
+            debug_buttons_container.show()
+        }
+
         exposure_notification_content.text = AppConfig.exposureNotificationContent
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
@@ -135,6 +139,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         inflater.inflate(R.menu.dashboard, menu)
         if (BuildConfig.DEBUG) {
             menu.add(0, R.id.action_sandbox, 999, "Test")
+            menu.add(0, R.id.action_news, 666, "TestNovinky")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -151,6 +156,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_sandbox -> {
                 navigate(R.id.nav_sandbox)
+                true
+            }
+            R.id.action_news -> {
+                navigate(R.id.nav_legacy_update_fragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -196,4 +205,5 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
+
 }
