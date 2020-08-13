@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.net.model
 
 import android.util.Base64
-import cz.covid19cz.erouska.BuildConfig
 import java.util.*
 
 data class ExposureRequest(
@@ -10,17 +9,15 @@ data class ExposureRequest(
     val hmackey: String?,
     val symptomOnsetInterval: Int?,
     val revisionToken: String?,
-    val padding: String = Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.DEFAULT),
-    val platform: String = "Android",
-    val regions: List<String> = listOf("CZ"),
-    val healthAuthority: String = BuildConfig.APPLICATION_ID
+    val padding: String = Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.NO_WRAP),
+    val traveler: Boolean = false,
+    val healthAuthorityID: String = "cz.covid19cz.erouska"
 )
 
 data class TemporaryExposureKeyDto(
     val key: String,
     val rollingStartNumber: Int,
-    val rollingPeriod: Int,
-    val transmissionRisk: Int
+    val rollingPeriod: Int
 )
 
 data class ExposureResponse(

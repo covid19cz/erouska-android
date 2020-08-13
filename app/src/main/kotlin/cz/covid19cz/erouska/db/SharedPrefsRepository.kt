@@ -21,6 +21,10 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().putString(LAST_KEY_EXPORT, filename).apply()
     }
 
+    fun clearLastKeyExportFileName() {
+        prefs.edit().remove(LAST_KEY_EXPORT).apply()
+    }
+
     fun setAppPaused(appPaused: Boolean) {
         prefs.edit().putBoolean(APP_PAUSED, appPaused).apply()
     }

@@ -9,14 +9,19 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
+import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.*
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.DataInputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
+import java.lang.RuntimeException
+import java.net.MalformedURLException
 import java.net.URL
 import java.util.*
 
@@ -34,7 +39,7 @@ class ExposureServerRepository(
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BASIC
+                level = HttpLoggingInterceptor.Level.BODY
             })
         }
         builder
@@ -102,9 +107,10 @@ class ExposureServerRepository(
             val extractedFiles = mutableListOf<File>()
             val indexUrls = fileNames.map { AppConfig.keyExportUrl + it }
 
-            val downloads = mutableListOf<Deferred<List<File>>>()
-            indexUrls.forEach { downloads.add(async { downloadKeyZip(it) }) }
-            extractedFiles.addAll(downloads.awaitAll().flatten())
+            val downloads = mutableListOf<Deferred<File>>()
+            //indexUrls.forEach { downloads.add(async { downloadKeyZip(it) }) }
+            indexUrls.forEach { downloads.add(async { downloadFile(it) }) }
+            extractedFiles.addAll(downloads.awaitAll())
 
             // If there weren't any new ZIPs for download, keep last download the same
             val newLastDownload =
@@ -123,7 +129,7 @@ class ExposureServerRepository(
         return indexInputStream.readBytes().toString(Charsets.UTF_8)
     }
 
-    private fun downloadKeyZip(zipfile: String): List<File> {
+    private fun downloadAndExtract(zipfile: String): List<File> {
         val extractedFiles = mutableListOf<File>()
         val connection = URL(zipfile).openConnection()
         val inputStream = connection.getInputStream()
@@ -154,5 +160,33 @@ class ExposureServerRepository(
         } while (zipEntry != null)
 
         return extractedFiles
+    }
+
+    fun downloadFile(zipfile: String) : File {
+        try {
+            val dir = File(context.cacheDir.path + "/export/")
+            val file = File(context.cacheDir.path + "/export/" + zipfile.substring(zipfile.lastIndexOf("/")+1))
+            dir.mkdirs()
+            file.createNewFile()
+            val u = URL(zipfile)
+            val inputStream: InputStream = u.openStream()
+            val dis = DataInputStream(inputStream)
+            val buffer = ByteArray(1024)
+            var length: Int = 0
+            val fos = FileOutputStream(file)
+            while (dis.read(buffer).also {length = it } > 0) {
+                fos.write(buffer, 0, length)
+            }
+            return file
+        } catch (t: Throwable) {
+            L.e(t)
+        }
+        throw RuntimeException()
+    }
+
+    fun deleteFiles(){
+        val extractedDir = File(context.cacheDir.path + "/export/")
+        extractedDir.deleteRecursively()
+        prefs.clearLastKeyExportFileName()
     }
 }
