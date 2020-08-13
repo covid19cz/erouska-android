@@ -13,4 +13,16 @@ class ExposuresVM : BaseArchViewModel() {
         publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
     }
 
+    fun debugRecentExp() {
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+    fun debugNoExp() {
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_EXPOSURES))
+    }
+
+    fun debugExp() {
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
+    }
+
 }

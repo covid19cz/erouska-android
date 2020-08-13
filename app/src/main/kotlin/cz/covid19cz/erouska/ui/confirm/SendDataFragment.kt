@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.confirm
 
 import android.os.Bundle
 import android.view.View
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.ext.focusAndShowKeyboard
@@ -36,6 +37,10 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (BuildConfig.DEBUG) {
+            debug_buttons_container.show()
+        }
 
         setupListeners()
     }

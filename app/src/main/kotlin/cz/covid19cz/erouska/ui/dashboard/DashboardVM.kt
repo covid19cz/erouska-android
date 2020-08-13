@@ -9,6 +9,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
+import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -82,5 +83,21 @@ class DashboardVM(
 
     fun wasAppUpdated(): Boolean {
         return prefs.isUpdateFromLegacyVersion()
+    }
+
+    fun debugRun() {
+        serviceRunning.value = true
+    }
+
+    fun debugStop() {
+        serviceRunning.value = false
+    }
+
+    fun debugData() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+    }
+
+    fun debugContact() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 }
