@@ -8,7 +8,8 @@ class PermissionsOnboarding(val command: Command) : LiveEvent() {
         ENABLE_BT,
         REQUEST_LOCATION_PERMISSION,
         ENABLE_LOCATION,
-        PERMISSION_REQUIRED
+        PERMISSION_REQUIRED,
+        ENABLE_EXPOSURE_NOTIFICATION
     }
 
 }

@@ -23,10 +23,18 @@ abstract class BasePermissionsVM(
         publish(PermissionsOnboarding(PermissionsOnboarding.Command.ENABLE_BT))
     }
 
+    fun enableExposureNotification() {
+        publish(PermissionsOnboarding(PermissionsOnboarding.Command.ENABLE_EXPOSURE_NOTIFICATION))
+    }
+
     fun checkState() {
-        if (bluetoothManager.isBluetoothEnabled()) {
+        if (bluetoothManager.isBluetoothEnabled() && checkExposureNotificationState()) {
             goToNextScreen()
         }
+    }
+
+    private fun checkExposureNotificationState(): Boolean {
+        return false
     }
 
     abstract fun goToNextScreen()

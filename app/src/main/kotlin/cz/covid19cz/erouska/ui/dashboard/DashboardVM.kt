@@ -26,6 +26,10 @@ class DashboardVM(
 
         // TODO Check last exposure
         // If last exposure occured in less than 14 days -> publish DashboardCommandEvent.Command.RECENT_EXPOSURE
+
+        // TODO Check if EN API is off
+        // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
