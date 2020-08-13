@@ -115,6 +115,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_send_data"
+        android:name="cz.covid19cz.erouska.ui.confirm.SendDataFragment"
+        android:label="@string/send_data"
+        tools:layout="@layout/fragment_send_data">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_permisions_disabled"
         android:name="cz.covid19cz.erouska.ui.permissions.PermissionsDisabledFragment"
         android:label="@string/app_name"
@@ -136,6 +147,13 @@
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_send_data"
+            app:destination="@+id/nav_send_data"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_bt_disabled"
             app:destination="@id/nav_permisions_disabled"
