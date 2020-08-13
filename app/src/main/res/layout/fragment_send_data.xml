@@ -215,6 +215,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugInit() }"
                 android:text="TEST_INIT" />
 
@@ -222,20 +223,23 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugSendSuccess() }"
-                android:text="TEXT_SUCCESS" />
+                android:text="TEST_SUCCESS" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugCodeExpired() }"
-                android:text="TEXT_EXPIRED" />
+                android:text="TEST_EXPIRED" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugCodeInvalid() }"
                 android:text="TEST_INVALID" />
 

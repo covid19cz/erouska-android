@@ -204,13 +204,15 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugNoExp() }"
-                android:text="TEXT_NO_EXP" />
+                android:text="TEST_NO_EXP" />
 
             <Button
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugRecentExp() }"
                 android:text="TEST_RECENT_EXP" />
 
@@ -218,6 +220,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugExp() }"
                 android:text="TEST_EXPOSURE" />
 

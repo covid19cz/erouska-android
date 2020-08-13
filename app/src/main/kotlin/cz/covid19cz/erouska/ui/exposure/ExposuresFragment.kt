@@ -21,7 +21,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.FLAVOR == "dev") {
             debug_buttons_container.show()
         }
 

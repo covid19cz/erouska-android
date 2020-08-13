@@ -261,6 +261,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugRun() }"
                 android:text="RUN" />
 
@@ -268,6 +269,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugStop() }"
                 android:text="STOP" />
 
@@ -275,6 +277,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugData() }"
                 android:text="DATA" />
 
@@ -282,6 +285,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/exposition_level_2"
                 android:onClick="@{ () -> vm.debugContact() }"
                 android:text="CONTACT" />
 
