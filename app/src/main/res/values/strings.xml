@@ -166,6 +166,7 @@
     <string name="sandbox_tek_report_type" translatable="false">Report type: %s</string>
     <string name="sandbox_tek_rolling_period" translatable="false">Rolling period: %d</string>
     <string name="sandbox_tek_rolling" translatable="false">Rolling start: %s, refresh %s</string>
+    <string name="sandbox_last_download" translatable="false">Last download: %s</string>
 
     <string name="exposures_title">Risky contacts</string>
 

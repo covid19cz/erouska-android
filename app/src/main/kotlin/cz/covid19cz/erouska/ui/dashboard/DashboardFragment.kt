@@ -198,7 +198,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 if (resultCode == Activity.RESULT_OK) {
                     viewModel.start()
                 }
-
             }
         }
     }
