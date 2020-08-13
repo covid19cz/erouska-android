@@ -91,10 +91,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("spreadPrevention")
     val earlierExposures
         get() = firebaseRemoteConfig.getString("earlierExposures")
-    val mainSymptomsBody
-        get() = firebaseRemoteConfig.getString("mainSymptomsBody")
-    val preventionBody
-        get() = firebaseRemoteConfig.getString("preventionBody")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("exposureUITitle")
     val symptomsUITitle

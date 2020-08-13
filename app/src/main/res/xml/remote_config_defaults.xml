@@ -208,15 +208,6 @@
         <value>Předchozí riziková setkání</value>
     </entry>
     <entry>
-        <key>mainSymptomsBody</key>
-        <value>Příznaky se mohou objevit 2-14 dní po rizikovém setkání.</value>
-    </entry>
-    <entry>
-        <key>preventionBody</key>
-        <value>Koronavirus se přenáší hlavně kapénkovou infekcí, která je přenášena vzduchem. Zasahuje nejčastěji sliznice horních a dolních dýchacích cest a spojivky. Přenášet se může také kontaminovanými předměty.
-        </value>
-    </entry>
-    <entry>
         <key>exposureUITitle</key>
         <value>Rizikové setkání</value>
     </entry>
