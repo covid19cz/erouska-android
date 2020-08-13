@@ -107,14 +107,14 @@ class ExposureServerRepository(
             val extractedFiles = mutableListOf<File>()
             val indexUrls = fileNames.map { AppConfig.keyExportUrl + it }
 
-            val downloads = mutableListOf<Deferred<File>>()
-            //indexUrls.forEach { downloads.add(async { downloadKeyZip(it) }) }
-            indexUrls.forEach { downloads.add(async { downloadFile(it) }) }
-            extractedFiles.addAll(downloads.awaitAll())
+            val downloads = mutableListOf<Deferred<File?>>()
+            indexUrls.forEach {
+                downloads.add(async { downloadFile(it) })
+            }
+            extractedFiles.addAll(downloads.awaitAll().filterNotNull())
 
             // If there weren't any new ZIPs for download, keep last download the same
-            val newLastDownload =
-                if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
+            val newLastDownload = if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
 
             prefs.setLastKeyExportFileName(newLastDownload)
 
@@ -162,29 +162,30 @@ class ExposureServerRepository(
         return extractedFiles
     }
 
-    fun downloadFile(zipfile: String) : File {
+    fun downloadFile(zipfile: String): File? {
         try {
             val dir = File(context.cacheDir.path + "/export/")
-            val file = File(context.cacheDir.path + "/export/" + zipfile.substring(zipfile.lastIndexOf("/")+1))
+            val file =
+                File(context.cacheDir.path + "/export/" + zipfile.substring(zipfile.lastIndexOf("/") + 1))
             dir.mkdirs()
             file.createNewFile()
             val u = URL(zipfile)
             val inputStream: InputStream = u.openStream()
             val dis = DataInputStream(inputStream)
             val buffer = ByteArray(1024)
-            var length: Int = 0
+            var length: Int
             val fos = FileOutputStream(file)
-            while (dis.read(buffer).also {length = it } > 0) {
+            while (dis.read(buffer).also { length = it } > 0) {
                 fos.write(buffer, 0, length)
             }
             return file
         } catch (t: Throwable) {
             L.e(t)
         }
-        throw RuntimeException()
+        return null
     }
 
-    fun deleteFiles(){
+    fun deleteFiles() {
         val extractedDir = File(context.cacheDir.path + "/export/")
         extractedDir.deleteRecursively()
         prefs.clearLastKeyExportFileName()
