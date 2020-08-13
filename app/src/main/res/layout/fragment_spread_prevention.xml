@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/prevention_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
