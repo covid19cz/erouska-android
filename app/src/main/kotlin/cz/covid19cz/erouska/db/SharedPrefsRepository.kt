@@ -9,6 +9,7 @@ class SharedPrefsRepository(c: Context) {
     companion object {
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_KEY_EXPORT = "preference.last_export"
+        const val EHRID = "preference.ehrid"
     }
 
     private val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -25,19 +26,21 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(LAST_KEY_EXPORT).apply()
     }
 
-    fun setAppPaused(appPaused: Boolean) {
-        prefs.edit().putBoolean(APP_PAUSED, appPaused).apply()
-    }
-
-    fun getAppPaused() = prefs.getBoolean(APP_PAUSED, false)
-
     fun isUpdateFromLegacyVersion() = prefs.contains(APP_PAUSED)
 
     fun markUpdateFromLegacyVersionCompleted() {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun clear() {
-        prefs.edit().clear().apply()
+    fun saveEhrid(ehrid: String) {
+        prefs.edit().putString(EHRID, ehrid).apply()
+    }
+
+    fun isActivated(): Boolean {
+        return prefs.contains(EHRID)
+    }
+
+    fun getEhrid(): String {
+        return checkNotNull(prefs.getString(EHRID, null))
     }
 }

@@ -59,6 +59,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
+                DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
             }
             subscribe(BluetoothDisabledEvent::class) {
                 navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
@@ -204,6 +205,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+    }
+
+    private fun showWelcomeScreen() {
+        navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
     }
 
 }
