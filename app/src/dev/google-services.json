@@ -1,57 +1,41 @@
 {
   "project_info": {
-    "project_number": "1077972356575",
-    "firebase_url": "https://covid19cz.firebaseio.com",
-    "project_id": "covid19cz",
-    "storage_bucket": "covid19cz.appspot.com"
+    "project_number": "382369682317",
+    "firebase_url": "https://erouska-key-server-dev.firebaseio.com",
+    "project_id": "erouska-key-server-dev",
+    "storage_bucket": "erouska-key-server-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1077972356575:android:75624eb96818aa0d61886a",
+        "mobilesdk_app_id": "1:382369682317:android:eae01d4d3e32686d0f23c4",
         "android_client_info": {
           "package_name": "cz.covid19cz.erouska.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1077972356575-tv76pkt5ru2rmp8but5pgu236ci7ibib.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "cz.covid19cz.erouska.dev",
-            "certificate_hash": "ef76fa2a3481eccda91db9777d375d91456898d2"
-          }
-        },
-        {
-          "client_id": "1077972356575-82vbqk1695t6r0otea6cd40f724ojeq6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "cz.covid19cz.erouska.dev",
-            "certificate_hash": "fc5858910faaf9e981cba216e0180a92655f6db7"
-          }
-        },
-        {
-          "client_id": "1077972356575-nve2hj66uvfgl9rdh82km7pfbukcrqlk.apps.googleusercontent.com",
+          "client_id": "382369682317-55si8a5km4pp4s3af88ehcn6sb5ol0ph.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBUNnAspRNCStweMD-eBVUoTM9kk0nALF8"
+          "current_key": "AIzaSyCvhX7EQRKWpX1XYmU5wiyW2PIetK1EX6U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1077972356575-nve2hj66uvfgl9rdh82km7pfbukcrqlk.apps.googleusercontent.com",
+              "client_id": "382369682317-55si8a5km4pp4s3af88ehcn6sb5ol0ph.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1077972356575-rflvasannh2k4hh3475994j1dhk99qkh.apps.googleusercontent.com",
+              "client_id": "382369682317-oa2dc4siamp24t9tk4u9gfvbs6g4of3h.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.covid19cz.BT-Tracking6"
+                "bundle_id": "cz.covid19cz.erouska.dev"
               }
             }
           ]

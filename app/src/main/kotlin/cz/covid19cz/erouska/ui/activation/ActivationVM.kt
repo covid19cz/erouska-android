@@ -5,19 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.user.ActivationRepository
-import cz.covid19cz.erouska.user.ActivationResponse
-import cz.covid19cz.erouska.utils.DeviceInfo
+import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class ActivationVM(
-    private val activationRepository: ActivationRepository,
-    private val sharedPrefsRepository: SharedPrefsRepository,
-    private val deviceInfo: DeviceInfo
+    sharedPrefsRepository: SharedPrefsRepository,
+    private val firebaseFunctionsRepository: FirebaseFunctionsRepository
 ) : BaseVM() {
 
     private val mutableState = MutableLiveData<ActivationState>()
@@ -27,18 +24,20 @@ class ActivationVM(
 
     init {
         auth.setLanguageCode(LocaleUtils.getSupportedLanguage())
-        // TODO Handle situation when user already has eHRID -> is activated
-//        if (Auth.isSignedIn() && Auth.isPhoneNumberVerified()) {
-//            mutableState.postValue(SignedIn)
-//        }
+        if (sharedPrefsRepository.isActivated()) {
+            mutableState.postValue(ActivationFinished)
+        }
     }
 
     fun activate() {
         viewModelScope.launch(Dispatchers.IO) {
             mutableState.postValue(ActivationStart)
-            when (activationRepository.activate()) {
-                ActivationResponse.SUCCESS -> mutableState.postValue(ActivationFinished)
-                else -> mutableState.postValue(ActivationFailed)
+            try {
+                firebaseFunctionsRepository.registerEhrid()
+                mutableState.postValue(ActivationFinished)
+            } catch (e: Exception) {
+                L.e(e)
+                mutableState.postValue(ActivationFailed)
             }
         }
     }

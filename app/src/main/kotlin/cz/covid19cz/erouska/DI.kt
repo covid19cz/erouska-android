@@ -11,6 +11,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
+import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
@@ -30,8 +31,6 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.update.LegacyUpdateVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
-import cz.covid19cz.erouska.user.ActivationRepository
-import cz.covid19cz.erouska.user.ActivationRepositoryImpl
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
@@ -43,7 +42,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get(), get(), get()) }
-    viewModel { ActivationVM(get(), get(), get()) }
+    viewModel { ActivationVM(get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
@@ -69,7 +68,7 @@ val databaseModule = module {
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
     single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
-    single { ActivationRepositoryImpl() as ActivationRepository }
+    single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
 }
 
