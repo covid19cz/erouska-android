@@ -192,18 +192,15 @@
 
                 <TextView
                     android:id="@+id/app_running_body_secondary"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:paddingBottom="80dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/colorOnSurface"
+                    android:text="@string/dashboard_body_secondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"
-                    app:visibleOrGone="@{vm.serviceRunning}"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="16dp"
-                    tools:text="@string/dashboard_not_verified_secondary" />
+                    app:visibleOrGone="@{vm.serviceRunning}" />
 
                 <TextView
                     android:id="@+id/app_paused_body"
