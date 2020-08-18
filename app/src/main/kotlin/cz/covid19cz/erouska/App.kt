@@ -13,8 +13,10 @@ class App : BaseApp(), KoinComponent {
     override fun onCreate() {
         super.onCreate()
         setupKoin()
-        // SQLScout - Database viewer for Android Studio
-        SqlScoutServer.create(this, packageName)
+        if (BuildConfig.DEBUG) {
+            // SQLScout - Database viewer for Android Studio
+            SqlScoutServer.create(this, packageName)
+        }
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this);
 
