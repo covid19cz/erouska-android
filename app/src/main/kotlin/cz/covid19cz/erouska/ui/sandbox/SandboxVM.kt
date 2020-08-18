@@ -1,17 +1,21 @@
 package cz.covid19cz.erouska.ui.sandbox
 
+import android.content.Context
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.work.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
+import cz.covid19cz.erouska.exposurenotifications.worker.ProcessDiagnosisKeysWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -23,6 +27,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
@@ -102,6 +107,25 @@ class SandboxVM(
         }
     }
 
+    fun scheduleDownloadKeyExport(context: Context) {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
+            DownloadKeysWorker.PERIOD,
+            TimeUnit.HOURS
+        ).setConstraints(constraints)
+            .addTag(DownloadKeysWorker.TAG)
+            .build()
+
+        WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork(
+                DownloadKeysWorker.TAG,
+                ExistingPeriodicWorkPolicy.KEEP,
+                worker
+            )
+    }
+
     fun downloadKeyExport() {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -166,7 +190,7 @@ class SandboxVM(
         }
     }
 
-    private fun showSnackbar(text : String){
+    private fun showSnackbar(text: String) {
         publish(SnackbarEvent(text))
     }
 
