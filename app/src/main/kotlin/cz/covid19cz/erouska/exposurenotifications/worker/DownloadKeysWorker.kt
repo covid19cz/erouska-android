@@ -17,7 +17,6 @@ class DownloadKeysWorker(
 
     companion object {
         const val TAG = "DOWNLOAD_KEYS"
-        const val PERIOD = 6L
     }
 
     private val exposureNotificationsRepository: ExposureNotificationsRepository by inject()

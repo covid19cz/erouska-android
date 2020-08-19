@@ -4,18 +4,17 @@ import android.content.Context
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
-import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
-import cz.covid19cz.erouska.exposurenotifications.worker.ProcessDiagnosisKeysWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -112,7 +111,7 @@ class SandboxVM(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
-            DownloadKeysWorker.PERIOD,
+            AppConfig.keyExportPeriod,
             TimeUnit.HOURS
         ).setConstraints(constraints)
             .addTag(DownloadKeysWorker.TAG)
