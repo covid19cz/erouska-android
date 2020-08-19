@@ -6,12 +6,12 @@ import retrofit2.http.POST
 
 interface VerificationServerApi {
 
-    @POST("verify")
+    @POST("api/verify")
     suspend fun verifyCode(@Body request: VerifyCodeRequest): VerifyCodeResponse
 
-    @POST("certificate")
+    @POST("api/certificate")
     suspend fun verifyCertificate(@Body request: VerifyCertificateRequest): VerifyCertificateResponse
 
-    @POST("cover")
+    @POST("api/cover")
     suspend fun cover(@Body request: CoverRequest): CoverResponse
 }

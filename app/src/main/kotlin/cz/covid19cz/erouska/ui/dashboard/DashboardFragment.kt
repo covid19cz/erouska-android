@@ -60,20 +60,20 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
             }
-            subscribe(BluetoothDisabledEvent::class) {
-                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-            }
-            subscribe(GmsApiErrorEvent::class) {
-                startIntentSenderForResult(
-                    it.status.resolution?.intentSender,
-                    REQUEST_GMS_ERROR_RESOLUTION,
-                    null,
-                    0,
-                    0,
-                    0,
-                    null
-                )
-            }
+        }
+        subscribe(BluetoothDisabledEvent::class) {
+            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+        }
+        subscribe(GmsApiErrorEvent::class) {
+            startIntentSenderForResult(
+                it.status.resolution?.intentSender,
+                REQUEST_GMS_ERROR_RESOLUTION,
+                null,
+                0,
+                0,
+                0,
+                null
+            )
         }
     }
 
