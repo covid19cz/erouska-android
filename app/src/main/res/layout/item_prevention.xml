@@ -18,16 +18,16 @@
             android:id="@+id/symptom_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:src="@drawable/ic_item_empty"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:url="@{ item.iconUrl }" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/symptom_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="@{ item.label }"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@id/symptom_img"
             app:layout_constraintEnd_toEndOf="parent"
