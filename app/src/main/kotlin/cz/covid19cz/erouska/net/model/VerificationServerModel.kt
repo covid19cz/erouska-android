@@ -7,7 +7,7 @@ data class VerifyCodeRequest(
 )
 
 data class VerifyCodeResponse(
-    val testtype: String,
+    val testType: String,
     val symptomDate: String,
     val token: String,
     val error: String?
