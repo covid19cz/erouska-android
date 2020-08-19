@@ -22,6 +22,11 @@ class DashboardVM(
     val serviceRunning = SafeMutableLiveData(false)
 
     init {
+
+        if (!prefs.isActivated()) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
+        }
+
         // TODO Check last download time
         // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
 

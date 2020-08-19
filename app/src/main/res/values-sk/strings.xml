@@ -37,6 +37,7 @@
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a\u00A0monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a\u00A0s\u00A0telefonem pracujte jako obvykle.</string>
+    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu COVID-19 a zobrazíme vám informace potřebné pro kontaktování hygienické stanice.\n\nPoslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="dashboard_secondary">Při podezření na nákazu vás budeme kontaktovat na čísle %s. Požádáme vás o\u00A0zaslání anonymizovaného seznamu telefonů, který naleznete v\u00A0sekci Moje data.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
