@@ -39,18 +39,20 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
-    val faqLink
-        get() = firebaseRemoteConfig.getString("faqLink")
-    val importantLink
-        get() = firebaseRemoteConfig.getString("importantLink")
+
+    //    val faqLink
+//        get() = firebaseRemoteConfig.getString("faqLink")
+//    val importantLink
+//        get() = firebaseRemoteConfig.getString("importantLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
     val aboutJson
         get() = getLocalized("aboutJson")
     val termsAndConditionsLink
         get() = getLocalized("termsAndConditionsLink")
-    val homepageLink
-        get() = getLocalized("homepageLink")
+
+    //    val homepageLink
+//        get() = getLocalized("homepageLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val showBatteryOptimizationTutorial
@@ -107,6 +109,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("exposureNotificationContent")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
+    val contactsContentJson
+        get() = firebaseRemoteConfig.getString("contactsContentJson")
 
     var overrideAdvertiseTxPower: Int? = null
 

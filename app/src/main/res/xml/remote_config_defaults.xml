@@ -239,4 +239,8 @@
         <key>keyExportUrl</key>
         <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
     </entry>
+    <entry>
+        <key>contactsContentJson</key>
+        <value>[{"title": "Máte podezření na koronavirus?", "text": "Zůstaňte doma a kontaktujte svého prkatického lékaře nebo příslušnou hygienickou stanici.", "linkTitle": "Důležité kontakty", "link": "https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"}]</value>
+    </entry>
 </defaultsMap>

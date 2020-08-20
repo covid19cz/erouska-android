@@ -3,6 +3,8 @@ package cz.covid19cz.erouska.ui.contacts
 import android.os.Bundle
 import android.view.View
 import androidx.core.text.HtmlCompat
+import com.google.gson.Gson
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.showWeb
@@ -17,6 +19,10 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     ContactsVM::class
 ) {
     private val customTabHelper by inject<CustomTabHelper>()
+
+    private val contactsAdapter: ContactsAdapter by lazy {
+        ContactsAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +40,17 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(false)
 
-        val contactsHelpDescription: String = String.format(
-            getString(R.string.contacts_help_desc)
-        )
-        contacts_help.text = HtmlCompat.fromHtml(contactsHelpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
+//        val contactsHelpDescription: String = String.format(
+//            getString(R.string.contacts_help_desc)
+//        )
+//        contacts_help.text = HtmlCompat.fromHtml(contactsHelpDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-        contacts_improve.text = HtmlCompat.fromHtml(getString(R.string.contacts_improve_desc), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//        contacts_improve.text = HtmlCompat.fromHtml(getString(R.string.contacts_improve_desc), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+//        contacts_list.setHasFixedSize(true)
+//        contacts_list.adapter = contactsAdapter
+//        contactsAdapter.updateItems()
+
     }
 
     private fun openImportant() {
