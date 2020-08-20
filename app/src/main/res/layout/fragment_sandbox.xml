@@ -51,6 +51,21 @@
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
                     <TextView
+                        android:id="@+id/sandbox_download_history_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DOWNLOAD HISTORY"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/sandbox_download_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{ vm.downloadHistory }"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                    <TextView
                         android:id="@+id/sandbox_new_files_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -65,8 +80,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{vm.filesString}"
-                        app:visibleOrGone="@{vm.filesString != null}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:visibleOrGone="@{vm.filesString != null}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -102,6 +117,12 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{ () -> vm.scheduleDownloadKeyExport() }"
+                        android:text="Schedule download" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:onClick="@{() -> vm.deleteKeys()}"
                         android:text="Delete all files" />
 
@@ -122,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

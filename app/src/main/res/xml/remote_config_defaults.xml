@@ -239,4 +239,8 @@
         <key>keyExportUrl</key>
         <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
     </entry>
+    <entry>
+        <key>keyExportPeriodHours</key>
+        <value>6</value>
+    </entry>
 </defaultsMap>

@@ -15,12 +15,12 @@ class SandboxFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        subscribe(GmsApiErrorEvent::class){
+        subscribe(GmsApiErrorEvent::class) {
             startIntentSenderForResult(it.status.resolution?.intentSender,
                 REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
         }
 
-        subscribe(SnackbarEvent::class){
+        subscribe(SnackbarEvent::class) {
             showSnackBar(it.text)
         }
     }

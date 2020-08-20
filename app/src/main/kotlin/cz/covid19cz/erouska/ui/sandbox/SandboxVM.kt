@@ -3,12 +3,11 @@ package cz.covid19cz.erouska.ui.sandbox
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
-import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -35,12 +34,14 @@ class SandboxVM(
 
     val filesString = MutableLiveData<String>()
     val lastDownload = MutableLiveData<String>()
+    val downloadHistory = MutableLiveData<String>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
     var files = ArrayList<File>()
     val code = MutableLiveData("")
 
     init {
-        lastDownload.value = prefs.lastKeyExportFileName()
+        lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
+        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -105,6 +106,10 @@ class SandboxVM(
         }
     }
 
+    fun scheduleDownloadKeyExport() {
+        serverRepository.scheduleKeyDownload()
+    }
+
     fun downloadKeyExport() {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -114,7 +119,8 @@ class SandboxVM(
                 L.d("files=${files}")
                 return@runCatching files.size
             }.onSuccess {
-                lastDownload.value = prefs.lastKeyExportFileName()
+                lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
+                downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
                 filesString.value = files.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: $it files")
             }.onFailure {
@@ -127,6 +133,7 @@ class SandboxVM(
     fun deleteKeys() {
         serverRepository.deleteFiles()
         lastDownload.value = null
+        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
         filesString.value = null
     }
 
@@ -203,7 +210,7 @@ class SandboxVM(
         }
     }
 
-    private fun showSnackbar(text : String){
+    private fun showSnackbar(text: String) {
         publish(SnackbarEvent(text))
     }
 
