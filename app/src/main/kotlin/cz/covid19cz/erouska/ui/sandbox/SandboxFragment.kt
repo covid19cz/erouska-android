@@ -16,8 +16,8 @@ class SandboxFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-//            startIntentSenderForResult(it.status.resolution?.intentSender,
-//                REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+            startIntentSenderForResult(it.status.resolution?.intentSender,
+                REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
         }
 
         subscribe(SnackbarEvent::class) {
