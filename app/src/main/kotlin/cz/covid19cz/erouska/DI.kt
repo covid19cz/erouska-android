@@ -34,6 +34,7 @@ import cz.covid19cz.erouska.ui.welcome.WelcomeVM
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.worker.WorkerRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -41,7 +42,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MainVM() }
-    viewModel { SandboxVM(get(), get(), get(), get()) }
+    viewModel { SandboxVM(get(), get(), get(), get(), get()) }
     viewModel { ActivationVM(get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
@@ -70,6 +71,7 @@ val repositoryModule = module {
     single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
+    single { WorkerRepository(get()) }
 }
 
 val appModule = module {

@@ -23,12 +23,24 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().putString(LAST_KEY_EXPORT, filename).apply()
     }
 
-    fun setLastKeyExportTime(time: String) {
-        prefs.edit().putString(LAST_KEY_EXPORT_TIME, time).apply()
+    fun addLastKeyExportTime(time: String) {
+        val timestamps = prefs.getStringSet(LAST_KEY_EXPORT_TIME, mutableSetOf()) ?: mutableSetOf()
+        timestamps.add(time)
+        prefs.edit().putStringSet(LAST_KEY_EXPORT_TIME, timestamps).apply()
+    }
+
+    fun keyExportTimeHistory(): List<String> {
+        return prefs.getStringSet(LAST_KEY_EXPORT_TIME, mutableSetOf())?.toList() ?: emptyList()
     }
 
     fun lastKeyExportTime(): String {
-        return prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
+        val history = prefs.getStringSet(LAST_KEY_EXPORT_TIME, mutableSetOf()) ?: mutableSetOf()
+        return try {
+            history.last()
+        } catch (e: NoSuchElementException) {
+            ""
+        }
+
     }
 
     fun clearLastKeyExportFileName() {

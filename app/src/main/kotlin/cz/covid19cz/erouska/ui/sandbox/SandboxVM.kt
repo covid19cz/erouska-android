@@ -1,20 +1,16 @@
 package cz.covid19cz.erouska.ui.sandbox
 
-import android.content.Context
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
-import androidx.work.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
-import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
-import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -22,26 +18,29 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.worker.WorkerRepository
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
+    private val workerRepository: WorkerRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
     val filesString = MutableLiveData<String>()
     val lastDownload = MutableLiveData<String>()
+    val downloadHistory = MutableLiveData<String>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
     var files = ArrayList<File>()
 
     init {
-        lastDownload.value = prefs.lastKeyExportFileName() +" "+ prefs.lastKeyExportTime()
+        lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
+        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -106,23 +105,8 @@ class SandboxVM(
         }
     }
 
-    fun scheduleDownloadKeyExport(context: Context) {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-        val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
-            AppConfig.keyExportPeriodHours,
-            TimeUnit.HOURS
-        ).setConstraints(constraints)
-            .addTag(DownloadKeysWorker.TAG)
-            .build()
-
-        WorkManager.getInstance(context)
-            .enqueueUniquePeriodicWork(
-                DownloadKeysWorker.TAG,
-                ExistingPeriodicWorkPolicy.REPLACE,
-                worker
-            )
+    fun scheduleDownloadKeyExport() {
+        workerRepository.scheduleKeyDownload()
     }
 
     fun downloadKeyExport() {
@@ -134,7 +118,8 @@ class SandboxVM(
                 L.d("files=${files}")
                 return@runCatching files.size
             }.onSuccess {
-                lastDownload.value = prefs.lastKeyExportFileName() +" "+ prefs.lastKeyExportTime()
+                lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
+                downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
                 filesString.value = files.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: $it files")
             }.onFailure {
@@ -147,6 +132,7 @@ class SandboxVM(
     fun deleteKeys() {
         serverRepository.deleteFiles()
         lastDownload.value = null
+        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
         filesString.value = null
     }
 

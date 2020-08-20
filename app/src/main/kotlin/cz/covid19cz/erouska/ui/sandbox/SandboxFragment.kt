@@ -3,13 +3,11 @@ package cz.covid19cz.erouska.ui.sandbox
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
-import kotlinx.android.synthetic.main.fragment_sandbox.*
 
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
@@ -24,14 +22,6 @@ class SandboxFragment :
 
         subscribe(SnackbarEvent::class) {
             showSnackBar(it.text)
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        schedule_download_btn.setOnClickListener {
-            viewModel.scheduleDownloadKeyExport(requireContext())
         }
     }
 

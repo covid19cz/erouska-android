@@ -115,14 +115,14 @@ class ExposureServerRepository(
             extractedFiles.addAll(downloads.awaitAll().filterNotNull())
 
             // If there weren't any new ZIPs for download, keep last download the same
-            val newLastDownload = if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
+            val newLastDownload =
+                if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
 
             prefs.setLastKeyExportFileName(newLastDownload)
 
             val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
             val stringDate = formatter.format(Date(System.currentTimeMillis()))
-            prefs.setLastKeyExportTime(stringDate)
-
+            prefs.addLastKeyExportTime(stringDate)
 
             extractedFiles
         }
