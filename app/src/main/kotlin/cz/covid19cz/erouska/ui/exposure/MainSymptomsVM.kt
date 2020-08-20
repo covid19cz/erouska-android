@@ -17,16 +17,12 @@ class MainSymptomsVM : BaseVM() {
 
     val state = MutableLiveData<SymptomsEvent>()
 
-    val items = ObservableArrayList<Any>()
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
 
         val gson = Gson()
 
         val symptoms: SymptomsData = gson.fromJson(AppConfig.symptomsContentJson, SymptomsData::class.java)
-        items.clear()
-        items.addAll(symptoms.items)
 
         state.value = SymptomsEvent.SymptomsDataLoaded(symptoms)
     }

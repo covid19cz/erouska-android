@@ -39,8 +39,7 @@ class PreventionAdapter(
 
         fun bind(item: PreventionItem) {
             binding.symptomLabel.text = item.label
-            Glide.with(binding.root.context).load(item.iconUrl)
-                .placeholder(R.drawable.ic_item_empty).into(binding.symptomImg)
+            Glide.with(binding.root.context).load(item.iconUrl).placeholder(R.drawable.ic_item_empty).into(binding.symptomImg)
         }
 
     }

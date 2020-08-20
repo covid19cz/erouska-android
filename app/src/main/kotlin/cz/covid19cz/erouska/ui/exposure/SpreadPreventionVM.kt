@@ -17,16 +17,12 @@ class SpreadPreventionVM : BaseArchViewModel() {
 
     val state = MutableLiveData<PreventionEvent>()
 
-    val items = ObservableArrayList<Any>()
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
 
         val gson = Gson()
 
         val preventions: PreventionData = gson.fromJson(AppConfig.preventionContentJson, PreventionData::class.java)
-        items.clear()
-        items.addAll(preventions.items)
 
         state.value = PreventionEvent.PreventionDataLoaded(preventions)
     }
