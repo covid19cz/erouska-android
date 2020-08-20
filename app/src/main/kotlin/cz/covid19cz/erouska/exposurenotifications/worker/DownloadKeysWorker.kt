@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.exposurenotifications.worker
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -13,7 +14,7 @@ import org.koin.core.inject
 class DownloadKeysWorker(
     context: Context,
     workerParams: WorkerParameters
-) : Worker(context, workerParams), KoinComponent {
+) : CoroutineWorker(context, workerParams), KoinComponent {
 
     companion object {
         const val TAG = "DOWNLOAD_KEYS"
@@ -22,12 +23,12 @@ class DownloadKeysWorker(
     private val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
     private val serverRepository: ExposureServerRepository by inject()
 
-    override fun doWork(): Result = runBlocking {
+    override suspend fun doWork(): Result {
         L.i("Starting periodical key download")
         val files = serverRepository.downloadKeyExport()
         L.i("Extracted ${files.size} files")
         exposureNotificationsRepository.provideDiagnosisKeys(files)
-        Result.success()
+        return Result.success()
     }
 
 }

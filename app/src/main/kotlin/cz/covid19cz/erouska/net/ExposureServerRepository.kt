@@ -23,6 +23,7 @@ import java.io.InputStream
 import java.lang.RuntimeException
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -118,6 +119,11 @@ class ExposureServerRepository(
 
             prefs.setLastKeyExportFileName(newLastDownload)
 
+            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+            val stringDate = formatter.format(Date(System.currentTimeMillis()))
+            prefs.setLastKeyExportTime(stringDate)
+
+
             extractedFiles
         }
     }
@@ -189,5 +195,6 @@ class ExposureServerRepository(
         val extractedDir = File(context.cacheDir.path + "/export/")
         extractedDir.deleteRecursively()
         prefs.clearLastKeyExportFileName()
+        prefs.clearLastKeyExportTime()
     }
 }

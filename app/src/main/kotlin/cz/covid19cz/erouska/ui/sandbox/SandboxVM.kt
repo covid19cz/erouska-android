@@ -41,7 +41,7 @@ class SandboxVM(
     var files = ArrayList<File>()
 
     init {
-        lastDownload.value = prefs.lastKeyExportFileName()
+        lastDownload.value = prefs.lastKeyExportFileName() +" "+ prefs.lastKeyExportTime()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -111,7 +111,7 @@ class SandboxVM(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
-            AppConfig.keyExportPeriod,
+            AppConfig.keyExportPeriodHours,
             TimeUnit.HOURS
         ).setConstraints(constraints)
             .addTag(DownloadKeysWorker.TAG)
@@ -120,7 +120,7 @@ class SandboxVM(
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork(
                 DownloadKeysWorker.TAG,
-                ExistingPeriodicWorkPolicy.KEEP,
+                ExistingPeriodicWorkPolicy.REPLACE,
                 worker
             )
     }
@@ -134,7 +134,7 @@ class SandboxVM(
                 L.d("files=${files}")
                 return@runCatching files.size
             }.onSuccess {
-                lastDownload.value = prefs.lastKeyExportFileName()
+                lastDownload.value = prefs.lastKeyExportFileName() +" "+ prefs.lastKeyExportTime()
                 filesString.value = files.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: $it files")
             }.onFailure {
