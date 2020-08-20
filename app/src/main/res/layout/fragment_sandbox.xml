@@ -54,7 +54,7 @@
                         android:id="@+id/sandbox_download_history_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DOWNLOAD HSTORY"
+                        android:text="DOWNLOAD HISTORY"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textStyle="bold" />
 
