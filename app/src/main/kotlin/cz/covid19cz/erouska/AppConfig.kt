@@ -107,6 +107,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("exposureNotificationContent")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
+    val keyExportPeriodHours
+        get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
 
     var overrideAdvertiseTxPower: Int? = null
 
