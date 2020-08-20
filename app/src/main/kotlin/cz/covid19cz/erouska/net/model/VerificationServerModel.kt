@@ -7,27 +7,27 @@ data class VerifyCodeRequest(
 )
 
 data class VerifyCodeResponse(
-    val TestType: String,
-    val SymptomDate: String,
-    val VerificationToken: String,
-    val Error: String?
+    val testtype: String,
+    val symptomDate: String,
+    val token: String,
+    val error: String?
 )
 
 data class VerifyCertificateRequest(
-    val VerificationToken: String,
+    val token: String,
     val ekeyhmac: String
 )
 
 data class VerifyCertificateResponse(
-    val Certificate: String,
-    val Error: String?
+    val certificate: String,
+    val error: String?
 )
 
 data class CoverRequest(
-    val Data: String
+    val data: String
 )
 
 data class CoverResponse(
-    val Data: String,
-    val Error: String?
+    val data: String,
+    val error: String?
 )

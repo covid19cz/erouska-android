@@ -29,7 +29,7 @@ jobs:
         fileName: 'erouska_release.jks'
         encodedString: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
     - name: Build release apps
-      run: ./gradlew assembleRelease bundleProdRelease
+      run: ./gradlew assembleRelease bundleProdRelease bundleDevRelease
       env:
         EROUSKA_RELEASE_KEYSTORE_PATH: ${{ steps.release_cert.outputs.filePath }}
         EROUSKA_RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}

@@ -12,31 +12,37 @@ import kotlin.random.Random
 
 class ExposureCryptoTools {
 
-    private fun hashedKeys(keys : List<TemporaryExposureKey>) : String? {
+    fun hashedKeys(keys: List<TemporaryExposureKey>, hmacKey: String): String {
         val cleartextSegments = ArrayList<String>()
         for (k in keys) {
-            cleartextSegments.add(String.format(
-                Locale.ENGLISH,
-                "%s.%d.%d",
-                Base64.encodeToString(k.keyData, Base64.DEFAULT),
-                k.rollingStartIntervalNumber,
-                k.rollingPeriod))
+            cleartextSegments.add(
+                String.format(
+                    Locale.ENGLISH,
+                    "%s.%d.%d",
+                    k.keyData.encodeBase64(),
+                    k.rollingStartIntervalNumber,
+                    k.rollingPeriod
+                )
+            )
         }
         val cleartext = cleartextSegments.joinToString(",")
-        L.d( "${keys.size} keys for hashing prior to verification: [" + cleartext + "]")
-        try {
-            val mac = Mac.getInstance("HmacSHA256");
-            mac.init(SecretKeySpec(Base64.decode(newHmacKey(), Base64.DEFAULT), "HmacSHA256"))
-            return Base64.encodeToString(mac.doFinal(cleartext.toByteArray(StandardCharsets.UTF_8)), Base64.DEFAULT)
-        } catch (t : Throwable) {
-            L.e(t)
-        }
-        return null
+        L.d("${keys.size} keys for hashing prior to verification: [" + cleartext + "]")
+        val mac = Mac.getInstance("HmacSHA256");
+        mac.init(SecretKeySpec(hmacKey.decodeBase64(), "HmacSHA256"))
+        return mac.doFinal(cleartext.toByteArray(StandardCharsets.UTF_8)).encodeBase64()
     }
 
-    fun newHmacKey(): String? {
+    fun newHmacKey(): String {
         val bytes = ByteArray(16)
         Random.nextBytes(bytes)
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
+        return bytes.encodeBase64()
+    }
+
+    fun ByteArray.encodeBase64() : String{
+        return Base64.encodeToString(this, Base64.NO_WRAP)
+    }
+
+    fun String.decodeBase64() : ByteArray{
+        return Base64.decode(this, Base64.NO_WRAP)
     }
 }
