@@ -1,11 +1,13 @@
 package cz.covid19cz.erouska.net
 
 import android.content.Context
+import androidx.work.*
 import com.google.gson.GsonBuilder
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
 import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
@@ -25,6 +27,7 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class ExposureServerRepository(
@@ -189,6 +192,25 @@ class ExposureServerRepository(
             L.e(t)
         }
         return null
+    }
+
+    fun scheduleKeyDownload() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
+            AppConfig.keyExportPeriodHours,
+            TimeUnit.HOURS
+        ).setConstraints(constraints)
+            .addTag(DownloadKeysWorker.TAG)
+            .build()
+
+        WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork(
+                DownloadKeysWorker.TAG,
+                ExistingPeriodicWorkPolicy.REPLACE,
+                worker
+            )
     }
 
     fun deleteFiles() {

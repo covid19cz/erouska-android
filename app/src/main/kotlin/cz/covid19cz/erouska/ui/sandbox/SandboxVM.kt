@@ -18,7 +18,6 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.worker.WorkerRepository
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -28,7 +27,6 @@ class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
-    private val workerRepository: WorkerRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
@@ -106,7 +104,7 @@ class SandboxVM(
     }
 
     fun scheduleDownloadKeyExport() {
-        workerRepository.scheduleKeyDownload()
+        serverRepository.scheduleKeyDownload()
     }
 
     fun downloadKeyExport() {
