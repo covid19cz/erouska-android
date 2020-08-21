@@ -39,26 +39,16 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
-
-    //    val faqLink
-//        get() = firebaseRemoteConfig.getString("faqLink")
-//    val importantLink
-//        get() = firebaseRemoteConfig.getString("importantLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
     val aboutJson
         get() = getLocalized("aboutJson")
     val termsAndConditionsLink
         get() = getLocalized("termsAndConditionsLink")
-
-    //    val homepageLink
-//        get() = getLocalized("homepageLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val showBatteryOptimizationTutorial
         get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
-    val allowVerifyLater
-        get() = firebaseRemoteConfig.getBoolean("allowVerifyLater")
     val batteryOptimizationAsusMarkdown
         get() = getLocalized("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
@@ -109,6 +99,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("exposureNotificationContent")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
+    val keyExportPeriodHours
+        get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
 

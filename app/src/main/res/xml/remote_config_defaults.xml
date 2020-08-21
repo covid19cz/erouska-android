@@ -143,10 +143,6 @@
         <value>https://erouska.cz/gdpr</value>
     </entry>
     <entry>
-        <key>termsAndConditionsLink_en</key>
-        <value>https://erouska.cz/en/gdpr</value>
-    </entry>
-    <entry>
         <key>uploadWaitingMinutes</key>
         <value>15</value>
     </entry>
@@ -169,21 +165,6 @@
     <entry>
         <key>minSupportedVersionCodeAndroid</key>
         <value>0</value>
-    </entry>
-    <entry>
-        <key>exposureBodyTop</key>
-        <value>Dne %1$s jste se setkali s osobou u které byla potvrzena nákaza virem COVID-19.
-        </value>
-    </entry>
-    <entry>
-        <key>exposureBodyMid</key>
-        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objeví příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší pohotovost.
-        </value>
-    </entry>
-    <entry>
-        <key>exposureBodyBottom</key>
-        <value>Jestliže se u vás neprojevují příznaky onemocnění, nemusíte zůstávat doma. Dodržujte zásady bezpečného kontaktu.
-        </value>
     </entry>
     <entry>
         <key>noExposureHeader</key>
@@ -238,6 +219,10 @@
     <entry>
         <key>keyExportUrl</key>
         <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
+    </entry>
+    <entry>
+        <key>keyExportPeriodHours</key>
+        <value>6</value>
     </entry>
     <entry>
         <key>contactsContentJson</key>
