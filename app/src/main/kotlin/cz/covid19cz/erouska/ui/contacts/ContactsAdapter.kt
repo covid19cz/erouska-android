@@ -8,7 +8,8 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ItemContactsBinding
 
 class ContactsAdapter(
-    private var items: List<Contact> = emptyList()
+    private var items: List<Contact> = emptyList(),
+    private val onLinkClick: (String) -> Unit
 ) : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
 
     fun updateItems(newItems: List<Contact>) {
@@ -36,7 +37,10 @@ class ContactsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Contact) {
-
+            binding.contactTitle.text = item.title
+            binding.contactDesc.text = item.text
+            binding.contactLink.text = item.linkTitle
+            binding.contactLink.setOnClickListener { onLinkClick(item.link) }
         }
 
     }

@@ -241,6 +241,6 @@
     </entry>
     <entry>
         <key>contactsContentJson</key>
-        <value>[{"title": "Máte podezření na koronavirus?", "text": "Zůstaňte doma a kontaktujte svého prkatického lékaře nebo příslušnou hygienickou stanici.", "linkTitle": "Důležité kontakty", "link": "https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"}]</value>
+        <value>[{"title":"Máte podezření na koronavirus?","text":"Zůstaňte doma a kontaktujte svého praktického lékaře nebo příslušnou hygienickou stanici.","linkTitle":"Důležité kontakty","link":"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"},{"title":"Potřebujete poradit?","text":"Veškeré otázky a nejasnosti týkající se koronaviru najdete na webu MZČR.","linkTitle":"Často kladené otázky","link":"https://koronavirus.mzcr.cz/otazky-odpovedi/"},{"title":"O aplikaci eRouška","text":"Potřebujete poradit s aplikací nebo vás zajímá, jak funguje? Napište Anežce, podpoře eRoušky.","linkTitle":"Anežka - podpora eRoušky","link":"https://erouska.cz/#chat-open"}]</value>
     </entry>
 </defaultsMap>
