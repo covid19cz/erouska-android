@@ -1,9 +1,7 @@
 package cz.covid19cz.erouska.exposurenotifications
 
 import android.bluetooth.BluetoothAdapter
-import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
-import com.google.android.gms.nearby.exposurenotification.ExposureWindow
-import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.gms.nearby.exposurenotification.*
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import java.io.File
 import kotlin.coroutines.resume
@@ -59,6 +57,14 @@ class ExposureNotificationsRepository(
             }
     }
 
+    suspend fun getDailySummaries(config : DailySummariesConfig): List<DailySummary> = suspendCoroutine { cont ->
+        exposureNotificationClient.getDailySummaries(config)
+            .addOnSuccessListener {
+                cont.resume(it)
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
+            }
+    }
 
     suspend fun getTemporaryExposureKeyHistory(): List<TemporaryExposureKey> =
         suspendCoroutine { cont ->

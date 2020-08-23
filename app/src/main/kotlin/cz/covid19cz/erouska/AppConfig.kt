@@ -11,32 +11,19 @@ object AppConfig {
     const val FIREBASE_REGION = "europe-west1"
 
     private val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-    val collectionSeconds
-        get() = firebaseRemoteConfig.getLong("collectionSeconds")
-    val waitingSeconds
-        get() = firebaseRemoteConfig.getLong("waitingSeconds")
-    val advertiseTxPower
-        get() = overrideAdvertiseTxPower ?: firebaseRemoteConfig.getLong("advertiseTxPower").toInt()
-    val advertiseMode
-        get() = firebaseRemoteConfig.getLong("advertiseMode").toInt()
-    val scanMode
-        get() = firebaseRemoteConfig.getLong("scanMode").toInt()
-    val smsTimeoutSeconds
-        get() = firebaseRemoteConfig.getLong("smsTimeoutSeconds")
-    val showVerifyLaterTimeoutSeconds
-        get() = firebaseRemoteConfig.getLong("showVerifyLaterTimeoutSeconds")
-    val smsErrorTimeoutSeconds
-        get() = firebaseRemoteConfig.getLong("smsErrorTimeoutSeconds")
-    val advertiseRestartMinutes
-        get() = firebaseRemoteConfig.getLong("advertiseRestartMinutes")
-    val criticalExpositionRssi
-        get() = firebaseRemoteConfig.getLong("criticalExpositionRssi").toInt()
-    val criticalExpositionMinutes
-        get() = firebaseRemoteConfig.getLong("criticalExpositionMinutes").toInt()
-    val uploadWaitingMinutes
-        get() = firebaseRemoteConfig.getLong("uploadWaitingMinutes").toInt()
-    val persistDataDays
-        get() = firebaseRemoteConfig.getLong("persistDataDays").toInt()
+
+    // Exposure Notifications Settings
+    val reportTypeWeights
+        get() = firebaseRemoteConfig.getString("reportTypeWeights").split(";").map { it.toDouble() }
+    val infectiousnessWeights
+        get() = firebaseRemoteConfig.getString("infectiousnessWeights").split(";").map { it.toDouble() }
+    val attenuationBucketThresholdDb
+        get() = firebaseRemoteConfig.getString("attenuationBucketThresholdDb").split(";").map { it.toInt() }
+    val attenuationBucketWeights
+        get() = firebaseRemoteConfig.getString("attenuationBucketWeights").split(";").map { it.toDouble() }
+    val minimumWindowScore
+        get() = firebaseRemoteConfig.getDouble("minimumWindowScore")
+
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
     val faqLink
@@ -109,8 +96,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("keyExportUrl")
     val keyExportPeriodHours
         get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
-
-    var overrideAdvertiseTxPower: Int? = null
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

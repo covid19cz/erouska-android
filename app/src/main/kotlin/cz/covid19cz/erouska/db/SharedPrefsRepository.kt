@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import cz.covid19cz.erouska.AppConfig
 
 class SharedPrefsRepository(c: Context) {
 
@@ -11,6 +12,12 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_EXPORT = "preference.last_export"
         const val LAST_KEY_EXPORT_TIME = "preference.last_export_time"
         const val EHRID = "preference.ehrid"
+
+        const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
+        const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
+        const val ATTENUATION_BUCKET_THRESHOLD_DB= "attenuationBucketThresholdDb"
+        const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
+        const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -65,5 +72,54 @@ class SharedPrefsRepository(c: Context) {
 
     fun getEhrid(): String {
         return checkNotNull(prefs.getString(EHRID, null))
+    }
+
+    fun clearCustomConfig(){
+        prefs.edit().apply {
+            remove(REPORT_TYPE_WEIGHTS)
+            remove(ATTENUATION_BUCKET_THRESHOLD_DB)
+            remove(ATTENUATION_BUCKET_WEIGHTS)
+            remove(MINIMUM_WINDOW_SCORE)
+        }.apply()
+    }
+
+    fun setReportTypeWeights(value : String){
+        prefs.edit().putString(REPORT_TYPE_WEIGHTS, value).apply()
+    }
+
+    fun setInfectiousnessWeights(value : String){
+        prefs.edit().putString(INFECTIOUSNESS_WEIGHTS, value).apply()
+    }
+
+    fun setAttenuationBucketThresholdDb(value : String){
+        prefs.edit().putString(ATTENUATION_BUCKET_THRESHOLD_DB, value).apply()
+    }
+
+    fun setAttenuationBucketWeights(value : String){
+        prefs.edit().putString(ATTENUATION_BUCKET_WEIGHTS, value).apply()
+    }
+
+    fun setMinimumWindowScore(value : String){
+        prefs.edit().putString(MINIMUM_WINDOW_SCORE, value).apply()
+    }
+
+    fun getReportTypeWeights() : String?{
+        return prefs.getString(REPORT_TYPE_WEIGHTS, null)
+    }
+
+    fun getInfectiousnessWeights() : String?{
+        return prefs.getString(INFECTIOUSNESS_WEIGHTS, null)
+    }
+
+    fun getAttenuationBucketThresholdDb() : String?{
+        return prefs.getString(ATTENUATION_BUCKET_THRESHOLD_DB, null)
+    }
+
+    fun getAttenuationBucketWeights() : String?{
+        return prefs.getString(ATTENUATION_BUCKET_WEIGHTS, null)
+    }
+
+    fun getMinimumWindowScore() : String?{
+        return prefs.getString(MINIMUM_WINDOW_SCORE, null)
     }
 }

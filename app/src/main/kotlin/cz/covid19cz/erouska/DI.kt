@@ -28,6 +28,8 @@ import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.ui.mydata.MyDataVM
 import cz.covid19cz.erouska.ui.permissions.PermissionDisabledVM
 import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
+import cz.covid19cz.erouska.ui.sandbox.SandboxConfigVM
+import cz.covid19cz.erouska.ui.sandbox.SandboxDataVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
 import cz.covid19cz.erouska.ui.update.LegacyUpdateVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM
@@ -42,11 +44,13 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainVM() }
     viewModel { SandboxVM(get(), get(), get(), get()) }
+    viewModel { SandboxConfigVM(get()) }
+    viewModel { SandboxDataVM(get()) }
     viewModel { ActivationVM(get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
-    viewModel { DashboardVM(get(), get()) }
+    viewModel { DashboardVM(get(), get(), get()) }
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }

@@ -362,5 +362,15 @@
         android:id="@+id/nav_guide"
         android:name="cz.covid19cz.erouska.ui.help.GuideFragment"
         android:label="@string/guide" />
+    <fragment
+        android:id="@+id/nav_sandbox_config"
+        android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"
+        android:label="SandboxConfigFragment"
+        tools:layout="@layout/fragment_sandbox_config" />
+    <fragment
+        android:id="@+id/nav_sandbox_data"
+        android:name="cz.covid19cz.erouska.ui.sandbox.SandboxDataFragment"
+        android:label="SandboxDataFragment"
+        tools:layout="@layout/fragment_sandbox_data" />
 
 </navigation>

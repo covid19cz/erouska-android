@@ -23,6 +23,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{ () -> vm.navigateToConfig() }"
+                    android:text="Config" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:onClick="@{() -> vm.navigateToData()}"
+                    android:text="Data" />
+            </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,9 +91,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="NEW FILES"
-                        app:visibleOrGone="@{vm.filesString != null}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:visibleOrGone="@{vm.filesString != null}" />
 
                     <TextView
                         android:id="@+id/sandbox_new_files"
@@ -103,30 +123,17 @@
 
                     </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> vm.getExposureWindows()}"
-                        android:text="Get Windows" />
+                        android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{ () -> vm.scheduleDownloadKeyExport() }"
-                        android:text="Schedule download" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{() -> vm.deleteKeys()}"
-                        android:text="Delete all files" />
-
-                </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> vm.deleteKeys()}"
+                            android:text="Delete all files" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -173,11 +180,11 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={vm.code}"
-                            android:lines="1"
+                            android:hint="Verification Code"
                             android:inputType="number"
+                            android:lines="1"
                             android:maxLength="8"
-                            android:hint="Verification Code"/>
+                            android:text="@={vm.code}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

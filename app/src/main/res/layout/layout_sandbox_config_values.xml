@@ -36,8 +36,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[0]}"
                 app:visibleOrInvisible="@{item.size > 0}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1" />
 
             <EditText
@@ -46,8 +46,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[1]}"
                 app:visibleOrInvisible="@{item.size > 1}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -56,8 +56,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[2]}"
                 app:visibleOrInvisible="@{item.size > 2}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -66,8 +66,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[3]}"
                 app:visibleOrInvisible="@{item.size > 3}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -76,8 +76,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[4]}"
                 app:visibleOrInvisible="@{item.size > 4}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -86,8 +86,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[5]}"
                 app:visibleOrInvisible="@{item.size > 5}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -96,8 +96,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[6]}"
                 app:visibleOrInvisible="@{item.size > 6}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
             <EditText
@@ -106,8 +106,8 @@
                 android:layout_weight="1"
                 android:text="@={item.stringValues[7]}"
                 app:visibleOrInvisible="@{item.size > 7}"
-                android:inputType="number"
-                android:maxLength="2"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
                 android:maxLines="1"/>
 
         </LinearLayout>
