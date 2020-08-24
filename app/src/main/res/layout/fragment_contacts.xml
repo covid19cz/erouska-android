@@ -2,85 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/fragment_padding">
-
-            <TextView
-                android:id="@+id/contacts_suspicion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/contacts_suspicion_desc"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/contacts_help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/contacts_help_desc"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/contacts_important_btn" />
-
-            <TextView
-                android:id="@+id/contacts_improve"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/contacts_improve_desc"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/contacts_faq_btn" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/contacts_faq_btn"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.faq()}"
-                android:text="@string/contacts_faq"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contacts_help" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/contacts_important_btn"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.important()}"
-                android:text="@string/contacts_important"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contacts_suspicion" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/contacts_email"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.openChatBot()}"
-                android:text="@string/contacts_open_chatbot"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contacts_improve" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
     <data>
 
         <variable
@@ -88,5 +9,23 @@
             type="cz.covid19cz.erouska.ui.contacts.ContactsVM" />
     </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contacts_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:items="@{ vm.items }"
+            app:layoutId="@{ @layout/item_contacts }"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{ vm }" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

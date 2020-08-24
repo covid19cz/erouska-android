@@ -19,7 +19,9 @@ class CustomTabHelper(
     val LOCAL_PACKAGE = "com.google.android.apps.chrome"
 
     val chromePackageName by lazy {
-        return@lazy getPackageNameToUse(context, AppConfig.homepageLink)
+//        return@lazy getPackageNameToUse(context, AppConfig.homepageLink)
+
+        return@lazy getPackageNameToUse(context, "https://erouska.cz")
     }
 
     private fun getPackageNameToUse(context: Context, url: String): String? {
