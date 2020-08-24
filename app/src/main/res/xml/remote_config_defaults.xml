@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
+        <key>reportTypeWeights</key>
+        <value>1;1;1;1;1;1</value>
+    </entry>
+    <entry>
+        <key>infectiousnessWeights</key>
+        <value>1;1;1</value>
+    </entry>
+    <entry>
+        <key>attenuationBucketThresholdDb</key>
+        <value>55;63;75</value>
+    </entry>
+    <entry>
+        <key>attenuationBucketWeights</key>
+        <value>1.5;1;0.16;0</value>
+    </entry>
+    <entry>
+        <key>minimumWindowScore</key>
+        <value>15</value>
+    </entry>
+
+
+    <entry>
         <key>aboutApi</key>
         <value>https://erouska.cz/peoples.json</value>
     </entry>
@@ -21,18 +43,6 @@
     <entry>
     	<key>aboutLink_en</key>
     	<value>https://erouska.cz/en/tym</value>
-    </entry>
-    <entry>
-        <key>advertiseMode</key>
-        <value>1</value>
-    </entry>
-    <entry>
-        <key>advertiseRestartMinutes</key>
-        <value>60</value>
-    </entry>
-    <entry>
-        <key>advertiseTxPower</key>
-        <value>3</value>
     </entry>
     <entry>
         <key>allowVerifyLater</key>
@@ -61,14 +71,6 @@
     <entry>
         <key>batteryOptimizationXiaomiMarkdown</key>
         <value>### Xiaomi\n\neRouška běží na pozadí vašeho telefonu, i když je aplikace zavřená nebo je váš telefon zamčený. Některé telefony Xiaomi ale omezují provoz aplikací takto běžících na pozadí, kvůli úspoře baterie.\n\nProvedením některého z kroků níže umožníte eRoušce běžet na pozadí vašeho telefonu déle, a tak zvýšíte její účinnost.\n\nNe všechny kroky je možné provést na každém telefonu Xiaomi. Pokud některý z kroků na vašem telefonu provést možné není, nelamte si s tím hlavu. Stačí, pokud eRoušku jednou za pár hodin otevřete.\n\n\n#### Návod pro modely Redmi Note 5 a vyšší\n\nPokud je váš telefon model Xiaomi Redmi Note 5 a vyšší, provedení tohoto postupu je pro zajištění běhu eRoušky dostačující. Pokud máte jiný telefon, prosím, využijte další postupy popsané níže.\n\n1. Ťukněte na ikonu čtverečku na liště u spodního kraje hlavní obrazovky. Otevře se vám seznam naposledy otevřených aplikací.\n2. Déle podržte prst na okně aplikace **eRouška**, dokud se po levé straně okna nezobrazí menu tří tlačítek.\n3. Ťukněte na tlačítko zámku. Tím se pro aplikaci **eRouška** vypne režim úspory baterie.\n4. Znovu déle podržte prst na okně aplikace **eRouška**, dokud se po levé straně okna nezobrazí menu tří tlačítek.\n5. Ťukněte na tlačítko s šestiúhelníkem. Otevře se vám nastavení aplikace.\n6. Zkontrolujte, že přepínač u položky **Auto. spuštění** je zapnutý. Pokud není, zapněte jej.\n7. Ťukněte na položku **Ostatní povolení**.\n8. Zkontrolujte, že položka **Spuštění na pozadí** je povolená. Pokud není, povolte ji.\n9. Ťukněte na tlačítko **Zpět**.\n10. Ťukněte na položku **Spořič baterie**.\n11. Vyberte možnost **Žádná omezení**.\n12. Postup jste úspěšně dokončili!\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/1_komplexni_navod_pro_Redmi_Note_5_a_vyssi.pdf) je nutné mít telefon připojen k internetu.\n\n#### Vypnutí spořiče baterie\n\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Baterie** nebo **Baterie a výkon**.\n3. Najděte položku **Spořič baterie**.\n4. Zkontrolujte, že je přepínač u nápisu **Spořič baterie** vypnutý.\n5. Pokud ano, není třeba dalších kroků.\n6. Pokud ne, vypněte Spořič baterie přepnutím přepínače u položky **Spořič baterie** do polohy Vypnuto.\n7. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/2_vypnuti_sporice_baterie.pdf) je nutné mít telefon připojen k internetu.\n\n#### Nastavení běhu na pozadí pro eRoušku\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Baterie a výkon**.\n3. Vyberte položku **Aplikace a úspora baterie**.\n4. Vyberte položku **eRouška**.\n5. Vyberte možnost **Žádné omezení**. Pokud místo možnosti **Žádné omezení vidíte položku **Auto. spuštění**, přepněte přepínač u této položky do polohy **Zapnuto**.\n6. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/3_nastaveni_behu_na_pozadi_pro_eRousku.pdf) je nutné mít telefon připojen k internetu.\n\n#### Omezení adaptivní baterie\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Baterie**.\n3. Vyberte položku **Adaptivní baterie**.\n4. Pomocí přepínače na pravé straně obrazovky vypněte možnost **Použít adaptivní baterii.**\n5. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/4_omezeni_adaptivni_baterie.pdf) je nutné mít telefon připojen k internetu.\n\n#### Výjimka z optimalizace baterie pro eRoušku\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Aplikace** nebo **Aplikace a oznámení**.\n3. Vyberte položku **Rozšířené** ve spodní části obrazovky.\n4. Vyberte položku **Přístup ke spec. aplikacím** ve spodní části obrazovky.\n5. Vyberte položku **Optimalizace výdrže bat.**\n6. Klikněte na text **Neoptimalizováno** v horní části obrazovky.\n7. Vyberte položku **Všechny aplikace**.\n8. V seznamu aplikací seřazeném podle abecedy najděte **eRouška**.\n9. Vyberte položku **eRouška**.\n10. Vyberte možnost **Neoptimalizovat** a potvrďte ji.\n11. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/5_vyjimka_z_optimaizace_baterie_pro_eRousku.pdf) je nutné mít telefon připojen k internetu.\n\n#### Výjimka z omezení na pozadí pro eRoušku\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Aplikace a oznámení**.\n3. Stiskněte text **Zobrazit všechny aplikace**.\n4. V seznamu aplikací seřazeném podle abecedy najděte **eRouška**.\n5. Vyberte položku **eRouška**.\n6. Vyberte položku **Rozšířené** ve spodní části obrazovky.\n7. Vyberte položku **Baterie**.\n8. Zkontrolujte, že pod textem **Omezení na pozadí** není text **Omezené**.\n9. Pokud není, není třeba dalších kroků.\n10. Pokud je, vyberte položku **Omezení na pozadí**.\n11. Stiskněte text **Odebrat**.\n12. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\n Pokud chcete [verzi návodu i s obrázk](https://www.erouska.cz/navody/Xiaomi/6_vyjimka_z_omezeni_na_pozadi_pro_eRousku.pdf) je nutné mít telefon připojen k internetu.\n\n#### Chráněný status pro eRoušku\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Pokročilá nastavení** / **Rozšířené nastavení**.\n3. Vyberte položku **Správa baterie** nebo **Správce baterie**.\n4. Vyberte položku **Chráněné aplikace**.\n5. V seznamu aplikací seřazených podle abecedy najděte položku **eRouška**.\n6. Nastavte pro aplikaci eRouška hodnotu **Chráněno**.\n7. Postup jste úspěšně dokončili. Vyzkoušejte, jestli můžete fungování eRoušky napomoci provedením některého z dalších popsaných postupů.\n\n Pokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/7_chraneny_status_pro_eRousku.pdf) je nutné mít telefon připojen k internetu.\n\n#### Ověření způsobu napájení\n1. Otevřete **Nastavení** vašeho telefonu.\n2. Vyberte položku **Pokročilá nastavení** / **Rozšířené nastavení**.\n3. Vyberte položku **Správa baterie** nebo **Správce baterie**.\n4. Vyberte položku **Režim**.\n5. Nastavte hodnotu **Normální** nebo hodnotu **Výkon**.\n6. Postup jste úspěšně dokončili.\n\nPokud chcete [verzi návodu i s obrázky](https://www.erouska.cz/navody/Xiaomi/8_overeni_zpusobu_napajeni.pdf) je nutné mít telefon připojen k internetu.\n\nZdroj: [dontkillmyapp.com](https://dontkillmyapp.com/?utm_source=erouska&amp;utm_medium=odkaz&amp;utm_campaign=koronavirus)\n</value>
-    </entry>
-    <entry>
-        <key>collectionSeconds</key>
-        <value>120</value>
-    </entry>
-    <entry>
-        <key>criticalExpositionRssi</key>
-        <value>-75</value>
     </entry>
     <entry>
         <key>dataCollectionMarkdown</key>
@@ -103,20 +105,12 @@
     	<value>https://koronavirus.mzcr.cz/en/important-phone-numbers/</value>
     </entry>
     <entry>
-        <key>persistDataDays</key>
-        <value>30</value>
-    </entry>
-    <entry>
         <key>proclamationLink</key>
         <value>https://erouska.cz/audit-kod</value>
     </entry>
     <entry>
     	<key>proclamationLink_en</key>
     	<value>https://erouska.cz/en/audit-kod</value>
-    </entry>
-    <entry>
-        <key>scanMode</key>
-        <value>1</value>
     </entry>
     <entry>
         <key>shareAppDynamicLink</key>
@@ -143,12 +137,8 @@
         <value>https://erouska.cz/gdpr</value>
     </entry>
     <entry>
-        <key>uploadWaitingMinutes</key>
-        <value>15</value>
-    </entry>
-    <entry>
-        <key>waitingSeconds</key>
-        <value>0</value>
+        <key>termsAndConditionsLink_en</key>
+        <value>https://erouska.cz/en/gdpr</value>
     </entry>
     <entry>
         <key>myDataText</key>
@@ -167,13 +157,14 @@
         <value>0</value>
     </entry>
     <entry>
-        <key>exposureBodyMid</key>
-        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objeví příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší pohotovost.
+        <key>exposureBodyTop</key>
+        <value>Dne %1$s jste se setkali s osobou u které byla potvrzena nákaza virem COVID-19.
         </value>
     </entry>
     <entry>
-        <key>exposureBodyTop</key>
-        <value>Dne %1$s jste se setkali s osobou u které byla potvrzena nákaza virem COVID-19.</value>
+        <key>exposureBodyMid</key>
+        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objeví příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší pohotovost.
+        </value>
     </entry>
     <entry>
         <key>exposureBodyBottom</key>

@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -47,18 +49,6 @@ class SandboxVM(
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         refreshTeks()
-    }
-
-    fun getExposureWindows() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                exposureNotificationsRepository.getExposureWindows()
-            }.onSuccess {
-                L.d("success")
-            }.onFailure {
-                L.e("failed")
-            }
-        }
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -212,6 +202,14 @@ class SandboxVM(
 
     private fun showSnackbar(text: String) {
         publish(SnackbarEvent(text))
+    }
+
+    fun navigateToData(){
+        navigate(R.id.nav_sandbox_data)
+    }
+
+    fun navigateToConfig(){
+        navigate(R.id.nav_sandbox_config)
     }
 
 }

@@ -7,6 +7,7 @@ import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class DashboardVM(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
+    private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
@@ -42,7 +44,11 @@ class DashboardVM(
     fun onResume() {
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.isEnabled()
+                val result = exposureNotificationsRepository.isEnabled()
+                if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()){
+                    exposureNotificationsServerRepository.scheduleKeyDownload()
+                }
+                return@runCatching result
             }.onSuccess {
                 L.d("Exposure Notifications enabled $it")
                 serviceRunning.value = it
@@ -56,9 +62,10 @@ class DashboardVM(
         viewModelScope.launch {
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
-                serviceRunning.value = false
             }.onSuccess {
-                L.d("Exposure Notifications started")
+                serviceRunning.value = false
+                exposureNotificationsServerRepository.unscheduleKeyDownload()
+                L.d("Exposure Notifications stopped")
             }.onFailure {
                 L.e(it)
             }
@@ -73,6 +80,7 @@ class DashboardVM(
                     exposureNotificationsRepository.start()
                 }.onSuccess {
                     serviceRunning.value = true
+                    exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
                     if (it is ApiException) {
