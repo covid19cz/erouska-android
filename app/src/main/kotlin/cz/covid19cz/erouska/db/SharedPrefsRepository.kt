@@ -103,23 +103,31 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().putString(MINIMUM_WINDOW_SCORE, value).apply()
     }
 
-    fun getReportTypeWeights() : String?{
-        return prefs.getString(REPORT_TYPE_WEIGHTS, null)
+    fun getReportTypeWeights() : List<Double>?{
+        return prefs.getString(REPORT_TYPE_WEIGHTS, null)?.let {
+            it.split(";").mapNotNull { it.toDoubleOrNull() }
+        }
     }
 
-    fun getInfectiousnessWeights() : String?{
-        return prefs.getString(INFECTIOUSNESS_WEIGHTS, null)
+    fun getInfectiousnessWeights() : List<Double>?{
+        return prefs.getString(INFECTIOUSNESS_WEIGHTS, null)?.let {
+            it.split(";").mapNotNull { it.toDoubleOrNull() }
+        }
     }
 
-    fun getAttenuationBucketThresholdDb() : String?{
-        return prefs.getString(ATTENUATION_BUCKET_THRESHOLD_DB, null)
+    fun getAttenuationBucketThresholdDb() : List<Int>?{
+        return prefs.getString(ATTENUATION_BUCKET_THRESHOLD_DB, null)?.let {
+            it.split(";").mapNotNull { it.toIntOrNull() }
+        }
     }
 
-    fun getAttenuationBucketWeights() : String?{
-        return prefs.getString(ATTENUATION_BUCKET_WEIGHTS, null)
+    fun getAttenuationBucketWeights() : List<Double>?{
+        return prefs.getString(ATTENUATION_BUCKET_WEIGHTS, null)?.let {
+            it.split(";").mapNotNull { it.toDoubleOrNull() }
+        }
     }
 
-    fun getMinimumWindowScore() : String?{
-        return prefs.getString(MINIMUM_WINDOW_SCORE, null)
+    fun getMinimumWindowScore() : Double?{
+        return prefs.getString(MINIMUM_WINDOW_SCORE, null)?.toDoubleOrNull()
     }
 }

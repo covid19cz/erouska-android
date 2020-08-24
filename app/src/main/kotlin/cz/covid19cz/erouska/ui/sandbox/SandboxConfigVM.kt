@@ -21,45 +21,11 @@ class SandboxConfigVM(val prefs : SharedPrefsRepository) : BaseVM() {
     }
 
     fun load(){
-        prefs.getReportTypeWeights().let {
-            if (it != null){
-                reportTypeWeights.setValues(it)
-            } else {
-                reportTypeWeights.setDoubleValues(AppConfig.reportTypeWeights)
-            }
-        }
-
-        prefs.getInfectiousnessWeights().let {
-            if (it != null){
-                infectiousnessWeights.setValues(it)
-            } else {
-                infectiousnessWeights.setDoubleValues(AppConfig.infectiousnessWeights)
-            }
-        }
-
-        prefs.getAttenuationBucketThresholdDb().let {
-            if (it != null){
-                attenuationBucketThresholdDb.setValues(it)
-            } else {
-                attenuationBucketThresholdDb.setIntValues(AppConfig.attenuationBucketThresholdDb)
-            }
-        }
-
-        prefs.getAttenuationBucketWeights().let {
-            if (it != null){
-                attenuationBucketWeights.setValues(it)
-            } else {
-                attenuationBucketWeights.setDoubleValues(AppConfig.attenuationBucketWeights)
-            }
-        }
-
-        prefs.getMinimumWindowScore().let {
-            if (it != null){
-                minimumWindowScore.setValues(it)
-            } else {
-                minimumWindowScore.setDoubleValue(0, AppConfig.minimumWindowScore)
-            }
-        }
+        reportTypeWeights.setDoubleValues(prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights)
+        infectiousnessWeights.setDoubleValues(prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights)
+        attenuationBucketThresholdDb.setIntValues(prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb)
+        attenuationBucketWeights.setDoubleValues(prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights)
+        minimumWindowScore.setDoubleValue(0, prefs.getMinimumWindowScore() ?: AppConfig.minimumWindowScore)
     }
 
     fun save(){

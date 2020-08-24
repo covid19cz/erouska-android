@@ -8,6 +8,7 @@ import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.android.gms.nearby.exposurenotification.ExposureWindow
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotificationsRepository) : BaseVM() {
+class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotificationsRepository, val prefs : SharedPrefsRepository) : BaseVM() {
 
     val dailySummaries = ObservableArrayList<DailySummary>()
     val exposureWindows = ObservableArrayList<ExposureWindow>()
@@ -44,10 +45,10 @@ class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotific
         viewModelScope.launch {
             kotlin.runCatching {
 
-                val reportTypeWeights = AppConfig.reportTypeWeights
-                val attenuationBucketThresholdDb = AppConfig.attenuationBucketThresholdDb
-                val attenuationBucketWeights = AppConfig.attenuationBucketWeights
-                val infectiousnessWeights = AppConfig.infectiousnessWeights
+                val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
+                val attenuationBucketThresholdDb = prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
+                val attenuationBucketWeights = prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
+                val infectiousnessWeights = prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
 
                 exposureNotificationsRepository.getDailySummaries(DailySummariesConfig.DailySummariesConfigBuilder().apply {
                     for (i in 0 .. 5){
