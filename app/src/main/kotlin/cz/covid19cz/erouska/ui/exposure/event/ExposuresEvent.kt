@@ -18,11 +18,3 @@ class ExposuresCommandEvent(val command: Command) : LiveEvent() {
 sealed class RecentExposuresEvent {
     data class ExposuresLoadedEvent(val exposures: List<Exposure>) : RecentExposuresEvent()
 }
-
-sealed class SymptomsEvent {
-    data class SymptomsDataLoaded(val data: SymptomsData) : SymptomsEvent()
-}
-
-sealed class PreventionEvent {
-    data class PreventionDataLoaded(val data: PreventionData) : PreventionEvent()
-}

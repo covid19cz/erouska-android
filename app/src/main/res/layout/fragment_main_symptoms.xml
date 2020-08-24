@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="cz.covid19cz.erouska.ui.exposure.SymptomsRecyclerLayoutStrategy" />
-
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.exposure.MainSymptomsVM" />
@@ -19,19 +17,22 @@
             android:id="@+id/main_symptoms_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{ vm.title }"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/symptoms_list"
-            layoutStrategy="@{ SymptomsRecyclerLayoutStrategy.INSTANCE }"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:items="@{vm.items}"
+            app:items="@{ vm.items }"
+            app:layoutId="@{@layout/item_symptom}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_symptoms_body" />
+            app:layout_constraintTop_toBottomOf="@id/main_symptoms_body"
+            app:viewModel="@{ vm }" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
