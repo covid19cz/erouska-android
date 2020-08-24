@@ -19,7 +19,7 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     private val customTabHelper by inject<CustomTabHelper>()
 
     private val contactsAdapter: ContactsAdapter by lazy {
-        ContactsAdapter(onLinkClick = ::openLink)
+        ContactsAdapter(viewModel.items, viewModel)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,20 +32,15 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
         super.onViewCreated(view, savedInstanceState)
 
         enableUpInToolbar(false)
+
+        contacts_list.setHasFixedSize(true)
+        contacts_list.adapter = contactsAdapter
     }
 
     private fun updateState(event: ContactsEvent) {
         when (event) {
-            is ContactsEvent.ContactsLoadedEvent -> {
-                contacts_list.setHasFixedSize(true)
-                contacts_list.adapter = contactsAdapter
-                contactsAdapter.updateItems(event.contacts)
-            }
+            is ContactsEvent.ContactLinkClicked -> showWeb(event.link, customTabHelper)
         }
-    }
-
-    private fun openLink(url: String) {
-        showWeb(url, customTabHelper)
     }
 
 }

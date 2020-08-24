@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.contacts
 
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -13,6 +14,7 @@ import java.lang.reflect.Type
 class ContactsVM : BaseVM() {
 
     val state = MutableLiveData<ContactsEvent>()
+    val items = ObservableArrayList<Contact>()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -20,8 +22,14 @@ class ContactsVM : BaseVM() {
         val contactsListType: Type = object : TypeToken<ArrayList<Contact>?>() {}.type
 
         val contacts: ArrayList<Contact> = Gson().fromJson(AppConfig.contactsContentJson, contactsListType)
-        state.value = ContactsEvent.ContactsLoadedEvent(contacts)
 
+        items.clear()
+        items.addAll(contacts)
+
+    }
+
+    fun onLinkClick(link: String) {
+        state.value = ContactsEvent.ContactLinkClicked(link)
     }
 
 }
