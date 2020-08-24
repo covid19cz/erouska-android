@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="cz.covid19cz.erouska.ui.exposure.PreventionRecyclerLayoutStrategy" />
-
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
@@ -33,7 +31,7 @@
             android:layout_marginTop="24dp"
             app:items="@{vm.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layoutStrategy="@{ PreventionRecyclerLayoutStrategy.INSTANCE }"
+            app:layoutId="@{ @layout/item_prevention }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
