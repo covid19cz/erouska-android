@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
+
+        <variable
             name="item"
             type="cz.covid19cz.erouska.ui.exposure.entity.PreventionItem" />
     </data>
@@ -21,9 +25,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:placeholder="@{ vm.placeholderId }"
             app:url="@{ item.iconUrl }" />
 
         <TextView
+            android:id="@+id/symptom_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
