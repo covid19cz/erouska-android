@@ -19,6 +19,7 @@
             android:id="@+id/main_symptoms_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{ vm.title }"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            app:items="@{ vm.items }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutStrategy="@{ SymptomsRecyclerLayoutStrategy.INSTANCE }"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_symptoms_body" />
+            app:layout_constraintTop_toBottomOf="@id/main_symptoms_body"
+            app:viewModel="@{ vm }" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

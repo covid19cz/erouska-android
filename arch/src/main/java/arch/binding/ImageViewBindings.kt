@@ -12,9 +12,14 @@ fun setImageResourceCircular(view: ImageButton, resId: Int) {
     view.setImageResource(resId)
 }
 
-@BindingAdapter(value = ["url"], requireAll = false)
-fun setUrlCircular(view: ImageView, url: String?) {
-    Glide.with(view.context).load(url).into(view)
+@BindingAdapter(value = ["url", "placeholder"], requireAll = false)
+fun setUrlCircular(view: ImageView, url: String?, placeholder: Int?) {
+    if (placeholder == null) {
+        Glide.with(view.context).load(url).into(view)
+    } else {
+        Glide.with(view.context).load(url).placeholder(placeholder).into(view)
+    }
+
 }
 
 @BindingAdapter(value = ["uri"], requireAll = false)

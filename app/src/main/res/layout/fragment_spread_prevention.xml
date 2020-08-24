@@ -5,6 +5,10 @@
 
         <import type="cz.covid19cz.erouska.ui.exposure.PreventionRecyclerLayoutStrategy" />
 
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,6 +20,7 @@
             android:id="@+id/prevention_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@{ vm.title }"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,11 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
+            app:items="@{vm.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutStrategy="@{ PreventionRecyclerLayoutStrategy.INSTANCE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/prevention_text" />
+            app:layout_constraintTop_toBottomOf="@id/prevention_text"
+            app:viewModel="@{ vm }" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
