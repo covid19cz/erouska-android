@@ -9,7 +9,6 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.contacts.event.ContactsEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import kotlinx.android.synthetic.main.fragment_contacts.*
 import org.koin.android.ext.android.inject
 
 class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, ContactsVM>(
@@ -17,10 +16,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
     ContactsVM::class
 ) {
     private val customTabHelper by inject<CustomTabHelper>()
-
-    private val contactsAdapter: ContactsAdapter by lazy {
-        ContactsAdapter(viewModel.items, viewModel)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +27,6 @@ class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, Conta
         super.onViewCreated(view, savedInstanceState)
 
         enableUpInToolbar(false)
-
-        contacts_list.setHasFixedSize(true)
-        contacts_list.adapter = contactsAdapter
     }
 
     private fun updateState(event: ContactsEvent) {

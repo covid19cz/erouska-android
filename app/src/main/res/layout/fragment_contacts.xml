@@ -17,11 +17,14 @@
             android:id="@+id/contacts_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:items="@{ vm.items }"
+            app:layoutId="@{ @layout/item_contacts }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{ vm }" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
