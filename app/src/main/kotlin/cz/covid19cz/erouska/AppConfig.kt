@@ -90,6 +90,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
+    val currentMeasuresUrl
+        get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
