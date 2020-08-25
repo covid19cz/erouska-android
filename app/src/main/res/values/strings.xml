@@ -179,6 +179,8 @@
 
     <string name="exposure_notification_close">Close</string>
     <string name="exposure_notification_more_info">More information</string>
+    <string name="exposures_symptoms_header">I have symptoms</string>
+    <string name="exposures_no_symptoms_header">I don\'t have symptoms</string>
 
     <string name="legacy_update_title">Novinky</string>
     <string name="legacy_update_expansion_header">eRouška is expanding</string>

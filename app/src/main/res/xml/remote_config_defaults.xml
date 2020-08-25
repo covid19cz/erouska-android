@@ -187,11 +187,19 @@
     </entry>
     <entry>
         <key>spreadPrevention</key>
-        <value>Zásady bezpečného kontaktu</value>
+        <value>Zásady zodpovědného chování</value>
     </entry>
     <entry>
         <key>earlierExposures</key>
         <value>Předchozí riziková setkání</value>
+    </entry>
+    <entry>
+        <key>riskyEncountersWithSymptoms</key>
+        <value>Pokud se u vás v průběhu 10 dnů od kontaktu s nakaženým objevily příznaky respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se jeho pokyny. V případě akutních potíží kontaktujte nejbližší lékařskou pohotovost.</value>
+    </entry>
+    <entry>
+        <key>riskyEncountersWithoutSymptoms</key>
+        <value>Jestliže se u vás neprojevují hlavní příznaky onemocnění virem COVID-19, nemusíte zůstávat doma. Dodržujte zásady bezpečného kontaktu a sledujte svůj zdravotní stav.</value>
     </entry>
     <entry>
         <key>exposureUITitle</key>
@@ -203,7 +211,7 @@
     </entry>
     <entry>
         <key>spreadPreventionUITitle</key>
-        <value>Jak zabránit přenosu</value>
+        <value>Zásady zodpovědného chování</value>
     </entry>
     <entry>
         <key>recentExposuresUITitle</key>
