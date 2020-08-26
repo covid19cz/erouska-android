@@ -97,6 +97,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("riskyEncountersWithSymptoms")
     val riskyEncountersWithoutSymptoms
         get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
+    val currentMeasuresUrl
+        get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

@@ -55,7 +55,7 @@
     <string name="login_number_already_in_use_error">You cannot use this number.\nPhone number %1$s cannot be used because you have used it for activation on a different device.</string>
     <string name="login_session_expired">Verification code has expired. Check phone number and request a new verification code.</string>
     <string name="menu_help">Help</string>
-    <string name="my_data_title">My data</string>
+    <string name="my_data_title">Statistics</string>
     <string name="my_data_description">This is a list of signal measurements of nearby phones with eRouška in the past %d days. Data does not contain coordinates nor any other personal data. You are the only one who can send the data to the public health officers.</string>
     <string name="my_data_tab_all_title">All</string>
     <string name="my_data_tab_critical_title">Close encounters</string>
@@ -140,6 +140,17 @@
     <string name="activation_error_header">Activation couldn\'t be finished</string>
     <string name="activation_error_body">Check yout internet connection and try again to activate your application. If problems persist, contact us at info@erouska.cz</string>
     <string name="activation_try_again">Try again</string>
+
+    <string name="my_data_current_measures">Current measures</string>
+    <string name="my_data_current_situation">Current situation and case numbers</string>
+    <string name="my_data_yesterday">Yesterday\'s increase +%1$s</string>
+    <string name="my_data_tests">%1$s tests performed</string>
+    <string name="my_data_ack_cases">%1$s confirmed cases in total</string>
+    <string name="my_data_act_cases">%1$s active cases</string>
+    <string name="my_data_cured">%1$s cured patients</string>
+    <string name="my_data_death_toll">%1$s deceased</string>
+    <string name="my_data_hospitalized">%1$s currently hospitalized</string>
+    <string name="my_data_last_update">Last update on %1$s</string>
 
     <string name="send_data_body">In case of positive COVID-19 test you will be contacted by worker of public health office. You will be sent SMS message containing verification code for sneding data.</string>
     <string name="send_data_verification_hint">Verification code</string>

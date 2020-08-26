@@ -67,7 +67,7 @@
     <string name="login_number_already_in_use_error">Telefonní číslo nelze použít.\nTelefonní číslo %1$s nemůžete použít, protože jste s ním aktivovali aplikaci na jiném zařízení.</string>
     <string name="login_session_expired">Vypr\u0161ela platnost ov\u011b\u0159ovac\u00edho k\u00f3du. Zkontrolujte telefonn\u00ed \u010d\u00edslo a\u00a0nechte si odeslat nov\u00fd ov\u011b\u0159ovac\u00ed k\u00f3d.</string>
     <string name="menu_help">Nápověda</string>
-    <string name="my_data_title">Moje data</string>
+    <string name="my_data_title">Aktuálně</string>
     <string name="my_data_description">Jedná se o veškeré záznamy měření signálu okolních telefonů s aplikací eRouška za posledních %d dní. Data neobsahují údaje o poloze ani jiné osobní údaje. Odeslat hygienikům je můžete pouze vy.</string>
     <string name="my_data_tab_all_title">Vše</string>
     <string name="my_data_tab_critical_title">Blízká setkání</string>
@@ -142,7 +142,17 @@
     <string name="data_content_info">Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</string>
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
     <string name="contacts_open_chatbot">Anežka – podpora eroušky</string>
-    <string name="risky_contacts_title">Riziková setkání</string>
+
+    <string name="my_data_current_measures">Aktuální opatření</string>
+    <string name="my_data_current_situation">Aktuální situace v číslech</string>
+    <string name="my_data_yesterday">Za včerejší den +%1$s</string>
+    <string name="my_data_tests">%1$s provedených testů</string>
+    <string name="my_data_ack_cases">%1$s celkem potvrzených případů</string>
+    <string name="my_data_act_cases">%1$s aktivních případů</string>
+    <string name="my_data_cured">%1$s vyléčených</string>
+    <string name="my_data_death_toll">%1$s úmrtí</string>
+    <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
+    <string name="my_data_last_update">Poslední aktualizace %1$s</string>
 
     <string name="send_data_body">V případě potvrzené nákazy virem COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
