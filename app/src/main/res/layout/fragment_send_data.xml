@@ -202,48 +202,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/debug_buttons_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugInit() }"
-                android:text="TEST_INIT" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugSendSuccess() }"
-                android:text="TEST_SUCCESS" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugCodeExpired() }"
-                android:text="TEST_EXPIRED" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugCodeInvalid() }"
-                android:text="TEST_INVALID" />
-
-        </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

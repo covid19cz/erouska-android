@@ -84,9 +84,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun onRecentExposures() {
-        // TODO Mock date, replace with date of last exposure
-        val mockDate = "14. 5. 2020"
-        last_exposure.text = String.format(AppConfig.exposureBodyTop, mockDate)
+        last_exposure.text = String.format(AppConfig.exposureBodyTop, viewModel.)
         last_exposure_body_1.text = AppConfig.exposureBodyMid
 
         last_exposure.show()

@@ -49,9 +49,12 @@ class DashboardVM(
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result
-            }.onSuccess {
-                L.d("Exposure Notifications enabled $it")
-                serviceRunning.value = it
+            }.onSuccess {enabled ->
+                L.d("Exposure Notifications enabled $enabled")
+                serviceRunning.value = enabled
+                if (enabled){
+                    checkForRiskyExposure()
+                }
             }.onFailure {
                 L.e(it)
             }
@@ -98,19 +101,26 @@ class DashboardVM(
         return prefs.isUpdateFromLegacyVersion()
     }
 
-    fun debugRun() {
-        serviceRunning.value = true
+    fun checkForRiskyExposure(){
+        viewModelScope.launch {
+            runCatching {
+                exposureNotificationsRepository.getLastRiskyExposure()
+            }.onSuccess {
+                it?.let {
+                    showExposure()
+                }
+            }.onFailure {
+                L.e(it)
+            }
+        }
     }
 
-    fun debugStop() {
-        serviceRunning.value = false
-    }
-
-    fun debugData() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
-    }
-
-    fun debugContact() {
+    private fun showExposure(){
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+
+    private fun showDataObsolete() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
     }
 }

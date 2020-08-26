@@ -44,23 +44,7 @@ class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotific
         dailySummaries.clear()
         viewModelScope.launch {
             kotlin.runCatching {
-
-                val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
-                val attenuationBucketThresholdDb = prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
-                val attenuationBucketWeights = prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
-                val infectiousnessWeights = prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
-
-                exposureNotificationsRepository.getDailySummaries(DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                    for (i in 0 .. 5){
-                        setReportTypeWeight(i, reportTypeWeights[i])
-                    }
-                    setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    for (i in 0 .. 2){
-                        setInfectiousnessWeight(i, infectiousnessWeights[i])
-                    }
-                    setMinimumWindowScore(AppConfig.minimumWindowScore)
-                }.build()
-                )
+                exposureNotificationsRepository.getDailySummaries()
             }.onSuccess {
                 dailySummaries.addAll(it)
             }.onFailure {
