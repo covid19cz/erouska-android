@@ -16,11 +16,14 @@ object AppConfig {
     val reportTypeWeights
         get() = firebaseRemoteConfig.getString("reportTypeWeights").split(";").map { it.toDouble() }
     val infectiousnessWeights
-        get() = firebaseRemoteConfig.getString("infectiousnessWeights").split(";").map { it.toDouble() }
+        get() = firebaseRemoteConfig.getString("infectiousnessWeights").split(";")
+            .map { it.toDouble() }
     val attenuationBucketThresholdDb
-        get() = firebaseRemoteConfig.getString("attenuationBucketThresholdDb").split(";").map { it.toInt() }
+        get() = firebaseRemoteConfig.getString("attenuationBucketThresholdDb").split(";")
+            .map { it.toInt() }
     val attenuationBucketWeights
-        get() = firebaseRemoteConfig.getString("attenuationBucketWeights").split(";").map { it.toDouble() }
+        get() = firebaseRemoteConfig.getString("attenuationBucketWeights").split(";")
+            .map { it.toDouble() }
     val minimumWindowScore
         get() = firebaseRemoteConfig.getDouble("minimumWindowScore")
 
@@ -90,6 +93,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
+    val riskyEncountersWithSymptoms
+        get() = firebaseRemoteConfig.getString("riskyEncountersWithSymptoms")
+    val riskyEncountersWithoutSymptoms
+        get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
     val currentMeasuresUrl
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
 
