@@ -2,4 +2,5 @@
 <resources>
     <item name="action_sandbox" type="id"/>
     <item name="action_news" type="id"/>
+    <item name="action_exposure_demo" type="id"/>
 </resources>

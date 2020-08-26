@@ -10,6 +10,7 @@ import com.google.android.gms.nearby.Nearby
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.CovidDataRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
@@ -54,7 +55,7 @@ val viewModelModule = module {
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
-    viewModel { MyDataVM() }
+    viewModel { MyDataVM(get(), get()) }
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
     viewModel { SendDataVM() }
@@ -74,6 +75,7 @@ val repositoryModule = module {
     single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
+    single { CovidDataRepository(get()) }
 }
 
 val appModule = module {
