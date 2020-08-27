@@ -93,8 +93,14 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
-    val newsletterTosUrl
-        get() = firebaseRemoteConfig.getString("newsletterTosUrl")
+    val riskyEncountersWithSymptoms
+        get() = firebaseRemoteConfig.getString("riskyEncountersWithSymptoms")
+    val riskyEncountersWithoutSymptoms
+        get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
+    val currentMeasuresUrl
+        get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
+    val conditionsOfUseUrl
+        get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.confirm
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.BuildConfig
@@ -12,6 +14,8 @@ import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.confirm.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.confirm.event.SendDataFailedState
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import kotlinx.android.synthetic.main.fragment_send_data.*
 
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
@@ -19,8 +23,17 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     SendDataVM::class
 ) {
 
+    companion object {
+        const val REQUEST_GMS_ERROR_RESOLUTION = 42
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        subscribe(GmsApiErrorEvent::class) {
+            startIntentSenderForResult(it.status.resolution?.intentSender,
+                REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+        }
 
         subscribe(SendDataCommandEvent::class) {
             when (it.command) {
@@ -37,18 +50,17 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (BuildConfig.FLAVOR == "dev") {
-            debug_buttons_container.show()
-        }
-
         setupListeners()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SandboxFragment.REQUEST_GMS_ERROR_RESOLUTION && resultCode == Activity.RESULT_OK) {
+            viewModel.verifyAndConfirm()
+        }
+    }
+
     private fun setupListeners() {
-        confirm_button.setOnClickListener { viewModel.verifyAndConfirm(code_input.text?.toString()) }
-        back_button.setOnClickListener { viewModel.reset() }
-        try_again_button.setOnClickListener { viewModel.sendData() }
         close_button.setOnClickListener { navController().navigateUp() }
         success_close_button.setOnClickListener { navController().navigateUp() }
     }

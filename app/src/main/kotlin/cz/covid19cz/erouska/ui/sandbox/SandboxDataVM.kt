@@ -4,12 +4,10 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import com.google.android.gms.nearby.exposurenotification.DailySummary
-import com.google.android.gms.nearby.exposurenotification.ExposureWindow
-import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -19,7 +17,7 @@ import java.util.*
 class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotificationsRepository, val prefs : SharedPrefsRepository) : BaseVM() {
 
     val dailySummaries = ObservableArrayList<DailySummary>()
-    val exposureWindows = ObservableArrayList<ExposureWindow>()
+    val exposureWindows = ObservableArrayList<Any>()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume(){
@@ -31,8 +29,15 @@ class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotific
         exposureWindows.clear()
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.getExposureWindows()
+                exposureNotificationsRepository.getExposureWindows().sortedByDescending { it.dateMillisSinceEpoch }
             }.onSuccess {
+                it.forEach {
+                    exposureWindows.add(it)
+                    exposureWindows.add("HEADER")
+                    it.scanInstances.forEach {
+                        exposureWindows.add(it)
+                    }
+                }
                 exposureWindows.addAll(it)
             }.onFailure {
                 L.e(it)
@@ -44,23 +49,7 @@ class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotific
         dailySummaries.clear()
         viewModelScope.launch {
             kotlin.runCatching {
-
-                val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
-                val attenuationBucketThresholdDb = prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
-                val attenuationBucketWeights = prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
-                val infectiousnessWeights = prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
-
-                exposureNotificationsRepository.getDailySummaries(DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                    for (i in 0 .. 5){
-                        setReportTypeWeight(i, reportTypeWeights[i])
-                    }
-                    setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    for (i in 0 .. 2){
-                        setInfectiousnessWeight(i, infectiousnessWeights[i])
-                    }
-                    setMinimumWindowScore(AppConfig.minimumWindowScore)
-                }.build()
-                )
+                exposureNotificationsRepository.getDailySummaries().sortedByDescending { it.daysSinceEpoch }
             }.onSuccess {
                 dailySummaries.addAll(it)
             }.onFailure {
@@ -70,12 +59,7 @@ class SandboxDataVM(private val exposureNotificationsRepository: ExposureNotific
     }
 
     fun daysToString(daysSinceEpoch: Int): String {
-        val formatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
-        formatter.timeZone = TimeZone.getTimeZone("UTC")
-        val dateTime = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-            timeInMillis = (daysSinceEpoch.toLong() * 24 * 60 * 60 * 1000)
-        }
-        return formatter.format(dateTime.time)
+        return daysSinceEpoch.daysSinceEpochToDateString()
     }
 
     fun dateInMilisToString(milis: Long): String {

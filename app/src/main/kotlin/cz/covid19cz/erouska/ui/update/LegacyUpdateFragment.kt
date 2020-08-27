@@ -68,12 +68,12 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         legacy_update_img.setImageResource(R.drawable.ic_update_privacy)
         legacy_update_header.text = getString(R.string.legacy_update_privacy_header)
         legacy_update_body.text = HtmlCompat.fromHtml(
-            getString(R.string.legacy_update_privacy_body, AppConfig.newsletterTosUrl),
+            getString(R.string.legacy_update_privacy_body, AppConfig.conditionsOfUseUrl),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
         legacy_update_button.text = getString(R.string.legacy_update_button_close)
-        legacy_update_body.setOnClickListener { showWeb(AppConfig.newsletterTosUrl, customTabHelper) }
+        legacy_update_body.setOnClickListener { showWeb(AppConfig.conditionsOfUseUrl, customTabHelper) }
         legacy_update_button.setOnClickListener { finish() }
     }
 
