@@ -33,8 +33,6 @@ object AppConfig {
         get() = getLocalized("proclamationLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
-    val showBatteryOptimizationTutorial
-        get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
     val batteryOptimizationAsusMarkdown
         get() = getLocalized("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
@@ -55,10 +53,12 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
     val riskyEncountersTitle
         get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
-    val noExposureHeader
-        get() = firebaseRemoteConfig.getString("noExposureHeader")
-    val noExposureBody
-        get() = firebaseRemoteConfig.getString("noExposureBody")
+    val noEncounterHeader
+        get() = firebaseRemoteConfig.getString("noEncounterHeader")
+    val noEncounterBody
+        get() = firebaseRemoteConfig.getString("noEncounterBody")
+    val earlierExposures
+        get() = firebaseRemoteConfig.getString("earlierExposures")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("exposureUITitle")
     val symptomsUITitle
@@ -71,8 +71,8 @@ object AppConfig {
         get() = getLocalized("symptomsContentJson")
     val preventionContentJson
         get() = getLocalized("preventionContentJson")
-    val exposureNotificationContent
-        get() = firebaseRemoteConfig.getString("exposureNotificationContent")
+    val encounterWarning
+        get() = firebaseRemoteConfig.getString("encounterWarning")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
     val keyExportPeriodHours

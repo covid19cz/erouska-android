@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.ui.exposure
 import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentExposuresBinding
 import cz.covid19cz.erouska.ext.hide
@@ -48,8 +47,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun onNoRecentExposures() {
-        no_exposures_header.text = AppConfig.noExposureHeader
-        no_exposures_body.text = AppConfig.noExposureBody
+        no_exposures_header.text = AppConfig.noEncounterHeader
+        no_exposures_body.text = AppConfig.noEncounterBody
 
         no_exposures_img.show()
         no_exposures_header.show()
