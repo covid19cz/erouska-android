@@ -196,11 +196,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/dashboard_body_secondary"
+                    android:text="@{@string/dashboard_body_secondary(vm.lastUpdate)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"
-                    app:visibleOrGone="@{vm.serviceRunning}" />
+                    app:visibleOrGone="@{vm.serviceRunning &amp;&amp; vm.lastUpdate != null}" />
 
                 <TextView
                     android:id="@+id/app_paused_body"
@@ -244,48 +244,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:visibleOrInvisible="@{!vm.serviceRunning}" />
 
-        <LinearLayout
-            android:id="@+id/debug_buttons_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugRun() }"
-                android:text="RUN" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugStop() }"
-                android:text="STOP" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugData() }"
-                android:text="DATA" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/exposition_level_2"
-                android:onClick="@{ () -> vm.debugContact() }"
-                android:text="CONTACT" />
-
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

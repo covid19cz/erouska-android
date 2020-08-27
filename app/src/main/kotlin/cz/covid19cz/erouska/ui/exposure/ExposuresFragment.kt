@@ -21,10 +21,6 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
 
-        if (BuildConfig.FLAVOR == "dev") {
-            debug_buttons_container.show()
-        }
-
         activity?.title = AppConfig.exposureUITitle
 
         symptoms_text.text = AppConfig.symptomsUITitle
@@ -102,10 +98,6 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun onRecentExposures() {
-        // TODO Mock date, replace with date of last exposure
-        val mockDate = "14. 5. 2020"
-        last_exposure.text = String.format(AppConfig.riskyEncountersTitle, mockDate)
-
         last_exposure.show()
 
         divider_1.show()

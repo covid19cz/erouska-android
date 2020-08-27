@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
@@ -22,6 +23,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
+    val lastUpdate = MutableLiveData<String>()
 
     init {
 
@@ -42,6 +44,7 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        lastUpdate.value = prefs.lastKeyExportTime()
         viewModelScope.launch {
             kotlin.runCatching {
                 val result = exposureNotificationsRepository.isEnabled()
@@ -49,9 +52,12 @@ class DashboardVM(
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result
-            }.onSuccess {
-                L.d("Exposure Notifications enabled $it")
-                serviceRunning.value = it
+            }.onSuccess {enabled ->
+                L.d("Exposure Notifications enabled $enabled")
+                serviceRunning.value = enabled
+                if (enabled){
+                    checkForRiskyExposure()
+                }
             }.onFailure {
                 L.e(it)
             }
@@ -98,19 +104,26 @@ class DashboardVM(
         return prefs.isUpdateFromLegacyVersion()
     }
 
-    fun debugRun() {
-        serviceRunning.value = true
+    fun checkForRiskyExposure(){
+        viewModelScope.launch {
+            runCatching {
+                exposureNotificationsRepository.getLastRiskyExposure()
+            }.onSuccess {
+                it?.let {
+                    showExposure()
+                }
+            }.onFailure {
+                L.e(it)
+            }
+        }
     }
 
-    fun debugStop() {
-        serviceRunning.value = false
-    }
-
-    fun debugData() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
-    }
-
-    fun debugContact() {
+    private fun showExposure(){
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+
+    private fun showDataObsolete() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
     }
 }

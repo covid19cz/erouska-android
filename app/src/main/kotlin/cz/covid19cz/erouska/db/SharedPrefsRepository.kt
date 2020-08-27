@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import cz.covid19cz.erouska.AppConfig
 
 class SharedPrefsRepository(c: Context) {
 
@@ -62,10 +61,10 @@ class SharedPrefsRepository(c: Context) {
         return timestamps.split(",")
     }
 
-    fun lastKeyExportTime(): String {
+    fun lastKeyExportTime(): String? {
         val history = prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
         val historyList = history.split(",")
-        return historyList.max() ?: ""
+        return historyList.max()
     }
 
     fun clearLastKeyExportFileName() {
