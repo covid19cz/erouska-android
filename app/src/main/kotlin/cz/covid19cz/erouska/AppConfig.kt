@@ -37,8 +37,6 @@ object AppConfig {
         get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
-    val showBatteryOptimizationTutorial
-        get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
     val batteryOptimizationAsusMarkdown
         get() = getLocalized("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
