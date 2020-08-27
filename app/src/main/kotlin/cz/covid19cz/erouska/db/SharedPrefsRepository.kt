@@ -17,8 +17,8 @@ class SharedPrefsRepository(c: Context) {
         const val ATTENUATION_BUCKET_THRESHOLD_DB= "attenuationBucketThresholdDb"
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
-        const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
+        const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
@@ -154,8 +154,8 @@ class SharedPrefsRepository(c: Context) {
         return prefs.getLong(LAST_STATS_UPDATE, 0)
     }
 
-    fun setLastStatsUpdate(lastUpdate: Long){
-        return prefs.edit().putLong(LAST_STATS_UPDATE, lastUpdate).apply()
+    fun setLastStatsUpdate(modified: Long){
+        return prefs.edit().putLong(LAST_STATS_UPDATE, modified).apply()
     }
 
     fun getTestsTotal() : Int{
