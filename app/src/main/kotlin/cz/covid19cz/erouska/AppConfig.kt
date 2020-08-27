@@ -37,8 +37,6 @@ object AppConfig {
         get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
-    val showBatteryOptimizationTutorial
-        get() = firebaseRemoteConfig.getBoolean("showBatteryOptimizationTutorial")
     val batteryOptimizationAsusMarkdown
         get() = getLocalized("batteryOptimizationAsusMarkdown")
     val batteryOptimizationLenovoMarkdown
@@ -59,18 +57,12 @@ object AppConfig {
         get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
-    val exposureBodyTop
-        get() = firebaseRemoteConfig.getString("exposureBodyTop")
-    val exposureBodyMid
-        get() = firebaseRemoteConfig.getString("exposureBodyMid")
-    val noExposureHeader
-        get() = firebaseRemoteConfig.getString("noExposureHeader")
-    val noExposureBody
-        get() = firebaseRemoteConfig.getString("noExposureBody")
-    val mainSymptoms
-        get() = firebaseRemoteConfig.getString("mainSymptoms")
-    val spreadPrevention
-        get() = firebaseRemoteConfig.getString("spreadPrevention")
+    val riskyEncountersTitle
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitle")
+    val noEncounterHeader
+        get() = firebaseRemoteConfig.getString("noEncounterHeader")
+    val noEncounterBody
+        get() = firebaseRemoteConfig.getString("noEncounterBody")
     val earlierExposures
         get() = firebaseRemoteConfig.getString("earlierExposures")
     val exposureUITitle
@@ -85,8 +77,8 @@ object AppConfig {
         get() = getLocalized("symptomsContentJson")
     val preventionContentJson
         get() = getLocalized("preventionContentJson")
-    val exposureNotificationContent
-        get() = firebaseRemoteConfig.getString("exposureNotificationContent")
+    val encounterWarning
+        get() = firebaseRemoteConfig.getString("encounterWarning")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
     val keyExportPeriodHours
