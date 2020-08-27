@@ -27,8 +27,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
 
         activity?.title = AppConfig.exposureUITitle
 
-        symptoms_text.text = AppConfig.mainSymptoms
-        spread_text.text = AppConfig.spreadPrevention
+        symptoms_text.text = AppConfig.symptomsUITitle
+        spread_text.text = AppConfig.spreadPreventionUITitle
         earlier_exposures_text.text = AppConfig.earlierExposures
         earlier_exposures_button.text = AppConfig.earlierExposures
         symptoms_content.text = AppConfig.riskyEncountersWithSymptoms
@@ -55,8 +55,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun onNoExposures() {
-        no_exposures_header.text = AppConfig.noExposureHeader
-        no_exposures_body.text = AppConfig.noExposureBody
+        no_exposures_header.text = AppConfig.noEncounterHeader
+        no_exposures_body.text = AppConfig.noEncounterBody
 
         no_exposures_img.show()
         no_exposures_header.show()
@@ -78,8 +78,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun onNoRecentExposures() {
-        no_exposures_header.text = AppConfig.noExposureHeader
-        no_exposures_body.text = AppConfig.noExposureBody
+        no_exposures_header.text = AppConfig.noEncounterHeader
+        no_exposures_body.text = AppConfig.noEncounterBody
 
         no_exposures_img.show()
         no_exposures_header.show()
@@ -104,7 +104,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     private fun onRecentExposures() {
         // TODO Mock date, replace with date of last exposure
         val mockDate = "14. 5. 2020"
-        last_exposure.text = String.format(AppConfig.exposureBodyTop, mockDate)
+        last_exposure.text = String.format(AppConfig.riskyEncountersTitle, mockDate)
 
         last_exposure.show()
 

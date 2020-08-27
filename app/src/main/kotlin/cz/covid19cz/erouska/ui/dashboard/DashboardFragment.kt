@@ -126,7 +126,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             debug_buttons_container.show()
         }
 
-        exposure_notification_content.text = AppConfig.exposureNotificationContent
+        exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
