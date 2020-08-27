@@ -9,7 +9,8 @@ import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class ExposuresVM(val exposureNotificationsRepo : ExposureNotificationsRepository) : BaseArchViewModel() {
+class ExposuresVM(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
+    BaseArchViewModel() {
 
     val lastExposureDate = MutableLiveData<String>()
 
@@ -18,18 +19,22 @@ class ExposuresVM(val exposureNotificationsRepo : ExposureNotificationsRepositor
         // If yes -> Show RECENT_EXPOSURE
         // If not and there are some exposures in the past -> Show NO_RECENT_EXPOSURES
         // If there are NO exposures in the DB -> Show NO_EXPOSURES
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
 
         viewModelScope.launch {
             kotlin.runCatching {
                 exposureNotificationsRepo.getLastRiskyExposure()
             }.onSuccess {
-                publish(ExposuresCommandEvent(if (it != null){
-                    lastExposureDate.value = it.daysSinceEpoch.daysSinceEpochToDateString()
-                    ExposuresCommandEvent.Command.RECENT_EXPOSURE
-                } else {
-                    ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES
-                }))
+                publish(
+                    ExposuresCommandEvent(
+                        if (it != null) {
+                            lastExposureDate.value = it.daysSinceEpoch.daysSinceEpochToDateString()
+                            ExposuresCommandEvent.Command.RECENT_EXPOSURE
+                        } else {
+                            ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES
+                        }
+                    )
+                )
             }.onFailure {
                 L.e(it)
             }
@@ -38,10 +43,6 @@ class ExposuresVM(val exposureNotificationsRepo : ExposureNotificationsRepositor
 
     fun debugRecentExp() {
         publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
-    }
-
-    fun debugNoExp() {
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_EXPOSURES))
     }
 
     fun debugExp() {

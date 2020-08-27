@@ -31,10 +31,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
-    val aboutJson
-        get() = getLocalized("aboutJson")
-    val termsAndConditionsLink
-        get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val showBatteryOptimizationTutorial
@@ -55,24 +51,14 @@ object AppConfig {
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
-    val myDataText
-        get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
-    val exposureBodyTop
-        get() = firebaseRemoteConfig.getString("exposureBodyTop")
-    val exposureBodyMid
-        get() = firebaseRemoteConfig.getString("exposureBodyMid")
+    val riskyEncountersTitle
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
     val noExposureHeader
         get() = firebaseRemoteConfig.getString("noExposureHeader")
     val noExposureBody
         get() = firebaseRemoteConfig.getString("noExposureBody")
-    val mainSymptoms
-        get() = firebaseRemoteConfig.getString("mainSymptoms")
-    val spreadPrevention
-        get() = firebaseRemoteConfig.getString("spreadPrevention")
-    val earlierExposures
-        get() = firebaseRemoteConfig.getString("earlierExposures")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("exposureUITitle")
     val symptomsUITitle
