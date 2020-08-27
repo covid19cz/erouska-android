@@ -6,7 +6,6 @@
     <string name="notification_title_error">eRouška nu este activă</string>
     <string name="notification_text_bluetooth_disabled">Trebuie să activezi Buetooth pentru a face eRouška să funcționeze corect</string>
     <string name="notification_text_location_disabled">Trebuie să permiți Serviciile de Localizare pentru a face eRouška să funcționeze corect</string>
-    <string name="notification_text_battery_saver_enabled">Trebuie să dezactivezi Economizor Baterie pentru a face eRouška să funcționeze corect</string>
     <string name="notification_text_paused">Apicația este întreruptă. Nu uita să o reiei</string>
     <string name="notification_action_resume">Reluat</string>
     <string name="notification_text_resumed">Aplica\u021bia func\u021bioneaz\u0103 si monitorizeaz\u0103 \u00een mod anonim telefoanele din jur.</string>

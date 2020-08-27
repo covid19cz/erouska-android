@@ -22,8 +22,6 @@ import cz.covid19cz.erouska.ui.exposure.ExposuresVM
 import cz.covid19cz.erouska.ui.exposure.MainSymptomsVM
 import cz.covid19cz.erouska.ui.exposure.RecentExposuresVM
 import cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM
-import cz.covid19cz.erouska.ui.help.BatteryOptimizationVM
-import cz.covid19cz.erouska.ui.help.GuideVM
 import cz.covid19cz.erouska.ui.help.HelpVM
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.ui.mydata.MyDataVM
@@ -56,8 +54,6 @@ val viewModelModule = module {
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
     viewModel { MyDataVM(get(), get()) }
-    viewModel { BatteryOptimizationVM() }
-    viewModel { GuideVM() }
     viewModel { SendDataVM(get()) }
     viewModel { ExposuresVM(get()) }
     viewModel { RecentExposuresVM() }

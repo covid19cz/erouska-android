@@ -7,7 +7,6 @@
     <string name="notification_title_error">eRouška není aktivní</string>
     <string name="notification_text_bluetooth_disabled">Pro správnou funkci eRoušky je třeba zapnout Bluetooth</string>
     <string name="notification_text_location_disabled">Pro správnou funkci eRoušky je třeba zapnout Polohové služby</string>
-    <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
     <string name="notification_text_paused">Aplikace pozastavená. Nezapomeňte ji spustit.</string>
     <string name="notification_action_resume">Spustit</string>
     <string name="notification_text_resumed">Aplikace běží a\u00A0zaznamenává anonymně telefony ve vašem okolí.</string>

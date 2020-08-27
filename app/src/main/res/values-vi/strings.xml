@@ -6,7 +6,6 @@
     <string name="notification_title_error">eRouška đang không hoạt động</string>
     <string name="notification_text_bluetooth_disabled">Bạn hãy bật Bluetooth để sử dụng eRouška đúng cách và hiệu quả</string>
     <string name="notification_text_location_disabled">Bạn hãy bật Dịch vụ định vị để sử dụng eRouška đúng cách và hiệu quả</string>
-    <string name="notification_text_battery_saver_enabled">Bạn hãy tắt chế độ tiết kiệm pin để sử dụng eRouška đúng cách và hiệu quả</string>
     <string name="notification_text_paused">Ứng dụng tạm dừng. Đừng quên bật lại ứng dụng bạn nhé!</string>
     <string name="notification_action_resume">Bật ứng dụng</string>
     <string name="notification_text_resumed">\u1ee8ng d\u1ee5ng \u0111ang ch\u1ea1y v\u00e0 ghi nh\u1edb l\u1ea1i c\u00e1c \u0111i\u1ec7n tho\u1ea1i xung quanh b\u1ea1n trong ch\u1ebf \u0111\u1ed9 \u1ea9n danh.</string>
