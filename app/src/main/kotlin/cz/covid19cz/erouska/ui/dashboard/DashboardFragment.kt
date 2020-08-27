@@ -135,9 +135,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
         if (BuildConfig.FLAVOR == "dev") {
-            menu.add(0, R.id.action_sandbox, 999, "Test Data")
+            menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
             menu.add(0, R.id.action_news, 555, "Test Novinky")
-            menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
+            //menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }

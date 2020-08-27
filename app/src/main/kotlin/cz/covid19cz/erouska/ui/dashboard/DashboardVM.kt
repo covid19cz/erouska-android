@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
@@ -22,6 +23,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
+    val lastUpdate = MutableLiveData<String>()
 
     init {
 
@@ -42,6 +44,7 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        lastUpdate.value = prefs.lastKeyExportTime()
         viewModelScope.launch {
             kotlin.runCatching {
                 val result = exposureNotificationsRepository.isEnabled()

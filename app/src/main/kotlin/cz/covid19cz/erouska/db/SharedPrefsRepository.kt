@@ -61,10 +61,10 @@ class SharedPrefsRepository(c: Context) {
         return timestamps.split(",")
     }
 
-    fun lastKeyExportTime(): String {
+    fun lastKeyExportTime(): String? {
         val history = prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
         val historyList = history.split(",")
-        return historyList.max() ?: ""
+        return historyList.max()
     }
 
     fun clearLastKeyExportFileName() {

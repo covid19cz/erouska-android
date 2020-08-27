@@ -1,13 +1,17 @@
 package cz.covid19cz.erouska.ui.exposure
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
 class ExposuresVM(val exposureNotificationsRepo : ExposureNotificationsRepository) : BaseArchViewModel() {
+
+    val lastExposureDate = MutableLiveData<String>()
 
     fun checkExposures() {
         // TODO Check if there were any exposures in last 14 days
@@ -21,6 +25,7 @@ class ExposuresVM(val exposureNotificationsRepo : ExposureNotificationsRepositor
                 exposureNotificationsRepo.getLastRiskyExposure()
             }.onSuccess {
                 publish(ExposuresCommandEvent(if (it != null){
+                    lastExposureDate.value = it.daysSinceEpoch.daysSinceEpochToDateString()
                     ExposuresCommandEvent.Command.RECENT_EXPOSURE
                 } else {
                     ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES

@@ -21,15 +21,14 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
 
-        if (BuildConfig.FLAVOR == "dev") {
-            debug_buttons_container.show()
-        }
-
         activity?.title = AppConfig.exposureUITitle
 
         symptoms_text.text = AppConfig.mainSymptoms
         spread_text.text = AppConfig.spreadPrevention
         earlier_exposures_text.text = AppConfig.earlierExposures
+        earlier_exposures_button.text = AppConfig.earlierExposures
+        symptoms_content.text = AppConfig.riskyEncountersWithSymptoms
+        no_symptoms_content.text = AppConfig.riskyEncountersWithoutSymptoms
 
         viewModel.checkExposures()
 
@@ -48,6 +47,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         symptoms_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_main_symptoms) }
         spread_prevention_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_spread_prevention) }
         earlier_exposures_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
+        earlier_exposures_button.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
     }
 
     private fun onNoExposures() {
@@ -59,11 +59,18 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         no_exposures_body.show()
 
         last_exposure.hide()
-        last_exposure_body_1.hide()
+
+        divider_1.hide()
+        divider_2.hide()
+        symptoms_header.hide()
+        symptoms_content.hide()
+        no_symptoms_header.hide()
+        no_symptoms_content.hide()
 
         symptoms_container.hide()
         spread_prevention_container.hide()
         earlier_exposures_container.hide()
+        earlier_exposures_button.hide()
     }
 
     private fun onNoRecentExposures() {
@@ -73,22 +80,32 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         no_exposures_img.show()
         no_exposures_header.show()
         no_exposures_body.show()
-        earlier_exposures_container.show()
+        earlier_exposures_button.show()
 
         last_exposure.hide()
-        last_exposure_body_1.hide()
+
+        divider_1.hide()
+        divider_2.hide()
+        symptoms_header.hide()
+        symptoms_content.hide()
+        no_symptoms_header.hide()
+        no_symptoms_content.hide()
 
         symptoms_container.hide()
         spread_prevention_container.hide()
+        earlier_exposures_container.hide()
         bottom_separator.hide()
     }
 
     private fun onRecentExposures() {
-        last_exposure.text = String.format(AppConfig.exposureBodyTop, viewModel.)
-        last_exposure_body_1.text = AppConfig.exposureBodyMid
-
         last_exposure.show()
-        last_exposure_body_1.show()
+
+        divider_1.show()
+        divider_2.show()
+        symptoms_header.show()
+        symptoms_content.show()
+        no_symptoms_header.show()
+        no_symptoms_content.show()
 
         symptoms_container.show()
         spread_prevention_container.show()
@@ -97,6 +114,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         no_exposures_img.hide()
         no_exposures_header.hide()
         no_exposures_body.hide()
+        earlier_exposures_button.hide()
     }
 
 }

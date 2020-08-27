@@ -181,6 +181,8 @@
     <string name="exposure_notification_close">Zavřít</string>
     <string name="exposure_notification_more_info">Více informací</string>
     <string name="exposures_nav_earlier_exposures">Předchozí riziková setkání</string>
+    <string name="exposures_symptoms_header">Mám příznaky</string>
+    <string name="exposures_no_symptoms_header">Nemám příznaky</string>
 
     <string name="spread_prevention_title">Jak zabránit přenosu</string>
 
