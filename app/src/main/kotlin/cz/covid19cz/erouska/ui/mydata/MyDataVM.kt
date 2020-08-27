@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.mydata
 
+import android.text.format.DateUtils
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
@@ -22,12 +23,16 @@ class MyDataVM(
     val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
+    companion object {
+        const val LAST_UPDATE_UI_FORMAT = "dd.MM.yyyy" // date format used in UI
+        const val LAST_UPDATE_API_FORMAT = "yyyyMMdd" // date format returned from API
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        // TODO Replace with current date once the API is ready
-        // val statsDate = SimpleDateFormat("yyyyMMdd").format(Date())
-        val statsDate = "20200824"
-        getStats(statsDate)
+        if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
+            getStats()
+        }
     }
 
     fun measures() {
@@ -58,7 +63,7 @@ class MyDataVM(
     } else {
         SafeMutableLiveData(
             SimpleDateFormat(
-                "dd.MM.yyyy",
+                LAST_UPDATE_UI_FORMAT,
                 Locale.getDefault()
             ).format(Date(prefs.getLastStatsUpdate()))
         )
@@ -66,7 +71,7 @@ class MyDataVM(
 
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
-    private fun getStats(date: String) {
+    private fun getStats(date: String? = null) {
         viewModelScope.launch {
             runCatching {
                 val request = CovidStatsRequest(CovidStatsDto(date))
@@ -126,14 +131,21 @@ class MyDataVM(
                     prefs.setCurrentlyHospitalizedIncrease(increase)
                 }
 
-                val lastUpdateMillis = System.currentTimeMillis()
-                prefs.setLastStatsUpdate(lastUpdateMillis)
+                response.date?.let {
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(response.date)
 
-                lastUpdate.value = SimpleDateFormat(
-                    "dd.MM.yyyy",
-                    Locale.getDefault()
-                ).format(Date(lastUpdateMillis))
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setLastStatsUpdate(lastUpdateMillis)
 
+                        lastUpdate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(Date(lastUpdateMillis))
+                    }
+                }
             }.onFailure {
                 if (it is ApiException) {
                     L.e(it.status.toString() + " " + it.message)
