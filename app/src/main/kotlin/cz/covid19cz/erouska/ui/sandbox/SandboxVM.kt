@@ -19,6 +19,8 @@ import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
 import cz.covid19cz.erouska.net.model.VerifyCodeRequest
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.confirm.ReportExposureException
+import cz.covid19cz.erouska.ui.confirm.VerifyException
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 import cz.covid19cz.erouska.utils.L
@@ -96,10 +98,6 @@ class SandboxVM(
         }
     }
 
-    fun scheduleDownloadKeyExport() {
-        serverRepository.scheduleKeyDownload()
-    }
-
     fun downloadKeyExport() {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -169,31 +167,15 @@ class SandboxVM(
     fun reportExposureWithVerification(code : String){
         viewModelScope.launch {
             runCatching {
-                val keys = exposureNotificationsRepository.getTemporaryExposureKeyHistory()
-                val verifyResponse = serverRepository.verifyCode(VerifyCodeRequest(code))
-                val hmackey = cryptoTools.newHmacKey()
-                val keyHash = cryptoTools.hashedKeys(keys, hmackey)
-
-                val certificateResponse = serverRepository.verifyCertificate(
-                    VerifyCertificateRequest(verifyResponse.token, keyHash)
-                )
-
-                val request = ExposureRequest(keys.map {
-                    TemporaryExposureKeyDto(
-                        Base64.encodeToString(
-                            it.keyData,
-                            Base64.NO_WRAP
-                        ), it.rollingStartIntervalNumber, it.rollingPeriod
-                    )
-                }, certificateResponse.certificate, hmackey, null, null, healthAuthorityID = "cz.covid19cz.erouska.dev")
-                serverRepository.reportExposure(request)
+               exposureNotificationsRepository.reportExposureWithVerification(code)
             }.onSuccess {
-                showSnackbar("Upload success: ${it.insertedExposures ?: 0} keys")
+                showSnackbar("Upload success: $it keys")
             }.onFailure {
-                if (it is ApiException) {
-                    publish(GmsApiErrorEvent(it.status))
-                } else {
-                    showSnackbar("Upload error: ${it.message}")
+                when(it){
+                    is ApiException -> publish(GmsApiErrorEvent(it.status))
+                    is VerifyException -> showSnackbar("Verification error: ${it.message}")
+                    is ReportExposureException -> showSnackbar("Upload error: ${it.message}")
+                    else -> showSnackbar("${it.message}")
                 }
                 L.e(it)
             }

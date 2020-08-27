@@ -6,6 +6,10 @@
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.sandbox.SandboxDataVM" />
+
+        <variable
+            name="exposureWindowsLayoutStrategy"
+            type="arch.adapter.RecyclerLayoutStrategy" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -131,7 +135,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             app:items="@{vm.exposureWindows}"
-            app:layoutId="@{@layout/item_exposure_window}"
+            app:layoutStrategy="@{exposureWindowsLayoutStrategy}"
             app:viewModel="@{vm}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 

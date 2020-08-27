@@ -58,8 +58,8 @@ val viewModelModule = module {
     viewModel { MyDataVM(get(), get()) }
     viewModel { BatteryOptimizationVM() }
     viewModel { GuideVM() }
-    viewModel { SendDataVM() }
-    viewModel { ExposuresVM() }
+    viewModel { SendDataVM(get()) }
+    viewModel { ExposuresVM(get()) }
     viewModel { RecentExposuresVM() }
     viewModel { MainSymptomsVM() }
     viewModel { SpreadPreventionVM() }
@@ -72,7 +72,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get()) }
+    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get(), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
     single { CovidDataRepository(get()) }
