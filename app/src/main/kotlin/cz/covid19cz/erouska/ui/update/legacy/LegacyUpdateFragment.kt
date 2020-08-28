@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.update
+package cz.covid19cz.erouska.ui.update.legacy
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,7 +6,7 @@ import androidx.lifecycle.observe
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLegacyUpdateBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.update.event.LegacyUpdateEvent
+import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 import kotlinx.android.synthetic.main.fragment_legacy_update.*
 
 class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpdateVM>(

@@ -191,6 +191,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_play_services_update"
+            app:destination="@id/nav_play_services_update"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_exposures"
@@ -333,6 +340,15 @@
             android:name="fullscreen"
             android:defaultValue="false"
             app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_play_services_update"
+        android:name="cz.covid19cz.erouska.ui.update.playservices.UpdatePlayServicesFragment">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_battery_optimization"

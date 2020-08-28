@@ -137,6 +137,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         if (BuildConfig.FLAVOR == "dev") {
             menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
             menu.add(0, R.id.action_news, 555, "Test Novinky")
+            menu.add(0, R.id.action_play_services, 777, "Test PlayServices")
             //menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -158,6 +159,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_play_services -> {
+                showPlayServicesUpdate()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -198,6 +203,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 }
             }
         }
+    }
+
+    private fun showPlayServicesUpdate() {
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
     }
 
     private fun showExposureNotificationsOff() {
