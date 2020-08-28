@@ -58,7 +58,7 @@ object AppConfig {
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
     val riskyEncountersTitle
-        get() = firebaseRemoteConfig.getString("riskyEncountersTitle")
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
     val noEncounterHeader
         get() = firebaseRemoteConfig.getString("noEncounterHeader")
     val noEncounterBody
