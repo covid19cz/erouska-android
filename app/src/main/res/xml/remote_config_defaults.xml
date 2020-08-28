@@ -18,7 +18,7 @@
     </entry>
     <entry>
         <key>minimumWindowScore</key>
-        <value>15</value>
+        <value>900</value>
     </entry>
 
     <entry>
@@ -191,8 +191,12 @@
         <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
     </entry>
     <entry>
-        <key>keyExportPeriodHours</key>
+        <key>keyImportPeriodHours</key>
         <value>6</value>
+    </entry>
+    <entry>
+        <key>keyImportDataOutdatedHours</key>
+        <value>24</value>
     </entry>
     <entry>
         <key>contactsContentJson</key>

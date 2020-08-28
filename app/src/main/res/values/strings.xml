@@ -170,8 +170,19 @@
     <string name="send_data_success_body_2">Please cooperate with workers of public health office on searching all people you were in contact with.</string>
     <string name="send_data_success_body_3">Follow instructions of health office administration and medical staff.</string>
 
-    <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
+    <string name="notification_data_outdated_title">Outdated data</string>
+    <string name="notification_data_outdated_text">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
+
+    <string name="notification_exposure_title">Risky contact</string>
+    <string name="notification_exposure_text">You\'ve been recently in contact with someone COVID-19 positive tested. Watch your healthiness, more info in the app.</string>
+
+    <string name="notification_exposure_notifications_off_title">@string/dashboard_title_paused</string>
+    <string name="notification_exposure_notifications_off_text">Don\'t forget to start it.</string>
+
+    <string name="notification_channel_exposure">Risky contact</string>
+    <string name="notification_channel_outdated_data">Outdated data</string>
+    <string name="notification_channel_exposure_notifications_off">Paused eRouška</string>
 
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>

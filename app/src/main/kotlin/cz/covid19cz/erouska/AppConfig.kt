@@ -75,8 +75,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("encounterWarning")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
-    val keyExportPeriodHours
-        get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
+    val keyImportPeriodHours
+        get() = firebaseRemoteConfig.getLong("keyImportPeriodHours")
+    val keyImportDataOutdatedHours
+        get() = firebaseRemoteConfig.getLong("keyImportDataOutdatedHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
     val riskyEncountersWithSymptoms

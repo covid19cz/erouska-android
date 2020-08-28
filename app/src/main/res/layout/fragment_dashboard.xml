@@ -40,7 +40,7 @@
                     android:id="@+id/data_notification_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/data_notification_content"
+                    android:text="@string/notification_data_outdated_text"
                     android:textColor="@color/textColorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

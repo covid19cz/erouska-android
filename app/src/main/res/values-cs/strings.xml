@@ -172,8 +172,19 @@
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
-    <string name="data_notification_content">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
+    <string name="notification_data_outdated_title">Zastaralá data</string>
+    <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
+
+    <string name="notification_exposure_title">Rizikové setkání</string>
+    <string name="notification_exposure_text">Setkali jste se s osobou, u které byla prokázána nemoc COVID-19. Sledujte svůj zdravotní stav, více informací naleznete v aplikaci</string>
+
+    <string name="notification_exposure_notifications_off_title">@string/dashboard_title_paused</string>
+    <string name="notification_exposure_notifications_off_text">Nezapomeňte jí spustit</string>
+
+    <string name="notification_channel_exposure">Rizikový kontakt</string>
+    <string name="notification_channel_outdated_data">Zastaralá data</string>
+    <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
 
     <string name="exposure_notifications_off_title">Zapněte Oznámení o kontaktu s COVID-19</string>
     <string name="exposure_notifications_off_body">eRouška nyní nemůže komunikovat s jinými eRouškami ve vašem okolí.\n\nZapněte Oznámení o kontaktu s COVID-19 pomocí tlačítka "Zapnout".</string>

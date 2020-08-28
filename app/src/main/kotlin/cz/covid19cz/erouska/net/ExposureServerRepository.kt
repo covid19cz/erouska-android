@@ -21,10 +21,7 @@ import java.io.DataInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.lang.RuntimeException
-import java.net.MalformedURLException
 import java.net.URL
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -121,10 +118,7 @@ class ExposureServerRepository(
                 if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
 
             prefs.setLastKeyExportFileName(newLastDownload)
-
-            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
-            val stringDate = formatter.format(Date(System.currentTimeMillis()))
-            prefs.addLastKeyExportTime(stringDate)
+            prefs.setLastKeyImport(System.currentTimeMillis())
 
             extractedFiles
         }
@@ -165,7 +159,7 @@ class ExposureServerRepository(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
-            AppConfig.keyExportPeriodHours,
+            AppConfig.keyImportPeriodHours,
             TimeUnit.HOURS
         ).setConstraints(constraints)
             .addTag(DownloadKeysWorker.TAG)
@@ -194,6 +188,6 @@ class ExposureServerRepository(
         val extractedDir = File(context.cacheDir.path + "/export/")
         extractedDir.deleteRecursively()
         prefs.clearLastKeyExportFileName()
-        prefs.clearLastKeyExportTime()
+        prefs.clearLastKeyImportTime()
     }
 }
