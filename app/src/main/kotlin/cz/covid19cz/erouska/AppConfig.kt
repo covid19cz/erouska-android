@@ -31,10 +31,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
-    val aboutJson
-        get() = getLocalized("aboutJson")
-    val termsAndConditionsLink
-        get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val batteryOptimizationAsusMarkdown
@@ -53,12 +49,10 @@ object AppConfig {
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
-    val myDataText
-        get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
     val riskyEncountersTitle
-        get() = firebaseRemoteConfig.getString("riskyEncountersTitle")
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
     val noEncounterHeader
         get() = firebaseRemoteConfig.getString("noEncounterHeader")
     val noEncounterBody
@@ -93,6 +87,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
     val currentMeasuresUrl
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
+    val conditionsOfUseUrl
+        get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

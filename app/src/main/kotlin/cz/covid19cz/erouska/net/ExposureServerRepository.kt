@@ -13,7 +13,6 @@ import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.*
-import net.lingala.zip4j.io.inputstream.ZipInputStream
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -130,39 +129,6 @@ class ExposureServerRepository(
         val indexInputStream = indexConnection.getInputStream()
 
         return indexInputStream.readBytes().toString(Charsets.UTF_8)
-    }
-
-    private fun downloadAndExtract(zipfile: String): List<File> {
-        val extractedFiles = mutableListOf<File>()
-        val connection = URL(zipfile).openConnection()
-        val inputStream = connection.getInputStream()
-        val readBuffer = ByteArray(4096)
-        val zipStream = ZipInputStream(inputStream)
-        val extractedDir = File(context.cacheDir.path + "/export/" + UUID.randomUUID().toString())
-        extractedDir.mkdirs()
-
-        do {
-            val zipEntry = zipStream.nextEntry
-            if (zipEntry != null) {
-                val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
-                extractedFile.createNewFile()
-                val outputStream = FileOutputStream(extractedFile)
-                do {
-                    val readLen = zipStream.read(readBuffer)
-                    if (readLen == -1) {
-                        outputStream.close()
-                        extractedFiles.add(extractedFile)
-                    } else {
-                        outputStream.write(readBuffer, 0, readLen)
-                        outputStream.flush()
-                    }
-                } while (readLen != -1)
-            } else {
-                zipStream.close()
-            }
-        } while (zipEntry != null)
-
-        return extractedFiles
     }
 
     fun downloadFile(zipfile: String): File? {
