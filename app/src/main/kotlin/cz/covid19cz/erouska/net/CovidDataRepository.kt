@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.net
 
 import android.content.Context
 import com.google.gson.GsonBuilder
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.net.api.CovidDataServerApi
@@ -27,7 +28,7 @@ class CovidDataRepository(
 
     private val covidDataClient by lazy {
         Retrofit.Builder()
-            .baseUrl(context.getString(R.string.covid_data_server_base_url))
+            .baseUrl(AppConfig.covidDataServerUrl)
             .addConverterFactory(CustomConverterFactory(GsonBuilder().create()))
             .client(okhttpBuilder.addInterceptor {
                 val request = it.request().newBuilder()

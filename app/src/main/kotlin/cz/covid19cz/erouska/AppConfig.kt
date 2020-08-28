@@ -87,6 +87,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
     val conditionsOfUseUrl
         get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
+    val covidDataServerUrl
+        get() = firebaseRemoteConfig.getString("covidDataServerUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
