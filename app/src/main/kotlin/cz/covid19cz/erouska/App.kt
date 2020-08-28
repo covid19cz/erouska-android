@@ -5,6 +5,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
+import java.io.File
 
 class App : BaseApp(), KoinComponent {
 
@@ -13,12 +14,21 @@ class App : BaseApp(), KoinComponent {
         setupKoin()
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this)
+
+        removeObsoleteData()
     }
 
     private fun setupKoin() {
         startKoin {
             androidContext(this@App)
             modules(allModules)
+        }
+    }
+
+    private fun removeObsoleteData() {
+        val obsoleteDb = File(filesDir.parent + "/databases/android-devices.db")
+        if (obsoleteDb.exists()) {
+            obsoleteDb.delete()
         }
     }
 }
