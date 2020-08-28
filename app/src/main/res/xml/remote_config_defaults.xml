@@ -245,4 +245,8 @@
         <key>currentMeasuresUrl</key>
         <value>https://koronavirus.mzcr.cz/aktualni-opatreni/</value>
     </entry>
+    <entry>
+        <key>minGmsVersionCode</key>
+        <value>203019039</value>
+    </entry>
 </defaultsMap>

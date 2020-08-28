@@ -11,7 +11,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
@@ -122,6 +124,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (isPlayServicesObsolete()) {
+            showPlayServicesUpdate()
+            return
+        }
+
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
@@ -215,6 +222,17 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun showWelcomeScreen() {
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+    }
+
+    private fun isPlayServicesObsolete(): Boolean {
+        val current = PackageInfoCompat.getLongVersionCode(
+            requireContext().packageManager.getPackageInfo(
+                GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
+                0
+            )
+        )
+
+        return current < AppConfig.minGmsVersionCode
     }
 
 }
