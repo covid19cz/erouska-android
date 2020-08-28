@@ -10,6 +10,7 @@ import com.google.android.gms.nearby.Nearby
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.file.FileManager
 import cz.covid19cz.erouska.net.CovidDataRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
@@ -51,7 +52,7 @@ val viewModelModule = module {
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
-    viewModel { DashboardVM(get(), get(), get()) }
+    viewModel { DashboardVM(get(), get(), get(), get()) }
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
@@ -88,6 +89,7 @@ val appModule = module {
     single { CustomTabHelper(androidContext()) }
     single { BluetoothAdapter.getDefaultAdapter() }
     single { ExposureCryptoTools() }
+    single { FileManager(androidContext()) }
 }
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)

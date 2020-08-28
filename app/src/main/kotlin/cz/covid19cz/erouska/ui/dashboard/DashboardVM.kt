@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -8,6 +9,7 @@ import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.file.FileManager
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
@@ -15,8 +17,11 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.io.File
 
 class DashboardVM(
+    fileManager: FileManager,
+
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository
@@ -26,6 +31,7 @@ class DashboardVM(
     val lastUpdate = MutableLiveData<String>()
 
     init {
+        fileManager.removeObsoleteData()
 
         if (!prefs.isActivated()) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
