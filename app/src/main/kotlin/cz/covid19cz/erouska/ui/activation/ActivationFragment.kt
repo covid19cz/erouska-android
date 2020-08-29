@@ -63,7 +63,7 @@ class ActivationFragment :
         enableUpInToolbar(true)
 
         privacy_body_2.text = HtmlCompat.fromHtml(
-            getString(R.string.privacy_body_text_2, AppConfig.termsAndConditionsLink),
+            getString(R.string.privacy_body_text_2, AppConfig.conditionsOfUseUrl),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
     }

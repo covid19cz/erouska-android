@@ -16,6 +16,8 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DashboardVM(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
@@ -45,7 +47,8 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        lastUpdate.value = prefs.lastKeyExportTime()
+        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+        lastUpdate.value = formatter.format(Date(prefs.getLastKeyImport()))
         viewModelScope.launch {
             kotlin.runCatching {
                 val result = exposureNotificationsRepository.isEnabled()

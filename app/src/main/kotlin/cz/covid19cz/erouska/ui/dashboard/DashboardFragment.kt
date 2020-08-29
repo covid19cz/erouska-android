@@ -1,8 +1,11 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +14,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.common.GoogleApiAvailability
@@ -21,6 +25,7 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
+import cz.covid19cz.erouska.localnotifications.LocalNotificationsReceiver
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -48,6 +53,12 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         activity?.setTitle(R.string.app_name)
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
+
+        viewModel.serviceRunning.observe(this, Observer {
+            if (it) {
+                scheduleLocalNotifications()
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -233,6 +244,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         )
 
         return current < AppConfig.minGmsVersionCode
+    }
+
+    fun scheduleLocalNotifications() {
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 42, intent, 0)
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.cancel(pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5000, 24 * 60 * 60 * 1000, pendingIntent)
     }
 
 }

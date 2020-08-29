@@ -31,10 +31,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
-    val aboutJson
-        get() = getLocalized("aboutJson")
-    val termsAndConditionsLink
-        get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val batteryOptimizationAsusMarkdown
@@ -53,12 +49,10 @@ object AppConfig {
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
-    val myDataText
-        get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
     val riskyEncountersTitle
-        get() = firebaseRemoteConfig.getString("riskyEncountersTitle")
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
     val noEncounterHeader
         get() = firebaseRemoteConfig.getString("noEncounterHeader")
     val noEncounterBody
@@ -81,8 +75,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("encounterWarning")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
-    val keyExportPeriodHours
-        get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
+    val keyImportPeriodHours
+        get() = firebaseRemoteConfig.getLong("keyImportPeriodHours")
+    val keyImportDataOutdatedHours
+        get() = firebaseRemoteConfig.getLong("keyImportDataOutdatedHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
     val riskyEncountersWithSymptoms
@@ -93,6 +89,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
     val minGmsVersionCode
         get() = firebaseRemoteConfig.getLong("minGmsVersionCode")
+    val conditionsOfUseUrl
+        get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
+    val covidDataServerUrl
+        get() = firebaseRemoteConfig.getString("covidDataServerUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

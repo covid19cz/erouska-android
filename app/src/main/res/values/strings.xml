@@ -32,7 +32,7 @@
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring the surroundings. Please do not force stop the application. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">You will be warned in case of suspected COVID-19 infection and we will give you information needed to contact public health office.\n\nLast data update happened on %1$s and you weren\'t in contact with anyone infected.</string>
-    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about your surroundings.\n\nEnable data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
+    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRouška applications in your vicinity.\n\nEnable data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="dashboard_secondary">In case you are tested positive, we will contact you using your phone number %s. We will ask you to send us an anonymised list of phones which can be found under My data.</string>
     <string name="pause_app">Pause eRouška</string>
     <string name="start_app">Start eRouška</string>
@@ -63,6 +63,8 @@
     <string name="my_data_column_time">Time</string>
     <string name="my_data_column_tuid">ID</string>
     <string name="my_data_column_rssi">RSSI</string>
+    <string name="about_content">Since version 2.0 application eRouška is developed my the Ministry of Health in collaboration with National agency for communication and information technologies (NAKIT). Earlier versions of eRouška application were developed by a team of volunteers from COVID19CZ community. Most of original eRouška developers continue in development of newer versions in NAKIT team.</string>
+    <string name="about_tos_link">Terms of usage</string>
     <string name="about_title">About app</string>
     <string name="about_intro">This application was created under the Covid19CZ initiative. We have developed it with focus on privacy protection so that we wanted to use it ourselves as well. Your data is stored only on your device and your location history cannot be determined from it. Thank you for using the application and we believe that together we will overcome this epidemic.\n\neRou\u0161ka team</string>
     <string name="permission_rationale_title">The permission for location tracking needs to be granted to allow the application work properly.</string>
@@ -166,10 +168,21 @@
     <string name="send_data_success_header">Data were successfully sent</string>
     <string name="send_data_success_body_1">Thank you for fighting against the spread of coronavirus.</string>
     <string name="send_data_success_body_2">Please cooperate with workers of public health office on searching all people you were in contact with.</string>
-    <string name="send_data_success_body_3">Stay in quarantine, limit your contact with family and follow the instructions of doctors and health workers.</string>
+    <string name="send_data_success_body_3">Follow instructions of health office administration and medical staff.</string>
 
-    <string name="data_notification_content">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
+    <string name="notification_data_outdated_title">Outdated data</string>
+    <string name="notification_data_outdated_text">It\'s been some time since your eRouška updated its data about being in contact with infected users. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
+
+    <string name="notification_exposure_title">Risky contact</string>
+    <string name="notification_exposure_text">You\'ve been recently in contact with someone COVID-19 positive tested. Watch your healthiness, more info in the app.</string>
+
+    <string name="notification_exposure_notifications_off_title">@string/dashboard_title_paused</string>
+    <string name="notification_exposure_notifications_off_text">Don\'t forget to start it.</string>
+
+    <string name="notification_channel_exposure">Risky contact</string>
+    <string name="notification_channel_outdated_data">Outdated data</string>
+    <string name="notification_channel_exposure_notifications_off">Paused eRouška</string>
 
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>
@@ -201,7 +214,7 @@
     <string name="legacy_update_phone_header">We won\'t require phone numbers anymore</string>
     <string name="legacy_update_phone_body">We are canceling phone number register because they won\'t be necessary to communicate with public health office anymore. eRouška will recommend next steps in case of contact with infected person.</string>
     <string name="legacy_update_privacy_header">We think about your privacy</string>
-    <string name="legacy_update_privacy_body">With these changes we were able to get rid of terms of usage. The main change being no longer having to register your phone number or any other personal information about eRouška users.</string>
+    <string name="legacy_update_privacy_body"><![CDATA[With these changes, <a href="%1$s">terms of usage</a> were changed too. The main change being no longer having to register phone numbers of any eRouška users and it won\'t be needed for registration.]]></string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
 
