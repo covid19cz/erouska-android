@@ -3,10 +3,13 @@ package cz.covid19cz.erouska.ui.activation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class ActivationVM(
     sharedPrefsRepository: SharedPrefsRepository,
+    private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository
 ) : BaseVM() {
 
@@ -31,11 +35,16 @@ class ActivationVM(
 
     fun activate() {
         viewModelScope.launch(Dispatchers.IO) {
-            mutableState.postValue(ActivationStart)
             try {
+                exposureNotificationsRepository.start()
+                mutableState.postValue(ActivationStart)
                 firebaseFunctionsRepository.registerEhrid()
                 mutableState.postValue(ActivationFinished)
             } catch (e: Exception) {
+                if(e is ApiException) {
+                    publish(GmsApiErrorEvent(e.status))
+                    return@launch
+                }
                 L.e(e)
                 mutableState.postValue(ActivationFailed)
             }

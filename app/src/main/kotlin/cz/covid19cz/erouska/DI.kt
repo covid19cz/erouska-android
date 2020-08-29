@@ -47,7 +47,7 @@ val viewModelModule = module {
     viewModel { SandboxVM(get(), get(), get(), get()) }
     viewModel { SandboxConfigVM(get()) }
     viewModel { SandboxDataVM(get(), get()) }
-    viewModel { ActivationVM(get(), get()) }
+    viewModel { ActivationVM(get(), get(), get()) }
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
