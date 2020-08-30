@@ -28,6 +28,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.main.MainActivity
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -53,6 +54,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         subsribeToViewModel()
 
         viewModel.serviceRunning.observe(this, Observer {
+            (activity as MainActivity).onServiceRunningChanged(it)
             if (it) {
                 scheduleLocalNotifications()
             }

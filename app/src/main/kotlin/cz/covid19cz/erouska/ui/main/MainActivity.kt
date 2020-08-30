@@ -140,4 +140,8 @@ class MainActivity :
         super.onActivityResult(requestCode, resultCode, data)
         L.d("$requestCode")
     }
+
+    fun onServiceRunningChanged(running: Boolean) {
+        viewModel.serviceRunning.value = running && passesRequirements()
+    }
 }
