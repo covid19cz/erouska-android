@@ -23,7 +23,7 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
-import cz.covid19cz.erouska.localnotifications.LocalNotificationsReceiver
+import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
