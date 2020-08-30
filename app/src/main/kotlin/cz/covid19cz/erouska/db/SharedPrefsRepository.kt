@@ -20,6 +20,8 @@ class SharedPrefsRepository(c: Context) {
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
 
+        const val REVISION_TOKEN = "revisionToken"
+
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
         const val TESTS_TOTAL = "testsTotal"
@@ -96,16 +98,24 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun saveEhrid(ehrid: String) {
-        prefs.edit().putString(EHRID, ehrid).apply()
-    }
-
     fun isActivated(): Boolean {
         return prefs.contains(EHRID)
     }
 
+    fun saveEhrid(ehrid: String) {
+        prefs.edit().putString(EHRID, ehrid).apply()
+    }
+
     fun getEhrid(): String {
         return checkNotNull(prefs.getString(EHRID, null))
+    }
+
+    fun saveRevisionToken(token: String?) {
+        prefs.edit().putString(REVISION_TOKEN, token).apply()
+    }
+
+    fun getRevisionToken(): String? {
+        return prefs.getString(REVISION_TOKEN, null)
     }
 
     fun clearCustomConfig() {
