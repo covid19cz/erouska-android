@@ -248,7 +248,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             current < AppConfig.minGmsVersionCode
         } catch (e: Exception) {
             L.e(e)
-            false
+            true
         }
     }
 
