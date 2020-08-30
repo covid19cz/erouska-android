@@ -147,9 +147,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
         if (BuildConfig.FLAVOR == "dev") {
-            menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
-            menu.add(0, R.id.action_news, 555, "Test Novinky")
-            menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
+            menu.add(0, R.id.action_news, 10, "Test Novinky")
+            menu.add(0, R.id.action_activation, 11, "Test Aktivace")
+            menu.add(0, R.id.action_exposure_demo, 12, "Test Rizikové setkání")
+            menu.add(0, R.id.action_sandbox, 13, "Test Sandbox")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -170,6 +171,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_activation -> {
+                viewModel.unregister()
+                showWelcomeScreen()
                 true
             }
             R.id.action_exposure_demo -> {

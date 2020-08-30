@@ -102,7 +102,7 @@ class SharedPrefsRepository(c: Context) {
         return prefs.contains(EHRID)
     }
 
-    fun saveEhrid(ehrid: String) {
+    fun saveEhrid(ehrid: String?) {
         prefs.edit().putString(EHRID, ehrid).apply()
     }
 
