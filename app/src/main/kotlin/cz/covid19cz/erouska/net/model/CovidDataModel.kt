@@ -5,16 +5,12 @@ data class CovidStatsRequest(
 )
 
 data class CovidStatsDto(
-    val date: String
+    val date: String?
 )
 
-data class CovidDataResponse(
-    val data: CovidStatsResponse?
-)
 data class Data<T>(
     var data: T? = null
 )
-
 
 data class CovidStatsResponse(
     val date: String?,

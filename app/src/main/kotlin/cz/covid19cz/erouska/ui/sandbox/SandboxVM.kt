@@ -43,14 +43,11 @@ class SandboxVM(
     var files = ArrayList<File>()
     val code = MutableLiveData("")
 
-    init {
-        lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
-        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         refreshTeks()
+        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+        lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -107,8 +104,8 @@ class SandboxVM(
                 L.d("files=${files}")
                 return@runCatching files.size
             }.onSuccess {
-                lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
-                downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
+                val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+                lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
                 filesString.value = files.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: $it files")
             }.onFailure {
@@ -121,7 +118,6 @@ class SandboxVM(
     fun deleteKeys() {
         serverRepository.deleteFiles()
         lastDownload.value = null
-        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
         filesString.value = null
     }
 
@@ -141,18 +137,9 @@ class SandboxVM(
     fun reportExposure() {
         viewModelScope.launch {
             runCatching {
-                val keys = exposureNotificationsRepository.getTemporaryExposureKeyHistory()
-                val request = ExposureRequest(keys.map {
-                    TemporaryExposureKeyDto(
-                        Base64.encodeToString(
-                            it.keyData,
-                            Base64.NO_WRAP
-                        ), it.rollingStartIntervalNumber, it.rollingPeriod
-                    )
-                }, null, null, null, null)
-                serverRepository.reportExposure(request)
+                exposureNotificationsRepository.reportExposureWithoutVerification()
             }.onSuccess {
-                showSnackbar("Upload success: ${it.insertedExposures ?: 0} keys")
+                showSnackbar("Upload success: ${it} keys")
             }.onFailure {
                 if (it is ApiException) {
                     publish(GmsApiErrorEvent(it.status))

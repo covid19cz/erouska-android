@@ -1,8 +1,11 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +14,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -19,6 +23,7 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
+import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -46,6 +51,12 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         activity?.setTitle(R.string.app_name)
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
+
+        viewModel.serviceRunning.observe(this, Observer {
+            if (it) {
+                scheduleLocalNotifications()
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -122,7 +133,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exposure_notification_content.text = AppConfig.exposureNotificationContent
+        exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
@@ -206,6 +217,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun showWelcomeScreen() {
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+    }
+
+    fun scheduleLocalNotifications() {
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 42, intent, 0)
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.cancel(pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5000, 24 * 60 * 60 * 1000, pendingIntent)
     }
 
 }

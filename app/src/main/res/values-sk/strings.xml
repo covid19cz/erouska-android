@@ -7,7 +7,6 @@
     <string name="notification_title_error">eRouška není aktivní</string>
     <string name="notification_text_bluetooth_disabled">Pro správnou funkci eRoušky je třeba zapnout Bluetooth</string>
     <string name="notification_text_location_disabled">Pro správnou funkci eRoušky je třeba zapnout Polohové služby</string>
-    <string name="notification_text_battery_saver_enabled">Pro správnou funkci eRoušky je třeba vypnout spořič baterie</string>
     <string name="notification_text_paused">Aplikace pozastavená. Nezapomeňte ji spustit.</string>
     <string name="notification_action_resume">Spustit</string>
     <string name="notification_text_resumed">Aplikace běží a\u00A0zaznamenává anonymně telefony ve vašem okolí.</string>
@@ -37,8 +36,9 @@
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozadí a\u00A0monitoruje okolí, prosím neukončujte ji. Nechte zapnuté Bluetooth a\u00A0s\u00A0telefonem pracujte jako obvykle.</string>
-    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu COVID-19 a zobrazíme vám informace potřebné pro kontaktování hygienické stanice.\n\nPoslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
-    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu COVID-19 a zobrazíme vám informace potřebné pro kontaktování hygienické stanice.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
+    <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="dashboard_secondary">Při podezření na nákazu vás budeme kontaktovat na čísle %s. Požádáme vás o\u00A0zaslání anonymizovaného seznamu telefonů, který naleznete v\u00A0sekci Moje data.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
     <string name="start_app">Spustit eRoušku</string>
@@ -84,6 +84,8 @@
     <string name="my_data_column_tuid">ID</string>
     <string name="my_data_column_rssi">RSSI</string>
 
+    <string name="about_content">Aplikaci eRouška od verze 2.0 vyvíjí Ministerstvo zdravotnictví ve spolupráci s Národní agenturou pro komunikační a informační technologie (NAKIT). Předchozí verzi aplikace eRouška vytvořil tým dobrovolníků v rámci komunitní aktivity COVID19CZ. Většina z původních autorů eRoušky pokračuje na vývoji nových verzí v týmu NAKIT.</string>
+    <string name="about_tos_link">Podmínky použití</string>
     <string name="about_title">O\u00A0aplikaci</string>
     <string name="about_intro">Aplikace vznikla v\u00A0rámci iniciativy Covid19CZ. Vyvíjeli jsme ji s\u00A0důrazem na ochranu soukromí, abychom ji bez obav mohli používat i\u00A0my. Data se ukládají jen do vašeho zařízení a\u00A0nelze z\u00A0nich zjistit, kde jste se pohybovali. Děkujeme, že aplikaci používáte a\u00A0věříme, že se nám společně podaří epidemii zvládnout.\n\nTým eRoušky</string>
 
@@ -168,9 +170,9 @@
     <string name="send_data_success_header">Data jste úspěšně odeslali</string>
     <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření koronaviru.</string>
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
-    <string name="send_data_success_body_3">Zůstaňte v karanténě, omezte styk s rodinou a plňte pokyny lékařů a hygieniků.</string>
+    <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
-    <string name="data_notification_content">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
+    <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
 
     <string name="exposure_notifications_off_title">Zapněte Oznámení o kontaktu s COVID-19</string>
@@ -196,5 +198,5 @@
     <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
     <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>
-    <string name="legacy_update_privacy_body">S těmito úpravami jsme mohli zrušit také podmínky zpracování. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla a ani jiné osobní údaje uživatelů eRoušky.</string>
+    <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky zpracování</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
 </resources>

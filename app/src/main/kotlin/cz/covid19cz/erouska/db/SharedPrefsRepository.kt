@@ -3,13 +3,15 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import cz.covid19cz.erouska.AppConfig
 
 class SharedPrefsRepository(c: Context) {
 
     companion object {
         const val APP_PAUSED = "preference.app_paused"
-        const val LAST_KEY_EXPORT = "preference.last_export"
-        const val LAST_KEY_EXPORT_TIME = "preference.last_export_time"
+        const val LAST_KEY_IMPORT = "preference.last_import"
+        const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
+        const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val EHRID = "preference.ehrid"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
@@ -17,8 +19,10 @@ class SharedPrefsRepository(c: Context) {
         const val ATTENUATION_BUCKET_THRESHOLD_DB= "attenuationBucketThresholdDb"
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
-        const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
+        const val REVISION_TOKEN = "revisionToken"
+
+        const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
@@ -42,37 +46,40 @@ class SharedPrefsRepository(c: Context) {
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
 
     fun lastKeyExportFileName(): String {
-        return prefs.getString(LAST_KEY_EXPORT, "") ?: ""
+        return prefs.getString(LAST_KEY_IMPORT, "") ?: ""
     }
 
     fun setLastKeyExportFileName(filename: String) {
-        prefs.edit().putString(LAST_KEY_EXPORT, filename).apply()
+        prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
     }
 
-    fun addLastKeyExportTime(time: String) {
-        val timestamps = prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
-        val timestampsList = timestamps.split(",").toMutableList()
-        timestampsList.add(time)
-        prefs.edit().putString(LAST_KEY_EXPORT_TIME, timestampsList.joinToString(",").trim(',')).apply()
+    fun setLastKeyImport(timestamp : Long){
+        prefs.edit().putLong(LAST_KEY_IMPORT_TIME, timestamp).apply()
     }
 
-    fun keyExportTimeHistory(): List<String> {
-        val timestamps = prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
-        return timestamps.split(",")
+    fun getLastKeyImport() : Long{
+        return prefs.getLong(LAST_KEY_IMPORT_TIME, 0L)
     }
 
-    fun lastKeyExportTime(): String? {
-        val history = prefs.getString(LAST_KEY_EXPORT_TIME, "") ?: ""
-        val historyList = history.split(",")
-        return historyList.max()
+    fun setLastNotifiedExposure(daysSinceEpoch : Int){
+        prefs.edit().putInt(LAST_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
+    }
+
+    fun getLastNotifiedExposure() : Int{
+        return prefs.getInt(LAST_NOTIFIED_EXPOSURE, 0)
+    }
+
+    fun hasOutdatedKeyData() : Boolean{
+        val lastTimestamp = getLastKeyImport()
+        return lastTimestamp != 0L && (System.currentTimeMillis() - lastTimestamp) / (1000*60*60) > AppConfig.keyImportDataOutdatedHours
     }
 
     fun clearLastKeyExportFileName() {
-        prefs.edit().remove(LAST_KEY_EXPORT).apply()
+        prefs.edit().remove(LAST_KEY_IMPORT).apply()
     }
 
-    fun clearLastKeyExportTime() {
-        prefs.edit().remove(LAST_KEY_EXPORT_TIME).apply()
+    fun clearLastKeyImportTime() {
+        prefs.edit().remove(LAST_KEY_IMPORT_TIME).apply()
     }
 
     fun isUpdateFromLegacyVersion() = prefs.contains(APP_PAUSED)
@@ -81,16 +88,24 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun saveEhrid(ehrid: String) {
-        prefs.edit().putString(EHRID, ehrid).apply()
-    }
-
     fun isActivated(): Boolean {
         return prefs.contains(EHRID)
     }
 
+    fun saveEhrid(ehrid: String) {
+        prefs.edit().putString(EHRID, ehrid).apply()
+    }
+
     fun getEhrid(): String {
         return checkNotNull(prefs.getString(EHRID, null))
+    }
+
+    fun saveRevisionToken(token: String?) {
+        prefs.edit().putString(REVISION_TOKEN, token).apply()
+    }
+
+    fun getRevisionToken(): String? {
+        return prefs.getString(REVISION_TOKEN, null)
     }
 
     fun clearCustomConfig(){
@@ -154,8 +169,8 @@ class SharedPrefsRepository(c: Context) {
         return prefs.getLong(LAST_STATS_UPDATE, 0)
     }
 
-    fun setLastStatsUpdate(lastUpdate: Long){
-        return prefs.edit().putLong(LAST_STATS_UPDATE, lastUpdate).apply()
+    fun setLastStatsUpdate(modified: Long){
+        return prefs.edit().putLong(LAST_STATS_UPDATE, modified).apply()
     }
 
     fun getTestsTotal() : Int{
