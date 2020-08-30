@@ -30,6 +30,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -236,14 +237,19 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun isPlayServicesObsolete(): Boolean {
-        val current = PackageInfoCompat.getLongVersionCode(
-            requireContext().packageManager.getPackageInfo(
-                GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
-                0
+        return try {
+            val current = PackageInfoCompat.getLongVersionCode(
+                requireContext().packageManager.getPackageInfo(
+                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
+                    0
+                )
             )
-        )
 
-        return current < AppConfig.minGmsVersionCode
+            current < AppConfig.minGmsVersionCode
+        } catch (e: Exception) {
+            L.e(e)
+            false
+        }
     }
 
     fun scheduleLocalNotifications() {
