@@ -47,7 +47,11 @@ class DashboardVM(
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-        lastUpdate.value = formatter.format(Date(prefs.getLastKeyImport()))
+        val lastImportTimestamp = prefs.getLastKeyImport()
+        if (lastImportTimestamp != 0L) {
+            lastUpdate.value = formatter.format(Date(prefs.getLastKeyImport()))
+        }
+
         viewModelScope.launch {
             kotlin.runCatching {
                 val result = exposureNotificationsRepository.isEnabled()

@@ -196,10 +196,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{@string/dashboard_body_secondary(vm.lastUpdate)}"
+                    android:text="@string/dashboard_body_secondary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"
+                    app:visibleOrGone="@{vm.serviceRunning}"
+                    />
+
+                <TextView
+                    android:id="@+id/app_running_body_no_contact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{@string/dashboard_body_no_contact(vm.lastUpdate)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/app_running_body_secondary"
                     app:visibleOrGone="@{vm.serviceRunning &amp;&amp; vm.lastUpdate != null}" />
 
                 <TextView
