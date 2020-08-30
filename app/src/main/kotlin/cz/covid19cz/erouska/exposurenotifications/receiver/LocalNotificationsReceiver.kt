@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.localnotifications
+package cz.covid19cz.erouska.exposurenotifications.receiver
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

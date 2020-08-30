@@ -33,18 +33,6 @@ object AppConfig {
         get() = getLocalized("proclamationLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
-    val batteryOptimizationAsusMarkdown
-        get() = getLocalized("batteryOptimizationAsusMarkdown")
-    val batteryOptimizationLenovoMarkdown
-        get() = getLocalized("batteryOptimizationLenovoMarkdown")
-    val batteryOptimizationSamsungMarkdown
-        get() = getLocalized("batteryOptimizationSamsungMarkdown")
-    val batteryOptimizationSonyMarkdown
-        get() = getLocalized("batteryOptimizationSonyMarkdown")
-    val batteryOptimizationXiaomiMarkdown
-        get() = getLocalized("batteryOptimizationXiaomiMarkdown")
-    val batteryOptimizationHuaweiMarkdown
-        get() = getLocalized("batteryOptimizationHuaweiMarkdown")
     val helpMarkdown
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown

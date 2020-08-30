@@ -6,7 +6,6 @@
     <string name="notification_title_error">eRouška is not active</string>
     <string name="notification_text_bluetooth_disabled">You need to enable Bluetooth to make eRouška work correctly</string>
     <string name="notification_text_location_disabled">You need to enable Location Services to make eRouška work correctly</string>
-    <string name="notification_text_battery_saver_enabled">You need to disable Battery Saver to make eRouška work correctly</string>
     <string name="notification_text_paused">Application is paused. Don\'t forget to resume it.</string>
     <string name="notification_action_resume">Resume</string>
     <string name="notification_text_resumed">Application is running and anonymously monitoring nearby phones.</string>
