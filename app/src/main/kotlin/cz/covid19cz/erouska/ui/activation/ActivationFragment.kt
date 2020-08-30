@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.activation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,6 +18,8 @@ import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.fragment_activation.*
 import org.koin.android.ext.android.inject
@@ -28,6 +32,23 @@ class ActivationFragment :
     ) {
 
     private val customTabHelper by inject<CustomTabHelper>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        subscribe(GmsApiErrorEvent::class) {
+            startIntentSenderForResult(
+                it.status.resolution?.intentSender,
+                DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION,
+                null,
+                0,
+                0,
+                0,
+                null
+            )
+        }
+
+    }
 
     override fun onStart() {
         super.onStart()
@@ -153,5 +174,15 @@ class ActivationFragment :
             goBack()
             true
         } else false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    viewModel.activate()
+                }
+            }
+        }
     }
 }
