@@ -43,14 +43,11 @@ class SandboxVM(
     var files = ArrayList<File>()
     val code = MutableLiveData("")
 
-    init {
-        lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
-        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         refreshTeks()
+        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+        lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -107,8 +104,8 @@ class SandboxVM(
                 L.d("files=${files}")
                 return@runCatching files.size
             }.onSuccess {
-                lastDownload.value = prefs.lastKeyExportFileName() + " " + prefs.lastKeyExportTime()
-                downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
+                val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
+                lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
                 filesString.value = files.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: $it files")
             }.onFailure {
@@ -121,7 +118,6 @@ class SandboxVM(
     fun deleteKeys() {
         serverRepository.deleteFiles()
         lastDownload.value = null
-        downloadHistory.value = prefs.keyExportTimeHistory().joinToString("\n")
         filesString.value = null
     }
 

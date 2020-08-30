@@ -31,32 +31,20 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("shareAppDynamicLink")
     val proclamationLink
         get() = getLocalized("proclamationLink")
-    val aboutJson
-        get() = getLocalized("aboutJson")
-    val termsAndConditionsLink
-        get() = getLocalized("termsAndConditionsLink")
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val helpMarkdown
         get() = getLocalized("helpMarkdown")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
-    val myDataText
-        get() = getLocalized("myDataText")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("minSupportedVersionCodeAndroid")
-    val exposureBodyTop
-        get() = firebaseRemoteConfig.getString("exposureBodyTop")
-    val exposureBodyMid
-        get() = firebaseRemoteConfig.getString("exposureBodyMid")
-    val noExposureHeader
-        get() = firebaseRemoteConfig.getString("noExposureHeader")
-    val noExposureBody
-        get() = firebaseRemoteConfig.getString("noExposureBody")
-    val mainSymptoms
-        get() = firebaseRemoteConfig.getString("mainSymptoms")
-    val spreadPrevention
-        get() = firebaseRemoteConfig.getString("spreadPrevention")
+    val riskyEncountersTitle
+        get() = firebaseRemoteConfig.getString("riskyEncountersTitleAn")
+    val noEncounterHeader
+        get() = firebaseRemoteConfig.getString("noEncounterHeader")
+    val noEncounterBody
+        get() = firebaseRemoteConfig.getString("noEncounterBody")
     val earlierExposures
         get() = firebaseRemoteConfig.getString("earlierExposures")
     val exposureUITitle
@@ -71,12 +59,14 @@ object AppConfig {
         get() = getLocalized("symptomsContentJson")
     val preventionContentJson
         get() = getLocalized("preventionContentJson")
-    val exposureNotificationContent
-        get() = firebaseRemoteConfig.getString("exposureNotificationContent")
+    val encounterWarning
+        get() = firebaseRemoteConfig.getString("encounterWarning")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
-    val keyExportPeriodHours
-        get() = firebaseRemoteConfig.getLong("keyExportPeriodHours")
+    val keyImportPeriodHours
+        get() = firebaseRemoteConfig.getLong("keyImportPeriodHours")
+    val keyImportDataOutdatedHours
+        get() = firebaseRemoteConfig.getLong("keyImportDataOutdatedHours")
     val contactsContentJson
         get() = firebaseRemoteConfig.getString("contactsContentJson")
     val riskyEncountersWithSymptoms
@@ -85,6 +75,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
     val currentMeasuresUrl
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
+    val conditionsOfUseUrl
+        get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
+    val covidDataServerUrl
+        get() = firebaseRemoteConfig.getString("covidDataServerUrl")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

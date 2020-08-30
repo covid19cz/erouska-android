@@ -8,7 +8,6 @@ import cz.covid19cz.erouska.ui.exposure.entity.SymptomsData
 class ExposuresCommandEvent(val command: Command) : LiveEvent() {
 
     enum class Command {
-        NO_EXPOSURES,
         NO_RECENT_EXPOSURES,
         RECENT_EXPOSURE
     }

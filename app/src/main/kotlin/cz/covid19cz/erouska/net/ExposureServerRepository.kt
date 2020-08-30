@@ -13,7 +13,6 @@ import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.*
-import net.lingala.zip4j.io.inputstream.ZipInputStream
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,10 +21,7 @@ import java.io.DataInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.lang.RuntimeException
-import java.net.MalformedURLException
 import java.net.URL
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -122,10 +118,7 @@ class ExposureServerRepository(
                 if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
 
             prefs.setLastKeyExportFileName(newLastDownload)
-
-            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
-            val stringDate = formatter.format(Date(System.currentTimeMillis()))
-            prefs.addLastKeyExportTime(stringDate)
+            prefs.setLastKeyImport(System.currentTimeMillis())
 
             extractedFiles
         }
@@ -136,39 +129,6 @@ class ExposureServerRepository(
         val indexInputStream = indexConnection.getInputStream()
 
         return indexInputStream.readBytes().toString(Charsets.UTF_8)
-    }
-
-    private fun downloadAndExtract(zipfile: String): List<File> {
-        val extractedFiles = mutableListOf<File>()
-        val connection = URL(zipfile).openConnection()
-        val inputStream = connection.getInputStream()
-        val readBuffer = ByteArray(4096)
-        val zipStream = ZipInputStream(inputStream)
-        val extractedDir = File(context.cacheDir.path + "/export/" + UUID.randomUUID().toString())
-        extractedDir.mkdirs()
-
-        do {
-            val zipEntry = zipStream.nextEntry
-            if (zipEntry != null) {
-                val extractedFile = File(extractedDir.path + "/" + zipEntry.fileName)
-                extractedFile.createNewFile()
-                val outputStream = FileOutputStream(extractedFile)
-                do {
-                    val readLen = zipStream.read(readBuffer)
-                    if (readLen == -1) {
-                        outputStream.close()
-                        extractedFiles.add(extractedFile)
-                    } else {
-                        outputStream.write(readBuffer, 0, readLen)
-                        outputStream.flush()
-                    }
-                } while (readLen != -1)
-            } else {
-                zipStream.close()
-            }
-        } while (zipEntry != null)
-
-        return extractedFiles
     }
 
     fun downloadFile(zipfile: String): File? {
@@ -199,7 +159,7 @@ class ExposureServerRepository(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
-            AppConfig.keyExportPeriodHours,
+            AppConfig.keyImportPeriodHours,
             TimeUnit.HOURS
         ).setConstraints(constraints)
             .addTag(DownloadKeysWorker.TAG)
@@ -228,6 +188,6 @@ class ExposureServerRepository(
         val extractedDir = File(context.cacheDir.path + "/export/")
         extractedDir.deleteRecursively()
         prefs.clearLastKeyExportFileName()
-        prefs.clearLastKeyExportTime()
+        prefs.clearLastKeyImportTime()
     }
 }
