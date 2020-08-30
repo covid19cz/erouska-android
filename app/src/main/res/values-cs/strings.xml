@@ -144,6 +144,7 @@
     <string name="data_content_info">Zde je výpis eRoušek, které se vyskytly ve vašem okolí. Zobrazení neindikuje nakažení ostatních uživatelů.</string>
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
     <string name="contacts_open_chatbot">Anežka – podpora eroušky</string>
+    <string name="risky_contacts_title">Riziková setkání</string>
 
     <string name="my_data_current_measures">Aktuální opatření</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
@@ -156,7 +157,7 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_last_update">Poslední aktualizace %1$s</string>
 
-    <string name="send_data_body">V případě potvrzené nákazy virem COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
+    <string name="send_data_body">V případě potvrzené nákazy nemocí COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
@@ -205,7 +206,7 @@
     <string name="legacy_update_expansion_header">eRouška se chystá do světa</string>
     <string name="legacy_update_expansion_body">Připravujeme eRoušku na to, aby si rozuměla s podobnými aplikacemi na celém světě. Provedli jsme proto několik změn, které vám nyní představíme.</string>
     <string name="legacy_update_active_notification_header">Přecházíme na aktivní oznámení</string>
-    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí nákaza virem COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
+    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí nákaza nemocí COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
     <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
     <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>

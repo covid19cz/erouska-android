@@ -45,6 +45,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
     private val localBroadcastManager by inject<LocalBroadcastManager>()
+    var demoMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +136,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
-        exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         enableUpInToolbar(false)
@@ -148,7 +149,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         if (BuildConfig.FLAVOR == "dev") {
             menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
             menu.add(0, R.id.action_news, 555, "Test Novinky")
-            //menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
+            menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -169,6 +170,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_exposure_demo -> {
+                demoMode = true
+                exposure_notification_container.show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

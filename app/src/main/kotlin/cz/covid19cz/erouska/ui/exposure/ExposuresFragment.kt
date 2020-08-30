@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.exposure
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentExposuresBinding
@@ -16,6 +17,8 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     ExposuresVM::class
 ) {
 
+    val args : ExposuresFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
@@ -28,7 +31,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         symptoms_content.text = AppConfig.riskyEncountersWithSymptoms
         no_symptoms_content.text = AppConfig.riskyEncountersWithoutSymptoms
 
-        viewModel.checkExposures()
+        viewModel.checkExposures(args.demo)
 
         subscribe(ExposuresCommandEvent::class) {
             when (it.command) {
