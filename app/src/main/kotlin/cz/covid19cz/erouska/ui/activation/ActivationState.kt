@@ -9,3 +9,5 @@ object ActivationFailed : ActivationState()
 object ActivationInit : ActivationState()
 
 object StartVerificationEvent : LiveEvent()
+
+object NotificationsVerifiedEvent : LiveEvent()

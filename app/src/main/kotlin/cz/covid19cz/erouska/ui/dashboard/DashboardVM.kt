@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -55,11 +56,9 @@ class DashboardVM(
 
         viewModelScope.launch {
             kotlin.runCatching {
-                if (!prefs.getENAutoRequested()) {
-                    exposureNotificationsRepository.start()
-                }
                 val result = exposureNotificationsRepository.isEnabled()
                 if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
+                    exposureNotificationsRepository.start()
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result
@@ -71,7 +70,6 @@ class DashboardVM(
                 }
             }.onFailure {
                 if (it is ApiException) {
-                    prefs.setENAutoRequested()
                     publish(GmsApiErrorEvent(it.status))
                 }
                 L.e(it)
@@ -140,5 +138,9 @@ class DashboardVM(
 
     private fun showDataObsolete() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+    }
+
+    fun unregister() {
+        prefs.saveEhrid(null)
     }
 }

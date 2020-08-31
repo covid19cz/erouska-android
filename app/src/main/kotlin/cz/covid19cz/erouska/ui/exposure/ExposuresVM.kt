@@ -14,30 +14,39 @@ class ExposuresVM(private val exposureNotificationsRepo: ExposureNotificationsRe
 
     val lastExposureDate = MutableLiveData<String>()
 
-    fun checkExposures() {
+    fun checkExposures(demo: Boolean) {
         // TODO Check if there were any exposures in last 14 days
         // If yes -> Show RECENT_EXPOSURE
         // If not and there are some exposures in the past -> Show NO_RECENT_EXPOSURES
         // If there are NO exposures in the DB -> Show NO_EXPOSURES
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
 
-        viewModelScope.launch {
-            kotlin.runCatching {
-                exposureNotificationsRepo.getLastRiskyExposure()
-            }.onSuccess {
-                publish(
-                    ExposuresCommandEvent(
-                        if (it != null) {
-                            lastExposureDate.value = it.daysSinceEpoch.daysSinceEpochToDateString()
-                            ExposuresCommandEvent.Command.RECENT_EXPOSURE
-                        } else {
-                            ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES
-                        }
+        if (!demo) {
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    exposureNotificationsRepo.getLastRiskyExposure()
+                }.onSuccess {
+                    publish(
+                        ExposuresCommandEvent(
+                            if (it != null) {
+                                lastExposureDate.value =
+                                    it.daysSinceEpoch.daysSinceEpochToDateString()
+                                ExposuresCommandEvent.Command.RECENT_EXPOSURE
+                            } else {
+                                ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES
+                            }
+                        )
                     )
-                )
-            }.onFailure {
-                L.e(it)
+                }.onFailure {
+                    L.e(it)
+                }
             }
+        } else {
+            lastExposureDate.value =
+                ((System.currentTimeMillis() / 1000 / 60 / 60 / 24) - 3).toInt()
+                    .daysSinceEpochToDateString()
+            publish(
+                ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE)
+            )
         }
     }
 
