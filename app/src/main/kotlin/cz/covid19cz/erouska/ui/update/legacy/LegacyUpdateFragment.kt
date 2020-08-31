@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.update
+package cz.covid19cz.erouska.ui.update.legacy
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,7 +9,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLegacyUpdateBinding
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.update.event.LegacyUpdateEvent
+import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import kotlinx.android.synthetic.main.fragment_legacy_update.*
 import org.koin.android.ext.android.inject

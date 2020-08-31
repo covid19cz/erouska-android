@@ -210,4 +210,12 @@
         <key>conditionsOfUseUrl</key>
         <value>https://wwww.erouska.cz</value>
     </entry>
+    <entry>
+        <key>covidDataServerUrl</key>
+        <value>https://europe-west1-erouska-key-server-dev.cloudfunctions.net</value>
+    </entry>
+    <entry>
+        <key>minGmsVersionCode</key>
+        <value>203019000</value>
+    </entry>
 </defaultsMap>

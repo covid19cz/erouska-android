@@ -15,7 +15,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
@@ -23,11 +25,12 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.ext.*
-import cz.covid19cz.erouska.localnotifications.LocalNotificationsReceiver
+import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -45,6 +48,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
     private val localBroadcastManager by inject<LocalBroadcastManager>()
+    var demoMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         viewModel.serviceRunning.observe(this, Observer {
             if (it) {
+                dismissNotRunningNotification()
                 scheduleLocalNotifications()
             }
         })
@@ -71,6 +76,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
+                DashboardCommandEvent.Command.TURN_OFF -> showNotRunningNotification()
             }
         }
         subscribe(BluetoothDisabledEvent::class) {
@@ -135,7 +141,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
-        exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         enableUpInToolbar(false)
@@ -146,9 +152,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
         if (BuildConfig.FLAVOR == "dev") {
-            menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
-            menu.add(0, R.id.action_news, 555, "Test Novinky")
-            //menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
+            menu.add(0, R.id.action_news, 10, "Test Novinky")
+            menu.add(0, R.id.action_activation, 11, "Test Aktivace")
+            menu.add(0, R.id.action_exposure_demo, 12, "Test Rizikové setkání")
+            menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
+            menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -169,6 +177,20 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_activation -> {
+                viewModel.unregister()
+                showWelcomeScreen()
+                true
+            }
+            R.id.action_exposure_demo -> {
+                demoMode = true
+                exposure_notification_container.show()
+                true
+            }
+            R.id.action_play_services -> {
+                showPlayServicesUpdate()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -211,6 +233,18 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
+    private fun showNotRunningNotification(){
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_NOTIFY_NOT_RUNNING)
+        activity?.application?.sendBroadcast(intent)
+    }
+
+    private fun dismissNotRunningNotification(){
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_DISMISS_NOT_RUNNING)
+        activity?.application?.sendBroadcast(intent)
+    }
+
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
@@ -219,13 +253,17 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
     }
 
-    fun scheduleLocalNotifications() {
+    private fun scheduleLocalNotifications() {
         val intent = Intent(context, LocalNotificationsReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 42, intent, 0)
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.cancel(pendingIntent)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5000, 24 * 60 * 60 * 1000, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 60000, 6 * 60 * 60 * 1000, pendingIntent)
+    }
+
+    private fun showPlayServicesUpdate() {
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
     }
 
 }

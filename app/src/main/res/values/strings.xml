@@ -6,7 +6,6 @@
     <string name="notification_title_error">eRouška is not active</string>
     <string name="notification_text_bluetooth_disabled">You need to enable Bluetooth to make eRouška work correctly</string>
     <string name="notification_text_location_disabled">You need to enable Location Services to make eRouška work correctly</string>
-    <string name="notification_text_battery_saver_enabled">You need to disable Battery Saver to make eRouška work correctly</string>
     <string name="notification_text_paused">Application is paused. Don\'t forget to resume it.</string>
     <string name="notification_action_resume">Resume</string>
     <string name="notification_text_resumed">Application is running and anonymously monitoring nearby phones.</string>
@@ -31,7 +30,8 @@
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring the surroundings. Please do not force stop the application. Keep Bluetooth enabled and use your phone as usual.</string>
-    <string name="dashboard_body_secondary">You will be warned in case of suspected COVID-19 infection and we will give you information needed to contact public health office.\n\nLast data update happened on %1$s and you weren\'t in contact with anyone infected.</string>
+    <string name="dashboard_body_secondary">You will be warned in case of suspected COVID-19 infection and we will give you all needed information.</string>
+    <string name="dashboard_body_no_contact">Last data update happened on %1$s and you weren\'t in contact with anyone infected.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRouška applications in your vicinity.\n\nEnable data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="dashboard_secondary">In case you are tested positive, we will contact you using your phone number %s. We will ask you to send us an anonymised list of phones which can be found under My data.</string>
     <string name="pause_app">Pause eRouška</string>
@@ -132,7 +132,6 @@
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="contacts_open_chatbot">Anežka – eRouška support</string>
-    <string name="risky_contacts_title">Risky contacts</string>
     <string name="privacy_header_text">We value your privacy, sharing data is under your control</string>
     <string name="privacy_body_text_1">eRouška doesn\'t have any personal information about you and collects only anonymous data about other eRouška applications in your vicinity.</string>
     <string name="privacy_body_text_2"><![CDATA[<a href="%1$s">Multiple independent audits</a> guarantee that the application doesn\'t share your data without your consent. Only you can share your collected data when administration of public health office requests them.]]></string>
@@ -217,4 +216,13 @@
     <string name="legacy_update_privacy_body"><![CDATA[With these changes, <a href="%1$s">terms of usage</a> were changed too. The main change being no longer having to register phone numbers of any eRouška users and it won\'t be needed for registration.]]></string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
+
+    <string name="play_services_title">Update Google Play Services</string>
+    <string name="play_services_content">Latest version of Google Play Services is needed to activate notifications about meeting someone with confirmed COVID-19 disease.</string>
+    <string name="play_services_update_button">Update</string>
+
+    <string name="activation_notifications_title">Notifications</string>
+    <string name="activation_notifications_header">For its correct function eRouška needs to enable COVID-19 exposure notifications</string>
+    <string name="activation_notifications_body_1">These notifications will warn you in case of you being in contact with eRouška user with positive COVID-19 test.</string>
+    <string name="activation_notifications_body_2">Basis of correct function is sharing and collection of random identification numbers which are automatically generated. eRouška users can\'t be identified using these identification numbers.</string>
 </resources>
