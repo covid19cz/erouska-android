@@ -142,4 +142,8 @@ class DashboardVM(
     private fun showDataObsolete() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
     }
+
+    fun unregister() {
+        prefs.saveEhrid(null)
+    }
 }

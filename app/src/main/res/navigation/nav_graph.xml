@@ -232,6 +232,11 @@
             android:defaultValue="true"
             app:argType="boolean" />
 
+        <argument
+            android:name="demo"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_recent_exposures"
