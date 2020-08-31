@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.confirm.event
+package cz.covid19cz.erouska.ui.senddata.event
 
 import arch.event.LiveEvent
 
