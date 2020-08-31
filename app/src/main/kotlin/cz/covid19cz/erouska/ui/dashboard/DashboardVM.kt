@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent

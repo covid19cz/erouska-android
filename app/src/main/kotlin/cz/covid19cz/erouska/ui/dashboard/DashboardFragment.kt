@@ -15,7 +15,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
@@ -28,6 +30,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
@@ -133,6 +136,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (isPlayServicesObsolete()) {
+            showPlayServicesUpdate()
+            return
+        }
+
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
@@ -148,6 +156,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         if (BuildConfig.FLAVOR == "dev") {
             menu.add(0, R.id.action_sandbox, 999, "Test Sandbox")
             menu.add(0, R.id.action_news, 555, "Test Novinky")
+            menu.add(0, R.id.action_play_services, 777, "Test PlayServices")
             //menu.add(0, R.id.action_exposure_demo, 666, "Test Kontakt")
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -169,6 +178,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_play_services -> {
+                showPlayServicesUpdate()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -211,12 +224,32 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
+    private fun showPlayServicesUpdate() {
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
+    }
+
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
 
     private fun showWelcomeScreen() {
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+    }
+
+    private fun isPlayServicesObsolete(): Boolean {
+        return try {
+            val current = PackageInfoCompat.getLongVersionCode(
+                requireContext().packageManager.getPackageInfo(
+                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
+                    0
+                )
+            )
+
+            current < AppConfig.minGmsVersionCode
+        } catch (e: Exception) {
+            L.e(e)
+            true
+        }
     }
 
     fun scheduleLocalNotifications() {
