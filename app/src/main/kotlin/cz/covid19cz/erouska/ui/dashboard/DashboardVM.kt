@@ -85,6 +85,7 @@ class DashboardVM(
                 serviceRunning.value = false
                 exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
+                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
             }.onFailure {
                 L.e(it)
             }
