@@ -16,7 +16,7 @@ import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.activation.ActivationNotificationsVM
 import cz.covid19cz.erouska.ui.activation.ActivationVM
-import cz.covid19cz.erouska.ui.confirm.SendDataVM
+import cz.covid19cz.erouska.ui.senddata.SendDataVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.exposure.ExposuresVM
