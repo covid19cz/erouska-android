@@ -44,7 +44,7 @@ class WelcomeFragment :
     }
 
     private fun openAppActivation() {
-        navigate(R.id.action_nav_welcome_fragment_to_nav_activation)
+        navigate(R.id.action_nav_welcome_fragment_to_nav_activation_notifications)
     }
 
     private fun openHelpPage() {
