@@ -232,6 +232,11 @@
             android:defaultValue="true"
             app:argType="boolean" />
 
+        <argument
+            android:name="demo"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_recent_exposures"
@@ -304,13 +309,6 @@
         android:name="cz.covid19cz.erouska.ui.mydata.MyDataFragment"
         android:label="@string/my_data_title">
         <action
-            android:id="@+id/action_nav_my_data_to_nav_guide"
-            app:destination="@id/nav_guide"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_my_data_to_nav_help"
             app:destination="@id/nav_help"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -366,18 +364,7 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_nav_battery_optimization_to_nav_guide"
-            app:destination="@id/nav_guide"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-    <fragment
-        android:id="@+id/nav_guide"
-        android:name="cz.covid19cz.erouska.ui.help.GuideFragment"
-        android:label="@string/guide" />
     <fragment
         android:id="@+id/nav_sandbox_config"
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"

@@ -53,7 +53,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".localnotifications.LocalNotificationsReceiver">
+        <receiver android:name=".exposurenotifications.receiver.LocalNotificationsReceiver">
 
         </receiver>
 
