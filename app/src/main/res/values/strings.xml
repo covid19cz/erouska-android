@@ -132,7 +132,6 @@
     <string name="data_content_info">Here is the history of contacts with other users of eRouška. It doesn\'t indicate their health status.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="contacts_open_chatbot">Anežka – eRouška support</string>
-    <string name="risky_contacts_title">Risky contacts</string>
     <string name="privacy_header_text">We value your privacy, sharing data is under your control</string>
     <string name="privacy_body_text_1">eRouška doesn\'t have any personal information about you and collects only anonymous data about other eRouška applications in your vicinity.</string>
     <string name="privacy_body_text_2"><![CDATA[<a href="%1$s">Multiple independent audits</a> guarantee that the application doesn\'t share your data without your consent. Only you can share your collected data when administration of public health office requests them.]]></string>
