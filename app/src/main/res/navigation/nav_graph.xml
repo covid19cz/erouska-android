@@ -145,7 +145,7 @@
 
     <fragment
         android:id="@+id/nav_send_data"
-        android:name="cz.covid19cz.erouska.ui.confirm.SendDataFragment"
+        android:name="cz.covid19cz.erouska.ui.senddata.SendDataFragment"
         android:label="@string/send_data"
         tools:layout="@layout/fragment_send_data">
         <argument
