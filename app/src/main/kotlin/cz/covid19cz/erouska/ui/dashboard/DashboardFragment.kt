@@ -30,10 +30,13 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.main.MainActivity
+import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.utils.L
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
@@ -44,6 +47,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     companion object {
         const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
+
+    private val mainViewModel: MainVM by sharedViewModel()
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
@@ -57,6 +62,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         subsribeToViewModel()
 
         viewModel.serviceRunning.observe(this, Observer {
+            mainViewModel.serviceRunning.value = it
             if (it) {
                 scheduleLocalNotifications()
             }
