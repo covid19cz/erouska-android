@@ -64,6 +64,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         viewModel.serviceRunning.observe(this, Observer {
             mainViewModel.serviceRunning.value = it
             if (it) {
+                dismissNotRunningNotification()
                 scheduleLocalNotifications()
             }
         })
@@ -81,6 +82,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
+                DashboardCommandEvent.Command.TURN_OFF -> showNotRunningNotification()
             }
         }
         subscribe(BluetoothDisabledEvent::class) {
@@ -237,6 +239,18 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
+    private fun showNotRunningNotification(){
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_NOTIFY_NOT_RUNNING)
+        activity?.application?.sendBroadcast(intent)
+    }
+
+    private fun dismissNotRunningNotification(){
+        val intent = Intent(context, LocalNotificationsReceiver::class.java)
+        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_DISMISS_NOT_RUNNING)
+        activity?.application?.sendBroadcast(intent)
+    }
+
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
@@ -251,7 +265,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.cancel(pendingIntent)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5000, 24 * 60 * 60 * 1000, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 60000, 6 * 60 * 60 * 1000, pendingIntent)
     }
 
     private fun showPlayServicesUpdate() {

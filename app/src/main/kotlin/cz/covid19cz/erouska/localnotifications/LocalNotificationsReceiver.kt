@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.exposurenotifications.receiver
+package cz.covid19cz.erouska.localnotifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,7 +19,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.*
 
 
 class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
@@ -28,25 +27,9 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
     val prefs: SharedPrefsRepository by inject()
 
     override fun onReceive(context: Context, intent: Intent?) {
-
-        if (intent?.hasExtra(ARG_ACTION) == true){
-            when(intent.getStringExtra(ARG_ACTION)){
-                ACTION_NOTIFY_NOT_RUNNING -> {
-                    checkErouskaPaused(context)
-                }
-                ACTION_DISMISS_NOT_RUNNING -> {
-                    dismissNotification(REQ_ID_NOT_RUNNING, context)
-                }
-            }
-
-        } else {
-            val hour = Calendar.getInstance(Locale.getDefault()).get(Calendar.HOUR_OF_DAY)
-            if (hour in 9..19) {
-                checkExposure(context)
-                checkErouskaPaused(context)
-                checkOutdatedKeyData(context)
-            }
-        }
+        checkExposure(context)
+        checkErouskaPaused(context)
+        checkOutdatedKeyData(context)
     }
 
     private fun checkErouskaPaused(context: Context) {
@@ -63,12 +46,12 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         }
     }
 
-    private fun checkExposure(context: Context) {
+    private fun checkExposure(context: Context){
         GlobalScope.launch {
             runCatching {
                 return@runCatching exposureNotificationsRepository.getLastRiskyExposure()?.daysSinceEpoch
 
-            }.onSuccess { lastExposure ->
+            }.onSuccess {lastExposure ->
                 val lastNotifiedExposure = prefs.getLastNotifiedExposure()
                 if (lastExposure != null && lastNotifiedExposure != 0 && lastExposure != lastNotifiedExposure) {
                     showNotification(
@@ -105,13 +88,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         }
     }
 
-
-    fun dismissNotification(id: Int, context: Context) {
-        (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(
-            id
-        )
-    }
-
     private fun showNotification(
         @StringRes title: Int,
         @StringRes text: Int,
@@ -136,7 +112,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         builder.setContentTitle(context.getString(title)).setContentText(context.getString(text))
             .setSmallIcon(R.drawable.ic_notification_normal)
             .setContentIntent(contentIntent)
-            .setAutoCancel(true)
 
         (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
             when (channelId) {
@@ -156,10 +131,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         const val REQ_ID_EXPOSURE = 100
         const val REQ_ID_OUTDATED_DATA = 101
         const val REQ_ID_NOT_RUNNING = 102
-
-        const val ARG_ACTION = "ARG_ACTION"
-        const val ACTION_NOTIFY_NOT_RUNNING = "NOTIFY_NOT_RUNNING"
-        const val ACTION_DISMISS_NOT_RUNNING = "DISMISS_NOT_RUNNING"
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun createNotificationChannels(context: Context) {
