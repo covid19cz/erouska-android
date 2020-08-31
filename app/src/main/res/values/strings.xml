@@ -217,4 +217,8 @@
     <string name="legacy_update_privacy_body"><![CDATA[With these changes, <a href="%1$s">terms of usage</a> were changed too. The main change being no longer having to register phone numbers of any eRouška users and it won\'t be needed for registration.]]></string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
+
+    <string name="play_services_title">Update Google Play Services</string>
+    <string name="play_services_content">Latest version of Google Play Services is needed to activate notifications about meeting someone with confirmed COVID-19 disease.</string>
+    <string name="play_services_update_button">Update</string>
 </resources>

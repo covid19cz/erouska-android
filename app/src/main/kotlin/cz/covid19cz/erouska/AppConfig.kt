@@ -75,6 +75,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("riskyEncountersWithoutSymptoms")
     val currentMeasuresUrl
         get() = firebaseRemoteConfig.getString("currentMeasuresUrl")
+    val minGmsVersionCode
+        get() = firebaseRemoteConfig.getLong("minGmsVersionCode")
     val conditionsOfUseUrl
         get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
     val covidDataServerUrl
