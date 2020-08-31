@@ -18,7 +18,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(true)
+        enableUpInToolbar(true, IconType.CLOSE)
 
         activity?.title = AppConfig.exposureUITitle
 
