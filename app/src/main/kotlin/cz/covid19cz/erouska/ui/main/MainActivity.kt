@@ -141,7 +141,4 @@ class MainActivity :
         L.d("$requestCode")
     }
 
-    fun onServiceRunningChanged(running: Boolean) {
-        viewModel.serviceRunning.value = running && passesRequirements()
-    }
 }
