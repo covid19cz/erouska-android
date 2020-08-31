@@ -213,7 +213,7 @@
     <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky zpracování</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
 
     <string name="play_services_title">Aktualizujte aplikace Služby Google Play</string>
-    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které byla prokázána nákaza virem COVID-19.</string>
+    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které byla prokázána nákaza COVID-19.</string>
     <string name="play_services_update_button">Aktualizovat</string>
 
     <string name="activation_notifications_title">Oznámení</string>
