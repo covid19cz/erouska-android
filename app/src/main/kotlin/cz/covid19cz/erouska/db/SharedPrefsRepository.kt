@@ -41,19 +41,9 @@ class SharedPrefsRepository(c: Context) {
 
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
-
-        const val EN_AUTO_REQUESTED = "exposureNotificationAutoRequested"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
-
-    fun setENAutoRequested() {
-        prefs.edit().putBoolean(EN_AUTO_REQUESTED, true).apply()
-    }
-
-    fun getENAutoRequested(): Boolean {
-        return prefs.getBoolean(EN_AUTO_REQUESTED, false)
-    }
 
     fun lastKeyExportFileName(): String {
         return prefs.getString(LAST_KEY_IMPORT, "") ?: ""

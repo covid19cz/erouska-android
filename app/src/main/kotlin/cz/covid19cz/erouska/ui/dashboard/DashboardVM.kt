@@ -56,11 +56,9 @@ class DashboardVM(
 
         viewModelScope.launch {
             kotlin.runCatching {
-                if (!prefs.getENAutoRequested()) {
-                    exposureNotificationsRepository.start()
-                }
                 val result = exposureNotificationsRepository.isEnabled()
                 if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
+                    exposureNotificationsRepository.start()
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result
@@ -72,7 +70,6 @@ class DashboardVM(
                 }
             }.onFailure {
                 if (it is ApiException) {
-                    prefs.setENAutoRequested()
                     publish(GmsApiErrorEvent(it.status))
                 }
                 L.e(it)

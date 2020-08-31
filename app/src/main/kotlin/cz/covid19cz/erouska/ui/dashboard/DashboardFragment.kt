@@ -137,11 +137,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (isPlayServicesObsolete()) {
-            showPlayServicesUpdate()
-            return
-        }
-
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
         exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
@@ -236,10 +231,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun showPlayServicesUpdate() {
-        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
-    }
-
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
@@ -248,29 +239,17 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
     }
 
-    private fun isPlayServicesObsolete(): Boolean {
-        return try {
-            val current = PackageInfoCompat.getLongVersionCode(
-                requireContext().packageManager.getPackageInfo(
-                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
-                    0
-                )
-            )
-
-            current < AppConfig.minGmsVersionCode
-        } catch (e: Exception) {
-            L.e(e)
-            true
-        }
-    }
-
-    fun scheduleLocalNotifications() {
+    private fun scheduleLocalNotifications() {
         val intent = Intent(context, LocalNotificationsReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 42, intent, 0)
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.cancel(pendingIntent)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5000, 24 * 60 * 60 * 1000, pendingIntent)
+    }
+
+    private fun showPlayServicesUpdate() {
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
     }
 
 }

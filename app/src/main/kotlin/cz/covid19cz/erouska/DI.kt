@@ -14,6 +14,7 @@ import cz.covid19cz.erouska.net.CovidDataRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
+import cz.covid19cz.erouska.ui.activation.ActivationNotificationsVM
 import cz.covid19cz.erouska.ui.activation.ActivationVM
 import cz.covid19cz.erouska.ui.confirm.SendDataVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
@@ -62,6 +63,7 @@ val viewModelModule = module {
     viewModel { SpreadPreventionVM() }
     viewModel { LegacyUpdateVM(get()) }
     viewModel { UpdatePlayServicesVM() }
+    viewModel { ActivationNotificationsVM(get()) }
 }
 
 val databaseModule = module {

@@ -220,4 +220,9 @@
     <string name="play_services_title">Update Google Play Services</string>
     <string name="play_services_content">Latest version of Google Play Services is needed to activate notifications about meeting someone with confirmed COVID-19 disease.</string>
     <string name="play_services_update_button">Update</string>
+
+    <string name="activation_notifications_title">Notifications</string>
+    <string name="activation_notifications_header">For its correct function eRouška needs to enable COVID-19 exposure notifications</string>
+    <string name="activation_notifications_body_1">These notifications will warn you in case of you being in contact with eRouška user with positive COVID-19 test.</string>
+    <string name="activation_notifications_body_2">Basis of correct function is sharing and collection of random identification numbers which are automatically generated. eRouška users can\'t be identified using these identification numbers.</string>
 </resources>

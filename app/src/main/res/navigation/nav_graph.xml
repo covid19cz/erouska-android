@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_legacy_update_fragment"
-        android:name="cz.covid19cz.erouska.ui.update.LegacyUpdateFragment"
+        android:name="cz.covid19cz.erouska.ui.update.legacy.LegacyUpdateFragment"
         android:label="@string/legacy_update_title"
         tools:layout="@layout/fragment_legacy_update">
         <argument
@@ -17,10 +17,39 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_activation_notifications_fragment"
+        android:name="cz.covid19cz.erouska.ui.activation.ActivationNotificationsFragment"
+        android:label="@string/activation_notifications_title"
+        tools:layout="@layout/fragment_activation_notifications">
+
+        <action
+            android:id="@+id/action_nav_activation_notifications_to_activation_fragment"
+            app:destination="@+id/nav_activation"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_welcome_fragment"
         android:name="cz.covid19cz.erouska.ui.welcome.WelcomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_nav_welcome_to_nav_play_services_update"
+            app:destination="@id/nav_play_services_update"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_legacy_update"
             app:destination="@+id/nav_legacy_update_fragment"
@@ -50,8 +79,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_welcome_fragment_to_nav_activation"
-            app:destination="@id/nav_activation"
+            android:id="@+id/action_nav_welcome_fragment_to_nav_activation_notifications"
+            app:destination="@+id/nav_activation_notifications_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -148,6 +177,13 @@
         android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard">
         <action
+            android:id="@+id/action_nav_dashboard_to_nav_play_services_update"
+            app:destination="@id/nav_play_services_update"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
             android:id="@+id/action_nav_dashboard_to_nav_send_data"
             app:destination="@+id/nav_send_data"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -187,13 +223,6 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposures"
             app:destination="@id/nav_exposures"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_play_services_update"
-            app:destination="@id/nav_play_services_update"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
