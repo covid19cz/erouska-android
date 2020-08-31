@@ -1,9 +1,9 @@
-package cz.covid19cz.erouska.ui.update
+package cz.covid19cz.erouska.ui.update.legacy
 
 import androidx.lifecycle.MutableLiveData
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.ui.update.event.LegacyUpdateEvent
+import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 
 class LegacyUpdateVM(
     private val sharedPrefsRepository: SharedPrefsRepository

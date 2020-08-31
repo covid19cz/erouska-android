@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -46,6 +47,7 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        if (!prefs.isActivated()) return
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
@@ -55,17 +57,21 @@ class DashboardVM(
         viewModelScope.launch {
             kotlin.runCatching {
                 val result = exposureNotificationsRepository.isEnabled()
-                if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()){
+                if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
+                    exposureNotificationsRepository.start()
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result
-            }.onSuccess {enabled ->
+            }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
                 serviceRunning.value = enabled
-                if (enabled){
+                if (enabled) {
                     checkForRiskyExposure()
                 }
             }.onFailure {
+                if (it is ApiException) {
+                    publish(GmsApiErrorEvent(it.status))
+                }
                 L.e(it)
             }
         }
@@ -111,7 +117,7 @@ class DashboardVM(
         return prefs.isUpdateFromLegacyVersion()
     }
 
-    fun checkForRiskyExposure(){
+    fun checkForRiskyExposure() {
         viewModelScope.launch {
             runCatching {
                 exposureNotificationsRepository.getLastRiskyExposure()
@@ -125,12 +131,16 @@ class DashboardVM(
         }
     }
 
-    private fun showExposure(){
+    private fun showExposure() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 
 
     private fun showDataObsolete() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+    }
+
+    fun unregister() {
+        prefs.saveEhrid(null)
     }
 }

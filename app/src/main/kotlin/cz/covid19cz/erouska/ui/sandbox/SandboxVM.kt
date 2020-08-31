@@ -137,18 +137,9 @@ class SandboxVM(
     fun reportExposure() {
         viewModelScope.launch {
             runCatching {
-                val keys = exposureNotificationsRepository.getTemporaryExposureKeyHistory()
-                val request = ExposureRequest(keys.map {
-                    TemporaryExposureKeyDto(
-                        Base64.encodeToString(
-                            it.keyData,
-                            Base64.NO_WRAP
-                        ), it.rollingStartIntervalNumber, it.rollingPeriod
-                    )
-                }, null, null, null, null)
-                serverRepository.reportExposure(request)
+                exposureNotificationsRepository.reportExposureWithoutVerification()
             }.onSuccess {
-                showSnackbar("Upload success: ${it.insertedExposures ?: 0} keys")
+                showSnackbar("Upload success: ${it} keys")
             }.onFailure {
                 if (it is ApiException) {
                     publish(GmsApiErrorEvent(it.status))

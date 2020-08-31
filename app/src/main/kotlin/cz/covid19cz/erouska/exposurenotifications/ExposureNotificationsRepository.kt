@@ -134,11 +134,12 @@ class ExposureNotificationsRepository(
                     Base64.NO_WRAP
                 ), it.rollingStartIntervalNumber, it.rollingPeriod
             )
-        }, null, null, null, null)
+        }, null, null, null, prefs.getRevisionToken())
         val response = server.reportExposure(request)
         if (response.errorMessage != null){
             throw ReportExposureException(response.errorMessage)
         }
+        prefs.saveRevisionToken(response.revisionToken)
         return response.insertedExposures ?: 0
     }
 
@@ -172,13 +173,14 @@ class ExposureNotificationsRepository(
             certificateResponse.certificate,
             hmackey,
             null,
-            null,
+            prefs.getRevisionToken(),
             healthAuthorityID = if (BuildConfig.FLAVOR == "dev") {"cz.covid19cz.erouska.dev"} else {"cz.covid19cz.erouska"}
         )
         val response = server.reportExposure(request)
         response.errorMessage?.let {
             throw ReportExposureException(it)
         }
+        prefs.saveRevisionToken(response.revisionToken)
         clearTempValues()
         return response.insertedExposures ?: 0
     }

@@ -31,14 +31,14 @@
                 android:id="@+id/img_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_battery_optimization"
+                android:src="@drawable/ic_privacy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/privacy_header"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:text="@string/privacy_header_text"
@@ -50,7 +50,7 @@
 
             <TextView
                 android:id="@+id/privacy_body_1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/privacy_body_text_1"
@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/privacy_body_2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/privacy_body_text_2"
