@@ -2,7 +2,7 @@ package cz.covid19cz.erouska
 
 import arch.BaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
-import cz.covid19cz.erouska.localnotifications.LocalNotificationsReceiver
+import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin

@@ -16,9 +16,11 @@ class SharedPrefsRepository(c: Context) {
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
-        const val ATTENUATION_BUCKET_THRESHOLD_DB= "attenuationBucketThresholdDb"
+        const val ATTENUATION_BUCKET_THRESHOLD_DB = "attenuationBucketThresholdDb"
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
+
+        const val REVISION_TOKEN = "revisionToken"
 
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
@@ -39,9 +41,19 @@ class SharedPrefsRepository(c: Context) {
 
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
+
+        const val EN_AUTO_REQUESTED = "exposureNotificationAutoRequested"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
+
+    fun setENAutoRequested() {
+        prefs.edit().putBoolean(EN_AUTO_REQUESTED, true).apply()
+    }
+
+    fun getENAutoRequested(): Boolean {
+        return prefs.getBoolean(EN_AUTO_REQUESTED, false)
+    }
 
     fun lastKeyExportFileName(): String {
         return prefs.getString(LAST_KEY_IMPORT, "") ?: ""
@@ -51,25 +63,25 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
     }
 
-    fun setLastKeyImport(timestamp : Long){
+    fun setLastKeyImport(timestamp: Long) {
         prefs.edit().putLong(LAST_KEY_IMPORT_TIME, timestamp).apply()
     }
 
-    fun getLastKeyImport() : Long{
+    fun getLastKeyImport(): Long {
         return prefs.getLong(LAST_KEY_IMPORT_TIME, 0L)
     }
 
-    fun setLastNotifiedExposure(daysSinceEpoch : Int){
+    fun setLastNotifiedExposure(daysSinceEpoch: Int) {
         prefs.edit().putInt(LAST_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
     }
 
-    fun getLastNotifiedExposure() : Int{
+    fun getLastNotifiedExposure(): Int {
         return prefs.getInt(LAST_NOTIFIED_EXPOSURE, 0)
     }
 
-    fun hasOutdatedKeyData() : Boolean{
+    fun hasOutdatedKeyData(): Boolean {
         val lastTimestamp = getLastKeyImport()
-        return lastTimestamp != 0L && (System.currentTimeMillis() - lastTimestamp) / (1000*60*60) > AppConfig.keyImportDataOutdatedHours
+        return lastTimestamp != 0L && (System.currentTimeMillis() - lastTimestamp) / (1000 * 60 * 60) > AppConfig.keyImportDataOutdatedHours
     }
 
     fun clearLastKeyExportFileName() {
@@ -86,19 +98,27 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun saveEhrid(ehrid: String) {
-        prefs.edit().putString(EHRID, ehrid).apply()
-    }
-
     fun isActivated(): Boolean {
         return prefs.contains(EHRID)
+    }
+
+    fun saveEhrid(ehrid: String) {
+        prefs.edit().putString(EHRID, ehrid).apply()
     }
 
     fun getEhrid(): String {
         return checkNotNull(prefs.getString(EHRID, null))
     }
 
-    fun clearCustomConfig(){
+    fun saveRevisionToken(token: String?) {
+        prefs.edit().putString(REVISION_TOKEN, token).apply()
+    }
+
+    fun getRevisionToken(): String? {
+        return prefs.getString(REVISION_TOKEN, null)
+    }
+
+    fun clearCustomConfig() {
         prefs.edit().apply {
             remove(REPORT_TYPE_WEIGHTS)
             remove(ATTENUATION_BUCKET_THRESHOLD_DB)
@@ -107,137 +127,155 @@ class SharedPrefsRepository(c: Context) {
         }.apply()
     }
 
-    fun setReportTypeWeights(value : String){
+    fun setReportTypeWeights(value: String) {
         prefs.edit().putString(REPORT_TYPE_WEIGHTS, value).apply()
     }
 
-    fun setInfectiousnessWeights(value : String){
+    fun setInfectiousnessWeights(value: String) {
         prefs.edit().putString(INFECTIOUSNESS_WEIGHTS, value).apply()
     }
 
-    fun setAttenuationBucketThresholdDb(value : String){
+    fun setAttenuationBucketThresholdDb(value: String) {
         prefs.edit().putString(ATTENUATION_BUCKET_THRESHOLD_DB, value).apply()
     }
 
-    fun setAttenuationBucketWeights(value : String){
+    fun setAttenuationBucketWeights(value: String) {
         prefs.edit().putString(ATTENUATION_BUCKET_WEIGHTS, value).apply()
     }
 
-    fun setMinimumWindowScore(value : String){
+    fun setMinimumWindowScore(value: String) {
         prefs.edit().putString(MINIMUM_WINDOW_SCORE, value).apply()
     }
 
-    fun getReportTypeWeights() : List<Double>?{
+    fun getReportTypeWeights(): List<Double>? {
         return prefs.getString(REPORT_TYPE_WEIGHTS, null)?.let {
             it.split(";").mapNotNull { it.toDoubleOrNull() }
         }
     }
 
-    fun getInfectiousnessWeights() : List<Double>?{
+    fun getInfectiousnessWeights(): List<Double>? {
         return prefs.getString(INFECTIOUSNESS_WEIGHTS, null)?.let {
             it.split(";").mapNotNull { it.toDoubleOrNull() }
         }
     }
 
-    fun getAttenuationBucketThresholdDb() : List<Int>?{
+    fun getAttenuationBucketThresholdDb(): List<Int>? {
         return prefs.getString(ATTENUATION_BUCKET_THRESHOLD_DB, null)?.let {
             it.split(";").mapNotNull { it.toIntOrNull() }
         }
     }
 
-    fun getAttenuationBucketWeights() : List<Double>?{
+    fun getAttenuationBucketWeights(): List<Double>? {
         return prefs.getString(ATTENUATION_BUCKET_WEIGHTS, null)?.let {
             it.split(";").mapNotNull { it.toDoubleOrNull() }
         }
     }
 
-    fun getMinimumWindowScore() : Double?{
+    fun getMinimumWindowScore(): Double? {
         return prefs.getString(MINIMUM_WINDOW_SCORE, null)?.toDoubleOrNull()
     }
 
-    fun getLastStatsUpdate() : Long{
+    fun getLastStatsUpdate(): Long {
         return prefs.getLong(LAST_STATS_UPDATE, 0)
     }
 
-    fun setLastStatsUpdate(modified: Long){
+    fun setLastStatsUpdate(modified: Long) {
         return prefs.edit().putLong(LAST_STATS_UPDATE, modified).apply()
     }
 
-    fun getTestsTotal() : Int{
+    fun getTestsTotal(): Int {
         return prefs.getInt(TESTS_TOTAL, 0)
     }
-    fun setTestsTotal(value: Int){
+
+    fun setTestsTotal(value: Int) {
         return prefs.edit().putInt(TESTS_TOTAL, value).apply()
     }
-    fun getTestsIncrease() : Int{
+
+    fun getTestsIncrease(): Int {
         return prefs.getInt(TESTS_INCREASE, 0)
     }
-    fun setTestsIncrease(value: Int){
+
+    fun setTestsIncrease(value: Int) {
         return prefs.edit().putInt(TESTS_INCREASE, value).apply()
     }
 
-    fun getConfirmedCasesTotal() : Int{
+    fun getConfirmedCasesTotal(): Int {
         return prefs.getInt(CONFIRMED_CASES_TOTAL, 0)
     }
-    fun setConfirmedCasesTotal(value: Int){
+
+    fun setConfirmedCasesTotal(value: Int) {
         return prefs.edit().putInt(CONFIRMED_CASES_TOTAL, value).apply()
     }
-    fun getConfirmedCasesIncrease() : Int{
+
+    fun getConfirmedCasesIncrease(): Int {
         return prefs.getInt(CONFIRMED_CASES_INCREASE, 0)
     }
-    fun setConfirmedCasesIncrease(value: Int){
+
+    fun setConfirmedCasesIncrease(value: Int) {
         return prefs.edit().putInt(CONFIRMED_CASES_INCREASE, value).apply()
     }
 
-    fun getActiveCasesTotal() : Int{
+    fun getActiveCasesTotal(): Int {
         return prefs.getInt(ACTIVE_CASES_TOTAL, 0)
     }
-    fun setActiveCasesTotal(value: Int){
+
+    fun setActiveCasesTotal(value: Int) {
         return prefs.edit().putInt(ACTIVE_CASES_TOTAL, value).apply()
     }
-    fun getActiveCasesIncrease() : Int{
+
+    fun getActiveCasesIncrease(): Int {
         return prefs.getInt(ACTIVE_CASES_INCREASE, 0)
     }
-    fun setActiveCasesIncrease(value: Int){
+
+    fun setActiveCasesIncrease(value: Int) {
         return prefs.edit().putInt(ACTIVE_CASES_INCREASE, value).apply()
     }
 
-    fun getCuredTotal() : Int{
+    fun getCuredTotal(): Int {
         return prefs.getInt(CURED_TOTAL, 0)
     }
-    fun setCuredTotal(value: Int){
+
+    fun setCuredTotal(value: Int) {
         return prefs.edit().putInt(CURED_TOTAL, value).apply()
     }
-    fun getCuredIncrease() : Int{
+
+    fun getCuredIncrease(): Int {
         return prefs.getInt(CURED_INCREASE, 0)
     }
-    fun setCuredIncrease(value: Int){
+
+    fun setCuredIncrease(value: Int) {
         return prefs.edit().putInt(CURED_INCREASE, value).apply()
     }
 
-    fun getDeceasedTotal() : Int{
+    fun getDeceasedTotal(): Int {
         return prefs.getInt(DECEASED_TOTAL, 0)
     }
-    fun setDeceasedTotal(value: Int){
+
+    fun setDeceasedTotal(value: Int) {
         return prefs.edit().putInt(DECEASED_TOTAL, value).apply()
     }
-    fun getDeceasedIncrease() : Int{
+
+    fun getDeceasedIncrease(): Int {
         return prefs.getInt(DECEASED_INCREASE, 0)
     }
-    fun setDeceasedIncrease(value: Int){
+
+    fun setDeceasedIncrease(value: Int) {
         return prefs.edit().putInt(DECEASED_INCREASE, value).apply()
     }
 
-    fun getCurrentlyHospitalizedTotal() : Int{
+    fun getCurrentlyHospitalizedTotal(): Int {
         return prefs.getInt(CURRENTLY_HOSPITALIZED_TOTAL, 0)
     }
-    fun setCurrentlyHospitalizedTotal(value: Int){
+
+    fun setCurrentlyHospitalizedTotal(value: Int) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_TOTAL, value).apply()
     }
-    fun getCurrentlyHospitalizedIncrease() : Int{
+
+    fun getCurrentlyHospitalizedIncrease(): Int {
         return prefs.getInt(CURRENTLY_HOSPITALIZED_INCREASE, 0)
     }
-    fun setCurrentlyHospitalizedIncrease(value: Int){
+
+    fun setCurrentlyHospitalizedIncrease(value: Int) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_INCREASE, value).apply()
     }
 }
