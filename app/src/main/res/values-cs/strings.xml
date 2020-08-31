@@ -157,7 +157,7 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_last_update">Poslední aktualizace %1$s</string>
 
-    <string name="send_data_body">V případě potvrzené nákazy nemocí COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
+    <string name="send_data_body">V případě potvrzené nákazy koronavirem vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
