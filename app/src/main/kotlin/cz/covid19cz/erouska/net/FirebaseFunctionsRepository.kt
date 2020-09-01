@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.net
 
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -81,9 +82,20 @@ class FirebaseFunctionsRepository(
             .continueWith { task ->
                 (task.result?.data as HashMap<String, String>)
             }
-            .addOnFailureListener { fail ->
-                L.e("Firebase Function " + name + " failed. Reason : " + fail.localizedMessage)
-                onFailure?.invoke(fail)
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    val e = task.exception
+                    if (e is FirebaseFunctionsException) {
+                        val code = e.code
+                        val details = e.details
+                        L.e("Firebase Function $name failed. Reason [$code] + $details")
+                    } else {
+                        L.e("Firebase Function $name failed. Reason : ${e?.localizedMessage}")
+                    }
+                    e?.let {
+                        onFailure?.invoke(e)
+                    }
+                }
             }.await()
     }
 }
