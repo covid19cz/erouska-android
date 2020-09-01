@@ -144,7 +144,7 @@
 
     <string name="my_data_current_measures">Current measures</string>
     <string name="my_data_current_situation">Current situation and case numbers</string>
-    <string name="my_data_yesterday">Yesterday\'s increase +%1$s</string>
+    <string name="my_data_yesterday">Yesterday %1$s</string>
     <string name="my_data_tests">%1$s tests performed</string>
     <string name="my_data_ack_cases">%1$s confirmed cases in total</string>
     <string name="my_data_act_cases">%1$s active cases</string>

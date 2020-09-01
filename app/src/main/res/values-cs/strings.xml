@@ -147,7 +147,7 @@
 
     <string name="my_data_current_measures">Aktuální opatření</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
-    <string name="my_data_yesterday">Za včerejší den +%1$s</string>
+    <string name="my_data_yesterday">Za včerejší den %1$s</string>
     <string name="my_data_tests">%1$s provedených testů</string>
     <string name="my_data_ack_cases">%1$s celkem potvrzených případů</string>
     <string name="my_data_act_cases">%1$s aktivních případů</string>

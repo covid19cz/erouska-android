@@ -9,6 +9,7 @@
             type="cz.covid19cz.erouska.ui.mydata.MyDataVM" />
 
         <import type="java.text.NumberFormat" />
+        <import type="cz.covid19cz.erouska.utils.SignNumberFormat" />
     </data>
 
     <ScrollView
@@ -70,8 +71,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_test}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.testsIncrease))}"
-                app:case_title="@{String.format(@string/my_data_tests,  NumberFormat.getInstance().format(vm.testsTotal))}"
+                app:case_title="@{String.format(@string/my_data_tests, SignNumberFormat.format(vm.testsTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.testsIncrease))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/situation_text" />
@@ -87,8 +88,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_act_case}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.activeCasesIncrease))}"
-                app:case_title="@{String.format(@string/my_data_act_cases,  NumberFormat.getInstance().format(vm.activeCasesTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.activeCasesIncrease))}"
+                app:case_title="@{String.format(@string/my_data_act_cases, SignNumberFormat.format(vm.activeCasesTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tests" />
@@ -104,8 +105,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_ack_case}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.confirmedCasesIncrease))}"
-                app:case_title="@{String.format(@string/my_data_ack_cases,  NumberFormat.getInstance().format(vm.confirmedCasesTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.confirmedCasesIncrease))}"
+                app:case_title="@{String.format(@string/my_data_ack_cases, SignNumberFormat.format(vm.confirmedCasesTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/act_cases" />
@@ -121,8 +122,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_cured}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.curedIncrease))}"
-                app:case_title="@{String.format(@string/my_data_cured,  NumberFormat.getInstance().format(vm.curedTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.curedIncrease))}"
+                app:case_title="@{String.format(@string/my_data_cured, SignNumberFormat.format(vm.curedTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ack_cases" />
@@ -138,8 +139,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_death_toll}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.deceasedIncrease))}"
-                app:case_title="@{String.format(@string/my_data_death_toll,  NumberFormat.getInstance().format(vm.deceasedTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.deceasedIncrease))}"
+                app:case_title="@{String.format(@string/my_data_death_toll, SignNumberFormat.format(vm.deceasedTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cured" />
@@ -155,8 +156,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:case_icon="@{@drawable/ic_hospitalized}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, NumberFormat.getInstance().format(vm.currentlyHospitalizedIncrease))}"
-                app:case_title="@{String.format(@string/my_data_hospitalized,  NumberFormat.getInstance().format(vm.currentlyHospitalizedTotal))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.currentlyHospitalizedIncrease))}"
+                app:case_title="@{String.format(@string/my_data_hospitalized, SignNumberFormat.format(vm.currentlyHospitalizedTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/death_toll" />
