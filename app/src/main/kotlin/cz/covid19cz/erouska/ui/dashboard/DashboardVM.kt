@@ -1,12 +1,12 @@
 package cz.covid19cz.erouska.ui.dashboard
 
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -29,11 +29,6 @@ class DashboardVM(
     val lastUpdate = MutableLiveData<String>()
 
     init {
-
-        if (!prefs.isActivated()) {
-            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
-        }
-
         // TODO Check last download time
         // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
 
@@ -47,7 +42,19 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!prefs.isActivated()) return
+        if (!prefs.isActivated()) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
+            return
+        } else {
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                FirebaseAuth.getInstance().signInWithCustomToken(prefs.getRegisterToken())
+                    .addOnSuccessListener {
+                        L.d("Logged in")
+                    }.addOnFailureListener {
+                        L.d("Not logged in")
+                    }
+            }
+        }
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
@@ -142,6 +149,6 @@ class DashboardVM(
     }
 
     fun unregister() {
-        prefs.saveEhrid(null)
+        prefs.saveRegisterToken(null)
     }
 }

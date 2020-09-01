@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.net
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -23,8 +24,8 @@ class FirebaseFunctionsRepository(
             "model" to deviceInfo.getDeviceName(),
             "locale" to LocaleUtils.getLocale()
         )
-        val ehrid = checkNotNull(callFunction("RegisterEhrid", data)["ehrid"])
-        prefsRepository.saveEhrid(ehrid)
+        val token = checkNotNull(callFunction("RegisterEhrid", data)["customToken"])
+        prefsRepository.saveRegisterToken(token)
     }
 
     suspend fun getStats(date: String? = null): CovidStatsResponse {
