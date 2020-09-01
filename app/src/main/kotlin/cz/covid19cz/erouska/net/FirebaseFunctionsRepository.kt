@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.net
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -8,14 +9,20 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.model.CovidStatsResponse
 import cz.covid19cz.erouska.utils.DeviceInfo
+import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
+import kotlin.coroutines.suspendCoroutine
 
 class FirebaseFunctionsRepository(
     private val deviceInfo: DeviceInfo,
-    private val prefsRepository: SharedPrefsRepository
+    private val prefs: SharedPrefsRepository
 ) {
 
+    /**
+     * Creates a new registration, saved to registrations collection.
+     */
     suspend fun registerEhrid() {
         val data = hashMapOf(
             "platform" to "android",
@@ -25,9 +32,12 @@ class FirebaseFunctionsRepository(
             "locale" to LocaleUtils.getLocale()
         )
         val token = checkNotNull(callFunction("RegisterEhrid", data)["customToken"])
-        prefsRepository.saveRegisterToken(token)
+        prefs.saveRegisterToken(token)
     }
 
+    /**
+     * Returns data from collections covidDataIncrease and covidDataTotal for the given input date (if date is missing, TODAY is used)
+     */
     suspend fun getStats(date: String? = null): CovidStatsResponse {
         val data = hashMapOf(
             "date" to date
@@ -36,12 +46,77 @@ class FirebaseFunctionsRepository(
         return Gson().fromJson(covidStats.toString(), CovidStatsResponse::class.java)
     }
 
+    /**
+     * In the registrations collection, changes the value of lastNotificationStatus attribute to sent and the value of lastNotificationUpdatedAt attribute to CURRENT_TIMESTAMP for a given idToken.
+     */
+    suspend fun registerNotification() {
+        val data = hashMapOf(
+            "idToken" to getIdToken()
+        )
+        callFunction("RegisterNotification", data) {
+            // TODO do some retry
+        }
+    }
+
+    private suspend fun getIdToken(): String = suspendCoroutine { cont ->
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnSuccessListener {
+                cont.resumeWith(Result.success(it.token!!))
+            }?.addOnFailureListener {
+                cont.resumeWith(Result.failure(it))
+            }
+        } else {
+            FirebaseAuth.getInstance().signInWithCustomToken(prefs.getRegisterToken())
+                .addOnSuccessListener {
+                    it.user?.getIdToken(false)?.addOnSuccessListener {
+                        cont.resumeWith(Result.success(it.token!!))
+                    }?.addOnFailureListener {
+                        cont.resumeWith(Result.failure(it))
+                    }
+                }
+        }
+    }
+
+    /**
+     * Changes push token
+     */
+    suspend fun changePushToken(token: String, pushRegistrationToken: String) {
+        val data = hashMapOf(
+            "idToken" to getIdToken(),
+            "pushRegistrationToken" to pushRegistrationToken
+        )
+        callFunction("changePushToken", data) {
+            // TODO do some retry
+        }
+    }
+
+    /**
+     * Generic function for calling Firebase Function.
+     */
     private suspend fun callFunction(
         name: String,
-        data: Map<String, String?>? = null
+        data: Map<String, String?>? = null,
+        onFailure: ((Exception) -> Unit)? = null
     ): Map<String, String> {
         @Suppress("UNCHECKED_CAST")
         return Firebase.functions(FIREBASE_REGION).getHttpsCallable(name).call(data)
-            .await().data as Map<String, String>
+            .continueWith { task ->
+                (task.result?.data as HashMap<String, String>)
+            }
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    val e = task.exception
+                    if (e is FirebaseFunctionsException) {
+                        val code = e.code
+                        val details = e.details
+                        L.e("Firebase Function $name failed. Reason [$code] + $details")
+                    } else {
+                        L.e("Firebase Function $name failed. Reason : ${e?.localizedMessage}")
+                    }
+                    e?.let {
+                        onFailure?.invoke(e)
+                    }
+                }
+            }.await()
     }
 }

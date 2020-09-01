@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
+import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -37,7 +38,6 @@ class DashboardVM(
 
         // TODO Check if EN API is off
         // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
-
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -45,16 +45,8 @@ class DashboardVM(
         if (!prefs.isActivated()) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
-        } else {
-            if (FirebaseAuth.getInstance().currentUser == null) {
-                FirebaseAuth.getInstance().signInWithCustomToken(prefs.getRegisterToken())
-                    .addOnSuccessListener {
-                        L.d("Logged in")
-                    }.addOnFailureListener {
-                        L.d("Not logged in")
-                    }
-            }
         }
+
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
