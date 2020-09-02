@@ -208,10 +208,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onDestroy()
     }
 
-    private fun resumeService() {
-        viewModel.start()
-    }
-
     private fun checkRequirements(
         onPassed: () -> Unit = {},
         onFailed: () -> Unit = {},

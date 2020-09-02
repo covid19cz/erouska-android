@@ -22,7 +22,7 @@ class ActivationNotificationsVM(
                     exposureNotificationsRepository.start()
                 }.onSuccess {
                     publish(NotificationsVerifiedEvent)
-                    prefs.setRunning(true)
+                    prefs.setExposureNotificationsEnabled(true)
                     L.d("Exposure Notifications started")
                 }.onFailure {
                     if (it is ApiException) {
