@@ -11,10 +11,10 @@ import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
-import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
+import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
+import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import kotlinx.android.synthetic.main.fragment_send_data.*
 
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(

@@ -2,8 +2,6 @@ package cz.covid19cz.erouska.ui.exposure.event
 
 import arch.event.LiveEvent
 import cz.covid19cz.erouska.ui.exposure.Exposure
-import cz.covid19cz.erouska.ui.exposure.entity.PreventionData
-import cz.covid19cz.erouska.ui.exposure.entity.SymptomsData
 
 class ExposuresCommandEvent(val command: Command) : LiveEvent() {
 

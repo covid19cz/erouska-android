@@ -15,7 +15,6 @@ import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.about.AboutVM
 import cz.covid19cz.erouska.ui.activation.ActivationNotificationsVM
 import cz.covid19cz.erouska.ui.activation.ActivationVM
-import cz.covid19cz.erouska.ui.senddata.SendDataVM
 import cz.covid19cz.erouska.ui.contacts.ContactsVM
 import cz.covid19cz.erouska.ui.dashboard.DashboardVM
 import cz.covid19cz.erouska.ui.exposure.ExposuresVM
@@ -30,6 +29,7 @@ import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxConfigVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxDataVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
+import cz.covid19cz.erouska.ui.senddata.SendDataVM
 import cz.covid19cz.erouska.ui.update.legacy.LegacyUpdateVM
 import cz.covid19cz.erouska.ui.update.playservices.UpdatePlayServicesVM
 import cz.covid19cz.erouska.ui.welcome.WelcomeVM

@@ -10,14 +10,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.senddata.ReportExposureException
-import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
+import cz.covid19cz.erouska.ui.senddata.ReportExposureException
+import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.io.File
