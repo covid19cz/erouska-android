@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.ui.dashboard
 
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -25,7 +24,7 @@ class DashboardVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    val serviceRunning = SafeMutableLiveData(false)
+    val serviceRunning = SafeMutableLiveData(prefs.isRunning())
     val lastUpdate = MutableLiveData<String>()
 
     init {
@@ -64,7 +63,7 @@ class DashboardVM(
                 return@runCatching result
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
-                serviceRunning.value = enabled
+                setRunning(enabled)
                 if (enabled) {
                     checkForRiskyExposure()
                 }
@@ -82,7 +81,7 @@ class DashboardVM(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                serviceRunning.value = false
+                setRunning(false)
                 exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
@@ -99,10 +98,11 @@ class DashboardVM(
                 kotlin.runCatching {
                     exposureNotificationsRepository.start()
                 }.onSuccess {
-                    serviceRunning.value = true
+                    setRunning(true)
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
+                    setRunning(false)
                     if (it is ApiException) {
                         publish(GmsApiErrorEvent(it.status))
                     }
@@ -112,6 +112,11 @@ class DashboardVM(
         } else {
             publish(BluetoothDisabledEvent())
         }
+    }
+
+    private fun setRunning(running : Boolean){
+        serviceRunning.value = running
+        prefs.setRunning(running)
     }
 
     fun wasAppUpdated(): Boolean {

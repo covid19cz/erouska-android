@@ -233,7 +233,7 @@
         </ScrollView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/upload_button"
+            android:id="@+id/buttonStop"
             style="?materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -246,7 +246,7 @@
             app:visibleOrInvisible="@{vm.serviceRunning}" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/start_button"
+            android:id="@+id/buttonStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

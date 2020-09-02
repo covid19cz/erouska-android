@@ -13,6 +13,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val EHRID = "preference.ehrid"
+        const val RUNNING = "running"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -98,6 +99,14 @@ class SharedPrefsRepository(c: Context) {
 
     fun getEhrid(): String {
         return checkNotNull(prefs.getString(EHRID, null))
+    }
+
+    fun isRunning(): Boolean {
+        return prefs.getBoolean(RUNNING, false)
+    }
+
+    fun setRunning(running: Boolean) {
+        prefs.edit().putBoolean(RUNNING, running).apply()
     }
 
     fun saveRevisionToken(token: String?) {
