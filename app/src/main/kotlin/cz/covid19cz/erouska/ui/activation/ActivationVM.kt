@@ -26,7 +26,7 @@ class ActivationVM(
 
     init {
         auth.setLanguageCode(LocaleUtils.getSupportedLanguage())
-        if (sharedPrefsRepository.isActivated()) {
+        if (auth.currentUser != null) {
             mutableState.postValue(ActivationFinished)
         }
     }

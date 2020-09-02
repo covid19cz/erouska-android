@@ -12,7 +12,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
-        const val ACTIVATED = "activated"
+        const val RUNNING = "running"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -88,12 +88,12 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun isActivated(): Boolean {
-        return prefs.getBoolean(ACTIVATED, false)
+    fun isRunning(): Boolean {
+        return prefs.getBoolean(RUNNING, false)
     }
 
-    fun setActivated(activated: Boolean) {
-        prefs.edit().putBoolean(ACTIVATED, activated).apply()
+    fun setRunning(running: Boolean) {
+        prefs.edit().putBoolean(RUNNING, running).apply()
     }
 
     fun saveRevisionToken(token: String?) {

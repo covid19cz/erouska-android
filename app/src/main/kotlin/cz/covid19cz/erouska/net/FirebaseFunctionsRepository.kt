@@ -33,9 +33,7 @@ class FirebaseFunctionsRepository(
             "locale" to LocaleUtils.getLocale()
         )
         val token = checkNotNull(callFunction("RegisterEhrid", data)["customToken"])
-        val result = FirebaseAuth.getInstance().signInWithCustomToken(token).await().user != null
-        prefs.setActivated(result)
-        return result
+        return FirebaseAuth.getInstance().signInWithCustomToken(token).await().user != null
     }
 
     /**
@@ -68,7 +66,6 @@ class FirebaseFunctionsRepository(
                 cont.resumeWith(Result.failure(it))
             }
         } else {
-            prefs.setActivated(false)
             cont.resumeWith(Result.failure(UnauthrorizedException()))
         }
     }

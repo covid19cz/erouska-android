@@ -26,7 +26,8 @@ class DashboardVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    val serviceRunning = SafeMutableLiveData(false)
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val serviceRunning = SafeMutableLiveData(prefs.isRunning())
     val lastUpdate = MutableLiveData<String>()
 
     init {
@@ -42,7 +43,7 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!prefs.isActivated()) {
+        if (auth.currentUser == null) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
@@ -63,7 +64,7 @@ class DashboardVM(
                 return@runCatching result
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
-                serviceRunning.value = enabled
+                setRunning(enabled)
                 if (enabled) {
                     checkForRiskyExposure()
                 }
@@ -81,7 +82,7 @@ class DashboardVM(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                serviceRunning.value = false
+                setRunning(false)
                 exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
@@ -98,10 +99,11 @@ class DashboardVM(
                 kotlin.runCatching {
                     exposureNotificationsRepository.start()
                 }.onSuccess {
-                    serviceRunning.value = true
+                    setRunning(true)
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
+                    setRunning(false)
                     if (it is ApiException) {
                         publish(GmsApiErrorEvent(it.status))
                     }
@@ -111,6 +113,11 @@ class DashboardVM(
         } else {
             publish(BluetoothDisabledEvent())
         }
+    }
+
+    private fun setRunning(running : Boolean){
+        serviceRunning.value = running
+        prefs.setRunning(running)
     }
 
     fun wasAppUpdated(): Boolean {
@@ -141,7 +148,6 @@ class DashboardVM(
     }
 
     fun unregister() {
-        prefs.setActivated(false)
         FirebaseAuth.getInstance().signOut()
     }
 }

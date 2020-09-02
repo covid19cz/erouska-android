@@ -30,7 +30,7 @@
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
-    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu COVID-19 a zobrazíme veškeré potřebné informace.</string>
+    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu koronavirem a zobrazíme veškeré potřebné informace.</string>
     <string name="dashboard_body_no_contact">Poslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="dashboard_secondary">P\u0159i podez\u0159en\u00ed na n\u00e1kazu v\u00e1s budeme kontaktovat na \u010d\u00edsle %s. Po\u017e\u00e1d\u00e1me v\u00e1s o\u00a0zasl\u00e1n\u00ed anonymizovan\u00e9ho seznamu telefon\u016f, kter\u00fd naleznete v\u00a0sekci Moje data.</string>
@@ -218,5 +218,5 @@
     <string name="activation_notifications_title">Oznámení</string>
     <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
     <string name="activation_notifications_body_1">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>
-    <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se autmaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
+    <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
 </resources>
