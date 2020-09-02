@@ -6,10 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
-import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel

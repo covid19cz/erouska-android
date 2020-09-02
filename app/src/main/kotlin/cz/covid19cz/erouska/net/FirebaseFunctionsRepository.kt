@@ -13,7 +13,6 @@ import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseFunctionsRepository(

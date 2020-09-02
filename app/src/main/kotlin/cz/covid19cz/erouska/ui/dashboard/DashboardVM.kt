@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -27,7 +26,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    val serviceRunning = SafeMutableLiveData(prefs.isRunning())
+    val serviceRunning = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
     val lastUpdate = MutableLiveData<String>()
 
     init {
@@ -64,7 +63,7 @@ class DashboardVM(
                 return@runCatching result
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
-                setRunning(enabled)
+                onExposureNotificationsStateChanged(enabled)
                 if (enabled) {
                     checkForRiskyExposure()
                 }
@@ -82,7 +81,7 @@ class DashboardVM(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                setRunning(false)
+                onExposureNotificationsStateChanged(false)
                 exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
@@ -99,11 +98,11 @@ class DashboardVM(
                 kotlin.runCatching {
                     exposureNotificationsRepository.start()
                 }.onSuccess {
-                    setRunning(true)
+                    onExposureNotificationsStateChanged(true)
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
-                    setRunning(false)
+                    onExposureNotificationsStateChanged(false)
                     if (it is ApiException) {
                         publish(GmsApiErrorEvent(it.status))
                     }
@@ -115,9 +114,9 @@ class DashboardVM(
         }
     }
 
-    private fun setRunning(running : Boolean){
-        serviceRunning.value = running
-        prefs.setRunning(running)
+    private fun onExposureNotificationsStateChanged(enabled : Boolean){
+        serviceRunning.value = enabled
+        prefs.setExposureNotificationsEnabled(enabled)
     }
 
     fun wasAppUpdated(): Boolean {
