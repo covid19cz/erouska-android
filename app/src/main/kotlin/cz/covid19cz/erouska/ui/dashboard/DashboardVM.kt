@@ -93,7 +93,6 @@ class DashboardVM(
         }
     }
 
-
     fun start() {
         if (exposureNotificationsRepository.isBluetoothEnabled()) {
             viewModelScope.launch {
