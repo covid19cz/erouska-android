@@ -6,6 +6,8 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -24,15 +26,11 @@ class DashboardVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val serviceRunning = SafeMutableLiveData(prefs.isRunning())
     val lastUpdate = MutableLiveData<String>()
 
     init {
-
-        if (!prefs.isActivated()) {
-            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
-        }
-
         // TODO Check last download time
         // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
 
@@ -41,12 +39,15 @@ class DashboardVM(
 
         // TODO Check if EN API is off
         // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
-
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!prefs.isActivated()) return
+        if (auth.currentUser == null) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
+            return
+        }
+
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
@@ -147,6 +148,6 @@ class DashboardVM(
     }
 
     fun unregister() {
-        prefs.saveEhrid(null)
+        FirebaseAuth.getInstance().signOut()
     }
 }

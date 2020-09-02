@@ -55,22 +55,16 @@ class SendDataVM(val exposureNotificationRepo : ExposureNotificationsRepository)
 
         viewModelScope.launch {
             runCatching {
-                return@runCatching if (BuildConfig.FLAVOR == "dev" && code.value == "00000000"){
-                    exposureNotificationRepo.reportExposureWithoutVerification()
-                } else {
-                    exposureNotificationRepo.reportExposureWithVerification(code.value)
-                }
+                exposureNotificationRepo.reportExposureWithVerification(code.value)
             }.onSuccess {
                 state.value = SendDataSuccessState
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
                 when(it){
                     is ApiException -> publish(GmsApiErrorEvent(it.status))
-                    // TODO Temporary hack
-                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
-                    /*is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
+                    is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
-                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))*/
+                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                 }
                 L.e(it)
             }

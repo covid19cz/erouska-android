@@ -27,7 +27,6 @@ import java.util.*
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
-    private val cryptoTools: ExposureCryptoTools,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
@@ -124,23 +123,6 @@ class SandboxVM(
                 showSnackbar("Import success")
             }.onFailure {
                 showSnackbar("Import error: ${it.message}")
-                L.e(it)
-            }
-        }
-    }
-
-    fun reportExposure() {
-        viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.reportExposureWithoutVerification()
-            }.onSuccess {
-                showSnackbar("Upload success: ${it} keys")
-            }.onFailure {
-                if (it is ApiException) {
-                    publish(GmsApiErrorEvent(it.status))
-                } else {
-                    showSnackbar("Upload error: ${it.message}")
-                }
                 L.e(it)
             }
         }
