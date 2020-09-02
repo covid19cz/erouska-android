@@ -7,6 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.net.exception.UnauthrorizedException
 import cz.covid19cz.erouska.net.model.CovidStatsResponse
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
@@ -23,7 +24,7 @@ class FirebaseFunctionsRepository(
     /**
      * Creates a new registration, saved to registrations collection.
      */
-    suspend fun registerEhrid() {
+    suspend fun register() : Boolean {
         val data = hashMapOf(
             "platform" to "android",
             "platformVersion" to deviceInfo.getAndroidVersion(),
@@ -32,7 +33,9 @@ class FirebaseFunctionsRepository(
             "locale" to LocaleUtils.getLocale()
         )
         val token = checkNotNull(callFunction("RegisterEhrid", data)["customToken"])
-        prefs.saveRegisterToken(token)
+        val result = FirebaseAuth.getInstance().signInWithCustomToken(token).await().user != null
+        prefs.setActivated(result)
+        return result
     }
 
     /**
@@ -40,6 +43,7 @@ class FirebaseFunctionsRepository(
      */
     suspend fun getStats(date: String? = null): CovidStatsResponse {
         val data = hashMapOf(
+            "idToken" to getIdToken(),
             "date" to date
         )
         val covidStats = callFunction("GetCovidData", data)
@@ -53,9 +57,7 @@ class FirebaseFunctionsRepository(
         val data = hashMapOf(
             "idToken" to getIdToken()
         )
-        callFunction("RegisterNotification", data) {
-            // TODO do some retry
-        }
+        callFunction("RegisterNotification", data)
     }
 
     private suspend fun getIdToken(): String = suspendCoroutine { cont ->
@@ -66,14 +68,8 @@ class FirebaseFunctionsRepository(
                 cont.resumeWith(Result.failure(it))
             }
         } else {
-            FirebaseAuth.getInstance().signInWithCustomToken(prefs.getRegisterToken())
-                .addOnSuccessListener {
-                    it.user?.getIdToken(false)?.addOnSuccessListener {
-                        cont.resumeWith(Result.success(it.token!!))
-                    }?.addOnFailureListener {
-                        cont.resumeWith(Result.failure(it))
-                    }
-                }
+            prefs.setActivated(false)
+            cont.resumeWith(Result.failure(UnauthrorizedException()))
         }
     }
 

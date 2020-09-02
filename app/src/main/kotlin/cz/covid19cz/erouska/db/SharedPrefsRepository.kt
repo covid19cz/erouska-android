@@ -12,7 +12,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
-        const val REGISTER_TOKEN = "registerToken"
+        const val ACTIVATED = "activated"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -89,15 +89,11 @@ class SharedPrefsRepository(c: Context) {
     }
 
     fun isActivated(): Boolean {
-        return prefs.contains(REGISTER_TOKEN)
+        return prefs.getBoolean(ACTIVATED, false)
     }
 
-    fun saveRegisterToken(token: String?) {
-        prefs.edit().putString(REGISTER_TOKEN, token).apply()
-    }
-
-    fun getRegisterToken(): String {
-        return checkNotNull(prefs.getString(REGISTER_TOKEN, null))
+    fun setActivated(activated: Boolean) {
+        prefs.edit().putBoolean(ACTIVATED, activated).apply()
     }
 
     fun saveRevisionToken(token: String?) {

@@ -35,7 +35,7 @@ class ActivationVM(
         viewModelScope.launch(Dispatchers.IO) {
             mutableState.postValue(ActivationStart)
             try {
-                firebaseFunctionsRepository.registerEhrid()
+                firebaseFunctionsRepository.register()
                 mutableState.postValue(ActivationFinished)
             } catch (e: Exception) {
                 if(e is ApiException) {

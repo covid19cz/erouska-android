@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
-import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -141,6 +141,7 @@ class DashboardVM(
     }
 
     fun unregister() {
-        prefs.saveRegisterToken(null)
+        prefs.setActivated(false)
+        FirebaseAuth.getInstance().signOut()
     }
 }
