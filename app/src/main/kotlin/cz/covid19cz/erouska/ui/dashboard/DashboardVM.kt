@@ -47,6 +47,8 @@ class DashboardVM(
             return
         }
 
+        checkForObsoleteData()
+
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
@@ -119,10 +121,6 @@ class DashboardVM(
         prefs.setExposureNotificationsEnabled(enabled)
     }
 
-    fun wasAppUpdated(): Boolean {
-        return prefs.isUpdateFromLegacyVersion()
-    }
-
     fun checkForRiskyExposure() {
         viewModelScope.launch {
             runCatching {
@@ -137,13 +135,14 @@ class DashboardVM(
         }
     }
 
-    private fun showExposure() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+    fun checkForObsoleteData(){
+        if (prefs.hasOutdatedKeyData()){
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+        }
     }
 
-
-    private fun showDataObsolete() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+    private fun showExposure() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 
     fun unregister() {
