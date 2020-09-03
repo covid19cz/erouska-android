@@ -14,27 +14,7 @@
     <color name="redDark">#d81d49</color>
     <color name="green">#8cc23f</color>
     <color name="orange">#DB7627</color>
-    <color name="gray">#8C8C8C</color>
 
-    <color name="exposition_level_1">#4CAF50</color>
-    <color name="exposition_level_2">#8BC34A</color>
-    <color name="exposition_level_3">#CDDC39</color>
-    <color name="exposition_level_4">#FFEB3B</color>
-    <color name="exposition_level_5">#FFC107</color>
-    <color name="exposition_level_6">#FF9800</color>
-    <color name="exposition_level_7">#FF5722</color>
-    <color name="exposition_level_8">#F44336</color>
-
-    <color name="exposition_level_1_bg">#334CAF50</color>
-    <color name="exposition_level_2_bg">#338BC34A</color>
-    <color name="exposition_level_3_bg">#33CDDC39</color>
-    <color name="exposition_level_4_bg">#33FFEB3B</color>
-    <color name="exposition_level_5_bg">#33FFC107</color>
-    <color name="exposition_level_6_bg">#33FF9800</color>
-    <color name="exposition_level_7_bg">#33FF5722</color>
-    <color name="exposition_level_8_bg">#33F44336</color>
-
-    <color name="text_color_statement">#757575</color>
     <color name="text_color_error_header">#DF6061</color>
 
     <color name="exposure_notification_bg">#DE1A1A</color>
