@@ -1,10 +1,9 @@
-package cz.covid19cz.erouska.ui.confirm
+package cz.covid19cz.erouska.ui.senddata
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.ext.focusAndShowKeyboard
@@ -12,10 +11,10 @@ import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.confirm.event.SendDataCommandEvent
-import cz.covid19cz.erouska.ui.confirm.event.SendDataFailedState
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
+import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
+import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import kotlinx.android.synthetic.main.fragment_send_data.*
 
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(

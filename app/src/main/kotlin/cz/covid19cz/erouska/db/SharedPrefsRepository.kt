@@ -12,7 +12,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
-        const val EHRID = "preference.ehrid"
+        const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -88,16 +88,12 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().remove(APP_PAUSED).apply()
     }
 
-    fun isActivated(): Boolean {
-        return prefs.contains(EHRID)
+    fun isExposureNotificationsEnabled(): Boolean {
+        return prefs.getBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, false)
     }
 
-    fun saveEhrid(ehrid: String?) {
-        prefs.edit().putString(EHRID, ehrid).apply()
-    }
-
-    fun getEhrid(): String {
-        return checkNotNull(prefs.getString(EHRID, null))
+    fun setExposureNotificationsEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
     }
 
     fun saveRevisionToken(token: String?) {

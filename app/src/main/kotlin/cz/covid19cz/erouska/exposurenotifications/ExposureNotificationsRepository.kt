@@ -11,8 +11,8 @@ import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
 import cz.covid19cz.erouska.net.model.VerifyCodeRequest
-import cz.covid19cz.erouska.ui.confirm.ReportExposureException
-import cz.covid19cz.erouska.ui.confirm.VerifyException
+import cz.covid19cz.erouska.ui.senddata.ReportExposureException
+import cz.covid19cz.erouska.ui.senddata.VerifyException
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

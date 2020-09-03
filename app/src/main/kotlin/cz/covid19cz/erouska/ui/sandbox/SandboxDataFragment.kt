@@ -8,8 +8,6 @@ import com.google.android.gms.nearby.exposurenotification.ScanInstance
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxDataBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.sandbox.SandboxDataVM
-import java.lang.RuntimeException
 
 class SandboxDataFragment : BaseFragment<FragmentSandboxDataBinding, SandboxDataVM>(
     R.layout.fragment_sandbox_data,
