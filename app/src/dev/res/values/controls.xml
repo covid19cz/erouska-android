@@ -4,6 +4,4 @@
     <string name="key_server_base_url">https://exposure-i5jzq6zlxq-ew.a.run.app/</string>
     <string name="verification_server_base_url">https://apiserver-eyrqoibmxa-ew.a.run.app/</string>
     <string name="covid_data_server_base_url">https://europe-west1-erouska-key-server-dev.cloudfunctions.net</string>
-    <string name="verification_server_api_key">Ar9VQ1tZS1ANU0LLPGw8nUnavJNBDCaTGEaEQbydvTYFgnW7oqQkTCLUxhk6azLm8IjTtCRVqQIi/wNscvniGw</string>
-    <string name="key_export_url">https://storage.googleapis.com/exposure-notification-export-dngya//1595203200-1595289600-00001.zip</string>
 </resources>

@@ -81,6 +81,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
     val covidDataServerUrl
         get() = firebaseRemoteConfig.getString("covidDataServerUrl")
+    val verificationServerApiKey
+        get() = firebaseRemoteConfig.getString("verificationServerApiKey")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
