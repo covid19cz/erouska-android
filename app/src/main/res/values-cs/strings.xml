@@ -10,7 +10,7 @@
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
-    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na nákazu COVID-19 a zobrazíme veškeré potřebné informace.</string>
+    <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme veškeré potřebné informace.</string>
     <string name="dashboard_body_no_contact">Poslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
@@ -43,13 +43,13 @@
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
     <string name="welcome_activation">Pokra\u010dovat k\u00a0aktivaci</string>
-    <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u&nbsp;majitele kteréhokoliv z&nbsp;nich potvrdí nákaza COVID-19, eRouška vyhodnotí, zda se jedná o rizikový kontakt a upozorní vás.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, eRouška upozorní všechny ostatní uživatele aplikace, se s&nbsp;kterými jste se potkali.]]></string>
+    <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u majitele kteréhokoliv z nich potvrdí onemocnění COVID-19, eRouška vyhodnotí, zda se jedná o rizikový kontakt a upozorní vás.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, eRouška upozorní všechny ostatní uživatele aplikace, se s&nbsp;kterými jste se potkali.]]></string>
     <string name="welcome_title">D\u00edky eRou\u0161ce ochr\u00e1n\u00edte sebe i\u00a0ostatn\u00ed ve sv\u00e9m okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
     <string name="send_data">Odeslat data</string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
-    <string name="share_app_text">Ahoj, pou\u017e\u00edv\u00e1m aplikaci eRou\u0161ka. Nainstaluj si ji taky a\u00a0spole\u010dn\u011b pomozme zastavit \u0161\u00ed\u0159en\u00ed COVID-19. Aplikace sb\u00edr\u00e1 anonymn\u00ed \u00fadaje o\u00a0telefonech v\u00a0bl\u00edzkosti, aby pracovn\u00edci hygieny mohli snadn\u011bji dohledat potenci\u00e1ln\u011b naka\u017een\u00e9. \u010c\u00edm v\u00edc n\u00e1s bude, t\u00edm l\u00e9pe to bude fungovat. Aplikaci najde\u0161 na %s</string>
+    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomozme zastavit šíření onecmovnění COVID-19. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O\u00a0aplikaci</string>
     <string name="no_internet">Va\u0161e za\u0159\u00edzen\u00ed nem\u00e1 aktivn\u00ed p\u0159\u00edstup k\u00a0internetu.</string>
@@ -71,7 +71,7 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_last_update">Poslední aktualizace %1$s</string>
 
-    <string name="send_data_body">V případě potvrzené nákazy COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
+    <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
@@ -83,7 +83,7 @@
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>
     <string name="send_data_success_header">Data jste úspěšně odeslali</string>
-    <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření COVID-19.</string>
+    <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření onemocnění COVID-19.</string>
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
@@ -92,7 +92,7 @@
     <string name="data_notification_close">Zavřít</string>
 
     <string name="notification_exposure_title">Rizikové setkání</string>
-    <string name="notification_exposure_text">Setkali jste se s osobou, u které byla prokázána nákaza COVID-19. Sledujte svůj zdravotní stav, více informací naleznete v aplikaci</string>
+    <string name="notification_exposure_text">Setkali jste se s osobou, u které byla potvrzeno onemocnění COVID-19. Sledujte svůj zdravotní stav. Více informací naleznete v aplikaci.</string>
 
     <string name="notification_exposure_notifications_off_title">@string/dashboard_title_paused</string>
     <string name="notification_exposure_notifications_off_text">Nezapomeňte jí spustit</string>
@@ -115,14 +115,14 @@
     <string name="legacy_update_expansion_header">eRouška se chystá do světa</string>
     <string name="legacy_update_expansion_body">Připravujeme eRoušku na to, aby si rozuměla s podobnými aplikacemi na celém světě. Provedli jsme proto několik změn, které vám nyní představíme.</string>
     <string name="legacy_update_active_notification_header">Přecházíme na aktivní oznámení</string>
-    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí nákaza nemocí COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
+    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí onemocnění COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
     <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
     <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>
     <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky zpracování</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
 
     <string name="play_services_title">Aktualizujte aplikace Služby Google Play</string>
-    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které byla prokázána nákaza COVID-19.</string>
+    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="play_services_update_button">Aktualizovat</string>
 
     <string name="activation_notifications_title">Oznámení</string>
