@@ -41,11 +41,7 @@
     <string name="delete_registration">Delete registration</string>
     <string name="about">About application</string>
     <string name="no_internet">Your device seems to be offline.</string>
-    <string name="confirmation_button_close">Close</string>
-    <string name="disable_battery_saver">Disable Battery Saver</string>
-    <string name="battery_saver_disabled_desc">eRou\u0161ka needs to run on the background, but the phone is turning it off to save battery.\n\nDisable Battery Saver by pressing \"Disable Battery Saver\" in the settings.</string>
     <string name="battery_opt_label">Application on the background</string>
-    <string name="battery_saver_settings_not_found">Disable Battery Saver manually, please.</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="privacy_header_text">We value your privacy, sharing data is under your control</string>
     <string name="privacy_body_text_1">eRouška doesn\'t have any personal information about you and collects only anonymous data about other eRouška applications in your vicinity.</string>

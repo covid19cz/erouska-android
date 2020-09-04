@@ -100,42 +100,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun updateState() {
         checkRequirements(onFailed = {
             navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        }, onBatterySaverEnabled = {
-            showBatterySaverDialog()
         })
-    }
-
-    private fun showBatterySaverDialog() {
-        MaterialAlertDialogBuilder(context)
-            .setMessage(R.string.battery_saver_disabled_desc)
-            .setPositiveButton(R.string.disable_battery_saver)
-            { dialog, which ->
-                dialog.dismiss()
-                navigateToBatterySaverSettings {
-                    showSnackBar(R.string.battery_saver_settings_not_found)
-                }
-            }
-            .setNegativeButton(getString(R.string.confirmation_button_close))
-            { dialog, which -> dialog.dismiss() }
-            .show()
-    }
-
-    private fun navigateToBatterySaverSettings(onBatterySaverNotFound: () -> Unit) {
-        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
-        } else {
-            val intent = Intent()
-            intent.component = ComponentName(
-                "com.android.settings",
-                "com.android.settings.Settings\$BatterySaverSettingsActivity"
-            )
-            intent
-        }
-        try {
-            startActivity(batterySaverIntent)
-        } catch (ex: ActivityNotFoundException) {
-            onBatterySaverNotFound()
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -206,15 +171,12 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun checkRequirements(
         onPassed: () -> Unit = {},
-        onFailed: () -> Unit = {},
-        onBatterySaverEnabled: () -> Unit = {}
+        onFailed: () -> Unit = {}
     ) {
         with(requireContext()) {
             if (!isBtEnabled()) {
                 onFailed()
                 return
-            } else if (isBatterySaverEnabled()) {
-                onBatterySaverEnabled()
             } else {
                 onPassed()
             }
