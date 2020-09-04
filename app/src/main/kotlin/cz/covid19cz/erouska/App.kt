@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska
 
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import arch.BaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
 import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
@@ -17,6 +19,9 @@ class App : BaseApp(), KoinComponent {
         AndroidThreeTen.init(this)
         LocalNotificationsReceiver.createNotificationChannels(this)
         removeObsoleteData()
+
+        // Init WorkManager with app context, battery saver prevention
+        WorkManager.getInstance(this)
     }
 
     private fun setupKoin() {
