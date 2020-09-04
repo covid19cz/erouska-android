@@ -79,8 +79,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("minGmsVersionCode")
     val conditionsOfUseUrl
         get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
-    val covidDataServerUrl
-        get() = firebaseRemoteConfig.getString("covidDataServerUrl")
     val verificationServerApiKey
         get() = firebaseRemoteConfig.getString("verificationServerApiKey")
 
