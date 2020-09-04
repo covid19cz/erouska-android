@@ -21,7 +21,7 @@
     <string name="permission_onboarding_desc_minor">You don\'t have to worry: the application is not tracking your location nor does it save it.</string>
     <string name="permission_onboarding_toolbar_title">Permissions</string>
     <string name="menu_help">Help</string>
-    <string name="my_data_title">Statistics</string>
+    <string name="my_data_title">News</string>
     <string name="about_content">Since version 2.0 application eRouška is developed my the Ministry of Health in collaboration with National agency for communication and information technologies (NAKIT). Earlier versions of eRouška application were developed by a team of volunteers from COVID19CZ community. Most of original eRouška developers continue in development of newer versions in NAKIT team.</string>
     <string name="about_tos_link">Terms of usage</string>
     <string name="about_title">About app</string>
