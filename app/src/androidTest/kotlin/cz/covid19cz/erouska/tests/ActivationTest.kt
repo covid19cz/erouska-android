@@ -40,7 +40,6 @@ class ActivationTest {
             verifySMSCode()
         }
 
-        BatterySaverInfoScreen.finish()
         HomeScreen.isErouskaActive()
 
         // send Data to server
@@ -69,7 +68,6 @@ class ActivationTest {
 
         SMSScreen.verifyLater()
 
-        BatterySaverInfoScreen.finish()
         HomeScreen.isErouskaActive()
 
     }
