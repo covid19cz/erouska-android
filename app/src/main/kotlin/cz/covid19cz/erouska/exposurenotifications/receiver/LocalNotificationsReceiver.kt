@@ -172,7 +172,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         const val ACTION_NOTIFY_NOT_RUNNING = "NOTIFY_NOT_RUNNING"
         const val ACTION_DISMISS_NOT_RUNNING = "DISMISS_NOT_RUNNING"
 
-        @RequiresApi(Build.VERSION_CODES.O)
         fun createNotificationChannels(context: Context) {
             if (Build.VERSION.SDK_INT >= 26) {
                 createNotificationChannel(
