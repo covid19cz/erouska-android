@@ -49,7 +49,7 @@
     <string name="send_data">Odeslat data</string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
-    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomozme zastavit šíření onecmovnění COVID-19. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
+    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomozme zastavit šíření onemocnění COVID-19. Aplikace sbírá anonymní údaje o telefonech v blízkosti, aby pracovníci hygieny mohli snadněji dohledat potenciálně nakažené. Čím víc nás bude, tím lépe to bude fungovat. Aplikaci najdeš na %s.</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O\u00a0aplikaci</string>
     <string name="no_internet">Va\u0161e za\u0159\u00edzen\u00ed nem\u00e1 aktivn\u00ed p\u0159\u00edstup k\u00a0internetu.</string>
