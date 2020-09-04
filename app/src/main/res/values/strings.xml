@@ -5,6 +5,7 @@
     <string name="go_back_button">Back to app</string>
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
+    <string name="close">Close</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
     <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot create a list of nearby phones.\n\nEnable it by pressing \"Enable Bluetooth\".</string>
     <string name="dashboard_title_running">eRouška is active</string>
@@ -129,4 +130,7 @@
     <string name="activation_notifications_header">For its correct function eRouška needs to enable COVID-19 exposure notifications</string>
     <string name="activation_notifications_body_1">These notifications will warn you in case of you being in contact with eRouška user with positive COVID-19 test.</string>
     <string name="activation_notifications_body_2">Basis of correct function is sharing and collection of random identification numbers which are automatically generated. eRouška users can\'t be identified using these identification numbers.</string>
+
+    <string name="service_not_running_title">You can\'t send data now</string>
+    <string name="service_not_running_body">Turn on COVID-19 exposure notifications in your phone settings to be able to send data.</string>
 </resources>

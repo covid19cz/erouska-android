@@ -13,6 +13,7 @@ import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
 import cz.covid19cz.erouska.net.model.VerifyCodeRequest
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
+import kotlinx.coroutines.tasks.await
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

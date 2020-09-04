@@ -5,6 +5,7 @@
     <string name="go_back_button">Zpět do aplikace</string>
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="enable">Zapnout</string>
+    <string name="close">Zavřít</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
     <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam eRoušek ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
     <string name="dashboard_title_running">eRouška je aktivní</string>
@@ -125,4 +126,7 @@
     <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
     <string name="activation_notifications_body_1">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
+
+    <string name="service_not_running_title">Data nyní nemůžete odeslat</string>
+    <string name="service_not_running_body">V sekci Nastavení svého zařízení zapněte Oznámení o kontaktu s COVID-19 a odesílání dat bude možné.</string>
 </resources>

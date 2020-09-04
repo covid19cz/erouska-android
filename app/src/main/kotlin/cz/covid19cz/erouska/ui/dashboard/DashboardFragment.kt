@@ -14,6 +14,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -108,7 +110,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
+        exposure_notification_more_info.setOnClickListener {
+            navigate(
+                DashboardFragmentDirections.actionNavDashboardToNavExposures(
+                    demo = demoMode
+                )
+            )
+        }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         enableUpInToolbar(false)
@@ -132,6 +140,15 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         return when (item.itemId) {
             R.id.menu_share -> {
                 requireContext().shareApp()
+                true
+            }
+            R.id.menu_send_data -> {
+                if (mainViewModel.serviceRunning.value) {
+                    navigate(R.id.action_nav_dashboard_to_nav_send_data)
+                } else {
+                    showServiceNotRunningDialog()
+                }
+
                 true
             }
             R.id.nav_about -> {
@@ -193,15 +210,21 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun showNotRunningNotification(){
+    private fun showNotRunningNotification() {
         val intent = Intent(context, LocalNotificationsReceiver::class.java)
-        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_NOTIFY_NOT_RUNNING)
+        intent.putExtra(
+            LocalNotificationsReceiver.ARG_ACTION,
+            LocalNotificationsReceiver.ACTION_NOTIFY_NOT_RUNNING
+        )
         activity?.application?.sendBroadcast(intent)
     }
 
-    private fun dismissNotRunningNotification(){
+    private fun dismissNotRunningNotification() {
         val intent = Intent(context, LocalNotificationsReceiver::class.java)
-        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_DISMISS_NOT_RUNNING)
+        intent.putExtra(
+            LocalNotificationsReceiver.ARG_ACTION,
+            LocalNotificationsReceiver.ACTION_DISMISS_NOT_RUNNING
+        )
         activity?.application?.sendBroadcast(intent)
     }
 
@@ -224,6 +247,25 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private fun showPlayServicesUpdate() {
         navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
+    }
+
+    private fun showServiceNotRunningDialog() {
+        val layout = layoutInflater.inflate(R.layout.alert_not_running_title, null)
+        layout.findViewById<TextView>(R.id.alert_title)?.let {
+            it.text = getString(R.string.service_not_running_title)
+        }
+
+        MaterialAlertDialogBuilder(context)
+            .setCustomTitle(layout)
+            .setView(R.layout.alert_not_running_view)
+            .setPositiveButton(getString(R.string.enable))
+            { dialog, _ ->
+                dialog.dismiss()
+                startActivity(Intent(Settings.ACTION_SETTINGS));
+            }
+            .setNegativeButton(getString(R.string.close))
+            { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
 }
