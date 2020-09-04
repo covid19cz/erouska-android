@@ -53,11 +53,7 @@
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O\u00a0aplikaci</string>
     <string name="no_internet">Va\u0161e za\u0159\u00edzen\u00ed nem\u00e1 aktivn\u00ed p\u0159\u00edstup k\u00a0internetu.</string>
-    <string name="confirmation_button_close">Zavřít</string>
-    <string name="disable_battery_saver">Vypnout spořič baterie</string>
-    <string name="battery_saver_disabled_desc">eRou\u0161ka pot\u0159ebuje b\u011b\u017eet i\u00a0na pozad\u00ed, ale telefon ji nyn\u00ed automaticky vyp\u00edn\u00e1 kv\u016fli \u00faspo\u0159e baterie.\n\nSpo\u0159i\u010d baterie vypn\u011bte v\u00a0nastaven\u00ed po stisknut\u00ed tla\u010d\u00edtka \u201cVypnout spo\u0159i\u010d baterie\u201d.</string>
     <string name="battery_opt_label">Aplikace na pozadí</string>
-    <string name="battery_saver_settings_not_found">Vypněte si prosím spořič baterie ručně.</string>
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
 
     <string name="my_data_current_measures">Aktuální opatření</string>
