@@ -58,7 +58,7 @@ class ExposureServerRepository(
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(okhttpBuilder.addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader("X-API-Key", context.getString(R.string.verification_server_api_key))
+                    .addHeader("X-API-Key", AppConfig.verificationServerApiKey)
                     .build()
                 it.proceed(request)
             }.build())

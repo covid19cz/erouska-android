@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="uri_scheme">erouska-dev</string>
     <string name="key_server_base_url">https://exposure-i5jzq6zlxq-ew.a.run.app/</string>
     <string name="verification_server_base_url">https://apiserver-eyrqoibmxa-ew.a.run.app/</string>
-    <string name="verification_server_api_key">Ar9VQ1tZS1ANU0LLPGw8nUnavJNBDCaTGEaEQbydvTYFgnW7oqQkTCLUxhk6azLm8IjTtCRVqQIi/wNscvniGw</string>
+    <string name="covid_data_server_base_url">https://europe-west1-erouska-key-server-dev.cloudfunctions.net</string>
 </resources>
