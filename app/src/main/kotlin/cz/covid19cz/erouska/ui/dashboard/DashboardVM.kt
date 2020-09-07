@@ -29,15 +29,13 @@ class DashboardVM(
     val serviceRunning = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
     val lastUpdate = MutableLiveData<String>()
 
-    init {
-        // TODO Check last download time
-        // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
-
-        // TODO Check last exposure
-        // If last exposure occured in less than 14 days -> publish DashboardCommandEvent.Command.RECENT_EXPOSURE
-
-        // TODO Check if EN API is off
-        // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate(){
+        prefs.lastKeyImportLive.observeForever {
+            if (it != 0L) {
+                lastUpdate.value = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault()).format(Date(prefs.getLastKeyImport()))
+            }
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -46,20 +44,14 @@ class DashboardVM(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
-
+        exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
-
-        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-        val lastImportTimestamp = prefs.getLastKeyImport()
-        if (lastImportTimestamp != 0L) {
-            lastUpdate.value = formatter.format(Date(prefs.getLastKeyImport()))
-        }
 
         viewModelScope.launch {
             kotlin.runCatching {
+
                 val result = exposureNotificationsRepository.isEnabled()
                 if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
-                    exposureNotificationsRepository.start()
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                 }
                 return@runCatching result

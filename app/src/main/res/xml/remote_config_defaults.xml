@@ -190,6 +190,10 @@
         <value>https://storage.googleapis.com/exposure-notification-export-ejjud/</value>
     </entry>
     <entry>
+        <key>selfCheckerPeriodHours</key>
+        <value>4</value>
+    </entry>
+    <entry>
         <key>keyImportPeriodHours</key>
         <value>6</value>
     </entry>

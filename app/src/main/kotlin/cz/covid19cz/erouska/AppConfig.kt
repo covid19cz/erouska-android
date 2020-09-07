@@ -61,6 +61,8 @@ object AppConfig {
         get() = getLocalized("preventionContentJson")
     val encounterWarning
         get() = firebaseRemoteConfig.getString("encounterWarning")
+    val selfCheckerPeriodHours
+        get() = firebaseRemoteConfig.getLong("selfCheckerPeriodHours")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
     val keyImportPeriodHours

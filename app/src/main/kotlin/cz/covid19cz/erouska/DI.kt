@@ -71,7 +71,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(Nearby.getExposureNotificationClient(androidContext()), get(), get(), get(), get()) }
+    single { ExposureNotificationsRepository(androidContext(), Nearby.getExposureNotificationClient(androidContext()), get(), get(), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
 }

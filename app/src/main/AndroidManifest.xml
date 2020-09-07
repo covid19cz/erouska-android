@@ -5,7 +5,6 @@
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
     <uses-feature android:name="android.hardware.bluetooth" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -48,12 +47,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_STATE_UPDATED" />
-                <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_NOT_FOUND" />
             </intent-filter>
-        </receiver>
-
-        <receiver android:name=".exposurenotifications.receiver.LocalNotificationsReceiver">
-
         </receiver>
 
         <meta-data

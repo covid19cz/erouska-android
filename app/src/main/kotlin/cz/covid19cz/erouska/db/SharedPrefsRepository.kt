@@ -3,6 +3,8 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.lifecycle.MutableLiveData
+import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 
 class SharedPrefsRepository(c: Context) {
@@ -44,6 +46,7 @@ class SharedPrefsRepository(c: Context) {
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
+    val lastKeyImportLive = SafeMutableLiveData(getLastKeyImport())
 
     fun lastKeyExportFileName(): String {
         return prefs.getString(LAST_KEY_IMPORT, "") ?: ""
@@ -55,6 +58,7 @@ class SharedPrefsRepository(c: Context) {
 
     fun setLastKeyImport(timestamp: Long) {
         prefs.edit().putLong(LAST_KEY_IMPORT_TIME, timestamp).apply()
+        lastKeyImportLive.postValue(timestamp)
     }
 
     fun getLastKeyImport(): Long {

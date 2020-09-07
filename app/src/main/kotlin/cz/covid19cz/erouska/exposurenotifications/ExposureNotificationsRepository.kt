@@ -1,11 +1,13 @@
 package cz.covid19cz.erouska.exposurenotifications
 
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.util.Base64
+import androidx.work.*
 import com.google.android.gms.nearby.exposurenotification.*
 import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -14,11 +16,13 @@ import cz.covid19cz.erouska.net.model.VerifyCodeRequest
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import java.io.File
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class ExposureNotificationsRepository(
+    private val context: Context,
     private val client: ExposureNotificationClient,
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
@@ -164,11 +168,7 @@ class ExposureNotificationsRepository(
                 hmackey,
                 null,
                 prefs.getRevisionToken(),
-                healthAuthorityID = if (BuildConfig.FLAVOR == "dev") {
-                    "cz.covid19cz.erouska.dev"
-                } else {
-                    "cz.covid19cz.erouska"
-                }
+                healthAuthorityID = "cz.covid19cz.erouska"
             )
             val response = server.reportExposure(request)
             response.errorMessage?.let {
@@ -179,5 +179,22 @@ class ExposureNotificationsRepository(
         } else {
             throw VerifyException(verifyResponse.error ?: "Unknown")
         }
+    }
+
+    fun scheduleSelfChecker() {
+        val constraints = Constraints.Builder().build()
+        val worker = PeriodicWorkRequestBuilder<SelfCheckerWorker>(
+            AppConfig.selfCheckerPeriodHours,
+            TimeUnit.HOURS
+        ).setConstraints(constraints)
+            .addTag(SelfCheckerWorker.TAG)
+            .build()
+
+        WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork(
+                SelfCheckerWorker.TAG,
+                ExistingPeriodicWorkPolicy.REPLACE,
+                worker
+            )
     }
 }

@@ -1,28 +1,20 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.ActivityNotFoundException
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
-import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
+import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
@@ -60,8 +52,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         viewModel.serviceRunning.observe(this, Observer {
             mainViewModel.serviceRunning.value = it
             if (it) {
-                dismissNotRunningNotification()
-                scheduleLocalNotifications()
+                LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
         })
     }
@@ -78,7 +69,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> showNotRunningNotification()
+                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
             }
         }
         subscribe(BluetoothDisabledEvent::class) {
@@ -193,33 +184,12 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun showNotRunningNotification(){
-        val intent = Intent(context, LocalNotificationsReceiver::class.java)
-        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_NOTIFY_NOT_RUNNING)
-        activity?.application?.sendBroadcast(intent)
-    }
-
-    private fun dismissNotRunningNotification(){
-        val intent = Intent(context, LocalNotificationsReceiver::class.java)
-        intent.putExtra(LocalNotificationsReceiver.ARG_ACTION, LocalNotificationsReceiver.ACTION_DISMISS_NOT_RUNNING)
-        activity?.application?.sendBroadcast(intent)
-    }
-
     private fun showExposureNotificationsOff() {
         navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
     }
 
     private fun showWelcomeScreen() {
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
-    }
-
-    private fun scheduleLocalNotifications() {
-        val intent = Intent(context, LocalNotificationsReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 42, intent, 0)
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        alarmManager.cancel(pendingIntent)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 60000, 6 * 60 * 60 * 1000, pendingIntent)
     }
 
     private fun showPlayServicesUpdate() {
