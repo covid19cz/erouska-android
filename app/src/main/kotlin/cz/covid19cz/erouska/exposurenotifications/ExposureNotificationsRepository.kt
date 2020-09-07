@@ -6,10 +6,8 @@ import android.util.Base64
 import androidx.work.*
 import com.google.android.gms.nearby.exposurenotification.*
 import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.exposurenotifications.worker.CheckerWorker
-import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
+import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -183,18 +181,18 @@ class ExposureNotificationsRepository(
         }
     }
 
-    fun scheduleChecker() {
+    fun scheduleSelfChecker() {
         val constraints = Constraints.Builder().build()
-        val worker = PeriodicWorkRequestBuilder<CheckerWorker>(
-            4,
+        val worker = PeriodicWorkRequestBuilder<SelfCheckerWorker>(
+            AppConfig.selfCheckerPeriodHours,
             TimeUnit.HOURS
         ).setConstraints(constraints)
-            .addTag(CheckerWorker.TAG)
+            .addTag(SelfCheckerWorker.TAG)
             .build()
 
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork(
-                CheckerWorker.TAG,
+                SelfCheckerWorker.TAG,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 worker
             )

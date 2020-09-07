@@ -10,13 +10,13 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
 
-class CheckerWorker(
+class SelfCheckerWorker(
     val context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams), KoinComponent {
 
     companion object {
-        const val TAG = "CHECKER"
+        const val TAG = "SELF_CHECKER"
     }
 
     private val prefs: SharedPrefsRepository by inject()

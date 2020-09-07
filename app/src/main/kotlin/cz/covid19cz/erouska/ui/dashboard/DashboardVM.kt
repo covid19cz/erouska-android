@@ -45,7 +45,7 @@ class DashboardVM(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
-        exposureNotificationsRepository.scheduleChecker()
+        exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
 
         viewModelScope.launch {
