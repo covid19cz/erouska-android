@@ -48,12 +48,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_STATE_UPDATED" />
-                <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_NOT_FOUND" />
             </intent-filter>
-        </receiver>
-
-        <receiver android:name=".exposurenotifications.receiver.LocalNotificationsReceiver">
-
         </receiver>
 
         <meta-data

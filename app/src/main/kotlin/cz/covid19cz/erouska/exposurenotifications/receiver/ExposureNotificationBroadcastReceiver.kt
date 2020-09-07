@@ -43,8 +43,6 @@ class ExposureNotificationBroadcastReceiver : BroadcastReceiver(), KoinComponent
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {
             checkExposure(context)
-        } else if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_NOT_FOUND){
-            L.d("Exposure not found")
         }
     }
 
