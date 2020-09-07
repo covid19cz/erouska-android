@@ -7,22 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
-import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
-import cz.covid19cz.erouska.net.model.ExposureRequest
-import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
-import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
-import cz.covid19cz.erouska.net.model.VerifyCodeRequest
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.confirm.ReportExposureException
-import cz.covid19cz.erouska.ui.confirm.VerifyException
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
+import cz.covid19cz.erouska.ui.senddata.ReportExposureException
+import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.io.File
@@ -32,7 +26,6 @@ import java.util.*
 class SandboxVM(
     val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
-    private val cryptoTools: ExposureCryptoTools,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
@@ -129,23 +122,6 @@ class SandboxVM(
                 showSnackbar("Import success")
             }.onFailure {
                 showSnackbar("Import error: ${it.message}")
-                L.e(it)
-            }
-        }
-    }
-
-    fun reportExposure() {
-        viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.reportExposureWithoutVerification()
-            }.onSuccess {
-                showSnackbar("Upload success: ${it} keys")
-            }.onFailure {
-                if (it is ApiException) {
-                    publish(GmsApiErrorEvent(it.status))
-                } else {
-                    showSnackbar("Upload error: ${it.message}")
-                }
                 L.e(it)
             }
         }

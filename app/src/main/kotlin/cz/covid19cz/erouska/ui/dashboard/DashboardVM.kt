@@ -1,12 +1,12 @@
 package cz.covid19cz.erouska.ui.dashboard
 
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -25,15 +25,11 @@ class DashboardVM(
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
-    val serviceRunning = SafeMutableLiveData(false)
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val serviceRunning = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
     val lastUpdate = MutableLiveData<String>()
 
     init {
-
-        if (!prefs.isActivated()) {
-            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
-        }
-
         // TODO Check last download time
         // If lastDownload - now > 48 h -> publish DashboardCommandEvent.Command.DATA_OBSOLETE
 
@@ -42,12 +38,17 @@ class DashboardVM(
 
         // TODO Check if EN API is off
         // If yes -> publish DashboardCommandEvent(DashboardCommandEvent.Command.EN_API_OFF)
-
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!prefs.isActivated()) return
+        if (auth.currentUser == null) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
+            return
+        }
+
+        checkForObsoleteData()
+
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
         val lastImportTimestamp = prefs.getLastKeyImport()
         if (lastImportTimestamp != 0L) {
@@ -64,7 +65,7 @@ class DashboardVM(
                 return@runCatching result
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
-                serviceRunning.value = enabled
+                onExposureNotificationsStateChanged(enabled)
                 if (enabled) {
                     checkForRiskyExposure()
                 }
@@ -82,7 +83,7 @@ class DashboardVM(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                serviceRunning.value = false
+                onExposureNotificationsStateChanged(false)
                 exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
@@ -92,17 +93,17 @@ class DashboardVM(
         }
     }
 
-
     fun start() {
         if (exposureNotificationsRepository.isBluetoothEnabled()) {
             viewModelScope.launch {
                 kotlin.runCatching {
                     exposureNotificationsRepository.start()
                 }.onSuccess {
-                    serviceRunning.value = true
+                    onExposureNotificationsStateChanged(true)
                     exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
+                    onExposureNotificationsStateChanged(false)
                     if (it is ApiException) {
                         publish(GmsApiErrorEvent(it.status))
                     }
@@ -114,8 +115,9 @@ class DashboardVM(
         }
     }
 
-    fun wasAppUpdated(): Boolean {
-        return prefs.isUpdateFromLegacyVersion()
+    private fun onExposureNotificationsStateChanged(enabled : Boolean){
+        serviceRunning.value = enabled
+        prefs.setExposureNotificationsEnabled(enabled)
     }
 
     fun checkForRiskyExposure() {
@@ -132,16 +134,17 @@ class DashboardVM(
         }
     }
 
+    fun checkForObsoleteData(){
+        if (prefs.hasOutdatedKeyData()){
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+        }
+    }
+
     private fun showExposure() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 
-
-    private fun showDataObsolete() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
-    }
-
     fun unregister() {
-        prefs.saveEhrid(null)
+        FirebaseAuth.getInstance().signOut()
     }
 }

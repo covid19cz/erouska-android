@@ -15,25 +15,24 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
-import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.exposurenotifications.receiver.LocalNotificationsReceiver
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.ui.main.MainVM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
@@ -44,6 +43,8 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     companion object {
         const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
+
+    private val mainViewModel: MainVM by sharedViewModel()
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
@@ -57,6 +58,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         subsribeToViewModel()
 
         viewModel.serviceRunning.observe(this, Observer {
+            mainViewModel.serviceRunning.value = it
             if (it) {
                 dismissNotRunningNotification()
                 scheduleLocalNotifications()
@@ -98,42 +100,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun updateState() {
         checkRequirements(onFailed = {
             navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        }, onBatterySaverEnabled = {
-            showBatterySaverDialog()
         })
-    }
-
-    private fun showBatterySaverDialog() {
-        MaterialAlertDialogBuilder(context)
-            .setMessage(R.string.battery_saver_disabled_desc)
-            .setPositiveButton(R.string.disable_battery_saver)
-            { dialog, which ->
-                dialog.dismiss()
-                navigateToBatterySaverSettings {
-                    showSnackBar(R.string.battery_saver_settings_not_found)
-                }
-            }
-            .setNegativeButton(getString(R.string.confirmation_button_close))
-            { dialog, which -> dialog.dismiss() }
-            .show()
-    }
-
-    private fun navigateToBatterySaverSettings(onBatterySaverNotFound: () -> Unit) {
-        val batterySaverIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
-        } else {
-            val intent = Intent()
-            intent.component = ComponentName(
-                "com.android.settings",
-                "com.android.settings.Settings\$BatterySaverSettingsActivity"
-            )
-            intent
-        }
-        try {
-            startActivity(batterySaverIntent)
-        } catch (ex: ActivityNotFoundException) {
-            onBatterySaverNotFound()
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -202,21 +169,14 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onDestroy()
     }
 
-    private fun resumeService() {
-        viewModel.start()
-    }
-
     private fun checkRequirements(
         onPassed: () -> Unit = {},
-        onFailed: () -> Unit = {},
-        onBatterySaverEnabled: () -> Unit = {}
+        onFailed: () -> Unit = {}
     ) {
         with(requireContext()) {
             if (!isBtEnabled()) {
                 onFailed()
                 return
-            } else if (isBatterySaverEnabled()) {
-                onBatterySaverEnabled()
             } else {
                 onPassed()
             }

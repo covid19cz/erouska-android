@@ -11,8 +11,8 @@ import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
 import cz.covid19cz.erouska.net.model.VerifyCodeRequest
-import cz.covid19cz.erouska.ui.confirm.ReportExposureException
-import cz.covid19cz.erouska.ui.confirm.VerifyException
+import cz.covid19cz.erouska.ui.senddata.ReportExposureException
+import cz.covid19cz.erouska.ui.senddata.VerifyException
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -25,11 +25,6 @@ class ExposureNotificationsRepository(
     private val btAdapter: BluetoothAdapter,
     private val prefs: SharedPrefsRepository
 ) {
-
-    private var keys: List<TemporaryExposureKey>? = null
-    private var token: String? = null
-    private var keyHash: String? = null
-    private var hmackey: String? = null
 
     fun isBluetoothEnabled(): Boolean {
         return btAdapter.isEnabled
@@ -125,7 +120,7 @@ class ExposureNotificationsRepository(
             }
     }
 
-    suspend fun reportExposureWithoutVerification() : Int {
+    suspend fun reportExposureWithoutVerification(): Int {
         val keys = getTemporaryExposureKeyHistory()
         val request = ExposureRequest(keys.map {
             TemporaryExposureKeyDto(
@@ -136,59 +131,53 @@ class ExposureNotificationsRepository(
             )
         }, null, null, null, prefs.getRevisionToken())
         val response = server.reportExposure(request)
-        if (response.errorMessage != null){
+        if (response.errorMessage != null) {
             throw ReportExposureException(response.errorMessage)
         }
         prefs.saveRevisionToken(response.revisionToken)
         return response.insertedExposures ?: 0
     }
 
-    suspend fun reportExposureWithVerification(code: String) : Int{
-        if (token == null) {
-            keys = getTemporaryExposureKeyHistory()
-            val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
+    suspend fun reportExposureWithVerification(code: String): Int {
+        val keys = getTemporaryExposureKeyHistory()
+        val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
 
-            if (verifyResponse.token != null) {
-                hmackey = cryptoTools.newHmacKey()
-                keyHash = cryptoTools.hashedKeys(keys!!, hmackey!!)
-                token = verifyResponse.token
-            } else {
-                throw VerifyException(verifyResponse.error ?: "Unknown")
+        if (verifyResponse.token != null) {
+            val hmackey = cryptoTools.newHmacKey()
+            val keyHash = cryptoTools.hashedKeys(keys, hmackey)
+            val token = verifyResponse.token
+
+            val certificateResponse = server.verifyCertificate(
+                VerifyCertificateRequest(token, keyHash)
+            )
+
+            val request = ExposureRequest(
+                keys.map {
+                    TemporaryExposureKeyDto(
+                        Base64.encodeToString(
+                            it.keyData,
+                            Base64.NO_WRAP
+                        ), it.rollingStartIntervalNumber, it.rollingPeriod
+                    )
+                },
+                certificateResponse.certificate,
+                hmackey,
+                null,
+                prefs.getRevisionToken(),
+                healthAuthorityID = if (BuildConfig.FLAVOR == "dev") {
+                    "cz.covid19cz.erouska.dev"
+                } else {
+                    "cz.covid19cz.erouska"
+                }
+            )
+            val response = server.reportExposure(request)
+            response.errorMessage?.let {
+                throw ReportExposureException(it)
             }
+            prefs.saveRevisionToken(response.revisionToken)
+            return response.insertedExposures ?: 0
+        } else {
+            throw VerifyException(verifyResponse.error ?: "Unknown")
         }
-
-        val certificateResponse = server.verifyCertificate(
-            VerifyCertificateRequest(token!!, keyHash!!)
-        )
-
-        val request = ExposureRequest(
-            keys!!.map {
-                TemporaryExposureKeyDto(
-                    Base64.encodeToString(
-                        it.keyData,
-                        Base64.NO_WRAP
-                    ), it.rollingStartIntervalNumber, it.rollingPeriod
-                )
-            },
-            certificateResponse.certificate,
-            hmackey,
-            null,
-            prefs.getRevisionToken(),
-            healthAuthorityID = if (BuildConfig.FLAVOR == "dev") {"cz.covid19cz.erouska.dev"} else {"cz.covid19cz.erouska"}
-        )
-        val response = server.reportExposure(request)
-        response.errorMessage?.let {
-            throw ReportExposureException(it)
-        }
-        prefs.saveRevisionToken(response.revisionToken)
-        clearTempValues()
-        return response.insertedExposures ?: 0
-    }
-
-    private fun clearTempValues(){
-        token = null
-        keys = null
-        keyHash = null
-        hmackey = null
     }
 }

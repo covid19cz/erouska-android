@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.GlobalScope
@@ -25,6 +26,7 @@ import java.util.*
 class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
 
     val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
+    val firebaseFunctionsRepository: FirebaseFunctionsRepository by inject()
     val prefs: SharedPrefsRepository by inject()
 
     override fun onReceive(context: Context, intent: Intent?) {
@@ -71,6 +73,15 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
             }.onSuccess { lastExposure ->
                 val lastNotifiedExposure = prefs.getLastNotifiedExposure()
                 if (lastExposure != null && lastNotifiedExposure != 0 && lastExposure != lastNotifiedExposure) {
+                    GlobalScope.launch {
+                        kotlin.runCatching {
+                            firebaseFunctionsRepository.registerNotification()
+                        }.onSuccess {
+                            L.d("registerNotification OK")
+                        }.onFailure {
+                            L.e(it)
+                        }
+                    }
                     showNotification(
                         R.string.notification_exposure_title,
                         R.string.notification_exposure_text,
@@ -104,7 +115,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
             )
         }
     }
-
 
     fun dismissNotification(id: Int, context: Context) {
         (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(
@@ -161,7 +171,6 @@ class LocalNotificationsReceiver : BroadcastReceiver(), KoinComponent {
         const val ACTION_NOTIFY_NOT_RUNNING = "NOTIFY_NOT_RUNNING"
         const val ACTION_DISMISS_NOT_RUNNING = "DISMISS_NOT_RUNNING"
 
-        @RequiresApi(Build.VERSION_CODES.O)
         fun createNotificationChannels(context: Context) {
             if (Build.VERSION.SDK_INT >= 26) {
                 createNotificationChannel(

@@ -8,6 +8,4 @@
     <dimen name="button_height">56dp</dimen>
     <dimen name="button_radius">24dp</dimen>
 
-    <dimen name="card_radius">8dp</dimen>
-
 </resources>
