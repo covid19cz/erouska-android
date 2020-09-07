@@ -97,11 +97,6 @@
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using "Enable" button.</string>
 
-    <string name="sandbox_tek_days_since_symptoms" translatable="false">Days since onset symptoms: %d</string>
-    <string name="sandbox_tek_report_type" translatable="false">Report type: %s</string>
-    <string name="sandbox_tek_rolling" translatable="false">Rolling start: %s, refresh %s</string>
-    <string name="sandbox_last_download" translatable="false">Last download: %s</string>
-
     <string name="exposures_title">Risky contacts</string>
 
     <string name="exposure_notification_close">Close</string>
@@ -118,8 +113,8 @@
     <string name="legacy_update_phone_body">We are canceling phone number register because they won\'t be necessary to communicate with public health office anymore. eRouška will recommend next steps in case of contact with infected person.</string>
     <string name="legacy_update_privacy_header">We think about your privacy</string>
     <string name="legacy_update_privacy_body"><![CDATA[With these changes, <a href="%1$s">terms of usage</a> were changed too. The main change being no longer having to register phone numbers of any eRouška users and it won\'t be needed for registration.]]></string>
-    <string name="legacy_update_button_continue">Pokračovat</string>
-    <string name="legacy_update_button_close">Zavřít</string>
+    <string name="legacy_update_button_continue">Continue</string>
+    <string name="legacy_update_button_close">Close</string>
 
     <string name="play_services_title">Update Google Play Services</string>
     <string name="play_services_content">Latest version of Google Play Services is needed to activate notifications about meeting someone with confirmed COVID-19 disease.</string>

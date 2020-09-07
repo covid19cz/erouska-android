@@ -125,4 +125,6 @@
     <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
     <string name="activation_notifications_body_1">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na nákazu COVID-19.</string>
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
+    <string name="legacy_update_button_continue">Pokračovat</string>
+    <string name="legacy_update_button_close">Zavřít</string>
 </resources>

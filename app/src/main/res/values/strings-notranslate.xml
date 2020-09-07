@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sandbox_tek_days_since_symptoms" translatable="false">Days since onset symptoms: %d</string>
+    <string name="sandbox_tek_report_type" translatable="false">Report type: %s</string>
+    <string name="sandbox_tek_rolling" translatable="false">Rolling start: %s, refresh %s</string>
+    <string name="sandbox_last_download" translatable="false">Last download: %s</string>
+</resources>
