@@ -14,6 +14,7 @@ class SpreadPreventionFragment : BaseFragment<FragmentSpreadPreventionBinding, S
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enableUpInToolbar(true)
 
         activity?.title = AppConfig.spreadPreventionUITitle
     }

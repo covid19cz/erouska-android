@@ -21,6 +21,7 @@ class RecentExposuresFragment : BaseFragment<FragmentRecentExposuresBinding, Rec
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enableUpInToolbar(true)
 
         activity?.title = AppConfig.recentExposuresUITitle
 
