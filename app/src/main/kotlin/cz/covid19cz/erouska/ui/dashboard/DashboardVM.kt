@@ -32,9 +32,8 @@ class DashboardVM(
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
         prefs.lastKeyImportLive.observeForever {
-            val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
             if (it != 0L) {
-                lastUpdate.value = formatter.format(Date(prefs.getLastKeyImport()))
+                lastUpdate.value = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault()).format(Date(prefs.getLastKeyImport()))
             }
         }
     }
