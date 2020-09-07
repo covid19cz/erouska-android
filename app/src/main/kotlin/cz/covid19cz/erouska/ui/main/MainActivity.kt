@@ -28,10 +28,7 @@ import org.koin.android.ext.android.inject
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
-    private val localBroadcastManager by inject<LocalBroadcastManager>()
     private val customTabHelper by inject<CustomTabHelper>()
-
-    private val shortcutsManager = ShortcutsManager(this)
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
