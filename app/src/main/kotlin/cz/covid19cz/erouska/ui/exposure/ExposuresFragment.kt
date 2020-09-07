@@ -31,7 +31,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         symptoms_content.text = AppConfig.riskyEncountersWithSymptoms
         no_symptoms_content.text = AppConfig.riskyEncountersWithoutSymptoms
 
-        viewModel.zcheckExposures(args.demo)
+        viewModel.checkExposures(args.demo)
 
         subscribe(ExposuresCommandEvent::class) {
             when (it.command) {
