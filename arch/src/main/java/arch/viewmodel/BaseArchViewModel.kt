@@ -11,6 +11,7 @@ import androidx.navigation.NavOptions
 import arch.event.LiveEvent
 import arch.event.LiveEventMap
 import arch.event.NavigationEvent
+import arch.event.NavigationGraphEvent
 import kotlin.reflect.KClass
 
 /**
@@ -39,5 +40,9 @@ abstract class BaseArchViewModel : ViewModel(), LifecycleObserver {
 
     protected fun navigate(directions: NavDirections, navOptions: NavOptions? = null) {
         publish(NavigationEvent(directions, navOptions))
+    }
+
+    protected fun setNavigationGraph(navigationGraph: Int, navStartDestinationId: Int) {
+        publish(NavigationGraphEvent(navigationGraph, navStartDestinationId))
     }
 }
