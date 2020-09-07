@@ -66,7 +66,7 @@ object LocalNotificationsHelper {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-            val builder = if (Build.VERSION.SDK_INT >= 26) {
+            val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationCompat.Builder(context, channelId)
             } else {
                 NotificationCompat.Builder(context)
@@ -98,7 +98,7 @@ object LocalNotificationsHelper {
     }
 
     fun createNotificationChannels(context: Context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
                 CHANNEL_ID_EXPOSURE,
                 context.getString(R.string.notification_channel_exposure),
