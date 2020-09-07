@@ -16,7 +16,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import arch.event.LiveEvent
 import arch.event.NavigationEvent
+import arch.event.NavigationGraphEvent
 import arch.extensions.navigate
+import arch.extensions.setNavigationGraph
 import arch.viewmodel.BaseArchViewModel
 import cz.stepansonsky.mvvm.BR
 import org.koin.androidx.viewmodel.ext.android.viewModel

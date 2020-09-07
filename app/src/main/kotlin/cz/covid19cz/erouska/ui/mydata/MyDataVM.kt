@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
+import arch.utils.safeLet
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -12,7 +13,6 @@ import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.mydata.event.MyDataCommandEvent
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.safeLet
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
