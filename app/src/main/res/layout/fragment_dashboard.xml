@@ -10,10 +10,6 @@
             type="cz.covid19cz.erouska.ui.dashboard.DashboardVM" />
     </data>
 
-    <!--    <ScrollView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content">-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -237,15 +233,14 @@
                         tools:layout_editor_absoluteY="16dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <!--        </ScrollView>-->
 
                 <RelativeLayout
-                    android:layout_below="@+id/body"
                     android:id="@+id/buttons_container"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/body"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonStop"
@@ -275,7 +270,6 @@
             </RelativeLayout>
         </ScrollView>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    </ScrollView>-->
+
 </layout>
