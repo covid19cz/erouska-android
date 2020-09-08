@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.exposurenotifications
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
+import android.location.LocationManager
 import android.util.Base64
 import androidx.work.*
 import com.google.android.gms.nearby.exposurenotification.*
@@ -32,6 +33,15 @@ class ExposureNotificationsRepository(
 
     fun isBluetoothEnabled(): Boolean {
         return btAdapter.isEnabled
+    }
+
+    fun isLocationEnabled(): Boolean {
+        val manager = context.getSystemService(LocationManager::class.java) ?: return false
+        val providers = manager.allProviders
+        providers.forEach {
+            if (manager.isProviderEnabled(it)) return true
+        }
+        return false
     }
 
     suspend fun start() = suspendCoroutine<Void> { cont ->

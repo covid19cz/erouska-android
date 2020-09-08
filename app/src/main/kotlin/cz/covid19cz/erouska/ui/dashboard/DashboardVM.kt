@@ -14,6 +14,7 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.dashboard.event.LocationDisabledEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -86,25 +87,51 @@ class DashboardVM(
     }
 
     fun start() {
-        if (exposureNotificationsRepository.isBluetoothEnabled()) {
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    exposureNotificationsRepository.start()
-                }.onSuccess {
-                    onExposureNotificationsStateChanged(true)
-                    exposureNotificationsServerRepository.scheduleKeyDownload()
-                    L.d("Exposure Notifications started")
-                }.onFailure {
-                    onExposureNotificationsStateChanged(false)
-                    if (it is ApiException) {
-                        publish(GmsApiErrorEvent(it.status))
+        val btDisabled =!exposureNotificationsRepository.isBluetoothEnabled()
+        val locationDisabled = !exposureNotificationsRepository.isLocationEnabled()
+//        val bothDisabled = btDisabled && locationDisabled
+        when {
+            btDisabled -> publish(BluetoothDisabledEvent())
+//            locationDisabled -> publish(LocationDisabledEvent())
+            else -> {
+                viewModelScope.launch {
+                    kotlin.runCatching {
+                        exposureNotificationsRepository.start()
+                    }.onSuccess {
+                        onExposureNotificationsStateChanged(true)
+                        exposureNotificationsServerRepository.scheduleKeyDownload()
+                        L.d("Exposure Notifications started")
+                    }.onFailure {
+                        onExposureNotificationsStateChanged(false)
+                        if (it is ApiException) {
+                            publish(GmsApiErrorEvent(it.status))
+                        }
+                        L.e(it)
                     }
-                    L.e(it)
                 }
             }
-        } else {
-            publish(BluetoothDisabledEvent())
         }
+
+
+//        if (exposureNotificationsRepository.isBluetoothEnabled()) {
+//            viewModelScope.launch {
+//                kotlin.runCatching {
+//                    exposureNotificationsRepository.start()
+//                }.onSuccess {
+//                    onExposureNotificationsStateChanged(true)
+//                    exposureNotificationsServerRepository.scheduleKeyDownload()
+//                    L.d("Exposure Notifications started")
+//                }.onFailure {
+//                    onExposureNotificationsStateChanged(false)
+//                    if (it is ApiException) {
+//                        publish(GmsApiErrorEvent(it.status))
+//                    }
+//                    L.e(it)
+//                }
+//            }
+//        } else {
+//            publish(BluetoothDisabledEvent())
+//        }
     }
 
     private fun onExposureNotificationsStateChanged(enabled : Boolean){

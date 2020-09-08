@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
+import android.app.Service
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -20,6 +21,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.dashboard.event.LocationDisabledEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -69,12 +71,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
+                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
+                    context
+                )
             }
         }
-        subscribe(BluetoothDisabledEvent::class) {
-            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        }
+        subscribe(BluetoothDisabledEvent::class) { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) }
+        subscribe(LocationDisabledEvent::class) { navigate(R.id.action_nav_dashboard_to_nav_location_disabled) }
         subscribe(GmsApiErrorEvent::class) {
             startIntentSenderForResult(
                 it.status.resolution?.intentSender,
@@ -99,7 +102,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
+        exposure_notification_more_info.setOnClickListener {
+            navigate(
+                DashboardFragmentDirections.actionNavDashboardToNavExposures(
+                    demo = demoMode
+                )
+            )
+        }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         enableUpInToolbar(false)

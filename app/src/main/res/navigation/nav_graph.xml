@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    >
+    android:id="@+id/nav_graph">
 
     <fragment
         android:id="@+id/nav_legacy_update_fragment"
@@ -14,6 +13,19 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_location_off_fragment"
+        android:name="cz.covid19cz.erouska.ui.permissions.location.LocationOffFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_location_off">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
     </fragment>
 
     <fragment
@@ -216,6 +228,13 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposures"
             app:destination="@id/nav_exposures"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_location_disabled"
+            app:destination="@id/nav_location_off_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

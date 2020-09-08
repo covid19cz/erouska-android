@@ -127,4 +127,8 @@
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
+
+    <string name="location_off_header">Zapněte Polohové služby</string>
+    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka "Zapnout Polohové služby".</string>
+    <string name="location_off_turn_on">Zapnout polohové služby</string>
 </resources>
