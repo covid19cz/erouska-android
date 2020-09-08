@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataInitState
 import cz.covid19cz.erouska.ui.senddata.event.SendDataState
 import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
-import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
@@ -55,22 +54,16 @@ class SendDataVM(val exposureNotificationRepo : ExposureNotificationsRepository)
 
         viewModelScope.launch {
             runCatching {
-                return@runCatching if (BuildConfig.FLAVOR == "dev" && code.value == "00000000"){
-                    exposureNotificationRepo.reportExposureWithoutVerification()
-                } else {
-                    exposureNotificationRepo.reportExposureWithVerification(code.value)
-                }
+                exposureNotificationRepo.reportExposureWithVerification(code.value)
             }.onSuccess {
                 state.value = SendDataSuccessState
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
                 when(it){
                     is ApiException -> publish(GmsApiErrorEvent(it.status))
-                    // TODO Temporary hack
-                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
-                    /*is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
+                    is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
-                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))*/
+                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                 }
                 L.e(it)
             }

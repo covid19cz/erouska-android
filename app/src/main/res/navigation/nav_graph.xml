@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_dashboard">
+    >
 
     <fragment
         android:id="@+id/nav_legacy_update_fragment"
@@ -197,13 +197,6 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_nav_dashboard_to_deleteDataFragment"
-            app:destination="@id/nav_delete_data"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -376,23 +369,6 @@
             android:defaultValue="true"
             app:argType="boolean" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/nav_battery_optimization"
-        android:name="cz.covid19cz.erouska.ui.help.BatteryOptimizationFragment"
-        android:label="@string/battery_opt_label">
-        <action
-            android:id="@+id/action_batteryOptimizationFragment_to_nav_dashboard"
-            app:destination="@id/nav_dashboard"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="true"
-            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/nav_sandbox_config"

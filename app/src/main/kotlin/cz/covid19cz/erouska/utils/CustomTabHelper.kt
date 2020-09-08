@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
 import androidx.browser.customtabs.CustomTabsService
-import cz.covid19cz.erouska.AppConfig
 
 class CustomTabHelper(
     private val context: Context

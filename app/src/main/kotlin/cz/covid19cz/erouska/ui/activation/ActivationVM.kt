@@ -26,7 +26,7 @@ class ActivationVM(
 
     init {
         auth.setLanguageCode(LocaleUtils.getSupportedLanguage())
-        if (sharedPrefsRepository.isActivated()) {
+        if (auth.currentUser != null) {
             mutableState.postValue(ActivationFinished)
         }
     }
@@ -35,7 +35,7 @@ class ActivationVM(
         viewModelScope.launch(Dispatchers.IO) {
             mutableState.postValue(ActivationStart)
             try {
-                firebaseFunctionsRepository.registerEhrid()
+                firebaseFunctionsRepository.register()
                 mutableState.postValue(ActivationFinished)
             } catch (e: Exception) {
                 if(e is ApiException) {

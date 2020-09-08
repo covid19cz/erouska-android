@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -68,21 +67,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{@string/sandbox_last_download(vm.lastDownload)}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-                    <TextView
-                        android:id="@+id/sandbox_download_history_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="DOWNLOAD HISTORY"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/sandbox_download_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{ vm.downloadHistory }"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
                     <TextView
@@ -166,12 +150,6 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:lifecycle="@{lifecycle}"
                         app:viewModel="@{vm}" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{() -> vm.reportExposure()}"
-                        android:text="Upload keys (no verification)" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"

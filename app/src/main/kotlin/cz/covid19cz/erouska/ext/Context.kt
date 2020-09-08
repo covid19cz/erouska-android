@@ -26,9 +26,6 @@ fun Context.isBtEnabled(): Boolean {
     return btManager.adapter.isEnabled
 }
 
-fun Context.isBatterySaverEnabled() =
-    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getSystemService<PowerManager>()?.isPowerSaveMode ?: false
-
 fun Context.openPermissionsScreen() {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

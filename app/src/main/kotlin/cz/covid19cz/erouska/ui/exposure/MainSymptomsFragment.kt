@@ -14,6 +14,7 @@ class MainSymptomsFragment : BaseFragment<FragmentMainSymptomsBinding, MainSympt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enableUpInToolbar(true)
 
         activity?.title = AppConfig.symptomsUITitle
     }

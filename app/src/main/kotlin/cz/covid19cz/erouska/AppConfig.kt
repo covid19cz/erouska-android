@@ -61,6 +61,8 @@ object AppConfig {
         get() = getLocalized("preventionContentJson")
     val encounterWarning
         get() = firebaseRemoteConfig.getString("encounterWarning")
+    val selfCheckerPeriodHours
+        get() = firebaseRemoteConfig.getLong("selfCheckerPeriodHours")
     val keyExportUrl
         get() = firebaseRemoteConfig.getString("keyExportUrl")
     val keyImportPeriodHours
@@ -79,8 +81,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("minGmsVersionCode")
     val conditionsOfUseUrl
         get() = firebaseRemoteConfig.getString("conditionsOfUseUrl")
-    val covidDataServerUrl
-        get() = firebaseRemoteConfig.getString("covidDataServerUrl")
+    val verificationServerApiKey
+        get() = firebaseRemoteConfig.getString("verificationServerApiKey")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
