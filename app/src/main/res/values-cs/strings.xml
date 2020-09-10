@@ -18,7 +18,7 @@
 
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
     <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
-    <string name="privacy_body_text_2"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách zpracování</a>.]]></string>
+    <string name="privacy_body_text_2"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách používání</a>.]]></string>
     <string name="privacy_finish">Dokončit aktivaci</string>
     <string name="privacy_toolbar_title">Soukromí</string>
 
