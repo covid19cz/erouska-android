@@ -1,26 +1,31 @@
-package cz.covid19cz.erouska.ui.permissions
+package cz.covid19cz.erouska.ui.permissions.bluetooth
 
 import android.app.Application
 import android.bluetooth.BluetoothManager
+import android.location.LocationManager
 import androidx.annotation.StringRes
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.isBluetoothEnabled
+import cz.covid19cz.erouska.ext.isLocationProvided
+import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
+import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
 
 class PermissionDisabledVM(
     private val bluetoothManager: BluetoothManager,
-    private val app: Application
+    private val locationManager: LocationManager,
+    app: Application
 ) : BasePermissionsVM(bluetoothManager, app) {
 
     val state = SafeMutableLiveData(ScreenState.BT_DISABLED)
 
     fun initViewModel() {
-        // TODO Create exposureNotificationManager to detect if exposureNotifications are enabled
-        // If not -> set state.value = ScreenState.EN_API_DISABLED
-
         val bluetoothDisabled = !bluetoothManager.isBluetoothEnabled()
+        val locationDisabled = !locationManager.isLocationProvided()
 
         state.value = when {
+            bluetoothDisabled && locationDisabled -> ScreenState.LOCATION_BT_DISABLED
+            locationDisabled -> ScreenState.LOCATION_DISABLED
             bluetoothDisabled -> ScreenState.BT_DISABLED
             else -> ScreenState.ALL_ENABLED
         }
@@ -34,17 +39,15 @@ class PermissionDisabledVM(
         navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
     }
 
-    @StringRes
-    fun getButtonTitle(): Int {
-        return when (state.value) {
-            ScreenState.BT_DISABLED -> R.string.enable_bluetooth_button
-            ScreenState.ALL_ENABLED -> R.string.enable_bluetooth_button
-            ScreenState.EN_API_DISABLED -> R.string.enable
-        }
+    fun enableLocation() {
+        publish(PermissionsEvent(PermissionsEvent.Command.ENABLE_LOCATION))
     }
 
+    fun enableLocationBT() {
+        publish(PermissionsEvent(PermissionsEvent.Command.ENABLE_BT_LOCATION))
+    }
 
     enum class ScreenState {
-        BT_DISABLED, ALL_ENABLED, EN_API_DISABLED
+        BT_DISABLED, ALL_ENABLED, EN_API_DISABLED, LOCATION_DISABLED, LOCATION_BT_DISABLED
     }
 }

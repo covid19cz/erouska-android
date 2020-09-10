@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -24,6 +25,15 @@ import cz.covid19cz.erouska.utils.L
 fun Context.isBtEnabled(): Boolean {
     val btManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager;
     return btManager.adapter.isEnabled
+}
+
+fun Context?.isLocationProvided(): Boolean {
+    val locationManager = this?.getSystemService(LocationManager::class.java) ?: return false
+    val providers = locationManager.allProviders ?: emptyList()
+    providers.forEach {
+        if (locationManager.isProviderEnabled(it)) return true
+    }
+    return false
 }
 
 fun Context.openPermissionsScreen() {

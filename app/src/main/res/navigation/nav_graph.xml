@@ -16,19 +16,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_location_off_fragment"
-        android:name="cz.covid19cz.erouska.ui.permissions.location.LocationOffFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_location_off">
-
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="false"
-            app:argType="boolean" />
-
-    </fragment>
-
-    <fragment
         android:id="@+id/nav_activation_notifications_fragment"
         android:name="cz.covid19cz.erouska.ui.activation.ActivationNotificationsFragment"
         android:label="@string/activation_notifications_title"
@@ -168,7 +155,7 @@
 
     <fragment
         android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.erouska.ui.permissions.PermissionsDisabledFragment"
+        android:name="cz.covid19cz.erouska.ui.permissions.bluetooth.PermissionsDisabledFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_permissionss_disabled">
         <action
@@ -228,13 +215,6 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposures"
             app:destination="@id/nav_exposures"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_location_disabled"
-            app:destination="@id/nav_location_off_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

@@ -1,15 +1,24 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.app.Service
 import android.content.Intent
+import android.content.IntentFilter
+import android.location.LocationManager
+import android.location.LocationProvider
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.navigation.fragment.findNavController
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
@@ -18,10 +27,7 @@ import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
-import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
-import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.dashboard.event.LocationDisabledEvent
+import cz.covid19cz.erouska.ui.dashboard.event.*
 import cz.covid19cz.erouska.ui.main.MainVM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -42,8 +48,37 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
-    private val localBroadcastManager by inject<LocalBroadcastManager>()
     var demoMode = false
+
+    private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context?.let {
+                val btDisabled = !it.isBtEnabled()
+                val locationDisabled = !it.isLocationProvided()
+
+                if (btDisabled || locationDisabled) {
+                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    it.unregisterReceiver(this)
+                    it.unregisterReceiver(locationReceiver)
+                }
+            }
+        }
+    }
+
+    private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context?.let {
+                val btDisabled = !it.isBtEnabled()
+                val locationDisabled = !it.isLocationProvided()
+
+                if (btDisabled || locationDisabled) {
+                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                    it.unregisterReceiver(btReceiver)
+                    it.unregisterReceiver(this)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +94,21 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        updateState()
+    override fun onStart() {
+        super.onStart()
+
+        context?.let {
+            val btDisabled = !it.isBtEnabled()
+            val locationDisabled = !it.isLocationProvided()
+
+            if (btDisabled || locationDisabled) {
+                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+                return
+            }
+        }
+
+        context?.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(locationReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
     }
 
     private fun subsribeToViewModel() {
@@ -71,13 +118,9 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
-                    context
-                )
+                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
             }
         }
-        subscribe(BluetoothDisabledEvent::class) { navigate(R.id.action_nav_dashboard_to_nav_bt_disabled) }
-        subscribe(LocationDisabledEvent::class) { navigate(R.id.action_nav_dashboard_to_nav_location_disabled) }
         subscribe(GmsApiErrorEvent::class) {
             startIntentSenderForResult(
                 it.status.resolution?.intentSender,
@@ -89,12 +132,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 null
             )
         }
-    }
-
-    private fun updateState() {
-        checkRequirements(onFailed = {
-            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -167,20 +204,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     override fun onDestroy() {
         compositeDisposable.dispose()
         super.onDestroy()
-    }
-
-    private fun checkRequirements(
-        onPassed: () -> Unit = {},
-        onFailed: () -> Unit = {}
-    ) {
-        with(requireContext()) {
-            if (!isBtEnabled()) {
-                onFailed()
-                return
-            } else {
-                onPassed()
-            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

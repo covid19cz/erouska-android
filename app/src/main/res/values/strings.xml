@@ -131,4 +131,9 @@
     <string name="location_off_header">Zapněte Polohové služby</string>
     <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka "Zapnout Polohové služby".</string>
     <string name="location_off_turn_on">Zapnout polohové služby</string>
+
+    <string name="location_bt_off_header">Zapněte Bluetooth a Polohové služby</string>
+    <string name="location_bt_off_body_1">Bez zapnutého Bluetooth a Polohových služeb nemůže eRouška vytvářet seznam ostatních eRoušek ve vašem okolí.</string>
+    <string name="location_bt_off_body_2">I když polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby".</string>
+    <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 </resources>
