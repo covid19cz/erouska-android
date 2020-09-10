@@ -6,6 +6,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -34,6 +35,12 @@ class DashboardVM(
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
                 lastUpdate.value = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault()).format(Date(prefs.getLastKeyImport()))
+            }
+            checkForObsoleteData()
+        }
+        serviceRunning.observeForever {
+            if (it) {
+                exposureNotificationsServerRepository.scheduleKeyDownload()
             }
         }
     }
@@ -92,7 +99,6 @@ class DashboardVM(
                     exposureNotificationsRepository.start()
                 }.onSuccess {
                     onExposureNotificationsStateChanged(true)
-                    exposureNotificationsServerRepository.scheduleKeyDownload()
                     L.d("Exposure Notifications started")
                 }.onFailure {
                     onExposureNotificationsStateChanged(false)
@@ -118,7 +124,7 @@ class DashboardVM(
                 exposureNotificationsRepository.getLastRiskyExposure()
             }.onSuccess {
                 it?.let {
-                    showExposure()
+                    showExposure(it)
                 }
             }.onFailure {
                 L.e(it)
@@ -129,11 +135,27 @@ class DashboardVM(
     fun checkForObsoleteData(){
         if (prefs.hasOutdatedKeyData()){
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
+        } else {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_UP_TO_DATE))
         }
     }
 
-    private fun showExposure() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+    private fun showExposure(dailySummary: DailySummary) {
+        if (prefs.getLastInAppNotifiedExposure() != dailySummary.daysSinceEpoch) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+        }
+    }
+
+    fun acceptLastExposure(){
+        viewModelScope.launch {
+            runCatching {
+                exposureNotificationsRepository.getLastRiskyExposure()
+            }.onSuccess {
+                prefs.setLastInAppNotifiedExposure(it?.daysSinceEpoch ?: 0)
+            }.onFailure {
+                L.e(it)
+            }
+        }
     }
 
     fun unregister() {
