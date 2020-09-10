@@ -70,7 +70,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                     data_notification_container.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
-                DashboardCommandEvent.Command.RECENT_EXPOSURE -> showExposureHeader()
+                DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
                 DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
@@ -90,10 +90,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 null
             )
         }
-    }
-
-    private fun showExposureHeader(){
-        exposure_notification_container.show()
     }
 
     private fun updateState() {
