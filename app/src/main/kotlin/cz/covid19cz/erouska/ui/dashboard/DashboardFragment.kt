@@ -65,6 +65,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private fun subsribeToViewModel() {
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
+                DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
+                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
+                    data_notification_container.hide()
+                }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
@@ -98,7 +102,10 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onViewCreated(view, savedInstanceState)
 
         exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_close.setOnClickListener { exposure_notification_container.hide() }
+        exposure_notification_close.setOnClickListener {
+            viewModel.acceptLastExposure()
+            exposure_notification_container.hide()
+        }
         exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 

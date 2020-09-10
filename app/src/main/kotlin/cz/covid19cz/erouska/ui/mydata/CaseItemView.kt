@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.ext.show
 import kotlinx.android.synthetic.main.view_data_item.view.*
 
 
@@ -32,6 +33,7 @@ class CaseItemView : ConstraintLayout {
         set(value) {
             field = value
             subtitle_text.text = value
+            subtitle_text.show()
         }
 
     var case_icon: Drawable? = null
