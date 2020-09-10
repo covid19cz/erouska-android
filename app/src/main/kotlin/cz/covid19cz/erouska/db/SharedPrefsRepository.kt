@@ -14,6 +14,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
+        const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
@@ -71,6 +72,14 @@ class SharedPrefsRepository(c: Context) {
 
     fun getLastNotifiedExposure(): Int {
         return prefs.getInt(LAST_NOTIFIED_EXPOSURE, 0)
+    }
+
+    fun setLastInAppNotifiedExposure(daysSinceEpoch: Int) {
+        prefs.edit().putInt(LAST_IN_APP_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
+    }
+
+    fun getLastInAppNotifiedExposure(): Int {
+        return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
     }
 
     fun hasOutdatedKeyData(): Boolean {
