@@ -8,10 +8,7 @@ import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
-import cz.covid19cz.erouska.ui.senddata.event.SendDataInitState
-import cz.covid19cz.erouska.ui.senddata.event.SendDataState
-import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
+import cz.covid19cz.erouska.ui.senddata.event.*
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
@@ -54,6 +51,9 @@ class SendDataVM(val exposureNotificationRepo : ExposureNotificationsRepository)
 
         viewModelScope.launch {
             runCatching {
+                if (!exposureNotificationRepo.isEnabled()){
+                    exposureNotificationRepo.start()
+                }
                 exposureNotificationRepo.reportExposureWithVerification(code.value)
             }.onSuccess {
                 state.value = SendDataSuccessState

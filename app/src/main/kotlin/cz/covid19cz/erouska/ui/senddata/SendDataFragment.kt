@@ -54,8 +54,11 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SandboxFragment.REQUEST_GMS_ERROR_RESOLUTION && resultCode == Activity.RESULT_OK) {
-            viewModel.verifyAndConfirm()
+        if (requestCode == SandboxFragment.REQUEST_GMS_ERROR_RESOLUTION) {
+            when(resultCode){
+                Activity.RESULT_OK -> viewModel.verifyAndConfirm()
+                Activity.RESULT_CANCELED -> viewModel.reset()
+            }
         }
     }
 
@@ -92,7 +95,6 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         enableUpInToolbar(true, IconType.UP)
 
         code_input_layout.error = null
-        code_input.text = null
 
         send_data_body.show()
         code_input_layout.show()
