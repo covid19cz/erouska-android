@@ -30,6 +30,8 @@ fun scrollTo(id: Int): ViewInteraction = onView(withId(id)).perform(ViewActions.
 
 fun clickUiAutomator(buttonText: String) = device.findObject(UiSelector().clickable(true).textStartsWith(buttonText)).click() // startsWith because it is case insensitive
 
+fun clickUiAutomatorByResourceId(resourceId: String) = device.findObject(UiSelector().resourceId(resourceId)).click()
+
 fun checkMatchesString(id: Int, @StringRes stringId: String): ViewInteraction = onView(withId(id)).check(
     ViewAssertions.matches(withText(stringId))
 )
