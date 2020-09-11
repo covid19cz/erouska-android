@@ -24,37 +24,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/about_tos_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="?selectableItemBackground"
+            android:layout_marginTop="16dp"
             android:onClick="@{ () -> vm.tosLinkClicked() }"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:text="@string/about_tos_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/about_content">
-
-            <ImageView
-                android:id="@+id/tos_link_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_about" />
-
-            <TextView
-                android:id="@+id/tos_link_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:alpha="0.8"
-                android:text="@string/about_tos_link"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@color/textColorPrimary" />
-
-        </LinearLayout>
-
+            app:layout_constraintTop_toBottomOf="@id/about_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

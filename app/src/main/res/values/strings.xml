@@ -32,6 +32,7 @@
     <string name="menu_help">Help</string>
     <string name="my_data_title">News</string>
     <string name="about_content">Starting with version 2.0, the eRouška application is developed by the Ministry of Health in collaboration with the National agency for communication and information technologies (NAKIT). Earlier versions of eRouška application were developed by a team of volunteers from the COVID19CZ community. Most of original eRouška developers continue to work on newer versions in the NAKIT team.</string>
+    <string name="about_tos_content"><![CDATA[More information about usafe of personal information and other terms of application usage can be found at <a href="%1$s">terms of use</a>.]]></string>
     <string name="about_tos_link">Terms of use</string>
     <string name="about_title">About app</string>
     <string name="permission_rationale_title">The permission to access location needs to be granted to make the application work properly.</string>
