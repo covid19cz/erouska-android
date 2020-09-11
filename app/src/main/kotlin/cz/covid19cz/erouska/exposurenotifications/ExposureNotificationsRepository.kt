@@ -2,13 +2,16 @@ package cz.covid19cz.erouska.exposurenotifications
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
-import android.location.LocationManager
 import android.util.Base64
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.android.gms.nearby.exposurenotification.*
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
+import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
@@ -36,12 +39,7 @@ class ExposureNotificationsRepository(
     }
 
     fun isLocationEnabled(): Boolean {
-        val manager = context.getSystemService(LocationManager::class.java) ?: return false
-        val providers = manager.allProviders
-        providers.forEach {
-            if (manager.isProviderEnabled(it)) return true
-        }
-        return false
+        return context.isLocationEnabled()
     }
 
     suspend fun start() = suspendCoroutine<Void> { cont ->

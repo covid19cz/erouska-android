@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.core.location.LocationManagerCompat
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -27,13 +28,9 @@ fun Context.isBtEnabled(): Boolean {
     return btManager.adapter.isEnabled
 }
 
-fun Context?.isLocationProvided(): Boolean {
+fun Context?.isLocationEnabled(): Boolean {
     val locationManager = this?.getSystemService(LocationManager::class.java) ?: return false
-    val providers = locationManager.allProviders ?: emptyList()
-    providers.forEach {
-        if (locationManager.isProviderEnabled(it)) return true
-    }
-    return false
+    return LocationManagerCompat.isLocationEnabled(locationManager)
 }
 
 fun Context.openPermissionsScreen() {

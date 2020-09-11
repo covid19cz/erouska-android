@@ -190,7 +190,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_bt_disabled"
+            android:id="@+id/action_nav_dashboard_to_nav_permission_disabled"
             app:destination="@id/nav_permisions_disabled"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"

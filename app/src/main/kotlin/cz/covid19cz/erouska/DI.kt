@@ -51,7 +51,7 @@ val viewModelModule = module {
     viewModel { WelcomeVM(get(), get(), get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
-    viewModel { DashboardVM(get(), get(), get()) }
+    viewModel { DashboardVM(get(), get(), get(), get()) }
     viewModel { PermissionsOnboardingVM(get(), get()) }
     viewModel { PermissionDisabledVM(get(), get(), get()) }
     viewModel { ContactsVM() }

@@ -1,37 +1,28 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.app.Service
 import android.content.Intent
-import android.content.IntentFilter
-import android.location.LocationManager
-import android.location.LocationProvider
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.navigation.fragment.findNavController
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
-import cz.covid19cz.erouska.ext.*
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.shareApp
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.event.*
+import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -50,36 +41,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private lateinit var rxPermissions: RxPermissions
     var demoMode = false
 
-    private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            context?.let {
-                val btDisabled = !it.isBtEnabled()
-                val locationDisabled = !it.isLocationProvided()
-
-                if (btDisabled || locationDisabled) {
-                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-                    it.unregisterReceiver(this)
-                    it.unregisterReceiver(locationReceiver)
-                }
-            }
-        }
-    }
-
-    private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            context?.let {
-                val btDisabled = !it.isBtEnabled()
-                val locationDisabled = !it.isLocationProvided()
-
-                if (btDisabled || locationDisabled) {
-                    navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-                    it.unregisterReceiver(btReceiver)
-                    it.unregisterReceiver(this)
-                }
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.setTitle(R.string.app_name)
@@ -92,23 +53,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        context?.let {
-            val btDisabled = !it.isBtEnabled()
-            val locationDisabled = !it.isLocationProvided()
-
-            if (btDisabled || locationDisabled) {
-                navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-                return
-            }
-        }
-
-        context?.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        context?.registerReceiver(locationReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
     }
 
     private fun subsribeToViewModel() {
@@ -221,7 +165,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun showExposureNotificationsOff() {
-        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+        navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
     }
 
     private fun showWelcomeScreen() {
