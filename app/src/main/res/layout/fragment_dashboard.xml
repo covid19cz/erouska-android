@@ -112,12 +112,12 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notifications_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -200,8 +200,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"
-                    app:visibleOrGone="@{vm.serviceRunning}"
-                    />
+                    app:visibleOrGone="@{vm.serviceRunning}" />
 
                 <TextView
                     android:id="@+id/app_running_body_no_contact"
@@ -229,33 +228,35 @@
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="16dp" />
 
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonStop"
+                    style="?materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{() -> vm.stop()}"
+                    android:text="@string/pause_app"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:visibleOrInvisible="@{vm.serviceRunning}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{() -> vm.start()}"
+                    android:text="@string/start_app"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:visibleOrInvisible="@{!vm.serviceRunning}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </ScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonStop"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.stop()}"
-            android:text="@string/pause_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{vm.serviceRunning}" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.start()}"
-            android:text="@string/start_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{!vm.serviceRunning}" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
