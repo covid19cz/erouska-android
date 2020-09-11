@@ -32,6 +32,7 @@
     <string name="menu_help">Help</string>
     <string name="my_data_title">News</string>
     <string name="about_content">Starting with version 2.0, the eRouška application is developed by the Ministry of Health in collaboration with the National agency for communication and information technologies (NAKIT). Earlier versions of eRouška application were developed by a team of volunteers from the COVID19CZ community. Most of original eRouška developers continue to work on newer versions in the NAKIT team.</string>
+    <string name="about_tos_content"><![CDATA[More information about usafe of personal information and other terms of application usage can be found at <a href="%1$s">terms of use</a>.]]></string>
     <string name="about_tos_link">Terms of use</string>
     <string name="about_title">About app</string>
     <string name="permission_rationale_title">The permission to access location needs to be granted to make the application work properly.</string>
@@ -111,4 +112,13 @@
     <string name="activation_notifications_body_2">The app can only work correctly if it collects and shares random identification numbers which change automatically. We cannot identify an eRouška user based on these identification numbers.</string>
     <string name="legacy_update_button_continue">Continue</string>
     <string name="legacy_update_button_close">Close</string>
+
+    <string name="location_off_header">Turn on Location services</string>
+    <string name="location_off_body">Even when we don\'t use location data, turn them on for correct Bluetooth function using "Enable Location services" button.</string>
+    <string name="location_off_turn_on">Enable Location services</string>
+
+    <string name="location_bt_off_header">Turn on Bluetooth and Location services</string>
+    <string name="location_bt_off_body_1">Without enabled Bluetooth and Location services eRouška can\t create list of other eRouška applications in your vicinity.</string>
+    <string name="location_bt_off_body_2">Even when we don\'t use location data, turn on both functions for correct Bluetooth function using "Enable BT and Location services" button.</string>
+    <string name="location_bt_off_turn_on">Enable BT and Location services</string>
 </resources>

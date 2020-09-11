@@ -11,14 +11,14 @@
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme veškeré potřebné informace.</string>
-    <string name="dashboard_body_no_contact">Poslední aktualizace dat proběhla %1$s a nepotkali jste nikoho nakaženého.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace dat - %1$s v %2$s. eRouška nezaznamenala nikoho nakaženého ve vašem okolí.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="pause_app">Pozastavit eRoušku</string>
     <string name="start_app">Spustit eRoušku</string>
 
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
     <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
-    <string name="privacy_body_text_2"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách zpracování</a>.]]></string>
+    <string name="privacy_body_text_2"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách používání</a>.]]></string>
     <string name="privacy_finish">Dokončit aktivaci</string>
     <string name="privacy_toolbar_title">Soukromí</string>
 
@@ -35,6 +35,7 @@
     <string name="menu_help">Nápověda</string>
     <string name="my_data_title">Aktuálně</string>
     <string name="about_content">Aplikaci eRouška od verze 2.0 vyvíjí Ministerstvo zdravotnictví ve spolupráci s Národní agenturou pro komunikační a informační technologie (NAKIT). Předchozí verzi aplikace eRouška vytvořil tým dobrovolníků v rámci komunitní aktivity COVID19CZ. Většina z původních autorů eRoušky pokračuje na vývoji nových verzí v týmu NAKIT.</string>
+    <string name="about_tos_content"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách používání</a>.]]></string>
     <string name="about_tos_link">Podmínky použití</string>
     <string name="about_title">O\u00a0aplikaci</string>
     <string name="permission_rationale_title">Pro spr\u00e1vnou funkci aplikace je nutn\u00e9 opr\u00e1vn\u011bn\u00ed k\u00a0p\u0159\u00edstupu k\u00a0poloze.</string>
@@ -88,7 +89,7 @@
     <string name="data_notification_close">Zavřít</string>
 
     <string name="notification_exposure_title">Rizikové setkání</string>
-    <string name="notification_exposure_text">Setkali jste se s osobou, u které byla potvrzeno onemocnění COVID-19. Sledujte svůj zdravotní stav. Více informací naleznete v aplikaci.</string>
+    <string name="notification_exposure_text">Setkali jste se s osobou, u které bylo potvrzeno onemocnění COVID-19. Sledujte svůj zdravotní stav. Více informací naleznete v aplikaci.</string>
 
     <string name="notification_exposure_notifications_off_text">Nezapomeňte jí spustit</string>
 
@@ -126,4 +127,13 @@
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
+
+    <string name="location_off_header">Zapněte Polohové služby</string>
+    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka "Zapnout Polohové služby".</string>
+    <string name="location_off_turn_on">Zapnout polohové služby</string>
+
+    <string name="location_bt_off_header">Zapněte Bluetooth a Polohové služby</string>
+    <string name="location_bt_off_body_1">Bez zapnutého Bluetooth a Polohových služeb nemůže eRouška vytvářet seznam ostatních eRoušek ve vašem okolí.</string>
+    <string name="location_bt_off_body_2">I když polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby".</string>
+    <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 </resources>

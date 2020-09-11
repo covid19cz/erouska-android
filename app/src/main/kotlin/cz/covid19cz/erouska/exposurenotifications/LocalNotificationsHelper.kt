@@ -91,6 +91,10 @@ object LocalNotificationsHelper {
         dismissNotification(REQ_ID_NOT_RUNNING, context)
     }
 
+    fun dismissOudatedDataNotification(context: Context?) {
+        dismissNotification(REQ_ID_OUTDATED_DATA, context)
+    }
+
     private fun dismissNotification(id: Int, context: Context?) {
         (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(
             id

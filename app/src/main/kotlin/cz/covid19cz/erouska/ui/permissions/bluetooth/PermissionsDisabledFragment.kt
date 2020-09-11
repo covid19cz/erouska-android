@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.permissions
+package cz.covid19cz.erouska.ui.permissions.bluetooth
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,6 +6,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.shareApp
+import cz.covid19cz.erouska.ui.permissions.BasePermissionsFragment
+import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
 
 class PermissionsDisabledFragment :
     BasePermissionsFragment<PermissionDisabledVM>(
@@ -17,6 +19,14 @@ class PermissionsDisabledFragment :
         super.onCreate(savedInstanceState)
         enableUpInToolbar(false)
         viewModel.initViewModel()
+
+        subscribe(PermissionsEvent::class) {
+            when (it.command) {
+                PermissionsEvent.Command.ENABLE_BT -> requestEnableBt()
+                PermissionsEvent.Command.ENABLE_LOCATION -> requestLocationEnable()
+                PermissionsEvent.Command.ENABLE_BT_LOCATION -> requestLocationEnable()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -37,4 +47,5 @@ class PermissionsDisabledFragment :
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }
