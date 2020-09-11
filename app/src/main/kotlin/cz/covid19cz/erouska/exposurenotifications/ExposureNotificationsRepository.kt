@@ -30,17 +30,8 @@ class ExposureNotificationsRepository(
     private val client: ExposureNotificationClient,
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
-    private val btAdapter: BluetoothAdapter,
     private val prefs: SharedPrefsRepository
 ) {
-
-    fun isBluetoothEnabled(): Boolean {
-        return btAdapter.isEnabled
-    }
-
-    fun isLocationEnabled(): Boolean {
-        return context.isLocationEnabled()
-    }
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
         client.start()

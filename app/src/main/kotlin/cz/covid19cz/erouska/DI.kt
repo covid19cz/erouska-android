@@ -48,12 +48,12 @@ val viewModelModule = module {
     viewModel { SandboxConfigVM(get()) }
     viewModel { SandboxDataVM(get(), get()) }
     viewModel { ActivationVM(get(), get()) }
-    viewModel { WelcomeVM(get(), get(), get()) }
+    viewModel { WelcomeVM(get()) }
     viewModel { HelpVM() }
     viewModel { AboutVM() }
     viewModel { DashboardVM(get(), get(), get(), get()) }
-    viewModel { PermissionsOnboardingVM(get(), get()) }
-    viewModel { PermissionDisabledVM(get(), get(), get()) }
+    viewModel { PermissionsOnboardingVM(get()) }
+    viewModel { PermissionDisabledVM(get(), get()) }
     viewModel { ContactsVM() }
     viewModel { MyDataVM(get(), get()) }
     viewModel { SendDataVM(get()) }
@@ -63,7 +63,7 @@ val viewModelModule = module {
     viewModel { SpreadPreventionVM() }
     viewModel { LegacyUpdateVM(get()) }
     viewModel { UpdatePlayServicesVM() }
-    viewModel { ActivationNotificationsVM(get(), get()) }
+    viewModel { ActivationNotificationsVM(get(), get(), get()) }
 }
 
 val databaseModule = module {
@@ -72,7 +72,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(androidContext(), Nearby.getExposureNotificationClient(androidContext()), get(), get(), get(), get()) }
+    single { ExposureNotificationsRepository(androidContext(), Nearby.getExposureNotificationClient(androidContext()), get(), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
 }

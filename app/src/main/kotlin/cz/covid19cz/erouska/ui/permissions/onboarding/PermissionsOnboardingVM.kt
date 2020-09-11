@@ -4,8 +4,8 @@ import android.app.Application
 import android.bluetooth.BluetoothManager
 import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
 
-class PermissionsOnboardingVM(bluetoothManager: BluetoothManager, app: Application) :
-    BasePermissionsVM(bluetoothManager, app) {
+class PermissionsOnboardingVM(app: Application) :
+    BasePermissionsVM(app) {
     override fun goToNextScreen() {
 
     }

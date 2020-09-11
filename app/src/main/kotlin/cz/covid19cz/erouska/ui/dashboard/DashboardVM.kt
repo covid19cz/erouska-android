@@ -140,8 +140,8 @@ class DashboardVM(
     }
 
     fun start() {
-        val btDisabled = !exposureNotificationsRepository.isBluetoothEnabled()
-        val locationDisabled = !exposureNotificationsRepository.isLocationEnabled()
+        val btDisabled = !app.isBtEnabled()
+        val locationDisabled = !app.isLocationEnabled()
 
         if (btDisabled || locationDisabled) {
             navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
