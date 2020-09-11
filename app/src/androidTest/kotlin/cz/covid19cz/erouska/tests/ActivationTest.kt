@@ -36,4 +36,10 @@ class ActivationTest {
         }
         B1Screen.checkActiveScreen()
     }
+
+    @Test
+    fun checkHelpScreenTest() {
+        A1Screen.goToHelp()
+        N1Screen.checkScreenAndLink()
+    }
 }

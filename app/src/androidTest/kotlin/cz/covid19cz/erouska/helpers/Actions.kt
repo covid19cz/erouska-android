@@ -85,3 +85,7 @@ fun verifyLink(element: Matcher<View>, url: String, clickableText: String? = nul
     Intents.intended(expectedIntent)
     Intents.release()
 }
+
+fun verifyMultipleLinks(element: Matcher<View>, urlTextPairs: ArrayList<ClickableLink>) {
+    urlTextPairs.map {clickableLink -> verifyLink(element, clickableLink.url, clickableLink.clickableText)}
+}
