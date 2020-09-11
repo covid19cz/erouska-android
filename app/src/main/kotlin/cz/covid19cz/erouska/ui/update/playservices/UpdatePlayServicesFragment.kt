@@ -30,4 +30,9 @@ class UpdatePlayServicesFragment :
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GMS_STORE_URL)))
     }
 
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        return true
+    }
+
 }
