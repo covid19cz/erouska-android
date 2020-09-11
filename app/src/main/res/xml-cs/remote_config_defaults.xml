@@ -23,68 +23,66 @@
     <entry>
         <key>v2_dataCollectionMarkdown</key>
         <value>
-            There are all signal measurement records of surrounding devices with eRouška application
-            in the last 30 days in My Data section. This data do not contain location or any other
-            personally identifiable information. Only you can send these to the public health
-            office.\n\nFor security every eRouška changes its identifier (ID) regularly. This is why
-            you can see the same device under different IDs. eRouška does not hide any collected
-            data, you can see all data which it collects there. Presence of surrounding eRouška
-            applications is saved every 2 minutes.\n\n### What do the collected data mean?\n\nID is
-            part of an anonymous number of another eRouška user which you have met. RSSI shows the
-            strength of the Bluetooth signal during your encounter. The lower the number, the closer
-            you were to each other. Proximity is also indicated by the colour - red indicates
-            closest encounters, orange further, then yellow, and green is the furthest.\n\n### How
-            does the Public Health Authority interpret the data?\n\nEvery device type has Bluetooth
-            transmitter and receiver of different power. Every phone also has different receiving
-            sensitivity. eRouška records even weaker signals, because these can turn out to be risky
-            under exceptional circumstances. Epidemiologists consider encouter as risky when the
-            signal is stronger than -75 dBm and take more than 15 minutes in total during a day.
-            Additionally this requires agreement between the epidemiologist and infected user about
-            whether it was a risky encounter.
+            V sekci Moje data zobrazujeme veškeré záznamy měření signálu okolních telefonů s
+            aplikací eRouška za posledních 30 dní. Data neobsahují údaje o poloze ani jiné osobní
+            údaje. Odeslat hygienikům je můžete pouze vy.\n\nKvůli bezpečnosti každá eRouška mění
+            pravidelně svůj identifikátor (ID). Proto můžete jeden telefon vidět několikrát pod
+            různými ID. eRouška nezatajuje žádné nasbírané údaje, proto vám ukazuje všechna data,
+            která zaznamená. Přítomnost okolních eRoušek zapisuje každé 2 minuty.\n\n### Co
+            znamenají naměřené údaje\n\nID je část anonymního čísla dalšího uživatele aplikace
+            eRouška, kterého jste potkali. RSSI ukazuje sílu Bluetooth signálu při vašem setkání.
+            Čím je číslo nižší, tím blíže jste u sebe byli. Blízkost indikuje i barva - nejblíž u
+            sebe byla červená čísla, dále oranžová, pak žlutá a úplně nejdál od sebe byla čísla
+            zelená.\n\n### Jak s daty pracuje hygiena\n\nKaždý typ telefonu má různě výkonný vysílač
+            a přijímač singálu Bluetooth. Také je každý telefon různě citlivý pro přijímání. eRouška
+            zaznamenává i méně slabé signály, protože se mohou ve výjimečných případech ukázat jako
+            rizikové. Běžně je setkání pro epidemiology rizikové, pokud je signál silnější než -75
+            dBm a v součtu za den trvá déle než 15 minut. Navíc je podmíněno dohodou mezi
+            epidemiologem a nakaženým, že se opravdu jednalo o rizikový kontakt
         </value>
     </entry>
     <entry>
         <key>v2_helpMarkdown</key>
-        <value>### Why is eRouška needed? Can it protect me from infection?\n\nCílem aplikace
-            eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá co nejdříve izolovat
-            potenciálně nakažené osoby od ostatních. Tím přispívá k postupnému uvolňování celostátní
-            karantény a snížení dopadů pandemie na společnost a ekonomiku ČR. Aplikace na podobném
-            principu fungují i v dalších státech a většinou jsou velmi účinným prostředkem v boji
-            proti šíření koronaviru.\n\nAplikace eRouška je jedním z konceptů chytré karantény.
-            Aplikace se přes Bluetooth spojí s dalšími telefony s eRouškou v nejbližším okolí a
-            uloží jejich identifikátory. Pokud bude později některý z uživatelů eRoušky označen
-            pracovníkem hygieny za pomoci testů jako nakažený, epidemiologický model vyhodnotí, zda
-            jste s ním přišli do kontaktu dost dlouho na to, aby bylo nutné vás varovat a směřovat k
-            dalšímu vyšetření.\n\neRouška tedy pomáhá pracovníkům hygienické stanice co
-            nejefektivněji identifikovat potenciální přenašeče viru a na dobu nezbytně nutnou je
-            požádat o izolaci a opatrnost. Tím se sníží počet infikovaných ve společnosti, a tím i
-            vaše riziko infekce.\n\n### Jak postupuje hygiena? To budu muset pokaždé automaticky do
-            karantény nebo na testy, když aplikace hygieně zahlásí, že jsem byl v kontaktu s někým
-            nakaženým?\n\nPokud hygiena na základě sesbíraných dat z aplikace nakaženého vyhodnotí,
-            že jste s ním mohl/a být dostatečně dlouho v rizikovém kontaktu, pokusí se vás nejprve
-            telefonicky kontaktovat. S pracovníkem hygieny společně po telefonu vyhodnotíte, jestli
-            vám skutečně hrozila nákaza, a podle toho se domluvíte na dobrovolné karanténě,
-            přednostním testování nebo jiném postupu.\n\nAplikace tedy pomáhá hygieně rychleji se
-            spojit s potenciálně rizikovými kontakty a na základě osobního pohovoru vyhodnotit,
-            jestli šlo jen o “planý poplach”, nebo je potřeba vás a ostatní nějak dál chránit.
-            Nemusíte mít proto obavu, že by šlo o automatizovaný proces, který nemůžete
-            ovlivnit.\n\n### V mé blízkosti je jen jeden, nebo dva telefony s aplikací eRouška,
-            přitom ale vidím v záložce Moje Data řadu dalších ID? To chytám i signál lidí z okolních
-            bytů nebo domů?\n\nID každého uživatele se opakovaně mění, abychom zvýšili anonymitu a
-            bezpečí uživatelů. Proto jich můžete v telefonu vidět řádově více, ale přitom může jít
-            stále o jedno stejné zařízení.\n\n### Máme eRoušku nainstalovanou v domácnosti na dvou
-            telefonech. V záložce Moje data jeden druhý vidí, ale druhý nevidí ten první. Čím to
-            je?\n\nNěkteré starší modely telefonů (např. Google Nexus 5, Honor 7 lite, atp.) mohou
-            fungovat jen částečně - vidí přes Bluetooth telefony v okolí, ale ostatní smartphony je
-            bohužel zpětně nevidí. Důvodem je, že ještě nejsou vybavené funkcí Bluetooth LE
-            Advertising. I přesto má jejich použití smysl.\n\n### Nainstaloval jsem eRoušku, ale v
-            záložce Moje data nevidím žádné záznamy. Funguje to?\n\nAplikace vidí ve svém okolí
-            pouze telefony, které mají taky nainstalovanou eRoušku. Je možné, že jste zatím nikoho
-            takového nepotkali. Zkuste prosím eRoušku doporučit někomu blízkému a ověřit, zda se
-            uvidíte.\n\nNěkteré starší modely telefonů mohou fungovat jen částečně - vidí přes
-            Bluetooth telefony v okolí, ale ostatní smartphony je bohužel zpětně nevidí. Důvodem je,
-            že ještě nejsou vybavené funkcí Bluetooth LE Advertising. I přesto má jejich použití
-            smysl.\n\n### Je možné označit člena mé domácnosti jako známého, aby ho aplikace
+        <value>### Proč je eRouška potřeba? Dokáže mě vůbec efektivně chránit před nákazou?\n\nCílem
+            aplikace eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá co nejdříve
+            izolovat potenciálně nakažené osoby od ostatních. Tím přispívá k postupnému uvolňování
+            celostátní karantény a snížení dopadů pandemie na společnost a ekonomiku ČR. Aplikace na
+            podobném principu fungují i v dalších státech a většinou jsou velmi účinným prostředkem
+            v boji proti šíření koronaviru.\n\nAplikace eRouška je jedním z konceptů chytré
+            karantény. Aplikace se přes Bluetooth spojí s dalšími telefony s eRouškou v nejbližším
+            okolí a uloží jejich identifikátory. Pokud bude později některý z uživatelů eRoušky
+            označen pracovníkem hygieny za pomoci testů jako nakažený, epidemiologický model
+            vyhodnotí, zda jste s ním přišli do kontaktu dost dlouho na to, aby bylo nutné vás
+            varovat a směřovat k dalšímu vyšetření.\n\neRouška tedy pomáhá pracovníkům hygienické
+            stanice co nejefektivněji identifikovat potenciální přenašeče viru a na dobu nezbytně
+            nutnou je požádat o izolaci a opatrnost. Tím se sníží počet infikovaných ve společnosti,
+            a tím i vaše riziko infekce.\n\n### Jak postupuje hygiena? To budu muset pokaždé
+            automaticky do karantény nebo na testy, když aplikace hygieně zahlásí, že jsem byl v
+            kontaktu s někým nakaženým?\n\nPokud hygiena na základě sesbíraných dat z aplikace
+            nakaženého vyhodnotí, že jste s ním mohl/a být dostatečně dlouho v rizikovém kontaktu,
+            pokusí se vás nejprve telefonicky kontaktovat. S pracovníkem hygieny společně po
+            telefonu vyhodnotíte, jestli vám skutečně hrozila nákaza, a podle toho se domluvíte na
+            dobrovolné karanténě, přednostním testování nebo jiném postupu.\n\nAplikace tedy pomáhá
+            hygieně rychleji se spojit s potenciálně rizikovými kontakty a na základě osobního
+            pohovoru vyhodnotit, jestli šlo jen o “planý poplach”, nebo je potřeba vás a ostatní
+            nějak dál chránit. Nemusíte mít proto obavu, že by šlo o automatizovaný proces, který
+            nemůžete ovlivnit.\n\n### V mé blízkosti je jen jeden, nebo dva telefony s aplikací
+            eRouška, přitom ale vidím v záložce Moje Data řadu dalších ID? To chytám i signál lidí z
+            okolních bytů nebo domů?\n\nID každého uživatele se opakovaně mění, abychom zvýšili
+            anonymitu a bezpečí uživatelů. Proto jich můžete v telefonu vidět řádově více, ale
+            přitom může jít stále o jedno stejné zařízení.\n\n### Máme eRoušku nainstalovanou v
+            domácnosti na dvou telefonech. V záložce Moje data jeden druhý vidí, ale druhý nevidí
+            ten první. Čím to je?\n\nNěkteré starší modely telefonů (např. Google Nexus 5, Honor 7
+            lite, atp.) mohou fungovat jen částečně - vidí přes Bluetooth telefony v okolí, ale
+            ostatní smartphony je bohužel zpětně nevidí. Důvodem je, že ještě nejsou vybavené funkcí
+            Bluetooth LE Advertising. I přesto má jejich použití smysl.\n\n### Nainstaloval jsem
+            eRoušku, ale v záložce Moje data nevidím žádné záznamy. Funguje to?\n\nAplikace vidí ve
+            svém okolí pouze telefony, které mají taky nainstalovanou eRoušku. Je možné, že jste
+            zatím nikoho takového nepotkali. Zkuste prosím eRoušku doporučit někomu blízkému a
+            ověřit, zda se uvidíte.\n\nNěkteré starší modely telefonů mohou fungovat jen částečně -
+            vidí přes Bluetooth telefony v okolí, ale ostatní smartphony je bohužel zpětně nevidí.
+            Důvodem je, že ještě nejsou vybavené funkcí Bluetooth LE Advertising. I přesto má jejich
+            použití smysl.\n\n### Je možné označit člena mé domácnosti jako známého, aby ho aplikace
             zbytečně neskenovala?\n\nKaždá eRouška mění z důvodu bezpečnosti a ochrany soukromí
             pravidelně své vysílané ID, proto jeden telefon můžete vidět i několikrát pod různými
             ID. Z toho důvodu není možné označit danou osobu, respektive konkrétní ID jako člena
