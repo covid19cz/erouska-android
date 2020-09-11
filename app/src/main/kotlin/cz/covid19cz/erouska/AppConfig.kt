@@ -34,7 +34,7 @@ object AppConfig {
     val chatBotLink
         get() = getLocalized("chatBotLink")
     val helpMarkdown
-        get() = getLocalized("helpMarkdown")
+        get() = getLocalized("helpMarkdown2")
     val dataCollectionMarkdown
         get() = getLocalized("dataCollectionMarkdown")
     val minSupportedVersionCodeAndroid
