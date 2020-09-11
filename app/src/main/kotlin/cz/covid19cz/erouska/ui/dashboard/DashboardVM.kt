@@ -28,13 +28,15 @@ class DashboardVM(
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val serviceRunning = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
-    val lastUpdate = MutableLiveData<String>()
+    val lastUpdateDate = MutableLiveData<String>()
+    val lastUpdateTime = MutableLiveData<String>()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
-                lastUpdate.value = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault()).format(Date(prefs.getLastKeyImport()))
+                lastUpdateDate.value = SimpleDateFormat("d.M.yyyy", Locale.getDefault()).format(Date(it))
+                lastUpdateTime.value = SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
             }
             checkForObsoleteData()
         }
