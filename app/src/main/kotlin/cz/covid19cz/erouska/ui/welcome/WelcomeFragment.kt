@@ -35,15 +35,6 @@ class WelcomeFragment :
         if (viewModel.wasAppUpdated()) {
             navigate(R.id.action_nav_welcome_fragment_to_nav_legacy_update)
         }
-
-        val welcomeDescription: String = String.format(
-            getString(R.string.welcome_description),
-            viewModel.getProclamationUrl()
-        )
-
-        welcome_desc.text = HtmlCompat.fromHtml(welcomeDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        welcome_desc.movementMethod = LinkMovementMethod.getInstance()
-
     }
 
     private fun openAppActivation() {

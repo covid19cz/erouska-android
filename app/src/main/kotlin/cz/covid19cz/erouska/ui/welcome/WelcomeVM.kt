@@ -15,10 +15,6 @@ class WelcomeVM(private val prefs: SharedPrefsRepository) : BaseVM() {
         publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.HELP))
     }
 
-    fun getProclamationUrl(): String {
-        return AppConfig.proclamationLink
-    }
-
     fun wasAppUpdated(): Boolean {
         return prefs.isUpdateFromLegacyVersion()
     }

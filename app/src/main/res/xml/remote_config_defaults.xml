@@ -351,12 +351,6 @@
             (.pdf)](https://www.erouska.cz/navody/Xiaomi/8_overeni_zpusobu_napajeni.pdf)
         </value>
     </entry>
-
-    <!--   TODO Replace with custom link once it's ready -->
-    <entry>
-        <key>v2_proclamationLink</key>
-        <value>https://erouska.cz</value>
-    </entry>
     <entry>
         <key>v2_shareAppDynamicLink</key>
         <value>https://erouska.cz/app/sdilej</value>
