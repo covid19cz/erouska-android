@@ -90,7 +90,7 @@ class ActivationFragment :
     }
 
     private fun setupListeners() {
-        privacy_body_2.setOnClickListener { showWeb(AppConfig.proclamationLink, customTabHelper) }
+        privacy_body_2.setOnClickListener { showWeb(AppConfig.conditionsOfUseUrl, customTabHelper) }
         activate_btn.setOnClickListener { viewModel.activate() }
         try_again_btn.setOnClickListener { viewModel.activate() }
     }

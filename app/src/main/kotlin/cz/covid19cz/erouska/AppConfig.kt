@@ -26,8 +26,6 @@ object AppConfig {
 
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("v2_shareAppDynamicLink")
-    val proclamationLink
-        get() = firebaseRemoteConfig.getString("v2_proclamationLink")
     val chatBotLink
         get() = firebaseRemoteConfig.getString("v2_chatBotLink")
     val helpMarkdown
