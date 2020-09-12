@@ -17,7 +17,7 @@ class RecentExposuresVM(private val exposureNotificationsRepo: ExposureNotificat
 
     fun loadExposures(demo: Boolean = false) {
         if (!demo) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 kotlin.runCatching {
                     exposureNotificationsRepo.getDailySummaries()
                 }.onSuccess { dailySummaries ->
