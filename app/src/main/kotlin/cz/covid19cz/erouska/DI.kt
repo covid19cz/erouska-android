@@ -58,7 +58,7 @@ val viewModelModule = module {
     viewModel { MyDataVM(get(), get()) }
     viewModel { SendDataVM(get()) }
     viewModel { ExposuresVM(get()) }
-    viewModel { RecentExposuresVM() }
+    viewModel { RecentExposuresVM(get()) }
     viewModel { MainSymptomsVM() }
     viewModel { SpreadPreventionVM() }
     viewModel { LegacyUpdateVM(get()) }

@@ -37,8 +37,7 @@ class WelcomeFragment :
         }
 
         val welcomeDescription: String = String.format(
-            getString(R.string.welcome_description),
-            viewModel.getProclamationUrl()
+            getString(R.string.welcome_description)
         )
 
         welcome_desc.text = HtmlCompat.fromHtml(welcomeDescription, HtmlCompat.FROM_HTML_MODE_LEGACY)
