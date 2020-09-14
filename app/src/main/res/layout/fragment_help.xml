@@ -69,7 +69,7 @@
                 android:paddingStart="@dimen/fragment_padding"
                 android:paddingTop="@dimen/fragment_padding"
                 android:paddingEnd="@dimen/fragment_padding"
-                android:paddingBottom="80dp"
+                android:paddingBottom="68dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         </ScrollView>
