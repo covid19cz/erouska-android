@@ -20,4 +20,5 @@
     <color name="exposure_notification_bg">#DE1A1A</color>
 
     <color name="separator">#CCCCCC</color>
+    <color name="launch_screen_background">#C9E2F4</color>
 </resources>
