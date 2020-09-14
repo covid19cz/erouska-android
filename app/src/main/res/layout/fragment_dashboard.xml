@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:elevation="16dp"
+
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,8 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="16dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/data_notification_content"
@@ -70,7 +72,8 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="16dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/exposure_notification_content"
@@ -79,7 +82,8 @@
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/lorem" />
 
                 <TextView
                     android:id="@+id/exposure_notification_more_info"
@@ -107,7 +111,6 @@
                     app:layout_constraintTop_toTopOf="@id/exposure_notification_more_info" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
 
         <ScrollView
@@ -117,7 +120,6 @@
             app:layout_constraintTop_toBottomOf="@+id/notifications_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -208,6 +210,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:paddingBottom="80dp"
                     android:text="@{@string/dashboard_body_no_contact(vm.lastUpdateDate, vm.lastUpdateTime)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -228,34 +231,36 @@
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="16dp" />
 
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonStop"
-                    style="?materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:onClick="@{() -> vm.stop()}"
-                    android:text="@string/pause_app"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:visibleOrInvisible="@{vm.serviceRunning}" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:onClick="@{() -> vm.start()}"
-                    android:text="@string/start_app"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:visibleOrInvisible="@{!vm.serviceRunning}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonStop"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> vm.stop()}"
+            android:text="@string/pause_app"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibleOrInvisible="@{vm.serviceRunning}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> vm.start()}"
+            android:text="@string/start_app"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibleOrInvisible="@{!vm.serviceRunning}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
