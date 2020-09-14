@@ -26,7 +26,6 @@ import cz.covid19cz.erouska.ui.help.HelpVM
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.ui.mydata.MyDataVM
 import cz.covid19cz.erouska.ui.permissions.bluetooth.PermissionDisabledVM
-import cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxConfigVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxDataVM
 import cz.covid19cz.erouska.ui.sandbox.SandboxVM
@@ -52,8 +51,7 @@ val viewModelModule = module {
     viewModel { HelpVM() }
     viewModel { AboutVM() }
     viewModel { DashboardVM(get(), get(), get(), get()) }
-    viewModel { PermissionsOnboardingVM(get()) }
-    viewModel { PermissionDisabledVM(get(), get()) }
+    viewModel { PermissionDisabledVM(get()) }
     viewModel { ContactsVM() }
     viewModel { MyDataVM(get(), get()) }
     viewModel { SendDataVM(get()) }

@@ -2,7 +2,6 @@ package cz.covid19cz.erouska.ui.permissions.bluetooth
 
 import android.app.Application
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -18,7 +17,6 @@ import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
 import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
 
 class PermissionDisabledVM(
-    private val bluetoothManager: BluetoothManager,
     private val app: Application
 ) : BasePermissionsVM(app) {
 
