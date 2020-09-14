@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="?colorSurface"/>
-    <item android:drawable="?colorPrimary" android:height="?actionBarSize"/>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/launch_screen_background" />
+    <item
+        android:width="80dp"
+        android:height="80dp"
+        android:drawable="@drawable/ic_splashscreen_logo"
+        android:gravity="center" />
+
+    <item
+        android:drawable="@drawable/ic_splashscreen_hands"
+        android:width="400dp"
+        android:height="262dp"
+        android:gravity="bottom|center_horizontal"/>
+
 </layer-list>

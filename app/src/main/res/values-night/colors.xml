@@ -8,4 +8,5 @@
 
     <color name="textColorPrimary">@color/white</color>
     <color name="textColorSecondary">#eee</color>
+    <color name="launch_screen_background">#001829</color>
 </resources>
