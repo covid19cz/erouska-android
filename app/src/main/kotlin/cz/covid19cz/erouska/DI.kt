@@ -3,11 +3,16 @@ package cz.covid19cz.erouska
 import android.app.AlarmManager
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
+import android.content.Context
 import android.location.LocationManager
 import android.os.PowerManager
 import androidx.core.content.getSystemService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.nearby.Nearby
+import com.google.android.gms.nearby.exposurenotification.DiagnosisKeysDataMapping
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
+import com.google.android.gms.nearby.exposurenotification.Infectiousness
+import com.google.android.gms.nearby.exposurenotification.ReportType
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -70,7 +75,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(androidContext(), Nearby.getExposureNotificationClient(androidContext()), get(), get(), get()) }
+    single { ExposureNotificationsRepository(androidContext(), provideExposureNotificationClient(androidContext()), get(), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
 }
@@ -89,3 +94,21 @@ val appModule = module {
 }
 
 val allModules = listOf(appModule, viewModelModule, databaseModule, repositoryModule)
+
+private fun provideExposureNotificationClient(context : Context) : ExposureNotificationClient{
+    return Nearby.getExposureNotificationClient(context).apply {
+
+        val daysList = AppConfig.daysSinceOnsetToInfectiousness
+        val daysToInfectiousness = mutableMapOf<Int, Int>()
+        for (i in -14..14) {
+            daysToInfectiousness[i] = daysList[i+14]
+        }
+
+        val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
+            .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
+            .setInfectiousnessWhenDaysSinceOnsetMissing(Infectiousness.NONE)
+            .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
+            .build()
+        setDiagnosisKeysDataMapping(mapping)
+    }
+}
