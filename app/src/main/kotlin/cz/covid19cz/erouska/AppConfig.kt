@@ -30,8 +30,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_chatBotLink")
     val helpMarkdown
         get() = firebaseRemoteConfig.getString("v2_helpMarkdown")
-    val dataCollectionMarkdown
-        get() = firebaseRemoteConfig.getString("v2_dataCollectionMarkdown")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("v2_minSupportedVersionCodeAndroid")
     val riskyEncountersTitle
