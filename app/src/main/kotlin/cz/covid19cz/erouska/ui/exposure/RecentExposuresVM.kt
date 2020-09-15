@@ -27,8 +27,11 @@ class RecentExposuresVM(private val exposureNotificationsRepo: ExposureNotificat
                             exposureList.plus(Exposure(dailySummary.daysSinceEpoch.daysSinceEpochToDateString()))
                         }
                         state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(exposureList))
+                    } else {
+                        state.postValue(RecentExposuresEvent.NoExposuresEvent)
                     }
                 }.onFailure {
+                    state.postValue(RecentExposuresEvent.NoExposuresEvent)
                     L.e(it)
                 }
             }

@@ -121,4 +121,6 @@
     <string name="location_bt_off_body_1">Without enabled Bluetooth and Location services eRouška can\t create list of other eRouška applications in your vicinity.</string>
     <string name="location_bt_off_body_2">Even when we don\'t use location data, turn on both functions for correct Bluetooth function using "Enable BT and Location services" button.</string>
     <string name="location_bt_off_turn_on">Enable BT and Location services</string>
+
+    <string name="no_recent_exposures">No risky encounters</string>
 </resources>

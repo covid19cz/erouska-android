@@ -14,4 +14,5 @@ class ExposuresCommandEvent(val command: Command) : LiveEvent() {
 
 sealed class RecentExposuresEvent {
     data class ExposuresLoadedEvent(val exposures: List<Exposure>) : RecentExposuresEvent()
+    object NoExposuresEvent : RecentExposuresEvent()
 }
