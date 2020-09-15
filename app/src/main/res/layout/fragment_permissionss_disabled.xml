@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:paddingBottom="80dp"
+                    android:paddingBottom="68dp"
                     android:text="@string/bt_disabled_desc"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintTop_toBottomOf="@id/bluetooth_disabled_title" />
@@ -111,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:paddingBottom="80dp"
+                    android:paddingBottom="68dp"
                     android:text="@string/exposure_notifications_off_body"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintTop_toBottomOf="@id/en_api_disabled_title" />
