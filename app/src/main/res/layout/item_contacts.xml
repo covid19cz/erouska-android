@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@id/contact_title"
             tools:text="Content" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/contact_link"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
