@@ -17,7 +17,7 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     ExposuresVM::class
 ) {
 
-    val args : ExposuresFragmentArgs by navArgs()
+    val args: ExposuresFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,42 +53,17 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
         no_exposures_header.text = AppConfig.noEncounterHeader
         no_exposures_body.text = AppConfig.noEncounterBody
 
-        no_exposures_img.show()
-        no_exposures_header.show()
-        no_exposures_body.show()
+        no_exposures_group.show()
 
-        last_exposure.hide()
-
-        divider_1.hide()
-        divider_2.hide()
-        symptoms_header.hide()
-        symptoms_content.hide()
-        no_symptoms_header.hide()
-        no_symptoms_content.hide()
-
-        symptoms_container.hide()
-        spread_prevention_container.hide()
-        earlier_exposures_container.hide()
-        bottom_separator.hide()
+        exposures_group.hide()
+        container_group.hide()
     }
 
     private fun onRecentExposures() {
-        last_exposure.show()
+        exposures_group.show()
+        container_group.show()
 
-        divider_1.show()
-        divider_2.show()
-        symptoms_header.show()
-        symptoms_content.show()
-        no_symptoms_header.show()
-        no_symptoms_content.show()
-
-        symptoms_container.show()
-        spread_prevention_container.show()
-        earlier_exposures_container.show()
-
-        no_exposures_img.hide()
-        no_exposures_header.hide()
-        no_exposures_body.hide()
+        no_exposures_group.hide()
     }
 
 }
