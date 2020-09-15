@@ -16,7 +16,7 @@
     </style>
 
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="titleTextColor">@color/white</item>
+        <item name="titleTextColor">@color/toolbarActiveColor</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:theme">@style/ToolbarTheme</item>
     </style>
