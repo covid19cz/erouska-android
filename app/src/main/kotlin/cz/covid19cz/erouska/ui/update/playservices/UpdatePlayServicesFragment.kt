@@ -14,7 +14,9 @@ class UpdatePlayServicesFragment :
         UpdatePlayServicesVM::class
     ) {
 
-    private val GMS_STORE_URL = "https://play.google.com/store/apps/details?id=com.google.android.gms"
+    companion object {
+        const val GMS_STORE_URL = "https://play.google.com/store/apps/details?id=com.google.android.gms"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
