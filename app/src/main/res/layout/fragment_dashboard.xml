@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:elevation="16dp"
-
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,28 +33,27 @@
                 android:paddingStart="16dp"
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
-                android:visibility="gone"
+                android:paddingBottom="8dp"
+                android:visibility="visible"
                 tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/data_notification_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/notification_data_outdated_text"
-                    android:textColor="@color/textColorPrimary"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/data_notification_close"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/data_notification_close"
-                    android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +69,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
+                android:paddingBottom="8dp"
                 android:visibility="gone"
                 tools:visibility="gone">
 
@@ -79,32 +77,29 @@
                     android:id="@+id/exposure_notification_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@tools:sample/lorem" />
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/exposure_notification_more_info"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/exposure_notification_more_info"
-                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/exposure_notification_content" />
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/exposure_notification_close"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/exposure_notification_close"
-                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/exposure_notification_more_info"
                     app:layout_constraintEnd_toStartOf="@id/exposure_notification_more_info"
@@ -214,11 +209,11 @@
                     android:layout_marginBottom="8dp"
                     android:paddingBottom="68dp"
                     android:text="@{@string/dashboard_body_no_contact(vm.lastUpdateDate, vm.lastUpdateTime)}"
-                    tools:text="@tools:sample/lorem"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body_secondary"
-                    app:visibleOrGone="@{vm.serviceRunning &amp;&amp; vm.lastUpdateDate != null}" />
+                    app:visibleOrGone="@{vm.serviceRunning &amp;&amp; vm.lastUpdateDate != null}"
+                    tools:text="@tools:sample/lorem" />
 
                 <TextView
                     android:id="@+id/app_paused_body"
