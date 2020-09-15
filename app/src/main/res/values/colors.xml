@@ -21,7 +21,9 @@
     <color name="exposure_notification_bg">#DE1A1A</color>
 
     <color name="separator">#CCCCCC</color>
+
     <color name="toolbarColor">@color/white</color>
+    <color name="toolbarActiveColor">@android:color/black</color>
     <color name="statusbarColor">#e8e8e8</color>
     <color name="launch_screen_background">#C9E2F4</color>
 </resources>
