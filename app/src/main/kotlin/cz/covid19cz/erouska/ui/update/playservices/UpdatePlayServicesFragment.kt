@@ -14,7 +14,9 @@ class UpdatePlayServicesFragment :
         UpdatePlayServicesVM::class
     ) {
 
-    private val GMS_STORE_URL = "https://play.google.com/store/apps/details?id=com.google.android.gms"
+    companion object {
+        const val GMS_STORE_URL = "https://play.google.com/store/apps/details?id=com.google.android.gms"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,11 @@ class UpdatePlayServicesFragment :
 
     private fun openPlayStore() {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GMS_STORE_URL)))
+    }
+
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        return true
     }
 
 }

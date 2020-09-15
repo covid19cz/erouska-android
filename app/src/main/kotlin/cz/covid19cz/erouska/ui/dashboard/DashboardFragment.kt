@@ -8,22 +8,21 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
-import cz.covid19cz.erouska.ext.*
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.shareApp
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -40,7 +39,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
-    private val localBroadcastManager by inject<LocalBroadcastManager>()
     var demoMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,11 +55,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        updateState()
-    }
-
     private fun subsribeToViewModel() {
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
@@ -76,9 +69,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
             }
         }
-        subscribe(BluetoothDisabledEvent::class) {
-            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        }
         subscribe(GmsApiErrorEvent::class) {
             startIntentSenderForResult(
                 it.status.resolution?.intentSender,
@@ -92,16 +82,13 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         }
     }
 
-    private fun updateState() {
-        checkRequirements(onFailed = {
-            navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
-        })
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         exposure_notification_content.text = AppConfig.encounterWarning
+        exposure_notification_more_info.setOnClickListener {
+            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
+        }
         exposure_notification_close.setOnClickListener {
             viewModel.acceptLastExposure()
             exposure_notification_container.hide()
@@ -167,20 +154,6 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         super.onDestroy()
     }
 
-    private fun checkRequirements(
-        onPassed: () -> Unit = {},
-        onFailed: () -> Unit = {}
-    ) {
-        with(requireContext()) {
-            if (!isBtEnabled()) {
-                onFailed()
-                return
-            } else {
-                onPassed()
-            }
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQUEST_GMS_ERROR_RESOLUTION -> {
@@ -192,7 +165,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     }
 
     private fun showExposureNotificationsOff() {
-        navigate(R.id.action_nav_dashboard_to_nav_bt_disabled)
+        navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
     }
 
     private fun showWelcomeScreen() {

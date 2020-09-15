@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>v2_reportTypeWeights</key>
+        <value>1;1;1;1;1;1</value>
+    </entry>
+    <entry>
+        <key>v2_infectiousnessWeights</key>
+        <value>1;1;1</value>
+    </entry>
+    <entry>
+        <key>v2_attenuationBucketThresholdDb</key>
+        <value>55;63;75</value>
+    </entry>
+    <entry>
+        <key>v2_attenuationBucketWeights</key>
+        <value>1.5;1;0.16;0</value>
+    </entry>
+    <entry>
+        <key>v2_minimumWindowScore</key>
+        <value>900</value>
+    </entry>
+    <entry>
+        <key>v2_helpMarkdown</key>
+        <value># Fungování eRoušky\n## Jak mám postupovat, když mi aplikace zobrazila upozornění na
+            rizikové setkání s nakaženým uživatelem?\nPokud máte příznaky nákazy (například zvýšenou
+            teplotu, kašel, dušnost, bolest v krku, bolest hlavy), telefonicky kontaktujte svého
+            praktického lékaře. V případě, že je váš stav akutní a nejste schopni navštívit svého
+            lékaře, volejte pohotovost – 155. Uvedené příznaky se mohou objevit 2 až 14 dní po
+            rizikovém setkání.\n\nPokud nemáte žádné příznaky, chovejte se prosím zodpovědně:\n\n*
+            Noste roušku či respirátor přes ústa a nos.\n* Často a důkladně si myjte ruce vodou a
+            mýdlem či používejte dezinfekci.\n* Pravidelně dezinfikujte vlastní předměty (např.
+            mobilní telefon).\n* Kašlejte a kýchejte do kapesníku či rukávu.\n* Používejte
+            jednorázové kapesníky a poté je vyhoďte.\n* Vyhýbejte se zbytečnému shromažďování a
+            dodržujte bezpečný odstup od ostatních (přibližně 2 metry).\n\nJinak můžete běžně
+            fungovat. Je možné, že vás bude v blízké době kontaktovat pracovník hygienické služby na
+            základě epidemiologického šetření s konkrétním nakaženým. V takovém případě postupujte
+            podle pokynů hygienické služby.\n\nPokud by se v průběhu 14 dní od rizikového setkání
+            váš zdravotní stav zhoršil a objevily se u vás příznaky onemocnění covid-19, kontaktujte
+            svého praktického lékaře.\n\n## Proč je eRouška potřeba? Dokáže mě vůbec efektivně
+            chránit před nákazou?\nJedním z úkolů eRoušky je zastavit další šíření nákazy tím, že
+            pomáhá co nejdříve izolovat potenciálně nakažené osoby od ostatních. Díky tomu pak není
+            nutné zavádět plošnou karanténu a omezení, což umožňuje snižovat dopady pandemie na
+            společnost a ekonomiku ČR. Aplikace na podobném principu fungují i v dalších státech a
+            účinným prostředkem v boji proti šíření nemoci Covid-19.\n\nAplikace eRouška 2.0 je
+            doplňkovou aplikací Chytré karantény – systému ministerstva zdravotnictví.
+            Prostřednictvím technologie Bluetooth se eRouška spojuje s dalšími eRouškami v
+            nejbližším okolí a ukládá jejich anonymní identifikátory. Pokud se u člověka prokáže
+            nákaza Covid-19, spojí se s ním pracovník hygienické stanice a ověří, zda osoba používá
+            aplikaci eRouška. Pokud ano, zašle jí ověřovací SMS kód, který uživateli umožní odeslat
+            své anonymní identifikátory do ostatních eRoušek. Aplikace ostatních uživatelů pak podle
+            epidemiologického modelu\\* co nejpřesněji vyhodnotí, jestli tito uživatelé přišli s
+            nakaženým do kontaktu dost blízko a na dostatečně dlouhou dobu, aby bylo nutné je
+            prostřednictvím notifikace v mobilu varovat a směřovat k dalšímu vyšetření. eRouška 2.0
+            tedy pomáhá co nejefektivněji informovat další potenciální přenašeče viru a urychlit
+            jejich testování. Tím se sníží počet infikovaných ve společnosti i riziko vaší
+            infekce.\n\n_\\* Blíže než 2 metry po dobu delší než 15 min._\n\n## To budu muset
+            pokaždé automaticky do karantény nebo na testy, když aplikace zahlásí, že jsem byl v
+            kontaktu s někým nakaženým?\nPokud u někoho test potvrdí nákazu, kontaktuje ho
+            hygienická stanice, aby zjistila, s kým byl v posledních dnech v rizikovém kontaktu, a
+            mohla tak omezit další šíření. Když tento člověk používá aplikaci eRouška, může
+            kontaktovat i ty, které nezná, protože s nimi třeba cestoval v autobuse. Zadáním
+            unikátního kódu může poslat upozornění všem ostatním uživatelům aplikace eRouška, se
+            kterým byl v epidemiologicky rizikovém kontaktu.\n\nV okamžiku, kdy vás aplikace
+            upozorní, že jste se setkali s osobou, u které bylo prokázané onemocnění Covid-19, byste
+            měli postupovat podle zobrazených doporučení a v případě zdravotních potíží bez prodlení
+            kontaktovat svého praktického lékaře nebo pohotovost.\n\n## Nemůže se stát, že eRouška
+            mylně vyhodnotí kontakt s jinou osobou, která je například vedle v autě na křižovatce,
+            za dveřmi nebo tenkou zdí?\nAplikace eRouška funguje na principu měření síly signálu
+            mezi dvěma zařízeními. Technicky proto nelze vyloučit nepřesný odhad vzdálenosti a
+            mylnou detekci rizikového setkání. Technická omezení, rizika používání aplikace a postup
+            vyhodnocování setkání popisujeme na stránce [Spolehlivost vyhodnocení rizikového
+            kontaktu](https://erouska.cz/vyhodnoceni-rizika) a v sekci [Technické podmínky v
+            Podmínkách zpracování](https://erouska.cz/podminky-pouzivani#technicke).\n\nPro
+            vyhodnocení kontaktu jako rizikového je kromě vzdálenosti (do 2 m) relevantní též délka
+            kontaktu (alespoň 15 minut) – např. zastavení na semaforech na 1–2 minuty je tedy
+            nevýznamné.\n\n## Má smysl si eRoušku instalovat, když ji nebude používat dost
+            lidí?\nPrávě proto byste neměli váhat. Čím více nás bude eRoušku používat, tím lepší
+            vytvoříme síť, která nás bude vzájemně chránit a varovat před rizikem. Pomozte nám i vy.
+            Instalací aplikace se můžete aktivně zapojit do boje proti Covid-19. O aplikaci můžete
+            říct i lidem ve svém okolí, případně jim s jejich souhlasem pomoci s instalací.\n\n##
+            Jak se eRouška liší od jiných podobných aplikací?\nZ dat aplikace eRouška nelze zjistit,
+            kdy a kde jste se pohybovali. Aplikace nezaznamenává vaši geografickou polohu (nepoužívá
+            GPS), ale rozpoznává ostatní zařízení s aplikací eRouška v okolí využitím technologie
+            Bluetooth LE. Tyto informace jsou anonymizované.\n\nKromě toho eRouška sama od sebe
+            informace nikam neodesílá, zůstávají uložené ve vašem mobilním zařízení. K odeslání
+            anonymních identifikátorů (klíčů) na server a odtud do dalších eRoušek k vyhodnocení
+            může dojít až ve chvíli, kdy vás pracovník call centra hygieny kontaktuje na základě
+            pozitivního testu na Covid-19. V telefonátu se vás zeptá, zda používáte aplikaci
+            eRouška, a zda vám může zaslat ověřovací kód. Jeho zadáním můžete předat klíče ze své
+            aplikace do aplikací ostatních uživatelů za účelem vyhodnocení a případného varování
+            dalších rizikových kontaktů.\n\n## Používá eRouška Apple/Google API?\nNová verze –
+            eRouška 2.0 pro Android i iOS již používá Apple/Google Exposure Notification API.
+            Nezapomeňte proto prosím aplikaci eRouška aktualizovat v [Google Play
+            (Android)](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska) nebo [App
+            Store (iOS)](https://apps.apple.com/cz/app/erou%C5%A1ka/id1509210215) a znovu
+            aktivovat.\n\n## Jak probíhá sběr dat a jejich zpracování?\nChytrý telefon s aplikací
+            eRouška zaznamená přes Bluetooth LE anonymní identifikátory (ID) z jiných zařízení s
+            touto aplikací. Informaci o „setkání“ a jeho délce ukládá do své vnitřní paměti.\n\nV
+            případě, že budete osloveni pracovníkem hygienické stanice z důvodu pozitivního testu,
+            získáte od něj v SMS jednorázový kód, jehož zadáním do aplikace umožníte odeslání svých
+            anonymních identifikátorů na server, odkud si jej stáhnou ostatní eRoušky k vyhodnocení.
+            Algoritmus v aplikaci každého uživatele na základě epidemiologického modelu
+            automatizovaně vyhodnotí sesbíraná data – porovná identifikátory se všemi zaznamenanými
+            setkáními – a v případě rizikového kontaktu zobrazí upozornění, že hrozí nákaza kvůli
+            setkání s pozitivně testovanou osobou, a doporučí další postup.\n\nPodrobné informace o
+            sběru a zpracování dat, naleznete v [Informacích o zpracování osobních údajů v aplikaci
+            eRouška 2.0](https://erouska.cz/podminky-pouzivani).\n\n## Jak mám postupovat, když mi
+            test potvrdí nákazu?\nV první řadě kontaktujte hygienickou stanici, pod kterou místně
+            spadáte, pokud vás již nekontaktovala sama. Pověřený pracovník hygieny vám poskytne
+            informace o tom, jak dále postupovat, a případně vám zašle ověrovací SMS kód pro
+            odeslání klíčů z vaší eRoušky. Dále byste měli zavolat svému praktickému lékaři, který
+            vám indikuje léčbu.\n\n**V případě závažných zdravotních komplikací volejte linky 112 a
+            155.** \n_Aktuální informace se dozvíte vždy [na webu Ministerstva zdravotnictví
+            ČR](https://koronavirus.mzcr.cz/)._\n\n## Takže všichni budou vědět, že mám
+            COVID-19?\nNebudou. Pokud onemocníte, vaše totožnost je známá jen a pouze pracovníkovi
+            hygienické stanice. Kritické kontakty se nedozví, kdo, kde ani kdy je mohl nakazit.
+            Aplikace zobrazuje pouze obecnou informaci o rizikovým setkání s nakaženým a další
+            doporučený postup. Vaše identita je ochráněna.\n\n## Co když někdo nepřizná, že je
+            nemocný?\nI to se může stát. Věříme však, že uživatelé eRoušky chtějí aktivně pomáhat se
+            zastavením dalšího šíření nákazy a aplikaci využijí, aby mohli co nejdříve varovat
+            osoby, se kterými přišli do rizikového kontaktu. **Záměrné šíření Covid-19 je v ČR
+            považováno za trestný čin.**\n\n## Pozná eRouška, když poruším lékařem nařízenou
+            karanténu nebo třeba pojedu na chatu?\nAplikace nesleduje vaši polohu, není to její účel
+            a ani pro to není navržena. Nepozná tedy, zda jste porušili karanténní opatření nebo kam
+            jste odjeli. Má naopak pomoci k tomu, aby v karanténě byly pouze osoby s
+            diagnostikovaným onemocněním nebo s vážným podezřením nákazy.\n\n## Co je to chytrá
+            karanténa? Jakou v ní hraje roli eRouška?\nJde o soubor chytrých opatření, která chrání
+            lidi před nákazou a ekonomiku před kolapsem. Místo toho, aby byla v karanténě celá země,
+            chytrá karanténa usnadňuje dohledávání, testování a izolaci pouze nemocných a z nemoci
+            důvodně podezřelých lidí.\n\nKonkrétně jde o systém řízení v oblastech předpovědi
+            vývoje, podpory rozhodování, aktivního vyhledávání kontaktů, testování vč. řízení
+            kapacit odběrových míst, laboratoří, řízení karantén a souvisejícího materiálního a IT
+            zabezpečení ke zvládnutí pandemie onemocnění COVID-19. Chytrá karanténa 2.0 je označením
+            pro přechod projektu pod Ministerstvo zdravotnictví, které bude díky novým nástrojům
+            umět do budoucna kdykoliv velmi rychle reagovat na jakékoliv epidemie.\n\nAplikace
+            eRouška je jeden z nástrojů, které vznikly na podporu [chytré
+            karantény](https://chytrakarantena.cz/). Pomocí technologií – eRoušky – můžeme aktivně
+            upozornit rizikové jedince, kteří se setkali s nakaženým, aby zvýšili hygienická
+            opatření, zvážili dobrovolnou karanténu, případně při pociťování příznaků kontaktovali
+            obvodního lékaře. Díky těmto krokům věříme, že se podaří zmírnit šíření nákazy a ušetřit
+            zdravotnictví fatálního přetížení.\n\n## Co je to Apple/Google Exposure Notification API
+            (protokol)?\nSpolečnosti Apple a Google společně vyvíjejí technologie, díky kterým mohou
+            veřejné zdravotní instituce (u nás MZČR) vyvíjet národní aplikace pro trasování
+            rizikových kontaktů s osobami s onemocněním Covid-19.\n\nKonkrétně jde například o
+            rozhraní, které daným aplikacím (u nás eRouška) umožňuje spolehlivě přistupovat k
+            systémovým prostředkům Android a Apple zařízení za účelem zaznamenání setkání – zejména
+            využívat Bluetooth LE pro ověření kontaktu a běžet na pozadí bez potřeby dalších
+            nastavení aplikace nebo operačního systému. Šifrovaný komunikační protokol pak zajišťuje
+            zabezpečený přenos aktuálních seznamů identifikátorů nakažených uživatelů mezi
+            trasovacími aplikacemi za účelem vyhodnocení rizikových setkání a včasného zobrazení
+            notifikace.\n\nBližší informace naleznete přímo na webových stránkách společností [Apple
+            (anglicky)](https://www.apple.com/covid19/contacttracing) a [Google
+            (česky)](https://www.google.com/covid19/exposurenotifications/).\n\n## Plánujete u webu
+            a aplikace překlad do angličtiny a dalších jazyků?\nPrioritně pracujeme na překladu
+            aplikace i webu eRouska.cz do angličtiny a plánujeme i vietnamštinu a případně další
+            jazyky. Zkuste aplikaci aktualizovat na nejnovější verzi.\n\n# Nastavení\n## Na jakých
+            telefonech aplikace eRouška funguje?\nPokud vaše mobilní zařízení není s eRouškou
+            kompatibilní (nemá potřebné technologie/funkce), Google Play ani Apple App Store vám
+            neumožní aplikaci nainstalovat (podporu jiných platforem neplánujeme).\n\nPro instalaci
+            aplikace eRouška potřebujete mobilní zařízení s těmito parametry:\n\n* iPhone s iOS
+            verze 13.5 a vyšší\n* OS Android verze 6.0 a vyšší s Google Play Services (nemá jen malé
+            procento telefonů Huawei a některé telefony s vlastní ROM)\n* Bluetooth LE (Low
+            Energy)\n\n## Je možné aplikaci stáhnout i jinak než z Google Play nebo Apple App
+            Store?\nAplikace eRouška 2.0 používá Apple/Google protokol pro zaznamenávání setkání a
+            přenos dat. Proto je také závislá na službách Google Play services, bez kterých nebude
+            fungovat, a není ji tedy možné instalovat z jiných než oficiálních aplikačních obchodů.
+            Google Play a Apple App Store spolehlivě vyfiltruje podporovaná zařízení. Kromě toho
+            bychom nedokázali pro aplikace nainstalované neoficiální cestou zajistit stejnou úroveň
+            podpory a aktualizací.\n\n## Kolik zapnutý Bluetooth a aplikace eRouška spotřebují
+            baterie?\nJestliže již nyní používáte telefon se stále zapnutým Bluetooth, spotřeba
+            energie se výrazněji nezvýší.\n\nPokud Bluetooth nyní běžně nepoužíváte, tak podle
+            výsledků našeho testování s neustále zapnutým Bluetooth a ukládáním dat do aplikace,
+            bylo navýšení denní spotřeby energie v řádu jednotek procent. Ve většině případů to je
+            méně než 20 % kapacity baterie za den. Záleží přitom na konkrétním chytrém telefonu,
+            stylu jeho používání a stavu baterie.\n\nPokud vám připadá spotřeba příliš vysoká,
+            zkuste prosím zkontrolovat nastavení → baterie/spotřeba, jestli za tím nestojí jiná
+            aplikace na pozadí.\n\n## Bude možné používat eRoušku i na chytrých hodinkách či
+            náramcích?\nRozšíření je do budoucna možné. Zatím jej ale nezvažujeme zejména proto, že
+            by chytré hodinky či náramek musely podporovat Bluetooth LE (Low Energy) a zejména
+            Apple/Google protokol. Základní Bluetooth bez LE sám o sobě pouze zajišťuje přenos dat,
+            ale neumožňuje měření intenzity setkání uživatelů na základě síly signálu.\n\n#
+            Připojení\n## Musím mít Bluetooth zapnutý neustále?\nAno. Bez zapnutého Bluetooth není
+            možné zjišťovat blízkost dalších zařízení s nainstalovanou aplikací eRouška. Tuto funkci
+            máte zapnutou možná i nyní, například v případě, že používáte bezdrátová sluchátka,
+            připojení v autě, chytrý náramek nebo hodinky. V nastavení Bluetooth vašeho
+            telefonu/tabletu navíc doporučujeme povolit, aby byl _viditelný pro všechna
+            zařízení_.\n\n## Proč je potřeba mít povolený přístup k GPS/polohovým/lokačním
+            údajům?\nAplikace eRouška nesbírá a neukládá data z GPS, avšak operační systém Android
+            zahrnuje pod určování polohy také některé služby Bluetooth LE (LE = low energy), který
+            komponenty eRoušky – konkrétně Google Play Services – pro své fungování vyžadují. Proto
+            je nutný souhlas uživatele s přístupem aplikace k polohovým údajům. V iOS tento souhlas
+            nutný není.\n\n## Proč aplikace používá zrovna Bluetooth? Neexistují lepší řešení jako
+            GPS nebo triangulace od operátorů?\nSoukromí uživatelů je pro nás na prvním místě, a
+            právě technologie Bluetooth nabízí nejvyváženější poměr přesnosti záznamu a minimálního
+            zásahu do soukromí. Technologie GPS ani triangulace vysílačů od operátorů nemohou
+            poskytnout potřebné údaje s požadovanou přesností. Mimo jiné i proto, že jejich
+            funkčnost je ve vnitřních prostorách či metru velmi omezená. Aplikace eRouška potřebuje
+            pro svoji funkci informace o tom, že došlo k setkání, na jakou vzdálenost a po jakou
+            dobu. Není důležité, kde k setkání došlo.\n\n## Je Bluetooth dostatečně bezpečná
+            technologie?\nBluetooth je dnes běžně rozšířená a podporovaná komunikační technologie
+            pro propojení zařízení s dalšími periferiemi, jako jsou bezdrátová sluchátka,
+            reproduktory, chytré náramky nebo hodinky. Vzhledem k tomu, že společnosti Apple a
+            Google vytvořily společný protokol určený výhradně pro národní aplikace, které trasují
+            riziková setkání s nakaženými Covid-19 na základě Bluetooth LE, jsme přesvědčení, že
+            jsme pro eRoušku zvolili správně. Je však potřeba říct, že úplně každá technologie je
+            zranitelná. I proto všem uživatelům doporučujeme, aby operační systém a aplikace ve svém
+            telefonu pravidelně aktualizovali. Aktualizace totiž mohou obsahovat důležité
+            bezpečnostní záplaty.\n\n## Potřebuje aplikace připojení k internetu?\nKromě stažení
+            (instalace) a aktivace aplikace je připojení k internetu nutné k tomu, aby si eRouška
+            mohla každý den stahovat aktuální seznam anonymních identifikátorů nakažených uživatelů,
+            a zobrazit tak včas případnou notifikací o rizikovém setkání. Za předpokladu, že by se u
+            vás potvrdila nákaza Covid-19, by vás o odeslání dat požádala hygienická stanice, a
+            tehdy by bylo opět potřeba eRoušku připojit k internetu. Do té doby jsou vaše data
+            uložena pouze ve vašem telefonu, odkud se sama odmazávají po 14 dnech. Aplikace využívá
+            připojení k internetu rovněž ke stažení informací o aktuálním vývoji epidemie Covid-19 v
+            ČR, které zobrazuje na stránce _Aktuálně_.\n\n## Je možné, že se mi po zapnutí eRoušky
+            zpomalilo Wi-Fi / připojení k internetu?\nU některých modelů mobilů s OS Android je
+            bohužel známé, že vysílání Bluetooth může částečně negativně ovlivňovat signál Wi-Fi a
+            naopak.\n\n# Zabezpečení dat\n## Jak zjistím, která všechna data přesně aplikace ukládá
+            a odesílá?\nAplikace eRouška používá od verze 2.0 tzv. Apple/Google Exposure
+            Notification API, které zprostředkovává sběr dat a předávání identifikátorů mezi
+            uživateli. Aplikace kvůli tomu už nemá přímý přístup k naměřeným údajům, které by mohla
+            uživatelům zobrazit, jako tomu bylo u verze 1.0.\n\nSama o sobě aplikace data nikam
+            neodesílá. Pouze stahuje seznam identifikátorů od uživatelů, kterým test potvrdil
+            nákazu. Data ke zpracování může ostatním odeslat pouze samotný uživatel, a to až po
+            zadání jednorázového SMS kódu, který získá v případě pozitivního testu na nákazu nemocí
+            Covid-19 od pracovníků hygienické stanice.\n\nPodrobné informace o sběru a zpracování
+            dat, naleznete v [Informacích o zpracování osobních údajů v aplikaci eRouška
+            2.0](https://erouska.cz/podminky-pouzivani).\n\n## Co když mi telefon ukradnou nebo ho
+            ztratím?\nV aplikaci eRouška jsou lokálně uložené jen anonymní informace o dalších
+            zařízeních, která eRouška zaznamenala ve svém okolí. Žádné riziko to nepřináší pro vás
+            ani pro majitele takto zaznamenaných zařízení. Jiné aplikace, které běžně využíváte,
+            mohou ve vašem telefonu pravděpodobně ukládat mnohem citlivější údaje. Mějte proto svůj
+            telefon chráněný kódem nebo biometricky (otiskem prstu nebo obličejem).\n\n## Je
+            aplikace eRouška v souladu s GDPR?\nCelý systém aplikace eRouška, včetně webových
+            stránek, je navržen plně v souladu s GDPR i zákonem o zpracování osobních údajů.\n\nZde
+            naleznete bližší informace:\n\n* [Informace o zpracování osobních údajů v aplikaci
+            eRouška 2.0](https://erouska.cz/podminky-pouzivani)\n* [Audit zdrojového kódu
+            aplikace](https://erouska.cz/audit-kod)\n\n## Jak uživatele chráníte před zneužitím
+            dat?\nUživatele chráníme především minimálním rozsahem zaznamenávaných dat a jejich
+            ukládáním přímo do zařízení. Data uživatelů se bez jejich vědomí a souhlasu nikam
+            neposílají ani nezpracovávají. Do telefonů se zaznamenávají anonymní identifikátory (ID)
+            zařízení s nainstalovanou aplikací eRouška a informace o čase, délce a síle jejich
+            Bluetooth signálu. Data se zpracovávají automatizovaně na serveru pouze po odsouhlaseném
+            odeslání uživatelem.\n\n## Dohlíží na zabezpečení dat z aplikace nějaká nezávislá
+            organizace?\nCelý systém aplikace eRouška, včetně podpůrných webových stránek, je
+            navržený plně v souladu s GDPR. Kód aplikace je jako open-source volně k dispozici
+            ([Android](https://github.com/covid19cz/erouska-android),
+            [iOS](https://github.com/covid19cz/erouska-ios)) a prošel [auditem nezávislých
+            vzdělávacích institucí](https://erouska.cz/audit-kod).\n\nDalší informace naleznete v
+            [Informacích o zpracování osobních údajů v rámci aplikace eRouška
+            2.0](https://erouska.cz/podminky-pouzivani).\n\n## Může mě někdo pomocí aplikace eRouška
+            sledovat?\nNe. Aplikace nesbírá údaje o vaší poloze a k uloženým datům máte přístup
+            pouze vy. Samotné údaje, které aplikace po vašem souhlasu odesílá, nemohou být použity k
+            vašemu sledování. Každá eRouška navíc mění z důvodu bezpečnosti a ochrany soukromí
+            uživatelů pravidelně své vysílané ID, aby nebylo snadné jej odchytit a nějak
+            zneužít.\n\n_Aplikace automaticky ukládá pouze informace typu: 31. 3. 2020 v 12:15 byla
+            zaznamenána aplikace s identifikátorem ID 29091 se sílou signálu −56 dBm._\n\n## Lze
+            ověřit, že aplikace nezaznamenává moji polohu?\nAno. Aplikace eRouška je publikována s
+            otevřeným zdrojovým kódem ([Android](https://github.com/covid19cz/erouska-android),
+            [iOS](https://github.com/covid19cz/erouska-ios)), takže znalý člověk může snadno ověřit,
+            že údaje o poloze aplikace opravdu nesbírá.\n\nZdrojové kódy aplikace eRouška [prověřují
+            nezávislé autority](https://erouska.cz/audit-kod), které kontrolují, že aplikace:\n\n*
+            nesleduje polohu\n* sama automaticky data nikam neodesílá\n\n## Lze identifikátor
+            aplikace (ID) uživatele spárovat s konkrétní osobou?\nAplikace eRouška 2.0 [nepracuje s
+            osobními údaji](https://erouska.cz/podminky-pouzivani). Vygenerovaná anonymní ID eRoušky
+            se mezi aplikacemi a servery přenášejí výhradně po chráněném komunikačním protokolu,
+            který společně vyvinuly společnosti Apple a Google. K identifikátorům nemají přístup ani
+            uživatelé, ani vývojáři, ani jiná autorita.\n\n## Kdo má (může mít) přístup k mým
+            datům?\nK zaznamenaným údajům o setkání nemá v eRoušce 2.0 přístup uživatel, ani nikdo
+            jiný. Důvodem je, že aktuální verze aplikace používá Apple/Google protokolu, který k
+            zaznamenaným datům neposkytuje přístup ani uživatelům, ani vývojářům a správcům. Data
+            (anonymní identifikátory nakažených) se přenášejí na server a odtud do ostatních eRoušek
+            šifrovaná a vyhodnocují se až na koncových zařízeních automatizovaně za účelem zobrazení
+            případných upozornění o rizikovém kontaktu. Ze serveru i ze zařízení se data mažou
+            automaticky po 14 dnech.\n\n## Jak dlouho do minulosti jsou data k dispozici? Kdy a jak
+            probíhá jejich mazání?\nV aplikaci eRouška se uchovávají data zaznamenaná za posledních
+            14 dní, starší záznamy se automaticky odmazávají. Pokud na výzvu pracovníka hygieny
+            udělíte souhlas se zpracováním a odešlete identifikátory z telefonu na server, zůstanou
+            zde 14 dní a poté dojde k jejich smazání. Data můžete ze svého zařízení smazat tím, že
+            odinstalujete aplikaci eRouška. Informace o správcích a zpracovatelích dat naleznete v
+            [Informacích o zpracování osobních údajů v rámci aplikace
+            eRouška](https://erouska.cz/podminky-pouzivani).\n\n## Můžu si používání aplikace
+            kdykoli rozmyslet? Můžu smazat data, která odešlu ke zpracování?\nPokud odinstalujete
+            aplikaci, smažete tak veškerá nasbíraná data. Data odeslaná na server se smažou
+            automaticky po 14 dnech.\n\nV eRoušce verze 1.x můžete smazat telefonní číslo (zrušit
+            registraci), které jste poskytli při aktivaci aplikace. Historicky přidělená
+            identifikační čísla (ID) vaší eRoušky ovšem zůstanou ještě 30 dní zaznamenaná v
+            eRouškách ostatních uživatelů, kteří vás v předešlých dnech potkali. Tato ID ale nebude
+            na základě ostatních údajů z aplikace eRouška nadále možné přiřadit k žádnému telefonu,
+            telefonnímu číslu ani osobě.\n\n## Co se děje s daty po smazání aplikace z mobilu?\nKdyž
+            smažete aplikaci z telefonu, smažou se i v něm uložená sesbíraná data. Pokud aplikaci
+            znovu nainstalujete, začnou se sbírat a do telefonu ukládat zcela nová data.\n\n## Kde
+            najdu zdrojový kód aplikace?\nAplikace eRouška je publikována s otevřeným zdrojovým
+            kódem ([Android](https://github.com/covid19cz/erouska-android),
+            [iOS](https://github.com/covid19cz/erouska-ios)).\n\n
+        </value>
+    </entry>
+    <entry>
+        <key>v2_shareAppDynamicLink</key>
+        <value>https://erouska.cz/app/sdilej</value>
+    </entry>
+    <entry>
+        <key>v2_chatBotLink</key>
+        <value>https://erouska.cz/#chat-open</value>
+    </entry>
+    <entry>
+        <key>v2_minSupportedVersionCodeAndroid</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersTitleAn</key>
+        <value>Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19. V
+            případě, že vás bude kontaktovat pracovník hygienické stanice, postupujte podle jeho
+            pokynů.
+        </value>
+    </entry>
+    <entry>
+        <key>v2_noEncounterHeader</key>
+        <value>V posledních 14 dnech nebyla ve vaší blízkosti žádná osoba s potvrzeným onemocněním
+            COVID-19
+        </value>
+    </entry>
+    <entry>
+        <key>v2_noEncounterBody</key>
+        <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersWithSymptoms</key>
+        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objevily příznaky
+            respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se
+            jeho pokyny. Mimo jeho pracovní dobu kontaktujte telefonicky nejbližší lékařskou
+            pohotovost. V případě závažných zdravotních obtíží volejte 155.
+        </value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersWithoutSymptoms</key>
+        <value>Jestliže se u vás neprojevují hlavní příznaky onemocnění COVID-19, nemusíte zůstávat
+            doma. Dodržujte zásady zodpovědného chování a sledujte svůj zdravotní stav.
+        </value>
+    </entry>
+    <entry>
+        <key>v2_exposureUITitle</key>
+        <value>Rizikové setkání</value>
+    </entry>
+    <entry>
+        <key>v2_symptomsUITitle</key>
+        <value>Hlavní příznaky</value>
+    </entry>
+    <entry>
+        <key>v2_spreadPreventionUITitle</key>
+        <value>Zásady zodpovědného chování</value>
+    </entry>
+    <entry>
+        <key>v2_recentExposuresUITitle</key>
+        <value>Předchozí riziková setkání</value>
+    </entry>
+    <entry>
+        <key>v2_preventionContentJson</key>
+        <value>{"title": "COVID-19 se přenáší hlavně kapénkami, která se šíří vzduchem. Přenášet se
+            může také kontaminovanými
+            předměty.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často
+            a důkladně si myjte ruce mýdlem a používejte
+            dezinfekci."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelně
+            dezinfikujte také osobní předměty (např. mobilní
+            telefon)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlejte
+            a kýchejte do jednorázového kapesníku či
+            rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbejte
+            se velkým skupinám osob a udržujte bezpečný odstup (cca 2
+            metry)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodů
+            a hromadných dopravních prostředků vždy noste roušku přes ústa a
+            nos."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokud
+            cítíte příznaky respiračního onemocnění, zůstaňte doma a kontaktujte lékaře."}]}
+        </value>
+    </entry>
+    <entry>
+        <key>v2_symptomsContentJson</key>
+        <value>{"title":"Příznaky se mohou objevit 2–14 dní po rizikovém
+            setkání.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"Zvýšená
+            teplota"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Kašel"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Dušnost"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Bolest
+            v krku"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Bolest
+            hlavy, svalů a kloubů"}]}
+        </value>
+    </entry>
+    <entry>
+        <key>v2_encounterWarning</key>
+        <value>Setkali jste se s osobou, u které bylo prokázáno onemocnění COVID-19. Sledujte svůj
+            zdravotní stav.
+        </value>
+    </entry>
+    <entry>
+        <key>v2_keyExportUrl</key>
+        <value>https://storage.googleapis.com/exposure-notification-export-qhqcx/erouska</value>
+    </entry>
+    <entry>
+        <key>v2_selfCheckerPeriodHours</key>
+        <value>4</value>
+    </entry>
+    <entry>
+        <key>v2_keyImportPeriodHours</key>
+        <value>6</value>
+    </entry>
+    <entry>
+        <key>v2_keyImportDataOutdatedHours</key>
+        <value>24</value>
+    </entry>
+    <entry>
+        <key>v2_contactsContentJson</key>
+        <value>[{"title":"Máte podezření na onemocnění COVID-19?","text":"Zůstaňte doma a
+            telefonicky kontaktuje svého praktického lékaře. Mimo jeho pracovní dobu kontaktujte
+            telefonicky nejbližší lékařskou pohotovost.","linkTitle":"Důležité
+            kontakty","link":"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"},{"title":"Potřebujete
+            poradit?","text":"Veškeré otázky a nejasnosti týkající se onemocnění COVID-19 najdete na
+            webu MZČR.","linkTitle":"Často kladené
+            otázky","link":"https://koronavirus.mzcr.cz/otazky-a-odpovedi/"},{"title":"O aplikaci
+            eRouška","text":"Potřebujete poradit s aplikací nebo vás zajímá, jak funguje? Napište
+            Anežce, podpoře eRoušky.","linkTitle":"Anežka – podpora
+            eRoušky","link":"https://erouska.cz/#chat-open"}]
+        </value>
+    </entry>
+    <entry>
+        <key>v2_currentMeasuresUrl</key>
+        <value>https://koronavirus.mzcr.cz/aktualni-opatreni/</value>
+    </entry>
+    <entry>
+        <key>v2_conditionsOfUseUrl</key>
+        <value>https://wwww.erouska.cz</value>
+    </entry>
+    <entry>
+        <key>v2_minGmsVersionCode</key>
+        <value>203019000</value>
+    </entry>
+</defaultsMap>
