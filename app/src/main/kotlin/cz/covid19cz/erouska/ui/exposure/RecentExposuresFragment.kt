@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentRecentExposuresBinding
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.exposure.event.RecentExposuresEvent
 import kotlinx.android.synthetic.main.fragment_recent_exposures.*
@@ -34,8 +36,15 @@ class RecentExposuresFragment : BaseFragment<FragmentRecentExposuresBinding, Rec
 
     private fun updateState(event: RecentExposuresEvent) {
         when (event) {
-            is RecentExposuresEvent.ExposuresLoadedEvent -> exposureAdapter.updateItems(event.exposures)
+            is RecentExposuresEvent.ExposuresLoadedEvent -> {
+                empty_view.hide()
+                exposures_list.show()
+                exposureAdapter.updateItems(event.exposures)
+            }
+            is RecentExposuresEvent.NoExposuresEvent -> {
+                empty_view.show()
+                exposures_list.hide()
+            }
         }
     }
-
 }

@@ -90,7 +90,7 @@ class ActivationFragment :
     }
 
     private fun setupListeners() {
-        privacy_body_2.setOnClickListener { showWeb(AppConfig.proclamationLink, customTabHelper) }
+        privacy_body_2.setOnClickListener { showWeb(AppConfig.conditionsOfUseUrl, customTabHelper) }
         activate_btn.setOnClickListener { viewModel.activate() }
         try_again_btn.setOnClickListener { viewModel.activate() }
     }
@@ -117,16 +117,9 @@ class ActivationFragment :
     private fun onActivationStart() {
         login_progress.show()
 
-        img_privacy.hide()
-        privacy_header.hide()
-        privacy_body_1.hide()
-        privacy_body_2.hide()
         activate_btn.hide()
-
-        img_error.hide()
-        error_header.hide()
-        error_body.hide()
-        try_again_btn.hide()
+        privacy_group.hide()
+        error_group.hide()
     }
 
     private fun onActivationSuccess() {
@@ -134,34 +127,23 @@ class ActivationFragment :
     }
 
     private fun onActivationInit() {
-        img_error.hide()
-        error_header.hide()
-        error_body.hide()
-        try_again_btn.hide()
         activity?.setTitle(R.string.privacy_toolbar_title)
 
         login_progress.hide()
-        img_privacy.show()
-        privacy_header.show()
-        privacy_body_1.show()
-        privacy_body_2.show()
-        activate_btn.show()
 
+        activate_btn.show()
+        privacy_group.show()
+        error_group.hide()
     }
 
     private fun onActivationFailed() {
-        img_error.show()
-        error_header.show()
-        error_body.show()
-        try_again_btn.show()
         activity?.setTitle(R.string.activation_error_title)
 
         login_progress.hide()
-        img_privacy.hide()
-        privacy_header.hide()
-        privacy_body_1.hide()
-        privacy_body_2.hide()
+
+        privacy_group.hide()
         activate_btn.hide()
+        error_group.show()
     }
 
     private fun goBack() {

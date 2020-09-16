@@ -29,17 +29,6 @@
             </intent-filter>
         </activity>
 
-        <!-- This is invisible activity just for handling of app shortcuts. -->
-        <activity
-            android:name=".ui.ShortcutActivity"
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.RUN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="erouska" />
-            </intent-filter>
-        </activity>
-
         <!-- Receivers -->
         <receiver
             android:name=".exposurenotifications.receiver.ExposureNotificationBroadcastReceiver"

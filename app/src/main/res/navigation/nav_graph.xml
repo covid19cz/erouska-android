@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    >
+    android:id="@+id/nav_graph">
 
     <fragment
         android:id="@+id/nav_legacy_update_fragment"
@@ -72,13 +71,6 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_welcome_fragment_to_nav_bt_onboard"
-            app:destination="@id/nav_permission_onboard"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_activation_notifications"
             app:destination="@+id/nav_activation_notifications_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -125,10 +117,6 @@
         android:name="cz.covid19cz.erouska.ui.help.HelpFragment"
         android:label="@string/help_toolbar_title"
         tools:layout="@layout/fragment_help">
-        <argument
-            android:name="type"
-            android:defaultValue="HELP"
-            app:argType="cz.covid19cz.erouska.ui.help.InfoType" />
 
         <argument
             android:name="fullscreen"
@@ -156,7 +144,7 @@
 
     <fragment
         android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.erouska.ui.permissions.PermissionsDisabledFragment"
+        android:name="cz.covid19cz.erouska.ui.permissions.bluetooth.PermissionsDisabledFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_permissionss_disabled">
         <action
@@ -191,7 +179,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_bt_disabled"
+            android:id="@+id/action_nav_dashboard_to_nav_permission_disabled"
             app:destination="@id/nav_permisions_disabled"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
@@ -285,25 +273,6 @@
         android:id="@+id/nav_spread_prevention"
         android:name="cz.covid19cz.erouska.ui.exposure.SpreadPreventionFragment"
         tools:layout="@layout/fragment_spread_prevention">
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="true"
-            app:argType="boolean" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_permission_onboard"
-        android:name="cz.covid19cz.erouska.ui.permissions.onboarding.PermissionsOnboardingFragment"
-        android:label="@string/permission_onboarding_toolbar_title"
-        tools:layout="@layout/fragment_permissions_onboarding">
-        <action
-            android:id="@+id/action_nav_bt_onboard_to_nav_activation"
-            app:destination="@id/nav_activation"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_welcome_fragment"
-            app:popUpToInclusive="false" />
         <argument
             android:name="fullscreen"
             android:defaultValue="true"

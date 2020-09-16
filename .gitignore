@@ -29,6 +29,7 @@
 .idea/.name
 .idea/navEditor.xml
 .idea/assetWizardSettings.xml
+.idea/codeStyles/Project.xml
 
 # Gradle:
 .idea/gradle.xml

@@ -8,4 +8,9 @@
 
     <color name="textColorPrimary">@color/white</color>
     <color name="textColorSecondary">#eee</color>
+
+    <color name="toolbarColor">@android:color/black</color>
+    <color name="toolbarActiveColor">@android:color/white</color>
+    <color name="statusbarColor">@android:color/black</color>
+    <color name="launch_screen_background">#001829</color>
 </resources>

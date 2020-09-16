@@ -24,7 +24,7 @@ object LocalNotificationsHelper {
 
     fun showErouskaPausedNotification(context: Context?) {
         showNotification(
-            R.string.notification_exposure_notifications_off_title,
+            R.string.dashboard_title_paused,
             R.string.notification_exposure_notifications_off_text,
             CHANNEL_ID_NOT_RUNNING,
             context
@@ -89,6 +89,10 @@ object LocalNotificationsHelper {
 
     fun dismissNotRunningNotification(context: Context?) {
         dismissNotification(REQ_ID_NOT_RUNNING, context)
+    }
+
+    fun dismissOudatedDataNotification(context: Context?) {
+        dismissNotification(REQ_ID_OUTDATED_DATA, context)
     }
 
     private fun dismissNotification(id: Int, context: Context?) {
