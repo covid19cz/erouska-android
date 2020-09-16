@@ -23,7 +23,11 @@ object AppConfig {
             .map { it.toDouble() }
     val minimumWindowScore
         get() = firebaseRemoteConfig.getDouble("v2_minimumWindowScore")
-
+    val daysSinceOnsetToInfectiousness
+        get() = firebaseRemoteConfig.getString("v2_daysSinceOnsetToInfectiousness").split(";")
+            .map { it.toInt() }
+    val reportTypeWhenMissing
+        get() = firebaseRemoteConfig.getLong("v2_reportTypeWhenMissing").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("v2_shareAppDynamicLink")
     val chatBotLink
