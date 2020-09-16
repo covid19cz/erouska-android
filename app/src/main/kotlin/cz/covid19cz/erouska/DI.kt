@@ -12,7 +12,6 @@ import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.DiagnosisKeysDataMapping
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
 import com.google.android.gms.nearby.exposurenotification.Infectiousness
-import com.google.android.gms.nearby.exposurenotification.ReportType
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureCryptoTools
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
@@ -75,7 +74,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single { SharedPrefsRepository(get()) }
-    single { ExposureNotificationsRepository(androidContext(), provideExposureNotificationClient(androidContext()), get(), get(), get()) }
+    single { ExposureNotificationsRepository(androidContext(), provideExposureNotificationClient(androidContext()), get(), get(), get(), get()) }
     single { FirebaseFunctionsRepository(get(), get()) }
     single { ExposureServerRepository(get(), get()) }
 }
