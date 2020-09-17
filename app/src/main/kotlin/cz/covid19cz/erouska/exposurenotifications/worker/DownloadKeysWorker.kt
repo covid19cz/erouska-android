@@ -23,12 +23,16 @@ class DownloadKeysWorker(
     private val serverRepository: ExposureServerRepository by inject()
 
     override suspend fun doWork(): Result {
-        Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
-        L.i("Starting periodical key download")
-        val files = serverRepository.downloadKeyExport()
-        L.i("Extracted ${files.size} files")
-        exposureNotificationsRepository.provideDiagnosisKeys(files)
-        Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
+        if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
+            Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
+            L.i("Starting periodical key download")
+            val files = serverRepository.downloadKeyExport()
+            L.i("Downloaded ${files.size} files")
+            if (files.isNotEmpty()) {
+                exposureNotificationsRepository.provideDiagnosisKeys(files)
+            }
+            Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
+        }
         return Result.success()
     }
 }

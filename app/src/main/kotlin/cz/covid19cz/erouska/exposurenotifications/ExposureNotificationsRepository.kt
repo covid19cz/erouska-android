@@ -196,4 +196,8 @@ class ExposureNotificationsRepository(
                 worker
             )
     }
+
+    fun isEligibleToDownloadKeys() : Boolean{
+        return System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
+    }
 }

@@ -31,7 +31,11 @@ class ExposureServerRepository(
 ) {
 
     companion object {
-        private val KEY_EXPORT_INDEX = "${AppConfig.keyExportUrl}/index.txt"
+        private val KEY_EXPORT_INDEX = if (BuildConfig.FLAVOR == "dev"){
+            "${AppConfig.keyExportUrl}/index.txt"
+        } else {
+            "${AppConfig.keyExportUrl}erouska/index.txt"
+        }
     }
 
     private val okhttpBuilder by lazy {

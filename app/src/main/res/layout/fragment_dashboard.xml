@@ -132,7 +132,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:visibleOrGone="@{vm.serviceRunning}" />
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
 
                 <ImageView
                     android:id="@+id/app_paused_image"
@@ -144,7 +144,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:visibleOrGone="@{!vm.serviceRunning}"
+                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
                     tools:visibility="gone" />
 
                 <TextView
@@ -160,7 +160,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/app_running_image"
-                    app:visibleOrGone="@{vm.serviceRunning}" />
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
 
                 <TextView
                     android:id="@+id/app_paused_title"
@@ -175,7 +175,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/app_paused_image"
-                    app:visibleOrGone="@{!vm.serviceRunning}"
+                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
                     tools:visibility="gone" />
 
                 <TextView
@@ -187,7 +187,7 @@
                     android:text="@string/dashboard_body"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintTop_toBottomOf="@id/app_running_title"
-                    app:visibleOrGone="@{vm.serviceRunning}"
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -201,7 +201,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body"
-                    app:visibleOrGone="@{vm.serviceRunning}" />
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
 
                 <TextView
                     android:id="@+id/app_running_body_no_contact"
@@ -214,7 +214,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/app_running_body_secondary"
-                    app:visibleOrGone="@{vm.serviceRunning &amp;&amp; vm.lastUpdateDate != null}"
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled &amp;&amp; vm.lastUpdateDate != null}"
                     tools:text="@tools:sample/lorem" />
 
                 <TextView
@@ -227,7 +227,7 @@
                     android:text="@string/dashboard_body_paused"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintTop_toBottomOf="@id/app_paused_title"
-                    app:visibleOrGone="@{!vm.serviceRunning}"
+                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="16dp"
                     tools:visibility="gone" />
@@ -248,7 +248,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{vm.serviceRunning}" />
+            app:visibleOrInvisible="@{vm.exposureNotificationsEnabled}" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonStart"
@@ -261,7 +261,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{!vm.serviceRunning}" />
+            app:visibleOrInvisible="@{!vm.exposureNotificationsEnabled}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
