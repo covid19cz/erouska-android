@@ -17,11 +17,21 @@ object LocalNotificationsHelper {
     const val CHANNEL_ID_EXPOSURE = "EXPOSURE"
     const val CHANNEL_ID_OUTDATED_DATA = "OUTDATED_DATA"
     const val CHANNEL_ID_NOT_RUNNING = "NOT_RUNNING"
+    const val CHANNEL_ID_APP_UPDATE = "APP_UPDATE"
 
     const val REQ_ID_EXPOSURE = 100
     const val REQ_ID_OUTDATED_DATA = 101
     const val REQ_ID_NOT_RUNNING = 102
+    const val REQ_ID_APP_UPDATE = 103
 
+    fun showAppUpdateNotification(context: Context?) {
+        showNotification(
+            R.string.notification_app_update_title,
+            R.string.notification_app_update_description,
+            CHANNEL_ID_APP_UPDATE,
+            context
+        )
+    }
     fun showErouskaPausedNotification(context: Context?) {
         showNotification(
             R.string.dashboard_title_paused,
@@ -81,6 +91,7 @@ object LocalNotificationsHelper {
                     CHANNEL_ID_EXPOSURE -> REQ_ID_EXPOSURE
                     CHANNEL_ID_OUTDATED_DATA -> REQ_ID_OUTDATED_DATA
                     CHANNEL_ID_NOT_RUNNING -> REQ_ID_NOT_RUNNING
+                    CHANNEL_ID_APP_UPDATE -> REQ_ID_APP_UPDATE
                     else -> 0
                 }, builder.build()
             )
@@ -118,6 +129,12 @@ object LocalNotificationsHelper {
             createNotificationChannel(
                 CHANNEL_ID_OUTDATED_DATA,
                 context.getString(R.string.notification_channel_outdated_data),
+                NotificationManager.IMPORTANCE_DEFAULT,
+                context
+            )
+            createNotificationChannel(
+                CHANNEL_ID_APP_UPDATE,
+                context.getString(R.string.notification_channel_app_update),
                 NotificationManager.IMPORTANCE_DEFAULT,
                 context
             )

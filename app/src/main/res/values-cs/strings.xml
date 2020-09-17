@@ -96,6 +96,7 @@
     <string name="notification_channel_exposure">Rizikový kontakt</string>
     <string name="notification_channel_outdated_data">Zastaralá data</string>
     <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
+    <string name="notification_channel_app_update">Aktualizace eRoušky</string>
 
     <string name="exposure_notifications_off_title">Zapněte Oznámení o kontaktu s COVID-19</string>
     <string name="exposure_notifications_off_body">eRouška nyní nemůže komunikovat s jinými eRouškami ve vašem okolí.\n\nZapněte Oznámení o kontaktu s COVID-19 pomocí tlačítka "Zapnout".</string>
@@ -137,9 +138,12 @@
     <string name="location_bt_off_body_2">I když polohová data nijak nevyužíváme, zapněte obě funkce pro správné fungování Bluetooth pomocí tlačítka "Zapnout BT a Polohové služby".</string>
     <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 
-    <string name="no_recent_exposures">Žádná riziková setkání</string>
+    <string name="notification_app_update_description">Nezapomeňte si ji stáhnout</string>
     <string name="dialog_en_api_not_found_title">Chyba aktivace (%d)</string>
     <string name="dialog_en_api_not_found_message">Exposure Notifications API není k dispozici, kontaktujte prosím podporu.</string>
     <string name="ok">OK</string>
+
+    <string name="no_recent_exposures">Žádná riziková setkání</string>
+    <string name="notification_app_update_title">Nová verze eRoušky je k dispozici</string>
 
 </resources>

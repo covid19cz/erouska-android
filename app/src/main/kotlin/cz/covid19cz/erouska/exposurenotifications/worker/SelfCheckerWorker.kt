@@ -5,6 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.exposurenotifications.InAppUpdateHelper
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -30,6 +31,10 @@ class SelfCheckerWorker(
             }
             if (prefs.hasOutdatedKeyData()) {
                 LocalNotificationsHelper.showOutdatedDataNotification(context)
+            }
+
+            if (InAppUpdateHelper.isObsolete()) {
+                InAppUpdateHelper.checkForAppUpdateAndNotify(context)
             }
         }
 

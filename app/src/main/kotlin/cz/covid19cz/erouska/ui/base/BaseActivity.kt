@@ -2,16 +2,11 @@ package cz.covid19cz.erouska.ui.base
 
 import android.app.Activity
 import android.content.Intent
-import android.content.IntentSender
 import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchActivity
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import cz.covid19cz.erouska.AppConfig
-import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.exposurenotifications.InAppUpdateHelper
 import kotlin.reflect.KClass
 
 
@@ -32,49 +27,22 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(
     override fun onResume() {
         super.onResume()
 
-        updateIfNeeded()
+        forceUpdateIfNeeded()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == APP_UPDATE_REQUEST_CODE) {
+        if (requestCode == InAppUpdateHelper.APP_FORCE_UPDATE_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
-                updateIfNeeded()
+                forceUpdateIfNeeded()
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun updateIfNeeded() {
-        if (isObsolete()) {
-            checkForAppUpdate()
+    private fun forceUpdateIfNeeded() {
+        if (InAppUpdateHelper.isObsolete()) {
+            InAppUpdateHelper.checkForAppUpdateAndUpdate(this, AppUpdateType.IMMEDIATE)
         }
-    }
-
-    private fun isObsolete(): Boolean {
-        return BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
-    }
-
-    private fun checkForAppUpdate() {
-        val appUpdateManager = AppUpdateManagerFactory.create(this)
-
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                try {
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        AppUpdateType.IMMEDIATE,
-                        this,
-                        APP_UPDATE_REQUEST_CODE
-                    )
-                } catch (e: IntentSender.SendIntentException) {
-                    L.e(e)
-                }
-            }
-        }
-    }
-
-    companion object {
-        const val APP_UPDATE_REQUEST_CODE = 1777
     }
 }

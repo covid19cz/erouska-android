@@ -87,6 +87,7 @@
     <string name="notification_channel_exposure">Risky contact</string>
     <string name="notification_channel_outdated_data">Outdated data</string>
     <string name="notification_channel_exposure_notifications_off">Paused eRouška</string>
+    <string name="notification_channel_app_update">eRouška update</string>
     <string name="exposure_notifications_off_title">Enable COVID-19 exposure notifications</string>
     <string name="exposure_notifications_off_body">eRouška can\'t communicate with other eRouška applications in your vicinity.\n\nEnable COVID-19 exposure notifications using \"Enable\" button.</string>
     <string name="exposures_title">Risky encounters</string>
@@ -126,4 +127,7 @@
     <string name="dialog_en_api_not_found_title">Activation Error (%d)</string>
     <string name="dialog_en_api_not_found_message">Exposure Notifications API is not available, please contact support.</string>
     <string name="ok">OK</string>
+
+    <string name="notification_app_update_title">New version of eRouška is available</string>
+    <string name="notification_app_update_description">Don\'t forget to download it</string>
 </resources>
