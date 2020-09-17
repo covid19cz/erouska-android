@@ -22,9 +22,8 @@ class RecentExposuresVM(private val exposureNotificationsRepo: ExposureNotificat
                     exposureNotificationsRepo.getDailySummaries()
                 }.onSuccess { dailySummaries ->
                     if (dailySummaries.isNotEmpty()) {
-                        val exposureList = emptyList<Exposure>()
-                        for (dailySummary in dailySummaries) {
-                            exposureList.plus(Exposure(dailySummary.daysSinceEpoch.daysSinceEpochToDateString()))
+                        val exposureList = dailySummaries.map {
+                            Exposure(it.daysSinceEpoch.daysSinceEpochToDateString())
                         }
                         state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(exposureList))
                     } else {
