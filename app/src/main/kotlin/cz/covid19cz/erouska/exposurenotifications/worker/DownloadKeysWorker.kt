@@ -32,6 +32,7 @@ class DownloadKeysWorker(
                 exposureNotificationsRepository.provideDiagnosisKeys(files)
             }
             Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
+            exposureNotificationsRepository.checkExposure(context)
         }
         return Result.success()
     }
