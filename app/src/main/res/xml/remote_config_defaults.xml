@@ -29,6 +29,10 @@
         <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
     </entry>
     <entry>
+        <key>v2_supportEmail</key>
+        <value>info@erouska.cz</value>
+    </entry>
+    <entry>
         <key>v2_helpMarkdown</key>
         <value>### Why is eRouška needed? Can it protect me from infection?\n\nCílem aplikace
             eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá co nejdříve izolovat

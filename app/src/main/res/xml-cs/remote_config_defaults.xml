@@ -29,6 +29,10 @@
         <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
     </entry>
     <entry>
+        <key>v2_supportEmail</key>
+        <value>info@erouska.cz</value>
+    </entry>
+    <entry>
         <key>v2_helpMarkdown</key>
         <value># Fungování eRoušky\n## Jak mám postupovat, když mi aplikace zobrazila upozornění na
             rizikové setkání s nakaženým uživatelem?\nPokud máte příznaky nákazy (například zvýšenou

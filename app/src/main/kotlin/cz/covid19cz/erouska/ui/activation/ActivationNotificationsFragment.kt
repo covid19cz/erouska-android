@@ -2,16 +2,20 @@ package cz.covid19cz.erouska.ui.activation
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationNotificationsBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.utils.L
 
 class ActivationNotificationsFragment :
     BaseFragment<FragmentActivationNotificationsBinding, ActivationNotificationsVM>(
@@ -27,20 +31,40 @@ class ActivationNotificationsFragment :
         }
 
         subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(
-                it.status.resolution?.intentSender,
-                DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION,
-                null,
-                0,
-                0,
-                0,
-                null
-            )
+            try {
+                startIntentSenderForResult(
+                    it.status.resolution?.intentSender,
+                    DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION,
+                    null,
+                    0,
+                    0,
+                    0,
+                    null
+                )
+            } catch (t : Throwable){
+                L.e(t)
+                showErrorDialog(it.status.statusCode)
+            }
         }
 
         subscribe(BluetoothDisabledEvent::class) {
             requestEnableBt()
         }
+    }
+
+    private fun showErrorDialog(statusCode : Int){
+        AlertDialog.Builder(requireContext()).setTitle(getString(R.string.dialog_en_api_not_found_title, statusCode))
+            .setMessage(R.string.dialog_en_api_not_found_message)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.supportEmail))
+                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.dialog_en_api_not_found_title, statusCode))
+                }
+                if (intent.resolveActivity(requireContext().packageManager) != null) {
+                    startActivity(intent)
+                }
+            }.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

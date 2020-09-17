@@ -138,5 +138,8 @@
     <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 
     <string name="no_recent_exposures">Žádná riziková setkání</string>
+    <string name="dialog_en_api_not_found_title">Chyba aktivace (%d)</string>
+    <string name="dialog_en_api_not_found_message">Exposure Notifications API není k dispozici, kontaktujte prosím podporu.</string>
+    <string name="ok">OK</string>
 
 </resources>
