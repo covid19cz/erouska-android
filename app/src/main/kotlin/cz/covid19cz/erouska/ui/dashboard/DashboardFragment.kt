@@ -47,7 +47,7 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
 
-        viewModel.serviceRunning.observe(this, Observer {
+        viewModel.exposureNotificationsEnabled.observe(this, Observer {
             mainViewModel.serviceRunning.value = it
             if (it) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)

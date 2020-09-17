@@ -36,7 +36,7 @@ class DashboardVM(
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    val serviceRunning = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
+    val exposureNotificationsEnabled = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
 
@@ -73,9 +73,13 @@ class DashboardVM(
             }
             checkForObsoleteData()
         }
-        serviceRunning.observeForever {
-            if (it) {
-                exposureNotificationsServerRepository.scheduleKeyDownload()
+        exposureNotificationsEnabled.observeForever { enabled ->
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    if (enabled && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
+                        exposureNotificationsServerRepository.scheduleKeyDownload()
+                    }
+                }
             }
         }
     }
@@ -102,12 +106,7 @@ class DashboardVM(
 
         viewModelScope.launch {
             kotlin.runCatching {
-
-                val result = exposureNotificationsRepository.isEnabled()
-                if (result && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
-                    exposureNotificationsServerRepository.scheduleKeyDownload()
-                }
-                return@runCatching result
+                return@runCatching exposureNotificationsRepository.isEnabled()
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
                 onExposureNotificationsStateChanged(enabled)
@@ -163,7 +162,7 @@ class DashboardVM(
     }
 
     private fun onExposureNotificationsStateChanged(enabled: Boolean) {
-        serviceRunning.value = enabled
+        exposureNotificationsEnabled.value = enabled
         prefs.setExposureNotificationsEnabled(enabled)
     }
 
