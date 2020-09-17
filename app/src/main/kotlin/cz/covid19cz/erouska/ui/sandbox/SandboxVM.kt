@@ -12,6 +12,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
+import cz.covid19cz.erouska.net.model.DownloadedKeys
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
@@ -19,7 +20,6 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,9 +31,8 @@ class SandboxVM(
 
     val filesString = MutableLiveData<String>()
     val lastDownload = MutableLiveData<String>()
-    val downloadHistory = MutableLiveData<String>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
-    var files = ArrayList<File>()
+    var downloadResult: DownloadedKeys? = null
     val code = MutableLiveData("")
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -91,16 +90,14 @@ class SandboxVM(
     fun downloadKeyExport() {
         viewModelScope.launch {
             kotlin.runCatching {
-                files.clear()
-                files.addAll(serverRepository.downloadKeyExport())
-
-                L.d("files=${files}")
-                return@runCatching files.size
+                downloadResult = serverRepository.downloadKeyExport()
+                L.d("files=${downloadResult?.files}")
+                return@runCatching downloadResult
             }.onSuccess {
                 val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
                 lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
-                filesString.value = files.joinToString(separator = "\n", transform = { it.name })
-                showSnackbar("Download success: $it files")
+                filesString.value = downloadResult?.files?.joinToString(separator = "\n", transform = { it.name })
+                showSnackbar("Download success: ${it?.files?.size}/${it?.urls?.size} files")
             }.onFailure {
                 showSnackbar("Download failed: ${it.message}")
             }
@@ -115,15 +112,19 @@ class SandboxVM(
     }
 
     fun provideDiagnosisKeys() {
-        viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.provideDiagnosisKeys(files)
-            }.onSuccess {
-                showSnackbar("Import success")
-            }.onFailure {
-                showSnackbar("Import error: ${it.message}")
-                L.e(it)
+        if (downloadResult != null) {
+            viewModelScope.launch {
+                runCatching {
+                    exposureNotificationsRepository.provideDiagnosisKeys(downloadResult!!)
+                }.onSuccess {
+                    showSnackbar("Import success")
+                }.onFailure {
+                    showSnackbar("Import error: ${it.message}")
+                    L.e(it)
+                }
             }
+        } else {
+            showSnackbar("Download keys first")
         }
     }
 
