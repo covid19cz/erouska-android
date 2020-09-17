@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.exposurenotifications
 
-import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.util.Base64
 import androidx.work.Constraints
@@ -11,14 +10,16 @@ import com.google.android.gms.nearby.exposurenotification.*
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
-import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.net.ExposureServerRepository
+import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.ExposureRequest
 import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
 import cz.covid19cz.erouska.net.model.VerifyCodeRequest
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -30,7 +31,8 @@ class ExposureNotificationsRepository(
     private val client: ExposureNotificationClient,
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
-    private val prefs: SharedPrefsRepository
+    private val prefs: SharedPrefsRepository,
+    private val firebaseFunctionsRepository: FirebaseFunctionsRepository
 ) {
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
@@ -177,6 +179,21 @@ class ExposureNotificationsRepository(
             return response.insertedExposures ?: 0
         } else {
             throw VerifyException(verifyResponse.error ?: "Unknown")
+        }
+    }
+
+    fun checkExposure(context: Context) {
+        GlobalScope.launch {
+            kotlin.runCatching {
+                val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
+                val lastNotifiedExposure = prefs.getLastNotifiedExposure()
+                if (lastExposure != null && lastNotifiedExposure != 0 && lastExposure != lastNotifiedExposure) {
+                    firebaseFunctionsRepository.registerNotification()
+                    LocalNotificationsHelper.showRiskyExposureNotification(context)
+                    prefs.setLastNotifiedExposure(lastExposure)
+                }
+            }
+
         }
     }
 
