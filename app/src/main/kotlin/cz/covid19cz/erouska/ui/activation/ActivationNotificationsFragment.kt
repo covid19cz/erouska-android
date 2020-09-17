@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationNotificationsBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -57,7 +58,7 @@ class ActivationNotificationsFragment :
             .setPositiveButton(R.string.ok) { _, _ ->
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.supportEmail))
                     putExtra(Intent.EXTRA_SUBJECT, getString(R.string.dialog_en_api_not_found_title, statusCode))
                 }
                 if (intent.resolveActivity(requireContext().packageManager) != null) {
