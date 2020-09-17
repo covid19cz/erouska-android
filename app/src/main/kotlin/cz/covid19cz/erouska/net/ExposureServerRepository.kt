@@ -31,7 +31,7 @@ class ExposureServerRepository(
 ) {
 
     companion object {
-        private val KEY_EXPORT_INDEX = if (BuildConfig.FLAVOR == "dev"){
+        private val KEY_EXPORT_INDEX = if (BuildConfig.FLAVOR == "dev") {
             "${AppConfig.keyExportUrl}/index.txt"
         } else {
             "${AppConfig.keyExportUrl}erouska/index.txt"
@@ -93,7 +93,7 @@ class ExposureServerRepository(
         }
     }
 
-    suspend fun downloadKeyExport(): List<File> {
+    suspend fun downloadKeyExport(): DownloadedKeys {
         return withContext(Dispatchers.IO) {
             val lastDownloadedFile = prefs.lastKeyExportFileName()
 
@@ -115,15 +115,9 @@ class ExposureServerRepository(
                 downloads.add(async { downloadFile(it) })
             }
             extractedFiles.addAll(downloads.awaitAll().filterNotNull())
-
-            // If there weren't any new ZIPs for download, keep last download the same
-            val newLastDownload =
-                if (fileNames.isNotEmpty()) fileNames.last() else lastDownloadedFile
-
-            prefs.setLastKeyExportFileName(newLastDownload)
-            prefs.setLastKeyImport(System.currentTimeMillis())
-
-            extractedFiles
+            val result = DownloadedKeys(extractedFiles, fileNames)
+            L.i("Downloaded ${result.files.size}/${result.urls.size} key files")
+            return@withContext result
         }
     }
 
@@ -176,15 +170,16 @@ class ExposureServerRepository(
             )
     }
 
-    fun unscheduleKeyDownload(){
+    fun unscheduleKeyDownload() {
         WorkManager.getInstance(context)
             .cancelUniqueWork(
                 DownloadKeysWorker.TAG
             )
     }
 
-    suspend fun isKeyDownloadScheduled() : Boolean{
-        return WorkManager.getInstance(context).getWorkInfosForUniqueWork(DownloadKeysWorker.TAG).await().size != 0
+    suspend fun isKeyDownloadScheduled(): Boolean {
+        return WorkManager.getInstance(context).getWorkInfosForUniqueWork(DownloadKeysWorker.TAG)
+            .await().size != 0
     }
 
     fun deleteFiles() {
