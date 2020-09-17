@@ -27,7 +27,7 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_daysSinceOnsetToInfectiousness").split(";")
             .map { it.toInt() }
     val supportEmail
-        get() = firebaseRemoteConfig.getDouble("v2_support_email")
+        get() = firebaseRemoteConfig.getDouble("v2_supportEmail")
     val reportTypeWhenMissing
         get() = firebaseRemoteConfig.getLong("v2_reportTypeWhenMissing").toInt()
     val shareAppDynamicLink
