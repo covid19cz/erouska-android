@@ -63,13 +63,13 @@ class ExposureNotificationsRepository(
         keys: DownloadedKeys
     ): Boolean = suspendCoroutine { cont ->
         if (keys.isValid()) {
-            prefs.setLastKeyImport(System.currentTimeMillis())
-
             if (keys.files.isNotEmpty()) {
                 L.i("Importing keys")
                 client.provideDiagnosisKeys(keys.files)
                     .addOnSuccessListener {
                         L.i("Import success")
+                        prefs.setLastKeyImport(System.currentTimeMillis())
+
                         prefs.setLastKeyExportFileName(keys.getLastUrl())
                         cont.resume(true)
                     }.addOnFailureListener {
@@ -77,6 +77,7 @@ class ExposureNotificationsRepository(
                     }
             } else {
                 L.i("Import skipped (empty data)")
+                prefs.setLastKeyImport(System.currentTimeMillis())
                 cont.resume(true)
             }
         } else {
