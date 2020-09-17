@@ -12,15 +12,12 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
-import cz.covid19cz.erouska.net.model.ExposureRequest
-import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
-import cz.covid19cz.erouska.net.model.VerifyCertificateRequest
-import cz.covid19cz.erouska.net.model.VerifyCodeRequest
+import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
+import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -63,16 +60,30 @@ class ExposureNotificationsRepository(
     }
 
     suspend fun provideDiagnosisKeys(
-        files: List<File>
-    ): Void = suspendCoroutine { cont ->
-        client.provideDiagnosisKeys(
-            files
-        )
-            .addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
+        keys: DownloadedKeys
+    ): Boolean = suspendCoroutine { cont ->
+        if (keys.isValid()) {
+            if (keys.files.isNotEmpty()) {
+                L.i("Importing keys")
+                client.provideDiagnosisKeys(keys.files)
+                    .addOnSuccessListener {
+                        L.i("Import success")
+                        prefs.setLastKeyImport(System.currentTimeMillis())
+
+                        prefs.setLastKeyExportFileName(keys.getLastUrl())
+                        cont.resume(true)
+                    }.addOnFailureListener {
+                        cont.resumeWithException(it)
+                    }
+            } else {
+                L.i("Import skipped (empty data)")
+                prefs.setLastKeyImport(System.currentTimeMillis())
+                cont.resume(true)
             }
+        } else {
+            L.i("Import skipped (invalid data)")
+            cont.resume(true)
+        }
     }
 
     suspend fun getDailySummaries(): List<DailySummary> = suspendCoroutine { cont ->
@@ -214,7 +225,7 @@ class ExposureNotificationsRepository(
             )
     }
 
-    fun isEligibleToDownloadKeys() : Boolean{
+    fun isEligibleToDownloadKeys(): Boolean {
         return System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
     }
 }

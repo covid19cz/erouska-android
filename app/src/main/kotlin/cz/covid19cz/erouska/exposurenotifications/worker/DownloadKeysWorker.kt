@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.exposurenotifications.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.utils.Analytics
@@ -23,17 +24,22 @@ class DownloadKeysWorker(
     private val serverRepository: ExposureServerRepository by inject()
 
     override suspend fun doWork(): Result {
-        if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
-            Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
-            L.i("Starting periodical key download")
-            val files = serverRepository.downloadKeyExport()
-            L.i("Downloaded ${files.size} files")
-            if (files.isNotEmpty()) {
-                exposureNotificationsRepository.provideDiagnosisKeys(files)
+        try {
+            if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
+                L.i("Starting download keys worker")
+                Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
+                val result = serverRepository.downloadKeyExport()
+
+                exposureNotificationsRepository.provideDiagnosisKeys(result)
+                Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
+                exposureNotificationsRepository.checkExposure(context)
+            } else {
+                L.i("Skipping download keys worker")
             }
-            Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
-            exposureNotificationsRepository.checkExposure(context)
+        } catch (t : Throwable){
+            L.e(t)
+        } finally {
+            return Result.success()
         }
-        return Result.success()
     }
 }
