@@ -47,7 +47,7 @@
     <string name="send_data">Send data</string>
     <string name="share_app_title">Share eRouška application</string>
     <string name="menu_share_app">Share application</string>
-    <string name="share_app_text">Hi, I\'m using eRouška application. Install it too and together we can help stop the spread of COVID-19. The application collects anonymous data about nearby phones so that the public health officers can find potentially positive people more easily. The more we are, the better it works. Application can be found at %s</string>
+    <string name="share_app_text">Hi, I\'m using eRouška application. Install it too and together we can help stop the spread of COVID-19. The more we are, the better it works. Application can be found at %s</string>
     <string name="delete_registration">Delete registration</string>
     <string name="about">About application</string>
     <string name="no_internet">Your device seems to be offline.</string>
