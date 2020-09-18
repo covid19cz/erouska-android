@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -81,6 +82,9 @@ class DashboardVM(
                     }
                 }
             }
+            if (enabled){
+                checkForRiskyExposure()
+            }
         }
     }
 
@@ -110,9 +114,6 @@ class DashboardVM(
             }.onSuccess { enabled ->
                 L.d("Exposure Notifications enabled $enabled")
                 onExposureNotificationsStateChanged(enabled)
-                if (enabled) {
-                    checkForRiskyExposure()
-                }
             }.onFailure {
                 if (it is ApiException) {
                     publish(GmsApiErrorEvent(it.status))
