@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationNotificationsBinding
+import cz.covid19cz.erouska.ext.resolveUnknownGmsError
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
@@ -43,28 +44,13 @@ class ActivationNotificationsFragment :
                 )
             } catch (t : Throwable){
                 L.e(t)
-                showErrorDialog(it.status.statusCode)
+                it.status.resolveUnknownGmsError(requireContext())
             }
         }
 
         subscribe(BluetoothDisabledEvent::class) {
             requestEnableBt()
         }
-    }
-
-    private fun showErrorDialog(statusCode : Int){
-        AlertDialog.Builder(requireContext()).setTitle(getString(R.string.dialog_en_api_not_found_title, statusCode))
-            .setMessage(R.string.dialog_en_api_not_found_message)
-            .setPositiveButton(R.string.ok) { _, _ ->
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.supportEmail))
-                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.dialog_en_api_not_found_title, statusCode))
-                }
-                if (intent.resolveActivity(requireContext().packageManager) != null) {
-                    startActivity(intent)
-                }
-            }.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
