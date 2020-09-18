@@ -14,28 +14,26 @@ object InAppUpdateHelper {
 
     const val APP_FORCE_UPDATE_REQUEST_CODE = 1777
 
-    fun isObsolete(): Boolean {
-        return BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
-    }
-
     /**
      * Check for update and once it's available show force update dialog.
      * Check for soft (flexible) update by default.
      */
-    fun checkForAppUpdateAndUpdate(activity: Activity, updateType: Int = AppUpdateType.FLEXIBLE) {
-        val appUpdateManager = AppUpdateManagerFactory.create(activity)
+    fun checkForAppUpdateAndUpdate(activity: Activity) {
+        if (isObsolete()) {
+            val appUpdateManager = AppUpdateManagerFactory.create(activity)
 
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                try {
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        updateType,
-                        activity,
-                        APP_FORCE_UPDATE_REQUEST_CODE
-                    )
-                } catch (e: Throwable) {
-                    L.e(e)
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.FLEXIBLE,
+                            activity,
+                            APP_FORCE_UPDATE_REQUEST_CODE
+                        )
+                    } catch (e: Throwable) {
+                        L.e(e)
+                    }
                 }
             }
         }
@@ -44,17 +42,24 @@ object InAppUpdateHelper {
     /**
      * Check for update and once it's available show local notification.
      */
-    fun checkForAppUpdateAndNotify(context: Context) {
-        val appUpdateManager = AppUpdateManagerFactory.create(context)
+    fun checkForAppUpdateAndNotify(context: Context, onSuccess: () -> Unit) {
+        if (isObsolete()) {
+            val appUpdateManager = AppUpdateManagerFactory.create(context)
 
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                try {
-                    LocalNotificationsHelper.showAppUpdateNotification(context)
-                } catch (e: IntentSender.SendIntentException) {
-                    L.e(e)
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                    try {
+                        LocalNotificationsHelper.showAppUpdateNotification(context)
+                        onSuccess()
+                    } catch (e: IntentSender.SendIntentException) {
+                        L.e(e)
+                    }
                 }
             }
         }
+    }
+
+    private fun isObsolete(): Boolean {
+        return BuildConfig.VERSION_CODE < AppConfig.minSupportedVersionCodeAndroid
     }
 }

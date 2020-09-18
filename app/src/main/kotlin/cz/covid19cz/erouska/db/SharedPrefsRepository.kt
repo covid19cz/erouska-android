@@ -44,6 +44,10 @@ class SharedPrefsRepository(c: Context) {
 
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
+
+        const val LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN =
+            "lastVersionAppUpdateNotificationShown"
+        const val LAST_TIME_APP_UPDATE_NOTIFICATION_SHOWN = "lastTimeAppUpdateNotificationShown"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -276,5 +280,21 @@ class SharedPrefsRepository(c: Context) {
 
     fun setCurrentlyHospitalizedIncrease(value: Int) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_INCREASE, value).apply()
+    }
+
+    fun getLastVersionAppUpdateNotificationShown(): Int {
+        return prefs.getInt(LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN, 0)
+    }
+
+    fun setLastVersionAppUpdateNotificationShown(value: Int) {
+        return prefs.edit().putInt(LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN, value).apply()
+    }
+
+    fun getLastTimeAppUpdateNotificationShown(): Long {
+        return prefs.getLong(LAST_TIME_APP_UPDATE_NOTIFICATION_SHOWN, 0L)
+    }
+
+    fun setLastTimeAppUpdateNotificationShown(value: Long) {
+        return prefs.edit().putLong(LAST_TIME_APP_UPDATE_NOTIFICATION_SHOWN, value).apply()
     }
 }

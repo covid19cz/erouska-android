@@ -27,22 +27,16 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(
     override fun onResume() {
         super.onResume()
 
-        forceUpdateIfNeeded()
+        InAppUpdateHelper.checkForAppUpdateAndUpdate(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == InAppUpdateHelper.APP_FORCE_UPDATE_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
-                forceUpdateIfNeeded()
+                InAppUpdateHelper.checkForAppUpdateAndUpdate(this)
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun forceUpdateIfNeeded() {
-        if (InAppUpdateHelper.isObsolete()) {
-            InAppUpdateHelper.checkForAppUpdateAndUpdate(this, AppUpdateType.IMMEDIATE)
-        }
     }
 }

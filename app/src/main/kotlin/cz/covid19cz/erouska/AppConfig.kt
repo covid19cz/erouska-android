@@ -80,6 +80,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_conditionsOfUseUrl")
     val verificationServerApiKey
         get() = firebaseRemoteConfig.getString("v2_verificationServerApiKey")
+    val forceAppUpdatePeriodDays
+        get() = firebaseRemoteConfig.getLong("v2_forceAppUpdatePeriodDays")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

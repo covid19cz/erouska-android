@@ -3,6 +3,8 @@ package cz.covid19cz.erouska.exposurenotifications.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.exposurenotifications.InAppUpdateHelper
@@ -10,6 +12,7 @@ import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class SelfCheckerWorker(
     val context: Context,
@@ -33,12 +36,25 @@ class SelfCheckerWorker(
                 LocalNotificationsHelper.showOutdatedDataNotification(context)
             }
 
-            if (InAppUpdateHelper.isObsolete()) {
-                InAppUpdateHelper.checkForAppUpdateAndNotify(context)
+            if (isEligibleToShowAppUpdateNotification()) {
+                InAppUpdateHelper.checkForAppUpdateAndNotify(context) {
+                    prefs.setLastTimeAppUpdateNotificationShown(System.currentTimeMillis())
+                    prefs.setLastVersionAppUpdateNotificationShown(BuildConfig.VERSION_CODE)
+                }
             }
         }
-
         return Result.success()
+    }
+
+    /**
+     * App is eligible to show local notification about app update.
+     * Returns true if the version is new or if the notification was shown last time before at least x-days (configurable via RC).
+     */
+    private fun isEligibleToShowAppUpdateNotification(): Boolean {
+        return prefs.getLastVersionAppUpdateNotificationShown() != BuildConfig.VERSION_CODE ||
+                System.currentTimeMillis() - prefs.getLastTimeAppUpdateNotificationShown() >= TimeUnit.DAYS.toMillis(
+            AppConfig.forceAppUpdatePeriodDays
+        )
     }
 
 }

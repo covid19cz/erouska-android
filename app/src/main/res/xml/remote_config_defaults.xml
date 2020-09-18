@@ -472,4 +472,8 @@
         <key>v2_minGmsVersionCode</key>
         <value>203019000</value>
     </entry>
+    <entry>
+        <key>v2_forceAppUpdatePeriodDays</key>
+        <value>7</value>
+    </entry>
 </defaultsMap>
