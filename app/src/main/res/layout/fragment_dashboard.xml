@@ -34,7 +34,7 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 tools:visibility="gone">
 
                 <TextView

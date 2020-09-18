@@ -198,13 +198,12 @@ class ExposureNotificationsRepository(
             kotlin.runCatching {
                 val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
                 val lastNotifiedExposure = prefs.getLastNotifiedExposure()
-                if (lastExposure != null && lastNotifiedExposure != 0 && lastExposure != lastNotifiedExposure) {
+                if (lastExposure != null && lastExposure != lastNotifiedExposure) {
                     firebaseFunctionsRepository.registerNotification()
                     LocalNotificationsHelper.showRiskyExposureNotification(context)
                     prefs.setLastNotifiedExposure(lastExposure)
                 }
             }
-
         }
     }
 
