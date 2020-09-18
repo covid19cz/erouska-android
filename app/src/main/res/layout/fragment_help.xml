@@ -17,8 +17,8 @@
             android:id="@+id/chat_container"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:onClick="@{() -> vm.openChatBot()}"
             android:background="@drawable/highlight_selector"
+            android:onClick="@{() -> vm.openChatBot()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +34,7 @@
             app:layout_constraintTop_toTopOf="@id/chat_container" />
 
         <TextView
+            android:id="@+id/chat_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,6 +54,12 @@
             app:layout_constraintEnd_toEndOf="@id/chat_container"
             app:layout_constraintStart_toStartOf="@id/chat_container"
             app:layout_constraintTop_toBottomOf="@+id/chat_container" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/chat_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="chat_container,chat_icon,chat_text,divider_top" />
 
         <ScrollView
             android:layout_width="0dp"

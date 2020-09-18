@@ -8,6 +8,8 @@ import android.view.View
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
@@ -57,6 +59,12 @@ class HelpFragment :
             welcome_continue_btn.visibility = View.VISIBLE
         } else {
             welcome_continue_btn.visibility = View.GONE
+        }
+
+        if (AppConfig.showChatBotLink) {
+            chat_group.show()
+        } else {
+            chat_group.hide()
         }
     }
 

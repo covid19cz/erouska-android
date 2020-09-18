@@ -443,4 +443,8 @@
         <key>v2_minGmsVersionCode</key>
         <value>203019000</value>
     </entry>
+    <entry>
+        <key>v2_showChatBotLink</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>

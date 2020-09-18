@@ -80,6 +80,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_conditionsOfUseUrl")
     val verificationServerApiKey
         get() = firebaseRemoteConfig.getString("v2_verificationServerApiKey")
+    val showChatBotLink
+        get() = firebaseRemoteConfig.getBoolean("v2_showChatBotLink")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
