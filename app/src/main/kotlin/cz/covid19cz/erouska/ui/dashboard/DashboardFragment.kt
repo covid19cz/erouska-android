@@ -15,6 +15,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.resolveUnknownGmsError
 import cz.covid19cz.erouska.ext.shareApp
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -70,16 +71,22 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
             }
         }
         subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(
-                it.status.resolution?.intentSender,
-                REQUEST_GMS_ERROR_RESOLUTION,
-                null,
-                0,
-                0,
-                0,
-                null
-            )
+            try {
+                startIntentSenderForResult(
+                    it.status.resolution?.intentSender,
+                    REQUEST_GMS_ERROR_RESOLUTION,
+                    null,
+                    0,
+                    0,
+                    0,
+                    null
+                )
+            } catch (t : Throwable){
+                it.status.resolveUnknownGmsError(requireContext())
+            }
         }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
