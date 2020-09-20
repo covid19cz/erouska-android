@@ -7,7 +7,6 @@ import cz.covid19cz.erouska.helpers.verifyMultipleLinks
 
 object N1Screen {
     private const val EROUSKA_BASE_URL = "https://erouska.cz/"
-    private const val TERMS_OF_USE_URL = "${EROUSKA_BASE_URL}podminky-pouzivani"
     private const val AUDIT_URL = "${EROUSKA_BASE_URL}audit-kod"
     private const val COVIDCZ_GITHUB_URL = "https://github.com/covid19cz/"
     private const val IOS_GITHUB_URL = "${COVIDCZ_GITHUB_URL}erouska-ios"
@@ -18,6 +17,8 @@ object N1Screen {
     private const val GOOGLE_TRACKING_URL = "https://www.google.com/covid19/exposurenotifications/"
     private const val CHYTRA_KARANTENA_URL = "https://chytrakarantena.cz/"
     private const val COVID_MZCR_URL = "https://koronavirus.mzcr.cz/"
+
+    const val TERMS_OF_USE_URL = "${EROUSKA_BASE_URL}podminky-pouzivani"
 
     fun checkScreenAndLink() {
         val descriptionElement = withId(R.id.help_desc)
