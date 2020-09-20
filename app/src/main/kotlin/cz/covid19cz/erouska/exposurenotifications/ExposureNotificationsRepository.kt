@@ -224,7 +224,7 @@ class ExposureNotificationsRepository(
             )
     }
 
-    fun isEligibleToDownloadKeys(): Boolean {
-        return System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
+    suspend fun isEligibleToDownloadKeys(): Boolean {
+        return isEnabled() && System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
     }
 }

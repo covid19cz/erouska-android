@@ -170,18 +170,6 @@ class ExposureServerRepository(
             )
     }
 
-    fun unscheduleKeyDownload() {
-        WorkManager.getInstance(context)
-            .cancelUniqueWork(
-                DownloadKeysWorker.TAG
-            )
-    }
-
-    suspend fun isKeyDownloadScheduled(): Boolean {
-        return WorkManager.getInstance(context).getWorkInfosForUniqueWork(DownloadKeysWorker.TAG)
-            .await().size != 0
-    }
-
     fun deleteFiles() {
         val extractedDir = File(context.cacheDir.path + "/export/")
         extractedDir.deleteRecursively()
