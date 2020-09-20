@@ -18,12 +18,12 @@ import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
-import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.dashboard.event.*
+import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -69,20 +69,15 @@ class DashboardVM(
     fun onCreate() {
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
-                lastUpdateDate.value = SimpleDateFormat("d.M.yyyy", Locale.getDefault()).format(Date(it))
-                lastUpdateTime.value = SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
+                lastUpdateDate.value =
+                    SimpleDateFormat("d.M.yyyy", Locale.getDefault()).format(Date(it))
+                lastUpdateTime.value =
+                    SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
             }
             checkForObsoleteData()
         }
         exposureNotificationsEnabled.observeForever { enabled ->
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    if (enabled && !exposureNotificationsServerRepository.isKeyDownloadScheduled()) {
-                        exposureNotificationsServerRepository.scheduleKeyDownload()
-                    }
-                }
-            }
-            if (enabled){
+            if (enabled) {
                 checkForRiskyExposure()
             }
         }
@@ -96,7 +91,10 @@ class DashboardVM(
         }
 
         app.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        app.registerReceiver(locationReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+        app.registerReceiver(
+            locationReceiver,
+            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        )
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -105,6 +103,7 @@ class DashboardVM(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
+        exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
 
@@ -129,7 +128,6 @@ class DashboardVM(
                 exposureNotificationsRepository.stop()
             }.onSuccess {
                 onExposureNotificationsStateChanged(false)
-                exposureNotificationsServerRepository.unscheduleKeyDownload()
                 L.d("Exposure Notifications stopped")
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
             }.onFailure {
@@ -167,7 +165,7 @@ class DashboardVM(
         prefs.setExposureNotificationsEnabled(enabled)
     }
 
-    fun checkForRiskyExposure() {
+    private fun checkForRiskyExposure() {
         viewModelScope.launch {
             runCatching {
                 exposureNotificationsRepository.getLastRiskyExposure()
@@ -181,7 +179,7 @@ class DashboardVM(
         }
     }
 
-    fun checkForObsoleteData() {
+    private fun checkForObsoleteData() {
         if (prefs.hasOutdatedKeyData()) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
         } else {

@@ -19,10 +19,9 @@ class SelfCheckerWorker(
         const val TAG = "SELF_CHECKER"
     }
 
-    private val prefs: SharedPrefsRepository by inject()
-    private val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
-
     override suspend fun doWork(): Result {
+        val prefs: SharedPrefsRepository by inject()
+        val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
         val hour = Calendar.getInstance(Locale.getDefault()).get(Calendar.HOUR_OF_DAY)
         if (hour in 9..19) {
             if (!exposureNotificationsRepository.isEnabled()) {
@@ -32,7 +31,6 @@ class SelfCheckerWorker(
                 LocalNotificationsHelper.showOutdatedDataNotification(context)
             }
         }
-
         return Result.success()
     }
 
