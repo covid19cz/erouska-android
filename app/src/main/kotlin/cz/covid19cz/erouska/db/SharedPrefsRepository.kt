@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 
@@ -45,8 +44,8 @@ class SharedPrefsRepository(c: Context) {
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
 
-        const val LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN =
-            "lastVersionAppUpdateNotificationShown"
+        const val LAST_VERSION_CODE_APP_UPDATE_NOTIFICATION_SHOWN =
+            "lastVersionCodeAppUpdateNotificationShown"
         const val LAST_TIME_APP_UPDATE_NOTIFICATION_SHOWN = "lastTimeAppUpdateNotificationShown"
     }
 
@@ -282,12 +281,12 @@ class SharedPrefsRepository(c: Context) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_INCREASE, value).apply()
     }
 
-    fun getLastVersionAppUpdateNotificationShown(): Int {
-        return prefs.getInt(LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN, 0)
+    fun getLastVersionCodeAppUpdateNotificationShown(): Int {
+        return prefs.getInt(LAST_VERSION_CODE_APP_UPDATE_NOTIFICATION_SHOWN, 0)
     }
 
-    fun setLastVersionAppUpdateNotificationShown(value: Int) {
-        return prefs.edit().putInt(LAST_VERSION_APP_UPDATE_NOTIFICATION_SHOWN, value).apply()
+    fun setLastVersionCodeAppUpdateNotificationShown(value: Int) {
+        return prefs.edit().putInt(LAST_VERSION_CODE_APP_UPDATE_NOTIFICATION_SHOWN, value).apply()
     }
 
     fun getLastTimeAppUpdateNotificationShown(): Long {

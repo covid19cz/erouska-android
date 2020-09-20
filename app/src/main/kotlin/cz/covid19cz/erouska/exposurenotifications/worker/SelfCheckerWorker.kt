@@ -39,7 +39,7 @@ class SelfCheckerWorker(
             if (isEligibleToShowAppUpdateNotification()) {
                 InAppUpdateHelper.checkForAppUpdateAndNotify(context) {
                     prefs.setLastTimeAppUpdateNotificationShown(System.currentTimeMillis())
-                    prefs.setLastVersionAppUpdateNotificationShown(BuildConfig.VERSION_CODE)
+                    prefs.setLastVersionCodeAppUpdateNotificationShown(BuildConfig.VERSION_CODE)
                 }
             }
         }
@@ -51,7 +51,7 @@ class SelfCheckerWorker(
      * Returns true if the version is new or if the notification was shown last time before at least x-days (configurable via RC).
      */
     private fun isEligibleToShowAppUpdateNotification(): Boolean {
-        return prefs.getLastVersionAppUpdateNotificationShown() != BuildConfig.VERSION_CODE ||
+        return prefs.getLastVersionCodeAppUpdateNotificationShown() != BuildConfig.VERSION_CODE ||
                 System.currentTimeMillis() - prefs.getLastTimeAppUpdateNotificationShown() >= TimeUnit.DAYS.toMillis(
             AppConfig.forceAppUpdatePeriodDays
         )
