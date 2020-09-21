@@ -16,15 +16,19 @@ import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ExposureNotificationsRepository(
-    private val context: Context,
+@Singleton
+class ExposureNotificationsRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val client: ExposureNotificationClient,
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,

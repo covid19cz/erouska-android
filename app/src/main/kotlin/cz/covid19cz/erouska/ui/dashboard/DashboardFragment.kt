@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
@@ -22,11 +23,11 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
+@AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
     R.layout.fragment_dashboard,
     DashboardVM::class
@@ -36,11 +37,11 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
         const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
 
-    private val mainViewModel: MainVM by sharedViewModel()
+    private val mainViewModel: MainVM by viewModels()
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
-    var demoMode = false
+    private var demoMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

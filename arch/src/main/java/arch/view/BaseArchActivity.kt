@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -20,7 +21,6 @@ import arch.extensions.setNavigationGraph
 import arch.viewmodel.BaseArchViewModel
 import cz.stepansonsky.mvvm.BR
 import cz.stepansonsky.mvvm.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
 /**
@@ -30,7 +30,7 @@ import kotlin.reflect.KClass
 abstract class BaseArchActivity<B : ViewDataBinding, out VM : BaseArchViewModel>(@LayoutRes var layoutId: Int, viewModelClass: KClass<VM>) :
     AppCompatActivity() {
 
-    protected val viewModel: VM by viewModel(viewModelClass)
+    protected val viewModel: VM by lazy { ViewModelProvider(this).get(viewModelClass.java) }
     protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {

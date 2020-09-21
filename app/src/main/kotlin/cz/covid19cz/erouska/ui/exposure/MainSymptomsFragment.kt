@@ -6,7 +6,9 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentMainSymptomsBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainSymptomsFragment : BaseFragment<FragmentMainSymptomsBinding, MainSymptomsVM>(
     R.layout.fragment_main_symptoms,
     MainSymptomsVM::class

@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.exposure
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.viewmodel.BaseArchViewModel
@@ -9,7 +10,7 @@ import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class ExposuresVM(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
+class ExposuresVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
     BaseArchViewModel() {
 
     val lastExposureDate = MutableLiveData<String>()

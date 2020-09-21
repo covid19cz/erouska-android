@@ -7,7 +7,9 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentPlayServicesUpdateBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.update.playservices.event.UpdatePlayServicesEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UpdatePlayServicesFragment :
     BaseFragment<FragmentPlayServicesUpdateBinding, UpdatePlayServicesVM>(
         R.layout.fragment_play_services_update,

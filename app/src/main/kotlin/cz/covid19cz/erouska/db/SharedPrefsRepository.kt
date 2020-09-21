@@ -3,11 +3,14 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPrefsRepository(c: Context) {
+@Singleton
+class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) {
 
     companion object {
         const val APP_PAUSED = "preference.app_paused"

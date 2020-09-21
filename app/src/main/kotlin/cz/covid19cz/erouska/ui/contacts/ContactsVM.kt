@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.contacts
 
 import androidx.databinding.ObservableArrayList
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -11,7 +12,7 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.contacts.event.ContactsEvent
 import java.lang.reflect.Type
 
-class ContactsVM : BaseVM() {
+class ContactsVM @ViewModelInject constructor() : BaseVM() {
 
     val state = MutableLiveData<ContactsEvent>()
     val items = ObservableArrayList<Contact>()

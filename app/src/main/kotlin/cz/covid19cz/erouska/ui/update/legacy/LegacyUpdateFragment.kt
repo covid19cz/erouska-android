@@ -11,15 +11,18 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_legacy_update.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpdateVM>(
     R.layout.fragment_legacy_update,
     LegacyUpdateVM::class
 ) {
 
-    private val customTabHelper by inject<CustomTabHelper>()
+    @Inject
+    internal lateinit var customTabHelper: CustomTabHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +76,12 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         )
 
         legacy_update_button.text = getString(R.string.legacy_update_button_close)
-        legacy_update_body.setOnClickListener { showWeb(AppConfig.conditionsOfUseUrl, customTabHelper) }
+        legacy_update_body.setOnClickListener {
+            showWeb(
+                AppConfig.conditionsOfUseUrl,
+                customTabHelper
+            )
+        }
         legacy_update_button.setOnClickListener { finish() }
     }
 

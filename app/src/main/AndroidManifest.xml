@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cz.covid19cz.erouska">
 
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
@@ -38,6 +39,11 @@
                 <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_STATE_UPDATED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

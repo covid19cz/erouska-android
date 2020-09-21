@@ -8,7 +8,9 @@ import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
