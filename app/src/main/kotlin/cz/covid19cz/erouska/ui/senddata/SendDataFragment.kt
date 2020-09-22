@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
-import cz.covid19cz.erouska.ext.focusAndShowKeyboard
-import cz.covid19cz.erouska.ext.hide
-import cz.covid19cz.erouska.ext.hideKeyboard
-import cz.covid19cz.erouska.ext.show
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
@@ -32,8 +30,19 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(it.status.resolution?.intentSender,
-                REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+            try {
+                startIntentSenderForResult(
+                    it.status.resolution?.intentSender,
+                    REQUEST_GMS_ERROR_RESOLUTION,
+                    null,
+                    0,
+                    0,
+                    0,
+                    null
+                )
+            } catch (t : Throwable){
+                it.status.resolveUnknownGmsError(requireContext())
+            }
         }
 
         subscribe(SendDataCommandEvent::class) {

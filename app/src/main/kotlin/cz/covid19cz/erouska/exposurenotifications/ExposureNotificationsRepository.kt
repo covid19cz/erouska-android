@@ -186,6 +186,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
         val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
+        L.i("Verify code success")
 
         if (verifyResponse.token != null) {
             val hmackey = cryptoTools.newHmacKey()
@@ -195,6 +196,7 @@ class ExposureNotificationsRepository @Inject constructor(
             val certificateResponse = server.verifyCertificate(
                 VerifyCertificateRequest(token, keyHash)
             )
+            L.i("Verify certificate success")
 
             val request = ExposureRequest(
                 keys.map {
@@ -213,8 +215,10 @@ class ExposureNotificationsRepository @Inject constructor(
             )
             val response = server.reportExposure(request)
             response.errorMessage?.let {
+                L.e("Report exposure failed: $it")
                 throw ReportExposureException(it)
             }
+            L.i("Report exposure success, ${response.insertedExposures} keys inserted")
             prefs.saveRevisionToken(response.revisionToken)
             return response.insertedExposures ?: 0
         } else {

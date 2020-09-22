@@ -63,13 +63,13 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 state.value = SendDataSuccessState
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
+                L.e(it)
                 when(it){
                     is ApiException -> publish(GmsApiErrorEvent(it.status))
                     is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                 }
-                L.e(it)
             }
         }
     }
