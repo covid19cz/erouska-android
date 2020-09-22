@@ -25,24 +25,7 @@ class PermissionsDisabledFragment :
         PermissionDisabledVM::class
     ) {
 
-    private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent?) {
-            val btEnabled = context.isBtEnabled()
-            val locationEnabled = context.isLocationEnabled()
-
-            when {
-                !btEnabled && !locationEnabled -> viewModel.state.value = PermissionDisabledVM.ScreenState.LOCATION_BT_DISABLED
-                !btEnabled -> viewModel.state.value = PermissionDisabledVM.ScreenState.BT_DISABLED
-                !locationEnabled -> viewModel.state.value = PermissionDisabledVM.ScreenState.LOCATION_DISABLED
-            }
-
-            if (btEnabled && locationEnabled) {
-                navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
-            }
-        }
-    }
-
-    private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             val btEnabled = context.isBtEnabled()
             val locationEnabled = context.isLocationEnabled()
@@ -75,9 +58,9 @@ class PermissionsDisabledFragment :
 
     override fun onStart() {
         super.onStart()
-        context?.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(btAndLocationReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
         context?.registerReceiver(
-            locationReceiver,
+            btAndLocationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
     }
@@ -102,8 +85,7 @@ class PermissionsDisabledFragment :
     }
 
     override fun onStop() {
-        context?.unregisterReceiver(btReceiver)
-        context?.unregisterReceiver(locationReceiver)
+        context?.unregisterReceiver(btAndLocationReceiver)
         super.onStop()
     }
 }

@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
 import dagger.hilt.android.qualifiers.ApplicationContext

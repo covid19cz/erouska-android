@@ -45,17 +45,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
 
-    private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            context?.let {
-                if (!it.isBtEnabled() || !it.isLocationEnabled()) {
-                    navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-                }
-            }
-        }
-    }
-
-    private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
                 if (!it.isBtEnabled() || !it.isLocationEnabled()) {
@@ -81,16 +71,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
 
     override fun onStart() {
         super.onStart()
-        context?.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(btAndLocationReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
         context?.registerReceiver(
-            locationReceiver,
+            btAndLocationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
     }
 
     override fun onStop() {
-        context?.unregisterReceiver(btReceiver)
-        context?.unregisterReceiver(locationReceiver)
+        context?.unregisterReceiver(btAndLocationReceiver)
         super.onStop()
     }
 
