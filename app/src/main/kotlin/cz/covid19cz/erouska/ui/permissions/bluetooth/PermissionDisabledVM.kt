@@ -15,56 +15,19 @@ import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
 import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
+import cz.covid19cz.erouska.utils.DeviceUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 class PermissionDisabledVM @ViewModelInject constructor(
-    @ApplicationContext private val context: Context
-) : BasePermissionsVM(context) {
+    deviceUtils: DeviceUtils
+) : BasePermissionsVM(deviceUtils) {
 
     val state = SafeMutableLiveData(ScreenState.BT_DISABLED)
 
-    private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val btEnabled = this@PermissionDisabledVM.context.isBtEnabled()
-            val locationEnabled = context.isLocationEnabled()
-
-            when {
-                !btEnabled && !locationEnabled -> state.value = ScreenState.LOCATION_BT_DISABLED
-                !btEnabled -> state.value = ScreenState.BT_DISABLED
-                !locationEnabled -> state.value = ScreenState.LOCATION_DISABLED
-            }
-
-            if (btEnabled && locationEnabled) {
-                navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
-                context?.unregisterReceiver(this)
-                context?.unregisterReceiver(locationReceiver)
-            }
-        }
-    }
-
-    private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val btEnabled = this@PermissionDisabledVM.context.isBtEnabled()
-            val locationEnabled = context.isLocationEnabled()
-
-            when {
-                !btEnabled && !locationEnabled -> state.value = ScreenState.LOCATION_BT_DISABLED
-                !btEnabled -> state.value = ScreenState.BT_DISABLED
-                !locationEnabled -> state.value = ScreenState.LOCATION_DISABLED
-            }
-
-            if (btEnabled && locationEnabled) {
-                navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
-                context?.unregisterReceiver(btReceiver)
-                context?.unregisterReceiver(this)
-            }
-        }
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-            val btDisabled = !context.isBtEnabled()
-            val locationDisabled = !context.isLocationEnabled()
+            val btDisabled = !deviceUtils.isBtEnabled()
+            val locationDisabled = !deviceUtils.isLocationEnabled()
 
             if (btDisabled && locationDisabled) {
                 state.value = ScreenState.LOCATION_BT_DISABLED
@@ -83,18 +46,11 @@ class PermissionDisabledVM @ViewModelInject constructor(
                 navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
                 return
             }
-
-
-        context.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        context.registerReceiver(
-            locationReceiver,
-            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
-        )
     }
 
     fun initViewModel() {
-        val bluetoothDisabled = !context.isBtEnabled()
-        val locationDisabled = !context.isLocationEnabled()
+        val bluetoothDisabled = !deviceUtils.isBtEnabled()
+        val locationDisabled = !deviceUtils.isLocationEnabled()
 
         state.value = when {
             bluetoothDisabled && locationDisabled -> ScreenState.LOCATION_BT_DISABLED

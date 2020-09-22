@@ -4,11 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 
-class SafeMutableLiveData<T : Any>(initValue: T) : MutableLiveData<T>() {
-
-    init {
-        value = initValue
-    }
+class SafeMutableLiveData<T : Any>(initValue: T) : MutableLiveData<T>(initValue) {
 
     override fun getValue(): T {
         return super.getValue()!!
