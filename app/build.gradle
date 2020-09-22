@@ -19,7 +19,7 @@ android {
         archivesBaseName = "covid19-cz"
         multiDexEnabled true
         // If we support another language, add it here
-        def supportedLanguages = ["en", "cs"]
+        def supportedLanguages = ["en", "cs", "sk"]
         resConfigs supportedLanguages
         buildConfigField "String[]", "SUPPORTED_LANGUAGES", "{\"" + supportedLanguages.join("\",\"") + "\"}"
 
