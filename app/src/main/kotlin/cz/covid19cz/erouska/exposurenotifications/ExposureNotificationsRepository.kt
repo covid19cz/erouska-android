@@ -215,7 +215,7 @@ class ExposureNotificationsRepository @Inject constructor(
             )
             val response = server.reportExposure(request)
             response.errorMessage?.let {
-                L.i("Report exposure failed: $it")
+                L.e("Report exposure failed: $it")
                 throw ReportExposureException(it)
             }
             L.i("Report exposure success, ${response.insertedExposures} keys inserted")
