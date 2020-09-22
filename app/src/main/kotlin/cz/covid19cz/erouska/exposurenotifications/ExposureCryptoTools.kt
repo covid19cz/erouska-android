@@ -7,10 +7,13 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
-class ExposureCryptoTools {
+@Singleton
+class ExposureCryptoTools @Inject constructor() {
 
     fun hashedKeys(keys: List<TemporaryExposureKey>, hmacKey: String): String {
         val cleartextSegments = ArrayList<String>()

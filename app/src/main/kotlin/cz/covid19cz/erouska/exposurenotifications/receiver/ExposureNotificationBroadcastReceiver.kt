@@ -21,15 +21,17 @@ import android.content.Context
 import android.content.Intent
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Broadcast receiver for callbacks from exposure notification API.
  */
-class ExposureNotificationBroadcastReceiver : BroadcastReceiver(), KoinComponent {
+@AndroidEntryPoint
+class ExposureNotificationBroadcastReceiver : BroadcastReceiver() {
 
-    private val exposureNotificationsRepository : ExposureNotificationsRepository by inject()
+    @Inject
+    internal lateinit var exposureNotificationsRepository : ExposureNotificationsRepository
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {

@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.exposure
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import arch.event.SingleLiveEvent
 import arch.viewmodel.BaseArchViewModel
@@ -10,7 +11,7 @@ import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RecentExposuresVM(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
+class RecentExposuresVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
     BaseArchViewModel() {
 
     val state = SingleLiveEvent<RecentExposuresEvent>()

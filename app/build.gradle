@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -18,7 +19,7 @@ android {
         archivesBaseName = "covid19-cz"
         multiDexEnabled true
         // If we support another language, add it here
-        def supportedLanguages = ["en", "cs"]
+        def supportedLanguages = ["en", "cs", "sk"]
         resConfigs supportedLanguages
         buildConfigField "String[]", "SUPPORTED_LANGUAGES", "{\"" + supportedLanguages.join("\",\"") + "\"}"
 
@@ -131,10 +132,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
-    // Koin for Android
-    implementation "org.koin:koin-android:2.0.1"
-    implementation "org.koin:koin-androidx-scope:2.0.1"
-    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+    // Dagger-Hilt
+    implementation "com.google.dagger:hilt-android:2.29.1-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.29.1-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    implementation 'androidx.hilt:hilt-work:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.17"

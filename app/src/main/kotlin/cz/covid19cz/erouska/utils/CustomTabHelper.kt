@@ -6,9 +6,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
 import androidx.browser.customtabs.CustomTabsService
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CustomTabHelper(
-    private val context: Context
+@Singleton
+class CustomTabHelper @Inject constructor(
+    @ApplicationContext private val context: Context
 ) {
 
     var sPackageNameToUse: String? = null

@@ -1,12 +1,12 @@
 package cz.covid19cz.erouska.ui.permissions.bluetooth
 
-import android.app.Application
 import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.location.LocationManager
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
@@ -15,16 +15,17 @@ import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import cz.covid19cz.erouska.ui.permissions.BasePermissionsVM
 import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
-class PermissionDisabledVM(
-    private val app: Application
-) : BasePermissionsVM(app) {
+class PermissionDisabledVM @ViewModelInject constructor(
+    @ApplicationContext private val context: Context
+) : BasePermissionsVM(context) {
 
     val state = SafeMutableLiveData(ScreenState.BT_DISABLED)
 
     private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val btEnabled = app.isBtEnabled()
+            val btEnabled = this@PermissionDisabledVM.context.isBtEnabled()
             val locationEnabled = context.isLocationEnabled()
 
             when {
@@ -43,7 +44,7 @@ class PermissionDisabledVM(
 
     private val locationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val btEnabled = app.isBtEnabled()
+            val btEnabled = this@PermissionDisabledVM.context.isBtEnabled()
             val locationEnabled = context.isLocationEnabled()
 
             when {
@@ -62,8 +63,8 @@ class PermissionDisabledVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-            val btDisabled = !app.isBtEnabled()
-            val locationDisabled = !app.isLocationEnabled()
+            val btDisabled = !context.isBtEnabled()
+            val locationDisabled = !context.isLocationEnabled()
 
             if (btDisabled && locationDisabled) {
                 state.value = ScreenState.LOCATION_BT_DISABLED
@@ -84,16 +85,16 @@ class PermissionDisabledVM(
             }
 
 
-        app.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        app.registerReceiver(
+        context.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context.registerReceiver(
             locationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
     }
 
     fun initViewModel() {
-        val bluetoothDisabled = !app.isBtEnabled()
-        val locationDisabled = !app.isLocationEnabled()
+        val bluetoothDisabled = !context.isBtEnabled()
+        val locationDisabled = !context.isLocationEnabled()
 
         state.value = when {
             bluetoothDisabled && locationDisabled -> ScreenState.LOCATION_BT_DISABLED

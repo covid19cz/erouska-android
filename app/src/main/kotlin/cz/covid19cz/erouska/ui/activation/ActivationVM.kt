@@ -1,11 +1,11 @@
 package cz.covid19cz.erouska.ui.activation
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
@@ -14,8 +14,7 @@ import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ActivationVM(
-    sharedPrefsRepository: SharedPrefsRepository,
+class ActivationVM @ViewModelInject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository
 ) : BaseVM() {
 

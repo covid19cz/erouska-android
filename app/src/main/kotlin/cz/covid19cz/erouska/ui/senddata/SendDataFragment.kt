@@ -15,8 +15,10 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_send_data.*
 
+@AndroidEntryPoint
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     R.layout.fragment_send_data,
     SendDataVM::class
