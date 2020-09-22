@@ -66,13 +66,16 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun provideDiagnosisKeys(
         keys: DownloadedKeys
     ): Boolean = suspendCoroutine { cont ->
+
+        setDiagnosisKeysMapping()
+
         if (keys.isValid()) {
             if (keys.files.isNotEmpty()) {
                 L.i("Importing keys")
                 client.provideDiagnosisKeys(keys.files)
                     .addOnSuccessListener {
                         L.i("Import success")
-                        prefs.setLastKeyImport(System.currentTimeMillis())
+                        prefs.setLastKeyImport()
 
                         prefs.setLastKeyExportFileName(keys.getLastUrl())
                         cont.resume(true)
@@ -80,13 +83,35 @@ class ExposureNotificationsRepository @Inject constructor(
                         cont.resumeWithException(it)
                     }
             } else {
-                L.i("Import skipped (empty data)")
-                prefs.setLastKeyImport(System.currentTimeMillis())
+                L.i("Import skipped (no new data)")
+                prefs.setLastKeyImport()
                 cont.resume(true)
             }
         } else {
             L.i("Import skipped (invalid data)")
             cont.resume(true)
+        }
+    }
+
+    private fun setDiagnosisKeysMapping() {
+        if (System.currentTimeMillis() - prefs.getLastSetDiagnosisKeysDataMapping() > AppConfig.diagnosisKeysDataMappingLimitDays * 24 * 60 * 60 * 1000) {
+            val daysList = AppConfig.daysSinceOnsetToInfectiousness
+            val daysToInfectiousness = mutableMapOf<Int, Int>()
+            for (i in -14..14) {
+                daysToInfectiousness[i] = daysList[i + 14]
+            }
+            val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
+                .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
+                .setInfectiousnessWhenDaysSinceOnsetMissing(Infectiousness.NONE)
+                .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
+                .build()
+            try {
+                client.setDiagnosisKeysDataMapping(mapping)
+            } catch (t : Throwable){
+                L.e(t)
+            } finally {
+                prefs.setLastSetDiagnosisKeysDataMapping()
+            }
         }
     }
 

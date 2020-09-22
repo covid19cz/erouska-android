@@ -19,6 +19,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
+        const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -60,13 +61,22 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
     }
 
-    fun setLastKeyImport(timestamp: Long) {
+    fun setLastKeyImport() {
+        val timestamp = System.currentTimeMillis()
         prefs.edit().putLong(LAST_KEY_IMPORT_TIME, timestamp).apply()
         lastKeyImportLive.postValue(timestamp)
     }
 
     fun getLastKeyImport(): Long {
         return prefs.getLong(LAST_KEY_IMPORT_TIME, 0L)
+    }
+
+    fun setLastSetDiagnosisKeysDataMapping() {
+        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastSetDiagnosisKeysDataMapping(): Long {
+        return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
     fun setLastNotifiedExposure(daysSinceEpoch: Int) {
