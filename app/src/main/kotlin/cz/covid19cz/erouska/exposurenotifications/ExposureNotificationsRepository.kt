@@ -94,7 +94,7 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     private fun setDiagnosisKeysMapping() {
-        if (System.currentTimeMillis() - prefs.getLastSetDiagnosisKeysDataMapping() > 7 * 24 * 60 * 60 * 1000) {
+        if (System.currentTimeMillis() - prefs.getLastSetDiagnosisKeysDataMapping() > AppConfig.diagnosisKeysDataMappingLimitDays * 24 * 60 * 60 * 1000) {
             val daysList = AppConfig.daysSinceOnsetToInfectiousness
             val daysToInfectiousness = mutableMapOf<Int, Int>()
             for (i in -14..14) {

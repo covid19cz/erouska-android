@@ -29,6 +29,10 @@
         <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
     </entry>
     <entry>
+        <key>v2_diagnosisKeysDataMappingLimitDays</key>
+        <value>7</value>
+    </entry>
+    <entry>
         <key>v2_supportEmail</key>
         <value>info@erouska.cz</value>
     </entry>
