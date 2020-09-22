@@ -25,15 +25,6 @@ class DownloadKeysWorker(
 
     override suspend fun doWork(): Result {
         try {
-            startKoin {
-                androidContext(context.applicationContext)
-                modules(allModules)
-            }
-        } catch (t : Throwable){
-            // Ignore
-        }
-
-        try {
             val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
             val serverRepository: ExposureServerRepository by inject()
             if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
