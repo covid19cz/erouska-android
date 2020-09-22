@@ -21,17 +21,19 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_activation.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ActivationFragment :
     BaseFragment<FragmentActivationBinding, ActivationVM>(
         R.layout.fragment_activation,
         ActivationVM::class
     ) {
 
-    private val customTabHelper by inject<CustomTabHelper>()
+    @Inject
+    internal lateinit var customTabHelper: CustomTabHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

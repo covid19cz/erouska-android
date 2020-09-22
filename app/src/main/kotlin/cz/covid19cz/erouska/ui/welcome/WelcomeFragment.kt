@@ -12,8 +12,10 @@ import cz.covid19cz.erouska.databinding.FragmentWelcomeBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
+@AndroidEntryPoint
 class WelcomeFragment :
     BaseFragment<FragmentWelcomeBinding, WelcomeVM>(R.layout.fragment_welcome, WelcomeVM::class) {
 

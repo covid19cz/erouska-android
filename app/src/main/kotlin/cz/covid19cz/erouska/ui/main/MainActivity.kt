@@ -10,7 +10,6 @@ import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -21,14 +20,16 @@ import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
-    private val customTabHelper by inject<CustomTabHelper>()
+    @Inject
+    internal lateinit var customTabHelper: CustomTabHelper
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(

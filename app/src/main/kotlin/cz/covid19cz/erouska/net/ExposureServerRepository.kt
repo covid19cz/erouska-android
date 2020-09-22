@@ -12,6 +12,7 @@ import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,10 +24,12 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.URL
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class ExposureServerRepository(
-    private val context: Context,
+@Singleton
+class ExposureServerRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val prefs: SharedPrefsRepository
 ) {
 

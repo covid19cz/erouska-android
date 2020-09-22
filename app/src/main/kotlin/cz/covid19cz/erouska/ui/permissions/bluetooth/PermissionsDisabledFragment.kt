@@ -8,7 +8,9 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.shareApp
 import cz.covid19cz.erouska.ui.permissions.BasePermissionsFragment
 import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PermissionsDisabledFragment :
     BasePermissionsFragment<PermissionDisabledVM>(
         R.layout.fragment_permissionss_disabled,

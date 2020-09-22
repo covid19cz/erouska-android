@@ -1,12 +1,12 @@
 package cz.covid19cz.erouska.ui.dashboard
 
-import android.app.Application
 import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.location.LocationManager
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -25,15 +25,16 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DashboardVM(
+class DashboardVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository,
-    private val app: Application
+    @ApplicationContext private val context: Context
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -85,13 +86,13 @@ class DashboardVM(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-        if (!app.isBtEnabled() || !app.isLocationEnabled()) {
+        if (!context.isBtEnabled() || !context.isLocationEnabled()) {
             navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
             return
         }
 
-        app.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        app.registerReceiver(
+        context.registerReceiver(btReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context.registerReceiver(
             locationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
@@ -137,8 +138,8 @@ class DashboardVM(
     }
 
     fun start() {
-        val btDisabled = !app.isBtEnabled()
-        val locationDisabled = !app.isLocationEnabled()
+        val btDisabled = !context.isBtEnabled()
+        val locationDisabled = !context.isLocationEnabled()
 
         if (btDisabled || locationDisabled) {
             navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)

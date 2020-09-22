@@ -1,11 +1,12 @@
 package cz.covid19cz.erouska.ui.update.legacy
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 
-class LegacyUpdateVM(
+class LegacyUpdateVM @ViewModelInject constructor(
     private val sharedPrefsRepository: SharedPrefsRepository
 ) : BaseArchViewModel() {
 

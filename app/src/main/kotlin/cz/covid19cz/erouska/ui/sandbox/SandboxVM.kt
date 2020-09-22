@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.sandbox
 
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -23,8 +24,8 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SandboxVM(
-    val exposureNotificationsRepository: ExposureNotificationsRepository,
+class SandboxVM @ViewModelInject constructor(
+    private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository
 ) : BaseVM() {
