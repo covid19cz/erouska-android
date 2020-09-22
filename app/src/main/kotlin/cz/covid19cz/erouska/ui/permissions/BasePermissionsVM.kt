@@ -4,9 +4,10 @@ import android.content.Context
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.permissions.onboarding.event.PermissionsOnboarding
+import cz.covid19cz.erouska.utils.DeviceUtils
 
 abstract class BasePermissionsVM(
-    private val context: Context
+    protected val deviceUtils: DeviceUtils
 ) : BaseVM() {
 
     fun onBluetoothEnabled() {
@@ -26,7 +27,7 @@ abstract class BasePermissionsVM(
     }
 
     fun checkState() {
-        if (context.isBtEnabled() && checkExposureNotificationState()) {
+        if (deviceUtils.isBtEnabled() && checkExposureNotificationState()) {
             goToNextScreen()
         }
     }

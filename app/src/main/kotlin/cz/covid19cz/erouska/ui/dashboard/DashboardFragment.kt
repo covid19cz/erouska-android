@@ -1,7 +1,12 @@
 package cz.covid19cz.erouska.ui.dashboard
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,12 +18,9 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
+import cz.covid19cz.erouska.databinding.FragmentDashboardBinding
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
-import cz.covid19cz.erouska.ext.hide
-import cz.covid19cz.erouska.ext.resolveUnknownGmsError
-import cz.covid19cz.erouska.ext.shareApp
-import cz.covid19cz.erouska.ext.show
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
@@ -28,7 +30,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, DashboardVM>(
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     R.layout.fragment_dashboard,
     DashboardVM::class
 ) {
@@ -43,6 +45,16 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
 
+    private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context?.let {
+                if (!it.isBtEnabled() || !it.isLocationEnabled()) {
+                    navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.setTitle(R.string.app_name)
@@ -55,6 +67,20 @@ class DashboardFragment : BaseFragment<FragmentPermissionssDisabledBinding, Dash
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        context?.registerReceiver(btAndLocationReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(
+            btAndLocationReceiver,
+            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        )
+    }
+
+    override fun onStop() {
+        context?.unregisterReceiver(btAndLocationReceiver)
+        super.onStop()
     }
 
     private fun subsribeToViewModel() {
