@@ -208,4 +208,10 @@ class DashboardVM(
     fun unregister() {
         FirebaseAuth.getInstance().signOut()
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        app.unregisterReceiver(btReceiver)
+        app.unregisterReceiver(locationReceiver)
+    }
 }
