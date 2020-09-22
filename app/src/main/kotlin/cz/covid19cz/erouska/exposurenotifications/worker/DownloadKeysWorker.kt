@@ -3,11 +3,15 @@ package cz.covid19cz.erouska.exposurenotifications.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import cz.covid19cz.erouska.allModules
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.utils.Analytics
 import cz.covid19cz.erouska.utils.L
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.Koin
 import org.koin.core.KoinComponent
+import org.koin.core.context.startKoin
 import org.koin.core.inject
 
 class DownloadKeysWorker(
@@ -20,6 +24,15 @@ class DownloadKeysWorker(
     }
 
     override suspend fun doWork(): Result {
+        try {
+            startKoin {
+                androidContext(context.applicationContext)
+                modules(allModules)
+            }
+        } catch (t : Throwable){
+            // Ignore
+        }
+
         try {
             val exposureNotificationsRepository: ExposureNotificationsRepository by inject()
             val serverRepository: ExposureServerRepository by inject()
