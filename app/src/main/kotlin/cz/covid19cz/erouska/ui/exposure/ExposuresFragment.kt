@@ -46,9 +46,9 @@ class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     }
 
     private fun setupListeners() {
-        symptoms_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_main_symptoms) }
-        spread_prevention_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_spread_prevention) }
-        earlier_exposures_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
+        symptoms_container.setOnClickListener { safeNavigate(R.id.action_nav_exposure_to_nav_main_symptoms, R.id.nav_exposures) }
+        spread_prevention_container.setOnClickListener { safeNavigate(R.id.action_nav_exposure_to_nav_spread_prevention, R.id.nav_exposures) }
+        earlier_exposures_container.setOnClickListener { safeNavigate(R.id.action_nav_exposure_to_nav_recent_exposures, R.id.nav_exposures) }
     }
 
     private fun onNoRecentExposures() {

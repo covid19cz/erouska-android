@@ -73,7 +73,7 @@ class ActivationNotificationsFragment :
     }
 
     private fun toActivation() {
-        navigate(R.id.action_nav_activation_notifications_to_activation_fragment)
+        safeNavigate(R.id.action_nav_activation_notifications_to_activation_fragment, R.id.nav_activation_notifications_fragment)
     }
 
 }

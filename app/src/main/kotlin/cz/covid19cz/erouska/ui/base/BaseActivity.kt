@@ -3,7 +3,10 @@ package cz.covid19cz.erouska.ui.base
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.NavOptions
 import arch.view.BaseArchActivity
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
@@ -12,6 +15,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.utils.L
+import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 
 
@@ -43,6 +47,15 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun navigate(@IdRes resId: Int, args: Bundle?, navOptions: NavOptions?) {
+        try {
+            super.navigate(resId, args, navOptions)
+        } catch (e: IllegalStateException) {
+            // ignore navigation
+            L.e(e)
+        }
     }
 
     private fun updateIfNeeded() {

@@ -147,8 +147,8 @@ dependencies {
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'

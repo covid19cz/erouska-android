@@ -81,7 +81,7 @@ class DashboardVM @ViewModelInject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart(){
         if (!deviceUtils.isBtEnabled() || !deviceUtils.isLocationEnabled()) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
+            safeNavigate(R.id.action_nav_dashboard_to_nav_permission_disabled, R.id.nav_dashboard)
         }
     }
 
@@ -104,7 +104,7 @@ class DashboardVM @ViewModelInject constructor(
         val locationDisabled = !deviceUtils.isLocationEnabled()
 
         if (btDisabled || locationDisabled) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
+            safeNavigate(R.id.action_nav_dashboard_to_nav_permission_disabled, R.id.nav_dashboard)
         } else {
             viewModelScope.launch {
                 kotlin.runCatching {

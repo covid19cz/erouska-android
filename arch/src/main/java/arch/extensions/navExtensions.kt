@@ -13,6 +13,16 @@ fun NavController.navigate(navEvent: NavigationEvent) {
     }
 }
 
+fun NavController.safeNavigate(navEvent: NavigationEvent) {
+    if (navEvent.currentDestination != null && currentDestination?.id == navEvent.currentDestination) {
+        if (navEvent.resId != null) {
+            navigate(navEvent.resId!!, navEvent.navArgs, navEvent.navOptions)
+        } else if (navEvent.navDirections != null) {
+            navigate(navEvent.navDirections!!, navEvent.navOptions)
+        }
+    }
+}
+
 fun NavController.setNavigationGraph(navEvent: NavigationGraphEvent) {
     safeLet (navEvent.navGraphId, navEvent.navStartDestinationId) { graphId, startNavId ->
         val graph = navInflater.inflate(graphId)

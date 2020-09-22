@@ -34,12 +34,8 @@ abstract class BaseArchViewModel : ViewModel(), LifecycleObserver {
         liveEventMap.publish(event)
     }
 
-    protected fun navigate(@IdRes resId: Int, args: Bundle? = null, navOptions: NavOptions? = null) {
-        publish(NavigationEvent(resId, args, navOptions))
-    }
-
-    protected fun navigate(directions: NavDirections, navOptions: NavOptions? = null) {
-        publish(NavigationEvent(directions, navOptions))
+    protected open fun safeNavigate(@IdRes resId: Int, @IdRes currentDestination: Int, args: Bundle? = null, navOptions: NavOptions? = null) {
+        publish(NavigationEvent(resId, currentDestination, args, navOptions))
     }
 
     protected fun setNavigationGraph(navigationGraph: Int, navStartDestinationId: Int) {

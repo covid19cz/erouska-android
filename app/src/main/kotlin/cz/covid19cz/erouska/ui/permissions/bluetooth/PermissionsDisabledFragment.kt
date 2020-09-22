@@ -37,7 +37,7 @@ class PermissionsDisabledFragment :
             }
 
             if (btEnabled && locationEnabled) {
-                navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
+                safeNavigate(R.id.action_nav_permissions_disabled_to_nav_dashboard, R.id.nav_permisions_disabled)
             }
         }
     }
@@ -77,7 +77,7 @@ class PermissionsDisabledFragment :
                 true
             }
             R.id.nav_about -> {
-                navigate(R.id.nav_about)
+                safeNavigate(R.id.nav_about, R.id.nav_permisions_disabled)
                 true
             }
             else -> super.onOptionsItemSelected(item)

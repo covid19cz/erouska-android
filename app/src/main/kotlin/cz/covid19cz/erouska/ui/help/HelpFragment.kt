@@ -80,7 +80,7 @@ class HelpFragment :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_about -> {
-                navigate(HelpFragmentDirections.actionNavHelpToNavAbout(isFullscreen))
+                safeNavigate(HelpFragmentDirections.actionNavHelpToNavAbout(isFullscreen), R.id.nav_help)
                 true
             }
             else -> {

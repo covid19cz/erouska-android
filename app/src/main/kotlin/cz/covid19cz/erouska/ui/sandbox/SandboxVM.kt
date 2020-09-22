@@ -152,11 +152,11 @@ class SandboxVM @ViewModelInject constructor(
     }
 
     fun navigateToData(){
-        navigate(R.id.nav_sandbox_data)
+        safeNavigate(R.id.nav_sandbox_data, R.id.nav_sandbox)
     }
 
     fun navigateToConfig(){
-        navigate(R.id.nav_sandbox_config)
+        safeNavigate(R.id.nav_sandbox_config, R.id.nav_sandbox)
     }
 
 }

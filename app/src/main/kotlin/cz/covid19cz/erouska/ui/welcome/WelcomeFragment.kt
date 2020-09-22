@@ -35,7 +35,7 @@ class WelcomeFragment :
         enableUpInToolbar(false)
 
         if (viewModel.wasAppUpdated()) {
-            navigate(R.id.action_nav_welcome_fragment_to_nav_legacy_update)
+            safeNavigate(R.id.action_nav_welcome_fragment_to_nav_legacy_update, R.id.nav_welcome_fragment)
         }
 
         val welcomeDescription: String = String.format(
@@ -52,17 +52,18 @@ class WelcomeFragment :
             showPlayServicesUpdate()
             return
         }
-        navigate(R.id.action_nav_welcome_fragment_to_nav_activation_notifications)
+        safeNavigate(R.id.action_nav_welcome_fragment_to_nav_activation_notifications, R.id.nav_welcome_fragment)
     }
 
     private fun openHelpPage() {
-        navigate(
+        safeNavigate(
             R.id.action_nav_welcome_fragment_to_nav_help,
+            R.id.nav_welcome_fragment,
             Bundle().apply { putBoolean("fullscreen", true) })
     }
 
     private fun showPlayServicesUpdate() {
-        navigate(R.id.action_nav_welcome_to_nav_play_services_update)
+        safeNavigate(R.id.action_nav_welcome_to_nav_play_services_update, R.id.nav_welcome_fragment)
     }
 
     private fun isPlayServicesObsolete(): Boolean {

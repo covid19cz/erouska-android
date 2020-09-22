@@ -43,7 +43,7 @@ class PermissionDisabledVM @ViewModelInject constructor(
             }
 
             if (!btDisabled && !locationDisabled) {
-                navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
+                safeNavigate(R.id.action_nav_permissions_disabled_to_nav_dashboard, R.id.nav_permisions_disabled)
                 return
             }
     }
@@ -60,12 +60,12 @@ class PermissionDisabledVM @ViewModelInject constructor(
         }
 
         if (state.value == ScreenState.ALL_ENABLED) {
-            navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
+            safeNavigate(R.id.action_nav_permissions_disabled_to_nav_dashboard, R.id.nav_permisions_disabled)
         }
     }
 
     override fun goToNextScreen() {
-        navigate(R.id.action_nav_bt_disabled_to_nav_dashboard)
+        safeNavigate(R.id.action_nav_permissions_disabled_to_nav_dashboard, R.id.nav_permisions_disabled)
     }
 
     fun enableLocation() {

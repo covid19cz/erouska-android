@@ -49,7 +49,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
                 if (!it.isBtEnabled() || !it.isLocationEnabled()) {
-                    navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
+                    safeNavigate(R.id.action_nav_dashboard_to_nav_permission_disabled, R.id.nav_dashboard)
                 }
             }
         }
@@ -121,13 +121,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
+            safeNavigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode), R.id.nav_dashboard)
         }
         exposure_notification_close.setOnClickListener {
             viewModel.acceptLastExposure()
             exposure_notification_container.hide()
         }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         enableUpInToolbar(false)
@@ -154,15 +153,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
                 true
             }
             R.id.nav_about -> {
-                navigate(R.id.nav_about)
+                safeNavigate(R.id.nav_about, R.id.nav_dashboard)
                 true
             }
             R.id.action_sandbox -> {
-                navigate(R.id.nav_sandbox)
+                safeNavigate(R.id.nav_sandbox, R.id.nav_dashboard)
                 true
             }
             R.id.action_news -> {
-                navigate(R.id.nav_legacy_update_fragment)
+                safeNavigate(R.id.nav_legacy_update_fragment, R.id.nav_dashboard)
                 true
             }
             R.id.action_activation -> {
@@ -199,15 +198,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     }
 
     private fun showExposureNotificationsOff() {
-        navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
+        safeNavigate(R.id.action_nav_dashboard_to_nav_permission_disabled, R.id.nav_dashboard)
     }
 
     private fun showWelcomeScreen() {
-        navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
+        safeNavigate(R.id.action_nav_dashboard_to_nav_welcome_fragment, R.id.nav_dashboard)
     }
 
     private fun showPlayServicesUpdate() {
-        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
+        safeNavigate(R.id.action_nav_dashboard_to_nav_play_services_update, R.id.nav_dashboard)
     }
 
 }

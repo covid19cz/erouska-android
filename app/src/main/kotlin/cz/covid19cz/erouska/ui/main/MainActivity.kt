@@ -55,7 +55,10 @@ class MainActivity :
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
                 navigate(
                     item.itemId,
-                    navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
+                    navOptions = NavOptions.Builder().setPopUpTo(
+                        R.id.nav_graph,
+                        false
+                    ).build()
                 )
                 true
             }

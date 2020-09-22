@@ -107,13 +107,12 @@ class ActivationFragment :
     }
 
     private fun showSignedIn() {
-        if (navController().currentDestination?.id == R.id.nav_activation) {
-            navigate(
-                R.id.action_nav_activation_to_nav_dashboard,
-                null,
-                Builder().setPopUpTo(R.id.nav_graph, true).build()
-            )
-        }
+        safeNavigate(
+            R.id.action_nav_activation_to_nav_dashboard,
+            R.id.nav_activation,
+            null,
+            Builder().setPopUpTo(R.id.nav_graph, true).build()
+        )
     }
 
     private fun onActivationStart() {

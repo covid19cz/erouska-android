@@ -6,13 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
 import com.google.android.material.snackbar.Snackbar
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.utils.L
+import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 
 
@@ -90,6 +95,24 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
 
     open fun onBackPressed(): Boolean {
         return false
+    }
+
+    override fun safeNavigate(@IdRes resId: Int, @IdRes currentDestination: Int, args: Bundle?, navOptions: NavOptions?) {
+        try {
+            super.safeNavigate(resId, currentDestination, args, navOptions)
+        } catch (e: IllegalStateException) {
+            // ignore navigation
+            L.e(e)
+        }
+    }
+
+    override fun safeNavigate(directions: NavDirections, @IdRes currentDestination: Int, navOptions: NavOptions?) {
+        try {
+            super.safeNavigate(directions, currentDestination, navOptions)
+        } catch (e: IllegalStateException) {
+            // ignore navigation
+            L.e(e)
+        }
     }
 
     enum class IconType {
