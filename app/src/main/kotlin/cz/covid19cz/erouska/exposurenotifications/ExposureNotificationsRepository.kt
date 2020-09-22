@@ -218,7 +218,7 @@ class ExposureNotificationsRepository @Inject constructor(
                 L.i("Report exposure failed: $it")
                 throw ReportExposureException(it)
             }
-            L.i("Report exposure success")
+            L.i("Report exposure success, ${response.insertedExposures} keys inserted")
             prefs.saveRevisionToken(response.revisionToken)
             return response.insertedExposures ?: 0
         } else {
