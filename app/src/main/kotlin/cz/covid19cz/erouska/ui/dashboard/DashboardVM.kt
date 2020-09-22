@@ -209,4 +209,10 @@ class DashboardVM @ViewModelInject constructor(
     fun unregister() {
         FirebaseAuth.getInstance().signOut()
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        app.unregisterReceiver(btReceiver)
+        app.unregisterReceiver(locationReceiver)
+    }
 }
