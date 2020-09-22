@@ -6,18 +6,19 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
-import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.exception.UnauthrorizedException
 import cz.covid19cz.erouska.net.model.CovidStatsResponse
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.suspendCoroutine
 
-class FirebaseFunctionsRepository(
-    private val deviceInfo: DeviceInfo,
-    private val prefs: SharedPrefsRepository
+@Singleton
+class FirebaseFunctionsRepository @Inject constructor(
+    private val deviceInfo: DeviceInfo
 ) {
 
     /**

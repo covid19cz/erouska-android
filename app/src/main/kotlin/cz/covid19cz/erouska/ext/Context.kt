@@ -10,12 +10,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
-import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.core.location.LocationManagerCompat
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R

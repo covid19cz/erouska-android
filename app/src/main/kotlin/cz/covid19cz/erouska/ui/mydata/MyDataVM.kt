@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.mydata
 
 import android.text.format.DateUtils
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MyDataVM(
+class MyDataVM @ViewModelInject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
     val prefs: SharedPrefsRepository
 ) : BaseVM() {

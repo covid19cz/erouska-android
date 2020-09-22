@@ -29,6 +29,10 @@
         <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
     </entry>
     <entry>
+        <key>v2_diagnosisKeysDataMappingLimitDays</key>
+        <value>7</value>
+    </entry>
+    <entry>
         <key>v2_supportEmail</key>
         <value>info@erouska.cz</value>
     </entry>
@@ -471,5 +475,9 @@
     <entry>
         <key>v2_minGmsVersionCode</key>
         <value>203019000</value>
+    </entry>
+    <entry>
+        <key>v2_showChatBotLink</key>
+        <value>false</value>
     </entry>
 </defaultsMap>

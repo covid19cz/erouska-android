@@ -3,11 +3,14 @@ package cz.covid19cz.erouska.db
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 import arch.livedata.SafeMutableLiveData
 import cz.covid19cz.erouska.AppConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPrefsRepository(c: Context) {
+@Singleton
+class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) {
 
     companion object {
         const val APP_PAUSED = "preference.app_paused"
@@ -16,6 +19,7 @@ class SharedPrefsRepository(c: Context) {
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
+        const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -57,13 +61,22 @@ class SharedPrefsRepository(c: Context) {
         prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
     }
 
-    fun setLastKeyImport(timestamp: Long) {
+    fun setLastKeyImport() {
+        val timestamp = System.currentTimeMillis()
         prefs.edit().putLong(LAST_KEY_IMPORT_TIME, timestamp).apply()
         lastKeyImportLive.postValue(timestamp)
     }
 
     fun getLastKeyImport(): Long {
         return prefs.getLong(LAST_KEY_IMPORT_TIME, 0L)
+    }
+
+    fun setLastSetDiagnosisKeysDataMapping() {
+        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastSetDiagnosisKeysDataMapping(): Long {
+        return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
     fun setLastNotifiedExposure(daysSinceEpoch: Int) {

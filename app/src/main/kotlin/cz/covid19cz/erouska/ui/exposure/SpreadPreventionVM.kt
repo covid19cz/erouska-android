@@ -1,6 +1,7 @@
 package cz.covid19cz.erouska.ui.exposure
 
 import androidx.databinding.ObservableArrayList
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.viewmodel.BaseArchViewModel
@@ -10,7 +11,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.exposure.entity.PreventionData
 import cz.covid19cz.erouska.ui.exposure.entity.PreventionItem
 
-class SpreadPreventionVM : BaseArchViewModel() {
+class SpreadPreventionVM @ViewModelInject constructor() : BaseArchViewModel() {
 
     val items = ObservableArrayList<PreventionItem>()
 

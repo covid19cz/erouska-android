@@ -10,8 +10,10 @@ import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_exposures.*
 
+@AndroidEntryPoint
 class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
     R.layout.fragment_exposures,
     ExposuresVM::class

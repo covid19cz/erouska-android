@@ -2,13 +2,10 @@ package cz.covid19cz.erouska.ui.activation
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import androidx.appcompat.app.AlertDialog
-import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationNotificationsBinding
 import cz.covid19cz.erouska.ext.resolveUnknownGmsError
@@ -17,7 +14,9 @@ import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ActivationNotificationsFragment :
     BaseFragment<FragmentActivationNotificationsBinding, ActivationNotificationsVM>(
         R.layout.fragment_activation_notifications,

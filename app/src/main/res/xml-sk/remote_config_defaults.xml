@@ -327,82 +327,57 @@
     </entry>
     <entry>
         <key>v2_riskyEncountersTitleAn</key>
-        <value>Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19. V
-            případě, že vás bude kontaktovat pracovník hygienické stanice, postupujte podle jeho
-            pokynů.
+        <value>Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19. V prípade, že vás bude kontaktovať pracovník hygienickej stanice, postupujte podľa jeho pokynov.
         </value>
     </entry>
     <entry>
         <key>v2_noEncounterHeader</key>
-        <value>V posledních 14 dnech nebyla ve vaší blízkosti žádná osoba s potvrzeným onemocněním
-            COVID-19
+        <value>V posledných 14 dňoch nebola vo vašej blízkosti žiadná osoba s potvrdeným ochorením COVID-19
         </value>
     </entry>
     <entry>
         <key>v2_noEncounterBody</key>
-        <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
+        <value>Na rizikové stretnutie vás upozorníme pomocou upozornení.</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
-        <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objevily příznaky
-            respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se
-            jeho pokyny. Mimo jeho pracovní dobu kontaktujte telefonicky nejbližší lékařskou
-            pohotovost. V případě závažných zdravotních obtíží volejte 155.
+        <value>Ak sa u vás v priebehu 14 dní od kontaktu s nakazeným objavili príznaky respiračného ochorenia, kontaktujte telefonicky svojho praktického lekára a nasledujte jeho pokyny. Mimo jeho pracovnú dobu kontaktujte telefonicky nejbližšiu lekársku pohotovosť. V prípade závažných zdravotných problémov volajte 155.
         </value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithoutSymptoms</key>
-        <value>Jestliže se u vás neprojevují hlavní příznaky onemocnění COVID-19, nemusíte zůstávat
-            doma. Dodržujte zásady zodpovědného chování a sledujte svůj zdravotní stav.
+        <value>Ak sa u vás neprejavujú hlavné príznaky ochorenia COVID-19, nemusíte zostávať doma. Dodržujte zásady zodpovedného správania a sledujte svoj zdravotný stav.
         </value>
     </entry>
     <entry>
         <key>v2_exposureUITitle</key>
-        <value>Rizikové setkání</value>
+        <value>Rizikové stretnutia</value>
     </entry>
     <entry>
         <key>v2_symptomsUITitle</key>
-        <value>Hlavní příznaky</value>
+        <value>Hlavné príznaky</value>
     </entry>
     <entry>
         <key>v2_spreadPreventionUITitle</key>
-        <value>Zásady zodpovědného chování</value>
+        <value>Zásady zodpovedného správania</value>
     </entry>
     <entry>
         <key>v2_recentExposuresUITitle</key>
-        <value>Předchozí riziková setkání</value>
+        <value>Predošlé rizikové stretnutia</value>
     </entry>
     <entry>
         <key>v2_preventionContentJson</key>
-        <value>{"title": "COVID-19 se přenáší hlavně kapénkami, která se šíří vzduchem. Přenášet se
-            může také kontaminovanými
-            předměty.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často
-            a důkladně si myjte ruce mýdlem a používejte
-            dezinfekci."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelně
-            dezinfikujte také osobní předměty (např. mobilní
-            telefon)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlejte
-            a kýchejte do jednorázového kapesníku či
-            rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbejte
-            se velkým skupinám osob a udržujte bezpečný odstup (cca 2
-            metry)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodů
-            a hromadných dopravních prostředků vždy noste roušku přes ústa a
-            nos."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokud
-            cítíte příznaky respiračního onemocnění, zůstaňte doma a kontaktujte lékaře."}]}
+        <value>{"title": "COVID-19 sa prenáša hlavne kvapôčkami, ktoré sa šíria vzduchom. Prenášať sa môže tiež kontaminovanými predmetmi.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často a dôkladne si umývajte ruky mydlom a používajte dezinfekciu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelne dezinfikujte tiež osobné predmety (napr. mobilný telefón)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlite a kýchajte do jednorázovej servítky či rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbajte sa veľkým skupinám osôb a udržujte bezpečný odstup (cca 2 metre)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodov a hromadných dopravných prostriedkov vždy noste rúško cez ústa a nos."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokiaľ cítíte príznaky respiračného ochorenia, zostaňte doma a kontaktujte lekára."}]}
         </value>
     </entry>
     <entry>
         <key>v2_symptomsContentJson</key>
-        <value>{"title":"Příznaky se mohou objevit 2–14 dní po rizikovém
-            setkání.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"Zvýšená
-            teplota"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Kašel"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Dušnost"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Bolest
-            v krku"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Bolest
-            hlavy, svalů a kloubů"}]}
+        <value>{"title":"Príznaky sa môžu objaviť 2–14 dní po rizikovom stretnutí.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"Zvýšená teplota"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Kašeľ"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Dušnosť"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Bolesť hrdla"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Bolesť hlavy, svalov a kĺbov"}]}
         </value>
     </entry>
     <entry>
         <key>v2_encounterWarning</key>
-        <value>Setkali jste se s osobou, u které bylo prokázáno onemocnění COVID-19. Sledujte svůj
-            zdravotní stav.
+        <value>Stretli ste sa s osobou, u ktorej bolo potvrdené ochorenie COVID-19. Sledujte svoj zdravotný stav.
         </value>
     </entry>
     <entry>
@@ -423,16 +398,7 @@
     </entry>
     <entry>
         <key>v2_contactsContentJson</key>
-        <value>[{"title":"Máte podezření na onemocnění COVID-19?","text":"Zůstaňte doma a
-            telefonicky kontaktuje svého praktického lékaře. Mimo jeho pracovní dobu kontaktujte
-            telefonicky nejbližší lékařskou pohotovost.","linkTitle":"Důležité
-            kontakty","link":"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"},{"title":"Potřebujete
-            poradit?","text":"Veškeré otázky a nejasnosti týkající se onemocnění COVID-19 najdete na
-            webu MZČR.","linkTitle":"Často kladené
-            otázky","link":"https://koronavirus.mzcr.cz/otazky-a-odpovedi/"},{"title":"O aplikaci
-            eRouška","text":"Potřebujete poradit s aplikací nebo vás zajímá, jak funguje? Napište
-            Anežce, podpoře eRoušky.","linkTitle":"Anežka – podpora
-            eRoušky","link":"https://erouska.cz/#chat-open"}]
+        <value>[{"title":"Máte podozrenie na ochorenie COVID-19?","text":"Zostante doma a telefonicky kontaktuje svojho praktického lekára. Mimo jeho pracovnú dobu kontaktujte telefonicky najbližšiu lekársku pohotovosť.","linkTitle":"Dôležité  kontakty","link":"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"},{"title":"Potrebujete poradiť?","text":"Všetky otázky a nejasnosti týkajúce sa ochorenia COVID-19 nájdete na webe MZČR.","linkTitle":"Často kladené otázky","link":"https://koronavirus.mzcr.cz/otazky-a-odpovedi/"},{"title":"O aplikáácii eRouška","text":"Potrebujete poradiť s aplikáciou alebo vás zaujíma, ako funguje? Napíšte Anežke, podpore eRoušky.","linkTitle":"Anežka – podpora eRoušky","link":"https://erouska.cz/#chat-open"}]
         </value>
     </entry>
     <entry>

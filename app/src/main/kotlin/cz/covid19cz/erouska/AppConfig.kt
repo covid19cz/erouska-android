@@ -26,6 +26,8 @@ object AppConfig {
     val daysSinceOnsetToInfectiousness
         get() = firebaseRemoteConfig.getString("v2_daysSinceOnsetToInfectiousness").split(";")
             .map { it.toInt() }
+    val diagnosisKeysDataMappingLimitDays
+        get() = firebaseRemoteConfig.getLong("v2_diagnosisKeysDataMappingLimitDays").toInt()
     val supportEmail
         get() = firebaseRemoteConfig.getDouble("v2_supportEmail")
     val reportTypeWhenMissing
@@ -80,6 +82,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_conditionsOfUseUrl")
     val verificationServerApiKey
         get() = firebaseRemoteConfig.getString("v2_verificationServerApiKey")
+    val showChatBotLink
+        get() = firebaseRemoteConfig.getBoolean("v2_showChatBotLink")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

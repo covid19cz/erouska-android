@@ -8,20 +8,27 @@ import android.view.View
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.Markdown
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HelpFragment :
     BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
 
-    private val markdown by inject<Markdown>()
+    @Inject
+    internal lateinit var markdown: Markdown
     private var isFullscreen: Boolean = false
-    private val customTabHelper by inject<CustomTabHelper>()
+
+    @Inject
+    internal lateinit var customTabHelper: CustomTabHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +64,12 @@ class HelpFragment :
             welcome_continue_btn.visibility = View.VISIBLE
         } else {
             welcome_continue_btn.visibility = View.GONE
+        }
+
+        if (AppConfig.showChatBotLink) {
+            chat_group.show()
+        } else {
+            chat_group.hide()
         }
     }
 

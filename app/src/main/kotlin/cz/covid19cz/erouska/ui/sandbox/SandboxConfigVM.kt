@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.sandbox
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import cz.covid19cz.erouska.AppConfig
@@ -7,7 +8,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 
-class SandboxConfigVM(val prefs : SharedPrefsRepository) : BaseVM() {
+class SandboxConfigVM @ViewModelInject constructor(val prefs : SharedPrefsRepository) : BaseVM() {
 
     val reportTypeWeights = SandboxConfigValues("reportTypeWeights", 6)
     val infectiousnessWeights = SandboxConfigValues("infectiousnessWeights", 3)
@@ -20,7 +21,7 @@ class SandboxConfigVM(val prefs : SharedPrefsRepository) : BaseVM() {
         load()
     }
 
-    fun load(){
+    private fun load(){
         reportTypeWeights.setDoubleValues(prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights)
         infectiousnessWeights.setDoubleValues(prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights)
         attenuationBucketThresholdDb.setIntValues(prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb)

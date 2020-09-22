@@ -79,7 +79,7 @@ fun verifyLink(element: Matcher<View>, url: String, clickableText: String? = nul
     if(clickableText.isNullOrBlank()) {
         onView(element).perform(ViewActions.click())
     } else {
-        onView(element).perform(ViewActions.openLinkWithText(clickableText))
+        onView(element).perform(ViewActions.openLinkWithText(TextMatchesIgnoringWhitespaceType(clickableText)))
     }
 
     Intents.intended(expectedIntent)

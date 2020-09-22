@@ -1,19 +1,23 @@
 package cz.covid19cz.erouska
 
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import androidx.work.WorkManager
 import arch.BaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.KoinComponent
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 import java.io.File
+import javax.inject.Inject
 
-class App : BaseApp(), KoinComponent {
+@HiltAndroidApp
+class App : BaseApp(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
-        setupKoin()
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this)
         LocalNotificationsHelper.createNotificationChannels(this)
@@ -23,12 +27,10 @@ class App : BaseApp(), KoinComponent {
         WorkManager.getInstance(this)
     }
 
-    private fun setupKoin() {
-        startKoin {
-            androidContext(this@App)
-            modules(allModules)
-        }
-    }
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 
     private fun removeObsoleteData() {
         val obsoleteDb = File(filesDir.parent + "/databases/android-devices.db")

@@ -5,6 +5,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.helpers.checkDisplayed
 import cz.covid19cz.erouska.helpers.click
 import cz.covid19cz.erouska.helpers.verifyLink
+import cz.covid19cz.erouska.screens.N1Screen.TERMS_OF_USE_URL
 
 object A3Screen {
 
@@ -17,7 +18,7 @@ object A3Screen {
     }
 
     fun checkTermsOfUseLink() {
-        verifyLink(withId(R.id.privacy_body_2), "https://www.erouska.cz", "podmínkách používání")
+        verifyLink(withId(R.id.privacy_body_2), TERMS_OF_USE_URL, "podmínkách používání")
     }
 
     fun finishActivation() {

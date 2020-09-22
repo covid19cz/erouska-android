@@ -30,8 +30,8 @@ class ActivationTest {
             acceptCovidActivation()
         }
         A3Screen.run {
-            checkAllPartsDisplayed()
             checkTermsOfUseLink()
+            checkAllPartsDisplayed()
             finishActivation()
         }
         B1Screen.checkActiveScreen()

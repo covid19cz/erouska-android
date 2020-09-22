@@ -16,15 +16,19 @@ import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ExposureNotificationsRepository(
-    private val context: Context,
+@Singleton
+class ExposureNotificationsRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val client: ExposureNotificationClient,
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
@@ -62,13 +66,16 @@ class ExposureNotificationsRepository(
     suspend fun provideDiagnosisKeys(
         keys: DownloadedKeys
     ): Boolean = suspendCoroutine { cont ->
+
+        setDiagnosisKeysMapping()
+
         if (keys.isValid()) {
             if (keys.files.isNotEmpty()) {
                 L.i("Importing keys")
                 client.provideDiagnosisKeys(keys.files)
                     .addOnSuccessListener {
                         L.i("Import success")
-                        prefs.setLastKeyImport(System.currentTimeMillis())
+                        prefs.setLastKeyImport()
 
                         prefs.setLastKeyExportFileName(keys.getLastUrl())
                         cont.resume(true)
@@ -76,13 +83,35 @@ class ExposureNotificationsRepository(
                         cont.resumeWithException(it)
                     }
             } else {
-                L.i("Import skipped (empty data)")
-                prefs.setLastKeyImport(System.currentTimeMillis())
+                L.i("Import skipped (no new data)")
+                prefs.setLastKeyImport()
                 cont.resume(true)
             }
         } else {
             L.i("Import skipped (invalid data)")
             cont.resume(true)
+        }
+    }
+
+    private fun setDiagnosisKeysMapping() {
+        if (System.currentTimeMillis() - prefs.getLastSetDiagnosisKeysDataMapping() > AppConfig.diagnosisKeysDataMappingLimitDays * 24 * 60 * 60 * 1000) {
+            val daysList = AppConfig.daysSinceOnsetToInfectiousness
+            val daysToInfectiousness = mutableMapOf<Int, Int>()
+            for (i in -14..14) {
+                daysToInfectiousness[i] = daysList[i + 14]
+            }
+            val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
+                .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
+                .setInfectiousnessWhenDaysSinceOnsetMissing(Infectiousness.NONE)
+                .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
+                .build()
+            try {
+                client.setDiagnosisKeysDataMapping(mapping)
+            } catch (t : Throwable){
+                L.e(t)
+            } finally {
+                prefs.setLastSetDiagnosisKeysDataMapping()
+            }
         }
     }
 
@@ -224,7 +253,7 @@ class ExposureNotificationsRepository(
             )
     }
 
-    fun isEligibleToDownloadKeys(): Boolean {
-        return System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
+    suspend fun isEligibleToDownloadKeys(): Boolean {
+        return isEnabled() && System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
     }
 }
