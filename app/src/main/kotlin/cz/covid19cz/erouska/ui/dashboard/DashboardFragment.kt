@@ -12,7 +12,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
@@ -39,7 +39,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
 
-    private val mainViewModel: MainVM by viewModels()
+    private val mainViewModel: MainVM by activityViewModels()
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var rxPermissions: RxPermissions
