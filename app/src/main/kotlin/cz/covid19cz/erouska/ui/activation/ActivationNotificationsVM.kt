@@ -10,6 +10,7 @@ import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -17,11 +18,11 @@ import kotlinx.coroutines.launch
 class ActivationNotificationsVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val prefs : SharedPrefsRepository,
-    @ApplicationContext private val context: Context
+    private val deviceUtils: DeviceUtils
 ) : BaseVM() {
 
     fun enableNotifications() {
-        if (context.isBtEnabled()) {
+        if (deviceUtils.isBtEnabled()) {
             viewModelScope.launch {
                 kotlin.runCatching {
                     exposureNotificationsRepository.start()
