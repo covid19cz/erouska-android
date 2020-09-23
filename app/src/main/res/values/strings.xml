@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will warn you in case you encountered someone with COVID-19 infection and show you all important information.</string>
-    <string name="dashboard_body_no_contact">Last data update: %1$s at %2$s. eRouška has not logged any risky encounter near you.</string>
+    <string name="dashboard_body_no_contact">Last data update: %1$s at %2$s.\n\neRouška has not logged any risky encounter near you.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby.\n\nResume data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause eRouška</string>
     <string name="start_app">Start eRouška</string>
