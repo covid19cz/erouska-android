@@ -44,7 +44,7 @@
     <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with the eRouška application you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
     <string name="welcome_title">Thanks to eRou\u0161ka you will keep yourself and others safe</string>
     <string name="contacts_title">Contacts</string>
-    <string name="send_data">Send data</string>
+    <string name="send_data">Report positive test</string>
     <string name="share_app_title">Share eRouška application</string>
     <string name="menu_share_app">Share application</string>
     <string name="share_app_text">Hi, I\'m using the eRouška application. Install it too and together we can help stop the spread of COVID-19. The application collects anonymous data about nearby phones so that the public health officers can trace the infection more easily. The more we are, the better it works. The application can be found at %s.</string>
