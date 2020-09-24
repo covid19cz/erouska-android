@@ -91,7 +91,7 @@
     <string name="notification_exposure_title">Rizikové setkání</string>
     <string name="notification_exposure_text">Setkali jste se s osobou, u které bylo potvrzeno onemocnění COVID-19. Sledujte svůj zdravotní stav. Více informací naleznete v aplikaci.</string>
 
-    <string name="notification_exposure_notifications_off_text">Nezapomeňte jí spustit</string>
+    <string name="notification_exposure_notifications_off_text">Nezapomeňte ji spustit</string>
 
     <string name="notification_channel_exposure">Rizikový kontakt</string>
     <string name="notification_channel_outdated_data">Zastaralá data</string>
