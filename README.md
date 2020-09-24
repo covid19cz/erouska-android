@@ -2,7 +2,7 @@
 
 [<img src="https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0">](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
 
-Read our [**FAQ** (Czech only)](https://erouska.cz/caste-dotazy)
+Read our **FAQ**: [Czech](https://erouska.cz/caste-dotazy), [English](https://erouska.cz/en/caste-dotazy)
 
 eRouška (_rouška_ = _face mask_ in Czech) helps to fight against COVID-19.
 
@@ -28,7 +28,7 @@ Run:
 ## Contributing
 We are happy to accept pull requests! See [Git Workflow](#git-workflow).
 
-If you want to become a more permanent part of the team, join [our Slack](covid19cz.slack.com), channel _#erouska_.
+If you want to become a more permanent part of the team, join [our Slack](https://covid19cz.slack.com), channel _#erouska_.
 
 ## Translations
 
