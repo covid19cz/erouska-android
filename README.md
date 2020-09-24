@@ -12,9 +12,7 @@ It's the only app in Czechia authorized to use Exposure Notifications API from A
 
 ## Who is developing eRouška?
 
-eRouška 1.0 was developed by unpaid volunteers from various Czech IT companies called [COVID19CZ](https://covid19cz.cz).
-
-Most of the team stayed for eRouška 2.0 - we are now paid by [NAKIT](https://nakit.cz/) (company of Czech Ministry of Healthcare).
+Starting with version 2.0, the eRouška application is developed by the Ministry of Health in collaboration with the National Agency for Communication and Information Technologies ([NAKIT](https://nakit.cz/)). Earlier versions of eRouška application were developed by a team of volunteers from the [COVID19CZ](https://covid19cz.cz) community. Most of original eRouška developers continue to work on newer versions in the NAKIT team.
 
 ## International cooperation
 
