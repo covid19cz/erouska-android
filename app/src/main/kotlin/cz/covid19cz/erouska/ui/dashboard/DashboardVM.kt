@@ -40,7 +40,7 @@ class DashboardVM @ViewModelInject constructor(
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
                 lastUpdateDate.value =
-                    SimpleDateFormat("d.M.yyyy", Locale.getDefault()).format(Date(it))
+                    SimpleDateFormat("d. M. yyyy", Locale.getDefault()).format(Date(it))
                 lastUpdateTime.value =
                     SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
             }
