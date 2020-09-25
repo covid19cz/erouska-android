@@ -8,7 +8,6 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentAboutBinding
 import cz.covid19cz.erouska.ext.showWeb
-import cz.covid19cz.erouska.ui.about.event.VersionEvent
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.base.UrlEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
@@ -31,9 +30,6 @@ class AboutFragment :
         subscribe(UrlEvent::class) {
             showWeb(it.url, customTabHelper)
         }
-        subscribe(VersionEvent::class) {
-            L.e(Exception("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}."))
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,5 +40,9 @@ class AboutFragment :
             getString(R.string.about_tos_content, AppConfig.conditionsOfUseUrl),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+
+        about_version.setOnLongClickListener {
+            throw RuntimeException("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}.")
+        }
     }
 }
