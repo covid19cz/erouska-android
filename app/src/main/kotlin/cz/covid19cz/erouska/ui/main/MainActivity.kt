@@ -104,6 +104,7 @@ class MainActivity :
     override fun onStop() {
         if (connectedToCustomTabsService) {
             unbindService(customTabsConnection)
+            connectedToCustomTabsService = false
         }
         super.onStop()
     }
