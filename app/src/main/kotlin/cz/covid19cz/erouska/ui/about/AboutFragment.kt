@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentAboutBinding
 import cz.covid19cz.erouska.ext.showWeb
+import cz.covid19cz.erouska.ui.about.event.VersionEvent
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.base.UrlEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_about.*
+import java.lang.Exception
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +30,9 @@ class AboutFragment :
         super.onCreate(savedInstanceState)
         subscribe(UrlEvent::class) {
             showWeb(it.url, customTabHelper)
+        }
+        subscribe(VersionEvent::class) {
+            L.e(Exception("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}."))
         }
     }
 

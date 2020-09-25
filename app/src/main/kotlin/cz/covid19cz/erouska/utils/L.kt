@@ -18,7 +18,9 @@ object L {
 
     fun i(text: String) {
         val logStrings = createLogStrings(text)
-        FirebaseCrashlytics.getInstance().log("I/${logStrings[0]}: ${logStrings[1]}")
+        if (BuildConfig.DEBUG) {
+            Log.i(logStrings[0], logStrings[1])
+        }
     }
 
     fun w(text: String) {
@@ -31,6 +33,9 @@ object L {
 
     fun e(text: String) {
         val logStrings = createLogStrings(text)
+        if (BuildConfig.DEBUG) {
+            Log.e(logStrings[0], logStrings[1])
+        }
         FirebaseCrashlytics.getInstance().log("E/${logStrings[0]}: ${logStrings[1]}")
     }
 
