@@ -10,5 +10,4 @@ class AboutVM @ViewModelInject constructor() : BaseVM() {
     fun tosLinkClicked() {
         publish(UrlEvent(AppConfig.conditionsOfUseUrl))
     }
-
 }
