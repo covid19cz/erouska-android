@@ -21,6 +21,7 @@ object L {
         if (BuildConfig.DEBUG) {
             Log.i(logStrings[0], logStrings[1])
         }
+        FirebaseCrashlytics.getInstance().log("I/${logStrings[0]}: ${logStrings[1]}")
     }
 
     fun w(text: String) {
