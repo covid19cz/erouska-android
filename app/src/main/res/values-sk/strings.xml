@@ -78,7 +78,7 @@
     <string name="send_data_success_body_1">Ďakujeme, že pomáhate bojovať proti šíreniu ochorenia COVID-19</string>
     <string name="send_data_success_body_2">Spolupracujte, prosím, s pracovníkmi hygienickej stanice na dohľadaní všetkých osôb, s ktorými ste boli v kontakte.</string>
     <string name="send_data_success_body_3">Riaďte sa pokynmi hygienikov a lekárov.</string>
-    <string name="notification_data_outdated_title">Zastaralé dáta</string>
+    <string name="notification_data_outdated_title">Aktualizácia rizikových stretnutí</string>
     <string name="notification_data_outdated_text">Vaša eRouška si dlhšiu dobu neaktualizovala dáta, či ste sa stretli s nakazeným užívateľom eRoušky. Pripojte sa k internetu.</string>
     <string name="data_notification_close">Zatvoriť</string>
     <string name="notification_exposure_title">Rizikové stretnutie</string>
@@ -86,7 +86,7 @@
 Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="notification_exposure_notifications_off_text">Nezabudnite ju spustiť</string>
     <string name="notification_channel_exposure">Rizikový kontakt</string>
-    <string name="notification_channel_outdated_data">Zastaralé dáta</string>
+    <string name="notification_channel_outdated_data">Aktualizácia rizikových stretnutí</string>
     <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
     <string name="exposure_notifications_off_title">Zapnite oznámenia o kontakte s COVID-19</string>
     <string name="exposure_notifications_off_body">eRouška momentálne nemôže komunikovať s inými eRouškami vo vašom okolí.\n\nZapnite Oznámenia o kontakte s COVID-19 pomocou tlačidla \"Zapnúť\".</string>

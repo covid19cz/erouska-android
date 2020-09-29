@@ -84,7 +84,7 @@
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
-    <string name="notification_data_outdated_title">Zastaralá data</string>
+    <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
     <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
 
@@ -94,7 +94,7 @@
     <string name="notification_exposure_notifications_off_text">Nezapomeňte ji spustit</string>
 
     <string name="notification_channel_exposure">Rizikový kontakt</string>
-    <string name="notification_channel_outdated_data">Zastaralá data</string>
+    <string name="notification_channel_outdated_data">Aktualizace rizikových setkání</string>
     <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
 
     <string name="exposure_notifications_off_title">Zapněte Oznámení o kontaktu s COVID-19</string>
