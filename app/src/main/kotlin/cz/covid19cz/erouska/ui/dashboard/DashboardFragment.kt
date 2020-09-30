@@ -48,6 +48,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
+                refreshDotIndicator()
                 if (!it.isBtEnabled() || !it.isLocationEnabled()) {
                     navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
                 }
@@ -62,7 +63,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         subsribeToViewModel()
 
         viewModel.exposureNotificationsEnabled.observe(this, Observer {
-            mainViewModel.serviceRunning.value = it
+            refreshDotIndicator()
             if (it) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
@@ -81,6 +82,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     override fun onStop() {
         context?.unregisterReceiver(btAndLocationReceiver)
         super.onStop()
+    }
+
+    private fun refreshDotIndicator(){
+        mainViewModel.serviceRunning.value = viewModel.exposureNotificationsEnabled.value && requireContext().isBtEnabled() && requireContext().isLocationEnabled()
     }
 
     private fun subsribeToViewModel() {
