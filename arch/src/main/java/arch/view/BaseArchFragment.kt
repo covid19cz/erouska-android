@@ -17,7 +17,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import arch.event.LiveEvent
 import arch.event.NavigationEvent
-import arch.extensions.navigate
+import arch.extensions.safeNavigate
 import arch.viewmodel.BaseArchViewModel
 import cz.stepansonsky.mvvm.BR
 import kotlin.reflect.KClass
@@ -37,7 +37,7 @@ abstract class BaseArchFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
         subscribe(NavigationEvent::class) {
-            navController().navigate(it)
+            navController().safeNavigate(it)
         }
     }
 
@@ -67,10 +67,10 @@ abstract class BaseArchFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
     }
 
     protected fun navigate(@IdRes resId: Int, args: Bundle? = null, navOptions: NavOptions? = null) {
-        navController().navigate(resId, args, navOptions)
+        navController().safeNavigate(resId, args, navOptions)
     }
 
     protected fun navigate(directions: NavDirections, navOptions: NavOptions? = null) {
-        navController().navigate(directions, navOptions)
+        navController().safeNavigate(directions, navOptions)
     }
 }

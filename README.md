@@ -2,7 +2,7 @@
 
 [<img src="https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0">](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska)
 
-Read our [**FAQ** (Czech only)](https://erouska.cz/caste-dotazy)
+Read our **FAQ**: [Czech](https://erouska.cz/caste-dotazy), [English](https://erouska.cz/en/caste-dotazy)
 
 eRouška (_rouška_ = _face mask_ in Czech) helps to fight against COVID-19.
 
@@ -12,9 +12,7 @@ It's the only app in Czechia authorized to use Exposure Notifications API from A
 
 ## Who is developing eRouška?
 
-eRouška 1.0 was developed by unpaid volunteers from various Czech IT companies called [COVID19CZ](https://covid19cz.cz).
-
-Most of the team stayed for eRouška 2.0 - we are now paid by [NAKIT](https://nakit.cz/) (company of Czech Ministry of Healthcare).
+Starting with version 2.0, the eRouška application is developed by the Ministry of Health in collaboration with the National Agency for Communication and Information Technologies ([NAKIT](https://nakit.cz/)). Earlier versions of eRouška application were developed by a team of volunteers from the [COVID19CZ](https://covid19cz.cz) community. Most of original eRouška developers continue to work on newer versions in the NAKIT team.
 
 ## International cooperation
 
@@ -30,7 +28,7 @@ Run:
 ## Contributing
 We are happy to accept pull requests! See [Git Workflow](#git-workflow).
 
-If you want to become a more permanent part of the team, join [our Slack](covid19cz.slack.com), channel _#erouska_.
+If you want to become a more permanent part of the team, join [our Slack](https://covid19cz.slack.com), channel _#erouska_.
 
 ## Translations
 

@@ -16,7 +16,7 @@ import androidx.navigation.findNavController
 import arch.event.LiveEvent
 import arch.event.NavigationEvent
 import arch.event.NavigationGraphEvent
-import arch.extensions.navigate
+import arch.extensions.safeNavigate
 import arch.extensions.setNavigationGraph
 import arch.viewmodel.BaseArchViewModel
 import cz.stepansonsky.mvvm.BR
@@ -47,7 +47,7 @@ abstract class BaseArchActivity<B : ViewDataBinding, out VM : BaseArchViewModel>
         })
 
         subscribe(NavigationEvent::class, Observer { event ->
-            navController().navigate(event)
+            navController().safeNavigate(event)
         })
     }
 
@@ -65,11 +65,11 @@ abstract class BaseArchActivity<B : ViewDataBinding, out VM : BaseArchViewModel>
     }
 
     protected fun navigate(@IdRes resId: Int, args: Bundle? = null, navOptions: NavOptions? = null) {
-        navController().navigate(resId, args, navOptions)
+        navController().safeNavigate(resId, args, navOptions)
     }
 
     protected fun navigate(directions: NavDirections, navOptions: NavOptions? = null) {
-        navController().navigate(directions, navOptions)
+        navController().safeNavigate(directions, navOptions)
     }
 
     protected fun navController(): NavController {

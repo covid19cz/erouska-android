@@ -24,7 +24,7 @@ open class BaseActivity<B : ViewDataBinding, VM : BaseVM>(
         val childFragmentManager =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
 
-        if ((childFragmentManager?.fragments?.get(0) as? BaseFragment<*, *>)?.onBackPressed() != true) {
+        if ((childFragmentManager?.fragments?.getOrNull(0) as? BaseFragment<*, *>)?.onBackPressed() != true) {
             super.onBackPressed()
         }
     }
