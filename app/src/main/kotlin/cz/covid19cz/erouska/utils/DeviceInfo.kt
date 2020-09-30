@@ -19,7 +19,11 @@ class DeviceInfo @Inject constructor(
     }
 
     fun getDeviceName(): String {
-        return DeviceName.getDeviceInfo(context).marketName
+        return try {
+            DeviceName.getDeviceInfo(context).marketName
+        } catch (t: Throwable){
+            Build.MODEL
+        }
     }
 
     fun getAndroidVersion(): String {
