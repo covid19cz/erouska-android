@@ -30,6 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="@string/send_data_verification_hint"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeColor="@color/boxStrokeColor"
+            android:textColorHint="@color/textColorPrimary"
+            app:hintTextColor="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/send_data_body">

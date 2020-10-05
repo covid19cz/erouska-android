@@ -374,7 +374,7 @@
     </entry>
     <entry>
         <key>v2_preventionContentJson</key>
-        <value>{"title": "COVID-19 se přenáší hlavně kapénkami, která se šíří vzduchem. Přenášet se
+        <value>{"title": "COVID-19 se přenáší hlavně kapénkami, které se šíří vzduchem. Přenášet se
             může také kontaminovanými
             předměty.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často
             a důkladně si myjte ruce mýdlem a používejte
@@ -401,7 +401,7 @@
     </entry>
     <entry>
         <key>v2_encounterWarning</key>
-        <value>Setkali jste se s osobou, u které bylo prokázáno onemocnění COVID-19. Sledujte svůj
+        <value>Setkali jste se s osobou, u které bylo potvrzeno onemocnění COVID-19. Sledujte svůj
             zdravotní stav.
         </value>
     </entry>
