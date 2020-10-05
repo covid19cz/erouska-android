@@ -1,16 +1,17 @@
 package cz.covid19cz.erouska.ui.help
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
-import cz.covid19cz.erouska.ext.hide
-import cz.covid19cz.erouska.ext.show
-import cz.covid19cz.erouska.ext.showWeb
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
@@ -49,8 +50,62 @@ class HelpFragment :
         showWeb(AppConfig.chatBotLink, customTabHelper)
     }
 
+    var lastMarkedIndex = 0
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help, menu)
+
+        // Associate searchable configuration with the SearchView
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            isIconifiedByDefault = true
+            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let {
+                        if (query.isNotBlank() && AppConfig.helpMarkdown.contains(query)) {
+                            lastMarkedIndex = help_desc.text.toString().indexOf(
+                                query,
+                                lastMarkedIndex + query.length
+                            )
+                            val lineNumber: Int = help_desc.layout.getLineForOffset(lastMarkedIndex)
+
+                            help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
+                        }
+                        return true
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    query?.let {
+                        if (query.isNotBlank() && AppConfig.helpMarkdown.contains(
+                                query,
+                                ignoreCase = true
+                            )
+                        ) {
+                            lastMarkedIndex =
+                                AppConfig.helpMarkdown.indexOf(query, ignoreCase = true)
+                            val lineNumber: Int = help_desc.layout.getLineForOffset(lastMarkedIndex)
+                            val highlighted = "```${query.trim()}```"
+                            var fullText = AppConfig.helpMarkdown.replace(
+                                query.trim(),
+                                highlighted,
+                                ignoreCase = true
+                            )
+                            markdown.show(help_desc, fullText)
+
+                            if (lineNumber >= 0) {
+                                help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
+                            }
+                        } else {
+                            markdown.show(help_desc, AppConfig.helpMarkdown)
+                            help_scroll.scrollTo(0, 0)
+                        }
+                    }
+                    return true
+                }
+            })
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 

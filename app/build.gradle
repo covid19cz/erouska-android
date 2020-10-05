@@ -181,6 +181,7 @@ dependencies {
 
     // Markdown
     implementation "io.noties.markwon:core:4.3.1"
+    implementation "io.noties.markwon:html:4.3.1"
     implementation 'io.noties.markwon:image-glide:4.3.1'
     implementation 'com.atlassian.commonmark:commonmark-ext-autolink:0.12.1'
 

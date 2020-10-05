@@ -131,4 +131,5 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="activation_error_reason_en_api">Toto zariadenie nepodporuje Oznámenia o možnom kontakte od Google.</string>
     <string name="activation_error_reason_unauthorized">Nepovolený prístup k API.</string>
     <string name="ok">OK</string>
+    <string name="search">Hľadať</string>
 </resources>

@@ -130,4 +130,7 @@
     <string name="activation_error_reason_en_api">Your device does not support Exposure Notifications by Google.</string>
     <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Type here ..</string>
+
 </resources>

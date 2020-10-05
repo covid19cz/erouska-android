@@ -148,5 +148,6 @@
     <string name="activation_error_reason_en_api">Toto zařízení nepodporuje Oznámení o možném kontaktu od Google.</string>
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
+    <string name="search">Hledat</string>
 
 </resources>
