@@ -24,7 +24,7 @@ class MyDataVM @ViewModelInject constructor(
 ) : BaseVM() {
 
     companion object {
-        const val LAST_UPDATE_UI_FORMAT = "dd.MM.yyyy" // date format used in UI
+        const val LAST_UPDATE_UI_FORMAT = "dd. MM. yyyy" // date format used in UI
         const val LAST_UPDATE_API_FORMAT = "yyyyMMdd" // date format returned from API
     }
 
