@@ -26,7 +26,7 @@
     <string name="activation_try_again">Skúsiť znova</string>
     <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté oznámenia o kontakte s COVID-19</string>
     <string name="permission_onboarding_desc">Tieto oznámenia vás upozornia, ak ste boli v blízkosti užívateľa eRoušky s pozitívnym testom na ochorenie COVID-19</string>
-    <string name="permission_onboarding_desc_2">Podstatou správneho fungovania je zdieľanie a zhromažďovanie náhodných identifikačních čísel, ktoré se automaticky menia. Užívateľov eRoušky nie je  možné podľa týchto identifikátorov rozpoznať.</string>
+    <string name="permission_onboarding_desc_2">Podstatou správneho fungovania je zdieľanie a zhromažďovanie náhodných identifikačných čísel, ktoré se automaticky menia. Užívateľov eRoušky nie je  možné podľa týchto identifikátorov rozpoznať.</string>
     <string name="permission_onboarding_desc_minor">Nemusíte sa obávať, aplikácia vašu polohu nikdy nezdieľa ani neukladá</string>
     <string name="permission_onboarding_toolbar_title">Oznámenia</string>
     <string name="menu_help">Nápoveda</string>
