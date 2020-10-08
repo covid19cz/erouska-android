@@ -16,7 +16,8 @@ import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo : ExposureNotificationsRepository) : BaseVM() {
+class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository) :
+    BaseVM() {
 
     val state = MutableLiveData<SendDataState>()
     val code = SafeMutableLiveData("")
@@ -38,9 +39,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESSING))
                 sendData()
             }.onFailure {
-                if (it is ApiException){
-                    publish(GmsApiErrorEvent(it.status))
-                }
+                publish(GmsApiErrorEvent(it))
             }
         }
     }
@@ -55,7 +54,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
 
         viewModelScope.launch {
             runCatching {
-                if (!exposureNotificationRepo.isEnabled()){
+                if (!exposureNotificationRepo.isEnabled()) {
                     exposureNotificationRepo.start()
                 }
                 exposureNotificationRepo.reportExposureWithVerification(code.value)
@@ -64,8 +63,8 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
                 L.e(it)
-                when(it){
-                    is ApiException -> publish(GmsApiErrorEvent(it.status))
+                when (it) {
+                    is ApiException -> publish(GmsApiErrorEvent(it))
                     is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
                     else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))

@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
-import cz.covid19cz.erouska.ext.*
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
+import cz.covid19cz.erouska.ext.focusAndShowKeyboard
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.hideKeyboard
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,27 +24,11 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     SendDataVM::class
 ) {
 
-    companion object {
-        const val REQUEST_GMS_ERROR_RESOLUTION = 42
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            try {
-                startIntentSenderForResult(
-                    it.status.resolution?.intentSender,
-                    REQUEST_GMS_ERROR_RESOLUTION,
-                    null,
-                    0,
-                    0,
-                    0,
-                    null
-                )
-            } catch (t : Throwable){
-                it.status.resolveUnknownGmsError(requireContext())
-            }
+            ExposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(SendDataCommandEvent::class) {
@@ -65,7 +51,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SandboxFragment.REQUEST_GMS_ERROR_RESOLUTION) {
+        if (requestCode == ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION) {
             when(resultCode){
                 Activity.RESULT_OK -> viewModel.verifyAndConfirm()
                 Activity.RESULT_CANCELED -> viewModel.reset()

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
@@ -18,7 +17,6 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -70,16 +68,14 @@ class DashboardVM @ViewModelInject constructor(
                 L.d("Exposure Notifications enabled $enabled")
                 onExposureNotificationsStateChanged(enabled)
             }.onFailure {
-                if (it is ApiException) {
-                    publish(GmsApiErrorEvent(it.status))
-                }
+                publish(GmsApiErrorEvent(it))
                 L.e(it)
             }
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart(){
+    fun onStart() {
         if (!deviceUtils.isBtEnabled() || !deviceUtils.isLocationEnabled()) {
             navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
         }
@@ -114,9 +110,7 @@ class DashboardVM @ViewModelInject constructor(
                     L.d("Exposure Notifications started")
                 }.onFailure {
                     onExposureNotificationsStateChanged(false)
-                    if (it is ApiException) {
-                        publish(GmsApiErrorEvent(it.status))
-                    }
+                    publish(GmsApiErrorEvent(it))
                     L.e(it)
                 }
             }

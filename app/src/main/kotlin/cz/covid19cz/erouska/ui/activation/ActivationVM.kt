@@ -37,11 +37,11 @@ class ActivationVM @ViewModelInject constructor(
                 firebaseFunctionsRepository.register()
                 mutableState.postValue(ActivationFinished)
             } catch (e: Exception) {
+                L.e(e)
                 if(e is ApiException) {
-                    publish(GmsApiErrorEvent(e.status))
+                    publish(GmsApiErrorEvent(e))
                     return@launch
                 }
-                L.e(e)
                 mutableState.postValue(ActivationFailed)
             }
         }

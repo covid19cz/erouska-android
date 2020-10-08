@@ -138,8 +138,13 @@
     <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 
     <string name="no_recent_exposures">Žádná riziková setkání</string>
-    <string name="dialog_en_api_not_found_title">Chyba aktivace (%d)</string>
-    <string name="dialog_en_api_not_found_message">Exposure Notifications API není k dispozici, kontaktujte prosím podporu.</string>
+    <string name="activation_error">eRoušku nelze aktivovat</string>
+    <string name="activation_error_reason">Důvod: %s</string>
+    <string name="activation_error_reason_bluetooth_le">Toto zařízení nepodporuje Bluetooth Low Energy.</string>
+    <string name="activation_error_reason_admin">eRouška se dá aktivovat jenom na primárním účtu tohoto zařízení.</string>
+    <string name="activation_error_reason_bluetooth_ad">Toto zařízení nepodporuje Bluetooth Multiple Advertisement.</string>
+    <string name="activation_error_reason_en_api">Toto zařízení nepodporuje Oznámení o možném kontaktu od Google.</string>
+    <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
 
 </resources>
