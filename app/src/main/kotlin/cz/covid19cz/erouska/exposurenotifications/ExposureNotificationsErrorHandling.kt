@@ -7,6 +7,7 @@ import android.os.UserManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import cz.covid19cz.erouska.R
@@ -22,6 +23,7 @@ import java.util.regex.Pattern
 object ExposureNotificationsErrorHandling {
 
     const val REQUEST_GMS_ERROR_RESOLUTION = 42
+    private const val ERROR_CODE_UNKNOWN = -2
     private val CONNECTION_RESULT_PATTERN: Pattern =
         Pattern.compile("ConnectionResult\\{[^}]*statusCode=[a-zA-Z0-9_]+\\((\\d+)\\)")
 
@@ -58,7 +60,7 @@ object ExposureNotificationsErrorHandling {
         var attachExceptionMessage = true
         if (exception is ApiException) {
             val status = exception.status
-            if (status.statusCode == 17 && status.statusMessage != null) {
+            if (status.statusCode == CommonStatusCodes.API_NOT_CONNECTED && status.statusMessage != null) {
                 when (val connectionStatusCode: Int = getConnectionStatusCode(status)) {
                     ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> if (!supportsBLE(context)) {
                         errorDetailMessage = context.getString(R.string.activation_error_reason_bluetooth_le)
@@ -96,10 +98,10 @@ object ExposureNotificationsErrorHandling {
             val matcher: Matcher = CONNECTION_RESULT_PATTERN.matcher(statusMessage)
             if (matcher.find()) {
                 val connectionStatusCode: String? = matcher.group(1)
-                return connectionStatusCode?.toInt() ?: -2
+                return connectionStatusCode?.toInt() ?: ERROR_CODE_UNKNOWN
             }
         }
-        return -2
+        return ERROR_CODE_UNKNOWN
     }
 
     private fun supportsBLE(context: Context): Boolean {
