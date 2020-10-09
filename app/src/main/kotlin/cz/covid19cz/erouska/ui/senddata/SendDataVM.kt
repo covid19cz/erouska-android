@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.model.VerifyCodeResponse
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
@@ -51,8 +52,6 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
     }
 
     private fun sendData() {
-        // TODO Code expiration should be verified by BE, so it will probably be distinguished by response code/message (source: Jan Sticha)
-
         viewModelScope.launch {
             runCatching {
                 if (!exposureNotificationRepo.isEnabled()){
@@ -64,13 +63,29 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
                 L.e(it)
-                when(it){
-                    is ApiException -> publish(GmsApiErrorEvent(it.status))
-                    is VerifyException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
-                    is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
-                    else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE))
+                handleSendDataErrors(it)
+            }
+        }
+    }
+
+    private fun handleSendDataErrors(exception: Throwable) {
+        when (exception) {
+            is ApiException -> publish(GmsApiErrorEvent(exception.status))
+            is VerifyException -> {
+                when (exception.code) {
+                    VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
+                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_EXPIRED))
+                    }
+                    VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
+                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
+                    }
+                    else -> {
+                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message+" (${exception.code})"))
+                    }
                 }
             }
+            is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.error+" (${exception.code})"))
+            else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message))
         }
     }
 

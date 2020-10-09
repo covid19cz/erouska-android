@@ -8,7 +8,6 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
@@ -51,7 +50,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 SendDataCommandEvent.Command.CODE_VALID -> onCodeValid()
                 SendDataCommandEvent.Command.CODE_INVALID -> onCodeInvalid()
                 SendDataCommandEvent.Command.CODE_EXPIRED -> onCodeExpired()
-                SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure()
+                SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure(it.errorMessage)
                 SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
                 SendDataCommandEvent.Command.PROCESSING -> onProcess()
             }
@@ -144,7 +143,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 
-    private fun onSendDataFailure() {
+    private fun onSendDataFailure(errorMessage: String?) {
         progress.hide()
         code_input.hideKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)
@@ -160,7 +159,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         confirm_button.hide()
 
         error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_failure_body)
+        error_body.text = getString(R.string.send_data_failure_body, errorMessage)
 
     }
 

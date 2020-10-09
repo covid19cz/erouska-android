@@ -75,7 +75,7 @@
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
-    <string name="send_data_failure_body">Zkontroluje připojení k internetu a zkuste to znovu.</string>
+    <string name="send_data_failure_body">Důvod: \'%s\'. Pokud vám to nic neříká, kontaktujte naši podporu.</string>
     <string name="send_data_back">Zpět</string>
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>

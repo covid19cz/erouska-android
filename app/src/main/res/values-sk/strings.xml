@@ -70,7 +70,6 @@
     <string name="send_data_code_expired_header">Vypršala platnosť overovacieho kódu</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
     <string name="send_data_failure_header">Nepodarilo sa nám odoslať dáta</string>
-    <string name="send_data_failure_body">Skontrolujte pripojenie k internetu a skúste to znovu</string>
     <string name="send_data_back">Späť</string>
     <string name="send_data_close">Zatvoriť</string>
     <string name="send_data_try_again">Skúsiť znovu</string>
