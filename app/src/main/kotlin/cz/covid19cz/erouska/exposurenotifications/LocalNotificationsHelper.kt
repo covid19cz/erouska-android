@@ -31,7 +31,7 @@ object LocalNotificationsHelper {
         )
     }
 
-    fun showRiskyExposureNotification(context: Context?) {
+    fun showRiskyExposureNotification(context: Context) {
         showNotification(
             R.string.notification_exposure_title,
             R.string.notification_exposure_text,

@@ -17,8 +17,6 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -228,17 +226,15 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    fun checkExposure(context: Context) {
-        GlobalScope.launch {
-            kotlin.runCatching {
-                val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
-                val lastNotifiedExposure = prefs.getLastNotifiedExposure()
-                if (lastExposure != null && lastExposure != lastNotifiedExposure) {
-                    firebaseFunctionsRepository.registerNotification()
-                    LocalNotificationsHelper.showRiskyExposureNotification(context)
-                    prefs.setLastNotifiedExposure(lastExposure)
-                }
-            }
+    suspend fun checkExposure(context: Context) {
+        val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
+        val lastNotifiedExposure = prefs.getLastNotifiedExposure()
+        if (lastExposure != null && lastExposure != lastNotifiedExposure) {
+            LocalNotificationsHelper.showRiskyExposureNotification(context)
+            prefs.setLastNotifiedExposure(lastExposure)
+            firebaseFunctionsRepository.registerNotification()
+        } else {
+            L.i("Not showing notification, lastExposure=$lastExposure, lastNotifiedExposure=$lastNotifiedExposure")
         }
     }
 

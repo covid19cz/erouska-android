@@ -21,7 +21,10 @@ import android.content.Context
 import android.content.Intent
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -35,7 +38,13 @@ class ExposureNotificationBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {
-            exposureNotificationsRepository.checkExposure(context)
+            GlobalScope.launch {
+                try {
+                    exposureNotificationsRepository.checkExposure(context)
+                } catch (e: Throwable) {
+                    L.e(e)
+                }
+            }
         }
     }
 }
