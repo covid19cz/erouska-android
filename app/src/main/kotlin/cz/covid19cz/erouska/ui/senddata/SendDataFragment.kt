@@ -13,6 +13,7 @@ import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +38,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 SendDataCommandEvent.Command.CODE_VALID -> onCodeValid()
                 SendDataCommandEvent.Command.CODE_INVALID -> onCodeInvalid()
                 SendDataCommandEvent.Command.CODE_EXPIRED -> onCodeExpired()
-                SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure()
+                SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure(it.errorMessage)
                 SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
                 SendDataCommandEvent.Command.PROCESSING -> onProcess()
             }
@@ -47,6 +48,9 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
+        activity?.let {
+            (it as MainActivity).initReviews()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -61,7 +65,12 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun setupListeners() {
         close_button.setOnClickListener { navController().navigateUp() }
-        success_close_button.setOnClickListener { navController().navigateUp() }
+        success_close_button.setOnClickListener {
+            navController().navigateUp()
+            activity?.let {
+                (it as MainActivity).askForReview()
+            }
+        }
     }
 
     private fun onProcess() {
@@ -130,7 +139,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 
-    private fun onSendDataFailure() {
+    private fun onSendDataFailure(errorMessage: String?) {
         progress.hide()
         code_input.hideKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)
@@ -146,7 +155,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         confirm_button.hide()
 
         error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_failure_body)
+        error_body.text = getString(R.string.send_data_failure_body, errorMessage)
 
     }
 

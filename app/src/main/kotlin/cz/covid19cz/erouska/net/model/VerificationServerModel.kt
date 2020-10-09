@@ -10,8 +10,14 @@ data class VerifyCodeResponse(
     val testType: String?,
     val symptomDate: String?,
     val token: String?,
-    val error: String?
-)
+    val error: String?,
+    val errorCode: String?
+) {
+    companion object {
+        const val ERROR_CODE_INVALID_CODE = "code_invalid"
+        const val ERROR_CODE_EXPIRED_CODE = "code_expired"
+    }
+}
 
 data class VerifyCertificateRequest(
     val token: String,
@@ -20,7 +26,8 @@ data class VerifyCertificateRequest(
 
 data class VerifyCertificateResponse(
     val certificate: String,
-    val error: String?
+    val error: String?,
+    val errorCode: String?
 )
 
 data class CoverRequest(

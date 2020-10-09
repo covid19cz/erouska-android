@@ -70,7 +70,7 @@
     <string name="send_data_code_expired_header">Verification code has expired</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
-    <string name="send_data_failure_body">Check your internet connection and try again.</string>
+    <string name="send_data_failure_body">Reason: \'%s\'. If you are not sure what to do, contact our support.</string>
     <string name="send_data_back">Back</string>
     <string name="send_data_close">Close</string>
     <string name="send_data_try_again">Try again</string>

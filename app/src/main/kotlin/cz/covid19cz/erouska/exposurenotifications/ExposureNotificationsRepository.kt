@@ -17,8 +17,6 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -107,7 +105,7 @@ class ExposureNotificationsRepository @Inject constructor(
                 .build()
             try {
                 client.setDiagnosisKeysDataMapping(mapping)
-            } catch (t : Throwable){
+            } catch (t: Throwable) {
                 L.e(t)
             } finally {
                 prefs.setLastSetDiagnosisKeysDataMapping()
@@ -177,7 +175,7 @@ class ExposureNotificationsRepository @Inject constructor(
         }, null, null, null, prefs.getRevisionToken())
         val response = server.reportExposure(request)
         if (response.errorMessage != null) {
-            throw ReportExposureException(response.errorMessage)
+            throw ReportExposureException(response.errorMessage, response.code)
         }
         prefs.saveRevisionToken(response.revisionToken)
         return response.insertedExposures ?: 0
@@ -186,9 +184,8 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
         val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
-        L.i("Verify code success")
-
         if (verifyResponse.token != null) {
+            L.i("Verify code success")
             val hmackey = cryptoTools.newHmacKey()
             val keyHash = cryptoTools.hashedKeys(keys, hmackey)
             val token = verifyResponse.token
@@ -196,6 +193,9 @@ class ExposureNotificationsRepository @Inject constructor(
             val certificateResponse = server.verifyCertificate(
                 VerifyCertificateRequest(token, keyHash)
             )
+            if (certificateResponse.error != null) {
+                throw VerifyException(certificateResponse.error, certificateResponse.errorCode)
+            }
             L.i("Verify certificate success")
 
             val request = ExposureRequest(
@@ -216,27 +216,25 @@ class ExposureNotificationsRepository @Inject constructor(
             val response = server.reportExposure(request)
             response.errorMessage?.let {
                 L.e("Report exposure failed: $it")
-                throw ReportExposureException(it)
+                throw ReportExposureException(it, response.code)
             }
             L.i("Report exposure success, ${response.insertedExposures} keys inserted")
             prefs.saveRevisionToken(response.revisionToken)
             return response.insertedExposures ?: 0
         } else {
-            throw VerifyException(verifyResponse.error ?: "Unknown")
+            throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
         }
     }
 
-    fun checkExposure(context: Context) {
-        GlobalScope.launch {
-            kotlin.runCatching {
-                val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
-                val lastNotifiedExposure = prefs.getLastNotifiedExposure()
-                if (lastExposure != null && lastExposure != lastNotifiedExposure) {
-                    firebaseFunctionsRepository.registerNotification()
-                    LocalNotificationsHelper.showRiskyExposureNotification(context)
-                    prefs.setLastNotifiedExposure(lastExposure)
-                }
-            }
+    suspend fun checkExposure(context: Context) {
+        val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
+        val lastNotifiedExposure = prefs.getLastNotifiedExposure()
+        if (lastExposure != null && lastExposure != lastNotifiedExposure) {
+            LocalNotificationsHelper.showRiskyExposureNotification(context)
+            prefs.setLastNotifiedExposure(lastExposure)
+            firebaseFunctionsRepository.registerNotification()
+        } else {
+            L.i("Not showing notification, lastExposure=$lastExposure, lastNotifiedExposure=$lastNotifiedExposure")
         }
     }
 
