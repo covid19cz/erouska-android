@@ -25,7 +25,7 @@
     <string name="activation_error_body">Check your internet connection and try again to activate your application. If the problem persists, contact us at info@erouska.cz</string>
     <string name="activation_try_again">Try again</string>
     <string name="permission_onboarding_title">To work properly, eRouška requires notifications about COVID-19 exposure to be enabled</string>
-    <string name="permission_onboarding_desc">These notifications will indicate that you have encountered a user with eRouška who was tested positive for COVID-19.</string>
+    <string name="permission_onboarding_desc">These notifications will indicate that you have encountered a user with eRouška who tested positive for COVID-19.</string>
     <string name="permission_onboarding_desc_2">The app can only work correctly if it collects and shares random identifiers which change automatically. We cannot identify an eRouška user based on these identifiers.</string>
     <string name="permission_onboarding_desc_minor">You don\'t have to worry: the application does not track your location nor does it store it.</string>
     <string name="permission_onboarding_toolbar_title">Notifications</string>
@@ -70,7 +70,7 @@
     <string name="send_data_code_expired_header">Verification code has expired</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
-    <string name="send_data_failure_body">Reason: \'%s\'. If you are not sure what to do, contact our support.</string>
+    <string name="send_data_failure_body">Reason: \'%s\'. If this does not sound familiar, contact our support.</string>
     <string name="send_data_back">Back</string>
     <string name="send_data_close">Close</string>
     <string name="send_data_try_again">Try again</string>
@@ -108,7 +108,7 @@
     <string name="play_services_update_button">Update</string>
     <string name="activation_notifications_title">Notifications</string>
     <string name="activation_notifications_header">To work properly, eRouška requires COVID-19 Exposure Notifications to be enabled</string>
-    <string name="activation_notifications_body_1">These notifications will indicate that you have encountered a user with eRouška who was tested positive for COVID-19.</string>
+    <string name="activation_notifications_body_1">These notifications will indicate that you have encountered a user with eRouška who tested positive for COVID-19.</string>
     <string name="activation_notifications_body_2">The app can only work correctly if it collects and shares random identifiers which change automatically. We cannot identify an eRouška user based on these identifiers.</string>
     <string name="legacy_update_button_continue">Continue</string>
     <string name="legacy_update_button_close">Close</string>
@@ -120,12 +120,12 @@
     <string name="location_bt_off_body_2">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
     <string name="location_bt_off_turn_on">Enable Bluetooth and Location Services</string>
     <string name="no_recent_exposures">No risky encounters</string>
-    <string name="activation_error">Can\'t activate eRouška</string>
+    <string name="activation_error">Failed to activate eRouška</string>
     <string name="activation_error_reason">Reason: %s</string>
-    <string name="activation_error_reason_bluetooth_le">Bluetooth Low Energy is not supported on this device.</string>
-    <string name="activation_error_reason_admin">eRouška can be enabled only in primary account of this device.</string>
-    <string name="activation_error_reason_bluetooth_ad">Bluetooth Multiple Advertisement is not supported on this device.</string>
-    <string name="activation_error_reason_en_api">This device does not support Exposure Notifications from Google.</string>
-    <string name="activation_error_reason_unauthorized">Unauthorized API usage.</string>
+    <string name="activation_error_reason_bluetooth_le">Your device does not support Bluetooth Low Energy.</string>
+    <string name="activation_error_reason_admin">Only the primary account on this device can activate eRouška.</string>
+    <string name="activation_error_reason_bluetooth_ad">Your device does not support Bluetooth Multiple Advertisement.</string>
+    <string name="activation_error_reason_en_api">Your device does not support Exposure Notifications by Google.</string>
+    <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
 </resources>
