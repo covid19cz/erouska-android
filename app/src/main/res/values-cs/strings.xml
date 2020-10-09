@@ -141,7 +141,7 @@
     <string name="activation_error">eRoušku nelze aktivovat</string>
     <string name="activation_error_reason">Důvod: %s</string>
     <string name="activation_error_reason_bluetooth_le">Toto zařízení nepodporuje Bluetooth Low Energy.</string>
-    <string name="activation_error_reason_admin">eRouška se dá aktivovat jenom na primárním účtu tohoto zařízení.</string>
+    <string name="activation_error_reason_admin">eRoušku lze aktivovat jenom na primárním účtu tohoto zařízení.</string>
     <string name="activation_error_reason_bluetooth_ad">Toto zařízení nepodporuje Bluetooth Multiple Advertisement.</string>
     <string name="activation_error_reason_en_api">Toto zařízení nepodporuje Oznámení o možném kontaktu od Google.</string>
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
