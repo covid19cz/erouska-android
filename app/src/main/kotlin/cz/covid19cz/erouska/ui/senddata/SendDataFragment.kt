@@ -8,8 +8,8 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.ui.sandbox.SandboxFragment
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
@@ -61,6 +61,9 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
+        activity?.let {
+            (it as MainActivity).initReviews()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,7 +78,12 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun setupListeners() {
         close_button.setOnClickListener { navController().navigateUp() }
-        success_close_button.setOnClickListener { navController().navigateUp() }
+        success_close_button.setOnClickListener {
+            navController().navigateUp()
+            activity?.let {
+                (it as MainActivity).askForReview()
+            }
+        }
     }
 
     private fun onProcess() {
