@@ -14,6 +14,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.isBtEnabled
@@ -30,6 +33,9 @@ class MainActivity :
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
+
+    lateinit var reviewManager: ReviewManager
+    var reviewInfo: ReviewInfo? = null
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
@@ -107,6 +113,29 @@ class MainActivity :
             connectedToCustomTabsService = false
         }
         super.onStop()
+    }
+
+    /** Call this on a Fragment which might show reviews, ideally in onViewCreated **/
+    fun initReviews() {
+        reviewManager = ReviewManagerFactory.create(this)
+        reviewManager.requestReviewFlow().addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                reviewInfo = request.result
+            } else {
+                L.e(request.exception)
+            }
+        }
+    }
+
+    /** Call this when asking for review **/
+    fun askForReview() {
+        if (reviewInfo != null) {
+            reviewManager.launchReviewFlow(this, reviewInfo).addOnFailureListener {
+                L.e(it)
+            }.addOnCompleteListener { _ ->
+               L.i("Review success")
+            }
+        }
     }
 
     private fun updateTitle(destination: NavDestination) {
