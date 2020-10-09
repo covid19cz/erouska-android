@@ -84,7 +84,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun getLastNotifiedExposure(): Int {
-        return prefs.getInt(LAST_NOTIFIED_EXPOSURE, 0)
+        return prefs.getInt(LAST_NOTIFIED_EXPOSURE, -1)
     }
 
     fun setLastInAppNotifiedExposure(daysSinceEpoch: Int) {
