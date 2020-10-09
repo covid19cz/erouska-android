@@ -2,7 +2,7 @@ package cz.covid19cz.erouska.ui.senddata.event
 
 import arch.event.LiveEvent
 
-class SendDataCommandEvent(val command: Command) : LiveEvent() {
+class SendDataCommandEvent(val command: Command, val errorMessage: String? = null) : LiveEvent() {
 
     enum class Command {
         INIT,
