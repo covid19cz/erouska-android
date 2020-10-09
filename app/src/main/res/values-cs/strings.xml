@@ -39,7 +39,7 @@
     <string name="about_tos_link">Podmínky použití</string>
     <string name="about_title">O\u00a0aplikaci</string>
     <string name="permission_rationale_title">Pro spr\u00e1vnou funkci aplikace je nutn\u00e9 opr\u00e1vn\u011bn\u00ed k\u00a0p\u0159\u00edstupu k\u00a0poloze.</string>
-    <string name="permission_rationale_body">V\u00edce o\u00a0tom pro\u010d tomu tak je, najdete v\u00a0n\u00e1pov\u011bd\u011b.</string>
+    <string name="permission_rationale_body">V\u00edce o\u00a0tom, pro\u010d tomu tak je, najdete v\u00a0n\u00e1pov\u011bd\u011b.</string>
     <string name="permission_rationale_settings">Nastavení</string>
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
