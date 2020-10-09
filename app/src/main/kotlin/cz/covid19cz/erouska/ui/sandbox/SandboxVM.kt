@@ -40,7 +40,8 @@ class SandboxVM @ViewModelInject constructor(
     fun onCreate() {
         refreshTeks()
         val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-        lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
+        lastDownload.value =
+            prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -80,9 +81,7 @@ class SandboxVM @ViewModelInject constructor(
             }.onSuccess {
                 teks.addAll(it.sortedByDescending { it.rollingStartIntervalNumber })
             }.onFailure {
-                if (it is ApiException) {
-                    publish(GmsApiErrorEvent(it.status))
-                }
+                publish(GmsApiErrorEvent(it))
                 L.e(it)
             }
         }
@@ -96,8 +95,10 @@ class SandboxVM @ViewModelInject constructor(
                 return@runCatching downloadResult
             }.onSuccess {
                 val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-                lastDownload.value = prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
-                filesString.value = downloadResult?.files?.joinToString(separator = "\n", transform = { it.name })
+                lastDownload.value =
+                    prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
+                filesString.value =
+                    downloadResult?.files?.joinToString(separator = "\n", transform = { it.name })
                 showSnackbar("Download success: ${it?.files?.size}/${it?.urls?.size} files")
             }.onFailure {
                 showSnackbar("Download failed: ${it.message}")
@@ -129,15 +130,15 @@ class SandboxVM @ViewModelInject constructor(
         }
     }
 
-    fun reportExposureWithVerification(code : String){
+    fun reportExposureWithVerification(code: String) {
         viewModelScope.launch {
             runCatching {
-               exposureNotificationsRepository.reportExposureWithVerification(code)
+                exposureNotificationsRepository.reportExposureWithVerification(code)
             }.onSuccess {
                 showSnackbar("Upload success: $it keys")
             }.onFailure {
-                when(it){
-                    is ApiException -> publish(GmsApiErrorEvent(it.status))
+                when (it) {
+                    is ApiException -> publish(GmsApiErrorEvent(it))
                     is VerifyException -> showSnackbar("Verification error: ${it.message}")
                     is ReportExposureException -> showSnackbar("Upload error: ${it.message}")
                     else -> showSnackbar("${it.message}")
@@ -151,11 +152,11 @@ class SandboxVM @ViewModelInject constructor(
         publish(SnackbarEvent(text))
     }
 
-    fun navigateToData(){
+    fun navigateToData() {
         navigate(R.id.nav_sandbox_data)
     }
 
-    fun navigateToConfig(){
+    fun navigateToConfig() {
         navigate(R.id.nav_sandbox_config)
     }
 

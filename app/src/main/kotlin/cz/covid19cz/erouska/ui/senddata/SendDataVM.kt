@@ -17,7 +17,8 @@ import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo : ExposureNotificationsRepository) : BaseVM() {
+class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository) :
+    BaseVM() {
 
     val state = MutableLiveData<SendDataState>()
     val code = SafeMutableLiveData("")
@@ -39,9 +40,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESSING))
                 sendData()
             }.onFailure {
-                if (it is ApiException){
-                    publish(GmsApiErrorEvent(it.status))
-                }
+                publish(GmsApiErrorEvent(it))
             }
         }
     }
@@ -54,7 +53,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
     private fun sendData() {
         viewModelScope.launch {
             runCatching {
-                if (!exposureNotificationRepo.isEnabled()){
+                if (!exposureNotificationRepo.isEnabled()) {
                     exposureNotificationRepo.start()
                 }
                 exposureNotificationRepo.reportExposureWithVerification(code.value)
@@ -70,7 +69,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
 
     private fun handleSendDataErrors(exception: Throwable) {
         when (exception) {
-            is ApiException -> publish(GmsApiErrorEvent(exception.status))
+            is ApiException -> publish(GmsApiErrorEvent(exception))
             is VerifyException -> {
                 when (exception.code) {
                     VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {

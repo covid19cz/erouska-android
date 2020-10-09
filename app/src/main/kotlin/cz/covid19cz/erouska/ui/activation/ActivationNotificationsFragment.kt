@@ -8,12 +8,10 @@ import android.view.MenuInflater
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationNotificationsBinding
-import cz.covid19cz.erouska.ext.resolveUnknownGmsError
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,20 +29,7 @@ class ActivationNotificationsFragment :
         }
 
         subscribe(GmsApiErrorEvent::class) {
-            try {
-                startIntentSenderForResult(
-                    it.status.resolution?.intentSender,
-                    DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION,
-                    null,
-                    0,
-                    0,
-                    0,
-                    null
-                )
-            } catch (t : Throwable){
-                L.e(t)
-                it.status.resolveUnknownGmsError(requireContext())
-            }
+            ExposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(BluetoothDisabledEvent::class) {
@@ -59,7 +44,7 @@ class ActivationNotificationsFragment :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION -> {
+            ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION -> {
                 if (resultCode == Activity.RESULT_OK) {
                     viewModel.enableNotifications()
                 }

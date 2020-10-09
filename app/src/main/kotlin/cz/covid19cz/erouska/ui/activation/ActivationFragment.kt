@@ -13,12 +13,12 @@ import androidx.navigation.NavOptions.Builder
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentActivationBinding
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.dashboard.DashboardFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,15 +39,7 @@ class ActivationFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(
-                it.status.resolution?.intentSender,
-                DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION,
-                null,
-                0,
-                0,
-                0,
-                null
-            )
+            ExposureNotificationsErrorHandling.handle(it, this)
         }
 
     }
@@ -162,7 +154,7 @@ class ActivationFragment :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            DashboardFragment.REQUEST_GMS_ERROR_RESOLUTION -> {
+            ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION -> {
                 if (resultCode == Activity.RESULT_OK) {
                     viewModel.activate()
                 }

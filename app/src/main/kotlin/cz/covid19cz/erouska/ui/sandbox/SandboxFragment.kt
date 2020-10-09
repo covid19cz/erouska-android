@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSandboxBinding
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
@@ -18,8 +19,7 @@ class SandboxFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            startIntentSenderForResult(it.status.resolution?.intentSender,
-                REQUEST_GMS_ERROR_RESOLUTION, null, 0, 0, 0, null)
+            ExposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(SnackbarEvent::class) {
@@ -29,12 +29,8 @@ class SandboxFragment :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_GMS_ERROR_RESOLUTION && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION && resultCode == Activity.RESULT_OK) {
             viewModel.refreshTeks()
         }
-    }
-
-    companion object {
-        const val REQUEST_GMS_ERROR_RESOLUTION = 42
     }
 }

@@ -120,7 +120,12 @@
     <string name="location_bt_off_body_2">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
     <string name="location_bt_off_turn_on">Enable Bluetooth and Location Services</string>
     <string name="no_recent_exposures">No risky encounters</string>
-    <string name="dialog_en_api_not_found_title">Activation error (%d)</string>
-    <string name="dialog_en_api_not_found_message">Exposure Notifications API is not available, please contact support.</string>
+    <string name="activation_error">Can\'t activate eRouška</string>
+    <string name="activation_error_reason">Reason: %s</string>
+    <string name="activation_error_reason_bluetooth_le">Bluetooth Low Energy is not supported on this device.</string>
+    <string name="activation_error_reason_admin">eRouška can be enabled only in primary account of this device.</string>
+    <string name="activation_error_reason_bluetooth_ad">Bluetooth Multiple Advertisement is not supported on this device.</string>
+    <string name="activation_error_reason_en_api">This device does not support Exposure Notifications from Google.</string>
+    <string name="activation_error_reason_unauthorized">Unauthorized API usage.</string>
     <string name="ok">OK</string>
 </resources>

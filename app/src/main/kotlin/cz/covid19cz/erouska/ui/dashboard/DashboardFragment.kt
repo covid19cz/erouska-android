@@ -19,6 +19,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentDashboardBinding
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -34,10 +35,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     R.layout.fragment_dashboard,
     DashboardVM::class
 ) {
-
-    companion object {
-        const val REQUEST_GMS_ERROR_RESOLUTION = 42
-    }
 
     private val mainViewModel: MainVM by activityViewModels()
 
@@ -103,21 +100,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             }
         }
         subscribe(GmsApiErrorEvent::class) {
-            try {
-                startIntentSenderForResult(
-                    it.status.resolution?.intentSender,
-                    REQUEST_GMS_ERROR_RESOLUTION,
-                    null,
-                    0,
-                    0,
-                    0,
-                    null
-                )
-            } catch (t : Throwable){
-                it.status.resolveUnknownGmsError(requireContext())
-            }
+            ExposureNotificationsErrorHandling.handle(it, this)
         }
-
 
     }
 
@@ -195,7 +179,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_GMS_ERROR_RESOLUTION -> {
+            ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION -> {
                 if (resultCode == Activity.RESULT_OK) {
                     viewModel.start()
                 }
