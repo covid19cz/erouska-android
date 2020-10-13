@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="cz.covid19cz.erouska.BuildConfig" />
 
         <variable
