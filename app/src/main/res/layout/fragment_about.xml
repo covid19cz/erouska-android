@@ -4,52 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="cz.covid19cz.erouska.BuildConfig"/>
+
+        <import type="cz.covid19cz.erouska.BuildConfig" />
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.about.AboutVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/about_content"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_content"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/textColorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="@dimen/fragment_padding">
 
-        <TextView
-            android:id="@+id/about_tos_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="@{ () -> vm.tosLinkClicked() }"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/textColorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/about_content" />
+            <TextView
+                android:id="@+id/about_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/textColorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/about_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#aaa"
-            android:text="@{BuildConfig.VERSION_NAME}"
-            tools:text="2.0"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            <TextView
+                android:id="@+id/about_tos_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:onClick="@{ () -> vm.tosLinkClicked() }"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/textColorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/about_content" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/about_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="@{BuildConfig.VERSION_NAME}"
+                android:textColor="#aaa"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="2.0" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
