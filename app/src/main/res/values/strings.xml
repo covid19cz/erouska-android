@@ -132,5 +132,7 @@
     <string name="ok">OK</string>
     <string name="search">Search</string>
     <string name="search_hint">Type here ..</string>
+    <string name="previous_search_result">Previous search result</string>
+    <string name="next_search_result">Next search result</string>
 
 </resources>

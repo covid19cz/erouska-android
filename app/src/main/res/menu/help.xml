@@ -3,14 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/previous_search_result"
+        android:enabled="false"
+        android:icon="@drawable/ic_previous_search_result"
+        android:title="@string/previous_search_result"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/next_search_result"
+        android:enabled="false"
+        android:icon="@drawable/ic_next_search_result"
+        android:title="@string/next_search_result"
+        android:visible="false"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/nav_about"
         android:title="@string/about"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>
