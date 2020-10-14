@@ -55,7 +55,11 @@
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
     <string name="my_data_current_measures">Current measures</string>
     <string name="my_data_current_situation">Current situation and case numbers</string>
+    <string name="my_data_stats">eRouška in figures</string>
     <string name="my_data_yesterday">%1$s yesterday</string>
+    <string name="my_data_activated_apps">%1$s applications activated</string>
+    <string name="my_data_notifications_sent">%1$s exposure notifications sent</string>
+    <string name="my_data_notifications_shown">%1$s notifications displayed</string>
     <string name="my_data_tests">%1$s tests performed</string>
     <string name="my_data_ack_cases">%1$s confirmed cases in total</string>
     <string name="my_data_act_cases">%1$s active cases</string>

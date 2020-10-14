@@ -26,7 +26,6 @@
                 android:id="@+id/measures_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:drawableStart="@drawable/ic_restriction"
                 android:drawablePadding="16dp"
@@ -62,8 +61,8 @@
                 android:paddingBottom="8dp"
                 android:text="@string/my_data_current_situation"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                android:textSize="14sp"
                 android:textColor="@color/textColorSecondary"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_top" />
@@ -169,9 +168,73 @@
 
             <View
                 style="@style/Divider"
-                android:layout_marginStart="60dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+
+            <TextView
+                android:id="@+id/stats_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="@string/my_data_stats"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+
+            <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                android:id="@+id/activated_apps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:case_icon="@{@drawable/ic_help}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
+                app:case_title="@{String.format(@string/my_data_activated_apps, NumberFormat.getInstance().format(0))}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stats_text" />
+
+            <View
+                style="@style/Divider"
+                android:layout_marginStart="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activated_apps" />
+
+            <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                android:id="@+id/notifications_sent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:case_icon="@{@drawable/ic_help}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
+                app:case_title="@{String.format(@string/my_data_notifications_sent, NumberFormat.getInstance().format(0))}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activated_apps" />
+
+            <View
+                style="@style/Divider"
+                android:layout_marginStart="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/notifications_sent" />
+
+            <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                android:id="@+id/notifications_shown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:case_icon="@{@drawable/ic_help}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
+                app:case_title="@{String.format(@string/my_data_notifications_shown, NumberFormat.getInstance().format(0))}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/notifications_sent" />
 
             <TextView
                 android:id="@+id/last_update_text"
@@ -184,7 +247,8 @@
                 android:textColor="@color/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+                app:layout_constraintTop_toBottomOf="@id/notifications_shown" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
