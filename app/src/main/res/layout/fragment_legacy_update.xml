@@ -46,13 +46,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingBottom="68dp"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_header"
                     tools:text="@tools:sample/lorem" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/legacy_update_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    tools:text="@tools:sample/lorem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
+                    />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="68dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/legacy_update_checkbox" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

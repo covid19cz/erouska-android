@@ -13,6 +13,10 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+        <argument
+            android:name="efgs"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -164,6 +168,13 @@
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_legacy_update"
+            app:destination="@id/nav_legacy_update_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_play_services_update"
             app:destination="@id/nav_play_services_update"

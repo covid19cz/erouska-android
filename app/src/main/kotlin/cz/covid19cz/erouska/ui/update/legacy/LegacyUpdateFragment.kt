@@ -7,6 +7,8 @@ import androidx.lifecycle.observe
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentLegacyUpdateBinding
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
@@ -24,11 +26,20 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
+    private var isEFGS: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        isEFGS = arguments?.let {
+            LegacyUpdateFragmentArgs.fromBundle(it).efgs
+        } ?: false
+
+        viewModel.state.value = if (isEFGS) LegacyUpdateEvent.LegacyUpdateEFGS else LegacyUpdateEvent.LegacyUpdateExpansion
+
         viewModel.state.observe(this) {
             when (it) {
+                LegacyUpdateEvent.LegacyUpdateEFGS -> showEFGSNews()
                 LegacyUpdateEvent.LegacyUpdateExpansion -> showExpansionNews()
                 LegacyUpdateEvent.LegacyUpdatePhoneNumbers -> showPhoneNumberNews()
                 LegacyUpdateEvent.LegacyUpdateActiveNotification -> showActiveNotificationNews()
@@ -36,11 +47,22 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
                 LegacyUpdateEvent.LegacyUpdateFinish -> finish()
             }
         }
+    }
 
+    private fun showEFGSNews() {
+        enableUpInToolbar(true, IconType.CLOSE)
+        legacy_update_checkbox.show()
+        legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
+        legacy_update_header.text = getString(R.string.legacy_update_efgs_header)
+        legacy_update_body.text = getString(R.string.legacy_update_efgs_body)
+        legacy_update_checkbox.text = getString(R.string.legacy_update_efgs_check)
+        legacy_update_button.text = getString(R.string.legacy_update_button_continue)
+        legacy_update_button.setOnClickListener { finish() }
     }
 
     private fun showExpansionNews() {
         enableUpInToolbar(true, IconType.CLOSE)
+        legacy_update_checkbox.hide()
         legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
         legacy_update_header.text = getString(R.string.legacy_update_expansion_header)
         legacy_update_body.text = getString(R.string.legacy_update_expansion_body)
@@ -50,6 +72,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
 
     private fun showActiveNotificationNews() {
         enableUpInToolbar(true, IconType.UP)
+        legacy_update_checkbox.hide()
         legacy_update_img.setImageResource(R.drawable.ic_update_active_notification)
         legacy_update_header.text = getString(R.string.legacy_update_active_notification_header)
         legacy_update_body.text = getString(R.string.legacy_update_active_notification_body)
@@ -59,6 +82,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
 
     private fun showPhoneNumberNews() {
         enableUpInToolbar(true, IconType.UP)
+        legacy_update_checkbox.hide()
         legacy_update_img.setImageResource(R.drawable.ic_update_phone)
         legacy_update_header.text = getString(R.string.legacy_update_phone_header)
         legacy_update_body.text = getString(R.string.legacy_update_phone_body)
@@ -68,6 +92,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
 
     private fun showPrivacyNews() {
         enableUpInToolbar(true, IconType.UP)
+        legacy_update_checkbox.hide()
         legacy_update_img.setImageResource(R.drawable.ic_update_privacy)
         legacy_update_header.text = getString(R.string.legacy_update_privacy_header)
         legacy_update_body.text = HtmlCompat.fromHtml(
@@ -99,7 +124,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     }
 
     private fun isFirstScreen(): Boolean {
-        return viewModel.state.value == LegacyUpdateEvent.LegacyUpdateExpansion
+        return viewModel.state.value == if (isEFGS) LegacyUpdateEvent.LegacyUpdateEFGS else LegacyUpdateEvent.LegacyUpdateExpansion
     }
 
     override fun onBackPressed(): Boolean {

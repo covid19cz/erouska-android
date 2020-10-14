@@ -10,7 +10,7 @@ class LegacyUpdateVM @ViewModelInject constructor(
     private val sharedPrefsRepository: SharedPrefsRepository
 ) : BaseArchViewModel() {
 
-    val state = MutableLiveData<LegacyUpdateEvent>(LegacyUpdateEvent.LegacyUpdateExpansion)
+    val state = MutableLiveData<LegacyUpdateEvent>()
 
     fun next() {
         val next = when (state.value) {

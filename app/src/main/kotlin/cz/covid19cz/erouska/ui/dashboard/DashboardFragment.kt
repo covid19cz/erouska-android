@@ -132,6 +132,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             menu.add(0, R.id.action_exposure_demo, 12, "Test Rizikové setkání")
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
+            menu.add(0, R.id.action_efgs, 14, "Test EFGS")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -152,6 +153,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             }
             R.id.action_news -> {
                 navigate(R.id.nav_legacy_update_fragment)
+                true
+            }
+            R.id.action_efgs -> {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true))
                 true
             }
             R.id.action_activation -> {
