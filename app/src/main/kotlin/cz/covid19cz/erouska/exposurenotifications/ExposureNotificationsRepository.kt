@@ -193,9 +193,10 @@ class ExposureNotificationsRepository @Inject constructor(
             val certificateResponse = server.verifyCertificate(
                 VerifyCertificateRequest(token, keyHash)
             )
-            if (certificateResponse.error != null) {
-                throw VerifyException(certificateResponse.error, certificateResponse.errorCode)
-            }
+            // TODO: This is hotfix for production, we will probably revert this
+            // if (certificateResponse.error != null) {
+            //    throw VerifyException(certificateResponse.error, certificateResponse.errorCode)
+            //}
             L.i("Verify certificate success")
 
             val request = ExposureRequest(
