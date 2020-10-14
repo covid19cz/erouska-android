@@ -71,11 +71,12 @@
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 vás bude kontaktovat pracovník hygienické stanice. Odešle vám SMS zprávu obsahující ověřovací kód pro povolení odeslání dat.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
-    <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
+    <string name="send_data_code_invalid">Ověřovací kód není správně zadaný, zkuste to znovu.</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
+    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
-    <string name="send_data_failure_body">Důvod: \'%s\'. Pokud vám to nic neříká, kontaktujte naši podporu.</string>
+    <string name="send_data_failure_body">Kontaktujete prosím podporu na info@erouska.cz a do e-mailu uveďte následující kód chyby: \'%s\'.</string>
     <string name="send_data_back">Zpět</string>
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>

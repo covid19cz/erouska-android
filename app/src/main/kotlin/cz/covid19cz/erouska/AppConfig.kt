@@ -84,6 +84,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_verificationServerApiKey")
     val showChatBotLink
         get() = firebaseRemoteConfig.getBoolean("v2_showChatBotLink")
+    val handleError500AsInvalidCode
+        get() = firebaseRemoteConfig.getBoolean("v2_handleError500AsInvalidCode")
+    val handleError400AsExpiredOrUsedCode
+        get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

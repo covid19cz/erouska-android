@@ -41,6 +41,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure(it.errorMessage)
                 SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
                 SendDataCommandEvent.Command.PROCESSING -> onProcess()
+                SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED -> onCodeExpiredOrUsed()
             }
         }
     }
@@ -136,6 +137,23 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         confirm_button.hide()
 
         error_header.text = getString(R.string.send_data_code_expired_header)
+        error_body.text = getString(R.string.send_data_code_expired_body)
+    }
+
+    private fun onCodeExpiredOrUsed() {
+        progress.hide()
+        code_input.hideKeyboard()
+
+        ic_error.show()
+        error_header.show()
+        error_body.show()
+        back_button.show()
+
+        send_data_body.hide()
+        code_input_layout.hide()
+        confirm_button.hide()
+
+        error_header.text = getString(R.string.send_data_failure_header)
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 

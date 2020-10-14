@@ -7,6 +7,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.google.android.gms.nearby.exposurenotification.*
+import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
@@ -17,6 +18,7 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
+import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -183,47 +185,74 @@ class ExposureNotificationsRepository @Inject constructor(
 
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
-        val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
-        if (verifyResponse.token != null) {
-            L.i("Verify code success")
-            val hmackey = cryptoTools.newHmacKey()
-            val keyHash = cryptoTools.hashedKeys(keys, hmackey)
-            val token = verifyResponse.token
+        try {
+            val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
+            if (verifyResponse.token != null) {
+                L.i("Verify code success")
+                val hmackey = cryptoTools.newHmacKey()
+                val keyHash = cryptoTools.hashedKeys(keys, hmackey)
+                val token = verifyResponse.token
 
-            val certificateResponse = server.verifyCertificate(
-                VerifyCertificateRequest(token, keyHash)
-            )
-            // TODO: This is hotfix for production, we will probably revert this
-            // if (certificateResponse.error != null) {
-            //    throw VerifyException(certificateResponse.error, certificateResponse.errorCode)
-            //}
-            L.i("Verify certificate success")
+                val certificateResponse = server.verifyCertificate(
+                    VerifyCertificateRequest(token, keyHash)
+                )
+                if (certificateResponse.error != null) {
+                    // We ignore error in certificate verification, only log it. It was causing error in production builds with older server.
+                    L.e("Error in certificate verification: " + certificateResponse.error + " (" + certificateResponse.errorCode + ")")
+                } else {
+                    L.i("Verify certificate success")
+                }
 
-            val request = ExposureRequest(
-                keys.map {
-                    TemporaryExposureKeyDto(
-                        Base64.encodeToString(
-                            it.keyData,
-                            Base64.NO_WRAP
-                        ), it.rollingStartIntervalNumber, it.rollingPeriod
-                    )
-                },
-                certificateResponse.certificate,
-                hmackey,
-                null,
-                prefs.getRevisionToken(),
-                healthAuthorityID = "cz.covid19cz.erouska"
-            )
-            val response = server.reportExposure(request)
-            response.errorMessage?.let {
-                L.e("Report exposure failed: $it")
-                throw ReportExposureException(it, response.code)
+                val request = ExposureRequest(
+                    keys.map {
+                        TemporaryExposureKeyDto(
+                            Base64.encodeToString(
+                                it.keyData,
+                                Base64.NO_WRAP
+                            ), it.rollingStartIntervalNumber, it.rollingPeriod
+                        )
+                    },
+                    certificateResponse.certificate,
+                    hmackey,
+                    null,
+                    prefs.getRevisionToken(),
+                    healthAuthorityID = "cz.covid19cz.erouska"
+                )
+                val response = server.reportExposure(request)
+                response.errorMessage?.let {
+                    L.e("Report exposure failed: $it")
+                    throw ReportExposureException(it, response.code)
+                }
+                L.i("Report exposure success, ${response.insertedExposures} keys inserted")
+                prefs.saveRevisionToken(response.revisionToken)
+                return response.insertedExposures ?: 0
+            } else {
+                throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
             }
-            L.i("Report exposure success, ${response.insertedExposures} keys inserted")
-            prefs.saveRevisionToken(response.revisionToken)
-            return response.insertedExposures ?: 0
-        } else {
-            throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
+        } catch (e: HttpException) {
+            var errorResponse: VerifyCodeResponse? = null
+            try {
+                val errorBody = e.response()?.errorBody()?.string()
+                errorResponse =
+                    Gson().fromJson<VerifyCodeResponse>(errorBody, VerifyCodeResponse::class.java)
+            } catch (e: Throwable) {
+                L.e(e)
+            }
+            // called when we have HTTP not 200
+            if (e.code() == 500 && AppConfig.handleError500AsInvalidCode) {
+                // This should be enabled only on the old prod server
+                throw VerifyException("Invalid code", VerifyCodeResponse.ERROR_CODE_INVALID_CODE)
+            } else if (e.code() == 400) {
+                if (errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_INVALID_CODE || errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE) {
+                    throw VerifyException(errorResponse.error, errorResponse.errorCode)
+                } else if (AppConfig.handleError400AsExpiredOrUsedCode) {
+                    throw VerifyException(errorResponse?.error, VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE)
+                } else {
+                    throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
+                }
+            } else {
+                throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
+            }
         }
     }
 
