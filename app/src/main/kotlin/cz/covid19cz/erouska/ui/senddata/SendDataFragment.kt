@@ -116,6 +116,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     }
 
     private fun onCodeInvalid() {
+        onInitState()
         code_input_layout.error = getString(R.string.send_data_code_invalid)
     }
 
