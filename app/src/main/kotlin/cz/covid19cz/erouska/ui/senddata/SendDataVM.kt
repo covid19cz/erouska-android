@@ -78,6 +78,9 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                     VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
                         publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
                     }
+                    VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE -> {
+                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED))
+                    }
                     else -> {
                         publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message+" (${exception.code})"))
                     }
