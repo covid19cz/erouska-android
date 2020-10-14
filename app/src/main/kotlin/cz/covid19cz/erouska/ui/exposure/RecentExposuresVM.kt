@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import arch.event.SingleLiveEvent
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
-import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.exposure.event.RecentExposuresEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 
 class RecentExposuresVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
     BaseArchViewModel() {
@@ -24,7 +24,7 @@ class RecentExposuresVM @ViewModelInject constructor(private val exposureNotific
                 }.onSuccess { dailySummaries ->
                     if (dailySummaries.isNotEmpty()) {
                         val exposureList = dailySummaries.map {
-                            Exposure(it.daysSinceEpoch.daysSinceEpochToDateString())
+                            Exposure(it.daysSinceEpoch)
                         }
                         state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(exposureList))
                     } else {
@@ -37,11 +37,17 @@ class RecentExposuresVM @ViewModelInject constructor(private val exposureNotific
             }
         } else {
             viewModelScope.launch(Dispatchers.IO) {
+                val now = LocalDate.now()
                 val mockData = listOf(
-                    Exposure("28. prosince 2019"),
-                    Exposure("20. března 2019"),
-                    Exposure("14. května 2019"),
-                    Exposure("5. srpna 2019")
+                    // old exposures
+                    Exposure(LocalDate.of(2019, 12, 28).toEpochDay().toInt()),
+                    Exposure(LocalDate.of(2019, 3, 20).toEpochDay().toInt()),
+                    Exposure(LocalDate.of(2019, 5, 14).toEpochDay().toInt()),
+                    Exposure(LocalDate.of(2019, 8, 5).toEpochDay().toInt()),
+                    // very recent exposures
+                    Exposure(now.minusDays(10).toEpochDay().toInt()),
+                    Exposure(now.minusDays(5).toEpochDay().toInt()),
+                    Exposure(now.minusDays(12).toEpochDay().toInt())
                 )
 
                 state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(mockData))
