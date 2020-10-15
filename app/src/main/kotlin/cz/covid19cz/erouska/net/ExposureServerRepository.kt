@@ -193,11 +193,9 @@ class ExposureServerRepository @Inject constructor(
             "eRouska-Android-${BuildConfig.BUILD_TYPE}/${BuildConfig.VERSION_NAME}"
 
         override fun intercept(chain: Interceptor.Chain): Response {
-
             val requestBuilder = chain.request().newBuilder()
             requestBuilder.addHeader(USER_AGENT, userAgent)
             return chain.proceed(requestBuilder.build())
-
         }
 
     }
