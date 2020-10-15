@@ -14,7 +14,7 @@ class RecentExposuresAdapter(
     RecyclerView.Adapter<RecentExposuresAdapter.RecentExposureViewHolder>() {
 
     fun updateItems(newItems: List<Exposure>) {
-        items = newItems
+        items = newItems.sortedByDescending { it.daysSinceEpoch }
         notifyDataSetChanged()
     }
 
