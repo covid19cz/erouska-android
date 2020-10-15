@@ -193,7 +193,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:case_icon="@{@drawable/ic_help}"
+                app:case_icon="@{@drawable/ic_face_mask}"
                 app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
                 app:case_title="@{String.format(@string/my_data_activated_apps, NumberFormat.getInstance().format(0))}"
                 app:layout_constraintEnd_toEndOf="parent"
