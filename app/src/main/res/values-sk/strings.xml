@@ -63,7 +63,7 @@
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
     <string name="my_data_last_update">Posledná aktualizácia %1$s</string>
-    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 vás bude kontaktovať pracovník hygienickej stanice. Odošle vám SMS správu obsahujúcu overovací kód na povolenie odoslania dát.</string>
+    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 vám odošleme SMS správu obsahujúcu overovací kód na povolenie odoslania dát.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný, skúste to znova.</string>
@@ -80,7 +80,7 @@
     <string name="send_data_success_body_2">Spolupracujte, prosím, s pracovníkmi hygienickej stanice na dohľadaní všetkých osôb, s ktorými ste boli v kontakte.</string>
     <string name="send_data_success_body_3">Riaďte sa pokynmi hygienikov a lekárov.</string>
     <string name="notification_data_outdated_title">Aktualizácia rizikových stretnutí</string>
-    <string name="notification_data_outdated_text">Vaša eRouška si dlhšiu dobu neaktualizovala dáta, či ste sa stretli s nakazeným užívateľom eRoušky. Pripojte sa k internetu.</string>
+    <string name="notification_data_outdated_text">V prípade potvrdenej nákazy COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozorniť ostatných užívateľov eRoušky.</string>
     <string name="data_notification_close">Zatvoriť</string>
     <string name="notification_exposure_title">Rizikové stretnutie</string>
     <string name="notification_exposure_text">Stretli ste sa s osobou, u ktorej bolo potvrdené ochorenie COVID-19.
