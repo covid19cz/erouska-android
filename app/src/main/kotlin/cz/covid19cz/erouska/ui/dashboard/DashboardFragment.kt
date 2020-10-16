@@ -156,7 +156,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
                 true
             }
             R.id.action_efgs -> {
-                navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true))
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true, fullscreen = true))
                 true
             }
             R.id.action_activation -> {

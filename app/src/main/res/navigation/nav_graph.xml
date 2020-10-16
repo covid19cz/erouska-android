@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_legacy_update">
         <argument
             android:name="fullscreen"
-            android:defaultValue="true"
+            android:defaultValue="false"
             app:argType="boolean" />
         <argument
             android:name="efgs"

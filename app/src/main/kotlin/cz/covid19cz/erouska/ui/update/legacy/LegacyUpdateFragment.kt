@@ -1,7 +1,10 @@
 package cz.covid19cz.erouska.ui.update.legacy
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.observe
 import cz.covid19cz.erouska.AppConfig
@@ -27,6 +30,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     internal lateinit var customTabHelper: CustomTabHelper
 
     private var isEFGS: Boolean = false
+    private var isFullscreen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,12 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         isEFGS = arguments?.let {
             LegacyUpdateFragmentArgs.fromBundle(it).efgs
         } ?: false
+
+        isFullscreen = arguments?.let {
+            LegacyUpdateFragmentArgs.fromBundle(it).fullscreen
+        } ?: false
+
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(!isFullscreen)
 
         viewModel.state.value = if (isEFGS) LegacyUpdateEvent.LegacyUpdateEFGS else LegacyUpdateEvent.LegacyUpdateExpansion
 
@@ -49,9 +59,15 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(true)
+    }
+
     private fun showEFGSNews() {
-        enableUpInToolbar(true, IconType.CLOSE)
+        enableUpInToolbar(false)
         legacy_update_checkbox.show()
+        legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
         legacy_update_header.text = getString(R.string.legacy_update_efgs_header)
         legacy_update_body.text = getString(R.string.legacy_update_efgs_body)
@@ -63,6 +79,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     private fun showExpansionNews() {
         enableUpInToolbar(true, IconType.CLOSE)
         legacy_update_checkbox.hide()
+        legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_CENTER
         legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
         legacy_update_header.text = getString(R.string.legacy_update_expansion_header)
         legacy_update_body.text = getString(R.string.legacy_update_expansion_body)
@@ -73,6 +90,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     private fun showActiveNotificationNews() {
         enableUpInToolbar(true, IconType.UP)
         legacy_update_checkbox.hide()
+        legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_CENTER
         legacy_update_img.setImageResource(R.drawable.ic_update_active_notification)
         legacy_update_header.text = getString(R.string.legacy_update_active_notification_header)
         legacy_update_body.text = getString(R.string.legacy_update_active_notification_body)
@@ -83,6 +101,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     private fun showPhoneNumberNews() {
         enableUpInToolbar(true, IconType.UP)
         legacy_update_checkbox.hide()
+        legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_CENTER
         legacy_update_img.setImageResource(R.drawable.ic_update_phone)
         legacy_update_header.text = getString(R.string.legacy_update_phone_header)
         legacy_update_body.text = getString(R.string.legacy_update_phone_body)
@@ -93,6 +112,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
     private fun showPrivacyNews() {
         enableUpInToolbar(true, IconType.UP)
         legacy_update_checkbox.hide()
+        legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_CENTER
         legacy_update_img.setImageResource(R.drawable.ic_update_privacy)
         legacy_update_header.text = getString(R.string.legacy_update_privacy_header)
         legacy_update_body.text = HtmlCompat.fromHtml(
