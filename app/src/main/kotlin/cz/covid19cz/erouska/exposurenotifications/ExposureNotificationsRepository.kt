@@ -137,7 +137,9 @@ class ExposureNotificationsRepository @Inject constructor(
                 setMinimumWindowScore(AppConfig.minimumWindowScore)
             }.build()
         ).addOnSuccessListener {
-            cont.resume(it)
+            cont.resume(it.filter {
+                it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+            })
         }.addOnFailureListener {
             cont.resumeWithException(it)
         }
