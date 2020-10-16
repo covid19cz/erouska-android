@@ -130,7 +130,7 @@ class DashboardVM @ViewModelInject constructor(
             }.onSuccess {
                 it?.let {
                     if (!it.accepted) {
-                        showExposure(it)
+                        showExposure()
                     }
                 }
             }.onFailure {
@@ -147,10 +147,8 @@ class DashboardVM @ViewModelInject constructor(
         }
     }
 
-    private fun showExposure(dailySummary: DailySummaryEntity) {
-        if (prefs.getLastInAppNotifiedExposure() != dailySummary.daysSinceEpoch) {
-            publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
-        }
+    private fun showExposure() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 
     fun acceptExposure() {
