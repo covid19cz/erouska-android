@@ -16,11 +16,6 @@ class ExposuresVM @ViewModelInject constructor(private val exposureNotifications
     val lastExposureDate = MutableLiveData<String>()
 
     fun checkExposures(demo: Boolean) {
-        // TODO Check if there were any exposures in last 14 days
-        // If yes -> Show RECENT_EXPOSURE
-        // If not and there are some exposures in the past -> Show NO_RECENT_EXPOSURES
-        // If there are NO exposures in the DB -> Show NO_EXPOSURES
-
         if (!demo) {
             viewModelScope.launch {
                 kotlin.runCatching {
