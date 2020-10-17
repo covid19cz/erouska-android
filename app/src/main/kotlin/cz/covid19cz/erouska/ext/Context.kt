@@ -11,7 +11,6 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
@@ -50,14 +49,6 @@ fun Context.isNetworkAvailable(): Boolean {
             getNetworkCapabilities(activeNetwork)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
         } ?: false
     }
-}
-
-fun Context.withInternet(onlineAction: () -> Unit) {
-    if (isNetworkAvailable()) onlineAction() else Toast.makeText(
-        this,
-        R.string.no_internet,
-        Toast.LENGTH_SHORT
-    ).show()
 }
 
 fun Context.shareApp() {

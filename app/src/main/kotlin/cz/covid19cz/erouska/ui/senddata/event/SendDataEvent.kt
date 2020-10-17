@@ -11,6 +11,7 @@ class SendDataCommandEvent(val command: Command, val errorMessage: String? = nul
         CODE_INVALID,
         CODE_EXPIRED,
         CODE_EXPIRED_OR_USED,
+        NO_INTERNET,
         DATA_SEND_FAILURE,
         DATA_SEND_SUCCESS
     }

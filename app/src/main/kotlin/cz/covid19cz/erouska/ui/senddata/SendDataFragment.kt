@@ -42,6 +42,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
                 SendDataCommandEvent.Command.PROCESSING -> onProcess()
                 SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED -> onCodeExpiredOrUsed()
+                SendDataCommandEvent.Command.NO_INTERNET -> onNoInternet()
             }
         }
     }
@@ -124,7 +125,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         code_input_layout.error = null
     }
 
-    private fun onCodeExpired() {
+    private fun onError() {
         progress.hide()
         code_input.hideKeyboard()
 
@@ -136,46 +137,30 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         send_data_body.hide()
         code_input_layout.hide()
         confirm_button.hide()
+    }
 
+    private fun onCodeExpired() {
+        onError()
         error_header.text = getString(R.string.send_data_code_expired_header)
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 
     private fun onCodeExpiredOrUsed() {
-        progress.hide()
-        code_input.hideKeyboard()
-
-        ic_error.show()
-        error_header.show()
-        error_body.show()
-        back_button.show()
-
-        send_data_body.hide()
-        code_input_layout.hide()
-        confirm_button.hide()
-
+        onError()
         error_header.text = getString(R.string.send_data_failure_header)
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 
     private fun onSendDataFailure(errorMessage: String?) {
-        progress.hide()
-        code_input.hideKeyboard()
-        enableUpInToolbar(true, IconType.CLOSE)
-
-        ic_error.show()
-        error_header.show()
-        error_body.show()
-        try_again_button.show()
-        close_button.show()
-
-        send_data_body.hide()
-        code_input_layout.hide()
-        confirm_button.hide()
-
+        onError()
         error_header.text = getString(R.string.send_data_failure_header)
         error_body.text = getString(R.string.send_data_failure_body, errorMessage)
+    }
 
+    private fun onNoInternet() {
+        onError()
+        error_header.text = getString(R.string.send_data_failure_header)
+        error_body.text = getString(R.string.no_internet)
     }
 
     private fun onSendDataSuccess() {
