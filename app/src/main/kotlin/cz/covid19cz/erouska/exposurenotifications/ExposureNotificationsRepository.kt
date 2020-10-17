@@ -313,7 +313,7 @@ class ExposureNotificationsRepository @Inject constructor(
                     accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
                 )
             })
-            prefs.cleanLegacyExpposurePrefs()
+            prefs.cleanLegacyExposurePrefs()
             prefs.setLegacyExposuresImported()
         }
     }

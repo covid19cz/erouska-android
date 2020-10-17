@@ -89,7 +89,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
     }
 
-    fun cleanLegacyExpposurePrefs(){
+    fun cleanLegacyExposurePrefs(){
         prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
     }
 
