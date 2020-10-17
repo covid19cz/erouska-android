@@ -1,2 +1,2 @@
 include ':app', ':arch'
-rootProject.name='bt-tracing-android'
+rootProject.name='erouska-android'
