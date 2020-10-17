@@ -52,21 +52,19 @@
                 app:layout_constraintTop_toBottomOf="@id/dash_card_active" />
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
-                android:id="@+id/dash_card_risky_encounter"
+                android:id="@+id/dash_card_no_risky_encounter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:card_actionable_content="@{true}"
                 app:card_actionable_button="@{false}"
                 app:card_icon="@{@drawable/ic_no_risky_encounter}"
-                app:card_title="@{@string/dashboard_risky_encounter_title}"
-                app:card_subtitle="@{@string/dashboard_risky_encounter_subtitle}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dash_card_inactive" />
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
-                android:id="@+id/dash_card_risky_encounter_bad"
+                android:id="@+id/dash_card_risky_encounter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -78,7 +76,7 @@
                 app:card_subtitle="@{@string/dashboard_risky_encounter_subtitle_bad}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dash_card_risky_encounter" />
+                app:layout_constraintTop_toBottomOf="@id/dash_card_no_risky_encounter" />
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
                 android:id="@+id/dash_card_positive_test"
@@ -88,13 +86,14 @@
                 app:card_actionable_content="@{true}"
                 app:card_has_content="@{false}"
                 app:card_actionable_button="@{true}"
+                app:card_on_button_click="@{() -> vm.sendData()}"
                 app:card_alert="@{false}"
                 app:card_title="@{@string/dashboard_positive_test_title}"
                 app:card_icon="@{@drawable/ic_positive}"
                 app:card_button_text="@{@string/dashboard_positive_test_button}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dash_card_risky_encounter_bad" />
+                app:layout_constraintTop_toBottomOf="@id/dash_card_risky_encounter" />
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
                 android:id="@+id/dash_travel"

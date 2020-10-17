@@ -61,6 +61,12 @@ class DashboardCardView : ConstraintLayout {
             }
         }
 
+    var card_on_content_click: OnClickListener? = null
+        set(value) {
+            field = value
+            content_container.setOnClickListener(value)
+        }
+
     var card_actionable_button: Boolean? = false
         set(value) {
             field = value
@@ -70,6 +76,13 @@ class DashboardCardView : ConstraintLayout {
                 button.hide()
             }
         }
+
+    var card_on_button_click: OnClickListener? = null
+        set(value) {
+            field = value
+            button.setOnClickListener(value)
+        }
+
 
     var card_has_content: Boolean? = true
         set(value) {

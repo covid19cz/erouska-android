@@ -372,6 +372,10 @@
         <value>We will notify you about a risky encounter in a notification</value>
     </entry>
     <entry>
+        <key>v2_encounterUpdateFrequency</key>
+        <value>Updated data are downloaded every 24 hours</value>
+    </entry>
+    <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
         <value>You don't have to stay at home if you are not experiencing any symptoms of COVID-19
             infection. Behave responsibly and watch your health status.
