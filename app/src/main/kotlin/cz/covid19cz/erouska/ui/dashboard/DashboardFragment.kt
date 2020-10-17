@@ -132,6 +132,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             menu.add(0, R.id.action_exposure_demo, 12, "Test Rizikové setkání")
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
+            menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -168,6 +169,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
                 showPlayServicesUpdate()
                 true
             }
+            R.id.action_dashboard_cards -> {
+                showDashboardCards()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -197,6 +202,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
 
     private fun showPlayServicesUpdate() {
         navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
+    }
+    private fun showDashboardCards() {
+        navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
     }
 
 }
