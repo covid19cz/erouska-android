@@ -9,6 +9,8 @@ import androidx.work.WorkManager
 import com.google.android.gms.nearby.exposurenotification.*
 import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.db.DailySummariesDb
+import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -33,7 +35,8 @@ class ExposureNotificationsRepository @Inject constructor(
     private val server: ExposureServerRepository,
     private val cryptoTools: ExposureCryptoTools,
     private val prefs: SharedPrefsRepository,
-    private val firebaseFunctionsRepository: FirebaseFunctionsRepository
+    private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
+    private val db: DailySummariesDb
 ) {
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
@@ -115,7 +118,7 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummaries(): List<DailySummary> = suspendCoroutine { cont ->
+    suspend fun getDailySummariesFromApi(filter : Boolean = true): List<DailySummary> = suspendCoroutine { cont ->
 
         val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
         val attenuationBucketThresholdDb =
@@ -137,16 +140,29 @@ class ExposureNotificationsRepository @Inject constructor(
                 setMinimumWindowScore(AppConfig.minimumWindowScore)
             }.build()
         ).addOnSuccessListener {
-            cont.resume(it.filter {
-                it.summaryData.maximumScore >= AppConfig.minimumWindowScore
-            })
+            if (filter){
+                cont.resume(it.filter {
+                    it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+                })
+            } else {
+                cont.resume(it)
+            }
+
         }.addOnFailureListener {
             cont.resumeWithException(it)
         }
     }
 
-    suspend fun getLastRiskyExposure(): DailySummary? {
-        return getDailySummaries().maxBy { it.daysSinceEpoch }
+    suspend fun getDailySummariesFromDb(): List<DailySummaryEntity>{
+        return db.dao().getAll()
+    }
+
+    suspend fun getLastRiskyExposure(): DailySummaryEntity? {
+        return db.dao().getLatest().firstOrNull()
+    }
+
+    suspend fun markAsAccepted(){
+        db.dao().markAsAccepted()
     }
 
     suspend fun getTemporaryExposureKeyHistory(): List<TemporaryExposureKey> =
@@ -259,14 +275,46 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun checkExposure(context: Context) {
-        val lastExposure = getLastRiskyExposure()?.daysSinceEpoch
-        val lastNotifiedExposure = prefs.getLastNotifiedExposure()
-        if (lastExposure != null && lastExposure != lastNotifiedExposure) {
+        importLegacyExposures()
+        db.dao().deleteOld()
+        db.dao().insert(getDailySummariesFromApi().map {
+            DailySummaryEntity(
+                daysSinceEpoch = it.daysSinceEpoch,
+                maximumScore = it.summaryData.maximumScore,
+                scoreSum = it.summaryData.scoreSum,
+                weightenedDurationSum = it.summaryData.weightedDurationSum,
+                importTimestamp = System.currentTimeMillis(),
+                notified = false,
+                accepted = false
+            )
+        })
+        val latestExposure = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
+        val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()?.daysSinceEpoch
+        if (latestExposure != null && latestExposure != lastNotifiedExposure) {
             LocalNotificationsHelper.showRiskyExposureNotification(context)
-            prefs.setLastNotifiedExposure(lastExposure)
+            db.dao().markAsNotified()
             firebaseFunctionsRepository.registerNotification()
         } else {
-            L.i("Not showing notification, lastExposure=$lastExposure, lastNotifiedExposure=$lastNotifiedExposure")
+            L.i("Not showing notification, lastExposure=$latestExposure, lastNotifiedExposure=$lastNotifiedExposure")
+        }
+    }
+
+    //TODO: Remove in late november 2020
+    private suspend fun importLegacyExposures(){
+        if (!prefs.isLegacyExposuresImported()){
+            db.dao().insert(getDailySummariesFromApi(filter = false).map {
+                DailySummaryEntity(
+                    daysSinceEpoch = it.daysSinceEpoch,
+                    maximumScore = it.summaryData.maximumScore,
+                    scoreSum = it.summaryData.scoreSum,
+                    weightenedDurationSum = it.summaryData.weightedDurationSum,
+                    importTimestamp = if (it.daysSinceEpoch > prefs.getLastNotifiedExposure()) System.currentTimeMillis() else 0,
+                    notified = it.daysSinceEpoch <= prefs.getLastNotifiedExposure(),
+                    accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
+                )
+            })
+            prefs.cleanLegacyExposurePrefs()
+            prefs.setLegacyExposuresImported()
         }
     }
 
