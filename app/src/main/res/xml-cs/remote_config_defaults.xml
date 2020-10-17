@@ -343,6 +343,10 @@
         <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
     </entry>
     <entry>
+        <key>v2_noEncounterBody</key>
+        <value>Aktualizace probíhá jednou za 24 hodin</value>
+    </entry>
+    <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
         <value>Pokud se u vás v průběhu 14 dnů od kontaktu s nakaženým objevily příznaky
             respiračního onemocnění, kontaktujte telefonicky svého praktického lékaře a řiďte se

@@ -46,6 +46,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_noEncounterHeader")
     val noEncounterBody
         get() = firebaseRemoteConfig.getString("v2_noEncounterBody")
+    val encounterUpdateFrequency
+        get() = firebaseRemoteConfig.getString("v2_encounterUpdateFrequency")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("v2_exposureUITitle")
     val symptomsUITitle
