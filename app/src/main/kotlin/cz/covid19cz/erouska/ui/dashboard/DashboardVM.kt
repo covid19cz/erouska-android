@@ -69,7 +69,6 @@ class DashboardVM @ViewModelInject constructor(
                 onExposureNotificationsStateChanged(enabled)
             }.onFailure {
                 publish(GmsApiErrorEvent(it))
-                L.e(it)
             }
         }
     }
@@ -111,7 +110,6 @@ class DashboardVM @ViewModelInject constructor(
                 }.onFailure {
                     onExposureNotificationsStateChanged(false)
                     publish(GmsApiErrorEvent(it))
-                    L.e(it)
                 }
             }
         }
