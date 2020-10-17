@@ -118,7 +118,7 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummariesFromApi(): List<DailySummary> = suspendCoroutine { cont ->
+    suspend fun getDailySummariesFromApi(filter : Boolean): List<DailySummary> = suspendCoroutine { cont ->
 
         val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
         val attenuationBucketThresholdDb =
@@ -140,9 +140,14 @@ class ExposureNotificationsRepository @Inject constructor(
                 setMinimumWindowScore(AppConfig.minimumWindowScore)
             }.build()
         ).addOnSuccessListener {
-            cont.resume(it.filter {
-                it.summaryData.maximumScore >= AppConfig.minimumWindowScore
-            })
+            if (filter){
+                cont.resume(it.filter {
+                    it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+                })
+            } else {
+                cont.resume(it)
+            }
+
         }.addOnFailureListener {
             cont.resumeWithException(it)
         }
@@ -270,7 +275,9 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun checkExposure(context: Context) {
-        db.dao().insert(getDailySummariesFromApi().map {
+        importLegacyExopsures()
+        db.dao().deleteOld()
+        db.dao().insert(getDailySummariesFromApi(true).map {
             DailySummaryEntity(
                 daysSinceEpoch = it.daysSinceEpoch,
                 maximumScore = it.summaryData.maximumScore,
@@ -289,6 +296,25 @@ class ExposureNotificationsRepository @Inject constructor(
             firebaseFunctionsRepository.registerNotification()
         } else {
             L.i("Not showing notification, lastExposure=$latestExposure, lastNotifiedExposure=$lastNotifiedExposure")
+        }
+    }
+
+    //TODO: Remove in late november 2020
+    private suspend fun importLegacyExopsures(){
+        if (!prefs.isLegacyExposuresImported()){
+            db.dao().insert(getDailySummariesFromApi(false).map {
+                DailySummaryEntity(
+                    daysSinceEpoch = it.daysSinceEpoch,
+                    maximumScore = it.summaryData.maximumScore,
+                    scoreSum = it.summaryData.scoreSum,
+                    weightenedDurationSum = it.summaryData.weightedDurationSum,
+                    importTimestamp = if (it.daysSinceEpoch > prefs.getLastNotifiedExposure()) System.currentTimeMillis() else 0,
+                    notified = it.daysSinceEpoch <= prefs.getLastNotifiedExposure(),
+                    accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
+                )
+            })
+            prefs.cleanLegacyExpposurePrefs()
+            prefs.setLegacyExposuresImported()
         }
     }
 
