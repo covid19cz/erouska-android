@@ -15,6 +15,13 @@
         <item name="android:backgroundTint">?colorSurface</item>
     </style>
 
+    <style name="DashButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/colorPrimaryVariant</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:backgroundTint">?colorSurface</item>
+    </style>
+
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextColor">@color/toolbarActiveColor</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
