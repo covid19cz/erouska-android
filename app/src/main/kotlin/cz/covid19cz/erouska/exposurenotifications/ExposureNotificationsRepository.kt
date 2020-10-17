@@ -118,7 +118,7 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummariesFromApi(filter : Boolean): List<DailySummary> = suspendCoroutine { cont ->
+    suspend fun getDailySummariesFromApi(filter : Boolean = true): List<DailySummary> = suspendCoroutine { cont ->
 
         val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
         val attenuationBucketThresholdDb =
@@ -277,7 +277,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun checkExposure(context: Context) {
         importLegacyExopsures()
         db.dao().deleteOld()
-        db.dao().insert(getDailySummariesFromApi(true).map {
+        db.dao().insert(getDailySummariesFromApi().map {
             DailySummaryEntity(
                 daysSinceEpoch = it.daysSinceEpoch,
                 maximumScore = it.summaryData.maximumScore,
@@ -302,7 +302,7 @@ class ExposureNotificationsRepository @Inject constructor(
     //TODO: Remove in late november 2020
     private suspend fun importLegacyExopsures(){
         if (!prefs.isLegacyExposuresImported()){
-            db.dao().insert(getDailySummariesFromApi(false).map {
+            db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(
                     daysSinceEpoch = it.daysSinceEpoch,
                     maximumScore = it.summaryData.maximumScore,

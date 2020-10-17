@@ -50,7 +50,7 @@ class SandboxDataVM @ViewModelInject constructor(private val exposureNotificatio
         dailySummaries.clear()
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.getDailySummariesFromApi(true).sortedByDescending { it.daysSinceEpoch }
+                exposureNotificationsRepository.getDailySummariesFromApi().sortedByDescending { it.daysSinceEpoch }
             }.onSuccess {
                 dailySummaries.addAll(it)
             }.onFailure {
