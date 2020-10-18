@@ -29,6 +29,7 @@ class DashboardVM @ViewModelInject constructor(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val exposureNotificationsEnabled = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
     val permissionsState = SafeMutableLiveData(PermissionsState.BOTH_ENABLED)
+    val appActive = SafeMutableLiveData(true)
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
 
@@ -58,6 +59,7 @@ class DashboardVM @ViewModelInject constructor(
         }
 
         checkBtLocationPermissions()
+        checkAppActive()
 
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
@@ -112,6 +114,7 @@ class DashboardVM @ViewModelInject constructor(
     private fun onExposureNotificationsStateChanged(enabled: Boolean) {
         exposureNotificationsEnabled.value = enabled
         prefs.setExposureNotificationsEnabled(enabled)
+        checkAppActive()
     }
 
     private fun checkForRiskyExposure() {
@@ -134,6 +137,14 @@ class DashboardVM @ViewModelInject constructor(
         onPermissionsStateChanged(deviceUtils.isBtEnabled(), deviceUtils.isLocationEnabled())
     }
 
+    private fun checkAppActive() {
+        val permissionsEnabled = deviceUtils.isBtEnabled() && deviceUtils.isLocationEnabled()
+        val exposuresEnabled = exposureNotificationsEnabled.value
+        appActive.value =  permissionsEnabled && exposuresEnabled
+        // TODO eRouska je pozastavena card should probably not be visible
+        // should it ever be visible?
+    }
+
     fun onPermissionsStateChanged(isBtEnabled: Boolean, isLocationEnabled: Boolean) {
         permissionsState.value = when {
             !isBtEnabled && !isLocationEnabled -> PermissionsState.BOTH_DISABLED
@@ -141,6 +152,7 @@ class DashboardVM @ViewModelInject constructor(
             !isBtEnabled -> PermissionsState.BT_DISABLED
             else -> PermissionsState.BOTH_ENABLED
         }
+        checkAppActive()
     }
 
     private fun checkForObsoleteData() {

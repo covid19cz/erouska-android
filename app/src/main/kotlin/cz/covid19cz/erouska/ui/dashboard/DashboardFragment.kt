@@ -60,9 +60,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
 
-        viewModel.exposureNotificationsEnabled.observe(this, Observer {
+        viewModel.exposureNotificationsEnabled.observe(this, Observer { enEnabled ->
             refreshDotIndicator()
-            if (it) {
+            if (enEnabled) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
         })

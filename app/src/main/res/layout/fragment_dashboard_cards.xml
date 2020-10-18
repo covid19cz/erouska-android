@@ -85,7 +85,8 @@
                 app:card_actionable_button="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/dash_bluetooth_location_off" />
+                app:layout_constraintTop_toTopOf="@id/dash_bluetooth_location_off"
+                app:visibleOrGone="@{vm.appActive}"/>
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
                 android:id="@+id/dash_card_inactive"
@@ -100,7 +101,8 @@
                 app:card_actionable_button="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dash_card_active" />
+                app:layout_constraintTop_toBottomOf="@id/dash_card_active"
+                app:visibleOrGone="@{!vm.appActive}"/>
 
             <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
                 android:id="@+id/dash_card_no_risky_encounter"
