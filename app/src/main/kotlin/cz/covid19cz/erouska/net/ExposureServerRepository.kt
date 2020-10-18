@@ -8,7 +8,6 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
-import cz.covid19cz.erouska.net.api.KeyServerApi
 import cz.covid19cz.erouska.net.api.VerificationServerApi
 import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.utils.L
@@ -32,7 +31,8 @@ import javax.inject.Singleton
 @Singleton
 class ExposureServerRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val prefs: SharedPrefsRepository
+    private val prefs: SharedPrefsRepository,
+    private val firebaseFunctionsRepository: FirebaseFunctionsRepository
 ) {
 
     companion object {
@@ -54,14 +54,6 @@ class ExposureServerRepository @Inject constructor(
         builder
     }
 
-    private val keyServerClient by lazy {
-        Retrofit.Builder()
-            .baseUrl(context.getString(R.string.key_server_base_url))
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .client(okhttpBuilder.build())
-            .build().create(KeyServerApi::class.java)
-    }
-
     private val verificationServerClient by lazy {
         Retrofit.Builder()
             .baseUrl(context.getString(R.string.verification_server_base_url))
@@ -75,9 +67,9 @@ class ExposureServerRepository @Inject constructor(
             .build().create(VerificationServerApi::class.java)
     }
 
-    suspend fun reportExposure(request: ExposureRequest): ExposureResponse {
+    suspend fun reportExposure(temporaryExposureKeyDto: List<TemporaryExposureKeyDto>, certificate: String, hmackey: String): ExposureResponse {
         return withContext(Dispatchers.IO) {
-            keyServerClient.reportExposure(request)
+            firebaseFunctionsRepository.publishKeys(temporaryExposureKeyDto, certificate, hmackey, prefs.getRevisionToken(), prefs.isTraveller())
         }
     }
 

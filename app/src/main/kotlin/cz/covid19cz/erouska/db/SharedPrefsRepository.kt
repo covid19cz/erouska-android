@@ -50,6 +50,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
 
         const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
+        const val TRAVELLER = "traveller"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -99,6 +100,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setLegacyExposuresImported(){
         prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
+    }
+
+    fun isTraveller() : Boolean{
+        return prefs.getBoolean(TRAVELLER, false)
+    }
+
+    fun setTraveller(traveller: Boolean){
+        prefs.edit().putBoolean(TRAVELLER, traveller).apply()
     }
 
     fun hasOutdatedKeyData(): Boolean {

@@ -183,24 +183,6 @@ class ExposureNotificationsRepository @Inject constructor(
             }
     }
 
-    suspend fun reportExposureWithoutVerification(): Int {
-        val keys = getTemporaryExposureKeyHistory()
-        val request = ExposureRequest(keys.map {
-            TemporaryExposureKeyDto(
-                Base64.encodeToString(
-                    it.keyData,
-                    Base64.NO_WRAP
-                ), it.rollingStartIntervalNumber, it.rollingPeriod
-            )
-        }, null, null, null, prefs.getRevisionToken())
-        val response = server.reportExposure(request)
-        if (response.errorMessage != null) {
-            throw ReportExposureException(response.errorMessage, response.code)
-        }
-        prefs.saveRevisionToken(response.revisionToken)
-        return response.insertedExposures ?: 0
-    }
-
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
         try {
@@ -221,22 +203,15 @@ class ExposureNotificationsRepository @Inject constructor(
                     L.i("Verify certificate success")
                 }
 
-                val request = ExposureRequest(
-                    keys.map {
-                        TemporaryExposureKeyDto(
-                            Base64.encodeToString(
-                                it.keyData,
-                                Base64.NO_WRAP
-                            ), it.rollingStartIntervalNumber, it.rollingPeriod
-                        )
-                    },
-                    certificateResponse.certificate,
-                    hmackey,
-                    null,
-                    prefs.getRevisionToken(),
-                    healthAuthorityID = "cz.covid19cz.erouska"
-                )
-                val response = server.reportExposure(request)
+                val temporaryExposureKeys = keys.map {
+                    TemporaryExposureKeyDto(
+                        Base64.encodeToString(
+                            it.keyData,
+                            Base64.NO_WRAP
+                        ), it.rollingStartIntervalNumber, it.rollingPeriod
+                    )
+                }
+                val response = server.reportExposure(temporaryExposureKeys, certificateResponse.certificate, hmackey)
                 response.errorMessage?.let {
                     L.e("Report exposure failed: $it")
                     throw ReportExposureException(it, response.code)
