@@ -149,6 +149,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        enableUpInToolbar(false)
+
         // TODO Change RC string (in defaults and on server side) to march Figma
         dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
         dash_card_no_risky_encounter.card_subtitle = resources.getString(
