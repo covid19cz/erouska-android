@@ -7,7 +7,6 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -29,6 +28,7 @@ class DashboardVM @ViewModelInject constructor(
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val exposureNotificationsEnabled = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
+    val permissionsState = SafeMutableLiveData(PermissionsState.BOTH_ENABLED)
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
 
@@ -56,6 +56,9 @@ class DashboardVM @ViewModelInject constructor(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
+
+        checkBtLocationPermissions()
+
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
@@ -74,9 +77,6 @@ class DashboardVM @ViewModelInject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-        if (!deviceUtils.isBtEnabled() || !deviceUtils.isLocationEnabled()) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-        }
     }
 
     fun stop() {
@@ -94,24 +94,19 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun start() {
-        val btDisabled = !deviceUtils.isBtEnabled()
-        val locationDisabled = !deviceUtils.isLocationEnabled()
 
-        if (btDisabled || locationDisabled) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-        } else {
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    exposureNotificationsRepository.start()
-                }.onSuccess {
-                    onExposureNotificationsStateChanged(true)
-                    L.d("Exposure Notifications started")
-                }.onFailure {
-                    onExposureNotificationsStateChanged(false)
-                    publish(GmsApiErrorEvent(it))
-                }
+        viewModelScope.launch {
+            kotlin.runCatching {
+                exposureNotificationsRepository.start()
+            }.onSuccess {
+                onExposureNotificationsStateChanged(true)
+                L.d("Exposure Notifications started")
+            }.onFailure {
+                onExposureNotificationsStateChanged(false)
+                publish(GmsApiErrorEvent(it))
             }
         }
+
     }
 
     private fun onExposureNotificationsStateChanged(enabled: Boolean) {
@@ -132,6 +127,19 @@ class DashboardVM @ViewModelInject constructor(
             }.onFailure {
                 L.e(it)
             }
+        }
+    }
+
+    private fun checkBtLocationPermissions() {
+        onPermissionsStateChanged(deviceUtils.isBtEnabled(), deviceUtils.isLocationEnabled())
+    }
+
+    fun onPermissionsStateChanged(isBtEnabled: Boolean, isLocationEnabled: Boolean) {
+        permissionsState.value = when {
+            !isBtEnabled && !isLocationEnabled -> PermissionsState.BOTH_DISABLED
+            !isLocationEnabled -> PermissionsState.LOCATION_DISABLED
+            !isBtEnabled -> PermissionsState.BT_DISABLED
+            else -> PermissionsState.BOTH_ENABLED
         }
     }
 
@@ -163,6 +171,10 @@ class DashboardVM @ViewModelInject constructor(
 
     fun sendData() {
 
+    }
+
+    enum class PermissionsState {
+        BOTH_ENABLED, LOCATION_DISABLED, BT_DISABLED, BOTH_DISABLED
     }
 
 }

@@ -18,7 +18,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentDashboardBinding
 import cz.covid19cz.erouska.databinding.FragmentDashboardCardsBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
@@ -27,6 +26,8 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
+import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -48,9 +49,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
                 refreshDotIndicator()
-                if (!it.isBtEnabled() || !it.isLocationEnabled()) {
-                    navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-                }
+                viewModel.onPermissionsStateChanged(it.isBtEnabled(), it.isLocationEnabled())
             }
         }
     }
@@ -67,15 +66,28 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
         })
+
+        viewModel.permissionsState.observe(this, Observer { permissionsState ->
+            when (permissionsState) {
+                DashboardVM.PermissionsState.BOTH_ENABLED -> onBtAndLocationEnabled()
+                DashboardVM.PermissionsState.LOCATION_DISABLED -> onOnlyLocationDisabled()
+                DashboardVM.PermissionsState.BT_DISABLED -> onOnlyBtDisabled()
+                DashboardVM.PermissionsState.BOTH_DISABLED -> onBothBtAndLocationDisabled()
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
-        context?.registerReceiver(btAndLocationReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(
+            btAndLocationReceiver,
+            IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+        )
         context?.registerReceiver(
             btAndLocationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
+
     }
 
     override fun onStop() {
@@ -83,8 +95,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
         super.onStop()
     }
 
-    private fun refreshDotIndicator(){
-        mainViewModel.serviceRunning.value = viewModel.exposureNotificationsEnabled.value && requireContext().isBtEnabled() && requireContext().isLocationEnabled()
+    private fun refreshDotIndicator() {
+        mainViewModel.serviceRunning.value =
+            viewModel.exposureNotificationsEnabled.value && requireContext().isBtEnabled() && requireContext().isLocationEnabled()
     }
 
     private fun subsribeToViewModel() {
@@ -98,11 +111,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
+                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
+                    context
+                )
             }
         }
         subscribe(GmsApiErrorEvent::class) {
             ExposureNotificationsErrorHandling.handle(it, this)
+        }
+        subscribe(PermissionsEvent::class) {
+            when (it.command) {
+                PermissionsEvent.Command.ENABLE_BT -> requestEnableBt()
+                PermissionsEvent.Command.ENABLE_LOCATION -> requestLocationEnable()
+                PermissionsEvent.Command.ENABLE_BT_LOCATION -> requestLocationEnable()
+            }
         }
 
     }
@@ -114,12 +136,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
 
         // TODO Change RC string (in defaults and on server side) to march Figma
         dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
-        dash_card_no_risky_encounter.card_subtitle = resources.getString(R.string.dashboard_body_no_contact, viewModel.lastUpdateDate.value, viewModel.lastUpdateTime.value) + "\n" +AppConfig.encounterUpdateFrequency
+        dash_card_no_risky_encounter.card_subtitle = resources.getString(
+            R.string.dashboard_body_no_contact,
+            viewModel.lastUpdateDate.value,
+            viewModel.lastUpdateTime.value
+        ) + "\n" + AppConfig.encounterUpdateFrequency
 
         // Samples
         dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
         dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
-        dash_bluetooth_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+        dash_bluetooth_location_off.card_on_button_click =
+            View.OnClickListener { requestLocationEnable() }
 
 //        exposure_notification_content.text = AppConfig.encounterWarning
 //        exposure_notification_more_info.setOnClickListener {
@@ -205,7 +232,32 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
         }
     }
 
+    private fun onBothBtAndLocationDisabled() {
+        dash_bluetooth_location_off.show()
+        dash_bluetooth_off.hide()
+        dash_location_off.hide()
+    }
+
+    private fun onOnlyBtDisabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.show()
+        dash_location_off.hide()
+    }
+
+    private fun onOnlyLocationDisabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.hide()
+        dash_location_off.show()
+    }
+
+    private fun onBtAndLocationEnabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.hide()
+        dash_location_off.hide()
+    }
+
     private fun showExposureNotificationsOff() {
+        L.d("show exposure notifications off")
         navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
     }
 
@@ -216,6 +268,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
     private fun showPlayServicesUpdate() {
         navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
     }
+
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
     }
