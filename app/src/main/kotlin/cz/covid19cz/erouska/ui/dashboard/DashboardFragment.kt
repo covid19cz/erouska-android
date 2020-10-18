@@ -25,6 +25,7 @@ import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
 import cz.covid19cz.erouska.utils.L
@@ -126,7 +127,23 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
                 PermissionsEvent.Command.ENABLE_BT_LOCATION -> requestLocationEnable()
             }
         }
+        subscribe(ExposuresCommandEvent::class) {
+            when (it.command) {
+                ExposuresCommandEvent.Command.RECENT_EXPOSURE -> onRecentExposureDiscovered()
+                ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES -> onNoExposureDiscovered()
+            }
+        }
 
+    }
+
+    private fun onRecentExposureDiscovered() {
+        dash_card_no_risky_encounter.hide()
+        dash_card_risky_encounter.show()
+    }
+
+    private fun onNoExposureDiscovered() {
+        dash_card_no_risky_encounter.show()
+        dash_card_risky_encounter.hide()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -145,6 +162,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardV
         dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
         dash_bluetooth_location_off.card_on_button_click =
             View.OnClickListener { requestLocationEnable() }
+
+        dash_card_risky_encounter.card_on_content_click =
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+        dash_card_no_risky_encounter.card_on_content_click =
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
 
 //        exposure_notification_content.text = AppConfig.encounterWarning
 //        exposure_notification_more_info.setOnClickListener {

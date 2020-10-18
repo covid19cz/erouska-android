@@ -9,13 +9,16 @@ import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +35,8 @@ class DashboardVM @ViewModelInject constructor(
     val appActive = SafeMutableLiveData(true)
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
+    val lastExposureDate = MutableLiveData<String>()
+    val exposuresCount = MutableLiveData(0)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -60,6 +65,7 @@ class DashboardVM @ViewModelInject constructor(
 
         checkBtLocationPermissions()
         checkAppActive()
+        checkExposures()
 
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
@@ -140,7 +146,7 @@ class DashboardVM @ViewModelInject constructor(
     private fun checkAppActive() {
         val permissionsEnabled = deviceUtils.isBtEnabled() && deviceUtils.isLocationEnabled()
         val exposuresEnabled = exposureNotificationsEnabled.value
-        appActive.value =  permissionsEnabled && exposuresEnabled
+        appActive.value = permissionsEnabled && exposuresEnabled
         // TODO eRouska je pozastavena card should probably not be visible
         // should it ever be visible?
     }
@@ -161,6 +167,40 @@ class DashboardVM @ViewModelInject constructor(
         } else {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_UP_TO_DATE))
         }
+    }
+
+    private fun checkExposures(demo: Boolean = false) {
+        L.d("checking xposures")
+        if (!demo) {
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    exposureNotificationsRepository.getAllRiskyExposures()
+                }.onSuccess {
+                    if (it != null && it.isNotEmpty()) {
+                        val lastExposureDate = it.last().daysSinceEpoch.daysSinceEpochToDateString()
+                        onExposuresFound(it.size, lastExposureDate)
+                    } else {
+                        onNoExposuresFound()
+                    }
+                }.onFailure {
+                    L.e(it)
+                }
+            }
+        } else {
+            val lastExposure = LocalDate.now().minusDays(3).toEpochDay()
+                .toInt().daysSinceEpochToDateString()
+            onExposuresFound(4, lastExposure)
+        }
+    }
+
+    private fun onExposuresFound(count: Int, lastExposureDate: String) {
+        this.lastExposureDate.value = lastExposureDate
+        this.exposuresCount.value = count
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+    private fun onNoExposuresFound() {
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
     }
 
     private fun showExposure() {
