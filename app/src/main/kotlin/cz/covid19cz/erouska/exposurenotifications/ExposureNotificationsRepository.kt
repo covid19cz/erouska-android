@@ -275,7 +275,6 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun checkExposure(context: Context) {
-        importLegacyExposures()
         db.dao().deleteOld()
         db.dao().insert(getDailySummariesFromApi().map {
             DailySummaryEntity(
@@ -300,7 +299,7 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     //TODO: Remove in late november 2020
-    private suspend fun importLegacyExposures(){
+    suspend fun importLegacyExposures(){
         if (!prefs.isLegacyExposuresImported()){
             db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(

@@ -124,6 +124,7 @@ class DashboardVM @ViewModelInject constructor(
     private fun checkForRiskyExposure() {
         viewModelScope.launch {
             runCatching {
+                exposureNotificationsRepository.importLegacyExposures()
                 exposureNotificationsRepository.getLastRiskyExposure()
             }.onSuccess {
                 it?.let {
