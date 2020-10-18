@@ -136,7 +136,7 @@
     <string name="dashboard_risky_encounter_title_bad">Za posledních 14 dní 4 riziková setkání</string>
     <string name="dashboard_risky_encounter_subtitle_bad">Dne 14. 5. 2020 jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19.</string>
 
-    <string name="dashboard_positive_test_title">Máte pozitvní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
     <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
 
     <string name="dashboard_travel_title">Cesty do zahraničí</string>
