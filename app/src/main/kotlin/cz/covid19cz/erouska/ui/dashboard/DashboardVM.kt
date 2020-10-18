@@ -6,10 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
-import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -162,4 +160,9 @@ class DashboardVM @ViewModelInject constructor(
     fun unregister() {
         FirebaseAuth.getInstance().signOut()
     }
+
+    fun sendData() {
+
+    }
+
 }

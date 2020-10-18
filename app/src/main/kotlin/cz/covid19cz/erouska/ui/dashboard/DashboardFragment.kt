@@ -19,6 +19,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentDashboardBinding
+import cz.covid19cz.erouska.databinding.FragmentDashboardCardsBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
@@ -29,10 +30,11 @@ import cz.covid19cz.erouska.ui.main.MainVM
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
-    R.layout.fragment_dashboard,
+class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardVM>(
+    R.layout.fragment_dashboard_cards,
     DashboardVM::class
 ) {
 
@@ -89,8 +91,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
-                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
-                    data_notification_container.hide()
+//                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
+//                    data_notification_container.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
@@ -108,20 +110,31 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
-        }
-        exposure_notification_close.setOnClickListener {
-            viewModel.acceptExposure()
-            exposure_notification_container.hide()
-        }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
+        enableUpInToolbar(true, IconType.UP)
 
-        enableUpInToolbar(false)
+        // TODO Change RC string (in defaults and on server side) to march Figma
+        dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
+        dash_card_no_risky_encounter.card_subtitle = resources.getString(R.string.dashboard_body_no_contact, viewModel.lastUpdateDate.value, viewModel.lastUpdateTime.value) + "\n" +AppConfig.encounterUpdateFrequency
 
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
+        // Samples
+        dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
+        dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+        dash_bluetooth_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+
+//        exposure_notification_content.text = AppConfig.encounterWarning
+//        exposure_notification_more_info.setOnClickListener {
+//            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
+//        }
+//        exposure_notification_close.setOnClickListener {
+//            viewModel.acceptExposure()
+//            exposure_notification_container.hide()
+//        }
+//        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
+//        data_notification_close.setOnClickListener { data_notification_container.hide() }
+//
+//        enableUpInToolbar(false)
+//
+//        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

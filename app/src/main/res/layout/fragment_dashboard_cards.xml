@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.dashboardcards.DashboardCardsVM" />
+            type="cz.covid19cz.erouska.ui.dashboard.DashboardVM" />
     </data>
 
     <ScrollView
