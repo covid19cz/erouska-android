@@ -14,7 +14,9 @@ import cz.covid19cz.erouska.net.model.*
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -43,6 +45,7 @@ class ExposureServerRepository @Inject constructor(
 
     private val okhttpBuilder by lazy {
         val builder = OkHttpClient.Builder()
+        builder.addInterceptor(UserAgentInterceptor())
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
@@ -178,5 +181,22 @@ class ExposureServerRepository @Inject constructor(
         extractedDir.deleteRecursively()
         prefs.clearLastKeyExportFileName()
         prefs.clearLastKeyImportTime()
+    }
+
+    class UserAgentInterceptor : Interceptor {
+
+        companion object {
+            const val USER_AGENT = "User-agent";
+        }
+
+        private val userAgent =
+            "eRouska-Android-${BuildConfig.BUILD_TYPE}/${BuildConfig.VERSION_NAME}"
+
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val requestBuilder = chain.request().newBuilder()
+            requestBuilder.addHeader(USER_AGENT, userAgent)
+            return chain.proceed(requestBuilder.build())
+        }
+
     }
 }

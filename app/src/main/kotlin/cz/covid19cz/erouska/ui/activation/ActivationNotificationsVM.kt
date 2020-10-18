@@ -28,7 +28,6 @@ class ActivationNotificationsVM @ViewModelInject constructor(
                     L.d("Exposure Notifications started")
                 }.onFailure {
                     publish(GmsApiErrorEvent(it))
-                    L.e(it)
                 }
             }
         } else {

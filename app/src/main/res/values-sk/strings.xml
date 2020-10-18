@@ -47,7 +47,7 @@
     <string name="send_data">Odoslať údaje</string>
     <string name="share_app_title">Zdieľať aplikáciu eRouška</string>
     <string name="menu_share_app">Zdieľať aplikáciu</string>
-    <string name="share_app_text">Ahoj, používam aplikáciu eRouška. Nainštaluj si ju tiež a spoločne pomôžme zastaviť šírenie ochorenia COVID-19. Aplikácia zbiera anonymné údaje o telefónoch v blízkosti, aby pracovníci hygieny mohli jednoduchšie dohľadať potenciálne nakazených. Čím viac nás bude, tým lepšie to bude fungovať. Aplikáciu nájdeš na %s.</string>
+    <string name="share_app_text">Ahoj, používam aplikáciu eRouška. Nainštaluj si ju tiež a spoločne pomôžme zastaviť šírenie ochorenia COVID-19. Aplikácia dokáže anonymne a včas upozorniť na rizikové stretnutie s nakazeným užívateľom a odporučiť ďalší postup. Nájdeš ju na %s</string>
     <string name="delete_registration">Zrušiť registráciu</string>
     <string name="about">O aplik\u00e1cii</string>
     <string name="no_internet">Va\u0161e zariadenie nem\u00e1 akt\u00edvny pr\u00edstup k internetu.</string>
@@ -63,13 +63,15 @@
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
     <string name="my_data_last_update">Posledná aktualizácia %1$s</string>
-    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 vás bude kontaktovať pracovník hygienickej stanice. Odošle vám SMS správu obsahujúcu overovací kód na povolenie odoslania dát.</string>
+    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 vám odošleme SMS správu obsahujúcu overovací kód na povolenie odoslania dát.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
-    <string name="send_data_code_invalid">Overovací kód nie je správne zadaný</string>
+    <string name="send_data_code_invalid">Overovací kód nie je správne zadaný, skúste to znova.</string>
     <string name="send_data_code_expired_header">Vypršala platnosť overovacieho kódu</string>
+    <string name="send_data_code_expired_or_used">Platnosť kódu vypršala alebo už bol použitý.</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
     <string name="send_data_failure_header">Nepodarilo sa nám odoslať dáta</string>
+    <string name="send_data_failure_body">Kontaktujte, prosím, podporu na info@erouska.cz a do e-mailu uveďte nasledujúci kód chyby: \'%s\'.</string>
     <string name="send_data_back">Späť</string>
     <string name="send_data_close">Zatvoriť</string>
     <string name="send_data_try_again">Skúsiť znovu</string>
@@ -78,7 +80,7 @@
     <string name="send_data_success_body_2">Spolupracujte, prosím, s pracovníkmi hygienickej stanice na dohľadaní všetkých osôb, s ktorými ste boli v kontakte.</string>
     <string name="send_data_success_body_3">Riaďte sa pokynmi hygienikov a lekárov.</string>
     <string name="notification_data_outdated_title">Aktualizácia rizikových stretnutí</string>
-    <string name="notification_data_outdated_text">Vaša eRouška si dlhšiu dobu neaktualizovala dáta, či ste sa stretli s nakazeným užívateľom eRoušky. Pripojte sa k internetu.</string>
+    <string name="notification_data_outdated_text">V prípade potvrdenej nákazy COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozorniť ostatných užívateľov eRoušky.</string>
     <string name="data_notification_close">Zatvoriť</string>
     <string name="notification_exposure_title">Rizikové stretnutie</string>
     <string name="notification_exposure_text">Stretli ste sa s osobou, u ktorej bolo potvrdené ochorenie COVID-19.
@@ -120,5 +122,12 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="location_bt_off_body_2">Aj keď údaje o polohe nijak nevyužívame, zapnite, prosím, obe funkcie pre správne fungovanie Bluetooth pomocou tlačidla \"Zapnúť BT a Polohové služby\".</string>
     <string name="location_bt_off_turn_on">Zapnúť BT a Polohové služby</string>
     <string name="no_recent_exposures">Žiadne rizikové stretnutia</string>
+    <string name="activation_error">eRoušku nie je možné aktivovať</string>
+    <string name="activation_error_reason">Dôvod: %s</string>
+    <string name="activation_error_reason_bluetooth_le">Toto zariadenie nepodporuje Bluetooth Low Energy.</string>
+    <string name="activation_error_reason_admin">eRoušku je možné aktivovať iba na primárnom účte tohto zariadenia.</string>
+    <string name="activation_error_reason_bluetooth_ad">Toto zariadenie nepodporuje Bluetooth Multiple Advertisement.</string>
+    <string name="activation_error_reason_en_api">Toto zariadenie nepodporuje Oznámenia o možnom kontakte od Google.</string>
+    <string name="activation_error_reason_unauthorized">Nepovolený prístup k API.</string>
     <string name="ok">OK</string>
 </resources>

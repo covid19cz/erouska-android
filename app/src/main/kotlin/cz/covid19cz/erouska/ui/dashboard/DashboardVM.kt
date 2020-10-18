@@ -9,6 +9,7 @@ import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -69,7 +70,6 @@ class DashboardVM @ViewModelInject constructor(
                 onExposureNotificationsStateChanged(enabled)
             }.onFailure {
                 publish(GmsApiErrorEvent(it))
-                L.e(it)
             }
         }
     }
@@ -111,7 +111,6 @@ class DashboardVM @ViewModelInject constructor(
                 }.onFailure {
                     onExposureNotificationsStateChanged(false)
                     publish(GmsApiErrorEvent(it))
-                    L.e(it)
                 }
             }
         }
@@ -128,7 +127,9 @@ class DashboardVM @ViewModelInject constructor(
                 exposureNotificationsRepository.getLastRiskyExposure()
             }.onSuccess {
                 it?.let {
-                    showExposure(it)
+                    if (!it.accepted) {
+                        showExposure()
+                    }
                 }
             }.onFailure {
                 L.e(it)
@@ -144,18 +145,14 @@ class DashboardVM @ViewModelInject constructor(
         }
     }
 
-    private fun showExposure(dailySummary: DailySummary) {
-        if (prefs.getLastInAppNotifiedExposure() != dailySummary.daysSinceEpoch) {
-            publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
-        }
+    private fun showExposure() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
     }
 
-    fun acceptLastExposure() {
+    fun acceptExposure() {
         viewModelScope.launch {
             runCatching {
-                exposureNotificationsRepository.getLastRiskyExposure()
-            }.onSuccess {
-                prefs.setLastInAppNotifiedExposure(it?.daysSinceEpoch ?: 0)
+                exposureNotificationsRepository.markAsAccepted()
             }.onFailure {
                 L.e(it)
             }

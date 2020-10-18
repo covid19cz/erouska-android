@@ -1,52 +1,109 @@
 package cz.covid19cz.erouska.ui.exposure
 
+import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import arch.event.SingleLiveEvent
 import arch.viewmodel.BaseArchViewModel
+import cz.covid19cz.erouska.db.DailySummariesDb
+import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
-import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
-import cz.covid19cz.erouska.ui.exposure.event.RecentExposuresEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 
-class RecentExposuresVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
-    BaseArchViewModel() {
+class RecentExposuresVM @ViewModelInject constructor(
+    private val exposureNotificationsRepo: ExposureNotificationsRepository,
+    private val db: DailySummariesDb
+) : BaseArchViewModel() {
 
-    val state = SingleLiveEvent<RecentExposuresEvent>()
+    val items = ObservableArrayList<DailySummaryEntity>()
 
     fun loadExposures(demo: Boolean = false) {
+        items.clear()
         if (!demo) {
             viewModelScope.launch(Dispatchers.IO) {
                 kotlin.runCatching {
-                    exposureNotificationsRepo.getDailySummaries()
+                    exposureNotificationsRepo.getDailySummariesFromDb()
                 }.onSuccess { dailySummaries ->
-                    if (dailySummaries.isNotEmpty()) {
-                        val exposureList = dailySummaries.map {
-                            Exposure(it.daysSinceEpoch.daysSinceEpochToDateString())
-                        }
-                        state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(exposureList))
-                    } else {
-                        state.postValue(RecentExposuresEvent.NoExposuresEvent)
+                    viewModelScope.launch(Dispatchers.Main) {
+                        items.addAll(dailySummaries)
                     }
                 }.onFailure {
-                    state.postValue(RecentExposuresEvent.NoExposuresEvent)
                     L.e(it)
                 }
             }
         } else {
-            viewModelScope.launch(Dispatchers.IO) {
-                val mockData = listOf(
-                    Exposure("28. prosince 2019"),
-                    Exposure("20. března 2019"),
-                    Exposure("14. května 2019"),
-                    Exposure("5. srpna 2019")
+            val now = LocalDate.now()
+            items.addAll(
+                listOf(
+                    // old exposures
+                    DailySummaryEntity(
+                        LocalDate.of(2019, 12, 28).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    DailySummaryEntity(
+                        LocalDate.of(2019, 3, 20).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    DailySummaryEntity(
+                        LocalDate.of(2019, 5, 14).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    DailySummaryEntity(
+                        LocalDate.of(2019, 8, 5).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    // very recent exposures
+                    DailySummaryEntity(
+                        now.minusDays(10).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    DailySummaryEntity(
+                        now.minusDays(5).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    ),
+                    DailySummaryEntity(
+                        now.minusDays(12).toEpochDay().toInt(),
+                        1000.0,
+                        1000.0,
+                        1000.0,
+                        0,
+                        false,
+                        false
+                    )
                 )
-
-                state.postValue(RecentExposuresEvent.ExposuresLoadedEvent(mockData))
-            }
+            )
         }
-
     }
 }

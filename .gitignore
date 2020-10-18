@@ -20,11 +20,12 @@
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-/.idea/jarRepositories.xml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/runConfigurations.xml
-/.idea/vcs.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+.idea/compiler.xml
 .idea/caches
 .idea/.name
 .idea/navEditor.xml

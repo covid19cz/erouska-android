@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.exposure.RecentExposuresVM" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +23,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_recent_exposure"
-            />
+            app:items="@{vm.items}"
+            app:layoutId="@{@layout/item_recent_exposure}"
+            app:viewModel="@{vm}"
+            app:visibleOrGone="@{!vm.items.empty}" />
 
         <TextView
             android:id="@+id/empty_view"
@@ -26,8 +35,8 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:text="@string/no_recent_exposures"
-            android:visibility="gone"
             tools:visibility="visible"
+            app:visibleOrGone="@{vm.items.empty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

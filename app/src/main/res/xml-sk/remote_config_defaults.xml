@@ -417,4 +417,12 @@
         <key>v2_showChatBotLink</key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>v2_handleError500AsInvalidCode</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>v2_handleError400AsExpiredOrUsedCode</key>
+        <value>true</value>
+    </entry>
 </defaultsMap>

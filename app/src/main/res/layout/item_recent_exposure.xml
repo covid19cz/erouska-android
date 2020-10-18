@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="exposure"
-            type="cz.covid19cz.erouska.ui.exposure.Exposure" />
+            name="item"
+            type="cz.covid19cz.erouska.db.DailySummaryEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@{ exposure.date }"
+            android:text="@{item.getDateString()}"
             tools:text="@tools:sample/lorem"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"

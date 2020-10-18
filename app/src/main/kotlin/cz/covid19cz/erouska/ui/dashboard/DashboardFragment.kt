@@ -113,7 +113,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
         }
         exposure_notification_close.setOnClickListener {
-            viewModel.acceptLastExposure()
+            viewModel.acceptExposure()
             exposure_notification_container.hide()
         }
         exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
