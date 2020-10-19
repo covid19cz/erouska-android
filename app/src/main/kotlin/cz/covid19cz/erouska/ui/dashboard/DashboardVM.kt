@@ -7,16 +7,18 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,8 +31,12 @@ class DashboardVM @ViewModelInject constructor(
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val exposureNotificationsEnabled = SafeMutableLiveData(prefs.isExposureNotificationsEnabled())
+    val permissionsState = SafeMutableLiveData(PermissionsState.BOTH_ENABLED)
+    val appActive = SafeMutableLiveData(true)
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
+    val lastExposureDate = MutableLiveData<String>()
+    val exposuresCount = MutableLiveData(0)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -56,6 +62,11 @@ class DashboardVM @ViewModelInject constructor(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
+
+        checkBtLocationPermissions()
+        checkAppActive()
+        checkExposures()
+
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
@@ -74,9 +85,6 @@ class DashboardVM @ViewModelInject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-        if (!deviceUtils.isBtEnabled() || !deviceUtils.isLocationEnabled()) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-        }
     }
 
     fun stop() {
@@ -94,29 +102,25 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun start() {
-        val btDisabled = !deviceUtils.isBtEnabled()
-        val locationDisabled = !deviceUtils.isLocationEnabled()
 
-        if (btDisabled || locationDisabled) {
-            navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-        } else {
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    exposureNotificationsRepository.start()
-                }.onSuccess {
-                    onExposureNotificationsStateChanged(true)
-                    L.d("Exposure Notifications started")
-                }.onFailure {
-                    onExposureNotificationsStateChanged(false)
-                    publish(GmsApiErrorEvent(it))
-                }
+        viewModelScope.launch {
+            kotlin.runCatching {
+                exposureNotificationsRepository.start()
+            }.onSuccess {
+                onExposureNotificationsStateChanged(true)
+                L.d("Exposure Notifications started")
+            }.onFailure {
+                onExposureNotificationsStateChanged(false)
+                publish(GmsApiErrorEvent(it))
             }
         }
+
     }
 
     private fun onExposureNotificationsStateChanged(enabled: Boolean) {
         exposureNotificationsEnabled.value = enabled
         prefs.setExposureNotificationsEnabled(enabled)
+        checkAppActive()
     }
 
     private fun checkForRiskyExposure() {
@@ -136,12 +140,68 @@ class DashboardVM @ViewModelInject constructor(
         }
     }
 
+    private fun checkBtLocationPermissions() {
+        onPermissionsStateChanged(deviceUtils.isBtEnabled(), deviceUtils.isLocationEnabled())
+    }
+
+    private fun checkAppActive() {
+        val permissionsEnabled = deviceUtils.isBtEnabled() && deviceUtils.isLocationEnabled()
+        val exposuresEnabled = exposureNotificationsEnabled.value
+        appActive.value = permissionsEnabled && exposuresEnabled
+        // TODO eRouska je pozastavena card should probably not be visible
+        // should it ever be visible?
+    }
+
+    fun onPermissionsStateChanged(isBtEnabled: Boolean, isLocationEnabled: Boolean) {
+        permissionsState.value = when {
+            !isBtEnabled && !isLocationEnabled -> PermissionsState.BOTH_DISABLED
+            !isLocationEnabled -> PermissionsState.LOCATION_DISABLED
+            !isBtEnabled -> PermissionsState.BT_DISABLED
+            else -> PermissionsState.BOTH_ENABLED
+        }
+        checkAppActive()
+    }
+
     private fun checkForObsoleteData() {
         if (prefs.hasOutdatedKeyData()) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_OBSOLETE))
         } else {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_UP_TO_DATE))
         }
+    }
+
+    private fun checkExposures(demo: Boolean = false) {
+        L.d("checking xposures")
+        if (!demo) {
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    exposureNotificationsRepository.getAllRiskyExposures()
+                }.onSuccess {
+                    if (it != null && it.isNotEmpty()) {
+                        val lastExposureDate = it.last().daysSinceEpoch.daysSinceEpochToDateString()
+                        onExposuresFound(it.size, lastExposureDate)
+                    } else {
+                        onNoExposuresFound()
+                    }
+                }.onFailure {
+                    L.e(it)
+                }
+            }
+        } else {
+            val lastExposure = LocalDate.now().minusDays(3).toEpochDay()
+                .toInt().daysSinceEpochToDateString()
+            onExposuresFound(4, lastExposure)
+        }
+    }
+
+    private fun onExposuresFound(count: Int, lastExposureDate: String) {
+        this.lastExposureDate.value = lastExposureDate
+        this.exposuresCount.value = count
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+    private fun onNoExposuresFound() {
+        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
     }
 
     private fun showExposure() {
@@ -161,4 +221,13 @@ class DashboardVM @ViewModelInject constructor(
     fun unregister() {
         FirebaseAuth.getInstance().signOut()
     }
+
+    fun sendData() {
+
+    }
+
+    enum class PermissionsState {
+        BOTH_ENABLED, LOCATION_DISABLED, BT_DISABLED, BOTH_DISABLED
+    }
+
 }

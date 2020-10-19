@@ -18,21 +18,25 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentDashboardBinding
+import cz.covid19cz.erouska.databinding.FragmentDashboardCardsBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.ui.permissions.bluetooth.event.PermissionsEvent
+import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
-    R.layout.fragment_dashboard,
+class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardVM>(
+    R.layout.fragment_dashboard_cards,
     DashboardVM::class
 ) {
 
@@ -46,9 +50,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
                 refreshDotIndicator()
-                if (!it.isBtEnabled() || !it.isLocationEnabled()) {
-                    navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
-                }
+                viewModel.onPermissionsStateChanged(it.isBtEnabled(), it.isLocationEnabled())
             }
         }
     }
@@ -59,21 +61,34 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         rxPermissions = RxPermissions(this)
         subsribeToViewModel()
 
-        viewModel.exposureNotificationsEnabled.observe(this, Observer {
+        viewModel.exposureNotificationsEnabled.observe(this, Observer { enEnabled ->
             refreshDotIndicator()
-            if (it) {
+            if (enEnabled) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
+            }
+        })
+
+        viewModel.permissionsState.observe(this, Observer { permissionsState ->
+            when (permissionsState) {
+                DashboardVM.PermissionsState.BOTH_ENABLED -> onBtAndLocationEnabled()
+                DashboardVM.PermissionsState.LOCATION_DISABLED -> onOnlyLocationDisabled()
+                DashboardVM.PermissionsState.BT_DISABLED -> onOnlyBtDisabled()
+                DashboardVM.PermissionsState.BOTH_DISABLED -> onBothBtAndLocationDisabled()
             }
         })
     }
 
     override fun onStart() {
         super.onStart()
-        context?.registerReceiver(btAndLocationReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        context?.registerReceiver(
+            btAndLocationReceiver,
+            IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+        )
         context?.registerReceiver(
             btAndLocationReceiver,
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
+
     }
 
     override fun onStop() {
@@ -81,47 +96,94 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         super.onStop()
     }
 
-    private fun refreshDotIndicator(){
-        mainViewModel.serviceRunning.value = viewModel.exposureNotificationsEnabled.value && requireContext().isBtEnabled() && requireContext().isLocationEnabled()
+    private fun refreshDotIndicator() {
+        mainViewModel.serviceRunning.value =
+            viewModel.exposureNotificationsEnabled.value && requireContext().isBtEnabled() && requireContext().isLocationEnabled()
     }
 
     private fun subsribeToViewModel() {
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
-                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
-                    data_notification_container.hide()
+//                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
+//                    data_notification_container.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.EN_API_OFF -> showExposureNotificationsOff()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(context)
+                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
+                    context
+                )
             }
         }
         subscribe(GmsApiErrorEvent::class) {
             ExposureNotificationsErrorHandling.handle(it, this)
         }
+        subscribe(PermissionsEvent::class) {
+            when (it.command) {
+                PermissionsEvent.Command.ENABLE_BT -> requestEnableBt()
+                PermissionsEvent.Command.ENABLE_LOCATION -> requestLocationEnable()
+                PermissionsEvent.Command.ENABLE_BT_LOCATION -> requestLocationEnable()
+            }
+        }
+        subscribe(ExposuresCommandEvent::class) {
+            when (it.command) {
+                ExposuresCommandEvent.Command.RECENT_EXPOSURE -> onRecentExposureDiscovered()
+                ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES -> onNoExposureDiscovered()
+            }
+        }
 
+    }
+
+    private fun onRecentExposureDiscovered() {
+        dash_card_no_risky_encounter.hide()
+        dash_card_risky_encounter.show()
+    }
+
+    private fun onNoExposureDiscovered() {
+        dash_card_no_risky_encounter.show()
+        dash_card_risky_encounter.hide()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
-        }
-        exposure_notification_close.setOnClickListener {
-            viewModel.acceptExposure()
-            exposure_notification_container.hide()
-        }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
-
         enableUpInToolbar(false)
 
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
+        // TODO Change RC string (in defaults and on server side) to march Figma
+        dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
+        dash_card_no_risky_encounter.card_subtitle = resources.getString(
+            R.string.dashboard_body_no_contact,
+            viewModel.lastUpdateDate.value,
+            viewModel.lastUpdateTime.value
+        ) + "\n" + AppConfig.encounterUpdateFrequency
+
+        // Samples
+        dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
+        dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+        dash_bluetooth_location_off.card_on_button_click =
+            View.OnClickListener { requestLocationEnable() }
+
+        dash_card_risky_encounter.card_on_content_click =
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+        dash_card_no_risky_encounter.card_on_content_click =
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+
+//        exposure_notification_content.text = AppConfig.encounterWarning
+//        exposure_notification_more_info.setOnClickListener {
+//            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
+//        }
+//        exposure_notification_close.setOnClickListener {
+//            viewModel.acceptExposure()
+//            exposure_notification_container.hide()
+//        }
+//        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
+//        data_notification_close.setOnClickListener { data_notification_container.hide() }
+//
+//        enableUpInToolbar(false)
+//
+//        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -192,7 +254,32 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         }
     }
 
+    private fun onBothBtAndLocationDisabled() {
+        dash_bluetooth_location_off.show()
+        dash_bluetooth_off.hide()
+        dash_location_off.hide()
+    }
+
+    private fun onOnlyBtDisabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.show()
+        dash_location_off.hide()
+    }
+
+    private fun onOnlyLocationDisabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.hide()
+        dash_location_off.show()
+    }
+
+    private fun onBtAndLocationEnabled() {
+        dash_bluetooth_location_off.hide()
+        dash_bluetooth_off.hide()
+        dash_location_off.hide()
+    }
+
     private fun showExposureNotificationsOff() {
+        L.d("show exposure notifications off")
         navigate(R.id.action_nav_dashboard_to_nav_permission_disabled)
     }
 
@@ -203,6 +290,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
     private fun showPlayServicesUpdate() {
         navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
     }
+
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
     }

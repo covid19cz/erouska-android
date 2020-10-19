@@ -4,7 +4,7 @@ import arch.event.LiveEvent
 
 class DashboardCommandEvent(val command: Command) : LiveEvent() {
 
-    enum class Command{
+    enum class Command {
         TURN_ON,
         TURN_OFF,
         DATA_OBSOLETE,
@@ -13,4 +13,5 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
         EN_API_OFF,
         NOT_ACTIVATED
     }
+
 }
