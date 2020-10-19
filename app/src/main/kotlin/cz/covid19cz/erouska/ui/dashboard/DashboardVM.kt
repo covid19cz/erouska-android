@@ -171,17 +171,17 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     private fun checkExposures(demo: Boolean = false) {
-        L.d("checking xposures")
+        L.d("Checking exposures")
         if (!demo) {
             viewModelScope.launch {
                 kotlin.runCatching {
                     exposureNotificationsRepository.getAllRiskyExposures()
                 }.onSuccess {
-                    if (it != null && it.isNotEmpty()) {
+                    if (!it.isNullOrEmpty()) {
                         val lastExposureDate = it.last().daysSinceEpoch.daysSinceEpochToDateString()
-                        onExposuresFound(it.size, lastExposureDate)
+                        onRiskyExposuresFound(it.size, lastExposureDate)
                     } else {
-                        onNoExposuresFound()
+                        onNoRiskyExposuresFound()
                     }
                 }.onFailure {
                     L.e(it)
@@ -190,17 +190,17 @@ class DashboardVM @ViewModelInject constructor(
         } else {
             val lastExposure = LocalDate.now().minusDays(3).toEpochDay()
                 .toInt().daysSinceEpochToDateString()
-            onExposuresFound(4, lastExposure)
+            onRiskyExposuresFound(4, lastExposure)
         }
     }
 
-    private fun onExposuresFound(count: Int, lastExposureDate: String) {
+    private fun onRiskyExposuresFound(count: Int, lastExposureDate: String) {
         this.lastExposureDate.value = lastExposureDate
         this.exposuresCount.value = count
         publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
     }
 
-    private fun onNoExposuresFound() {
+    private fun onNoRiskyExposuresFound() {
         publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
     }
 
