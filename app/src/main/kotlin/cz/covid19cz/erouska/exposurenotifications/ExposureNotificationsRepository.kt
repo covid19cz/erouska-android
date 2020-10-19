@@ -167,6 +167,10 @@ class ExposureNotificationsRepository @Inject constructor(
         return db.dao().getLatest().firstOrNull()
     }
 
+    suspend fun getAllRiskyExposures(): List<DailySummaryEntity>? {
+        return db.dao().getAll()
+    }
+
     suspend fun markAsAccepted() {
         db.dao().markAsAccepted()
     }
