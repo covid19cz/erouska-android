@@ -3,9 +3,13 @@ package cz.covid19cz.erouska.ui.help
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
@@ -19,6 +23,7 @@ import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.android.synthetic.main.search_toolbar.*
+import kotlinx.coroutines.*
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -53,7 +58,8 @@ class HelpFragment :
         showWeb(AppConfig.chatBotLink, customTabHelper)
     }
 
-    var lastMarkedIndex = 0
+    private var lastMarkedIndex = 0
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help, menu)
         showSearchView()
@@ -83,6 +89,9 @@ class HelpFragment :
 
             setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                var runningJob: Job? = null
+
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
                         scrollToNextResult(query)
@@ -92,59 +101,92 @@ class HelpFragment :
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
-                    query?.let {
-                        if (query.isNotBlank() && AppConfig.helpMarkdown.contains(
-                                query,
-                                ignoreCase = true
-                            )
-                        ) {
-                            lastMarkedIndex = 0
-                            setSearchControlButtons(menu, true)
 
-                            val pattern = query.trim()
-                            val r =
-                                Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
-                            var result = AppConfig.helpMarkdown
-                            val m = r.matcher(result)
-                            val replaceList = arrayListOf<String>()
-                            while (m.find()) {
-                                replaceList.add(result.substring(m.start(0), m.end(0)))
-                            }
-
-                            showSnackBar("${replaceList.size} search results")
-
-                            for (replaceString in replaceList.distinct()) {
-                                result = result.replace(replaceString, "**${replaceString}**")
-                            }
-
-                            lastMarkedIndex =
-                                help_desc.text.toString().indexOf(query, ignoreCase = true)
-                            val lineNumber: Int =
-                                help_desc.layout.getLineForOffset(lastMarkedIndex)
-
-                            markdown.show(help_desc, result)
-
-                            if (lineNumber >= 0) {
-                                help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
-                            }
-
-
-                        } else {
-                            markdown.show(help_desc, AppConfig.helpMarkdown)
-//                            help_scroll.scrollTo(0, 0)
-
-                            // show SnackBar only if user made some search query
-                            if (query.isNotBlank()) {
-                                showSnackBar("No search result")
-                            }
-                            setSearchControlButtons(menu, false)
-                        }
+                    if (runningJob?.isCancelled == false) {
+                        runningJob?.cancel()
                     }
+
+                    runningJob = runSearchJob(query, menu)
+
                     return true
                 }
             })
         }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun runSearchJob(query: String?, menu: Menu): Job {
+        return GlobalScope.launch {
+
+            // wait a little, maybe the user is still typing, it would be a worthless search
+            delay(300)
+
+            var shouldEnableSearchControls: Boolean = false
+            var content: String = ""
+            var resultCount: Int = 0
+            var lineNumber: Int = 0
+
+            if (query.isNullOrBlank() || !AppConfig.helpMarkdown.contains(
+                    query,
+                    ignoreCase = true
+                )
+            ) {
+
+                lastMarkedIndex = 0
+                shouldEnableSearchControls = false
+                content = AppConfig.helpMarkdown
+                resultCount = 0
+
+            } else if (isActive) {
+
+                val pattern = query.trim()
+                val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
+                var result = AppConfig.helpMarkdown
+                val m = r.matcher(result)
+                val replaceList = arrayListOf<String>()
+                while (m.find() && isActive) {
+                    replaceList.add(result.substring(m.start(0), m.end(0)))
+                }
+
+                resultCount = replaceList.size
+
+                val distinctList = replaceList.distinct()
+                var index = 0
+                
+                while (isActive && index < distinctList.size) {
+                    val replaceString = distinctList.get(index)
+                    result = result.replace(replaceString, "**${replaceString}**")
+                    index++
+                }
+
+                content = result
+
+                lastMarkedIndex =
+                    help_desc.text.toString().indexOf(query, ignoreCase = true)
+                lineNumber = help_desc.layout.getLineForOffset(lastMarkedIndex)
+
+            }
+
+            GlobalScope.launch(Dispatchers.Main) {
+
+                if (isActive) {
+                    setSearchControlButtons(menu, true)
+                }
+                if (isActive) {
+                    markdown.show(help_desc, content)
+                }
+
+                if (lineNumber >= 0 && isActive) {
+                    help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
+                }
+
+                if (resultCount == 0 && query?.isNotBlank() == true && isActive) {
+                    // show SnackBar only if user made some search query
+                    showSnackBar("No search result")
+                }
+            }
+
+        }
     }
 
     override fun onDestroyView() {
