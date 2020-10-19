@@ -18,7 +18,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentDashboardCardsBinding
+import cz.covid19cz.erouska.databinding.FragmentDashboardPlusBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
 import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
 import cz.covid19cz.erouska.ext.*
@@ -35,8 +35,8 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardCardsBinding, DashboardVM>(
-    R.layout.fragment_dashboard_cards,
+class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM>(
+    R.layout.fragment_dashboard_plus,
     DashboardVM::class
 ) {
 
