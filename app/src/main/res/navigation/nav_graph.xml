@@ -88,13 +88,6 @@
         android:label="Test"
         tools:layout="@layout/fragment_sandbox">
         <action
-            android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
-            app:destination="@id/nav_permisions_disabled"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_sandbox_to_nav_my_data"
             app:destination="@id/nav_my_data"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -140,24 +133,6 @@
             android:defaultValue="true"
             app:argType="boolean" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.erouska.ui.permissions.bluetooth.PermissionsDisabledFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_permissionss_disabled">
-        <action
-            android:id="@+id/action_nav_bt_disabled_to_nav_dashboard"
-            app:destination="@id/nav_dashboard"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
-    </fragment>
-
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
@@ -184,12 +159,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_permission_disabled"
-            app:destination="@id/nav_permisions_disabled"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"

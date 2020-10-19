@@ -77,7 +77,7 @@ class MainActivity :
         viewModel.serviceRunning.observe(this, Observer { isRunning ->
             ContextCompat.getColor(
                 this,
-                if (isRunning && passesRequirements()) R.color.green else R.color.red
+                if (isRunning) R.color.green else R.color.red
             ).let {
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
@@ -164,10 +164,6 @@ class MainActivity :
             } else {
                 VISIBLE
             }
-    }
-
-    private fun passesRequirements(): Boolean {
-        return isBtEnabled()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,9 +1,6 @@
 package cz.covid19cz.erouska.utils
 
-import android.bluetooth.BluetoothManager
 import android.content.Context
-import android.location.LocationManager
-import androidx.core.location.LocationManagerCompat
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ext.isLocationEnabled
 import javax.inject.Inject
