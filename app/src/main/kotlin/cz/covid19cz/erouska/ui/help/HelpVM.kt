@@ -7,13 +7,15 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-class HelpVM @ViewModelInject constructor() : BaseVM() {
+class HelpVM @ViewModelInject constructor(
+) : BaseVM() {
 
     val searchControlsEnabled = SafeMutableLiveData(false)
     val searchResultCount = SafeMutableLiveData(0)
@@ -39,7 +41,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         if (queryData.value.length >= 3) {
             searchJob = viewModelScope.launch {
                 try {
-                    delay(500)
+                    delay(400)
 
                     val pattern = queryData.value
                     val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
@@ -53,7 +55,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
                     searchResultCount.value = replaceList.size
 
                     for (replaceString in replaceList.distinct()) {
-                        result = result.replace(replaceString, "**${replaceString}**")
+                        result = result.replace(replaceString, "[[${replaceString}]]")
                     }
 
                     content.value = result
