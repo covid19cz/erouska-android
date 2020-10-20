@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
@@ -18,18 +19,17 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.android.synthetic.main.search_toolbar.*
-import kotlinx.coroutines.*
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HelpFragment :
-    BaseFragment<FragmentHelpBinding, HelpVM>(R.layout.fragment_help, HelpVM::class) {
+class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
+    R.layout.fragment_help,
+    HelpVM::class
+) {
 
     @Inject
     internal lateinit var markdown: Markdown
@@ -57,8 +57,6 @@ class HelpFragment :
         showWeb(AppConfig.chatBotLink, customTabHelper)
     }
 
-    private var lastMarkedIndex = 0
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help, menu)
         showSearchView()
@@ -84,123 +82,28 @@ class HelpFragment :
                 false
             }
 
-            setSearchControlButtons(menu, false)
+            viewModel.searchControlsEnabled.observe(viewLifecycleOwner, Observer { enabled ->
+                setSearchControlButtons(menu, enabled)
+            })
 
             setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-                var runningJob: Job? = null
-
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        scrollToNextResult(query)
+                        viewModel.scrollToNextResult(query, help_desc?.text.toString())
                         return true
                     }
                     return false
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
-
-                    if (runningJob?.isCancelled == false) {
-                        runningJob?.cancel()
-                    }
-
-                    runningJob = runSearchJob(query, menu)
-
+                    viewModel.searchQuery(query, help_desc?.text.toString())
                     return true
                 }
             })
         }
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    private fun runSearchJob(query: String?, menu: Menu): Job {
-        return GlobalScope.launch {
-
-            var shouldEnableSearchControls: Boolean = false
-            var content: String = ""
-            var resultCount: Int = 0
-            var lineNumber: Int = 0
-
-            if (query.isNullOrBlank() || query.length < 3 || !AppConfig.helpMarkdown.contains(
-                    query,
-                    ignoreCase = true
-                )
-            ) {
-
-                lastMarkedIndex = 0
-                shouldEnableSearchControls = false
-                content = AppConfig.helpMarkdown
-                resultCount = 0
-
-            } else if (isActive) {
-
-                // wait a little, maybe the user is still typing, it would be a worthless search
-                delay(500)
-
-                val pattern = query.trim()
-                val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
-                var result = AppConfig.helpMarkdown
-                val m = r.matcher(result)
-                val replaceList = arrayListOf<String>()
-
-                while (m.find() && isActive) {
-                    replaceList.add(result.substring(m.start(0), m.end(0)))
-                }
-
-                resultCount = replaceList.size
-
-                val distinctList = replaceList.distinct()
-                var index = 0
-                while (isActive && index < distinctList.size) {
-                    val replaceString = distinctList.get(index)
-                    result = result.replace(replaceString, "**${replaceString}**")
-                    index++
-                }
-
-                content = result
-
-                lastMarkedIndex =
-                    help_desc.text.toString().indexOf(query, ignoreCase = true)
-                lineNumber = help_desc.layout.getLineForOffset(lastMarkedIndex)
-
-            }
-
-            GlobalScope.launch(Dispatchers.Main) {
-
-                if (isActive) {
-                    setSearchControlButtons(menu, true)
-                }
-
-                if (resultCount == 0 && isActive) {
-                    // show SnackBar only if user made some search query
-                    when {
-                        query?.length ?: 0 >= 3 -> {
-                            showSnackBarForever("Ziadne vysledky")
-
-                        }
-                        query?.length ?: 0 > 0 -> {
-                            showSnackBarForever("Malo znakov na vyhladavanie")
-                        }
-                        else -> {
-                            hideSnackBar()
-                        }
-                    }
-
-                } else if (isActive) {
-                    hideSnackBar()
-                }
-
-                if (isActive) {
-                    markdown?.show(help_desc, content)
-                }
-
-                if (lineNumber >= 0 && isActive) {
-                    help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
-                }
-            }
-
-        }
     }
 
     override fun onDestroyView() {
@@ -227,11 +130,17 @@ class HelpFragment :
                 true
             }
             R.id.previous_search_result -> {
-                scrollToPreviousResult(activity?.toolbar_search_view?.query.toString())
+                viewModel.scrollToPreviousResult(
+                    activity?.toolbar_search_view?.query.toString(),
+                    help_desc?.text.toString()
+                )
                 true
             }
             R.id.next_search_result -> {
-                scrollToNextResult(activity?.toolbar_search_view?.query.toString())
+                viewModel.scrollToNextResult(
+                    activity?.toolbar_search_view?.query.toString(),
+                    help_desc?.text.toString()
+                )
                 true
             }
             else -> {
@@ -253,42 +162,11 @@ class HelpFragment :
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(true)
     }
 
-    /**
-     * Scroll to previous search result
-     */
-    private fun scrollToPreviousResult(query: String) {
-        if (query.isNotBlank() && AppConfig.helpMarkdown.contains(query, ignoreCase = true)) {
-            if (lastMarkedIndex == -1) {
-                lastMarkedIndex = help_desc.text.toString().length
-            }
-            lastMarkedIndex = help_desc.text.toString().substring(0, lastMarkedIndex).lastIndexOf(
-                query, ignoreCase = true
-            )
-            val lineNumber: Int = help_desc.layout.getLineForOffset(lastMarkedIndex)
-            help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
-        }
-    }
-
-    /**
-     * Scroll to next search result
-     */
-    private fun scrollToNextResult(query: String) {
-        if (query.isNotBlank() && AppConfig.helpMarkdown.contains(query, ignoreCase = true)) {
-            lastMarkedIndex = help_desc.text.toString().indexOf(
-                query,
-                lastMarkedIndex + query.length,
-                ignoreCase = true
-            )
-            val lineNumber: Int = help_desc.layout.getLineForOffset(lastMarkedIndex)
-            help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         enableUpInToolbar(isFullscreen, IconType.CLOSE)
-        markdown.show(help_desc, AppConfig.helpMarkdown)
 
         if (isFullscreen) {
             welcome_continue_btn.visibility = View.VISIBLE
@@ -301,6 +179,44 @@ class HelpFragment :
         } else {
             chat_group.hide()
         }
+
+        viewModel.lastMarkedIndex.observe(viewLifecycleOwner) {
+            val lineNumber = help_desc?.layout?.getLineForOffset(it)
+            val lineTop = help_desc.layout?.getLineTop(lineNumber ?: 0) ?: 0
+            help_scroll?.scrollTo(0, lineTop)
+        }
+
+        viewModel.searchResultCount.observe(viewLifecycleOwner) {
+            if (it == 0) {
+                when {
+                    viewModel.queryData.value.length >= 3 -> {
+                        showSnackBarForever("Ziadne vysledky")
+
+                    }
+                    viewModel.queryData.value.isNotEmpty() -> {
+                        showSnackBarForever("Malo znakov na vyhladavanie")
+                    }
+                    else -> {
+                        hideSnackBar()
+                    }
+                }
+            } else {
+                hideSnackBar()
+            }
+        }
+
+        viewModel.queryData.observe((viewLifecycleOwner)) {
+            if (it.isBlank()) {
+                hideSnackBar()
+            }
+        }
+
+        viewModel.content.observe(viewLifecycleOwner) {
+            if (help_desc != null) {
+                markdown.show(help_desc, it)
+            }
+        }
+
     }
 
     private fun setSearchControlButtons(menu: Menu, shouldEnable: Boolean) {
