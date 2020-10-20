@@ -1,9 +1,9 @@
 package cz.covid19cz.erouska.utils
 
 import android.content.Context
-import android.graphics.Color
 import android.text.style.BackgroundColorSpan
 import android.widget.TextView
+import cz.covid19cz.erouska.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
@@ -34,7 +34,7 @@ class Markdown @Inject constructor(@ApplicationContext val context: Context) {
                         .setFactory(
                             StrongEmphasis::class.java
                         ) { configuration, props -> arrayOf(
-                            BackgroundColorSpan(Color.GREEN)
+                            BackgroundColorSpan(context.getColor(R.color.green))
                         ) }
                 }
             })
