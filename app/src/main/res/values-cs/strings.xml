@@ -58,12 +58,13 @@
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
 
     <string name="my_data_current_measures">Aktuální opatření</string>
+    <string name="my_data_info">Informace o aktuálních opatřeních</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
     <string name="my_data_stats">eRouška v číslech</string>
     <string name="my_data_yesterday">Za včerejší den %1$s</string>
     <string name="my_data_activated_apps">%1$s aktivovaných aplikací</string>
-    <string name="my_data_notifications_sent">%1$s odeslaných upozornění o nákaze</string>
-    <string name="my_data_notifications_shown">%1$s zobrazených upozornění</string>
+    <string name="my_data_notifications_sent">%1$s pozitivně testovaných anonymně varovalo ostatní</string>
+    <string name="my_data_notifications_shown">%1$s upozornění na riziková setkání</string>
     <string name="my_data_tests">%1$s provedených testů</string>
     <string name="my_data_ack_cases">%1$s celkem potvrzených případů</string>
     <string name="my_data_act_cases">%1$s aktivních případů</string>
