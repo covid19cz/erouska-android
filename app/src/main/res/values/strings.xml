@@ -136,18 +136,17 @@
     <string name="help_no_results">No search results</string>
 
 
-    <string name="dashboard_risky_encounter_title">Za posledních 14 dní žádné rizikové setkání</string>
-    <string name="dashboard_risky_encounter_subtitle">Poslední aktualizace 14. 5. 2020 v 17:30.\nAktualizace probíhá jednou za 24 hodin</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="zero">Za posledních 14 dní %1$d rizikových setkání</item>
-        <item quantity="one">Za posledních 14 dní %1$d rizikové setkání</item>
-        <item quantity="other">Za posledních 14 dní %1$d riziková setkání</item>
+        <item quantity="zero">No risky encounter in the past 14 days</item>
+        <item quantity="one">%1$d risky encounter in the past 14 days</item>
+        <item quantity="other">%1$d risky encounters in the past 14 days</item>
     </plurals>
-    <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19.</string>
-    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
-    <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
 
-    <string name="dashboard_travel_title">Cesty do zahraničí</string>
-    <string name="enabled">Zapnuto</string>
-    <string name="disable">Vypnuto</string>
+    <string name="dashboard_risky_encounter_subtitle_bad">You have last met an individual positive for COVID-19 on %1$s.</string>
+    <string name="dashboard_positive_test_title">Are you positive for COVID-19?</string>
+    <string name="dashboard_positive_test_button">Anonymously notify others</string>
+
+    <string name="dashboard_travel_title">Cross-border cooperation</string>
+    <string name="enabled">Enabled</string>
+    <string name="disable">Disabled</string>
 </resources>

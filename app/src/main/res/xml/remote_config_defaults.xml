@@ -368,12 +368,17 @@
         </value>
     </entry>
     <entry>
+        <key>v2_noEncounterCardTitle</key>
+        <value>No risky encounters in the past 14 days
+        </value>
+    </entry>
+    <entry>
         <key>v2_noEncounterBody</key>
         <value>We will notify you about a risky encounter in a notification</value>
     </entry>
     <entry>
         <key>v2_encounterUpdateFrequency</key>
-        <value>Updated data are downloaded every 24 hours</value>
+        <value>Data update once every 24 hours</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>

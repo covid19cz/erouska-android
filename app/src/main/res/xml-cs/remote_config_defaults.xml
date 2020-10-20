@@ -339,6 +339,11 @@
         </value>
     </entry>
     <entry>
+        <key>v2_noEncounterCardTitle</key>
+        <value>Za posledních 14 dní žádné rizikové setkání
+        </value>
+    </entry>
+    <entry>
         <key>v2_noEncounterBody</key>
         <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
     </entry>

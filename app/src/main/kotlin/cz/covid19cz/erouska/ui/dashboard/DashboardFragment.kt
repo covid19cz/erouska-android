@@ -136,7 +136,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         enableUpInToolbar(false)
 
         // TODO Change RC string (in defaults and on server side) to march Figma
-        dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
+        dash_card_no_risky_encounter.card_title = AppConfig.noEncounterCardTitle
         dash_card_no_risky_encounter.card_subtitle = resources.getString(
             R.string.dashboard_body_no_contact,
             viewModel.lastUpdateDate.value,
