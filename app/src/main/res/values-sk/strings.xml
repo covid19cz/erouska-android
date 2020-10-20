@@ -140,4 +140,18 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
     <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
 
+
+    <plurals name="dashboard_risky_encounter_title_bad">
+        <item quantity="one">Za posledných 14 dní %1$d rizikové stretnutie</item>
+        <item quantity="few">Za posledných 14 dní %1$d rizikové stretnutia</item>
+        <item quantity="other">Za posledných 14 dní %1$d rizikových stretnutí</item>
+    </plurals>
+
+    <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
+
+    <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
+    <string name="enabled">Zapnutá</string>
+    <string name="disable">Vypnutá</string>
 </resources>
