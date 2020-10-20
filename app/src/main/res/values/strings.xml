@@ -45,6 +45,7 @@
     <string name="welcome_title">Thanks to eRou\u0161ka you will keep yourself and others safe</string>
     <string name="contacts_title">Contacts</string>
     <string name="send_data">Send data</string>
+    <string name="sent">Sent</string>
     <string name="share_app_title">Share eRouška</string>
     <string name="menu_share_app">Share application</string>
     <string name="share_app_text">Hi, I\'m using eRouška. Install it so we can help stop the spread of COVID-19 together. The application can anonymously notify you about a risky encounter and recommend further steps. The application can be found at %s.</string>
