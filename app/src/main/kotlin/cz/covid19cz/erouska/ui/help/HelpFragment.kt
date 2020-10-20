@@ -190,11 +190,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
             if (it == 0) {
                 when {
                     viewModel.queryData.value.length >= 3 -> {
-                        showSnackBarForever("Ziadne vysledky")
-
-                    }
-                    viewModel.queryData.value.isNotEmpty() -> {
-                        showSnackBarForever("Malo znakov na vyhladavanie")
+                        showSnackBarForever(R.string.help_no_results)
                     }
                     else -> {
                         hideSnackBar()

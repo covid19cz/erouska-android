@@ -134,5 +134,6 @@
     <string name="search_hint">Type here ..</string>
     <string name="previous_search_result">Previous search result</string>
     <string name="next_search_result">Next search result</string>
+    <string name="help_no_results">No results</string>
 
 </resources>

@@ -149,5 +149,6 @@
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
     <string name="search">Hledat</string>
+    <string name="help_no_results">Žádné výsledky</string>
 
 </resources>

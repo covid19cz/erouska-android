@@ -31,6 +31,10 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
         showSnackBar(getString(stringRes))
     }
 
+    protected open fun showSnackBarForever(@StringRes stringRes: Int) {
+        showSnackBarForever(getString(stringRes))
+    }
+
     protected open fun showSnackBar(@StringRes stringRes: Int, vararg args: Any) {
         showSnackBar(getString(stringRes, args))
     }
