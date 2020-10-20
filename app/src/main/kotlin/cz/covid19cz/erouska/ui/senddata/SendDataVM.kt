@@ -16,6 +16,7 @@ import cz.covid19cz.erouska.ui.senddata.event.SendDataState
 import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository) :
     BaseVM() {
@@ -61,7 +62,6 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                 state.value = SendDataSuccessState
                 publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
             }.onFailure {
-                L.e(it)
                 handleSendDataErrors(it)
             }
         }
@@ -82,12 +82,17 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                         publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED))
                     }
                     else -> {
+                        L.e(exception)
                         publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message+" (${exception.code})"))
                     }
                 }
             }
             is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.error+" (${exception.code})"))
-            else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message))
+            is UnknownHostException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.NO_INTERNET))
+            else -> {
+                L.e(exception)
+                publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message))
+            }
         }
     }
 

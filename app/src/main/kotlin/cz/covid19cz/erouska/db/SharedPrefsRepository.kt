@@ -48,6 +48,8 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
+
+        const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -79,20 +81,24 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
-    fun setLastNotifiedExposure(daysSinceEpoch: Int) {
-        prefs.edit().putInt(LAST_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
-    }
-
     fun getLastNotifiedExposure(): Int {
         return prefs.getInt(LAST_NOTIFIED_EXPOSURE, -1)
     }
 
-    fun setLastInAppNotifiedExposure(daysSinceEpoch: Int) {
-        prefs.edit().putInt(LAST_IN_APP_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
-    }
-
     fun getLastInAppNotifiedExposure(): Int {
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
+    }
+
+    fun cleanLegacyExposurePrefs(){
+        prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
+    }
+
+    fun isLegacyExposuresImported() : Boolean{
+        return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
+    }
+
+    fun setLegacyExposuresImported(){
+        prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
     }
 
     fun hasOutdatedKeyData(): Boolean {

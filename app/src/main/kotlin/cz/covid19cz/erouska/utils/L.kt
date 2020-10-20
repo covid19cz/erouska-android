@@ -43,6 +43,7 @@ object L {
     fun e(throwable: Throwable) {
         if (BuildConfig.DEBUG) {
             Log.e("L", throwable.message, throwable)
+            throwable.printStackTrace()
         }
         FirebaseCrashlytics.getInstance().recordException(throwable)
     }
