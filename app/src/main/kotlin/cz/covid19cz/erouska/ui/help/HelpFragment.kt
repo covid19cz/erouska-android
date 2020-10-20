@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
@@ -19,6 +18,7 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -34,7 +34,6 @@ class HelpFragment :
     @Inject
     internal lateinit var markdown: Markdown
     private var isFullscreen: Boolean = false
-
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
@@ -118,15 +117,12 @@ class HelpFragment :
     private fun runSearchJob(query: String?, menu: Menu): Job {
         return GlobalScope.launch {
 
-            // wait a little, maybe the user is still typing, it would be a worthless search
-            delay(300)
-
             var shouldEnableSearchControls: Boolean = false
             var content: String = ""
             var resultCount: Int = 0
             var lineNumber: Int = 0
 
-            if (query.isNullOrBlank() || !AppConfig.helpMarkdown.contains(
+            if (query.isNullOrBlank() || query.length < 3 || !AppConfig.helpMarkdown.contains(
                     query,
                     ignoreCase = true
                 )
@@ -139,11 +135,15 @@ class HelpFragment :
 
             } else if (isActive) {
 
+                // wait a little, maybe the user is still typing, it would be a worthless search
+                delay(500)
+
                 val pattern = query.trim()
                 val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
                 var result = AppConfig.helpMarkdown
                 val m = r.matcher(result)
                 val replaceList = arrayListOf<String>()
+
                 while (m.find() && isActive) {
                     replaceList.add(result.substring(m.start(0), m.end(0)))
                 }
@@ -152,7 +152,6 @@ class HelpFragment :
 
                 val distinctList = replaceList.distinct()
                 var index = 0
-                
                 while (isActive && index < distinctList.size) {
                     val replaceString = distinctList.get(index)
                     result = result.replace(replaceString, "**${replaceString}**")
@@ -172,17 +171,32 @@ class HelpFragment :
                 if (isActive) {
                     setSearchControlButtons(menu, true)
                 }
+
+                if (resultCount == 0 && isActive) {
+                    // show SnackBar only if user made some search query
+                    when {
+                        query?.length ?: 0 >= 3 -> {
+                            showSnackBarForever("Ziadne vysledky")
+
+                        }
+                        query?.length ?: 0 > 0 -> {
+                            showSnackBarForever("Malo znakov na vyhladavanie")
+                        }
+                        else -> {
+                            hideSnackBar()
+                        }
+                    }
+
+                } else if (isActive) {
+                    hideSnackBar()
+                }
+
                 if (isActive) {
-                    markdown.show(help_desc, content)
+                    markdown?.show(help_desc, content)
                 }
 
                 if (lineNumber >= 0 && isActive) {
                     help_scroll.scrollTo(0, help_desc.layout.getLineTop(lineNumber))
-                }
-
-                if (resultCount == 0 && query?.isNotBlank() == true && isActive) {
-                    // show SnackBar only if user made some search query
-                    showSnackBar("No search result")
                 }
             }
 
