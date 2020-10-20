@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.net
 
-import android.util.Base64
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.FirebaseFunctionsException
 import com.google.firebase.functions.ktx.functions
@@ -9,13 +8,10 @@ import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.net.exception.UnauthrorizedException
 import cz.covid19cz.erouska.net.model.CovidStatsResponse
-import cz.covid19cz.erouska.net.model.ExposureResponse
-import cz.covid19cz.erouska.net.model.TemporaryExposureKeyDto
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
 import kotlinx.coroutines.tasks.await
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.suspendCoroutine
@@ -60,21 +56,6 @@ class FirebaseFunctionsRepository @Inject constructor(
             "idToken" to getIdToken()
         )
         callFunction("RegisterNotification", data)
-    }
-
-    suspend fun publishKeys(temporaryExposureKeys: List<TemporaryExposureKeyDto>, verificationPayload: String, hmackey: String, revisionToken: String?, traveller: Boolean): ExposureResponse {
-        val data = hashMapOf(
-            "temporaryExposureKeys" to temporaryExposureKeys,
-            "verificationPayload" to verificationPayload,
-            "hmacKey" to hmackey,
-            "revisionToken" to revisionToken,
-            "padding" to Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.NO_WRAP),
-            "traveler" to traveller,
-            "healthAuthorityID" to "cz.covid19cz.erouska",
-            "consentToFederation" to true
-        )
-        val response = callFunction("PublishKeys", data)
-        return Gson().fromJson(response.toString(), ExposureResponse::class.java)
     }
 
     private suspend fun getIdToken(): String = suspendCoroutine { cont ->
