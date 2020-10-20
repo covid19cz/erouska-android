@@ -339,11 +339,10 @@
         <key>v2_noEncounterBody</key>
         <value>Na rizikové stretnutie vás upozorníme pomocou upozornení.</value>
     </entry>
-<!-- TODO Define Slovak translation -->
-<!--    <entry>-->
-<!--        <key>v2_noEncounterBody</key>-->
-<!--        <value>?</value>-->
-<!--    </entry>-->
+    <entry>
+        <key>v2_encounterUpdateFrequency</key>
+        <value>Aktualizácia prebieha raz za 24 hodín</value>
+    </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
         <value>Ak sa u vás v priebehu 14 dní od kontaktu s nakazeným objavili príznaky respiračného ochorenia, kontaktujte telefonicky svojho praktického lekára a nasledujte jeho pokyny. Mimo jeho pracovnú dobu kontaktujte telefonicky nejbližšiu lekársku pohotovosť. V prípade závažných zdravotných problémov volajte 155.
