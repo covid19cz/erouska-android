@@ -6,7 +6,9 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("url")
 fun setUrl(view: WebView, url: String?) {
-    view.loadUrl(url)
+    url?.let {
+        view.loadUrl(it)
+    }
 }
 
 @BindingAdapter("java_script_enabled")
