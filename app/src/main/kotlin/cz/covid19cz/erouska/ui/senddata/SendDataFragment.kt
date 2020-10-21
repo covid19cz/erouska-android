@@ -164,6 +164,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     }
 
     private fun onSendDataSuccess() {
+        activity?.setTitle(R.string.sent)
         progress.hide()
         code_input.hideKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)

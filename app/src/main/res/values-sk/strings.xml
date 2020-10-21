@@ -45,6 +45,7 @@
     <string name="welcome_title">V\u010faka eRou\u0161ke ochr\u00e1nite seba aj ostatn\u00fdch vo svojom okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
     <string name="send_data">Odoslať údaje</string>
+    <string name="sent">Odoslané</string>
     <string name="share_app_title">Zdieľať aplikáciu eRouška</string>
     <string name="menu_share_app">Zdieľať aplikáciu</string>
     <string name="share_app_text">Ahoj, používam aplikáciu eRouška. Nainštaluj si ju tiež a spoločne pomôžme zastaviť šírenie ochorenia COVID-19. Aplikácia dokáže anonymne a včas upozorniť na rizikové stretnutie s nakazeným užívateľom a odporučiť ďalší postup. Nájdeš ju na %s</string>
@@ -105,7 +106,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="legacy_update_phone_body">Rušíme evidenciu telefónnych čísel, pretože pre komunikáciu s hygienickou stanicou už nie sú potrebné. Pri rizikovom stretnutí vám eRouška odporučí ďalší postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše súkromie</string>
     <string name="legacy_update_privacy_body"><![CDATA[S týmito úpravami sa zmenili aj <a href="%1$s">podmienky spracovania</a>. Zásadnou zmenou je, že naďalej nebudeme evidovať telefónne čísla žiadneho užívateľa eRoušky a nebudeme ho vyžadovať pri registrácii.]]></string>
-    <string name="play_services_title">Aktualizujte aplikácie Služby Google Play</string>
+    <string name="play_services_title">Aktualizujte aplikáciu Sluzby Google Play</string>
     <string name="play_services_content">Nejnovšia verzia Google Play Services je potrebná pre aktiváciu oznámení o stretnutí s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="play_services_update_button">Aktualizovať</string>
     <string name="activation_notifications_title">Upozornenia</string>
