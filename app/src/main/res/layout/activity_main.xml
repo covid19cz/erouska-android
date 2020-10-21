@@ -18,7 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/toolbarColor"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <include
+                layout="@layout/search_toolbar"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
 
         <fragment
             android:id="@+id/nav_host_fragment"

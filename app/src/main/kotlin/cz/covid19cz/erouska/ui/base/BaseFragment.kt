@@ -16,25 +16,53 @@ import cz.covid19cz.erouska.R
 import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutId: Int, viewModelClass: KClass<VM>) : BaseArchFragment<B, VM>(layoutId, viewModelClass) {
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
+    layoutId: Int,
+    viewModelClass: KClass<VM>
+) : BaseArchFragment<B, VM>(layoutId, viewModelClass) {
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
     }
 
-    protected open fun showSnackBar(@StringRes stringRes : Int) {
+    var snackBar: Snackbar? = null
+
+    protected open fun showSnackBar(@StringRes stringRes: Int) {
         showSnackBar(getString(stringRes))
     }
 
-    protected open fun showSnackBar(@StringRes stringRes : Int, vararg args : Any) {
+    protected open fun showSnackBarForever(@StringRes stringRes: Int) {
+        showSnackBarForever(getString(stringRes))
+    }
+
+    protected open fun showSnackBar(@StringRes stringRes: Int, vararg args: Any) {
         showSnackBar(getString(stringRes, args))
     }
 
-    protected open fun showSnackBar(text : String) {
+    protected open fun showSnackBar(text: String) {
+        showSnackBarWithDuration(text, Snackbar.LENGTH_LONG)
+    }
+
+    protected open fun showSnackBarForever(text: String) {
+        showSnackBarWithDuration(text, Snackbar.LENGTH_INDEFINITE)
+    }
+
+    protected open fun hideSnackBar() {
+        snackBar?.dismiss()
+        snackBar = null
+    }
+
+    private fun showSnackBarWithDuration(text: String, length: Int) {
         view?.let {
-            Snackbar.make(it, text, Snackbar.LENGTH_LONG).show()
+            if (snackBar == null) {
+                snackBar = Snackbar.make(it, text, length)
+            } else {
+                snackBar?.setText(text)
+            }
+            snackBar?.show()
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +99,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         startActivityForResult(enableBtIntent, REQUEST_BT_ENABLE)
     }
 
-    fun requestLocationEnable(){
+    fun requestLocationEnable() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
         startActivity(intent)
     }
