@@ -39,7 +39,6 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         if (queryData.value.length >= 3) {
             searchJob = viewModelScope.launch {
                 try {
-                    delay(400)
 
                     val pattern = queryData.value
                     val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
