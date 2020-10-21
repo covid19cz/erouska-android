@@ -135,6 +135,6 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="search_hint">Type here ..</string>
     <string name="previous_search_result">Predošlý výsledok</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
-    <string name="help_no_results">Žiadne výsledky</string>
+    <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
 
 </resources>
