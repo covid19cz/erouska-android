@@ -4,14 +4,16 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.viewmodel.BaseArchViewModel
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
+import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
-class ExposuresVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository) :
-    BaseArchViewModel() {
+class ExposureVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository, private val prefs : SharedPrefsRepository) :
+    BaseVM() {
 
     val lastExposureDate = MutableLiveData<String>()
 
@@ -24,8 +26,7 @@ class ExposuresVM @ViewModelInject constructor(private val exposureNotifications
                     publish(
                         ExposuresCommandEvent(
                             if (it != null) {
-                                lastExposureDate.value =
-                                    it.daysSinceEpoch.daysSinceEpochToDateString()
+                                lastExposureDate.value = it.daysSinceEpoch.daysSinceEpochToDateString()
                                 ExposuresCommandEvent.Command.RECENT_EXPOSURE
                             } else {
                                 ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES

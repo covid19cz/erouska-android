@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
+            type="cz.covid19cz.erouska.ui.spreadprevention.SpreadPreventionVM" />
 
     </data>
 

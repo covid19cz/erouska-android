@@ -16,6 +16,7 @@ import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.exposure.ExposureFragmentDirections
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -148,6 +149,18 @@ class DashboardVM @ViewModelInject constructor(
 
     private fun showExposure() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+    }
+
+    fun showExposureDetail(){
+        viewModelScope.launch {
+            exposureNotificationsRepository.getLastRiskyExposure()?.let {
+                if (it.daysSinceEpoch > prefs.getLastShownExposureInfo()){
+                    navigate(DashboardFragmentDirections.actionNavDashboardToNavExposureInfo())
+                } else {
+                    navigate(DashboardFragmentDirections.actionNavDashboardToNavExposure())
+                }
+            }
+        }
     }
 
     fun acceptExposure() {

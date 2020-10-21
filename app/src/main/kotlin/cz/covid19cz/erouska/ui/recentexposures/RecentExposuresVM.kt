@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.exposure
+package cz.covid19cz.erouska.ui.recentexposures
 
 import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject

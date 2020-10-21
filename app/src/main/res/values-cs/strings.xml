@@ -148,4 +148,7 @@
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
 
+    <string name="exposure_info_date">Naposledy %s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19</string>
+    <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
+    <string name="exposure_info_button">Jak postupovat dál</string>
 </resources>

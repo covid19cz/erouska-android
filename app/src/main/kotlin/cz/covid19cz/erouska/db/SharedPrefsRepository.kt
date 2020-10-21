@@ -18,6 +18,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
+        const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
 
@@ -87,6 +88,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun getLastInAppNotifiedExposure(): Int {
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
+    }
+
+    fun setLastShownExposureInfo(daysSinceEpoch : Int) {
+        prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
+    }
+
+    fun getLastShownExposureInfo(): Int {
+        return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
     }
 
     fun cleanLegacyExposurePrefs(){

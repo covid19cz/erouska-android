@@ -5,21 +5,21 @@ import android.view.View
 import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentExposuresBinding
+import cz.covid19cz.erouska.databinding.FragmentExposureBinding
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_exposures.*
+import kotlinx.android.synthetic.main.fragment_exposure.*
 
 @AndroidEntryPoint
-class ExposuresFragment : BaseFragment<FragmentExposuresBinding, ExposuresVM>(
-    R.layout.fragment_exposures,
-    ExposuresVM::class
+class ExposureFragment : BaseFragment<FragmentExposureBinding, ExposureVM>(
+    R.layout.fragment_exposure,
+    ExposureVM::class
 ) {
 
-    val args: ExposuresFragmentArgs by navArgs()
+    val args: ExposureFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

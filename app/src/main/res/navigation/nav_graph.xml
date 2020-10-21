@@ -202,17 +202,20 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_exposures"
-            app:destination="@id/nav_exposures"
+            android:id="@+id/action_nav_dashboard_to_nav_exposure"
+            app:destination="@id/nav_exposure"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_exposure_info"
+            app:destination="@id/nav_exposure_info" />
     </fragment>
     <fragment
-        android:id="@+id/nav_exposures"
-        android:name="cz.covid19cz.erouska.ui.exposure.ExposuresFragment"
-        tools:layout="@layout/fragment_exposures">
+        android:id="@+id/nav_exposure"
+        android:name="cz.covid19cz.erouska.ui.exposure.ExposureFragment"
+        tools:layout="@layout/fragment_exposure">
         <action
             android:id="@+id/action_nav_dashboard_to_nav_recent_exposures"
             app:destination="@id/nav_recent_exposures"
@@ -250,7 +253,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_recent_exposures"
-        android:name="cz.covid19cz.erouska.ui.exposure.RecentExposuresFragment"
+        android:name="cz.covid19cz.erouska.ui.recentexposures.RecentExposuresFragment"
         tools:layout="@layout/fragment_recent_exposures">
 
         <argument
@@ -261,7 +264,7 @@
 
     <fragment
         android:id="@+id/nav_main_symptoms"
-        android:name="cz.covid19cz.erouska.ui.exposure.MainSymptomsFragment"
+        android:name="cz.covid19cz.erouska.ui.symptoms.MainSymptomsFragment"
         tools:layout="@layout/fragment_main_symptoms">
 
         <argument
@@ -271,7 +274,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_spread_prevention"
-        android:name="cz.covid19cz.erouska.ui.exposure.SpreadPreventionFragment"
+        android:name="cz.covid19cz.erouska.ui.spreadprevention.SpreadPreventionFragment"
         tools:layout="@layout/fragment_spread_prevention">
         <argument
             android:name="fullscreen"
@@ -349,5 +352,17 @@
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxDataFragment"
         android:label="SandboxDataFragment"
         tools:layout="@layout/fragment_sandbox_data" />
+    <fragment
+        android:id="@+id/nav_exposure_info"
+        android:name="cz.covid19cz.erouska.ui.exposureinfo.ExposureInfoFragment"
+        tools:layout="@layout/fragment_exposure_info">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_exposure_info_to_nav_exposure"
+            app:destination="@id/nav_exposure" />
+    </fragment>
 
 </navigation>

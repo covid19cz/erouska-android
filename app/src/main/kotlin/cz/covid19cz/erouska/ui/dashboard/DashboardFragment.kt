@@ -109,19 +109,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
         super.onViewCreated(view, savedInstanceState)
 
         exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
-        }
         exposure_notification_close.setOnClickListener {
             viewModel.acceptExposure()
             exposure_notification_container.hide()
         }
-        exposure_notification_more_info.setOnClickListener { navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode)) }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
-
         enableUpInToolbar(false)
-
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

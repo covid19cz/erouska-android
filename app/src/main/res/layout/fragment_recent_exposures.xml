@@ -7,7 +7,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.exposure.RecentExposuresVM" />
+            type="cz.covid19cz.erouska.ui.recentexposures.RecentExposuresVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

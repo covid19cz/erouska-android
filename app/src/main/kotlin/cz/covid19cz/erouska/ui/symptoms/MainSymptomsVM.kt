@@ -1,4 +1,4 @@
-package cz.covid19cz.erouska.ui.exposure
+package cz.covid19cz.erouska.ui.symptoms
 
 import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
@@ -8,8 +8,8 @@ import com.google.gson.Gson
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.exposure.entity.SymptomItem
-import cz.covid19cz.erouska.ui.exposure.entity.SymptomsData
+import cz.covid19cz.erouska.ui.symptoms.entity.SymptomItem
+import cz.covid19cz.erouska.ui.symptoms.entity.SymptomsData
 
 class MainSymptomsVM @ViewModelInject constructor() : BaseVM() {
 

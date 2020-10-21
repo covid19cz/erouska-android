@@ -5,11 +5,11 @@
 
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
+            type="cz.covid19cz.erouska.ui.spreadprevention.SpreadPreventionVM" />
 
         <variable
             name="item"
-            type="cz.covid19cz.erouska.ui.exposure.entity.PreventionItem" />
+            type="cz.covid19cz.erouska.ui.spreadprevention.entity.PreventionItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
