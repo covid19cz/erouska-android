@@ -9,6 +9,7 @@
         android:layout_gravity="end"
         android:iconifiedByDefault="true"
         android:visibility="gone"
+        android:contentDescription="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

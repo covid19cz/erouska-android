@@ -57,7 +57,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
             if (snackBar == null) {
                 snackBar = Snackbar.make(it, text, length)
             } else {
-                snackBar!!.setText(text)
+                snackBar?.setText(text)
             }
             snackBar?.show()
         }

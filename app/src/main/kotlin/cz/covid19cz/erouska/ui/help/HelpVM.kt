@@ -7,15 +7,13 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-class HelpVM @ViewModelInject constructor(
-) : BaseVM() {
+class HelpVM @ViewModelInject constructor() : BaseVM() {
 
     val searchControlsEnabled = SafeMutableLiveData(false)
     val searchResultCount = SafeMutableLiveData(0)
@@ -33,7 +31,7 @@ class HelpVM @ViewModelInject constructor(
         publish(HelpCommandEvent(HelpCommandEvent.Command.OPEN_CHATBOT))
     }
 
-    fun searchQuery(query: String?, tvContent: String) {
+    fun searchQuery(query: String?, faqContent: String) {
         searchJob?.cancel()
 
         this.queryData.value = query?.trim() ?: ""
@@ -60,32 +58,28 @@ class HelpVM @ViewModelInject constructor(
 
                     content.value = result
                     searchControlsEnabled.value = replaceList.isNotEmpty()
-
-                    lastMarkedIndex.value = tvContent.indexOf(queryData.value, ignoreCase = true)
+                    lastMarkedIndex.value = faqContent.indexOf(queryData.value, ignoreCase = true)
 
                 } catch (cancelException: CancellationException) {
-                    L.w("job cancelled")
-                } catch (exception: Exception) {
-                    searchControlsEnabled.value =  false
-                    content.value =  AppConfig.helpMarkdown
-                    searchResultCount.value = 0
-                    lastMarkedIndex.value = 0
+                    L.d("Job cancelled")
                 }
 
             }
         } else {
-            searchControlsEnabled.value = false
-            content.value = AppConfig.helpMarkdown
-            searchResultCount.value = 0
-            lastMarkedIndex.value = 0
+            resetSearch()
         }
 
     }
 
-    /**
-     * Scroll to previous search result
-     */
-    fun scrollToPreviousResult(query: String, content: String) {
+    fun resetSearch() {
+        searchControlsEnabled.value = false
+        content.value = AppConfig.helpMarkdown
+        searchResultCount.value = 0
+        lastMarkedIndex.value = 0
+    }
+
+
+    fun findPositionOfPreviousResult(query: String, content: String) {
         if (searchResultCount.value > 0) {
             if (lastMarkedIndex.value == -1) {
                 lastMarkedIndex.value = content.length
@@ -93,13 +87,10 @@ class HelpVM @ViewModelInject constructor(
             lastMarkedIndex.value = content.substring(0, lastMarkedIndex.value).lastIndexOf(
                 query, ignoreCase = true
             )
-       }
+        }
     }
 
-    /**
-     * Scroll to next search result
-     */
-    fun scrollToNextResult(query: String, content: String) {
+    fun findPositionOfNextResult(query: String, content: String) {
         if (searchResultCount.value > 0) {
             lastMarkedIndex.value = content.indexOf(
                 query,

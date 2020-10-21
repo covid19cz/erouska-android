@@ -78,6 +78,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
                 menu.findItem(R.id.previous_search_result)?.isVisible = false
                 menu.findItem(R.id.next_search_result)?.isVisible = false
                 menu.findItem(R.id.nav_about)?.isVisible = true
+                viewModel.resetSearch()
                 (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(true)
                 false
             }
@@ -91,7 +92,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        viewModel.scrollToNextResult(query, help_desc?.text.toString())
+                        viewModel.findPositionOfNextResult(query, help_desc?.text.toString())
                         return true
                     }
                     return false
@@ -111,14 +112,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
         collapseAndHideSearchView()
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
     fun goBack() {
         navController().navigateUp()
     }
@@ -130,14 +123,14 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
                 true
             }
             R.id.previous_search_result -> {
-                viewModel.scrollToPreviousResult(
+                viewModel.findPositionOfPreviousResult(
                     activity?.toolbar_search_view?.query.toString(),
                     help_desc?.text.toString()
                 )
                 true
             }
             R.id.next_search_result -> {
-                viewModel.scrollToNextResult(
+                viewModel.findPositionOfNextResult(
                     activity?.toolbar_search_view?.query.toString(),
                     help_desc?.text.toString()
                 )

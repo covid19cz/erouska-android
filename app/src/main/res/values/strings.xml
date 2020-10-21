@@ -131,7 +131,6 @@
     <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
     <string name="search">Search</string>
-    <string name="search_hint">Type here ..</string>
     <string name="previous_search_result">Previous search result</string>
     <string name="next_search_result">Next search result</string>
     <string name="help_no_results">No search results</string>
