@@ -56,12 +56,12 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
     val lastKeyImportLive = SafeMutableLiveData(getLastKeyImport())
 
-    fun lastKeyExportFileName(): String {
-        return prefs.getString(LAST_KEY_IMPORT, "") ?: ""
+    fun lastKeyExportFileName(indexUrl: String): String {
+        return prefs.getString(LAST_KEY_IMPORT + indexUrl, "") ?: ""
     }
 
-    fun setLastKeyExportFileName(filename: String) {
-        prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
+    fun setLastKeyExportFileName(indexUrl: String, filename: String) {
+        prefs.edit().putString(LAST_KEY_IMPORT + indexUrl, filename).apply()
     }
 
     fun setLastKeyImport() {
@@ -75,7 +75,8 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun setLastSetDiagnosisKeysDataMapping() {
-        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis()).apply()
+        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis())
+            .apply()
     }
 
     fun getLastSetDiagnosisKeysDataMapping(): Long {
@@ -90,23 +91,23 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
     }
 
-    fun cleanLegacyExposurePrefs(){
+    fun cleanLegacyExposurePrefs() {
         prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
     }
 
-    fun isLegacyExposuresImported() : Boolean{
+    fun isLegacyExposuresImported(): Boolean {
         return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
     }
 
-    fun setLegacyExposuresImported(){
+    fun setLegacyExposuresImported() {
         prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
     }
 
-    fun isTraveller() : Boolean{
+    fun isTraveller(): Boolean {
         return prefs.getBoolean(TRAVELLER, false)
     }
 
-    fun setTraveller(traveller: Boolean){
+    fun setTraveller(traveller: Boolean) {
         prefs.edit().putBoolean(TRAVELLER, traveller).apply()
     }
 

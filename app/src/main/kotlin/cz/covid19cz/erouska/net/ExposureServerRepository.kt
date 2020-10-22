@@ -2,7 +2,9 @@ package cz.covid19cz.erouska.net
 
 import android.content.Context
 import androidx.work.*
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
@@ -18,6 +20,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONArray
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.DataInputStream
@@ -34,14 +37,6 @@ class ExposureServerRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val prefs: SharedPrefsRepository
 ) {
-
-    companion object {
-        private val KEY_EXPORT_INDEX = if (BuildConfig.FLAVOR == "dev") {
-            "${AppConfig.keyExportUrl}/index.txt"
-        } else {
-            "${AppConfig.keyExportUrl}erouska/index.txt"
-        }
-    }
 
     private val okhttpBuilder by lazy {
         val builder = OkHttpClient.Builder()
@@ -111,42 +106,62 @@ class ExposureServerRepository @Inject constructor(
         }
     }
 
-    suspend fun downloadKeyExport(): DownloadedKeys {
+    suspend fun downloadKeyExport(): List<DownloadedKeys> {
         return withContext(Dispatchers.IO) {
-            val lastDownloadedFile = prefs.lastKeyExportFileName()
-
-            val urlContent = readURLContent(KEY_EXPORT_INDEX)
-
-            var fileNames = urlContent.split('\n')
-
-            // Find index of last downloaded file and get everything after it
-            val indexOfLastDownload = fileNames.indexOf(lastDownloadedFile)
-            if (indexOfLastDownload != -1) {
-                fileNames = fileNames.subList(indexOfLastDownload + 1, fileNames.size)
+            val countryUrls = parseCountryUrls(if (prefs.isTraveller()) {
+                AppConfig.keyExportEuTravellerUrls
+            } else {
+                AppConfig.keyExportNonTravellerUrls
+            })
+            val keysList = mutableListOf<DownloadedKeys>()
+            val keysListTasks = mutableListOf<Deferred<DownloadedKeys?>>()
+            countryUrls.forEach {
+                keysListTasks.add(async {downloadIndex(it) })
             }
-
-            val extractedFiles = mutableListOf<File>()
-            val indexUrls = fileNames.map { AppConfig.keyExportUrl + it }
-
-            val downloads = mutableListOf<Deferred<File?>>()
-            indexUrls.forEach {
-                downloads.add(async { downloadFile(it) })
-            }
-            extractedFiles.addAll(downloads.awaitAll().filterNotNull())
-            val result = DownloadedKeys(extractedFiles, fileNames)
-            L.i("Downloaded ${result.files.size}/${result.urls.size} key files")
-            return@withContext result
+            keysList.addAll(keysListTasks.awaitAll().filterNotNull())
+            return@withContext keysList
         }
     }
 
-    private fun readURLContent(url: String): String {
-        val indexConnection = URL(url).openConnection()
-        val indexInputStream = indexConnection.getInputStream()
-
-        return indexInputStream.readBytes().toString(Charsets.UTF_8)
+    private fun parseCountryUrls(json: String): List<String> {
+        val countries = JSONArray(json)
+        val urls = mutableListOf<String>()
+        for (i in 0 until countries.length()) {
+            val country = countries.getJSONObject(i)
+            urls.add(country.getString(country.keys().next()))
+        }
+        return urls
     }
 
-    fun downloadFile(zipfile: String): File? {
+    private suspend fun downloadIndex(url: String): DownloadedKeys? {
+        withContext(Dispatchers.IO) {
+            val indexContent = readURLContent(url)
+            if (indexContent != null) {
+                val lastDownloadedFile = prefs.lastKeyExportFileName(url)
+                var fileNames = indexContent.split('\n')
+
+                // Find index of last downloaded file and get everything after it
+                val indexOfLastDownload = fileNames.indexOf(lastDownloadedFile)
+                if (indexOfLastDownload != -1) {
+                    fileNames = fileNames.subList(indexOfLastDownload + 1, fileNames.size)
+                }
+
+                val extractedFiles = mutableListOf<File>()
+                val zipUrls = fileNames.map { AppConfig.keyExportUrl + it }
+
+                val downloads = mutableListOf<Deferred<File?>>()
+                zipUrls.forEach {
+                    downloads.add(async { downloadFile(it) })
+                }
+                extractedFiles.addAll(downloads.awaitAll().filterNotNull())
+                return@withContext DownloadedKeys(extractedFiles, fileNames)
+            } else {
+                return@withContext null
+            }
+        }
+    }
+
+    private fun downloadFile(zipfile: String): File? {
         try {
             val dir = File(context.cacheDir.path + "/export/")
             val file =
@@ -167,6 +182,18 @@ class ExposureServerRepository @Inject constructor(
             L.e(t)
         }
         return null
+    }
+
+    private fun readURLContent(url: String): String? {
+        return try {
+            val indexConnection = URL(url).openConnection()
+            val indexInputStream = indexConnection.getInputStream()
+
+            indexInputStream.readBytes().toString(Charsets.UTF_8)
+        } catch (e: Throwable) {
+            L.w("Skipping index download due to $e")
+            null
+        }
     }
 
     fun scheduleKeyDownload() {

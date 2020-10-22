@@ -67,32 +67,35 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun provideDiagnosisKeys(
-        keys: DownloadedKeys
+        keyList: List<DownloadedKeys>
     ): Boolean = suspendCoroutine { cont ->
 
         setDiagnosisKeysMapping()
 
-        if (keys.isValid()) {
-            if (keys.files.isNotEmpty()) {
-                L.i("Importing keys")
-                client.provideDiagnosisKeys(keys.files)
-                    .addOnSuccessListener {
-                        L.i("Import success")
-                        prefs.setLastKeyImport()
+        keyList.forEach { keys ->
+            if (keys.isValid()) {
+                if (keys.files.isNotEmpty()) {
+                    L.i("Importing keys")
+                    // TODO: Call this one time or multiple times?
+                    client.provideDiagnosisKeys(keys.files)
+                        .addOnSuccessListener {
+                            L.i("Import success")
+                            prefs.setLastKeyImport()
 
-                        prefs.setLastKeyExportFileName(keys.getLastUrl())
-                        cont.resume(true)
-                    }.addOnFailureListener {
-                        cont.resumeWithException(it)
-                    }
+                            prefs.setLastKeyExportFileName(keys.getLastUrl())
+                            cont.resume(true)
+                        }.addOnFailureListener {
+                            cont.resumeWithException(it)
+                        }
+                } else {
+                    L.i("Import skipped (no new data)")
+                    prefs.setLastKeyImport()
+                    cont.resume(true)
+                }
             } else {
-                L.i("Import skipped (no new data)")
-                prefs.setLastKeyImport()
+                L.i("Import skipped (invalid data)")
                 cont.resume(true)
             }
-        } else {
-            L.i("Import skipped (invalid data)")
-            cont.resume(true)
         }
     }
 

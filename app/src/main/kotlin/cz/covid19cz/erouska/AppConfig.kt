@@ -88,6 +88,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_handleError500AsInvalidCode")
     val handleError400AsExpiredOrUsedCode
         get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
+    val keyExportNonTravellerUrls
+        get() = firebaseRemoteConfig.getString("v2_keyExportNonTravellerUrls")
+    val keyExportEuTravellerUrls
+        get() = firebaseRemoteConfig.getString("v2_keyExportEuTravellerUrls")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
