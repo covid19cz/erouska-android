@@ -153,6 +153,8 @@
     <string name="next_search_result">Následující výsledek</string>
     <string name="help_no_results">Žádné výsledky vyhledávání</string>
 
+    <string name="dashboard_no_cards"></string>
+
     <plurals name="dashboard_risky_encounter_title_bad">
         <item quantity="one">Za posledních 14 dní %1$d rizikové setkání</item>
         <item quantity="few">Za posledních 14 dní %1$d riziková setkání</item>
@@ -160,8 +162,8 @@
     </plurals>
 
     <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
-    <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
-    <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_button">Anonymne upozornit ostatní</string>
 
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>

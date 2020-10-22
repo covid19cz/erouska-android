@@ -136,6 +136,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
     <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
 
+    <string name="dashboard_no_cards">No content</string>
 
     <plurals name="dashboard_risky_encounter_title_bad">
         <item quantity="one">Za posledných 14 dní %1$d rizikové stretnutie</item>

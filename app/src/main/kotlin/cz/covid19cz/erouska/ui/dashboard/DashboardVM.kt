@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,6 @@ import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -40,8 +40,11 @@ class DashboardVM @ViewModelInject constructor(
     val lastExposureDate = MutableLiveData<String>()
     val exposuresCount = MutableLiveData(0)
 
+    val items = ObservableArrayList<DashboardCard>()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
                 lastUpdateDate.value =
@@ -114,7 +117,6 @@ class DashboardVM @ViewModelInject constructor(
             }.onSuccess {
                 L.d("Exposure Notifications started")
                 onExposureNotificationsStateChanged(true)
-//                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
             }.onFailure {
                 L.e(it)
                 onExposureNotificationsStateChanged(false)
@@ -166,7 +168,8 @@ class DashboardVM @ViewModelInject constructor(
                 exposureNotificationsRepository.getAllRiskyExposures()
             }.onSuccess { riskyExposureList ->
                 if (!riskyExposureList.isNullOrEmpty()) {
-                    val lastExposureDate = riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()
+                    val lastExposureDate =
+                        riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()
                     onRiskyExposuresFound(riskyExposureList.size, lastExposureDate)
                 } else {
                     onNoRiskyExposuresFound()
@@ -180,25 +183,14 @@ class DashboardVM @ViewModelInject constructor(
     private fun onRiskyExposuresFound(count: Int, lastExposureDate: String) {
         this.lastExposureDate.value = lastExposureDate
         this.exposuresCount.value = count
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
     }
 
     private fun onNoRiskyExposuresFound() {
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
+        this.exposuresCount.value = 0
     }
 
     private fun showExposure() {
         publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
-    }
-
-    fun acceptExposure() {
-        viewModelScope.launch {
-            runCatching {
-                exposureNotificationsRepository.markAsAccepted()
-            }.onFailure {
-                L.e(it)
-            }
-        }
     }
 
     fun unregister() {
@@ -208,4 +200,13 @@ class DashboardVM @ViewModelInject constructor(
     fun sendData() {
         navigate(R.id.action_nav_dashboard_to_nav_send_data)
     }
+
+    fun onButtonClick(type: Type) {
+
+    }
+
+    fun onContentClick(type: Type) {
+
+    }
+
 }

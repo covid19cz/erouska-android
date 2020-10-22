@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="cz.covid19cz.erouska.ui.dashboard.DashboardCard" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.dashboard.DashboardVM" />
+
+    </data>
+
+    <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+        android:id="@+id/dash_card_risky_encounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:card_actionable_button="@{item.actionableButton}"
+        app:card_actionable_content="@{item.actionableContent}"
+        app:card_alert="@{item.alert}"
+        app:card_button_text="@{item.buttonText}"
+        app:card_has_content="@{item.hasContent}"
+        app:card_icon="@{item.icon}"
+        app:card_on_button_click="@{() -> vm.onButtonClick(item.type)}"
+        app:card_on_content_click="@{() -> vm.onContentClick(item.type)}"
+        app:card_subtitle="@{item.subtitle}"
+        app:card_title="@{item.title}"
+        app:visibleOrGone="@{item.isVisible}"
+        tools:visibility="visible" />
+
+</layout>

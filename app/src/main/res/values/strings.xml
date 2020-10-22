@@ -135,7 +135,7 @@
     <string name="next_search_result">Next search result</string>
     <string name="help_no_results">No search results</string>
 
-
+    <string name="dashboard_no_cards">No content</string>
     <plurals name="dashboard_risky_encounter_title_bad">
         <item quantity="zero">No risky encounter in the past 14 days</item>
         <item quantity="one">%1$d risky encounter in the past 14 days</item>
@@ -149,4 +149,5 @@
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
+    <string name="empty" />
 </resources>
