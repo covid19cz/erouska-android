@@ -45,6 +45,7 @@
     <string name="welcome_title">Thanks to eRou\u0161ka you will keep yourself and others safe</string>
     <string name="contacts_title">Contacts</string>
     <string name="send_data">Send data</string>
+    <string name="sent">Sent</string>
     <string name="share_app_title">Share eRouška</string>
     <string name="menu_share_app">Share application</string>
     <string name="share_app_text">Hi, I\'m using eRouška. Install it so we can help stop the spread of COVID-19 together. The application can anonymously notify you about a risky encounter and recommend further steps. The application can be found at %s.</string>
@@ -129,6 +130,10 @@
     <string name="activation_error_reason_en_api">Your device does not support Exposure Notifications by Google.</string>
     <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
+    <string name="search">Search</string>
+    <string name="previous_search_result">Previous search result</string>
+    <string name="next_search_result">Next search result</string>
+    <string name="help_no_results">No search results</string>
 
     <string name="exposure_info_date">Naposledy %s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19</string>
     <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>

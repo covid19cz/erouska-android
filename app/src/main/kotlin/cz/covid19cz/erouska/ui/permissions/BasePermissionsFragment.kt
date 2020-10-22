@@ -64,7 +64,7 @@ open class BasePermissionsFragment<T : BasePermissionsVM>(
             it.text = getString(R.string.permission_rationale_title)
         }
 
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(requireContext())
             .setCustomTitle(layout)
             .setMessage(getString(R.string.permission_rationale_body))
             .setPositiveButton(getString(R.string.permission_rationale_settings))

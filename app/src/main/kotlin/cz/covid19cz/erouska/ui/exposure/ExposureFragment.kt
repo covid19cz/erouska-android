@@ -1,6 +1,8 @@
 package cz.covid19cz.erouska.ui.exposure
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.AppConfig
@@ -10,6 +12,7 @@ import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
+import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_exposure.*
 
@@ -20,6 +23,11 @@ class ExposureFragment : BaseFragment<FragmentExposureBinding, ExposureVM>(
 ) {
 
     val args: ExposureFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,8 +54,8 @@ class ExposureFragment : BaseFragment<FragmentExposureBinding, ExposureVM>(
     }
 
     private fun setupListeners() {
-        symptoms_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_main_symptoms) }
-        spread_prevention_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_spread_prevention) }
+        symptoms_container.setOnClickListener { navigate(ExposureFragmentDirections.actionNavExposureToNavExposureHelp(ExposureHelpType.SYMPTOMS)) }
+        spread_prevention_container.setOnClickListener { navigate(ExposureFragmentDirections.actionNavExposureToNavExposureHelp(ExposureHelpType.PREVENTION)) }
         earlier_exposures_container.setOnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
     }
 
@@ -66,6 +74,11 @@ class ExposureFragment : BaseFragment<FragmentExposureBinding, ExposureVM>(
         container_group.show()
 
         no_exposures_group.hide()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.exposure, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

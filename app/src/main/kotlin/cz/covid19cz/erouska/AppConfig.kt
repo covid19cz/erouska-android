@@ -52,12 +52,16 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_symptomsUITitle")
     val spreadPreventionUITitle
         get() = firebaseRemoteConfig.getString("v2_spreadPreventionUITitle")
+    val exposureHelpUITitle
+        get() = firebaseRemoteConfig.getString("v2_exposureHelpUITitle")
     val recentExposuresUITitle
         get() = firebaseRemoteConfig.getString("v2_recentExposuresUITitle")
     val symptomsContentJson
         get() = firebaseRemoteConfig.getString("v2_symptomsContentJson")
     val preventionContentJson
         get() = firebaseRemoteConfig.getString("v2_preventionContentJson")
+    val exposureHelpContentJson
+        get() = firebaseRemoteConfig.getString("v2_exposureHelpContentJson")
     val encounterWarning
         get() = firebaseRemoteConfig.getString("v2_encounterWarning")
     val selfCheckerPeriodHours
