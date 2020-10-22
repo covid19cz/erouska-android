@@ -135,18 +135,28 @@
     <string name="next_search_result">Next search result</string>
     <string name="help_no_results">No search results</string>
 
-
+    <string name="dashboard_no_cards">No content</string>
     <plurals name="dashboard_risky_encounter_title_bad">
         <item quantity="zero">No risky encounter in the past 14 days</item>
         <item quantity="one">%1$d risky encounter in the past 14 days</item>
         <item quantity="other">%1$d risky encounters in the past 14 days</item>
     </plurals>
 
-    <string name="dashboard_risky_encounter_subtitle_bad">You have last met an individual positive for COVID-19 on %1$s.</string>
+    <plurals name="dashboard_risky_encounter_subtitle">
+        <item quantity="one">You have last met an individual positive for COVID-19 on %1$s.</item>
+        <item quantity="few">You have last met an individual positive for COVID-19 on %1$s.</item>
+        <item quantity="other">You have last met an individual positive for COVID-19 on %1$s.</item>
+    </plurals>
+    <string name="dashboard_risky_encounter_subtitle_bad">On %1$s you met an individual, u ktorej bolo potvrdené ochorenie COVID-19.</string>
+
+    <string name="dashboard_risky_encounter_title_ok">No risky encounter in the past 14 days.</string>
+    <string name="dashboard_risky_encounter_subtitle_ok">Poslední aktualizace %1$s v %2$s.</string>
+
     <string name="dashboard_positive_test_title">Are you positive for COVID-19?</string>
     <string name="dashboard_positive_test_button">Anonymously notify others</string>
 
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
+    <string name="empty" />
 </resources>

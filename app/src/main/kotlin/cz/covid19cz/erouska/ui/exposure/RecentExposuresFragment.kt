@@ -22,6 +22,6 @@ class RecentExposuresFragment : BaseFragment<FragmentRecentExposuresBinding, Rec
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true)
         activity?.title = AppConfig.recentExposuresUITitle
-        viewModel.loadExposures()
+        viewModel.loadExposures(true)
     }
 }

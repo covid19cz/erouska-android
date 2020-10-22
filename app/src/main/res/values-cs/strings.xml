@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">eRouška</string>
     <string name="help_toolbar_title">Nápověda</string>
     <string name="go_back_button">Zpět do aplikace</string>
@@ -153,15 +153,21 @@
     <string name="next_search_result">Následující výsledek</string>
     <string name="help_no_results">Žádné výsledky vyhledávání</string>
 
-    <plurals name="dashboard_risky_encounter_title_bad">
+    <string name="dashboard_no_cards"></string>
+
+    <plurals name="dashboard_risky_encounter_title_bad" tools:ignore="UnusedQuantity">
         <item quantity="one">Za posledních 14 dní %1$d rizikové setkání</item>
         <item quantity="few">Za posledních 14 dní %1$d riziková setkání</item>
         <item quantity="other">Za posledních 14 dní %1$d rizikových setkání</item>
     </plurals>
 
     <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
-    <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
-    <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
+
+    <string name="dashboard_risky_encounter_title_ok">Za posledních 14 dní žádné rizikové setkání.</string>
+    <string name="dashboard_risky_encounter_subtitle_ok">Poslední aktualizace %1$s v %2$s.</string>
+
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
 
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>

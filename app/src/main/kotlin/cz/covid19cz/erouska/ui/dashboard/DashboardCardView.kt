@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
+import cz.covid19cz.erouska.utils.L
 import kotlinx.android.synthetic.main.dashboard_card_view.view.*
 import kotlinx.android.synthetic.main.view_data_item.view.subtitle_text
 import kotlinx.android.synthetic.main.view_data_item.view.title_text
@@ -37,21 +38,29 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             subtitle_text.text = value
-            subtitle_text.show()
+            if (subtitle_text.text.isNotBlank()) {
+                subtitle_text.show()
+            }
         }
 
-    var card_button_text: String? = null
+    var card_button_text: Int? = null
         set(value) {
-            field = value
-            button.text = value
-            button.show()
+            if (value != null) {
+                field = value
+                button.text = context.getString(value)
+            }
         }
 
     var card_actionable_content: Boolean? = false
         set(value) {
             field = value
             if (value == true) {
-                title_text.setCompoundDrawablesWithIntrinsicBounds(card_icon, null, ContextCompat.getDrawable(context, R.drawable.ic_arrow_right), null)
+                title_text.setCompoundDrawablesWithIntrinsicBounds(
+                    card_icon,
+                    null,
+                    ContextCompat.getDrawable(context, R.drawable.ic_arrow_right),
+                    null
+                )
                 content_container.isFocusable = true
                 content_container.isClickable = true
             } else {
@@ -71,8 +80,10 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             if (value == true) {
+                L.i("showing button")
                 button.show()
             } else {
+                L.i("hiding button")
                 button.hide()
             }
         }
@@ -108,7 +119,15 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             value?.let {
-                title_text.setCompoundDrawablesWithIntrinsicBounds(it, null, if (card_actionable_content == true) ContextCompat.getDrawable(context, R.drawable.ic_arrow_right) else null , null)
+                title_text.setCompoundDrawablesWithIntrinsicBounds(
+                    it,
+                    null,
+                    if (card_actionable_content == true) ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_arrow_right
+                    ) else null,
+                    null
+                )
             }
         }
 }

@@ -20,6 +20,7 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.threeten.bp.LocalDate
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

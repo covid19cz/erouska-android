@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.dashboard
 
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableList
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +17,6 @@ import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.DeviceUtils
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -35,13 +36,17 @@ class DashboardVM @ViewModelInject constructor(
     val bluetoothState = SafeMutableLiveData(true)
     val locationState = SafeMutableLiveData(true)
 
-    val lastUpdateDate = MutableLiveData<String>()
-    val lastUpdateTime = MutableLiveData<String>()
+    val lastUpdateDate = MutableLiveData<String>(null)
+    val lastUpdateTime = MutableLiveData<String>(null)
     val lastExposureDate = MutableLiveData<String>()
     val exposuresCount = MutableLiveData(0)
 
+    val items = ObservableArrayList<DashboardCard>()
+    val allCards = mutableMapOf<Type, DashboardCard>()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
                 lastUpdateDate.value =
@@ -49,6 +54,7 @@ class DashboardVM @ViewModelInject constructor(
                 lastUpdateTime.value =
                     SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
             }
+            L.i("last update date ${lastUpdateDate.value} at ${lastUpdateTime.value}")
             checkForObsoleteData()
         }
         exposureNotificationsEnabled.observeForever { enabled ->
@@ -56,10 +62,16 @@ class DashboardVM @ViewModelInject constructor(
                 checkForRiskyExposure()
             }
         }
+
+        initializeOnItemChangedListener()
     }
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+
+        initializeCards()
+
         if (auth.currentUser == null) {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
@@ -84,6 +96,69 @@ class DashboardVM @ViewModelInject constructor(
                 publish(GmsApiErrorEvent(it))
             }
         }
+    }
+
+    private fun initializeCards() {
+        addCard(allCards[Type.ACTIVE_APP])
+        addCard(allCards[Type.POSITIVE_TEST])
+        addCard(allCards[Type.RISKY_ENCOUNTER])
+        // TODO uncomment when EFGS ready
+//        addCard(allCards[Type.TRAVEL])
+    }
+
+    /**
+     * Takes care of correct ordering of cards in the recycler view.
+     */
+    private fun initializeOnItemChangedListener() {
+        items.addOnListChangedCallback(object :
+            ObservableList.OnListChangedCallback<ObservableArrayList<DashboardCard>>() {
+            override fun onChanged(sender: ObservableArrayList<DashboardCard>?) {
+            }
+
+            override fun onItemRangeRemoved(
+                sender: ObservableArrayList<DashboardCard>?,
+                positionStart: Int,
+                itemCount: Int
+            ) {
+                L.w("item inserted")
+                Collections.sort(items)
+            }
+
+            override fun onItemRangeMoved(
+                sender: ObservableArrayList<DashboardCard>?,
+                fromPosition: Int,
+                toPosition: Int,
+                itemCount: Int
+            ) {
+            }
+
+            override fun onItemRangeInserted(
+                sender: ObservableArrayList<DashboardCard>?,
+                positionStart: Int,
+                itemCount: Int
+            ) {
+                L.w("item inserted")
+                Collections.sort(items)
+            }
+
+            override fun onItemRangeChanged(
+                sender: ObservableArrayList<DashboardCard>?,
+                positionStart: Int,
+                itemCount: Int
+            ) {
+            }
+
+        })
+    }
+
+    fun addCard(card: DashboardCard?) {
+        if (card != null && !items.contains(card)) {
+            items.add(card)
+        }
+    }
+
+    fun removeCard(card: DashboardCard?) {
+        items.remove(card)
     }
 
     /**
@@ -114,7 +189,6 @@ class DashboardVM @ViewModelInject constructor(
             }.onSuccess {
                 L.d("Exposure Notifications started")
                 onExposureNotificationsStateChanged(true)
-//                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
             }.onFailure {
                 L.e(it)
                 onExposureNotificationsStateChanged(false)
@@ -166,7 +240,8 @@ class DashboardVM @ViewModelInject constructor(
                 exposureNotificationsRepository.getAllRiskyExposures()
             }.onSuccess { riskyExposureList ->
                 if (!riskyExposureList.isNullOrEmpty()) {
-                    val lastExposureDate = riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()
+                    val lastExposureDate =
+                        riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()
                     onRiskyExposuresFound(riskyExposureList.size, lastExposureDate)
                 } else {
                     onNoRiskyExposuresFound()
@@ -180,11 +255,10 @@ class DashboardVM @ViewModelInject constructor(
     private fun onRiskyExposuresFound(count: Int, lastExposureDate: String) {
         this.lastExposureDate.value = lastExposureDate
         this.exposuresCount.value = count
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.RECENT_EXPOSURE))
     }
 
     private fun onNoRiskyExposuresFound() {
-        publish(ExposuresCommandEvent(ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES))
+        this.exposuresCount.value = 0
     }
 
     private fun showExposure() {
@@ -205,7 +279,26 @@ class DashboardVM @ViewModelInject constructor(
         FirebaseAuth.getInstance().signOut()
     }
 
-    fun sendData() {
-        navigate(R.id.action_nav_dashboard_to_nav_send_data)
+    fun onButtonClick(type: Type) {
+        when (type) {
+            Type.BLUETOOTH -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_BT))
+            Type.LOCATION_SERVICES -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES))
+            Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
+            Type.ACTIVE_APP -> stop()
+            Type.INACTIVE_APP -> start()
+        }
     }
+
+    fun onContentClick(type: Type) {
+        when (type) {
+            Type.BLUETOOTH -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_BT))
+            Type.LOCATION_SERVICES -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES))
+            Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
+            Type.ACTIVE_APP -> stop()
+            Type.INACTIVE_APP -> start()
+            Type.RISKY_ENCOUNTER -> navigate(R.id.action_nav_dashboard_to_nav_exposures)
+            Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
+        }
+    }
+
 }

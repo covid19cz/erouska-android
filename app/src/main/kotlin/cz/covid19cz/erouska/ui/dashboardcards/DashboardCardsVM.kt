@@ -7,6 +7,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.dashboard.Type
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -25,11 +26,10 @@ import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM>(
@@ -56,23 +56,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         super.onCreate(savedInstanceState)
         activity?.setTitle(R.string.app_name)
         rxPermissions = RxPermissions(this)
+
+        initializeCards()
         subscribeToViewModel()
-
-        viewModel.exposureNotificationsEnabled.observe(this, Observer { isEnabled ->
-            onEnApiChanged(isEnabled)
-            refreshDotIndicator(requireContext())
-            if (isEnabled) {
-                LocalNotificationsHelper.dismissNotRunningNotification(context)
-            }
-        })
-
-        viewModel.bluetoothState.observe(
-            this,
-            Observer { isEnabled -> onBluetoothStateChanged(isEnabled) })
-
-        viewModel.locationState.observe(
-            this,
-            Observer { isEnabled -> onLocationStateChanged(isEnabled) })
+        subscribeEnApi()
+        subscribeBluetooth()
+        subscribeLocationServices()
+        subscribeRiskyEncounter()
 
     }
 
@@ -107,52 +97,29 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
                     LocalNotificationsHelper.dismissOudatedDataNotification(context)
-                    data_notification_container.hide()
+                    data_notification_container?.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
-                    context
-                )
+                DashboardCommandEvent.Command.TURN_OFF ->
+                    LocalNotificationsHelper.showErouskaPausedNotification(context)
+                DashboardCommandEvent.Command.ENABLE_BT -> requestEnableBt()
+                DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES -> requestLocationEnable()
             }
         }
         subscribe(GmsApiErrorEvent::class) {
             ExposureNotificationsErrorHandling.handle(it, this)
         }
 
-        subscribe(ExposuresCommandEvent::class) {
-            when (it.command) {
-                ExposuresCommandEvent.Command.RECENT_EXPOSURE -> onRecentExposureDiscovered()
-                ExposuresCommandEvent.Command.NO_RECENT_EXPOSURES -> onNoExposureDiscovered()
-            }
-        }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         enableUpInToolbar(false)
 
-        // TODO Change RC string (in defaults and on server side) to march Figma
-        dash_card_no_risky_encounter.card_title = AppConfig.noEncounterCardTitle
-        dash_card_no_risky_encounter.card_subtitle = resources.getString(
-            R.string.dashboard_body_no_contact,
-            viewModel.lastUpdateDate.value,
-            viewModel.lastUpdateTime.value
-        ) + "\n" + AppConfig.encounterUpdateFrequency
-
-        dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
-        dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
-
-        dash_card_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
-        dash_card_no_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
-
-        dash_card_active.card_on_button_click = View.OnClickListener { viewModel.stop() }
-        dash_card_inactive.card_on_button_click = View.OnClickListener { viewModel.start() }
+        data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener {
@@ -169,11 +136,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 )
             )
         }
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
 
-        enableUpInToolbar(false)
-
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -239,41 +202,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
     }
 
-    private fun onRecentExposureDiscovered() {
-        dash_card_no_risky_encounter.hide()
-        dash_card_risky_encounter.show()
-    }
-
-    private fun onNoExposureDiscovered() {
-        dash_card_no_risky_encounter.show()
-        dash_card_risky_encounter.hide()
-    }
-
-    private fun onEnApiChanged(isEnabled: Boolean) {
-        //TODO
-        if (isEnabled) {
-//            dash_en_api_off.hide()
-        } else {
-//            dash_en_api_off.show()
-        }
-    }
-
-    private fun onBluetoothStateChanged(isEnabled: Boolean) {
-        if (isEnabled) {
-            dash_bluetooth_off.hide()
-        } else {
-            dash_bluetooth_off.show()
-        }
-    }
-
-    private fun onLocationStateChanged(isEnabled: Boolean) {
-        if (isEnabled) {
-            dash_location_off.hide()
-        } else {
-            dash_location_off.show()
-        }
-    }
-
     private fun showWelcomeScreen() {
         navigate(R.id.action_nav_dashboard_to_nav_welcome_fragment)
     }
@@ -285,4 +213,133 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
     }
+
+    private fun initializeCards() {
+        Type.values().forEach {
+            L.i("initializing $it")
+            val dashboardCard = DashboardCard(it)
+            dashboardCard.title.value = getString(it.title)
+            dashboardCard.subtitle.value = getString(it.subtitle)
+            dashboardCard.icon.value = getDrawable(requireContext(), it.icon)
+            viewModel.allCards[it] = dashboardCard
+        }
+    }
+
+    private fun subscribeEnApi() {
+        viewModel.exposureNotificationsEnabled.observe(this, Observer { isEnabled ->
+            refreshDotIndicator(requireContext())
+            setActiveCardVisibility(isEnabled)
+        })
+    }
+
+    private fun subscribeBluetooth() {
+        viewModel.bluetoothState.observe(this, Observer { isEnabled ->
+
+            if (isEnabled) {
+                viewModel.removeCard(viewModel.allCards[Type.BLUETOOTH])
+            } else {
+                viewModel.addCard(viewModel.allCards[Type.BLUETOOTH])
+            }
+
+            setActiveCardVisibility(isEnabled && viewModel.locationState.value)
+
+        })
+    }
+
+    private fun subscribeLocationServices() {
+        viewModel.locationState.observe(this, Observer { isEnabled ->
+
+            if (isEnabled) {
+                viewModel.removeCard(viewModel.allCards[Type.LOCATION_SERVICES])
+            } else {
+                viewModel.addCard(viewModel.allCards[Type.LOCATION_SERVICES])
+            }
+
+            setActiveCardVisibility(isEnabled && viewModel.bluetoothState.value)
+
+        })
+    }
+
+    private fun setActiveCardVisibility(isActive: Boolean) {
+        if (isActive) {
+            viewModel.removeCard(viewModel.allCards[Type.INACTIVE_APP])
+            viewModel.addCard(viewModel.allCards[Type.ACTIVE_APP])
+        } else {
+            viewModel.removeCard(viewModel.allCards[Type.ACTIVE_APP])
+            viewModel.addCard(viewModel.allCards[Type.INACTIVE_APP])
+        }
+    }
+
+    private fun subscribeRiskyEncounter() {
+        val riskyDashboardCard = viewModel.allCards[Type.RISKY_ENCOUNTER]
+
+        viewModel.lastExposureDate.observe(this, Observer {
+            L.i("Last exposure date updated to $it")
+            updateRiskyEncountersCard(viewModel.exposuresCount.value ?: 0 > 0)
+        })
+
+        viewModel.exposuresCount.observe(this, Observer { exposuresCount ->
+            L.i("exposures count updated $exposuresCount")
+            val hasExposures = exposuresCount > 0
+            updateRiskyEncountersCard(hasExposures)
+            riskyDashboardCard?.isAlert?.value = hasExposures
+        })
+
+        viewModel.lastUpdateDate.observe(this, Observer {
+            L.i("Last update date update to $it")
+            updateRiskyEncountersCard(viewModel.exposuresCount.value ?: 0 > 0)
+        })
+    }
+
+    private fun updateRiskyEncountersCard(hasRiskyEncounters: Boolean) {
+        if (hasRiskyEncounters) {
+            setSomeRiskyEncounters()
+        } else {
+            setNoRiskyEncounters()
+        }
+    }
+
+    private fun setNoRiskyEncounters() {
+        val riskyDashboardCard = viewModel.allCards[Type.RISKY_ENCOUNTER]
+
+        riskyDashboardCard?.title?.value =
+            resources.getString(R.string.dashboard_risky_encounter_title_ok)
+
+        riskyDashboardCard?.subtitle?.value = if (viewModel.lastUpdateDate.value == null) {
+            resources.getString(R.string.empty)
+        } else {
+            resources.getString(
+                R.string.dashboard_risky_encounter_subtitle_ok,
+                viewModel.lastUpdateDate.value,
+                viewModel.lastUpdateTime.value
+            )
+        }
+
+        riskyDashboardCard?.icon?.value =
+            getDrawable(requireContext(), R.drawable.ic_no_risky_encounter)
+
+    }
+
+    private fun setSomeRiskyEncounters() {
+        val riskyDashboardCard = viewModel.allCards[Type.RISKY_ENCOUNTER]
+        val exposuresCount = viewModel.exposuresCount.value ?: 0
+        L.i("some risky encounters are found: $exposuresCount")
+
+        riskyDashboardCard?.title?.value = resources.getQuantityString(
+            R.plurals.dashboard_risky_encounter_title_bad,
+            exposuresCount,
+            exposuresCount
+        )
+
+        riskyDashboardCard?.subtitle?.value = resources.getString(
+            R.string.dashboard_risky_encounter_subtitle_bad,
+            viewModel.lastExposureDate.value
+        )
+
+        riskyDashboardCard?.icon?.value =
+            getDrawable(requireContext(), R.drawable.ic_risky_encounter)
+
+
+    }
+
 }
