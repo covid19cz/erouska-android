@@ -39,7 +39,8 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 SendDataCommandEvent.Command.CODE_INVALID -> onCodeInvalid()
                 SendDataCommandEvent.Command.CODE_EXPIRED -> onCodeExpired()
                 SendDataCommandEvent.Command.DATA_SEND_FAILURE -> onSendDataFailure(it.errorMessage)
-                SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSendDataSuccess()
+                SendDataCommandEvent.Command.DATA_SEND_SUCCESS -> onSuccess()
+                SendDataCommandEvent.Command.NOT_ENOUGH_KEYS -> onSuccess(hasEnoughKeys = false)
                 SendDataCommandEvent.Command.PROCESSING -> onProcess()
                 SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED -> onCodeExpiredOrUsed()
                 SendDataCommandEvent.Command.NO_INTERNET -> onNoInternet()
@@ -163,11 +164,19 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         error_body.text = getString(R.string.no_internet)
     }
 
-    private fun onSendDataSuccess() {
+    private fun onSuccess(hasEnoughKeys : Boolean = true) {
         activity?.setTitle(R.string.sent)
         progress.hide()
         code_input.hideKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)
+
+        if (hasEnoughKeys){
+            success_header.setText(R.string.send_data_success_header)
+            success_body_1.setText(R.string.send_data_success_body_1)
+        } else {
+            success_header.setText(R.string.send_data_success_body_1)
+            success_body_1.setText(R.string.send_data_success_body_1_not_enough_keys)
+        }
 
         ic_success.show()
         success_header.show()

@@ -6,6 +6,7 @@ class SendDataCommandEvent(val command: Command, val errorMessage: String? = nul
 
     enum class Command {
         INIT,
+        NOT_ENOUGH_KEYS,
         PROCESSING,
         CODE_VALID,
         CODE_INVALID,
