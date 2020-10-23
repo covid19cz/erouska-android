@@ -69,9 +69,20 @@
                     tools:visibility="visible"
                     android:minWidth="44dp"
                     android:minHeight="40dp"
+                    android:paddingStart="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/subtitle_text"
                     tools:text="Action" />
+
+                <ImageView
+                    android:id="@+id/actionable_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:src="@drawable/ic_arrow_right"
+                    />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

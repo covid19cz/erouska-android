@@ -99,7 +99,6 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     private fun initializeCards() {
-        addCard(allCards[Type.ACTIVE_APP])
         addCard(allCards[Type.POSITIVE_TEST])
         addCard(allCards[Type.RISKY_ENCOUNTER])
         // TODO uncomment when EFGS ready
@@ -122,6 +121,7 @@ class DashboardVM @ViewModelInject constructor(
             ) {
                 L.w("item inserted")
                 Collections.sort(items)
+                publish(DashboardCommandEvent(DashboardCommandEvent.Command.REDRAW))
             }
 
             override fun onItemRangeMoved(
@@ -139,6 +139,7 @@ class DashboardVM @ViewModelInject constructor(
             ) {
                 L.w("item inserted")
                 Collections.sort(items)
+                publish(DashboardCommandEvent(DashboardCommandEvent.Command.REDRAW))
             }
 
             override fun onItemRangeChanged(
@@ -262,7 +263,7 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     private fun showExposure() {
-        publish(DashboardCommandEvent(DashboardCommandEvent.Command.RECENT_EXPOSURE))
+        addCard(allCards[Type.RECENT_EXPOSURE])
     }
 
     fun acceptExposure() {
@@ -281,6 +282,7 @@ class DashboardVM @ViewModelInject constructor(
 
     fun onButtonClick(type: Type) {
         when (type) {
+            Type.RECENT_EXPOSURE -> navigate(R.id.action_nav_dashboard_to_nav_exposures)
             Type.BLUETOOTH -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_BT))
             Type.LOCATION_SERVICES -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES))
             Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
@@ -291,6 +293,7 @@ class DashboardVM @ViewModelInject constructor(
 
     fun onContentClick(type: Type) {
         when (type) {
+            Type.RECENT_EXPOSURE -> navigate(R.id.action_nav_dashboard_to_nav_exposures)
             Type.BLUETOOTH -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_BT))
             Type.LOCATION_SERVICES -> publish(DashboardCommandEvent(DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES))
             Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
@@ -298,6 +301,12 @@ class DashboardVM @ViewModelInject constructor(
             Type.INACTIVE_APP -> start()
             Type.RISKY_ENCOUNTER -> navigate(R.id.action_nav_dashboard_to_nav_exposures)
             Type.POSITIVE_TEST -> navigate(R.id.action_nav_dashboard_to_nav_send_data)
+        }
+    }
+
+    fun onIconClick(type: Type) {
+        when (type) {
+            Type.RECENT_EXPOSURE -> removeCard(allCards[type])
         }
     }
 

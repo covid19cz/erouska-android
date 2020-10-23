@@ -11,7 +11,8 @@ data class DashboardCard(
     val type: Type,
     var title: MutableLiveData<String> = MutableLiveData(""),
     var subtitle: MutableLiveData<String> = MutableLiveData(""),
-    var icon: MutableLiveData<Drawable> = MutableLiveData()
+    var icon: MutableLiveData<Drawable> = MutableLiveData(),
+    var actionableContentIcon: MutableLiveData<Drawable> = MutableLiveData()
 
 ) : Comparable<DashboardCard> {
 
@@ -21,6 +22,7 @@ data class DashboardCard(
     val actionableContent: MutableLiveData<Boolean> = MutableLiveData(type.actionableContent)
     val isAlert: MutableLiveData<Boolean> = MutableLiveData(type.isAlert)
     val hasContent: Boolean = type.hasContent
+    val hasInverseColors: Boolean = type.hasInverseColors
 
     override fun compareTo(other: DashboardCard): Int {
         return type.compareTo(other.type)
@@ -34,15 +36,30 @@ enum class Type(
     @StringRes
     val subtitle: Int,
     @DrawableRes
-    val icon: Int,
+    val icon: Int? = null,
     @StringRes
     val buttonText: Int,
     val actionableButton: Boolean,
     val actionableContent: Boolean,
     val hasContent: Boolean,
-    val isAlert: Boolean
+    val isAlert: Boolean,
+    val hasInverseColors: Boolean = false,
+    @DrawableRes
+    val actionableContentIcon: Int? = null
 ) {
 
+    RECENT_EXPOSURE(
+        title = R.string.empty,
+        subtitle = R.string.notification_exposure_text,
+        buttonText = R.string.exposure_notification_more_info,
+        icon = null,
+        actionableButton = true,
+        actionableContent = false,
+        hasContent = true,
+        isAlert = true,
+        hasInverseColors = true,
+        actionableContentIcon = R.drawable.ic_action_close_white
+    ),
     BLUETOOTH(
         R.string.bt_disabled_title,
         R.string.bt_disabled_desc,
@@ -94,14 +111,14 @@ enum class Type(
         true
     ),
     POSITIVE_TEST(
-        R.string.dashboard_positive_test_title,
-        R.string.empty,
-        R.drawable.ic_positive,
-        R.string.dashboard_positive_test_button,
-        true,
-        true,
-        false,
-        false
+        title = R.string.dashboard_positive_test_title,
+        subtitle = R.string.empty,
+        icon = R.drawable.ic_positive,
+        buttonText = R.string.dashboard_positive_test_button,
+        actionableButton = true,
+        actionableContent = true,
+        hasContent = false,
+        isAlert = false
     ),
     TRAVEL(
         R.string.dashboard_travel_title,

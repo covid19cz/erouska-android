@@ -12,7 +12,8 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
         RECENT_EXPOSURE,
         NOT_ACTIVATED,
         ENABLE_BT,
-        ENABLE_LOCATION_SERVICES
+        ENABLE_LOCATION_SERVICES,
+        REDRAW
     }
 
 }

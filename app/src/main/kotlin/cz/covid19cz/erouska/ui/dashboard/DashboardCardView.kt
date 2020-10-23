@@ -63,10 +63,12 @@ class DashboardCardView : ConstraintLayout {
                 )
                 content_container.isFocusable = true
                 content_container.isClickable = true
-            } else {
+            } else if (card_icon != null) {
                 title_text.setCompoundDrawablesWithIntrinsicBounds(card_icon, null, null, null)
                 content_container.isFocusable = false
                 content_container.isClickable = false
+            } else {
+                title_text.setCompoundDrawables(null, null, null, null)
             }
         }
 
@@ -74,6 +76,12 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             content_container.setOnClickListener(value)
+        }
+
+    var card_on_icon_click: OnClickListener? = null
+        set(value) {
+            field = value
+            actionable_icon.setOnClickListener(value)
         }
 
     var card_actionable_button: Boolean? = false
@@ -128,6 +136,37 @@ class DashboardCardView : ConstraintLayout {
                     ) else null,
                     null
                 )
+            }
+        }
+
+    var card_actionable_content_icon: Drawable? = null
+        set(value) {
+            field = value
+            value?.let {
+                actionable_icon.setImageDrawable(value)
+            }
+        }
+
+    var card_has_inverse_colors: Boolean? = null
+        set(value) {
+            field = value
+            value?.let {
+                if (it) {
+                    content_container
+                        .setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.exposure_notification_bg
+                            )
+                        )
+                    title_text.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    subtitle_text.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    button.setTextColor(ContextCompat.getColor(context, R.color.white))
+                } else {
+                    title_text.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary))
+                    subtitle_text.setTextColor(ContextCompat.getColor(context,R.color.textColorSecondary))
+                    button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                }
             }
         }
 }

@@ -27,8 +27,11 @@
         app:card_icon="@{item.icon}"
         app:card_on_button_click="@{() -> vm.onButtonClick(item.type)}"
         app:card_on_content_click="@{() -> vm.onContentClick(item.type)}"
+        app:card_on_icon_click="@{() -> vm.onIconClick(item.type)}"
         app:card_subtitle="@{item.subtitle}"
         app:card_title="@{item.title}"
+        app:card_has_inverse_colors="@{item.hasInverseColors}"
+        app:card_actionable_content_icon="@{item.actionableContentIcon}"
         app:visibleOrGone="@{true}"
         tools:visibility="visible" />
 

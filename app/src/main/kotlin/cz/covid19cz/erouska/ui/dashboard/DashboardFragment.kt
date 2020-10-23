@@ -29,7 +29,13 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_content
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_more_info
+import kotlinx.android.synthetic.main.fragment_dashboard_plus.*
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM>(
@@ -100,12 +106,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     data_notification_container?.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
-                DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
                 DashboardCommandEvent.Command.TURN_OFF ->
                     LocalNotificationsHelper.showErouskaPausedNotification(context)
                 DashboardCommandEvent.Command.ENABLE_BT -> requestEnableBt()
                 DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES -> requestLocationEnable()
+                DashboardCommandEvent.Command.REDRAW -> cards_list.adapter?.notifyItemRangeChanged(0, viewModel.items.size)
             }
         }
         subscribe(GmsApiErrorEvent::class) {
@@ -177,7 +183,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
             R.id.action_exposure_demo -> {
                 demoMode = true
-                exposure_notification_container.show()
+                viewModel.addCard(viewModel.allCards[Type.RECENT_EXPOSURE])
                 true
             }
             R.id.action_play_services -> {
@@ -220,7 +226,14 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             val dashboardCard = DashboardCard(it)
             dashboardCard.title.value = getString(it.title)
             dashboardCard.subtitle.value = getString(it.subtitle)
-            dashboardCard.icon.value = getDrawable(requireContext(), it.icon)
+            if (it.icon != null) {
+                dashboardCard.icon.value = getDrawable(requireContext(), it.icon)
+            }
+            if (it.actionableContentIcon != null) {
+                L.i("actionable content icon is set")
+                dashboardCard.actionableContentIcon.value =
+                    getDrawable(requireContext(), it.actionableContentIcon)
+            }
             viewModel.allCards[it] = dashboardCard
         }
     }
@@ -241,8 +254,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 viewModel.addCard(viewModel.allCards[Type.BLUETOOTH])
             }
 
-            setActiveCardVisibility(isEnabled && viewModel.locationState.value)
-
         })
     }
 
@@ -254,8 +265,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             } else {
                 viewModel.addCard(viewModel.allCards[Type.LOCATION_SERVICES])
             }
-
-            setActiveCardVisibility(isEnabled && viewModel.bluetoothState.value)
 
         })
     }
