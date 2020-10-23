@@ -20,7 +20,10 @@ interface DailySummaryDao {
     suspend fun getLastNotified() : List<DailySummaryEntity>
 
     @Query("SELECT * FROM daily_summaries ORDER BY days_since_epoch DESC")
-    suspend fun getAll() : List<DailySummaryEntity>
+    suspend fun getAllByExposureDate() : List<DailySummaryEntity>
+
+    @Query("SELECT * FROM daily_summaries ORDER BY import_timestamp DESC, days_since_epoch DESC")
+    suspend fun getAllByImportDate() : List<DailySummaryEntity>
 
     @Query("UPDATE daily_summaries SET notified = 1")
     suspend fun markAsNotified()
