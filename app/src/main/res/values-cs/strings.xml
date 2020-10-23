@@ -140,7 +140,7 @@
     <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 
     <string name="no_recent_exposures">Žádná riziková setkání</string>
-    <string name="recent_exposures_discovered">Zjištěná %s v %s</string>
+    <string name="recent_exposures_discovered">Riziková setkání zjištěná %s v %s</string>
     <string name="recent_exposures_discovered_earlier">Starší setkání</string>
     <string name="activation_error">eRoušku nelze aktivovat</string>
     <string name="activation_error_reason">Důvod: %s</string>
