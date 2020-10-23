@@ -123,6 +123,8 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="location_bt_off_body_2">Aj keď údaje o polohe nijak nevyužívame, zapnite, prosím, obe funkcie pre správne fungovanie Bluetooth pomocou tlačidla \"Zapnúť BT a Polohové služby\".</string>
     <string name="location_bt_off_turn_on">Zapnúť BT a Polohové služby</string>
     <string name="no_recent_exposures">Žiadne rizikové stretnutia</string>
+    <string name="recent_exposures_discovered">Zistená %s v %s</string>
+    <string name="recent_exposures_discovered_earlier">Staršie stretnutie</string>
     <string name="activation_error">eRoušku nie je možné aktivovať</string>
     <string name="activation_error_reason">Dôvod: %s</string>
     <string name="activation_error_reason_bluetooth_le">Toto zariadenie nepodporuje Bluetooth Low Energy.</string>

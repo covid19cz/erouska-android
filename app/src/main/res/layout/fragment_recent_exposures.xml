@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_recent_exposure"
             app:items="@{vm.items}"
-            app:layoutId="@{@layout/item_recent_exposure}"
+            app:layoutStrategy="@{vm.layoutStrategy}"
             app:viewModel="@{vm}"
             app:visibleOrGone="@{!vm.items.empty}" />
 

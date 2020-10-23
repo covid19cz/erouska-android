@@ -122,6 +122,8 @@
     <string name="location_bt_off_body_2">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
     <string name="location_bt_off_turn_on">Enable Bluetooth and Location Services</string>
     <string name="no_recent_exposures">No risky encounters</string>
+    <string name="recent_exposures_discovered">Discovered %s at %s</string>
+    <string name="recent_exposures_discovered_earlier">Older</string>
     <string name="activation_error">Failed to activate eRouška</string>
     <string name="activation_error_reason">Reason: %s</string>
     <string name="activation_error_reason_bluetooth_le">Your device does not support Bluetooth Low Energy.</string>

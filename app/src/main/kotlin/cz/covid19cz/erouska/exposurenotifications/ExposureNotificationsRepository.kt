@@ -153,8 +153,12 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummariesFromDb(): List<DailySummaryEntity>{
-        return db.dao().getAll()
+    suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity>{
+        return db.dao().getAllByExposureDate()
+    }
+
+    suspend fun getDailySummariesFromDbByImportDate(): List<DailySummaryEntity>{
+        return db.dao().getAllByImportDate()
     }
 
     suspend fun getLastRiskyExposure(): DailySummaryEntity? {
@@ -276,13 +280,14 @@ class ExposureNotificationsRepository @Inject constructor(
 
     suspend fun checkExposure(context: Context) {
         db.dao().deleteOld()
+        val timestamp = System.currentTimeMillis()
         db.dao().insert(getDailySummariesFromApi().map {
             DailySummaryEntity(
                 daysSinceEpoch = it.daysSinceEpoch,
                 maximumScore = it.summaryData.maximumScore,
                 scoreSum = it.summaryData.scoreSum,
                 weightenedDurationSum = it.summaryData.weightedDurationSum,
-                importTimestamp = System.currentTimeMillis(),
+                importTimestamp = timestamp,
                 notified = false,
                 accepted = false
             )
