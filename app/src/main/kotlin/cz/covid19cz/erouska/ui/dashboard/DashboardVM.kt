@@ -78,7 +78,6 @@ class DashboardVM @ViewModelInject constructor(
             kotlin.runCatching {
                 return@runCatching exposureNotificationsRepository.isEnabled()
             }.onSuccess { enabled ->
-                L.d("Exposure Notifications enabled $enabled")
                 onExposureNotificationsStateChanged(enabled)
             }.onFailure {
                 publish(GmsApiErrorEvent(it))
@@ -94,7 +93,6 @@ class DashboardVM @ViewModelInject constructor(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                L.d("Exposure Notifications stopped")
                 onExposureNotificationsStateChanged(false)
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
             }.onFailure {
@@ -112,7 +110,6 @@ class DashboardVM @ViewModelInject constructor(
             kotlin.runCatching {
                 exposureNotificationsRepository.start()
             }.onSuccess {
-                L.d("Exposure Notifications started")
                 onExposureNotificationsStateChanged(true)
             }.onFailure {
                 L.e(it)
@@ -159,7 +156,6 @@ class DashboardVM @ViewModelInject constructor(
      * Check the database for recent risky exposures.
      */
     private fun checkRiskyExposures() {
-        L.d("Checking risky exposures")
         viewModelScope.launch {
             kotlin.runCatching {
                 exposureNotificationsRepository.getDailySummariesFromDbByExposureDate()
