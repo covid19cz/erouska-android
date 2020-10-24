@@ -83,6 +83,7 @@
     <string name="send_data_try_again">Zkusit znovu</string>
     <string name="send_data_success_header">Data jste úspěšně odeslali</string>
     <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření onemocnění COVID-19.</string>
+    <string name="send_data_success_body_1_not_enough_keys">eRoušku zatím používáte jen chvíli a nemá zaznamenané žádné jiné eRoušky, proto nikoho ve vašem okolí neupozorní na rizikové setkání.</string>
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 

@@ -16,6 +16,7 @@ import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.*
+import cz.covid19cz.erouska.ui.senddata.NotEnoughKeysException
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
@@ -118,42 +119,43 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummariesFromApi(filter : Boolean = true): List<DailySummary> = suspendCoroutine { cont ->
+    suspend fun getDailySummariesFromApi(filter: Boolean = true): List<DailySummary> =
+        suspendCoroutine { cont ->
 
-        val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
-        val attenuationBucketThresholdDb =
-            prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
-        val attenuationBucketWeights =
-            prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
-        val infectiousnessWeights =
-            prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
+            val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
+            val attenuationBucketThresholdDb =
+                prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
+            val attenuationBucketWeights =
+                prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
+            val infectiousnessWeights =
+                prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
 
-        client.getDailySummaries(
-            DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                for (i in 0..5) {
-                    setReportTypeWeight(i, reportTypeWeights[i])
+            client.getDailySummaries(
+                DailySummariesConfig.DailySummariesConfigBuilder().apply {
+                    for (i in 0..5) {
+                        setReportTypeWeight(i, reportTypeWeights[i])
+                    }
+                    setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
+                    for (i in 0..2) {
+                        setInfectiousnessWeight(i, infectiousnessWeights[i])
+                    }
+                    setMinimumWindowScore(AppConfig.minimumWindowScore)
+                }.build()
+            ).addOnSuccessListener {
+                if (filter) {
+                    cont.resume(it.filter {
+                        it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+                    })
+                } else {
+                    cont.resume(it)
                 }
-                setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                for (i in 0..2) {
-                    setInfectiousnessWeight(i, infectiousnessWeights[i])
-                }
-                setMinimumWindowScore(AppConfig.minimumWindowScore)
-            }.build()
-        ).addOnSuccessListener {
-            if (filter){
-                cont.resume(it.filter {
-                    it.summaryData.maximumScore >= AppConfig.minimumWindowScore
-                })
-            } else {
-                cont.resume(it)
+
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
             }
-
-        }.addOnFailureListener {
-            cont.resumeWithException(it)
         }
-    }
 
-    suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity>{
+    suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity> {
         return db.dao().getAllByExposureDate()
     }
 
@@ -165,7 +167,7 @@ class ExposureNotificationsRepository @Inject constructor(
         return db.dao().getLatest().firstOrNull()
     }
 
-    suspend fun markAsAccepted(){
+    suspend fun markAsAccepted() {
         db.dao().markAsAccepted()
     }
 
@@ -196,17 +198,22 @@ class ExposureNotificationsRepository @Inject constructor(
                     Base64.NO_WRAP
                 ), it.rollingStartIntervalNumber, it.rollingPeriod
             )
-        }, null, null, null, prefs.getRevisionToken())
+        }, null, null, null, null)
         val response = server.reportExposure(request)
         if (response.errorMessage != null) {
             throw ReportExposureException(response.errorMessage, response.code)
         }
-        prefs.saveRevisionToken(response.revisionToken)
         return response.insertedExposures ?: 0
     }
 
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
+        if (keys.size <= 1) {
+            if (keys.isEmpty()) {
+                L.e("No keys!")
+            }
+            throw NotEnoughKeysException()
+        }
         try {
             val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
             if (verifyResponse.token != null) {
@@ -228,25 +235,24 @@ class ExposureNotificationsRepository @Inject constructor(
                 val request = ExposureRequest(
                     keys.map {
                         TemporaryExposureKeyDto(
-                            Base64.encodeToString(
-                                it.keyData,
-                                Base64.NO_WRAP
-                            ), it.rollingStartIntervalNumber, it.rollingPeriod
+                            it.keyData.encodeBase64(),
+                            it.rollingStartIntervalNumber,
+                            it.rollingPeriod
                         )
                     },
                     certificateResponse.certificate,
                     hmackey,
                     null,
-                    prefs.getRevisionToken(),
+                    null,
                     healthAuthorityID = "cz.covid19cz.erouska"
                 )
+                L.i("Uploading ${request.temporaryExposureKeys.size} keys")
                 val response = server.reportExposure(request)
                 response.errorMessage?.let {
                     L.e("Report exposure failed: $it")
                     throw ReportExposureException(it, response.code)
                 }
                 L.i("Report exposure success, ${response.insertedExposures} keys inserted")
-                prefs.saveRevisionToken(response.revisionToken)
                 return response.insertedExposures ?: 0
             } else {
                 throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
@@ -268,7 +274,10 @@ class ExposureNotificationsRepository @Inject constructor(
                 if (errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_INVALID_CODE || errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE) {
                     throw VerifyException(errorResponse.error, errorResponse.errorCode)
                 } else if (AppConfig.handleError400AsExpiredOrUsedCode) {
-                    throw VerifyException(errorResponse?.error, VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE)
+                    throw VerifyException(
+                        errorResponse?.error,
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE
+                    )
                 } else {
                     throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
                 }
@@ -304,8 +313,8 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     //TODO: Remove in late november 2020
-    suspend fun importLegacyExposures(){
-        if (!prefs.isLegacyExposuresImported()){
+    suspend fun importLegacyExposures() {
+        if (!prefs.isLegacyExposuresImported()) {
             db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(
                     daysSinceEpoch = it.daysSinceEpoch,

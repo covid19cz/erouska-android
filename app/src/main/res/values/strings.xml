@@ -78,6 +78,7 @@
     <string name="send_data_try_again">Try again</string>
     <string name="send_data_success_header">Data were successfully sent</string>
     <string name="send_data_success_body_1">Thank you for fighting against the spread of COVID-19.</string>
+    <string name="send_data_success_body_1_not_enough_keys">eRoušku zatím používáte jen chvíli a nemá zaznamenané žádné jiné eRoušky, proto nikoho ve vašem okolí neupozorní na rizikové setkání.</string>
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
     <string name="notification_data_outdated_title">Risky encounters update</string>
