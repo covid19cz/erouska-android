@@ -6,7 +6,7 @@
     <string name="enable_bluetooth_button">Zapnúť Bluetooth</string>
     <string name="enable">Zapnúť</string>
     <string name="bt_disabled_title">Zapnite Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemôže eRouška vytvárať zoznam eRoušok vo vašom okolí.\nZapnite ho pomocou tlačidla \"Zapnúť Bluetooth\".</string>
+    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemôže eRouška vytvárať zoznam eRoušok vo vašom okolí.</string>
     <string name="dashboard_title_running">eRouška je aktívna</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplik\u00e1cia pracuje na pozad\u00ed a monitoruje okolie, pros\u00edm, neukon\u010dujte ju. Nechajte zapnut\u00fd Bluetooth a s telef\u00f3nom pracujte ako obvykle.</string>

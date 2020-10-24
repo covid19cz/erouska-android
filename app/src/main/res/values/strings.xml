@@ -6,7 +6,7 @@
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
-    <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot log nearby apps\' identifiers.\nEnable it by pressing \"Enable Bluetooth\".</string>
+    <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot log nearby apps\' identifiers.</string>
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
