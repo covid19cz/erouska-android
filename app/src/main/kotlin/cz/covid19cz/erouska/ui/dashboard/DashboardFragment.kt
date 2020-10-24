@@ -249,11 +249,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun onBluetoothStateChanged(isEnabled: Boolean) {
-        dash_bluetooth_off.showOrHide(isEnabled)
+        dash_bluetooth_off.showOrHide(!isEnabled)
+        dash_card_active.showOrHide(isEnabled && viewModel.locationState.value)
     }
 
     private fun onLocationStateChanged(isEnabled: Boolean) {
-        dash_location_off.showOrHide(isEnabled)
+        dash_location_off.showOrHide(!isEnabled)
+        dash_card_active.showOrHide(isEnabled && viewModel.bluetoothState.value)
     }
 
     private fun showWelcomeScreen() {
