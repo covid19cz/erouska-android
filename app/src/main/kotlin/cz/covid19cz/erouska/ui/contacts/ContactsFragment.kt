@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.observe
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentPermissionssDisabledBinding
+import cz.covid19cz.erouska.databinding.FragmentContactsBinding
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.contacts.event.ContactsEvent
@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ContactsFragment : BaseFragment<FragmentPermissionssDisabledBinding, ContactsVM>(
+class ContactsFragment : BaseFragment<FragmentContactsBinding, ContactsVM>(
     R.layout.fragment_contacts,
     ContactsVM::class
 ) {

@@ -339,8 +339,17 @@
         </value>
     </entry>
     <entry>
+        <key>v2_noEncounterCardTitle</key>
+        <value>Za posledních 14 dní žádné rizikové setkání
+        </value>
+    </entry>
+    <entry>
         <key>v2_noEncounterBody</key>
         <value>Na rizikové setkání vás upozorníme pomocí oznámení.</value>
+    </entry>
+    <entry>
+        <key>v2_encounterUpdateFrequency</key>
+        <value>Aktualizace probíhá jednou za 24 hodin</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
@@ -474,5 +483,9 @@
     <entry>
         <key>v2_dbCleanupDays</key>
         <value>15</value>
+    </entry>
+    <entry>
+        <key>v2_recentExposureNotificationTitle</key>
+        <value>Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</value>
     </entry>
 </defaultsMap>

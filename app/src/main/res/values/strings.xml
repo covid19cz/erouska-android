@@ -6,15 +6,15 @@
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
-    <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot log nearby apps\' identifiers.\n\nEnable it by pressing \"Enable Bluetooth\".</string>
+    <string name="bt_disabled_desc">Having Bluetooth on is important for collecting encounters with other eRouška apps around you.</string>
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
     <string name="dashboard_body_no_contact">Last data update: %1$s at %2$s.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby.\n\nResume data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
-    <string name="pause_app">Pause eRouška</string>
-    <string name="start_app">Start eRouška</string>
+    <string name="pause_app">Pause</string>
+    <string name="start_app">Start</string>
     <string name="privacy_header_text">We value your privacy. You are always in control of your data.</string>
     <string name="privacy_body_text_1">eRouška does not have any personal information about you and collects only anonymous data about other eRouška applications that you have encountered.</string>
     <string name="privacy_body_text_2"><![CDATA[You can find more information about personal data processing and other conditions in <a href="%1$s">Terms and conditions</a>.]]></string>
@@ -83,7 +83,6 @@
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
     <string name="notification_data_outdated_title">Risky encounters update</string>
-    <string name="notification_data_outdated_text">It\'s been some time since your eRouška updated its data with risky encounters. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
     <string name="notification_exposure_title">Risky encounter</string>
     <string name="notification_exposure_text">You have recently encountered someone who tested positive for COVID-19. Watch your health status closely. Find more info in the app.</string>
@@ -117,7 +116,7 @@
     <string name="legacy_update_button_continue">Continue</string>
     <string name="legacy_update_button_close">Close</string>
     <string name="location_off_header">Enable Location Services</string>
-    <string name="location_off_body">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
+    <string name="location_off_body">Although we do not use your location data, enable Location Services for correct functioning of Bluetooth and eRouška.</string>
     <string name="location_off_turn_on">Enable Location Services</string>
     <string name="location_bt_off_header">Enable Bluetooth and Location Services</string>
     <string name="location_bt_off_body_1">With Bluetooth and Location Services disabled, eRouška cannot log other devices near you.</string>
@@ -143,4 +142,17 @@
     <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
     <string name="exposure_info_button">Jak postupovat dál</string>
 
+    <plurals name="dashboard_risky_encounter_title_bad">
+        <item quantity="zero">No risky encounter in the past 14 days</item>
+        <item quantity="one">%1$d risky encounter in the past 14 days</item>
+        <item quantity="other">%1$d risky encounters in the past 14 days</item>
+    </plurals>
+
+    <string name="dashboard_risky_encounter_subtitle_bad">You have last met an individual positive for COVID-19 on %1$s.</string>
+    <string name="dashboard_positive_test_title">Are you positive for COVID-19?</string>
+    <string name="dashboard_positive_test_button">Anonymously notify others</string>
+
+    <string name="dashboard_travel_title">Cross-border cooperation</string>
+    <string name="enabled">Enabled</string>
+    <string name="disable">Disabled</string>
 </resources>

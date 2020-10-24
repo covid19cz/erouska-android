@@ -6,15 +6,15 @@
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="enable">Zapnout</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam eRoušek ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+    <string name="bt_disabled_desc">Zapnuté Bluetooth je důležité pro sbírání kontaktů s ostatními eRouškami ve vašem okolí.</string>
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
-    <string name="dashboard_body_no_contact">Poslední aktualizace dat - %1$s v %2$s.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace dat: %1$s v %2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
-    <string name="pause_app">Pozastavit eRoušku</string>
-    <string name="start_app">Spustit eRoušku</string>
+    <string name="pause_app">Pozastavit</string>
+    <string name="start_app">Spustit</string>
 
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
     <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
@@ -89,7 +89,6 @@
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
     <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
-    <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
 
     <string name="notification_exposure_title">Rizikové setkání</string>
@@ -133,7 +132,7 @@
     <string name="legacy_update_button_close">Zavřít</string>
 
     <string name="location_off_header">Zapněte Polohové služby</string>
-    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka "Zapnout Polohové služby".</string>
+    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte Polohové služby pro správné fungování Bluetooth a aplikace eRouška.</string>
     <string name="location_off_turn_on">Zapnout polohové služby</string>
 
     <string name="location_bt_off_header">Zapněte Bluetooth a Polohové služby</string>
@@ -160,4 +159,18 @@
     <string name="exposure_info_date">Naposledy %s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19</string>
     <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
     <string name="exposure_info_button">Jak postupovat dál</string>
+
+    <plurals name="dashboard_risky_encounter_title_bad">
+        <item quantity="one">Za posledních 14 dní %1$d rizikové setkání</item>
+        <item quantity="few">Za posledních 14 dní %1$d riziková setkání</item>
+        <item quantity="other">Za posledních 14 dní %1$d rizikových setkání</item>
+    </plurals>
+
+    <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
+
+    <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
+    <string name="enabled">Zapnutá</string>
+    <string name="disable">Vypnutá</string>
 </resources>

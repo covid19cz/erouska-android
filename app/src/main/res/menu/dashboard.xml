@@ -7,14 +7,4 @@
         android:title="@string/menu_share_app"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/nav_exposure"
-        android:title="@string/exposures_title"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/nav_send_data"
-        android:title="@string/send_data"
-        app:showAsAction="never" />
-
 </menu>

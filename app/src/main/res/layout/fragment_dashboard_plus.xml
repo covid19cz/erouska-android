@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="cz.covid19cz.erouska.BuildConfig" />
+
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.dashboard.DashboardVM" />
@@ -90,7 +92,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/exposure_notification_more_info"
                     android:textColor="@color/white"
-                    android:onClick="@{() -> vm.showExposureDetail()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/exposure_notification_content" />
 
@@ -109,161 +110,147 @@
         </LinearLayout>
 
         <ScrollView
-            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:paddingBottom="72dp"
-            app:layout_constraintTop_toBottomOf="@+id/notifications_container"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notifications_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:padding="16dp">
+                android:padding="8dp">
 
-                <ImageView
-                    android:id="@+id/app_running_image"
-                    android:layout_width="wrap_content"
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_bluetooth_off"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_check"
+                    app:card_actionable_button="@{true}"
+                    app:card_show_right_arrow="@{false}"
+                    app:card_alert="@{true}"
+                    app:card_button_text="@{@string/enable_bluetooth_button}"
+                    app:card_has_content="@{true}"
+                    app:card_icon="@{@drawable/ic_off_bluetooth}"
+                    app:card_subtitle="@{@string/bt_disabled_desc}"
+                    app:card_title="@{@string/bt_disabled_title}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
-                <ImageView
-                    android:id="@+id/app_paused_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_paused"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
-                    tools:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/app_running_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/dashboard_title_running"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/green"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/app_running_image"
-                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
-
-                <TextView
-                    android:id="@+id/app_paused_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/dashboard_title_paused"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/app_paused_image"
-                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
-                    tools:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/app_running_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/dashboard_body"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    app:layout_constraintTop_toBottomOf="@id/app_running_title"
-                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-                <TextView
-                    android:id="@+id/app_running_body_secondary"
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_location_off"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/dashboard_body_secondary"
+                    app:card_actionable_button="@{true}"
+                    app:card_show_right_arrow="@{false}"
+                    app:card_alert="@{true}"
+                    app:card_button_text="@{@string/location_off_turn_on}"
+                    app:card_has_content="@{true}"
+                    app:card_icon="@{@drawable/ic_off_location}"
+                    app:card_subtitle="@{@string/location_off_body}"
+                    app:card_title="@{@string/location_off_header}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/app_running_body"
-                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
+                    app:layout_constraintTop_toBottomOf="@id/dash_bluetooth_off"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
-                <TextView
-                    android:id="@+id/app_running_body_no_contact"
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_card_active"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:paddingBottom="68dp"
-                    android:text="@{@string/dashboard_body_no_contact(vm.lastUpdateDate, vm.lastUpdateTime)}"
+                    app:card_actionable_button="@{true}"
+                    app:card_show_right_arrow="@{false}"
+                    app:card_button_text="@{@string/pause_app}"
+                    app:card_icon="@{@drawable/ic_active}"
+                    app:card_subtitle="@{@string/dashboard_body}"
+                    app:card_title="@{@string/dashboard_title_running}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/app_running_body_secondary"
-                    app:visibleOrGone="@{vm.exposureNotificationsEnabled &amp;&amp; vm.lastUpdateDate != null}"
-                    tools:text="@tools:sample/lorem" />
+                    app:layout_constraintTop_toBottomOf="@id/dash_location_off"
+                    app:visibleOrGone="@{vm.exposureNotificationsEnabled}" />
 
-                <TextView
-                    android:id="@+id/app_paused_body"
-                    android:layout_width="match_parent"
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_card_inactive"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:paddingBottom="68dp"
-                    android:text="@string/dashboard_body_paused"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    app:layout_constraintTop_toBottomOf="@id/app_paused_title"
-                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="16dp"
-                    tools:visibility="gone" />
+                    app:card_actionable_button="@{true}"
+                    app:card_show_right_arrow="@{false}"
+                    app:card_button_text="@{@string/start_app}"
+                    app:card_icon="@{@drawable/ic_pause}"
+                    app:card_subtitle="@{@string/dashboard_body_paused}"
+                    app:card_title="@{@string/dashboard_title_paused}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dash_card_active"
+                    app:visibleOrGone="@{!vm.exposureNotificationsEnabled}" />
 
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_card_no_risky_encounter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:card_actionable_button="@{false}"
+                    app:card_show_right_arrow="@{true}"
+                    app:card_icon="@{@drawable/ic_no_risky_encounter}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dash_card_inactive"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_card_risky_encounter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:card_actionable_button="@{false}"
+                    app:card_show_right_arrow="@{true}"
+                    app:card_alert="@{true}"
+                    app:card_icon="@{@drawable/ic_risky_encounter}"
+                    app:card_subtitle="@{@string/dashboard_risky_encounter_subtitle_bad(vm.lastExposureDate)}"
+                    app:card_title="@{@plurals/dashboard_risky_encounter_title_bad(vm.exposuresCount, vm.exposuresCount)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dash_card_no_risky_encounter"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_card_positive_test"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:card_actionable_button="@{true}"
+                    app:card_show_right_arrow="@{false}"
+                    app:card_alert="@{false}"
+                    app:card_button_text="@{@string/dashboard_positive_test_button}"
+                    app:card_has_content="@{false}"
+                    app:card_icon="@{@drawable/ic_positive}"
+                    app:card_on_content_click="@{() -> vm.sendData()}"
+                    app:card_title="@{@string/dashboard_positive_test_title}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dash_card_risky_encounter"
+                    />
+
+                <cz.covid19cz.erouska.ui.dashboard.DashboardCardView
+                    android:id="@+id/dash_travel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:card_actionable_button="@{false}"
+                    app:card_show_right_arrow="@{true}"
+                    app:card_alert="@{false}"
+                    app:card_has_content="@{true}"
+                    app:card_icon="@{@drawable/ic_travel}"
+                    app:card_subtitle="@{@string/enabled}"
+                    app:card_title="@{@string/dashboard_travel_title}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dash_card_positive_test"
+                    android:visibility="gone"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </ScrollView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonStop"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.stop()}"
-            android:text="@string/pause_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{vm.exposureNotificationsEnabled}" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.start()}"
-            android:text="@string/start_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:visibleOrInvisible="@{!vm.exposureNotificationsEnabled}" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

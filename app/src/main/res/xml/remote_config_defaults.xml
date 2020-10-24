@@ -368,8 +368,17 @@
         </value>
     </entry>
     <entry>
+        <key>v2_noEncounterCardTitle</key>
+        <value>No risky encounters in the past 14 days
+        </value>
+    </entry>
+    <entry>
         <key>v2_noEncounterBody</key>
         <value>We will notify you about a risky encounter in a notification</value>
+    </entry>
+    <entry>
+        <key>v2_encounterUpdateFrequency</key>
+        <value>Data update once every 24 hours</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
@@ -503,5 +512,9 @@
     <entry>
         <key>v2_dbCleanupDays</key>
         <value>15</value>
+    </entry>
+    <entry>
+        <key>v2_recentExposureNotificationTitle</key>
+        <value>It's been some time since your eRouška updated its data with risky encounters. Connect to the internet.</value>
     </entry>
 </defaultsMap>

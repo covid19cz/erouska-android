@@ -46,8 +46,12 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_riskyEncountersTitleAn")
     val noEncounterHeader
         get() = firebaseRemoteConfig.getString("v2_noEncounterHeader")
+    val noEncounterCardTitle
+        get() = firebaseRemoteConfig.getString("v2_noEncounterCardTitle")
     val noEncounterBody
         get() = firebaseRemoteConfig.getString("v2_noEncounterBody")
+    val encounterUpdateFrequency
+        get() = firebaseRemoteConfig.getString("v2_encounterUpdateFrequency")
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("v2_exposureUITitle")
     val symptomsUITitle
@@ -94,6 +98,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_handleError500AsInvalidCode")
     val handleError400AsExpiredOrUsedCode
         get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
+    val recentExposureNotificationTitle
+        get() = firebaseRemoteConfig.getString("v2_recentExposureNotificationTitle")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

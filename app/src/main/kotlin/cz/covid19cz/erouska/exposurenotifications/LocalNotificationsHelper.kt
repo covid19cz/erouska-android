@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.main.MainActivity
 
@@ -42,12 +43,15 @@ object LocalNotificationsHelper {
     }
 
     fun showOutdatedDataNotification(context: Context?) {
-        showNotification(
-            R.string.notification_data_outdated_title,
-            R.string.notification_data_outdated_text,
-            LocalNotificationsHelper.CHANNEL_ID_OUTDATED_DATA,
-            context
-        )
+        context?.let {
+            showNotification(
+                it.getString(R.string.notification_data_outdated_title),
+                AppConfig.recentExposureNotificationTitle,
+                LocalNotificationsHelper.CHANNEL_ID_OUTDATED_DATA,
+                context
+            )
+        }
+
     }
 
     private fun showNotification(
@@ -56,6 +60,24 @@ object LocalNotificationsHelper {
         channelId: String,
         context: Context?,
         autoCancel : Boolean = false
+    ) {
+        context?.let {
+            showNotification(
+                context.getString(title),
+                context.getString(text),
+                channelId,
+                context,
+                autoCancel
+            )
+        }
+    }
+
+    private fun showNotification(
+        title: String,
+        text: String,
+        channelId: String,
+        context: Context?,
+        autoCancel: Boolean = false
     ) {
         context?.let {
             val notificationIntent = Intent(context, MainActivity::class.java)
@@ -73,8 +95,8 @@ object LocalNotificationsHelper {
             } else {
                 NotificationCompat.Builder(context)
             }
-            builder.setContentTitle(context.getString(title))
-                .setContentText(context.getString(text))
+            builder.setContentTitle(title)
+                .setContentText(text)
                 .setSmallIcon(R.drawable.ic_notification_normal)
                 .setContentIntent(contentIntent)
                 .setAutoCancel(autoCancel)
