@@ -114,7 +114,6 @@ class DashboardVM @ViewModelInject constructor(
             }.onSuccess {
                 L.d("Exposure Notifications started")
                 onExposureNotificationsStateChanged(true)
-//                publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_ON))
             }.onFailure {
                 L.e(it)
                 onExposureNotificationsStateChanged(false)

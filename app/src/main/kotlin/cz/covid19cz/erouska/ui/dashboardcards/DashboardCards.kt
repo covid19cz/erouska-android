@@ -8,11 +8,13 @@ import cz.covid19cz.erouska.databinding.FragmentDashboardCardsBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
-import kotlinx.android.synthetic.main.view_data_item.view.*
 
 @AndroidEntryPoint
 class DashboardCards :
-    BaseFragment<FragmentDashboardCardsBinding, DashboardCardsVM>(R.layout.fragment_dashboard_cards, DashboardCardsVM::class) {
+    BaseFragment<FragmentDashboardCardsBinding, DashboardCardsVM>(
+        R.layout.fragment_dashboard_cards,
+        DashboardCardsVM::class
+    ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +26,11 @@ class DashboardCards :
 
         // TODO Change RC string (in defaults and on server side) to march Figma
         dash_card_no_risky_encounter.card_title = AppConfig.noEncounterHeader
-        dash_card_no_risky_encounter.card_subtitle = resources.getString(R.string.dashboard_body_no_contact, viewModel.lastUpdateDate.value, viewModel.lastUpdateTime.value) + "\n" +AppConfig.encounterUpdateFrequency
+        dash_card_no_risky_encounter.card_subtitle = resources.getString(
+            R.string.dashboard_body_no_contact,
+            viewModel.lastUpdateDate.value,
+            viewModel.lastUpdateTime.value
+        )
 
         // Samples
         dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
