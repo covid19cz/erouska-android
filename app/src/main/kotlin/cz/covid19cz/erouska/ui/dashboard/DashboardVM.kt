@@ -166,7 +166,8 @@ class DashboardVM @ViewModelInject constructor(
                 exposureNotificationsRepository.getDailySummariesFromDbByExposureDate()
             }.onSuccess { riskyExposureList ->
                 if (!riskyExposureList.isNullOrEmpty()) {
-                    val lastExposureDate = riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()
+                    val lastExposureDate =
+                        riskyExposureList.first().daysSinceEpoch.daysSinceEpochToDateString()
                     onRiskyExposuresFound(riskyExposureList.size, lastExposureDate)
                 } else {
                     onNoRiskyExposuresFound()
@@ -193,12 +194,11 @@ class DashboardVM @ViewModelInject constructor(
 
     fun showExposureDetail() {
         viewModelScope.launch {
-            exposureNotificationsRepository.getLastRiskyExposure()?.let {
-                if (it.daysSinceEpoch > prefs.getLastShownExposureInfo()) {
-                    navigate(DashboardFragmentDirections.actionNavDashboardToNavExposureInfo())
-                } else {
-                    navigate(DashboardFragmentDirections.actionNavDashboardToNavExposure())
-                }
+            val lastRiskyExposure = exposureNotificationsRepository.getLastRiskyExposure()
+            if (lastRiskyExposure != null && lastRiskyExposure.daysSinceEpoch > prefs.getLastShownExposureInfo()) {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavExposureInfo())
+            } else {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavExposure())
             }
         }
     }

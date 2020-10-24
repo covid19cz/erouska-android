@@ -153,9 +153,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
 
         dash_card_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
+            View.OnClickListener { viewModel.showExposureDetail() }
         dash_card_no_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
+            View.OnClickListener { viewModel.showExposureDetail() }
 
         dash_card_active.card_on_button_click = View.OnClickListener { viewModel.stop() }
         dash_card_inactive.card_on_button_click = View.OnClickListener { viewModel.start() }
