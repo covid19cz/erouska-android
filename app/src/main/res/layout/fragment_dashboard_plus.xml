@@ -10,6 +10,11 @@
         <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.dashboard.DashboardVM" />
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,6 +131,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:viewModel="@{vm}"
                 app:visibleOrGone="@{!vm.items.empty}"
+                app:lifecycle="@{lifecycle}"
                 tools:listitem="@layout/item_dashboard_card" />
 
             <TextView

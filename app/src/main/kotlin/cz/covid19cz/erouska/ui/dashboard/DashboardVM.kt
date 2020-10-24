@@ -63,7 +63,6 @@ class DashboardVM @ViewModelInject constructor(
             }
         }
 
-        initializeOnItemChangedListener()
     }
 
 
@@ -105,56 +104,10 @@ class DashboardVM @ViewModelInject constructor(
 //        addCard(allCards[Type.TRAVEL])
     }
 
-    /**
-     * Takes care of correct ordering of cards in the recycler view.
-     */
-    private fun initializeOnItemChangedListener() {
-        items.addOnListChangedCallback(object :
-            ObservableList.OnListChangedCallback<ObservableArrayList<DashboardCard>>() {
-            override fun onChanged(sender: ObservableArrayList<DashboardCard>?) {
-            }
-
-            override fun onItemRangeRemoved(
-                sender: ObservableArrayList<DashboardCard>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                L.w("item inserted")
-                Collections.sort(items)
-                publish(DashboardCommandEvent(DashboardCommandEvent.Command.REDRAW))
-            }
-
-            override fun onItemRangeMoved(
-                sender: ObservableArrayList<DashboardCard>?,
-                fromPosition: Int,
-                toPosition: Int,
-                itemCount: Int
-            ) {
-            }
-
-            override fun onItemRangeInserted(
-                sender: ObservableArrayList<DashboardCard>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                L.w("item inserted")
-                Collections.sort(items)
-                publish(DashboardCommandEvent(DashboardCommandEvent.Command.REDRAW))
-            }
-
-            override fun onItemRangeChanged(
-                sender: ObservableArrayList<DashboardCard>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-            }
-
-        })
-    }
-
     fun addCard(card: DashboardCard?) {
         if (card != null && !items.contains(card)) {
             items.add(card)
+            items.sort()
         }
     }
 

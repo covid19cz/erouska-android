@@ -16,13 +16,12 @@ data class DashboardCard(
 
 ) : Comparable<DashboardCard> {
 
-    @StringRes
-    val buttonText: Int = type.buttonText
-    var actionableButton: MutableLiveData<Boolean> = MutableLiveData(type.actionableButton)
-    val actionableContent: MutableLiveData<Boolean> = MutableLiveData(type.actionableContent)
-    val isAlert: MutableLiveData<Boolean> = MutableLiveData(type.isAlert)
-    val hasContent: Boolean = type.hasContent
-    val hasInverseColors: Boolean = type.hasInverseColors
+    val buttonText = MutableLiveData(type.buttonText)
+    var actionableButton = MutableLiveData(type.actionableButton)
+    val actionableContent = MutableLiveData(type.actionableContent)
+    val isAlert = MutableLiveData(type.isAlert)
+    val hasContent = MutableLiveData(type.hasContent)
+    val hasInverseColors = MutableLiveData(type.hasInverseColors)
 
     override fun compareTo(other: DashboardCard): Int {
         return type.compareTo(other.type)

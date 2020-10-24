@@ -111,7 +111,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     LocalNotificationsHelper.showErouskaPausedNotification(context)
                 DashboardCommandEvent.Command.ENABLE_BT -> requestEnableBt()
                 DashboardCommandEvent.Command.ENABLE_LOCATION_SERVICES -> requestLocationEnable()
-                DashboardCommandEvent.Command.REDRAW -> cards_list.adapter?.notifyItemRangeChanged(0, viewModel.items.size)
+                DashboardCommandEvent.Command.REDRAW -> cards_list.adapter?.notifyItemRangeChanged(
+                    0,
+                    viewModel.items.size
+                )
             }
         }
         subscribe(GmsApiErrorEvent::class) {
@@ -222,18 +225,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun initializeCards() {
         Type.values().forEach {
-            L.i("initializing $it")
             val dashboardCard = DashboardCard(it)
             dashboardCard.title.value = getString(it.title)
             dashboardCard.subtitle.value = getString(it.subtitle)
-            if (it.icon != null) {
-                dashboardCard.icon.value = getDrawable(requireContext(), it.icon)
-            }
-            if (it.actionableContentIcon != null) {
-                L.i("actionable content icon is set")
-                dashboardCard.actionableContentIcon.value =
-                    getDrawable(requireContext(), it.actionableContentIcon)
-            }
+            it.icon?.let { dashboardCard.icon.value = getDrawable(requireContext(), it) }
+            it.actionableContentIcon?.let {
+                dashboardCard.actionableContentIcon.value = getDrawable(requireContext(), it) }
+
             viewModel.allCards[it] = dashboardCard
         }
     }
@@ -283,7 +281,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         val riskyDashboardCard = viewModel.allCards[Type.RISKY_ENCOUNTER]
 
         viewModel.lastExposureDate.observe(this, Observer {
-            L.i("Last exposure date updated to $it")
             updateRiskyEncountersCard(viewModel.exposuresCount.value ?: 0 > 0)
         })
 
@@ -295,7 +292,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         })
 
         viewModel.lastUpdateDate.observe(this, Observer {
-            L.i("Last update date update to $it")
             updateRiskyEncountersCard(viewModel.exposuresCount.value ?: 0 > 0)
         })
     }
@@ -332,7 +328,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     private fun setSomeRiskyEncounters() {
         val riskyDashboardCard = viewModel.allCards[Type.RISKY_ENCOUNTER]
         val exposuresCount = viewModel.exposuresCount.value ?: 0
-        L.i("some risky encounters are found: $exposuresCount")
 
         riskyDashboardCard?.title?.value = resources.getQuantityString(
             R.plurals.dashboard_risky_encounter_title_bad,
