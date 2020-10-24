@@ -10,6 +10,7 @@ import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonSpansFactory
 import io.noties.markwon.MarkwonVisitor
+import io.noties.markwon.core.MarkwonTheme
 import io.noties.markwon.html.HtmlPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.inlineparser.InlineProcessor
@@ -43,18 +44,27 @@ class Markdown @Inject constructor(
                     .excludeInlineProcessor(OpenBracketInlineProcessor::class.java)
             })
             .usePlugin(object : AbstractMarkwonPlugin() {
-                override fun configureVisitor(builder: MarkwonVisitor.Builder) {
-                    builder
-                        .on(SearchedTextNode::class.java, GenericInlineNodeVisitor())
+
+                // general formatting
+                override fun configureTheme(builder: MarkwonTheme.Builder) {
+                    builder.headingBreakHeight(0)
+                    builder.headingTextSizeMultipliers(
+                        floatArrayOf(1.15f, 1.10f, 1.05f, 1f, .83f, .67f)
+                    )
                 }
+
+                // searched text highlighting
+                override fun configureVisitor(builder: MarkwonVisitor.Builder) {
+                    builder.on(SearchedTextNode::class.java, GenericInlineNodeVisitor())
+                }
+
+                // searched text highlighting
                 override fun configureSpansFactory(builder: MarkwonSpansFactory.Builder) {
                     builder
                         .setFactory(
                             SearchedTextNode::class.java
-                        ) { configuration, props ->
-                            arrayOf(
-                                BackgroundColorSpan(context.getColor(R.color.green))
-                            )
+                        ) { _, _ ->
+                            arrayOf(BackgroundColorSpan(context.getColor(R.color.green)))
                         }
                 }
             })
