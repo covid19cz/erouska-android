@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import cz.covid19cz.erouska.AppConfig
 import java.util.concurrent.TimeUnit
 import kotlin.time.days
 
@@ -32,5 +33,5 @@ interface DailySummaryDao {
     suspend fun markAsAccepted()
 
     @Query("DELETE FROM daily_summaries WHERE days_since_epoch < :beforeDaysSinceEpoch")
-    suspend fun deleteOld(beforeDaysSinceEpoch : Long = TimeUnit.MILLISECONDS.toDays (System.currentTimeMillis()) - 14)
+    suspend fun deleteOld(beforeDaysSinceEpoch : Long = TimeUnit.MILLISECONDS.toDays (System.currentTimeMillis()) - AppConfig.dbCleanupDays)
 }
