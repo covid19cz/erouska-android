@@ -294,7 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="last_exposure,divider_1,divider_2,symptoms_header,symptoms_content,no_symptoms_header,no_symptoms_content"
+                    app:constraint_referenced_ids="last_exposure,divider_1,divider_2,symptoms_header,symptoms_content,no_symptoms_header,no_symptoms_content,earlier_exposures_container,symptoms_container,spread_prevention_container"
                     tools:visibility="visible" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
