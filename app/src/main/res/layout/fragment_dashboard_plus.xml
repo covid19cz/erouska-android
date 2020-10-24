@@ -223,7 +223,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:card_actionable_button="@{true}"
-                    app:card_actionable_content="@{false}"
+                    app:card_actionable_content="@{true}"
                     app:card_alert="@{false}"
                     app:card_button_text="@{@string/dashboard_positive_test_button}"
                     app:card_has_content="@{false}"
