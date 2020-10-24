@@ -74,17 +74,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             this,
             Observer { isEnabled -> onLocationStateChanged(isEnabled) })
 
-        viewModel.lastUpdateTime.observe(this, Observer { lastUpdateTime ->
-            if (lastUpdateTime != null && viewModel.lastUpdateDate.value != null) {
-                dash_card_no_risky_encounter.card_subtitle = resources.getString(
-                    R.string.dashboard_body_no_contact,
-                    viewModel.lastUpdateDate.value,
-                    viewModel.lastUpdateTime.value
-                )
-            } else {
-                dash_card_no_risky_encounter.card_subtitle = ""
-            }
-        })
+        viewModel.lastUpdateTime.observe(this, Observer { updateLastUpdateDateAndTime() })
+
+        viewModel.lastUpdateDate.observe(this, Observer { updateLastUpdateDateAndTime() })
     }
 
     override fun onStart() {
@@ -241,6 +233,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     viewModel.start()
                 }
             }
+        }
+    }
+
+    private fun updateLastUpdateDateAndTime(){
+        if (viewModel.lastUpdateTime.value != null && viewModel.lastUpdateDate.value != null) {
+            dash_card_no_risky_encounter.card_subtitle = resources.getString(
+                R.string.dashboard_body_no_contact,
+                viewModel.lastUpdateDate.value,
+                viewModel.lastUpdateTime.value
+            )
+        } else {
+            dash_card_no_risky_encounter.card_subtitle = ""
         }
     }
 
