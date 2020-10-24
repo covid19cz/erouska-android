@@ -346,7 +346,7 @@
     </entry>
     <entry>
         <key>v2_encounterUpdateFrequency</key>
-        <value>Aktualizácia prebieha raz za 24 hodín</value>
+        <value>Aktualizácia prebieha raz za %d hodín.</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>

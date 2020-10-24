@@ -75,8 +75,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             Observer { isEnabled -> onLocationStateChanged(isEnabled) })
 
         viewModel.lastUpdateTime.observe(this, Observer { updateLastUpdateDateAndTime() })
-
         viewModel.lastUpdateDate.observe(this, Observer { updateLastUpdateDateAndTime() })
+        viewModel.lastExposureDate.observe(this, Observer { updateLastUpdateDateAndTime() })
     }
 
     override fun onStart() {
@@ -238,15 +238,39 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
     }
 
-    private fun updateLastUpdateDateAndTime(){
-        if (viewModel.lastUpdateTime.value != null && viewModel.lastUpdateDate.value != null) {
-            dash_card_no_risky_encounter.card_subtitle = resources.getString(
-                R.string.dashboard_body_no_contact,
-                viewModel.lastUpdateDate.value,
-                viewModel.lastUpdateTime.value
-            )
+    private fun updateLastUpdateDateAndTime() {
+        if (viewModel.lastExposureDate.value == null) {
+            if (viewModel.lastUpdateTime.value != null && viewModel.lastUpdateDate.value != null) {
+                dash_card_no_risky_encounter.card_subtitle = "${
+                    resources.getString(
+                        R.string.dashboard_body_no_contact,
+                        viewModel.lastUpdateDate.value,
+                        viewModel.lastUpdateTime.value
+                    )
+                }\n${AppConfig.encounterUpdateFrequency}"
+            } else {
+                dash_card_no_risky_encounter.card_subtitle = ""
+            }
         } else {
-            dash_card_no_risky_encounter.card_subtitle = ""
+            if (viewModel.lastUpdateTime.value != null && viewModel.lastUpdateDate.value != null) {
+                dash_card_risky_encounter.card_subtitle = "${
+                    resources.getString(
+                        R.string.dashboard_risky_encounter_subtitle_bad,
+                        viewModel.lastExposureDate.value
+                    )
+                }\n\n${
+                    resources.getString(
+                        R.string.dashboard_body_no_contact,
+                        viewModel.lastUpdateDate.value,
+                        viewModel.lastUpdateTime.value
+                    )
+                }\n${AppConfig.encounterUpdateFrequency}"
+            } else {
+                dash_card_risky_encounter.card_subtitle = resources.getString(
+                    R.string.dashboard_risky_encounter_subtitle_bad,
+                    viewModel.lastExposureDate
+                )
+            }
         }
     }
 
