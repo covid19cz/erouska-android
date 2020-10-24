@@ -28,8 +28,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
 
-        const val REVISION_TOKEN = "revisionToken"
-
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
 
         const val TESTS_TOTAL = "testsTotal"
@@ -135,14 +133,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setExposureNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
-    }
-
-    fun saveRevisionToken(token: String?) {
-        prefs.edit().putString(REVISION_TOKEN, token).apply()
-    }
-
-    fun getRevisionToken(): String? {
-        return prefs.getString(REVISION_TOKEN, null)
     }
 
     fun clearCustomConfig() {
