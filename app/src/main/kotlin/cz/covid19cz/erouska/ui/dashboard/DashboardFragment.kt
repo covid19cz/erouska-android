@@ -157,6 +157,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         dash_card_no_risky_encounter.card_on_content_click =
             View.OnClickListener { viewModel.showExposureDetail() }
 
+        dash_card_positive_test.card_on_content_click =
+            View.OnClickListener { viewModel.sendData() }
+
         dash_card_active.card_on_button_click = View.OnClickListener { viewModel.stop() }
         dash_card_inactive.card_on_button_click = View.OnClickListener { viewModel.start() }
 
