@@ -32,7 +32,7 @@ class DashboardCards :
         )
 
         // Samples
-        dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
-        dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+        dash_bluetooth_off.card_on_content_click = View.OnClickListener { requestEnableBt() }
+        dash_location_off.card_on_content_click = View.OnClickListener { requestLocationEnable() }
     }
 }

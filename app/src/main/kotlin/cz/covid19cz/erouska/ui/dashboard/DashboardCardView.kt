@@ -47,17 +47,13 @@ class DashboardCardView : ConstraintLayout {
             button.show()
         }
 
-    var card_actionable_content: Boolean? = false
+    var card_show_right_arrow: Boolean? = false
         set(value) {
             field = value
             if (value == true) {
                 title_text.setCompoundDrawablesWithIntrinsicBounds(card_icon, null, ContextCompat.getDrawable(context, R.drawable.ic_arrow_right), null)
-                content_container.isFocusable = true
-                content_container.isClickable = true
             } else {
                 title_text.setCompoundDrawablesWithIntrinsicBounds(card_icon, null, null, null)
-                content_container.isFocusable = false
-                content_container.isClickable = false
             }
         }
 
@@ -65,6 +61,8 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             content_container.setOnClickListener(value)
+            content_container.isFocusable = true
+            content_container.isClickable = true
         }
 
     var card_actionable_button: Boolean? = false
@@ -76,13 +74,6 @@ class DashboardCardView : ConstraintLayout {
                 button.hide()
             }
         }
-
-    var card_on_button_click: OnClickListener? = null
-        set(value) {
-            field = value
-            button.setOnClickListener(value)
-        }
-
 
     var card_has_content: Boolean? = true
         set(value) {
@@ -108,7 +99,7 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             value?.let {
-                title_text.setCompoundDrawablesWithIntrinsicBounds(it, null, if (card_actionable_content == true) ContextCompat.getDrawable(context, R.drawable.ic_arrow_right) else null , null)
+                title_text.setCompoundDrawablesWithIntrinsicBounds(it, null, if (card_show_right_arrow == true) ContextCompat.getDrawable(context, R.drawable.ic_arrow_right) else null , null)
             }
         }
 }

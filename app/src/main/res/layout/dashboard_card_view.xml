@@ -36,13 +36,12 @@
                     android:drawableEnd="@drawable/ic_arrow_right"
                     android:drawablePadding="16dp"
                     android:gravity="center_vertical|start"
-                    android:text="eRouška je aktivní"
+                    tools:text="eRouška je aktivní"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@tools:sample/lorem" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/subtitle_text"
@@ -50,13 +49,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_vertical|start"
-                    android:text="Aplikace aktuálně pracuje na pozadí a monitoruje okolí. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle."
+                    tools:text="Aplikace aktuálně pracuje na pozadí a monitoruje okolí. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle."
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/textColorSecondary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title_text"
-                    tools:text="@tools:sample/lorem" />
+                    app:layout_constraintTop_toBottomOf="@id/title_text" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button"
@@ -64,15 +62,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Pozastavit"
+                    tools:text="Pozastavit"
                     android:visibility="gone"
                     tools:visibility="visible"
+                    android:background="@null"
+                    app:rippleColor="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:minWidth="44dp"
                     android:minHeight="40dp"
-                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/subtitle_text"
-                    tools:text="Action" />
+                    app:layout_constraintTop_toBottomOf="@id/subtitle_text" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

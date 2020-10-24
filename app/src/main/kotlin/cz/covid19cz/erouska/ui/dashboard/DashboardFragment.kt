@@ -150,8 +150,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             viewModel.lastUpdateTime.value
         )
 
-        dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
-        dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
+        dash_bluetooth_off.card_on_content_click = View.OnClickListener { requestEnableBt() }
+        dash_location_off.card_on_content_click = View.OnClickListener { requestLocationEnable() }
 
         dash_card_risky_encounter.card_on_content_click =
             View.OnClickListener { viewModel.showExposureDetail() }
@@ -161,8 +161,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
 
-        dash_card_active.card_on_button_click = View.OnClickListener { viewModel.stop() }
-        dash_card_inactive.card_on_button_click = View.OnClickListener { viewModel.start() }
+        dash_card_active.card_on_content_click = View.OnClickListener { viewModel.stop() }
+        dash_card_inactive.card_on_content_click = View.OnClickListener { viewModel.start() }
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
