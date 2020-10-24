@@ -36,7 +36,8 @@ object LocalNotificationsHelper {
             R.string.notification_exposure_title,
             R.string.notification_exposure_text,
             LocalNotificationsHelper.CHANNEL_ID_EXPOSURE,
-            context
+            context,
+            autoCancel = true
         )
     }
 
@@ -53,7 +54,8 @@ object LocalNotificationsHelper {
         @StringRes title: Int,
         @StringRes text: Int,
         channelId: String,
-        context: Context?
+        context: Context?,
+        autoCancel : Boolean = false
     ) {
         context?.let {
             val notificationIntent = Intent(context, MainActivity::class.java)
@@ -75,6 +77,7 @@ object LocalNotificationsHelper {
                 .setContentText(context.getString(text))
                 .setSmallIcon(R.drawable.ic_notification_normal)
                 .setContentIntent(contentIntent)
+                .setAutoCancel(autoCancel)
 
             (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
                 when (channelId) {
