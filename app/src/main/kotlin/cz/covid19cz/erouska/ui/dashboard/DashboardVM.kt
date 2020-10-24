@@ -163,7 +163,7 @@ class DashboardVM @ViewModelInject constructor(
         L.d("Checking risky exposures")
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.getAllRiskyExposures()
+                exposureNotificationsRepository.getDailySummariesFromDbByExposureDate()
             }.onSuccess { riskyExposureList ->
                 if (!riskyExposureList.isNullOrEmpty()) {
                     val lastExposureDate = riskyExposureList.last().daysSinceEpoch.daysSinceEpochToDateString()

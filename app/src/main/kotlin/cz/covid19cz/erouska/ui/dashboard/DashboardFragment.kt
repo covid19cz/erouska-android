@@ -153,28 +153,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
 
         dash_card_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
         dash_card_no_risky_encounter.card_on_content_click =
-            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_exposures) }
+            View.OnClickListener { navigate(R.id.action_nav_dashboard_to_nav_recent_exposures) }
 
         dash_card_active.card_on_button_click = View.OnClickListener { viewModel.stop() }
         dash_card_inactive.card_on_button_click = View.OnClickListener { viewModel.start() }
 
         exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavExposures(demo = demoMode))
-        }
+        exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
         exposure_notification_close.setOnClickListener {
             viewModel.acceptExposure()
             exposure_notification_container.hide()
         }
-        exposure_notification_more_info.setOnClickListener {
-            navigate(
-                DashboardFragmentDirections.actionNavDashboardToNavExposures(
-                    demo = demoMode
-                )
-            )
-        }
+
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
     }
