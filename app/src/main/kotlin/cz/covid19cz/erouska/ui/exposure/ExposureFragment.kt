@@ -64,15 +64,11 @@ class ExposureFragment : BaseFragment<FragmentExposureBinding, ExposureVM>(
         no_exposures_body.text = AppConfig.noEncounterBody
 
         no_exposures_group.show()
-
         exposures_group.hide()
-        container_group.hide()
     }
 
     private fun onRecentExposures() {
         exposures_group.show()
-        container_group.show()
-
         no_exposures_group.hide()
     }
 
