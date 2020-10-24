@@ -74,6 +74,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             this,
             Observer { isEnabled -> onLocationStateChanged(isEnabled) })
 
+        viewModel.lastUpdateTime.observe(this, Observer { lastUpdateTime ->
+            if (lastUpdateTime != null && viewModel.lastUpdateDate.value != null) {
+                dash_card_no_risky_encounter.card_subtitle = resources.getString(
+                    R.string.dashboard_body_no_contact,
+                    viewModel.lastUpdateDate.value,
+                    viewModel.lastUpdateTime.value
+                )
+            } else {
+                dash_card_no_risky_encounter.card_subtitle = ""
+            }
+        })
     }
 
     override fun onStart() {
@@ -144,11 +155,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         data_notification_content.text = AppConfig.recentExposureNotificationTitle
 
         dash_card_no_risky_encounter.card_title = AppConfig.noEncounterCardTitle
-        dash_card_no_risky_encounter.card_subtitle = resources.getString(
-            R.string.dashboard_body_no_contact,
-            viewModel.lastUpdateDate.value,
-            viewModel.lastUpdateTime.value
-        )
 
         dash_bluetooth_off.card_on_content_click = View.OnClickListener { requestEnableBt() }
         dash_location_off.card_on_content_click = View.OnClickListener { requestLocationEnable() }
