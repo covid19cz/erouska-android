@@ -66,7 +66,8 @@ object LocalNotificationsHelper {
                 context.getString(title),
                 context.getString(text),
                 channelId,
-                context
+                context,
+                autoCancel
             )
         }
     }
@@ -75,7 +76,8 @@ object LocalNotificationsHelper {
         title: String,
         text: String,
         channelId: String,
-        context: Context?
+        context: Context?,
+        autoCancel: Boolean = false
     ) {
         context?.let {
             val notificationIntent = Intent(context, MainActivity::class.java)
