@@ -402,6 +402,10 @@
         <value>Previous risky encounters</value>
     </entry>
     <entry>
+        <key>v2_exposureHelpUITitle</key>
+        <value>Help</value>
+    </entry>
+    <entry>
         <key>v2_preventionContentJson</key>
         <value>{"title": "COVID-19 infection is spread mainly via airborne droplets. It can also be
             transmitted via contaminated
@@ -427,6 +431,14 @@
             temperature"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Cough"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Stuffiness"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Sore
             throat"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Headache,
             muscle and joint pain"}]}
+        </value>
+    </entry>
+    <entry>
+        <key>v2_exposureHelpContentJson</key>
+        <value>{"items":[{"iconUrl":"https://erouska.cz/img/exposure/ic_notification.png","label":"You will receive the notification at least 24 hours after the infected individual tests positive for COVID-19 and enters their verification code in eRouška."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_privacy.png","label":"To keep identities anonymous, we do not know the time or place of the encounter."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_distance.png","label":"The encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_14days.png","label":"We evaluate risky encounters from the past 14 days because symptoms of COVID-19 may appear between 2 and 14 days after the encounter."}]}
         </value>
     </entry>
     <entry>

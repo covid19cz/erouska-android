@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_exposures"
+        android:id="@+id/nav_exposure"
         android:title="@string/exposures_title"
         app:showAsAction="never" />
 

@@ -3,20 +3,22 @@
 
     <data>
 
-        <variable
-            name="vm"
-            type="cz.covid19cz.erouska.ui.exposure.SpreadPreventionVM" />
+        <import type="cz.covid19cz.erouska.R" />
 
         <variable
             name="item"
-            type="cz.covid19cz.erouska.ui.exposure.entity.PreventionItem" />
+            type="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpItem" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/symptom_img"
@@ -25,15 +27,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholder="@{ vm.placeholderId }"
-            app:url="@{ item.iconUrl }" />
+            android:layout_marginStart="8dp"
+            app:placeholder="@{R.drawable.ic_item_empty}"
+            app:url="@{item.iconUrl}" />
 
         <TextView
             android:id="@+id/symptom_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="@{ item.label }"
+            android:text="@{item.label}"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@id/symptom_img"
             app:layout_constraintEnd_toEndOf="parent"

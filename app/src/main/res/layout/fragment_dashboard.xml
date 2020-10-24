@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/exposure_notification_more_info"
                     android:textColor="@color/white"
+                    android:onClick="@{() -> vm.showExposureDetail()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/exposure_notification_content" />
 

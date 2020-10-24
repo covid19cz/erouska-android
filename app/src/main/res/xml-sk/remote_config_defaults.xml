@@ -366,6 +366,10 @@
         <value>Predošlé rizikové stretnutia</value>
     </entry>
     <entry>
+        <key>v2_exposureHelpUITitle</key>
+        <value>Nápoveda</value>
+    </entry>
+    <entry>
         <key>v2_preventionContentJson</key>
         <value>{"title": "COVID-19 sa prenáša hlavne kvapôčkami, ktoré sa šíria vzduchom. Prenášať sa môže tiež kontaminovanými predmetmi.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často a dôkladne si umývajte ruky mydlom a používajte dezinfekciu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelne dezinfikujte tiež osobné predmety (napr. mobilný telefón)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlite a kýchajte do jednorázovej servítky či rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbajte sa veľkým skupinám osôb a udržujte bezpečný odstup (cca 2 metre)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodov a hromadných dopravných prostriedkov vždy noste rúško cez ústa a nos."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokiaľ cítíte príznaky respiračného ochorenia, zostaňte doma a kontaktujte lekára."}]}
         </value>
@@ -373,6 +377,14 @@
     <entry>
         <key>v2_symptomsContentJson</key>
         <value>{"title":"Príznaky sa môžu objaviť 2–14 dní po rizikovom stretnutí.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"Zvýšená teplota"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Kašeľ"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Dušnosť"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Bolesť hrdla"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Bolesť hlavy, svalov a kĺbov"}]}
+        </value>
+    </entry>
+    <entry>
+        <key>v2_exposureHelpContentJson</key>
+        <value>{"items":[{"iconUrl":"https://erouska.cz/img/exposure/ic_notification.png","label":"Upozornenie sa vám zobrazí najskôr 24 hodín po tom, čo sa nakazený dozvie pozitívny výsledok testu na COVID-19 a zadá overovací kód do eRoušky."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_privacy.png","label":"Kvôli zachovaniu anonymity nepoznáme čas ani miesto stretnutia."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_distance.png","label":"Rizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút."},
+            {"iconUrl":"https://erouska.cz/img/exposure/ic_14days.png","label":"Rizikové stretnutia vyhodnocujeme za posledných 14 dní, pretože príznaky ochorenia COVID-19 sa u vás môžu prejaviť až 2-14 dní po stretnutí s nakazeným."}]}
         </value>
     </entry>
     <entry>
