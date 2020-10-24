@@ -83,7 +83,6 @@
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
     <string name="notification_data_outdated_title">Risky encounters update</string>
-    <string name="notification_data_outdated_text">It\'s been some time since your eRouška updated its data with risky encounters. Connect to the internet.</string>
     <string name="data_notification_close">Close</string>
     <string name="notification_exposure_title">Risky encounter</string>
     <string name="notification_exposure_text">You have recently encountered someone who tested positive for COVID-19. Watch your health status closely. Find more info in the app.</string>

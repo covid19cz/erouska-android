@@ -89,7 +89,6 @@
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
     <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
-    <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
 
     <string name="notification_exposure_title">Rizikové setkání</string>

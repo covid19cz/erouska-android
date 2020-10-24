@@ -83,7 +83,6 @@
     <string name="send_data_success_body_2">Spolupracujte, prosím, s pracovníkmi hygienickej stanice na dohľadaní všetkých osôb, s ktorými ste boli v kontakte.</string>
     <string name="send_data_success_body_3">Riaďte sa pokynmi hygienikov a lekárov.</string>
     <string name="notification_data_outdated_title">Aktualizácia rizikových stretnutí</string>
-    <string name="notification_data_outdated_text">V prípade potvrdenej nákazy COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozorniť ostatných užívateľov eRoušky.</string>
     <string name="data_notification_close">Zatvoriť</string>
     <string name="notification_exposure_title">Rizikové stretnutie</string>
     <string name="notification_exposure_text">Stretli ste sa s osobou, u ktorej bolo potvrdené ochorenie COVID-19.

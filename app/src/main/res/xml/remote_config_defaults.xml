@@ -513,4 +513,8 @@
         <key>v2_dbCleanupDays</key>
         <value>15</value>
     </entry>
+    <entry>
+        <key>v2_recentExposureNotificationTitle</key>
+        <value>It's been some time since your eRouška updated its data with risky encounters. Connect to the internet.</value>
+    </entry>
 </defaultsMap>

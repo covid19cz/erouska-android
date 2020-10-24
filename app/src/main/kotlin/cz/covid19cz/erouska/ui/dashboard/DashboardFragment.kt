@@ -141,7 +141,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         data_notification_close.setOnClickListener { data_notification_container.hide() }
         enableUpInToolbar(false)
 
-        // TODO Change RC string (in defaults and on server side) to march Figma
+        data_notification_content.text = AppConfig.recentExposureNotificationTitle
+
         dash_card_no_risky_encounter.card_title = AppConfig.noEncounterCardTitle
         dash_card_no_risky_encounter.card_subtitle = resources.getString(
             R.string.dashboard_body_no_contact,
