@@ -177,9 +177,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
-        enableUpInToolbar(false)
-
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
