@@ -26,4 +26,8 @@ data class DailySummaryEntity(
     fun getDateString() : String{
         return daysSinceEpoch.daysSinceEpochToDateString()
     }
+
+    fun getLongDateString() : String{
+        return daysSinceEpoch.daysSinceEpochToDateString("d. MMMM yyyy")
+    }
 }

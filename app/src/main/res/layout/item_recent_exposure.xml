@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@{item.getDateString()}"
+            android:text="@{item.getLongDateString()}"
             tools:text="@tools:sample/lorem"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"

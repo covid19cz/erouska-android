@@ -500,4 +500,8 @@
         <key>v2_handleError400AsExpiredOrUsedCode</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>v2_dbCleanupDays</key>
+        <value>15</value>
+    </entry>
 </defaultsMap>
