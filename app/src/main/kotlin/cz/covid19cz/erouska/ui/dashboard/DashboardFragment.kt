@@ -148,7 +148,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             R.string.dashboard_body_no_contact,
             viewModel.lastUpdateDate.value,
             viewModel.lastUpdateTime.value
-        ) + "\n" + AppConfig.encounterUpdateFrequency
+        )
 
         dash_bluetooth_off.card_on_button_click = View.OnClickListener { requestEnableBt() }
         dash_location_off.card_on_button_click = View.OnClickListener { requestLocationEnable() }
