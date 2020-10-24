@@ -27,6 +27,7 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
@@ -248,19 +249,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun onBluetoothStateChanged(isEnabled: Boolean) {
-        if (isEnabled) {
-            dash_bluetooth_off.hide()
-        } else {
-            dash_bluetooth_off.show()
-        }
+        dash_bluetooth_off.showOrHide(isEnabled)
     }
 
     private fun onLocationStateChanged(isEnabled: Boolean) {
-        if (isEnabled) {
-            dash_location_off.hide()
-        } else {
-            dash_location_off.show()
-        }
+        dash_location_off.showOrHide(isEnabled)
     }
 
     private fun showWelcomeScreen() {
