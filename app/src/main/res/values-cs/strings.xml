@@ -59,6 +59,7 @@
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
 
     <string name="my_data_current_measures">Aktuální opatření</string>
+    <string name="my_data_current_measures_title">Informace o aktuálních opatřeních</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
     <string name="my_data_yesterday">Za včerejší den %1$s</string>
     <string name="my_data_tests">%1$s provedených testů</string>
