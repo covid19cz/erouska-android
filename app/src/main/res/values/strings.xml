@@ -54,7 +54,7 @@
     <string name="no_internet">Your device seems to be offline.</string>
     <string name="battery_opt_label">Application on the background</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
-    <string name="my_data_current_measures_title">Current measures information</string>
+    <string name="my_data_current_measures_title">Information on current measures</string>
     <string name="my_data_current_measures">Current measures</string>
     <string name="my_data_current_situation">Current situation and case numbers</string>
     <string name="my_data_yesterday">%1$s yesterday</string>
