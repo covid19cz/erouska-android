@@ -59,7 +59,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         subscribeToViewModel()
 
         viewModel.exposureNotificationsEnabled.observe(this, Observer { isEnabled ->
-            onEnApiChanged(isEnabled)
             refreshDotIndicator(requireContext())
             if (isEnabled) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
@@ -251,15 +250,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     private fun onNoExposureDiscovered() {
         dash_card_no_risky_encounter.show()
         dash_card_risky_encounter.hide()
-    }
-
-    private fun onEnApiChanged(isEnabled: Boolean) {
-        //TODO
-        if (isEnabled) {
-//            dash_en_api_off.hide()
-        } else {
-//            dash_en_api_off.show()
-        }
     }
 
     private fun onBluetoothStateChanged(isEnabled: Boolean) {
