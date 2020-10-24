@@ -6,7 +6,7 @@
     <string name="enable_bluetooth_button">Zapnúť Bluetooth</string>
     <string name="enable">Zapnúť</string>
     <string name="bt_disabled_title">Zapnite Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemôže eRouška vytvárať zoznam eRoušok vo vašom okolí.</string>
+    <string name="bt_disabled_desc">Zapnutý Bluetooth je dôležitý na zbieranie kontaktov s ostatnými eRouškami vo vašem okolí.</string>
     <string name="dashboard_title_running">eRouška je aktívna</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplik\u00e1cia pracuje na pozad\u00ed a monitoruje okolie, pros\u00edm, neukon\u010dujte ju. Nechajte zapnut\u00fd Bluetooth a s telef\u00f3nom pracujte ako obvykle.</string>
@@ -117,7 +117,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="legacy_update_button_continue">Pokračovať</string>
     <string name="legacy_update_button_close">Zatvoriť</string>
     <string name="location_off_header">Zapnite Polohové služby</string>
-    <string name="location_off_body">Pre správne fungovanie funkcie Bluetooth ju, prosím, zapnite pomocou tlačidla \"Zapnúť Polohové služby\". Údaje o polohe ale nijak inak nevyužívame.</string>
+    <string name="location_off_body">Aj keď informácie o polohe nijak nevyužívame, zapnite Polohové služby pre správne fungovanie Bluetooth a aplikácie eRouška.</string>
     <string name="location_off_turn_on">Zapnúť Polohové služby</string>
     <string name="location_bt_off_header">Zapnite Bluetooth a Polohové služby</string>
     <string name="location_bt_off_body_1">Bez zapnutého Bluetooth a Polohových služieb nemôže eRouška vytvárať zoznam ostatných eRoušok vo vašom okolí.</string>

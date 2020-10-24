@@ -6,7 +6,7 @@
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
-    <string name="bt_disabled_desc">With Bluetooth disabled, eRouška cannot log nearby apps\' identifiers.</string>
+    <string name="bt_disabled_desc">Having Bluetooth on is important for collecting encounters with other eRouška apps around you.</string>
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
@@ -116,7 +116,7 @@
     <string name="legacy_update_button_continue">Continue</string>
     <string name="legacy_update_button_close">Close</string>
     <string name="location_off_header">Enable Location Services</string>
-    <string name="location_off_body">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
+    <string name="location_off_body">Although we do not use your location data, enable Location Services for correct functioning of Bluetooth and eRouška.</string>
     <string name="location_off_turn_on">Enable Location Services</string>
     <string name="location_bt_off_header">Enable Bluetooth and Location Services</string>
     <string name="location_bt_off_body_1">With Bluetooth and Location Services disabled, eRouška cannot log other devices near you.</string>
