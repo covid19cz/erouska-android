@@ -7,9 +7,9 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
@@ -52,7 +52,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
                     searchResultCount.value = replaceList.size
 
                     for (replaceString in replaceList.distinct()) {
-                        result = result.replace(replaceString, "[[${replaceString}]]")
+                        result = result.replace(replaceString, "${Markdown.doubleSearchChar}${replaceString}${Markdown.doubleSearchChar}")
                     }
 
                     content.value = result

@@ -64,6 +64,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             if (isEnabled) {
                 LocalNotificationsHelper.dismissNotRunningNotification(context)
             }
+            checkAppActive()
         })
 
         viewModel.bluetoothState.observe(
@@ -283,12 +284,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun onBluetoothStateChanged(isEnabled: Boolean) {
         dash_bluetooth_off.showOrHide(!isEnabled)
-        dash_card_active.showOrHide(isEnabled && viewModel.locationState.value)
+        checkAppActive()
     }
 
     private fun onLocationStateChanged(isEnabled: Boolean) {
         dash_location_off.showOrHide(!isEnabled)
-        dash_card_active.showOrHide(isEnabled && viewModel.bluetoothState.value)
+        checkAppActive()
+    }
+
+    private fun checkAppActive() {
+        val enEnabled = viewModel.exposureNotificationsEnabled.value
+        val lsEnabled = viewModel.locationState.value
+        val btEnabled = viewModel.bluetoothState.value
+        dash_card_active.showOrHide( enEnabled && lsEnabled && btEnabled)
     }
 
     private fun showWelcomeScreen() {

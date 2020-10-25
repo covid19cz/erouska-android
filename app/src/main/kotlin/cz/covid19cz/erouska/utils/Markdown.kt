@@ -41,7 +41,6 @@ class Markdown @Inject constructor(
             .usePlugin(MarkwonInlineParserPlugin.create { factoryBuilder ->
                 factoryBuilder
                     .addInlineProcessor(SearchedTextInlineProcessor())
-                    .excludeInlineProcessor(OpenBracketInlineProcessor::class.java)
             })
             .usePlugin(object : AbstractMarkwonPlugin() {
 
@@ -89,7 +88,7 @@ class Markdown @Inject constructor(
     class SearchedTextInlineProcessor : InlineProcessor() {
 
         override fun specialCharacter(): Char {
-            return '['
+            return searchChar
         }
 
         @Nullable
@@ -97,7 +96,7 @@ class Markdown @Inject constructor(
             val match = match(RE);
             if (match != null) {
                 // consume syntax
-                val text = match.substring(2, match.length - 2);
+                val text = match.substring(2, match.length - 2)
                 val node = SearchedTextNode()
                 node.appendChild(text(text))
                 return node
@@ -106,10 +105,15 @@ class Markdown @Inject constructor(
         }
 
         companion object {
-            private val RE: Pattern = Pattern.compile("\\[\\[(.+?)\\]\\]")
+            private val RE: Pattern = Pattern.compile("${doubleSearchChar}(.+?)${doubleSearchChar}")
         }
     }
 
     private class SearchedTextNode : CustomNode()
+
+    companion object {
+        const val searchChar = '\u200B'
+        const val doubleSearchChar  = "${searchChar}${searchChar}"
+    }
 
 }
