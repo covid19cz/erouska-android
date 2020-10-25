@@ -349,7 +349,7 @@
     </entry>
     <entry>
         <key>v2_encounterUpdateFrequency</key>
-        <value>Aktualizace probíhá jednou za 24 hodin</value>
+        <value>Aktualizace probíhá jednou za %d hodin.</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>

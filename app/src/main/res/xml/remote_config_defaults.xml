@@ -378,7 +378,7 @@
     </entry>
     <entry>
         <key>v2_encounterUpdateFrequency</key>
-        <value>Data update once every 24 hours</value>
+        <value>Data update once every %d hours.</value>
     </entry>
     <entry>
         <key>v2_riskyEncountersWithSymptoms</key>
