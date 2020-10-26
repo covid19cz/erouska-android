@@ -34,4 +34,32 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="Erouska.Title" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Erouska.Title.Active" parent="Erouska.Title">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="Erouska.Title.Paused" parent="Erouska.Title">
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="Erouska.Title.Error" parent="Erouska.Title">
+        <item name="android:textColor">@color/text_color_error_header</item>
+    </style>
+
+    <style name="Erouska.Body" parent="TextAppearance.MaterialComponents.Body1">
+    </style>
+
+    <style name="Erouska.Item" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Erouska.Caption" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+
 </resources>

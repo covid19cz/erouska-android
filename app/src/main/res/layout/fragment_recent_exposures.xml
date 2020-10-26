@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textAppearance="@style/Erouska.Body"
             android:text="@string/no_recent_exposures"
             tools:visibility="visible"
             app:visibleOrGone="@{vm.items.empty}"

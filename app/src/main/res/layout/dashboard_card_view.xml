@@ -37,8 +37,7 @@
                     android:drawablePadding="16dp"
                     android:gravity="center_vertical|start"
                     tools:text="eRouška je aktivní"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textStyle="normal"
+                    android:textAppearance="@style/Erouska.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +49,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center_vertical|start"
                     tools:text="Aplikace aktuálně pracuje na pozadí a monitoruje okolí. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle."
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/textColorSecondary"
+                    android:textAppearance="@style/Erouska.Caption"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_text" />
@@ -72,6 +70,7 @@
                     android:minWidth="44dp"
                     android:minHeight="40dp"
                     android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/subtitle_text" />
 
