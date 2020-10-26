@@ -31,17 +31,13 @@ class SandboxVM @ViewModelInject constructor(
 ) : BaseVM() {
 
     val filesString = MutableLiveData<String>()
-    val lastDownload = MutableLiveData<String>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
-    var downloadResult: DownloadedKeys? = null
+    var downloadResult: List<DownloadedKeys>? = null
     val code = MutableLiveData("")
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         refreshTeks()
-        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-        lastDownload.value =
-            prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -91,15 +87,10 @@ class SandboxVM @ViewModelInject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 downloadResult = serverRepository.downloadKeyExport()
-                L.d("files=${downloadResult?.files}")
+                L.d("files=${downloadResult}")
                 return@runCatching downloadResult
             }.onSuccess {
-                val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-                lastDownload.value =
-                    prefs.lastKeyExportFileName() + " " + formatter.format(Date(prefs.getLastKeyImport()))
-                filesString.value =
-                    downloadResult?.files?.joinToString(separator = "\n", transform = { it.name })
-                showSnackbar("Download success: ${it?.files?.size}/${it?.urls?.size} files")
+                showSnackbar("Download success")
             }.onFailure {
                 showSnackbar("Download failed: ${it.message}")
             }
@@ -109,7 +100,6 @@ class SandboxVM @ViewModelInject constructor(
 
     fun deleteKeys() {
         serverRepository.deleteFiles()
-        lastDownload.value = null
         filesString.value = null
     }
 

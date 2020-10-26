@@ -21,6 +21,7 @@ import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.HttpException
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -72,30 +73,38 @@ class ExposureNotificationsRepository @Inject constructor(
 
         setDiagnosisKeysMapping()
 
+        val filesToImport = mutableListOf<File>()
         keyList.forEach { keys ->
             if (keys.isValid()) {
                 if (keys.files.isNotEmpty()) {
-                    L.i("Importing keys")
-                    // TODO: Call this one time or multiple times?
-                    client.provideDiagnosisKeys(keys.files)
-                        .addOnSuccessListener {
-                            L.i("Import success")
-                            prefs.setLastKeyImport()
-
-                            prefs.setLastKeyExportFileName(keys.getLastUrl())
-                            cont.resume(true)
-                        }.addOnFailureListener {
-                            cont.resumeWithException(it)
-                        }
+                    L.i("Importing keys ${keys.indexUrl}")
+                    filesToImport.addAll(keys.files)
                 } else {
-                    L.i("Import skipped (no new data)")
-                    prefs.setLastKeyImport()
-                    cont.resume(true)
+                    L.i("Import skipped (no new data) ${keys.indexUrl}")
                 }
             } else {
-                L.i("Import skipped (invalid data)")
-                cont.resume(true)
+                L.i("Import skipped (invalid data) ${keys.indexUrl}")
             }
+        }
+
+        if (filesToImport.isEmpty()) {
+            L.i("All skipped (empty)")
+            prefs.setLastKeyImport()
+        } else {
+            client.provideDiagnosisKeys(filesToImport)
+                .addOnSuccessListener {
+                    L.i("Import success of ${filesToImport.size} files")
+                    prefs.setLastKeyImport()
+                    keyList.forEach { keys ->
+                        if (keys.isValid() && keys.files.isNotEmpty()) {
+                            L.d("Last successful import for ${keys.indexUrl} is ${keys.getLastUrl()}")
+                            prefs.setLastKeyExportFileName(keys.indexUrl, keys.getLastUrl())
+                        }
+                    }
+                    cont.resume(true)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
         }
     }
 
@@ -121,42 +130,43 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    suspend fun getDailySummariesFromApi(filter : Boolean = true): List<DailySummary> = suspendCoroutine { cont ->
+    suspend fun getDailySummariesFromApi(filter: Boolean = true): List<DailySummary> =
+        suspendCoroutine { cont ->
 
-        val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
-        val attenuationBucketThresholdDb =
-            prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
-        val attenuationBucketWeights =
-            prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
-        val infectiousnessWeights =
-            prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
+            val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
+            val attenuationBucketThresholdDb =
+                prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
+            val attenuationBucketWeights =
+                prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
+            val infectiousnessWeights =
+                prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
 
-        client.getDailySummaries(
-            DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                for (i in 0..5) {
-                    setReportTypeWeight(i, reportTypeWeights[i])
+            client.getDailySummaries(
+                DailySummariesConfig.DailySummariesConfigBuilder().apply {
+                    for (i in 0..5) {
+                        setReportTypeWeight(i, reportTypeWeights[i])
+                    }
+                    setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
+                    for (i in 0..2) {
+                        setInfectiousnessWeight(i, infectiousnessWeights[i])
+                    }
+                    setMinimumWindowScore(AppConfig.minimumWindowScore)
+                }.build()
+            ).addOnSuccessListener {
+                if (filter) {
+                    cont.resume(it.filter {
+                        it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+                    })
+                } else {
+                    cont.resume(it)
                 }
-                setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                for (i in 0..2) {
-                    setInfectiousnessWeight(i, infectiousnessWeights[i])
-                }
-                setMinimumWindowScore(AppConfig.minimumWindowScore)
-            }.build()
-        ).addOnSuccessListener {
-            if (filter){
-                cont.resume(it.filter {
-                    it.summaryData.maximumScore >= AppConfig.minimumWindowScore
-                })
-            } else {
-                cont.resume(it)
+
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
             }
-
-        }.addOnFailureListener {
-            cont.resumeWithException(it)
         }
-    }
 
-    suspend fun getDailySummariesFromDb(): List<DailySummaryEntity>{
+    suspend fun getDailySummariesFromDb(): List<DailySummaryEntity> {
         return db.dao().getAll()
     }
 
@@ -164,7 +174,7 @@ class ExposureNotificationsRepository @Inject constructor(
         return db.dao().getLatest().firstOrNull()
     }
 
-    suspend fun markAsAccepted(){
+    suspend fun markAsAccepted() {
         db.dao().markAsAccepted()
     }
 
@@ -214,7 +224,11 @@ class ExposureNotificationsRepository @Inject constructor(
                         ), it.rollingStartIntervalNumber, it.rollingPeriod
                     )
                 }
-                val response = server.reportExposure(temporaryExposureKeys, certificateResponse.certificate, hmackey)
+                val response = server.reportExposure(
+                    temporaryExposureKeys,
+                    certificateResponse.certificate,
+                    hmackey
+                )
                 response.errorMessage?.let {
                     L.e("Report exposure failed: $it")
                     throw ReportExposureException(it, response.code)
@@ -242,7 +256,10 @@ class ExposureNotificationsRepository @Inject constructor(
                 if (errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_INVALID_CODE || errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE) {
                     throw VerifyException(errorResponse.error, errorResponse.errorCode)
                 } else if (AppConfig.handleError400AsExpiredOrUsedCode) {
-                    throw VerifyException(errorResponse?.error, VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE)
+                    throw VerifyException(
+                        errorResponse?.error,
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE
+                    )
                 } else {
                     throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
                 }
@@ -278,8 +295,8 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     //TODO: Remove in late november 2020
-    private suspend fun importLegacyExposures(){
-        if (!prefs.isLegacyExposuresImported()){
+    private suspend fun importLegacyExposures() {
+        if (!prefs.isLegacyExposuresImported()) {
             db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(
                     daysSinceEpoch = it.daysSinceEpoch,

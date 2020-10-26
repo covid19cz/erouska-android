@@ -2,9 +2,7 @@ package cz.covid19cz.erouska.net
 
 import android.content.Context
 import androidx.work.*
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
@@ -134,7 +132,7 @@ class ExposureServerRepository @Inject constructor(
     }
 
     private suspend fun downloadIndex(url: String): DownloadedKeys? {
-        withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             val indexContent = readURLContent(url)
             if (indexContent != null) {
                 val lastDownloadedFile = prefs.lastKeyExportFileName(url)
@@ -154,7 +152,7 @@ class ExposureServerRepository @Inject constructor(
                     downloads.add(async { downloadFile(it) })
                 }
                 extractedFiles.addAll(downloads.awaitAll().filterNotNull())
-                return@withContext DownloadedKeys(extractedFiles, fileNames)
+                return@withContext DownloadedKeys(url, extractedFiles, fileNames)
             } else {
                 return@withContext null
             }
