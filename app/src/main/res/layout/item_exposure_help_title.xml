@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+
         <variable
             name="item"
             type="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpTitle" />
     </data>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@+id/prevention_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:text="@{ item.title }"
-        android:textColor="@color/textColorPrimary" />
+        android:textAppearance="@style/Erouska.Body" />
 </layout>

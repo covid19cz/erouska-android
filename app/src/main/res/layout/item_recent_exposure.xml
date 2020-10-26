@@ -22,7 +22,7 @@
             android:layout_marginBottom="16dp"
             android:text="@{item.getLongDateString()}"
             tools:text="@tools:sample/lorem"
-            android:textColor="@color/textColorPrimary"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

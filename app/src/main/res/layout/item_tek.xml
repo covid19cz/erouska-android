@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="java.nio.charset.Charset"/>
@@ -12,7 +14,7 @@
             type="cz.covid19cz.erouska.ui.sandbox.SandboxVM" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
@@ -21,26 +23,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="@{vm.tekToString(item)}"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{@string/sandbox_tek_rolling(vm.rollingStartToString(item.rollingStartIntervalNumber), vm.rollingIntervalToString(item.rollingPeriod))}"/>
+            android:text="@{vm.tekToString(item)}"
+            android:textAppearance="@style/Erouska.Title"
+            tools:text="Title" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@{@string/sandbox_tek_report_type(vm.reportTypeToString(item.reportType))}"/>
+            android:text="@{@string/sandbox_tek_rolling(vm.rollingStartToString(item.rollingStartIntervalNumber), vm.rollingIntervalToString(item.rollingPeriod))}"
+            android:textAppearance="@style/Erouska.Caption"
+            tools:text="Rolling start: XX, refresh XX" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@{@string/sandbox_tek_days_since_symptoms(item.daysSinceOnsetOfSymptoms)}"/>
+            android:text="@{@string/sandbox_tek_report_type(vm.reportTypeToString(item.reportType))}"
+            android:textAppearance="@style/Erouska.Caption"
+            tools:text="Report type: XX" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/sandbox_tek_days_since_symptoms(item.daysSinceOnsetOfSymptoms)}"
+            android:textAppearance="@style/Erouska.Caption"
+            tools:text="Days since onset symptoms: XX" />
     </LinearLayout>
 </layout>

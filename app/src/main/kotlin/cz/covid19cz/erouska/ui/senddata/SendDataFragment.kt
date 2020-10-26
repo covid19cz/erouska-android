@@ -18,6 +18,9 @@ import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_send_data.*
+import kotlinx.android.synthetic.main.fragment_send_data.error_body
+import kotlinx.android.synthetic.main.fragment_send_data.error_group
+import kotlinx.android.synthetic.main.fragment_send_data.error_header
 
 @AndroidEntryPoint
 class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
@@ -67,7 +70,6 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     }
 
     private fun setupListeners() {
-        close_button.setOnClickListener { navController().navigateUp() }
         success_close_button.setOnClickListener {
             navController().navigateUp()
             activity?.let {
@@ -79,23 +81,9 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     private fun onProcess() {
         progress.show()
 
-        send_data_body.hide()
-        code_input_layout.hide()
-        confirm_button.hide()
-
-        ic_error.hide()
-        error_header.hide()
-        error_body.hide()
-        back_button.hide()
-        try_again_button.hide()
-        close_button.hide()
-
-        ic_success.hide()
-        success_header.hide()
-        success_body_1.hide()
-        success_body_2.hide()
-        success_body_3.hide()
-        success_close_button.hide()
+        send_data_group.hide()
+        error_group.hide()
+        success_group.hide()
     }
 
     private fun onInitState() {
@@ -104,17 +92,8 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         enableUpInToolbar(true, IconType.UP)
 
         code_input_layout.error = null
-
-        send_data_body.show()
-        code_input_layout.show()
-        confirm_button.show()
-
-        ic_error.hide()
-        error_header.hide()
-        error_body.hide()
-        back_button.hide()
-        try_again_button.hide()
-        close_button.hide()
+        send_data_group.show()
+        error_group.hide()
     }
 
     private fun onCodeInvalid() {
@@ -129,15 +108,8 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     private fun onError() {
         progress.hide()
         code_input.hideKeyboard()
-
-        ic_error.show()
-        error_header.show()
-        error_body.show()
-        back_button.show()
-
-        send_data_body.hide()
-        code_input_layout.hide()
-        confirm_button.hide()
+        error_group.show()
+        send_data_group.hide()
     }
 
     private fun onCodeExpired() {
@@ -178,23 +150,9 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
             success_body_1.setText(R.string.send_data_success_body_1_not_enough_keys)
         }
 
-        ic_success.show()
-        success_header.show()
-        success_body_1.show()
-        success_body_2.show()
-        success_body_3.show()
-        success_close_button.show()
-
-        send_data_body.hide()
-        code_input_layout.hide()
-        confirm_button.hide()
-
-        ic_error.hide()
-        error_header.hide()
-        error_body.hide()
-        back_button.hide()
-        try_again_button.hide()
-        close_button.hide()
+        success_group.show()
+        send_data_group.hide()
+        error_group.hide()
     }
 
     override fun onBackPressed(): Boolean {
