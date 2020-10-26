@@ -92,14 +92,14 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        viewModel.findPositionOfNextResult(query, help_desc?.text.toString())
+                        viewModel.findPositionOfNextResult(help_desc?.text.toString())
                         return true
                     }
                     return false
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
-                    viewModel.searchQuery(query, help_desc?.text.toString())
+                    viewModel.searchQuery(query)
                     return true
                 }
             })
@@ -124,15 +124,13 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
             }
             R.id.previous_search_result -> {
                 viewModel.findPositionOfPreviousResult(
-                    activity?.toolbar_search_view?.query.toString(),
                     help_desc?.text.toString()
                 )
                 true
             }
             R.id.next_search_result -> {
                 viewModel.findPositionOfNextResult(
-                    activity?.toolbar_search_view?.query.toString(),
-                    help_desc?.text.toString()
+                   help_desc?.text.toString()
                 )
                 true
             }
