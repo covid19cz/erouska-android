@@ -27,7 +27,7 @@
     <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
     <string name="activation_try_again">Zkusit znovu</string>
 
-    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
+    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
     <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na onemocnění COVID-19.</string>
     <string name="permission_onboarding_desc_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="permission_onboarding_desc_minor">Nemusíte se obávat, aplikace vaši polohu nikdy nesleduje ani neukládá.</string>
@@ -96,7 +96,7 @@
 
     <string name="notification_exposure_notifications_off_text">Nezapomeňte ji spustit</string>
 
-    <string name="notification_channel_exposure">Rizikový kontakt</string>
+    <string name="notification_channel_exposure">Rizikové setkání</string>
     <string name="notification_channel_outdated_data">Aktualizace rizikových setkání</string>
     <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
 
@@ -121,11 +121,11 @@
     <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky používání</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
 
     <string name="play_services_title">Aktualizujte aplikaci Služby Google Play</string>
-    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
+    <string name="play_services_content">Nejnovější verze aplikace Služby Google Play je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="play_services_update_button">Aktualizovat</string>
 
     <string name="activation_notifications_title">Oznámení</string>
-    <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
+    <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
     <string name="activation_notifications_body_1">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na onemocnění COVID-19.</string>
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="legacy_update_button_continue">Pokračovat</string>
@@ -133,7 +133,7 @@
 
     <string name="location_off_header">Zapněte Polohové služby</string>
     <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte Polohové služby pro správné fungování Bluetooth a aplikace eRouška.</string>
-    <string name="location_off_turn_on">Zapnout polohové služby</string>
+    <string name="location_off_turn_on">Zapnout Polohové služby</string>
 
     <string name="location_bt_off_header">Zapněte Bluetooth a Polohové služby</string>
     <string name="location_bt_off_body_1">Bez zapnutého Bluetooth a Polohových služeb nemůže eRouška vytvářet seznam ostatních eRoušek ve vašem okolí.</string>
@@ -142,7 +142,7 @@
 
     <string name="no_recent_exposures">Žádná riziková setkání</string>
     <string name="recent_exposures_discovered">Riziková setkání zjištěná %s v %s</string>
-    <string name="recent_exposures_discovered_earlier">Starší setkání</string>
+    <string name="recent_exposures_discovered_earlier">Starší riziková setkání</string>
     <string name="activation_error">eRoušku nelze aktivovat</string>
     <string name="activation_error_reason">Důvod: %s</string>
     <string name="activation_error_reason_bluetooth_le">Toto zařízení nepodporuje Bluetooth Low Energy.</string>
@@ -156,7 +156,7 @@
     <string name="next_search_result">Následující výsledek</string>
     <string name="help_no_results">Žádné výsledky vyhledávání</string>
 
-    <string name="exposure_info_date">Naposledy %s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19</string>
+    <string name="exposure_info_date">Naposledy %s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19</string>
     <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
     <string name="exposure_info_button">Jak postupovat dál</string>
 
@@ -167,7 +167,7 @@
     </plurals>
 
     <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
-    <string name="dashboard_positive_test_title">Máte pozitivní výsledek COVID-19 testu?</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek testu na COVID-19?</string>
     <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
 
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
