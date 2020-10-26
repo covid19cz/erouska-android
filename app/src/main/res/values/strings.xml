@@ -6,12 +6,12 @@
     <string name="enable_bluetooth_button">Enable Bluetooth</string>
     <string name="enable">Enable</string>
     <string name="bt_disabled_title">Enable Bluetooth</string>
-    <string name="bt_disabled_desc">Having Bluetooth on is important for collecting encounters with other eRouška apps around you.</string>
+    <string name="bt_disabled_desc">Enabling Bluetooth is necessary to log encounters with other eRouška users near you.</string>
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
-    <string name="dashboard_body_no_contact">Last data update %1$s at %2$s.</string>
+    <string name="dashboard_body_no_contact">Last data update: %1$s at %2$s.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby.\n\nResume data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
@@ -42,20 +42,20 @@
     <string name="welcome_help">How does it work?</string>
     <string name="welcome_activation">Continue to activation</string>
     <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with the eRouška application you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
-    <string name="welcome_title">Thanks to eRou\u0161ka you will keep yourself and others safe</string>
+    <string name="welcome_title">eRou\u0161ka will help you protect yourself and others too</string>
     <string name="contacts_title">Contacts</string>
     <string name="send_data">Send data</string>
     <string name="sent">Sent</string>
     <string name="share_app_title">Share eRouška</string>
     <string name="menu_share_app">Share application</string>
-    <string name="share_app_text">Hi, I\'m using eRouška. Install it so we can help stop the spread of COVID-19 together. The application can anonymously notify you about a risky encounter and recommend further steps. The application can be found at %s.</string>
+    <string name="share_app_text">Hi, I\'m using eRouška. Install it so we can help stop the spread of COVID-19 together. The application can anonymously notify you about a risky encounter and recommend further steps. The application can be found at %s</string>
     <string name="delete_registration">Delete registration</string>
     <string name="about">About application</string>
     <string name="no_internet">Your device seems to be offline.</string>
     <string name="battery_opt_label">Application on the background</string>
     <string name="help_write_chabot">Chat with Anežka – eRouška support</string>
-    <string name="my_data_current_measures_title">Information on current measures</string>
     <string name="my_data_current_measures">Current measures</string>
+    <string name="my_data_current_measures_title">Information on current measures</string>
     <string name="my_data_current_situation">Current situation and case numbers</string>
     <string name="my_data_yesterday">%1$s yesterday</string>
     <string name="my_data_tests">%1$s tests performed</string>
@@ -65,7 +65,7 @@
     <string name="my_data_death_toll">%1$s deceased</string>
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
     <string name="my_data_last_update">Last update on %1$s</string>
-    <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code for sending data.</string>
+    <string name="send_data_body">If you test positive for COVID-19 you will be contacted by a public health officer. You will receive an SMS message with the verification code to notify other eRouška users.</string>
     <string name="send_data_verification_hint">Verification code</string>
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code entered incorrectly, please try again</string>
@@ -73,13 +73,13 @@
     <string name="send_data_code_expired_or_used">You have already used this code or it has expired.</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
-    <string name="send_data_failure_body">Contact support at info@erouska.cz and mention this error code: \'%s\'.</string>
+    <string name="send_data_failure_body">Please contact support at info@erouska.cz and mention this error code: \'%s\' in the email.</string>
     <string name="send_data_back">Back</string>
     <string name="send_data_close">Close</string>
     <string name="send_data_try_again">Try again</string>
     <string name="send_data_success_header">Data were successfully sent</string>
     <string name="send_data_success_body_1">Thank you for fighting against the spread of COVID-19.</string>
-    <string name="send_data_success_body_1_not_enough_keys">eRoušku zatím používáte jen chvíli a nemá zaznamenané žádné jiné eRoušky, proto nikoho ve vašem okolí neupozorní na rizikové setkání.</string>
+    <string name="send_data_success_body_1_not_enough_keys">You have activated eRouška only recently, so it has not logged any other eRouška users. Therefore, the app will not notify anyone about a risky encounter.</string>
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
     <string name="notification_data_outdated_title">Risky encounters update</string>
@@ -116,15 +116,15 @@
     <string name="legacy_update_button_continue">Continue</string>
     <string name="legacy_update_button_close">Close</string>
     <string name="location_off_header">Enable Location Services</string>
-    <string name="location_off_body">Although we do not use your location data, enable Location Services for correct functioning of Bluetooth and eRouška.</string>
+    <string name="location_off_body">Although we do not use your location data, please enable Location Services so that Bluetooth and eRouška work correctly.</string>
     <string name="location_off_turn_on">Enable Location Services</string>
     <string name="location_bt_off_header">Enable Bluetooth and Location Services</string>
     <string name="location_bt_off_body_1">With Bluetooth and Location Services disabled, eRouška cannot log other devices near you.</string>
     <string name="location_bt_off_body_2">Although we do not use your location data, the app needs your permission to access Bluetooth and Location Services. Please enable them by pressing \"Enable Location Services\".</string>
     <string name="location_bt_off_turn_on">Enable Bluetooth and Location Services</string>
     <string name="no_recent_exposures">No risky encounters</string>
-    <string name="recent_exposures_discovered">Risky encounters discovered %s at %s</string>
-    <string name="recent_exposures_discovered_earlier">Older</string>
+    <string name="recent_exposures_discovered">Risky encounters discovered on %s at %s</string>
+    <string name="recent_exposures_discovered_earlier">Previously discovered risky encounters</string>
     <string name="activation_error">Failed to activate eRouška</string>
     <string name="activation_error_reason">Reason: %s</string>
     <string name="activation_error_reason_bluetooth_le">Your device does not support Bluetooth Low Energy.</string>
@@ -134,24 +134,19 @@
     <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
     <string name="search">Search</string>
-    <string name="previous_search_result">Previous search result</string>
-    <string name="next_search_result">Next search result</string>
+    <string name="previous_search_result">Previous result</string>
+    <string name="next_search_result">Next result</string>
     <string name="help_no_results">No search results</string>
-
-    <string name="exposure_info_date">Naposledy %s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19</string>
-    <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
-    <string name="exposure_info_button">Jak postupovat dál</string>
-
+    <string name="exposure_info_date">On %s, you encountered someone who tested positive for COVID-19.</string>
+    <string name="exposure_info_text">You received the notification at least 24 hours after the infected individual tested positive for COVID-19 and entered their verification code in eRouška.\n\nThe encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart.\n\nTo keep identities anonymous, we do not know the time or place of the encounter.</string>
+    <string name="exposure_info_button">Next steps</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="zero">No risky encounter in the past 14 days</item>
         <item quantity="one">%1$d risky encounter in the past 14 days</item>
         <item quantity="other">%1$d risky encounters in the past 14 days</item>
     </plurals>
-
-    <string name="dashboard_risky_encounter_subtitle_bad">You have last met an individual positive for COVID-19 on %1$s.</string>
-    <string name="dashboard_positive_test_title">Are you positive for COVID-19?</string>
+    <string name="dashboard_risky_encounter_subtitle_bad">On %1$s, you encountered someone who tested positive for COVID-19.</string>
+    <string name="dashboard_positive_test_title">Have you tested positive for COVID-19?</string>
     <string name="dashboard_positive_test_button">Anonymously notify others</string>
-
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
