@@ -161,9 +161,9 @@
     <string name="exposure_info_button">Jak postupovat dál</string>
 
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one">Za posledních 14 dní %1$d rizikové setkání</item>
-        <item quantity="few">Za posledních 14 dní %1$d riziková setkání</item>
-        <item quantity="other">Za posledních 14 dní %1$d rizikových setkání</item>
+        <item quantity="one">Za posledních 14&nbsp;dní %1$d&nbsp;rizikové setkání</item>
+        <item quantity="few">Za posledních 14&nbsp;dní %1$d&nbsp;riziková setkání</item>
+        <item quantity="other">Za posledních 14&nbsp;dní %1$d&nbsp;rizikových setkání</item>
     </plurals>
 
     <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
