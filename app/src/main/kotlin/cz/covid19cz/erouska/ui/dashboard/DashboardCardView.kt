@@ -89,7 +89,7 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             if (value == true) {
-                title_text.setTextColor(ContextCompat.getColor(context, R.color.red))
+                title_text.setTextColor(ContextCompat.getColor(context, R.color.exposure_notification_red))
             } else {
                 title_text.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary))
             }
