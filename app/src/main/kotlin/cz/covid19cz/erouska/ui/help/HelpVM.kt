@@ -38,7 +38,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
 
         this.queryData.value = query?.trim() ?: ""
 
-        if (queryData.value.length >= 3) {
+        if (queryData.value.length >= 2) {
             searchJob = viewModelScope.launch {
                 try {
 
