@@ -211,8 +211,8 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 app:case_icon="@{@drawable/ic_face_mask}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
-                app:case_title="@{String.format(@string/my_data_activated_apps, NumberFormat.getInstance().format(0))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.activationsYesterday))}"
+                app:case_title="@{String.format(@string/my_data_activated_apps, NumberFormat.getInstance().format(vm.activationsTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stats_text" />
@@ -229,8 +229,8 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 app:case_icon="@{@drawable/ic_help}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
-                app:case_title="@{String.format(@string/my_data_notifications_sent, NumberFormat.getInstance().format(0))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.keyPublishersYesterday))}"
+                app:case_title="@{String.format(@string/my_data_notifications_sent, NumberFormat.getInstance().format(vm.keyPublishersTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/activated_apps" />
@@ -247,8 +247,8 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 app:case_icon="@{@drawable/ic_help}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(0))}"
-                app:case_title="@{String.format(@string/my_data_notifications_shown, NumberFormat.getInstance().format(0))}"
+                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.notificationsYesterday))}"
+                app:case_title="@{String.format(@string/my_data_notifications_shown, NumberFormat.getInstance().format(vm.notificationsTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/notifications_sent" />

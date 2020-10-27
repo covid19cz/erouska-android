@@ -33,6 +33,9 @@ class MyDataVM @ViewModelInject constructor(
         if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
             getStats()
         }
+        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
+            getMetrics()
+        }
     }
 
     fun measures() {
@@ -58,6 +61,15 @@ class MyDataVM @ViewModelInject constructor(
     val currentlyHospitalizedIncrease =
         SafeMutableLiveData(prefs.getCurrentlyHospitalizedIncrease())
 
+    val activationsTotal = SafeMutableLiveData(prefs.getActivationsTotal())
+    val activationsYesterday = SafeMutableLiveData(prefs.getActivationsYesterday())
+
+    val keyPublishersTotal = SafeMutableLiveData(prefs.getKeyPublishersTotal())
+    val keyPublishersYesterday = SafeMutableLiveData(prefs.getKeyPublishersYesterday())
+
+    val notificationsTotal = SafeMutableLiveData(prefs.getNotificationsTotal())
+    val notificationsYesterday = SafeMutableLiveData(prefs.getNotificationsYesterday())
+
     var lastUpdate = if (prefs.getLastStatsUpdate() == 0L) {
         SafeMutableLiveData("-")
     } else {
@@ -72,7 +84,6 @@ class MyDataVM @ViewModelInject constructor(
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
     private fun getStats(date: String? = null) {
-
         viewModelScope.launch {
             kotlin.runCatching {
                 return@runCatching firebaseFunctionsRepository.getStats(date)
@@ -154,7 +165,64 @@ class MyDataVM @ViewModelInject constructor(
                 }
             }
         }
+    }
 
+    private fun getMetrics() {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                return@runCatching firebaseFunctionsRepository.getDownloadMetrics()
+            }.onSuccess { response ->
+                L.d(response.toString())
+
+                safeLet(
+                    response.activationsTotal,
+                    response.activationsYesterday
+                ) { total, yesterday ->
+                    activationsTotal.value = total
+                    activationsYesterday.value = yesterday
+
+                    prefs.setActivationsTotal(total)
+                    prefs.setActivationsYesterday(yesterday)
+                }
+                safeLet(
+                    response.keyPublishersTotal,
+                    response.keyPublishersYesterday
+                ) { total, yesterday ->
+                    keyPublishersTotal.value = total
+                    keyPublishersYesterday.value = yesterday
+
+                    prefs.setKeyPublishersTotal(total)
+                    prefs.setKeyPublishersYesterday(yesterday)
+                }
+                safeLet(
+                    response.notificationsTotal,
+                    response.notificationsYesterday
+                ) { total, yesterday ->
+                    notificationsTotal.value = total
+                    notificationsYesterday.value = yesterday
+
+                    prefs.setNotificationsTotal(total)
+                    prefs.setNotificationsYesterday(yesterday)
+                }
+
+                response.date?.let {
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(response.date)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setLastMetricsUpdate(lastUpdateMillis)
+                    }
+                }
+            }.onFailure {
+                if (it is ApiException) {
+                    L.e(it.status.toString() + " " + it.message)
+                } else {
+                    L.e(it)
+                }
+            }
+        }
     }
 }
 

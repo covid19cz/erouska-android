@@ -30,6 +30,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val REVISION_TOKEN = "revisionToken"
 
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
+        const val LAST_METRICS_UPDATE = "lastMetricsUpdate"
 
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
@@ -48,6 +49,15 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
+
+        const val ACTIVATIONS_TOTAL = "activationsTotal"
+        const val ACTIVATIONS_YESTERDAY = "activationsIncrease"
+
+        const val KEY_PUBLISHERS_TOTAL = "keyPublishersTotal"
+        const val KEY_PUBLISHERS_YESTERDAY = "keyPublishersYesterday"
+
+        const val NOTIFICATIONS_TOTAL = "notificationsTotal"
+        const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -195,6 +205,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putLong(LAST_STATS_UPDATE, modified).apply()
     }
 
+    fun getLastMetricsUpdate(): Long {
+        return prefs.getLong(LAST_METRICS_UPDATE, 0)
+    }
+
+    fun setLastMetricsUpdate(modified: Long) {
+        return prefs.edit().putLong(LAST_METRICS_UPDATE, modified).apply()
+    }
+
     fun getTestsTotal(): Int {
         return prefs.getInt(TESTS_TOTAL, 0)
     }
@@ -289,5 +307,53 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setCurrentlyHospitalizedIncrease(value: Int) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_INCREASE, value).apply()
+    }
+
+    fun getActivationsTotal(): Int {
+        return prefs.getInt(ACTIVATIONS_TOTAL, 0)
+    }
+
+    fun setActivationsTotal(value: Int) {
+        return prefs.edit().putInt(ACTIVATIONS_TOTAL, value).apply()
+    }
+
+    fun getActivationsYesterday(): Int {
+        return prefs.getInt(ACTIVATIONS_YESTERDAY, 0)
+    }
+
+    fun setActivationsYesterday(value: Int) {
+        return prefs.edit().putInt(ACTIVATIONS_YESTERDAY, value).apply()
+    }
+
+    fun getKeyPublishersTotal(): Int {
+        return prefs.getInt(KEY_PUBLISHERS_TOTAL, 0)
+    }
+
+    fun setKeyPublishersTotal(value: Int) {
+        return prefs.edit().putInt(KEY_PUBLISHERS_TOTAL, value).apply()
+    }
+
+    fun getKeyPublishersYesterday(): Int {
+        return prefs.getInt(KEY_PUBLISHERS_YESTERDAY, 0)
+    }
+
+    fun setKeyPublishersYesterday(value: Int) {
+        return prefs.edit().putInt(KEY_PUBLISHERS_YESTERDAY, value).apply()
+    }
+
+    fun getNotificationsTotal(): Int {
+        return prefs.getInt(NOTIFICATIONS_TOTAL, 0)
+    }
+
+    fun setNotificationsTotal(value: Int) {
+        return prefs.edit().putInt(NOTIFICATIONS_TOTAL, value).apply()
+    }
+
+    fun getNotificationsYesterday(): Int {
+        return prefs.getInt(NOTIFICATIONS_YESTERDAY, 0)
+    }
+
+    fun setNotificationsYesterday(value: Int) {
+        return prefs.edit().putInt(NOTIFICATIONS_YESTERDAY, value).apply()
     }
 }
