@@ -19,6 +19,7 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -92,7 +93,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        viewModel.findPositionOfNextResult(help_desc?.text.toString())
+                        viewModel.findPositionOfNextResult()
                         return true
                     }
                     return false
@@ -123,15 +124,11 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
                 true
             }
             R.id.previous_search_result -> {
-                viewModel.findPositionOfPreviousResult(
-                    help_desc?.text.toString()
-                )
+                viewModel.findPositionOfPreviousResult()
                 true
             }
             R.id.next_search_result -> {
-                viewModel.findPositionOfNextResult(
-                   help_desc?.text.toString()
-                )
+                viewModel.findPositionOfNextResult()
                 true
             }
             else -> {

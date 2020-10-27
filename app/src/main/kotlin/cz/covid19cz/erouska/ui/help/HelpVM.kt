@@ -65,8 +65,8 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
 
                     content.value = printedText
                     searchControlsEnabled.value = replaceList.isNotEmpty()
-
-                    findPositionOfNextResult(printedText)
+                    // we don't want to take into account the currently search query length
+                    findPositionOfNextResult(0)
 
                 } catch (cancelException: CancellationException) {
                     L.d("Job cancelled")
@@ -87,55 +87,42 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
     }
 
 
-    fun findPositionOfPreviousResult(content: String) {
-        if (searchResultCount.value > 0) {
-            if (lastMarkedIndex.value == -1) {
-                lastMarkedIndex.value = content.length
-            }
-
-            val searchedText = content.substring(0, lastMarkedIndex.value)
-            L.i("searchedText:$searchedText")
-
-            val lastOccurrence = searchMatches
-                .map {
-                    val index = searchedText
-                        .lastIndexOf(
-                            it,
-                            ignoreCase = true
-                        )
-                    L.i("one of indexes:$index")
-                    index
-                }
-                .maxOrNull()
-
-            L.i("last occurrence is $lastOccurrence")
-
-
-            lastMarkedIndex.value = lastOccurrence ?: 0
-
+    fun findPositionOfPreviousResult() {
+        if (searchResultCount.value <= 0) {
+            return
         }
+
+        val searchedText = content.value.substring(0, lastMarkedIndex.value)
+        var index = findIndexOfPreviousResult(searchedText)
+        if (index == -1) {
+            // the search match was not found, let's search in the whole text (from the end)
+            index = findIndexOfPreviousResult(content.value)
+        }
+
+        lastMarkedIndex.value = index
     }
 
-    fun findPositionOfNextResult(content: String) {
-        if (searchResultCount.value > 0) {
+    private fun findIndexOfPreviousResult(searchableText: String): Int {
+        return searchableText.lastIndexOfAny(searchMatches, ignoreCase = true)
+    }
 
-            val firstOccurrence = searchMatches
-                .map {
-                    val index = content.indexOf(
-                        it,
-                        lastMarkedIndex.value + it.length,
-                        ignoreCase = true
-                    )
-                    L.i("one of indexes:$index")
-                    index
-                }
-                .minOrNull()
-
-            L.i("first occurrence is $firstOccurrence")
-
-            lastMarkedIndex.value = firstOccurrence ?: 0
-
+    fun findPositionOfNextResult(overrideQueryDataLength: Int? = null) {
+        if (searchResultCount.value <= 0) {
+            return
         }
+
+        var index = findIndexOfNextResult(
+            lastMarkedIndex.value + (overrideQueryDataLength ?: queryData.value.length)
+        )
+        if (index == -1) {
+            // the search match was not found, let's search from the beginning
+            index = findIndexOfNextResult(0)
+        }
+        lastMarkedIndex.value = index
+    }
+
+    private fun findIndexOfNextResult(startIndex: Int): Int {
+        return content.value.indexOfAny(searchMatches, startIndex, ignoreCase = true)
     }
 
 }
