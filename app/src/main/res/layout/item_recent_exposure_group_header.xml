@@ -30,8 +30,7 @@
             android:layout_marginEnd="@dimen/fragment_padding"
             android:text="@{item.timestamp != 0 ? @string/recent_exposures_discovered(item.getDateString(), item.getTimeString()) : @string/recent_exposures_discovered_earlier}"
             tools:text="@string/recent_exposures_discovered"
-            android:textSize="12sp"
-            android:textColor="@color/textColorSecondary"
+            android:textAppearance="@style/Erouska.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

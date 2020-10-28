@@ -35,8 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textStyle="bold"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textAppearance="@style/Erouska.Title"
                 tools:text="@string/exposure_info_date"
                 android:text="@{@string/exposure_info_date(vm.date)}"
                 app:layout_constraintTop_toBottomOf="@id/imageIcon"/>
@@ -46,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textAppearance="@style/Erouska.Body"
                 android:text="@string/exposure_info_text"
                 android:paddingBottom="68dp"
                 app:layout_constraintTop_toBottomOf="@id/textDate"/>

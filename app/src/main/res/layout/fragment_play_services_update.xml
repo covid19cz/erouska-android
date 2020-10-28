@@ -41,8 +41,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/play_services_title"
                     android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/Erouska.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/services_img" />
@@ -55,7 +54,7 @@
                     android:paddingBottom="68dp"
                     android:gravity="center_horizontal"
                     android:text="@string/play_services_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textAppearance="@style/Erouska.Body"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/services_title" />

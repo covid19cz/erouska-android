@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,8 +16,7 @@
             type="cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
@@ -29,7 +30,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="8dp"
             app:placeholder="@{R.drawable.ic_item_empty}"
-            app:url="@{item.iconUrl}" />
+            app:url="@{item.iconUrl}"
+            tools:src="@drawable/ic_item_empty"/>
 
         <TextView
             android:id="@+id/symptom_label"
@@ -37,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@{item.label}"
-            android:textColor="@color/textColorPrimary"
+            tools:text="@tools:sample/lorem"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintBottom_toBottomOf="@id/symptom_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/symptom_img"

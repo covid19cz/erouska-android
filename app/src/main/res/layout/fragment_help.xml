@@ -40,7 +40,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/help_write_chabot"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintBottom_toBottomOf="@+id/chat_container"
             app:layout_constraintEnd_toEndOf="@+id/chat_container"
             app:layout_constraintStart_toEndOf="@id/chat_icon"
@@ -78,7 +78,7 @@
                 android:paddingTop="@dimen/fragment_padding"
                 android:paddingEnd="@dimen/fragment_padding"
                 android:paddingBottom="68dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/Erouska.Body"/>
 
         </ScrollView>
 
