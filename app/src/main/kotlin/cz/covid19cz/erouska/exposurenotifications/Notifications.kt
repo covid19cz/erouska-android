@@ -10,7 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -19,6 +21,7 @@ import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -164,6 +167,17 @@ class Notifications @Inject constructor(
             GlobalScope.launch {
                 try {
                     firebaseFunctionsRepository.changePushToken(getCurrentPushToken())
+                } catch (e: Throwable) {
+                    L.e(e)
+                }
+            }
+        }
+        if (!prefs.isPushTopicRegistered() && context.isNetworkAvailable()) {
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    Firebase.messaging.subscribeToTopic("budicek").await()
+                    prefs.setPushTopicRegistered()
+                    L.d("Topic 'budicek' registered")
                 } catch (e: Throwable) {
                     L.e(e)
                 }

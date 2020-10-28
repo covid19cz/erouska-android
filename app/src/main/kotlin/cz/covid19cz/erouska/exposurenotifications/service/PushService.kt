@@ -22,7 +22,7 @@ class PushService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        L.d("Push message received: $message")
+        L.d("Push message received: ${message.data}")
         if (message.data.containsKey("downloadKeyExport")) {
             exposureNotificationsServerRepository.scheduleKeyDownload()
         }

@@ -50,6 +50,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
         const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
+        const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -115,6 +116,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setPushTokenRegistered(){
         prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
+    }
+
+    fun isPushTopicRegistered() : Boolean{
+        return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
+    }
+
+    fun setPushTopicRegistered(){
+        prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
     fun hasOutdatedKeyData(): Boolean {
