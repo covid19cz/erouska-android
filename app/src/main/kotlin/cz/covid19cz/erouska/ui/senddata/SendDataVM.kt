@@ -50,9 +50,13 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                     exposureNotificationRepo.start()
                 }
                 exposureNotificationRepo.reportExposureWithVerification(code.value)
-            }.onSuccess {
+            }.onSuccess { keyCount ->
                 state.value = SendDataSuccessState
-                publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
+                if (keyCount > 1){
+                    publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
+                } else {
+                    publish(SendDataCommandEvent(SendDataCommandEvent.Command.NOT_ENOUGH_KEYS))
+                }
             }.onFailure {
                 handleSendDataErrors(it)
             }
@@ -62,7 +66,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
     private fun handleSendDataErrors(exception: Throwable) {
         when (exception) {
             is ApiException -> publish(GmsApiErrorEvent(exception))
-            is NotEnoughKeysException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.NOT_ENOUGH_KEYS))
+            is NoKeysException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.NOT_ENOUGH_KEYS))
             is VerifyException -> {
                 when (exception.code) {
                     VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
