@@ -20,7 +20,7 @@ import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentDashboardPlusBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
-import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
+import cz.covid19cz.erouska.exposurenotifications.Notifications
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
@@ -31,6 +31,7 @@ import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM>(
@@ -39,6 +40,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 ) {
 
     private val mainViewModel: MainVM by activityViewModels()
+
+    @Inject
+    lateinit var notifications: Notifications
 
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
@@ -62,7 +66,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         viewModel.exposureNotificationsEnabled.observe(this, Observer { isEnabled ->
             refreshDotIndicator(requireContext())
             if (isEnabled) {
-                LocalNotificationsHelper.dismissNotRunningNotification(context)
+                notifications.dismissNotRunningNotification()
             }
             checkAppActive()
         })
@@ -109,15 +113,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         subscribe(DashboardCommandEvent::class) { commandEvent ->
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
-                    LocalNotificationsHelper.dismissOudatedDataNotification(context)
+                    notifications.dismissOudatedDataNotification()
                     data_notification_container.hide()
                 }
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
-                DashboardCommandEvent.Command.TURN_OFF -> LocalNotificationsHelper.showErouskaPausedNotification(
-                    context
-                )
+                DashboardCommandEvent.Command.TURN_OFF -> notifications.showErouskaPausedNotification()
             }
         }
         subscribe(GmsApiErrorEvent::class) {
