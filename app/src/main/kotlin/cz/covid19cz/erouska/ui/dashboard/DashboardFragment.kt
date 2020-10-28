@@ -184,6 +184,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
             menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
+            menu.add(0, R.id.action_exposure_screen, 17, "Test Exposure screen")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -214,6 +215,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             R.id.action_exposure_demo -> {
                 demoMode = true
                 exposure_notification_container.show()
+                true
+            }
+            R.id.action_exposure_screen -> {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavExposure(demo = true))
                 true
             }
             R.id.action_play_services -> {
