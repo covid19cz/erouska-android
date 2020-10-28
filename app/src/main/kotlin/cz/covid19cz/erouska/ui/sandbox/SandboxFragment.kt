@@ -10,16 +10,20 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(SnackbarEvent::class) {

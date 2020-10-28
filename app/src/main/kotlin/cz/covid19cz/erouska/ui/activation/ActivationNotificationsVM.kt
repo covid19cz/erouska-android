@@ -7,14 +7,14 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepositor
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
-import cz.covid19cz.erouska.utils.DeviceUtils
+import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
 class ActivationNotificationsVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val prefs: SharedPrefsRepository,
-    private val deviceUtils: DeviceUtils
+    private val deviceUtils: DeviceInfo
 ) : BaseVM() {
 
     fun enableNotifications() {
