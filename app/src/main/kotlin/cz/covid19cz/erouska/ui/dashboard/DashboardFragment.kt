@@ -31,6 +31,7 @@ import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM>(
@@ -39,6 +40,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 ) {
 
     private val mainViewModel: MainVM by activityViewModels()
+
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
@@ -121,7 +125,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
         }
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(ExposuresCommandEvent::class) {

@@ -78,7 +78,7 @@
     <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
-    <string name="send_data_failure_body">Kontaktujte prosím podporu na info@erouska.cz a do e-mailu uveďte následující kód chyby: \'%s\'.</string>
+    <string name="send_data_failure_body">Kontaktujte prosím podporu a do e-mailu uveďte následující kód chyby: \'%s\'.</string>
     <string name="send_data_back">Zpět</string>
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>
@@ -173,4 +173,26 @@
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
+    <string name="support_request_button">Napsat e-mail podpoře</string>
+    <string name="support_request">Můžeme k e-mailu přiložit soubor s anonymními diagnostickými informacemi o Vašem zařízení pro účely podpory?</string>
+    <string name="support_request_allowed">Přiložit diagnostiku</string>
+    <string name="support_request_denied">Nepřikládat diagnostiku</string>
+    <string name="support_email_chooser">Vyberte e-mailovou aplikaci:</string>
+    <string name="support_email_subject">Zpětná vazba z aplikace eRouška</string>
+    <string name="support_error_code">Kód chyby</string>
+    <string name="support_app_version">Verze aplikace</string>
+    <string name="support_system_version">Verze systému</string>
+    <string name="support_device">Zařízení</string>
+    <string name="support_localization">Lokalizace</string>
+    <string name="support_bluetooth">Bluetooth</string>
+    <string name="support_bluetooth_supports">podporuje</string>
+    <string name="support_bluetooth_doesnt_support">NEpodporuje</string>
+    <string name="support_location_services">Polohové služby</string>
+    <string name="support_primary_account">Primární účet</string>
+    <string name="support_battery_optimization_exception">Vyjímka z optimalizace baterie</string>
+    <string name="support_installation">Instalace</string>
+    <string name="support_last_key_download">Poslední stažení klíčů</string>
+    <string name="support_last_notified_risky_encounter">Poslední notifikace rizikového setkání</string>
+    <string name="support_last_risky_encounter_from">Poslední rizikové setkání z</string>
+    <string name="support_file_name">diagnosticke_informace.txt</string>
 </resources>

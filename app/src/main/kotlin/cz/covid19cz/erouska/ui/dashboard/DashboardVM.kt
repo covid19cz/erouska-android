@@ -16,17 +16,17 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
-import cz.covid19cz.erouska.utils.DeviceUtils
+import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.ext.timestampToDate
+import cz.covid19cz.erouska.ext.timestampToTime
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DashboardVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository,
-    private val deviceUtils: DeviceUtils
+    private val deviceInfo: DeviceInfo
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -44,10 +44,8 @@ class DashboardVM @ViewModelInject constructor(
     fun onCreate() {
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
-                lastUpdateDate.value =
-                    SimpleDateFormat("d. M. yyyy", Locale.getDefault()).format(Date(it))
-                lastUpdateTime.value =
-                    SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
+                lastUpdateDate.value = it.timestampToDate()
+                lastUpdateTime.value = it.timestampToTime()
             }
             checkForObsoleteData()
         }
@@ -65,8 +63,8 @@ class DashboardVM @ViewModelInject constructor(
             return
         }
 
-        bluetoothState.value = deviceUtils.isBtEnabled()
-        locationState.value = deviceUtils.isLocationEnabled()
+        bluetoothState.value = deviceInfo.isBtEnabled()
+        locationState.value = deviceInfo.isLocationEnabled()
 
         checkRiskyExposures()
 

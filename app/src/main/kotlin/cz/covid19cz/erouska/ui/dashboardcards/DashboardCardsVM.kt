@@ -7,8 +7,8 @@ import androidx.lifecycle.OnLifecycleEvent
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import java.text.SimpleDateFormat
-import java.util.*
+import cz.covid19cz.erouska.ext.timestampToDate
+import cz.covid19cz.erouska.ext.timestampToTime
 
 class DashboardCardsVM @ViewModelInject constructor(
     private val prefs: SharedPrefsRepository
@@ -21,10 +21,8 @@ class DashboardCardsVM @ViewModelInject constructor(
     fun onCreate() {
         prefs.lastKeyImportLive.observeForever {
             if (it != 0L) {
-                lastUpdateDate.value =
-                    SimpleDateFormat("d. M. yyyy", Locale.getDefault()).format(Date(it))
-                lastUpdateTime.value =
-                    SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(it))
+                lastUpdateDate.value = it.timestampToDate()
+                lastUpdateTime.value = it.timestampToTime()
             }
         }
     }

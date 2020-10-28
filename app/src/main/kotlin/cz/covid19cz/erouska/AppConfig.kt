@@ -31,7 +31,7 @@ object AppConfig {
     val dbCleanupDays
         get() = firebaseRemoteConfig.getLong("v2_dbCleanupDays").toInt()
     val supportEmail
-        get() = firebaseRemoteConfig.getDouble("v2_supportEmail")
+        get() = firebaseRemoteConfig.getString("v2_supportEmail")
     val reportTypeWhenMissing
         get() = firebaseRemoteConfig.getLong("v2_reportTypeWhenMissing").toInt()
     val shareAppDynamicLink

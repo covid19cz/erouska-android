@@ -1,15 +1,15 @@
 package cz.covid19cz.erouska.ui.recentexposures.entity
 
-import java.text.SimpleDateFormat
-import java.util.*
+import cz.covid19cz.erouska.ext.timestampToDate
+import cz.covid19cz.erouska.ext.timestampToTime
 
 class RecentExposureGroupHeaderItem(val timestamp : Long) {
 
     fun getDateString() : String{
-        return SimpleDateFormat("d. M. yyyy", Locale.getDefault()).format(Date(timestamp))
+        return timestamp.timestampToDate()
     }
 
     fun getTimeString() : String{
-        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(timestamp))
+        return timestamp.timestampToTime()
     }
 }

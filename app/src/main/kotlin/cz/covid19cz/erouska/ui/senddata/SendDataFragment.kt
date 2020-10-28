@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
@@ -16,23 +17,31 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.ui.senddata.event.SendDataCommandEvent
 import cz.covid19cz.erouska.ui.senddata.event.SendDataFailedState
+import cz.covid19cz.erouska.utils.SupportEmailGenerator
+import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_send_data.*
-import kotlinx.android.synthetic.main.fragment_send_data.error_body
-import kotlinx.android.synthetic.main.fragment_send_data.error_group
-import kotlinx.android.synthetic.main.fragment_send_data.error_header
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
+class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     R.layout.fragment_send_data,
     SendDataVM::class
 ) {
+
+    private var errorMessage: String? = null
+
+    @Inject
+    internal lateinit var supportEmailGenerator: SupportEmailGenerator
+
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(SendDataCommandEvent::class) {
@@ -57,12 +66,19 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         activity?.let {
             (it as MainActivity).initReviews()
         }
+        support_button.setOnClickListener {
+            supportEmailGenerator.sendSupportEmail(
+                requireActivity(),
+                lifecycleScope,
+                errorCode = this.errorMessage
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION) {
-            when(resultCode){
+            when (resultCode) {
                 Activity.RESULT_OK -> viewModel.verifyAndConfirm()
                 Activity.RESULT_CANCELED -> viewModel.reset()
             }
@@ -105,11 +121,12 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         code_input_layout.error = null
     }
 
-    private fun onError() {
+    private fun onError(showSupportButton: Boolean = false) {
         progress.hide()
         code_input.hideKeyboard()
         error_group.show()
         send_data_group.hide()
+        support_button.showOrHide(showSupportButton)
     }
 
     private fun onCodeExpired() {
@@ -120,12 +137,14 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun onCodeExpiredOrUsed() {
         onError()
+        support_button.hide()
         error_header.text = getString(R.string.send_data_failure_header)
         error_body.text = getString(R.string.send_data_code_expired_body)
     }
 
     private fun onSendDataFailure(errorMessage: String?) {
-        onError()
+        this.errorMessage = errorMessage
+        onError(showSupportButton = true)
         error_header.text = getString(R.string.send_data_failure_header)
         error_body.text = getString(R.string.send_data_failure_body, errorMessage)
     }
@@ -136,13 +155,13 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         error_body.text = getString(R.string.no_internet)
     }
 
-    private fun onSuccess(hasEnoughKeys : Boolean = true) {
+    private fun onSuccess(hasEnoughKeys: Boolean = true) {
         activity?.setTitle(R.string.sent)
         progress.hide()
         code_input.hideKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)
 
-        if (hasEnoughKeys){
+        if (hasEnoughKeys) {
             success_header.setText(R.string.send_data_success_header)
             success_body_1.setText(R.string.send_data_success_body_1)
         } else {
