@@ -142,9 +142,9 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="exposure_info_text">Upozornenie sa vám zobrazilo najskôr 24 hodín po tom, čo sa nakazený dozvedel pozitívny výsledok testu na COVID-19 a zadal overovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút.\n\nKvôli zachovaniu anonymity nakazeného nepoznáme čas ani miesto stretnutia.</string>
     <string name="exposure_info_button">Ako postupovať ďalej</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one">Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutie</item>
-        <item quantity="few">Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutia</item>
-        <item quantity="other">Za posledných 14&nbsp;dní %1$d&nbsp;rizikových stretnutí</item>
+        <item quantity="one"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutie]]></item>
+        <item quantity="few"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutia]]></item>
+        <item quantity="other"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikových stretnutí]]></item>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
