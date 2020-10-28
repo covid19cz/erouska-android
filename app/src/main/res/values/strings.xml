@@ -165,7 +165,7 @@
     <string name="support_bluetooth_doesnt_support">NEpodporuje</string>
     <string name="support_location_services">Polohové služby</string>
     <string name="support_primary_account">Primární účet</string>
-    <string name="support_battery_optimization_exception">Vyjímka z optimalizace baterie</string>
+    <string name="support_battery_optimization_exception">Výjimka z optimalizace baterie</string>
     <string name="support_installation">Instalace</string>
     <string name="support_last_key_download">Poslední stažení klíčů</string>
     <string name="support_last_notified_risky_encounter">Poslední notifikace rizikového setkání</string>
