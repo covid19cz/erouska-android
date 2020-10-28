@@ -185,6 +185,7 @@ dependencies {
     implementation "io.noties.markwon:inline-parser:4.3.1"
     implementation 'io.noties.markwon:image-glide:4.3.1'
     implementation 'com.atlassian.commonmark:commonmark-ext-autolink:0.12.1'
+    implementation 'org.apache.commons:commons-lang3:3.11'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

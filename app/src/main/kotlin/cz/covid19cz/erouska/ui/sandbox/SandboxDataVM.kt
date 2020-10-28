@@ -12,8 +12,6 @@ import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SandboxDataVM @ViewModelInject constructor(private val exposureNotificationsRepository: ExposureNotificationsRepository, val prefs : SharedPrefsRepository) : BaseVM() {
 
@@ -61,15 +59,6 @@ class SandboxDataVM @ViewModelInject constructor(private val exposureNotificatio
 
     fun daysToString(daysSinceEpoch: Int): String {
         return daysSinceEpoch.daysSinceEpochToDateString()
-    }
-
-    fun dateInMilisToString(milis: Long): String {
-        val formatter = SimpleDateFormat("d.M.yyyy", Locale.getDefault())
-        formatter.timeZone = TimeZone.getTimeZone("UTC")
-        val dateTime = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-            timeInMillis = milis
-        }
-        return formatter.format(dateTime.time)
     }
 
 }

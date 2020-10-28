@@ -35,11 +35,14 @@ class ActivationFragment :
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
     }

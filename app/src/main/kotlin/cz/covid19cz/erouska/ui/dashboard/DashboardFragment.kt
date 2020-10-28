@@ -43,6 +43,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     @Inject
     lateinit var notifications: Notifications
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
@@ -123,7 +125,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
         }
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(ExposuresCommandEvent::class) {

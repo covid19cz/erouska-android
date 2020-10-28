@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.exposurenotifications
 
 import android.content.Context
-import android.util.Base64
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -188,23 +187,6 @@ class ExposureNotificationsRepository @Inject constructor(
             }.addOnFailureListener {
                 cont.resumeWithException(it)
             }
-    }
-
-    suspend fun reportExposureWithoutVerification(): Int {
-        val keys = getTemporaryExposureKeyHistory()
-        val request = ExposureRequest(keys.map {
-            TemporaryExposureKeyDto(
-                Base64.encodeToString(
-                    it.keyData,
-                    Base64.NO_WRAP
-                ), it.rollingStartIntervalNumber, it.rollingPeriod
-            )
-        }, null, null, null, null)
-        val response = server.reportExposure(request)
-        if (response.errorMessage != null) {
-            throw ReportExposureException(response.errorMessage, response.code)
-        }
-        return response.insertedExposures ?: 0
     }
 
     suspend fun reportExposureWithVerification(code: String): Int {

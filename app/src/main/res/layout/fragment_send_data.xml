@@ -155,8 +155,19 @@
             android:onClick="@{() -> vm.reset()}"
             android:text="@string/send_data_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/support_button"
             app:layout_constraintTop_toBottomOf="@+id/error_body" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/support_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/support_request_button"
+            app:layout_constraintEnd_toStartOf="@+id/back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_body"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/success_close_button"
@@ -190,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="ic_error, error_header, error_body, back_button" />
+            app:constraint_referenced_ids="ic_error, error_header, error_body, back_button, support_button" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/send_data_group"

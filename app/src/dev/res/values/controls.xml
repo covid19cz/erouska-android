@@ -4,4 +4,5 @@
     <string name="key_server_base_url">https://exposure-i5jzq6zlxq-ew.a.run.app/</string>
     <string name="verification_server_base_url">https://apiserver-eyrqoibmxa-ew.a.run.app/</string>
     <string name="covid_data_server_base_url">https://europe-west1-erouska-key-server-dev.cloudfunctions.net</string>
+    <string name="fileprovider_authorities" translatable="false">cz.covid19cz.erouska.dev.fileprovider</string>
 </resources>
