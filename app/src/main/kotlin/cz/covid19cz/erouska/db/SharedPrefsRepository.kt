@@ -49,6 +49,8 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
 
         const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
+        const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
+        const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -106,6 +108,22 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setLegacyExposuresImported(){
         prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
+    }
+
+    fun isPushTokenRegistered() : Boolean{
+        return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
+    }
+
+    fun setPushTokenRegistered(){
+        prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
+    }
+
+    fun isPushTopicRegistered() : Boolean{
+        return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
+    }
+
+    fun setPushTopicRegistered(){
+        prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
     fun hasOutdatedKeyData(): Boolean {

@@ -36,7 +36,8 @@ class ExposureNotificationsRepository @Inject constructor(
     private val cryptoTools: ExposureCryptoTools,
     private val prefs: SharedPrefsRepository,
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
-    private val db: DailySummariesDb
+    private val db: DailySummariesDb,
+    private val notifications: Notifications
 ) {
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
@@ -284,7 +285,7 @@ class ExposureNotificationsRepository @Inject constructor(
         val latestExposure = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
         val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()?.daysSinceEpoch
         if (latestExposure != null && latestExposure != lastNotifiedExposure) {
-            LocalNotificationsHelper.showRiskyExposureNotification(context)
+            notifications.showRiskyExposureNotification()
             db.dao().markAsNotified()
             firebaseFunctionsRepository.registerNotification()
         } else {
