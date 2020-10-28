@@ -5,7 +5,7 @@ import androidx.work.Configuration
 import androidx.work.WorkManager
 import arch.BaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
-import cz.covid19cz.erouska.exposurenotifications.LocalNotificationsHelper
+import cz.covid19cz.erouska.exposurenotifications.Notifications
 import dagger.hilt.android.HiltAndroidApp
 import java.io.File
 import javax.inject.Inject
@@ -16,11 +16,14 @@ class App : BaseApp(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    @Inject
+    lateinit var notifications: Notifications
+
     override fun onCreate() {
         super.onCreate()
         AppConfig.fetchRemoteConfig()
         AndroidThreeTen.init(this)
-        LocalNotificationsHelper.createNotificationChannels(this)
+        notifications.init()
         removeObsoleteData()
 
         // Init WorkManager with app context, battery saver prevention

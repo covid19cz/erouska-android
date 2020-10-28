@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import cz.covid19cz.erouska.exposurenotifications.Notifications
 import cz.covid19cz.erouska.ext.isNetworkAvailable
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
@@ -20,7 +21,8 @@ import kotlinx.coroutines.launch
 class ActivationVM @ViewModelInject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
     @ApplicationContext
-    private val context: Context
+    private val context: Context,
+    private val notifications: Notifications
 ) : BaseVM() {
 
     private val mutableState = MutableLiveData<ActivationState>()
@@ -40,7 +42,7 @@ class ActivationVM @ViewModelInject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 mutableState.postValue(ActivationStart)
                 try {
-                    firebaseFunctionsRepository.register()
+                    firebaseFunctionsRepository.register(notifications.getCurrentPushToken())
                     mutableState.postValue(ActivationFinished)
                 } catch (e: Exception) {
                     if (e is ApiException) {
