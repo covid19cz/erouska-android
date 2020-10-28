@@ -16,7 +16,7 @@ import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.*
-import cz.covid19cz.erouska.ui.senddata.NotEnoughKeysException
+import cz.covid19cz.erouska.ui.senddata.NoKeysException
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
@@ -208,11 +208,9 @@ class ExposureNotificationsRepository @Inject constructor(
 
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
-        if (keys.size <= 1) {
-            if (keys.isEmpty()) {
-                L.e("No keys!")
-            }
-            throw NotEnoughKeysException()
+        if (keys.isEmpty()) {
+            L.e("No keys found, upload cancelled")
+            throw NoKeysException()
         }
         try {
             val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
