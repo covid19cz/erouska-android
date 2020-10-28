@@ -22,7 +22,6 @@
     <string name="privacy_toolbar_title">Súkromie</string>
     <string name="activation_error_title">Chyba</string>
     <string name="activation_error_header">Aktiváciu aplikácie nie je možné dokončiť</string>
-    <string name="activation_error_body">Skontrolujte pripojenie k internetu a aktiváciu aplikácie skúste znovu. Ak chyba pretrváva, kontaktujte nás na info@erouska.cz</string>
     <string name="activation_try_again">Skúsiť znova</string>
     <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté oznámenia o kontakte s COVID-19</string>
     <string name="permission_onboarding_desc">Tieto oznámenia vás upozornia, ak ste boli v blízkosti užívateľa eRoušky s pozitívnym testom na ochorenie COVID-19</string>

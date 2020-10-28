@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions.Builder
 import cz.covid19cz.erouska.AppConfig
@@ -21,6 +22,7 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
+import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_activation.*
 import javax.inject.Inject
@@ -37,6 +39,9 @@ class ActivationFragment :
 
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
+
+    @Inject
+    internal lateinit var supportEmailGenerator: SupportEmailGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +101,9 @@ class ActivationFragment :
         when (state) {
             is ActivationStart -> onActivationStart()
             is ActivationFinished -> onActivationSuccess()
-            is ActivationFailed -> onActivationFailed()
+            is ActivationFailed -> onActivationFailed(state.errorMessage)
             is ActivationInit -> onActivationInit()
+            is NoInternet -> onNoInternet()
         }
     }
 
@@ -123,6 +129,10 @@ class ActivationFragment :
         showSignedIn()
     }
 
+    private fun onNoInternet() {
+        showSnackBar(R.string.no_internet)
+    }
+
     private fun onActivationInit() {
         activity?.setTitle(R.string.privacy_toolbar_title)
 
@@ -133,9 +143,12 @@ class ActivationFragment :
         error_group.hide()
     }
 
-    private fun onActivationFailed() {
+    private fun onActivationFailed(errorMessage: String?) {
         activity?.setTitle(R.string.activation_error_title)
-
+        error_body.text = getString(R.string.send_data_failure_body, errorMessage)
+        support_button.setOnClickListener {
+            supportEmailGenerator.sendSupportEmail(requireActivity(), lifecycleScope, errorCode = errorMessage)
+        }
         login_progress.hide()
 
         privacy_group.hide()

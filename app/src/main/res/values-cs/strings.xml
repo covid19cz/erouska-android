@@ -24,7 +24,6 @@
 
     <string name="activation_error_title">Chyba</string>
     <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
-    <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
     <string name="activation_try_again">Zkusit znovu</string>
 
     <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
@@ -173,7 +172,7 @@
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
-    <string name="support_request_button">Napsat e-mail podpoře</string>
+    <string name="support_request_button">Kontaktovat podporu</string>
     <string name="support_request">Můžeme k e-mailu přiložit soubor s anonymními diagnostickými informacemi o Vašem zařízení pro účely podpory?</string>
     <string name="support_request_allowed">Přiložit diagnostiku</string>
     <string name="support_request_denied">Nepřikládat diagnostiku</string>

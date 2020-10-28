@@ -22,7 +22,6 @@
     <string name="privacy_toolbar_title">Privacy</string>
     <string name="activation_error_title">Error</string>
     <string name="activation_error_header">Activation could not be finished</string>
-    <string name="activation_error_body">Check your internet connection and try again to activate your application. If the problem persists, contact us at info@erouska.cz</string>
     <string name="activation_try_again">Try again</string>
     <string name="permission_onboarding_title">To work properly, eRouška requires notifications about COVID-19 exposure to be enabled</string>
     <string name="permission_onboarding_desc">These notifications will indicate that you have encountered a user with eRouška who tested positive for COVID-19.</string>
@@ -150,7 +149,7 @@
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
-    <string name="support_request_button">Napsat e-mail podpoře</string>
+    <string name="support_request_button">Kontaktovat podporu</string>
     <string name="support_request">Můžeme k e-mailu přiložit soubor s anonymními diagnostickými informacemi o Vašem zařízení pro účely podpory?</string>
     <string name="support_request_allowed">Přiložit diagnostiku</string>
     <string name="support_request_denied">Nepřikládat diagnostiku</string>
