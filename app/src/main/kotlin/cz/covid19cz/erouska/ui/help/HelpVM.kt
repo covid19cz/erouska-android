@@ -21,6 +21,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
     val content = SafeMutableLiveData(AppConfig.helpMarkdown)
     val lastMarkedIndex = SafeMutableLiveData(0)
     val queryData = SafeMutableLiveData("")
+    lateinit var displayedText: String
     private var searchMatches: List<String> = arrayListOf()
 
     private var searchJob: Job? = null
@@ -92,11 +93,11 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
             return
         }
 
-        val searchedText = content.value.substring(0, lastMarkedIndex.value)
+        val searchedText = displayedText.substring(0, lastMarkedIndex.value)
         var index = findIndexOfPreviousResult(searchedText)
         if (index == -1) {
             // the search match was not found, let's search in the whole text (from the end)
-            index = findIndexOfPreviousResult(content.value)
+            index = findIndexOfPreviousResult(displayedText)
         }
 
         lastMarkedIndex.value = index
@@ -106,7 +107,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         return searchableText.lastIndexOfAny(searchMatches, ignoreCase = true)
     }
 
-    fun findPositionOfNextResult(overrideQueryDataLength: Int? = null) {
+    fun findPositionOfNextResult( overrideQueryDataLength: Int? = null) {
         if (searchResultCount.value <= 0) {
             return
         }
@@ -116,13 +117,13 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         )
         if (index == -1) {
             // the search match was not found, let's search from the beginning
-            index = findIndexOfNextResult(0)
+            index = findIndexOfNextResult( 0)
         }
         lastMarkedIndex.value = index
     }
 
     private fun findIndexOfNextResult(startIndex: Int): Int {
-        return content.value.indexOfAny(searchMatches, startIndex, ignoreCase = true)
+        return displayedText.indexOfAny(searchMatches, startIndex, ignoreCase = true)
     }
 
 }
