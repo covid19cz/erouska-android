@@ -24,7 +24,6 @@ class MyDataVM @ViewModelInject constructor(
 ) : BaseVM() {
 
     companion object {
-        const val LAST_UPDATE_UI_FORMAT = "dd. MM. yyyy" // date format used in UI
         const val LAST_UPDATE_API_FORMAT = "yyyyMMdd" // date format returned from API
     }
 
@@ -33,53 +32,32 @@ class MyDataVM @ViewModelInject constructor(
         if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
             getStats()
         }
-        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
+//        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
             getMetrics()
-        }
+//        }
     }
 
     fun measures() {
         publish(MyDataCommandEvent(MyDataCommandEvent.Command.MEASURES))
     }
 
+    // stats
     val testsTotal = SafeMutableLiveData(prefs.getTestsTotal())
     val testsIncrease = SafeMutableLiveData(prefs.getTestsIncrease())
-
     val confirmedCasesTotal = SafeMutableLiveData(prefs.getConfirmedCasesTotal())
     val confirmedCasesIncrease = SafeMutableLiveData(prefs.getConfirmedCasesIncrease())
-
     val activeCasesTotal = SafeMutableLiveData(prefs.getActiveCasesTotal())
-    val activeCasesIncrease = SafeMutableLiveData(prefs.getActiveCasesIncrease())
-
     val curedTotal = SafeMutableLiveData(prefs.getCuredTotal())
-    val curedIncrease = SafeMutableLiveData(prefs.getCuredIncrease())
-
     val deceasedTotal = SafeMutableLiveData(prefs.getDeceasedTotal())
-    val deceasedIncrease = SafeMutableLiveData(prefs.getDeceasedIncrease())
-
     val currentlyHospitalizedTotal = SafeMutableLiveData(prefs.getCurrentlyHospitalizedTotal())
-    val currentlyHospitalizedIncrease =
-        SafeMutableLiveData(prefs.getCurrentlyHospitalizedIncrease())
 
+    // metrics
     val activationsTotal = SafeMutableLiveData(prefs.getActivationsTotal())
     val activationsYesterday = SafeMutableLiveData(prefs.getActivationsYesterday())
-
     val keyPublishersTotal = SafeMutableLiveData(prefs.getKeyPublishersTotal())
     val keyPublishersYesterday = SafeMutableLiveData(prefs.getKeyPublishersYesterday())
-
     val notificationsTotal = SafeMutableLiveData(prefs.getNotificationsTotal())
     val notificationsYesterday = SafeMutableLiveData(prefs.getNotificationsYesterday())
-
-    var lastUpdate = if (prefs.getLastStatsUpdate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getLastStatsUpdate()))
-        )
-    }
 
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
@@ -107,39 +85,21 @@ class MyDataVM @ViewModelInject constructor(
                     prefs.setConfirmedCasesTotal(total)
                     prefs.setConfirmedCasesIncrease(increase)
                 }
-                safeLet(
-                    response.activeCasesTotal,
-                    response.activeCasesIncrease
-                ) { total, increase ->
+                response.activeCasesTotal?.let { total ->
                     activeCasesTotal.value = total
-                    activeCasesIncrease.value = increase
-
                     prefs.setActiveCasesTotal(total)
-                    prefs.setActiveCasesIncrease(increase)
                 }
-                safeLet(response.curedTotal, response.curedIncrease) { total, increase ->
+                response.curedTotal?.let { total ->
                     curedTotal.value = total
-                    curedIncrease.value = increase
-
                     prefs.setCuredTotal(total)
-                    prefs.setCuredIncrease(increase)
                 }
-                safeLet(response.deceasedTotal, response.deceasedIncrease) { total, increase ->
+                response.deceasedTotal?.let { total ->
                     deceasedTotal.value = total
-                    deceasedIncrease.value = increase
-
                     prefs.setDeceasedTotal(total)
-                    prefs.setDeceasedIncrease(increase)
                 }
-                safeLet(
-                    response.currentlyHospitalizedTotal,
-                    response.currentlyHospitalizedIncrease
-                ) { total, increase ->
+                response.currentlyHospitalizedTotal?.let { total ->
                     currentlyHospitalizedTotal.value = total
-                    currentlyHospitalizedIncrease.value = increase
-
                     prefs.setCurrentlyHospitalizedTotal(total)
-                    prefs.setCurrentlyHospitalizedIncrease(increase)
                 }
 
                 response.date?.let {
@@ -150,11 +110,6 @@ class MyDataVM @ViewModelInject constructor(
 
                     lastUpdateDate?.time?.let { lastUpdateMillis ->
                         prefs.setLastStatsUpdate(lastUpdateMillis)
-
-                        lastUpdate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(Date(lastUpdateMillis))
                     }
                 }
             }.onFailure {
@@ -225,4 +180,3 @@ class MyDataVM @ViewModelInject constructor(
         }
     }
 }
-

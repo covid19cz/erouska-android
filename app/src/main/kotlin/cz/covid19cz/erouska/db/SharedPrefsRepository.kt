@@ -32,30 +32,21 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
         const val LAST_METRICS_UPDATE = "lastMetricsUpdate"
 
+        // stats
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
-
         const val CONFIRMED_CASES_TOTAL = "confirmedCasesTotal"
         const val CONFIRMED_CASES_INCREASE = "confirmedCasesIncrease"
-
         const val ACTIVE_CASES_TOTAL = "activeCasesTotal"
-        const val ACTIVE_CASES_INCREASE = "activeCasesIncrease"
-
         const val CURED_TOTAL = "curedTotal"
-        const val CURED_INCREASE = "curedIncrease"
-
         const val DECEASED_TOTAL = "deceasedTotal"
-        const val DECEASED_INCREASE = "deceasedIncrease"
-
         const val CURRENTLY_HOSPITALIZED_TOTAL = "currentlyHospitalizedTotal"
-        const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
 
+        // metrics
         const val ACTIVATIONS_TOTAL = "activationsTotal"
         const val ACTIVATIONS_YESTERDAY = "activationsIncrease"
-
         const val KEY_PUBLISHERS_TOTAL = "keyPublishersTotal"
         const val KEY_PUBLISHERS_YESTERDAY = "keyPublishersYesterday"
-
         const val NOTIFICATIONS_TOTAL = "notificationsTotal"
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
     }
@@ -253,28 +244,12 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putInt(ACTIVE_CASES_TOTAL, value).apply()
     }
 
-    fun getActiveCasesIncrease(): Int {
-        return prefs.getInt(ACTIVE_CASES_INCREASE, 0)
-    }
-
-    fun setActiveCasesIncrease(value: Int) {
-        return prefs.edit().putInt(ACTIVE_CASES_INCREASE, value).apply()
-    }
-
     fun getCuredTotal(): Int {
         return prefs.getInt(CURED_TOTAL, 0)
     }
 
     fun setCuredTotal(value: Int) {
         return prefs.edit().putInt(CURED_TOTAL, value).apply()
-    }
-
-    fun getCuredIncrease(): Int {
-        return prefs.getInt(CURED_INCREASE, 0)
-    }
-
-    fun setCuredIncrease(value: Int) {
-        return prefs.edit().putInt(CURED_INCREASE, value).apply()
     }
 
     fun getDeceasedTotal(): Int {
@@ -285,28 +260,12 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putInt(DECEASED_TOTAL, value).apply()
     }
 
-    fun getDeceasedIncrease(): Int {
-        return prefs.getInt(DECEASED_INCREASE, 0)
-    }
-
-    fun setDeceasedIncrease(value: Int) {
-        return prefs.edit().putInt(DECEASED_INCREASE, value).apply()
-    }
-
     fun getCurrentlyHospitalizedTotal(): Int {
         return prefs.getInt(CURRENTLY_HOSPITALIZED_TOTAL, 0)
     }
 
     fun setCurrentlyHospitalizedTotal(value: Int) {
         return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_TOTAL, value).apply()
-    }
-
-    fun getCurrentlyHospitalizedIncrease(): Int {
-        return prefs.getInt(CURRENTLY_HOSPITALIZED_INCREASE, 0)
-    }
-
-    fun setCurrentlyHospitalizedIncrease(value: Int) {
-        return prefs.edit().putInt(CURRENTLY_HOSPITALIZED_INCREASE, value).apply()
     }
 
     fun getActivationsTotal(): Int {

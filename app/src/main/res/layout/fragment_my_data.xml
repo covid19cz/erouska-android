@@ -228,7 +228,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:case_icon="@{@drawable/ic_help}"
+                app:case_icon="@{@drawable/ic_notifications_sent}"
                 app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.keyPublishersYesterday))}"
                 app:case_title="@{String.format(@string/my_data_notifications_sent, NumberFormat.getInstance().format(vm.keyPublishersTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -246,26 +246,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:case_icon="@{@drawable/ic_help}"
+                app:case_icon="@{@drawable/ic_notifications_shown}"
                 app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.notificationsYesterday))}"
                 app:case_title="@{String.format(@string/my_data_notifications_shown, NumberFormat.getInstance().format(vm.notificationsTotal))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/notifications_sent" />
-
-            <TextView
-                android:id="@+id/last_update_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal"
-                android:padding="16dp"
-                android:text="@{String.format(@string/my_data_last_update, vm.lastUpdate)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                android:textColor="@color/textColorSecondary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notifications_shown" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

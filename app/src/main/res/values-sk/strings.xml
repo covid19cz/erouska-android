@@ -66,7 +66,6 @@
     <string name="my_data_cured">%1$s vyliečených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
-    <string name="my_data_last_update">Posledná aktualizácia %1$s</string>
     <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 vás bude kontaktovať pracovník hygienickej stanice. Odošle vám SMS správu obsahujúcu overovací kód na povolenie odoslania dát.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
