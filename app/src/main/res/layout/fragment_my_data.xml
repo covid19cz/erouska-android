@@ -43,6 +43,7 @@
                 android:id="@+id/measures_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:drawableStart="@drawable/ic_restriction"
                 android:drawablePadding="16dp"
