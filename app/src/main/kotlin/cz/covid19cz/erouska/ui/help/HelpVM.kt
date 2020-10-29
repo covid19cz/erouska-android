@@ -42,42 +42,43 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         if (queryData.value.length >= 2) {
             searchJob = viewModelScope.launch {
                 try {
-
-                    val pattern = StringUtils.stripAccents(queryData.value)
-                    val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
-                    val searchedText = StringUtils.stripAccents(AppConfig.helpMarkdown)
-                    var printedText = AppConfig.helpMarkdown
-
-                    val m = r.matcher(searchedText)
-                    val replaceList = arrayListOf<String>()
-
-                    while (m.find()) {
-                        replaceList.add(printedText.substring(m.start(0), m.end(0)))
-                    }
-                    searchResultCount.value = replaceList.size
-                    searchMatches = replaceList.distinct()
-
-                    for (replaceString in searchMatches) {
-                        printedText = printedText.replace(
-                            replaceString,
-                            "${Markdown.doubleSearchChar}${replaceString}${Markdown.doubleSearchChar}"
-                        )
-                    }
-
-                    content.value = printedText
-                    searchControlsEnabled.value = replaceList.isNotEmpty()
-                    // we don't want to take into account the currently search query length
-                    findPositionOfNextResult(0)
-
+                    searchQueryInText()
                 } catch (cancelException: CancellationException) {
                     L.d("Job cancelled")
                 }
-
             }
         } else {
             resetSearch()
         }
 
+    }
+
+    private fun searchQueryInText() {
+        val pattern = StringUtils.stripAccents(queryData.value)
+        val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
+        val searchedText = StringUtils.stripAccents(AppConfig.helpMarkdown)
+        var printedText = AppConfig.helpMarkdown
+
+        val m = r.matcher(searchedText)
+
+        val replaceList = arrayListOf<String>()
+        while (m.find()) {
+            replaceList.add(printedText.substring(m.start(0), m.end(0)))
+        }
+        searchResultCount.value = replaceList.size
+        searchMatches = replaceList.distinct()
+
+        for (replaceString in searchMatches) {
+            printedText = printedText.replace(
+                replaceString,
+                "${Markdown.doubleSearchChar}${replaceString}${Markdown.doubleSearchChar}"
+            )
+        }
+
+        content.value = printedText
+        searchControlsEnabled.value = replaceList.isNotEmpty()
+        // we don't want to take into account the currently search query length
+        findPositionOfNextResult(0)
     }
 
     fun resetSearch() {
@@ -86,7 +87,6 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         searchResultCount.value = 0
         lastMarkedIndex.value = 0
     }
-
 
     fun findPositionOfPreviousResult() {
         if (searchResultCount.value <= 0) {
@@ -107,7 +107,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         return searchableText.lastIndexOfAny(searchMatches, ignoreCase = true)
     }
 
-    fun findPositionOfNextResult( overrideQueryDataLength: Int? = null) {
+    fun findPositionOfNextResult(overrideQueryDataLength: Int? = null) {
         if (searchResultCount.value <= 0) {
             return
         }
@@ -117,7 +117,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
         )
         if (index == -1) {
             // the search match was not found, let's search from the beginning
-            index = findIndexOfNextResult( 0)
+            index = findIndexOfNextResult(0)
         }
         lastMarkedIndex.value = index
     }
