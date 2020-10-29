@@ -32,9 +32,9 @@ class MyDataVM @ViewModelInject constructor(
         if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
             getStats()
         }
-//        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
+        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
             getMetrics()
-//        }
+        }
     }
 
     fun measures() {
