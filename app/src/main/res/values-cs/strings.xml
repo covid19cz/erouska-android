@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
-    <string name="dashboard_body_no_contact">Poslední aktualizace dat %1$s v %2$s.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace dat %1$s v\u00A0%2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
     <string name="pause_app">Pozastavit</string>
     <string name="start_app">Spustit</string>
@@ -160,9 +160,9 @@
     <string name="exposure_info_button">Jak postupovat dál</string>
 
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one"><![CDATA[Za posledních 14&nbsp;dní %1$d&nbsp;rizikové setkání]]></item>
-        <item quantity="few"><![CDATA[Za posledních 14&nbsp;dní %1$d&nbsp;riziková setkání]]></item>
-        <item quantity="other"><![CDATA[Za posledních 14&nbsp;dní %1$d&nbsp;rizikových setkání]]></item>
+        <item quantity="one">Za posledních 14\u00A0dní %1$d\u00A0rizikové setkání</item>
+        <item quantity="few">Za posledních 14\u00A0dní %1$d\u00A0riziková setkání</item>
+        <item quantity="other">Za posledních 14\u00A0dní %1$d\u00A0rizikových setkání</item>
     </plurals>
 
     <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
