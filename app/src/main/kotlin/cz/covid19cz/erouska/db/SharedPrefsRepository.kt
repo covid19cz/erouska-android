@@ -18,6 +18,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
         const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
+        const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
 
@@ -26,8 +27,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val ATTENUATION_BUCKET_THRESHOLD_DB = "attenuationBucketThresholdDb"
         const val ATTENUATION_BUCKET_WEIGHTS = "attenuationBucketWeights"
         const val MINIMUM_WINDOW_SCORE = "minimumWindowScore"
-
-        const val REVISION_TOKEN = "revisionToken"
 
         const val LAST_STATS_UPDATE = "lastStatsUpdate"
         const val LAST_METRICS_UPDATE = "lastMetricsUpdate"
@@ -49,6 +48,11 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val KEY_PUBLISHERS_YESTERDAY = "keyPublishersYesterday"
         const val NOTIFICATIONS_TOTAL = "notificationsTotal"
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
+        const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
+
+        const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
+        const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
+        const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -80,20 +84,48 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
-    fun setLastNotifiedExposure(daysSinceEpoch: Int) {
-        prefs.edit().putInt(LAST_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
-    }
-
     fun getLastNotifiedExposure(): Int {
         return prefs.getInt(LAST_NOTIFIED_EXPOSURE, -1)
     }
 
-    fun setLastInAppNotifiedExposure(daysSinceEpoch: Int) {
-        prefs.edit().putInt(LAST_IN_APP_NOTIFIED_EXPOSURE, daysSinceEpoch).apply()
-    }
-
     fun getLastInAppNotifiedExposure(): Int {
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
+    }
+
+    fun setLastShownExposureInfo(daysSinceEpoch : Int) {
+        prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
+    }
+
+    fun getLastShownExposureInfo(): Int {
+        return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
+    }
+
+    fun cleanLegacyExposurePrefs(){
+        prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
+    }
+
+    fun isLegacyExposuresImported() : Boolean{
+        return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
+    }
+
+    fun setLegacyExposuresImported(){
+        prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
+    }
+
+    fun isPushTokenRegistered() : Boolean{
+        return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
+    }
+
+    fun setPushTokenRegistered(){
+        prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
+    }
+
+    fun isPushTopicRegistered() : Boolean{
+        return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
+    }
+
+    fun setPushTopicRegistered(){
+        prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
     fun hasOutdatedKeyData(): Boolean {
@@ -121,14 +153,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setExposureNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
-    }
-
-    fun saveRevisionToken(token: String?) {
-        prefs.edit().putString(REVISION_TOKEN, token).apply()
-    }
-
-    fun getRevisionToken(): String? {
-        return prefs.getString(REVISION_TOKEN, null)
     }
 
     fun clearCustomConfig() {

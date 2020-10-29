@@ -5,4 +5,6 @@
     <item name="action_play_services" type="id"/>
     <item name="action_exposure_demo" type="id"/>
     <item name="action_activation" type="id"/>
+    <item name="action_dashboard_cards" type="id"/>
+    <item name="action_exposure_screen" type="id"/>
 </resources>

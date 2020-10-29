@@ -34,7 +34,6 @@
             android:defaultValue="true"
             app:argType="boolean" />
 
-
     </fragment>
 
     <fragment
@@ -89,13 +88,6 @@
         android:label="Test"
         tools:layout="@layout/fragment_sandbox">
         <action
-            android:id="@+id/action_nav_sandbox_to_nav_bt_disabled"
-            app:destination="@id/nav_permisions_disabled"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_sandbox_to_nav_my_data"
             app:destination="@id/nav_my_data"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -141,32 +133,21 @@
             android:defaultValue="true"
             app:argType="boolean" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_permisions_disabled"
-        android:name="cz.covid19cz.erouska.ui.permissions.bluetooth.PermissionsDisabledFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_permissionss_disabled">
-        <action
-            android:id="@+id/action_nav_bt_disabled_to_nav_dashboard"
-            app:destination="@id/nav_dashboard"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
-    </fragment>
-
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_dashboard">
+        tools:layout="@layout/fragment_dashboard_cards">
         <action
             android:id="@+id/action_nav_dashboard_to_nav_play_services_update"
             app:destination="@id/nav_play_services_update"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_dashboard_cards"
+            app:destination="@id/nav_dashboard_cards"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -178,12 +159,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_permission_disabled"
-            app:destination="@id/nav_permisions_disabled"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_nav_dashboard_to_nav_welcome_fragment"
             app:destination="@id/nav_welcome_fragment"
@@ -202,36 +177,23 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_exposures"
-            app:destination="@id/nav_exposures"
+            android:id="@+id/action_nav_dashboard_to_nav_exposure"
+            app:destination="@id/nav_exposure"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_exposure_info"
+            app:destination="@id/nav_exposure_info" />
     </fragment>
     <fragment
-        android:id="@+id/nav_exposures"
-        android:name="cz.covid19cz.erouska.ui.exposure.ExposuresFragment"
-        tools:layout="@layout/fragment_exposures">
+        android:id="@+id/nav_exposure"
+        android:name="cz.covid19cz.erouska.ui.exposure.ExposureFragment"
+        tools:layout="@layout/fragment_exposure">
         <action
             android:id="@+id/action_nav_dashboard_to_nav_recent_exposures"
             app:destination="@id/nav_recent_exposures"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_main_symptoms"
-            app:destination="@id/nav_main_symptoms"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
-            android:id="@+id/action_nav_dashboard_to_nav_spread_prevention"
-            app:destination="@id/nav_spread_prevention"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -246,33 +208,16 @@
             android:name="demo"
             android:defaultValue="false"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_exposure_to_nav_exposure_help"
+            app:destination="@id/nav_exposure_help" />
 
     </fragment>
     <fragment
         android:id="@+id/nav_recent_exposures"
-        android:name="cz.covid19cz.erouska.ui.exposure.RecentExposuresFragment"
+        android:name="cz.covid19cz.erouska.ui.recentexposures.RecentExposuresFragment"
         tools:layout="@layout/fragment_recent_exposures">
 
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="true"
-            app:argType="boolean" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_main_symptoms"
-        android:name="cz.covid19cz.erouska.ui.exposure.MainSymptomsFragment"
-        tools:layout="@layout/fragment_main_symptoms">
-
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="true"
-            app:argType="boolean" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_spread_prevention"
-        android:name="cz.covid19cz.erouska.ui.exposure.SpreadPreventionFragment"
-        tools:layout="@layout/fragment_spread_prevention">
         <argument
             android:name="fullscreen"
             android:defaultValue="true"
@@ -340,6 +285,19 @@
 
     </fragment>
     <fragment
+        android:id="@+id/nav_dashboard_cards"
+        android:name="cz.covid19cz.erouska.ui.dashboardcards.DashboardCards"
+        android:label="DashboardCards"
+        >
+        <action
+            android:id="@+id/action_nav_dashboard_cards_to_nav_send_data"
+            app:destination="@+id/nav_send_data"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
         android:id="@+id/nav_sandbox_config"
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"
         android:label="SandboxConfigFragment"
@@ -349,5 +307,31 @@
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxDataFragment"
         android:label="SandboxDataFragment"
         tools:layout="@layout/fragment_sandbox_data" />
+    <fragment
+        android:id="@+id/nav_exposure_info"
+        android:name="cz.covid19cz.erouska.ui.exposureinfo.ExposureInfoFragment"
+        tools:layout="@layout/fragment_exposure_info">
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_exposure_info_to_nav_exposure"
+            app:destination="@id/nav_exposure" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_exposure_help"
+        android:name="cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragment"
+        tools:layout="@layout/fragment_exposure_help"
+        android:label="@string/help_toolbar_title" >
+        <argument
+            android:name="type"
+            app:argType="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType"
+            android:defaultValue="EXPOSURE" />
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
 
 </navigation>

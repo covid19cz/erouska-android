@@ -1,27 +1,13 @@
 package cz.covid19cz.erouska.ext
 
-import kotlin.math.pow
+import java.text.SimpleDateFormat
+import java.util.*
 
-fun Int.rssiToDistance(): Double {
-    return 10.0.pow(((-65 - this) / (10.0 * 2)))
-}
-
-fun Int.rssiToDistanceString(): String {
-    return String.format("%.1f m", rssiToDistance())
-}
-
-fun Int.daysToMilis() : Long{
-    return this * 86400000L
-}
-
-fun Int.hoursToMilis() : Long{
-    return this * 3600000L
-}
-
-fun Int.minutesToMilis() : Long{
-    return this * 60000L
-}
-
-fun Int.secondsToMilis() : Long{
-    return this * 1000L
+fun Int.daysSinceEpochToDateString(pattern: String = "d. M. yyyy"): String {
+    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
+    formatter.timeZone = TimeZone.getTimeZone("UTC")
+    val dateTime = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
+        timeInMillis = (toLong() * 24 * 60 * 60 * 1000)
+    }
+    return formatter.format(dateTime.time)
 }

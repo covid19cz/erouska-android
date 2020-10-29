@@ -16,6 +16,7 @@ data class VerifyCodeResponse(
     companion object {
         const val ERROR_CODE_INVALID_CODE = "code_invalid"
         const val ERROR_CODE_EXPIRED_CODE = "code_expired"
+        const val ERROR_CODE_EXPIRED_USED_CODE = "code_expired_or_used"
     }
 }
 

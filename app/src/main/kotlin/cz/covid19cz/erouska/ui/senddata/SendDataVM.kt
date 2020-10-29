@@ -16,6 +16,7 @@ import cz.covid19cz.erouska.ui.senddata.event.SendDataState
 import cz.covid19cz.erouska.ui.senddata.event.SendDataSuccessState
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class SendDataVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository) :
     BaseVM() {
@@ -29,20 +30,12 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
     }
 
     fun verifyAndConfirm() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-
-            }.onSuccess {
-                if (!isCodeValid(code.value)) {
-                    publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
-                    return@onSuccess
-                }
-                publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESSING))
-                sendData()
-            }.onFailure {
-                publish(GmsApiErrorEvent(it))
-            }
+        if (!isCodeValid(code.value)) {
+            publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
+            return
         }
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.PROCESSING))
+        sendData()
     }
 
     fun reset() {
@@ -57,11 +50,14 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                     exposureNotificationRepo.start()
                 }
                 exposureNotificationRepo.reportExposureWithVerification(code.value)
-            }.onSuccess {
+            }.onSuccess { keyCount ->
                 state.value = SendDataSuccessState
-                publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
+                if (keyCount > 1){
+                    publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_SUCCESS))
+                } else {
+                    publish(SendDataCommandEvent(SendDataCommandEvent.Command.NOT_ENOUGH_KEYS))
+                }
             }.onFailure {
-                L.e(it)
                 handleSendDataErrors(it)
             }
         }
@@ -70,6 +66,7 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
     private fun handleSendDataErrors(exception: Throwable) {
         when (exception) {
             is ApiException -> publish(GmsApiErrorEvent(exception))
+            is NoKeysException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.NOT_ENOUGH_KEYS))
             is VerifyException -> {
                 when (exception.code) {
                     VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
@@ -78,13 +75,36 @@ class SendDataVM @ViewModelInject constructor(private val exposureNotificationRe
                     VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
                         publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_INVALID))
                     }
+                    VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE -> {
+                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.CODE_EXPIRED_OR_USED))
+                    }
                     else -> {
-                        publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message+" (${exception.code})"))
+                        L.e(exception)
+                        publish(
+                            SendDataCommandEvent(
+                                SendDataCommandEvent.Command.DATA_SEND_FAILURE,
+                                exception.message + " (${exception.code})"
+                            )
+                        )
                     }
                 }
             }
-            is ReportExposureException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.error+" (${exception.code})"))
-            else -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.DATA_SEND_FAILURE, exception.message))
+            is ReportExposureException -> publish(
+                SendDataCommandEvent(
+                    SendDataCommandEvent.Command.DATA_SEND_FAILURE,
+                    exception.error + " (${exception.code})"
+                )
+            )
+            is UnknownHostException -> publish(SendDataCommandEvent(SendDataCommandEvent.Command.NO_INTERNET))
+            else -> {
+                L.e(exception)
+                publish(
+                    SendDataCommandEvent(
+                        SendDataCommandEvent.Command.DATA_SEND_FAILURE,
+                        exception.message
+                    )
+                )
+            }
         }
     }
 

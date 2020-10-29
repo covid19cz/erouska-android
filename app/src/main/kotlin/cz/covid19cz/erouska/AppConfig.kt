@@ -28,8 +28,10 @@ object AppConfig {
             .map { it.toInt() }
     val diagnosisKeysDataMappingLimitDays
         get() = firebaseRemoteConfig.getLong("v2_diagnosisKeysDataMappingLimitDays").toInt()
+    val dbCleanupDays
+        get() = firebaseRemoteConfig.getLong("v2_dbCleanupDays").toInt()
     val supportEmail
-        get() = firebaseRemoteConfig.getDouble("v2_supportEmail")
+        get() = firebaseRemoteConfig.getString("v2_supportEmail")
     val reportTypeWhenMissing
         get() = firebaseRemoteConfig.getLong("v2_reportTypeWhenMissing").toInt()
     val shareAppDynamicLink
@@ -44,20 +46,28 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_riskyEncountersTitleAn")
     val noEncounterHeader
         get() = firebaseRemoteConfig.getString("v2_noEncounterHeader")
+    val noEncounterCardTitle
+        get() = firebaseRemoteConfig.getString("v2_noEncounterCardTitle")
     val noEncounterBody
         get() = firebaseRemoteConfig.getString("v2_noEncounterBody")
+    val encounterUpdateFrequency
+        get() = String.format(firebaseRemoteConfig.getString("v2_encounterUpdateFrequency"), keyImportPeriodHours)
     val exposureUITitle
         get() = firebaseRemoteConfig.getString("v2_exposureUITitle")
     val symptomsUITitle
         get() = firebaseRemoteConfig.getString("v2_symptomsUITitle")
     val spreadPreventionUITitle
         get() = firebaseRemoteConfig.getString("v2_spreadPreventionUITitle")
+    val exposureHelpUITitle
+        get() = firebaseRemoteConfig.getString("v2_exposureHelpUITitle")
     val recentExposuresUITitle
         get() = firebaseRemoteConfig.getString("v2_recentExposuresUITitle")
     val symptomsContentJson
         get() = firebaseRemoteConfig.getString("v2_symptomsContentJson")
     val preventionContentJson
         get() = firebaseRemoteConfig.getString("v2_preventionContentJson")
+    val exposureHelpContentJson
+        get() = firebaseRemoteConfig.getString("v2_exposureHelpContentJson")
     val encounterWarning
         get() = firebaseRemoteConfig.getString("v2_encounterWarning")
     val selfCheckerPeriodHours
@@ -84,6 +94,12 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_verificationServerApiKey")
     val showChatBotLink
         get() = firebaseRemoteConfig.getBoolean("v2_showChatBotLink")
+    val handleError500AsInvalidCode
+        get() = firebaseRemoteConfig.getBoolean("v2_handleError500AsInvalidCode")
+    val handleError400AsExpiredOrUsedCode
+        get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
+    val recentExposureNotificationTitle
+        get() = firebaseRemoteConfig.getString("v2_recentExposureNotificationTitle")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

@@ -26,6 +26,7 @@ class ActivationTest {
         }
         A2Screen.run {
             checkAllPartsDisplayed()
+            enableBt()
             turnOnNotifications()
             acceptCovidActivation()
         }

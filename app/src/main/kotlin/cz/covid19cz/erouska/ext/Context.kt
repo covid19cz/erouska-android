@@ -1,9 +1,11 @@
 package cz.covid19cz.erouska.ext
 
+import android.app.Activity
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.LocationManager
 import android.net.ConnectivityManager
@@ -11,8 +13,8 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import cz.covid19cz.erouska.AppConfig
@@ -52,14 +54,6 @@ fun Context.isNetworkAvailable(): Boolean {
     }
 }
 
-fun Context.withInternet(onlineAction: () -> Unit) {
-    if (isNetworkAvailable()) onlineAction() else Toast.makeText(
-        this,
-        R.string.no_internet,
-        Toast.LENGTH_SHORT
-    ).show()
-}
-
 fun Context.shareApp() {
     val text = getString(R.string.share_app_text, AppConfig.shareAppDynamicLink)
     val intent = Intent(Intent.ACTION_SEND)
@@ -93,5 +87,44 @@ fun BaseFragment<*, *>.showWeb(url: String, customTabHelper: CustomTabHelper) {
         } catch (e: ActivityNotFoundException) {
             L.e(e)
         }
+    }
+}
+
+fun Activity.sendEmail(recipient: String, subject: Int, file: Uri? = null) {
+    val originalIntent = createEmailShareIntent(recipient, subject, file)
+    val emailFilterIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+    val originalIntentResults = packageManager.queryIntentActivities(originalIntent, 0)
+    val emailFilterIntentResults = packageManager.queryIntentActivities(emailFilterIntent, 0)
+    val targetedIntents = originalIntentResults
+        .filter { originalResult -> emailFilterIntentResults.any { originalResult.activityInfo.packageName == it.activityInfo.packageName } }
+        .map {
+            createEmailShareIntent(recipient, subject, file).apply { `package` = it.activityInfo.packageName }
+        }
+        .toMutableList()
+    if (targetedIntents.size > 0) {
+        val finalIntent = Intent.createChooser(targetedIntents.removeAt(0), getString(R.string.support_email_chooser))
+        finalIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toTypedArray())
+        startActivity(finalIntent)
+    }
+}
+
+private fun Activity.createEmailShareIntent(recipient: String, subject: Int, file: Uri?): Intent {
+    val builder = ShareCompat.IntentBuilder.from(this)
+        .setType("message/rfc822")
+        .setEmailTo(arrayOf(recipient))
+        .setSubject(getString(subject))
+    if (file != null) {
+        builder.setStream(file)
+    }
+    return builder.intent
+}
+
+fun Context.getInstallDay(): String {
+    val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
+    val installTimestamp = packageInfo.firstInstallTime
+    return if (installTimestamp > 0) {
+        installTimestamp.timestampToDate()
+    } else {
+        "N/A"
     }
 }
