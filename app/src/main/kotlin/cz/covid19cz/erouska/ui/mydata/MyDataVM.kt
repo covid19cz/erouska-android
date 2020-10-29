@@ -43,6 +43,13 @@ class MyDataVM @ViewModelInject constructor(
         publish(MyDataCommandEvent(MyDataCommandEvent.Command.MEASURES))
     }
 
+    fun onRefresh() {
+        getMetrics()
+        getStats()
+    }
+
+    val isLoading = SafeMutableLiveData(false)
+
     // stats
     val testsTotal = SafeMutableLiveData(prefs.getTestsTotal())
     val testsIncrease = SafeMutableLiveData(prefs.getTestsIncrease())
@@ -97,11 +104,13 @@ class MyDataVM @ViewModelInject constructor(
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
     private fun getStats(date: String? = null) {
+        isLoading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
                 return@runCatching firebaseFunctionsRepository.getStats(date)
             }.onSuccess { response ->
                 L.d(response.toString())
+                isLoading.value = false
 
                 safeLet(response.testsTotal,
                     response.testsIncrease,
@@ -183,6 +192,7 @@ class MyDataVM @ViewModelInject constructor(
                     }
                 }
             }.onFailure {
+                isLoading.value = false
                 if (it is ApiException) {
                     L.e(it.status.toString() + " " + it.message)
                 } else {
@@ -193,11 +203,13 @@ class MyDataVM @ViewModelInject constructor(
     }
 
     private fun getMetrics() {
+        isLoading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
                 return@runCatching firebaseFunctionsRepository.getDownloadMetrics()
             }.onSuccess { response ->
                 L.d(response.toString())
+                isLoading.value = false
 
                 safeLet(
                     response.activationsTotal,
@@ -249,6 +261,7 @@ class MyDataVM @ViewModelInject constructor(
                     }
                 }
             }.onFailure {
+                isLoading.value = false
                 if (it is ApiException) {
                     L.e(it.status.toString() + " " + it.message)
                 } else {
