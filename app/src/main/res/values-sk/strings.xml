@@ -56,6 +56,7 @@
     <string name="my_data_current_measures">Aktuálne opatrenia</string>
     <string name="my_data_current_measures_title">Informácie o aktuálnych opatreniach</string>
     <string name="my_data_current_situation">Aktuálna situácia v číslach</string>
+    <string name="my_data_stats">eRouška v číslach</string>
     <string name="my_data_yesterday">Za včerajší deň %1$s</string>
     <string name="my_data_for_day">%1$s za %2$s</string>
     <string name="my_data_activated_apps">%1$s aktivovaných aplikácií</string>
