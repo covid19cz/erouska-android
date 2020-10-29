@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplik\u00e1cia pracuje na pozad\u00ed a monitoruje okolie, pros\u00edm, neukon\u010dujte ju. Nechajte zapnut\u00fd Bluetooth a s telef\u00f3nom pracujte ako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v prípade možného podozrenia na stretnutie s COVID-19 a zobrazíme vám všetky potrebné informácie.</string>
-    <string name="dashboard_body_no_contact">Posledná aktualizácia dát: %1$s o %2$s.</string>
+    <string name="dashboard_body_no_contact">Posledná aktualizácia dát: %1$s o\u00A0%2$s.</string>
     <string name="dashboard_body_paused">Aplik\u00e1cia je aktu\u00e1lne pozastaven\u00e1 a nezbiera \u017eiadne \u00fadaje o ostatn\u00fdch eRou\u0161kach vo va\u0161om okol\u00ed.\n\nSpustite znovu zber d\u00e1t a chr\u00e1\u0148te seba aj svoje okolie. Nezab\u00fadajte na to hlavne v situ\u00e1cii, ke\u010f op\u00fa\u0161\u0165ate svoj domov.</string>
     <string name="pause_app">Pozastaviť</string>
     <string name="start_app">Spustiť</string>
@@ -144,9 +144,9 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="exposure_info_text">Upozornenie sa vám zobrazilo najskôr 24 hodín po tom, čo sa nakazený dozvedel pozitívny výsledok testu na COVID-19 a zadal overovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút.\n\nKvôli zachovaniu anonymity nakazeného nepoznáme čas ani miesto stretnutia.</string>
     <string name="exposure_info_button">Ako postupovať ďalej</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutie]]></item>
-        <item quantity="few"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikové stretnutia]]></item>
-        <item quantity="other"><![CDATA[Za posledných 14&nbsp;dní %1$d&nbsp;rizikových stretnutí]]></item>
+        <item quantity="one">Za posledných 14\u00A0;dní %1$d\u00A0rizikové stretnutie</item>
+        <item quantity="few">Za posledných 14\u00A0dní %1$d\u00A0rizikové stretnutia</item>
+        <item quantity="other">Za posledných 14\u00A0dní %1$d\u00A0rizikových stretnutí</item>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
