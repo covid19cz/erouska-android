@@ -8,6 +8,7 @@ import cz.covid19cz.erouska.AppConfig.FIREBASE_REGION
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.exception.UnauthrorizedException
 import cz.covid19cz.erouska.net.model.CovidStatsResponse
+import cz.covid19cz.erouska.net.model.DownloadMetricsResponse
 import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
@@ -58,6 +59,14 @@ class FirebaseFunctionsRepository @Inject constructor(
             val covidStats = callFunction("GetCovidData", data)
             Gson().fromJson(covidStats.toString(), CovidStatsResponse::class.java)
         }
+    }
+
+    /**
+     * Returns data from collections DownloadMetrics
+     */
+    suspend fun getDownloadMetrics(): DownloadMetricsResponse {
+        val covidStats = callFunction("DownloadMetrics")
+        return Gson().fromJson(covidStats.toString(), DownloadMetricsResponse::class.java)
     }
 
     /**

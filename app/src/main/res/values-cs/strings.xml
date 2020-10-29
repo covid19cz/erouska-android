@@ -60,15 +60,18 @@
     <string name="my_data_current_measures">Aktuální opatření</string>
     <string name="my_data_current_measures_title">Informace o aktuálních opatřeních</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
+    <string name="my_data_stats">eRouška v číslech</string>
     <string name="my_data_yesterday">Za včerejší den %1$s</string>
+    <string name="my_data_for_day">%1$s za %2$s</string>
+    <string name="my_data_activated_apps">%1$s aktivovaných aplikací</string>
+    <string name="my_data_notifications_sent">%1$s pozitivně testovaných anonymně varovalo ostatní</string>
+    <string name="my_data_notifications_shown">%1$s upozornění na riziková setkání</string>
     <string name="my_data_tests">%1$s provedených testů</string>
     <string name="my_data_ack_cases">%1$s celkem potvrzených případů</string>
     <string name="my_data_act_cases">%1$s aktivních případů</string>
     <string name="my_data_cured">%1$s vyléčených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
-    <string name="my_data_last_update">Poslední aktualizace %1$s</string>
-
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro upozornění ostatních uživatelů eRoušky.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>

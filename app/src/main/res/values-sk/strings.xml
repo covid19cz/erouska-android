@@ -57,13 +57,16 @@
     <string name="my_data_current_measures_title">Informácie o aktuálnych opatreniach</string>
     <string name="my_data_current_situation">Aktuálna situácia v číslach</string>
     <string name="my_data_yesterday">Za včerajší deň %1$s</string>
+    <string name="my_data_for_day">%1$s za %2$s</string>
+    <string name="my_data_activated_apps">%1$s aktivovaných aplikácií</string>
+    <string name="my_data_notifications_sent">%1$s pozitívne testovaných anonymne informovalo ostatných</string>
+    <string name="my_data_notifications_shown">%1$s upozornení na rizikové stretnutia</string>
     <string name="my_data_tests">%1$s vykonaných testov</string>
     <string name="my_data_ack_cases">%1$s celkom potvrdených prípadov</string>
     <string name="my_data_act_cases">%1$s aktívnych prípadov</string>
     <string name="my_data_cured">%1$s vyliečených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
-    <string name="my_data_last_update">Posledná aktualizácia %1$s</string>
     <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozotniť ostatných užívateľov eRoušky.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>

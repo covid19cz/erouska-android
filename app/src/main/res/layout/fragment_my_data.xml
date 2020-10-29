@@ -14,193 +14,252 @@
         <import type="cz.covid19cz.erouska.utils.SignNumberFormat" />
     </data>
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        app:refreshing="@{vm.isLoading}"
+        app:onRefreshListener="@{() -> vm.onRefresh()}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/measures_info_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:gravity="center_vertical|start"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="@string/my_data_current_measures_title"
-                android:textAppearance="@style/Erouska.Caption"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/my_data_current_measures_title"
-                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/measures_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_restriction"
-                android:drawablePadding="16dp"
-                android:focusable="true"
-                android:gravity="center_vertical|start"
-                android:onClick="@{() -> vm.measures()}"
-                android:paddingStart="16dp"
-                android:paddingTop="24dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="24dp"
-                android:text="@string/my_data_current_measures"
-                android:textAppearance="@style/Erouska.Item"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/measures_info_text" />
+                <TextView
+                    android:id="@+id/measures_info_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/my_data_current_measures_title"
+                    android:textAppearance="@style/Erouska.Caption"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/my_data_current_measures_title"
+                    />
 
-            <View
-                android:id="@+id/divider_top"
-                style="@style/Divider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/measures_text" />
+                <TextView
+                    android:id="@+id/measures_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_restriction"
+                    android:drawablePadding="16dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical|start"
+                    android:onClick="@{() -> vm.measures()}"
+                    android:paddingStart="16dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="24dp"
+                    android:text="@string/my_data_current_measures"
+                    android:textAppearance="@style/Erouska.Item"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/measures_info_text" />
 
-            <TextView
-                android:id="@+id/situation_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:gravity="center_vertical|start"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="@string/my_data_current_situation"
-                android:textAppearance="@style/Erouska.Caption"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_top" />
+                <View
+                    android:id="@+id/divider_top"
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/measures_text" />
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/tests"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_test}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.testsIncrease))}"
-                app:case_title="@{String.format(@string/my_data_tests, NumberFormat.getInstance().format(vm.testsTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/situation_text" />
+                <TextView
+                    android:id="@+id/situation_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/my_data_current_situation"
+                    android:textAppearance="@style/Erouska.Caption"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_top" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tests" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/tests"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_test}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.testsIncrease), vm.testsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_tests, NumberFormat.getInstance().format(vm.testsTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/situation_text" />
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/ack_cases"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_ack_case}"
-                app:case_subtitle="@{String.format(@string/my_data_yesterday, SignNumberFormat.format(vm.confirmedCasesIncrease))}"
-                app:case_title="@{String.format(@string/my_data_ack_cases, NumberFormat.getInstance().format(vm.confirmedCasesTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tests" />
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tests" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ack_cases" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/ack_cases"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_ack_case}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.confirmedCasesIncrease), vm.confirmedCasesIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_ack_cases, NumberFormat.getInstance().format(vm.confirmedCasesTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tests" />
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/act_cases"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_act_case}"
-                app:case_title="@{String.format(@string/my_data_act_cases, NumberFormat.getInstance().format(vm.activeCasesTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ack_cases" />
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ack_cases" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/act_cases" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/act_cases"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_act_case}"
+                    app:case_title="@{String.format(@string/my_data_act_cases, NumberFormat.getInstance().format(vm.activeCasesTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ack_cases" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_cases" />
 
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/cured"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_cured}"
-                app:case_title="@{String.format(@string/my_data_cured, NumberFormat.getInstance().format(vm.curedTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/act_cases" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/cured"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_cured}"
+                    app:case_title="@{String.format(@string/my_data_cured, NumberFormat.getInstance().format(vm.curedTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_cases" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cured" />
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cured" />
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/death_toll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_death_toll}"
-                app:case_title="@{String.format(@string/my_data_death_toll, NumberFormat.getInstance().format(vm.deceasedTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cured" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/death_toll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_death_toll}"
+                    app:case_title="@{String.format(@string/my_data_death_toll, NumberFormat.getInstance().format(vm.deceasedTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cured" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/death_toll" />
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/death_toll" />
 
-            <cz.covid19cz.erouska.ui.mydata.CaseItemView
-                android:id="@+id/hospitalized"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:case_icon="@{@drawable/ic_hospitalized}"
-                app:case_title="@{String.format(@string/my_data_hospitalized, NumberFormat.getInstance().format(vm.currentlyHospitalizedTotal))}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/death_toll" />
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/hospitalized"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_hospitalized}"
+                    app:case_title="@{String.format(@string/my_data_hospitalized, NumberFormat.getInstance().format(vm.currentlyHospitalizedTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/death_toll" />
 
-            <View
-                style="@style/Divider"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+                <View
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalized" />
 
-            <TextView
-                android:id="@+id/last_update_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal"
-                android:padding="16dp"
-                android:text="@{String.format(@string/my_data_last_update, vm.lastUpdate)}"
-                android:textAppearance="@style/Erouska.Caption"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+                <TextView
+                    android:id="@+id/stats_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/my_data_stats"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalized" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/activated_apps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_face_mask}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.activationsYesterday), vm.lastMetricsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_activated_apps, NumberFormat.getInstance().format(vm.activationsTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/stats_text" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/activated_apps" />
+
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/notifications_sent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_notifications_sent}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.keyPublishersYesterday), vm.lastMetricsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_notifications_sent, NumberFormat.getInstance().format(vm.keyPublishersTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/activated_apps" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/notifications_sent" />
+
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/notifications_shown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_notifications_shown}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.notificationsYesterday), vm.lastMetricsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_notifications_shown, NumberFormat.getInstance().format(vm.notificationsTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/notifications_sent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
