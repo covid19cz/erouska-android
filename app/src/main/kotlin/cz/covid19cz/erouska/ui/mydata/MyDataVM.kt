@@ -17,6 +17,7 @@ import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MyDataVM @ViewModelInject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
@@ -24,6 +25,7 @@ class MyDataVM @ViewModelInject constructor(
 ) : BaseVM() {
 
     companion object {
+        const val LAST_UPDATE_UI_FORMAT = "dd. MM. yyyy" // date format used in UI
         const val LAST_UPDATE_API_FORMAT = "yyyyMMdd" // date format returned from API
     }
 
@@ -44,8 +46,30 @@ class MyDataVM @ViewModelInject constructor(
     // stats
     val testsTotal = SafeMutableLiveData(prefs.getTestsTotal())
     val testsIncrease = SafeMutableLiveData(prefs.getTestsIncrease())
+    val testsIncreaseDate = if (prefs.getTestsIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getTestsIncreaseDate()))
+        )
+    }
+
     val confirmedCasesTotal = SafeMutableLiveData(prefs.getConfirmedCasesTotal())
     val confirmedCasesIncrease = SafeMutableLiveData(prefs.getConfirmedCasesIncrease())
+    val confirmedCasesIncreaseDate= if (prefs.getConfirmedCasesIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getConfirmedCasesIncreaseDate()))
+        )
+    }
+
     val activeCasesTotal = SafeMutableLiveData(prefs.getActiveCasesTotal())
     val curedTotal = SafeMutableLiveData(prefs.getCuredTotal())
     val deceasedTotal = SafeMutableLiveData(prefs.getDeceasedTotal())
@@ -59,6 +83,17 @@ class MyDataVM @ViewModelInject constructor(
     val notificationsTotal = SafeMutableLiveData(prefs.getNotificationsTotal())
     val notificationsYesterday = SafeMutableLiveData(prefs.getNotificationsYesterday())
 
+    var lastMetricsIncreaseDate = if (prefs.getLastMetricsUpdate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getLastMetricsUpdate()))
+        )
+    }
+
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
     private fun getStats(date: String? = null) {
@@ -68,22 +103,57 @@ class MyDataVM @ViewModelInject constructor(
             }.onSuccess { response ->
                 L.d(response.toString())
 
-                safeLet(response.testsTotal, response.testsIncrease) { total, increase ->
+                safeLet(response.testsTotal,
+                    response.testsIncrease,
+                    response.testsIncreaseDate) { total, increase, increaseDate ->
                     testsTotal.value = total
                     testsIncrease.value = increase
 
                     prefs.setTestsTotal(total)
                     prefs.setTestsIncrease(increase)
+
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setTestsIncreaseDate(lastUpdateMillis)
+
+                        testsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
                 }
                 safeLet(
                     response.confirmedCasesTotal,
-                    response.confirmedCasesIncrease
-                ) { total, increase ->
+                    response.confirmedCasesIncrease,
+                    response.confirmedCasesIncreaseDate,
+                ) { total, increase, increaseDate ->
                     confirmedCasesTotal.value = total
                     confirmedCasesIncrease.value = increase
 
                     prefs.setConfirmedCasesTotal(total)
                     prefs.setConfirmedCasesIncrease(increase)
+
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setConfirmedCasesIncreaseDate(lastUpdateMillis)
+
+                        confirmedCasesIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
                 }
                 response.activeCasesTotal?.let { total ->
                     activeCasesTotal.value = total
@@ -103,12 +173,12 @@ class MyDataVM @ViewModelInject constructor(
                 }
 
                 response.date?.let {
-                    val lastUpdateDate = SimpleDateFormat(
+                    val lastStatsUpdate = SimpleDateFormat(
                         LAST_UPDATE_API_FORMAT,
                         Locale.getDefault()
                     ).parse(response.date)
 
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                    lastStatsUpdate?.time?.let { lastUpdateMillis ->
                         prefs.setLastStatsUpdate(lastUpdateMillis)
                     }
                 }
@@ -161,13 +231,21 @@ class MyDataVM @ViewModelInject constructor(
                 }
 
                 response.date?.let {
-                    val lastUpdateDate = SimpleDateFormat(
+                    val lastMetricsUpdate = SimpleDateFormat(
                         LAST_UPDATE_API_FORMAT,
                         Locale.getDefault()
                     ).parse(response.date)
 
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
-                        prefs.setLastMetricsUpdate(lastUpdateMillis)
+                    lastMetricsUpdate?.time?.let { lastUpdateMillis ->
+                        val lastMetricsIncreaseMillis = lastUpdateMillis - TimeUnit.DAYS.toMillis(1)
+                        prefs.setLastMetricsUpdate(lastMetricsIncreaseMillis)
+
+                        lastMetricsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastMetricsIncreaseMillis)
+                        )
                     }
                 }
             }.onFailure {

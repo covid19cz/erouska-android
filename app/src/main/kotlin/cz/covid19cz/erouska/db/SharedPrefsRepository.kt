@@ -34,8 +34,12 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         // stats
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
+        const val TESTS_INCREASE_DATE = "testsIncreaseDate"
+
         const val CONFIRMED_CASES_TOTAL = "confirmedCasesTotal"
         const val CONFIRMED_CASES_INCREASE = "confirmedCasesIncrease"
+        const val CONFIRMED_CASES_INCREASE_DATE = "confirmedCasesIncreaseDate"
+
         const val ACTIVE_CASES_TOTAL = "activeCasesTotal"
         const val CURED_TOTAL = "curedTotal"
         const val DECEASED_TOTAL = "deceasedTotal"
@@ -244,6 +248,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putInt(TESTS_INCREASE, value).apply()
     }
 
+    fun getTestsIncreaseDate(): Long {
+        return prefs.getLong(TESTS_INCREASE_DATE, 0)
+    }
+
+    fun setTestsIncreaseDate(value: Long) {
+        return prefs.edit().putLong(TESTS_INCREASE_DATE, value).apply()
+    }
+
     fun getConfirmedCasesTotal(): Int {
         return prefs.getInt(CONFIRMED_CASES_TOTAL, 0)
     }
@@ -258,6 +270,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setConfirmedCasesIncrease(value: Int) {
         return prefs.edit().putInt(CONFIRMED_CASES_INCREASE, value).apply()
+    }
+
+    fun getConfirmedCasesIncreaseDate(): Long {
+        return prefs.getLong(CONFIRMED_CASES_INCREASE_DATE, 0)
+    }
+
+    fun setConfirmedCasesIncreaseDate(value: Long) {
+        return prefs.edit().putLong(CONFIRMED_CASES_INCREASE_DATE, value).apply()
     }
 
     fun getActiveCasesTotal(): Int {

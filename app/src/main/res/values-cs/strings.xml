@@ -62,6 +62,7 @@
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
     <string name="my_data_stats">eRouška v číslech</string>
     <string name="my_data_yesterday">Za včerejší den %1$s</string>
+    <string name="my_data_for_day">%1$s za %2$s</string>
     <string name="my_data_activated_apps">%1$s aktivovaných aplikací</string>
     <string name="my_data_notifications_sent">%1$s pozitivně testovaných anonymně varovalo ostatní</string>
     <string name="my_data_notifications_shown">%1$s upozornění na riziková setkání</string>
