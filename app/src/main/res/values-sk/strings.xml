@@ -154,4 +154,26 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
+    <string name="support_request_button">Kontaktovať podporu</string>
+    <string name="support_request">Môžeme k e-mailu priložiť súbor s anonymnými diagnostickými informáciami o Vašom zariadení na účely podpory?</string>
+    <string name="support_request_allowed">Priložiť diagnostiku</string>
+    <string name="support_request_denied">Neprikladať diagnostiku</string>
+    <string name="support_email_chooser">Vyberte e-mailovú aplikáciu:</string>
+    <string name="support_email_subject">Spätná väzba z aplikácie eRouška</string>
+    <string name="support_error_code">Kód chyby</string>
+    <string name="support_app_version">Verzia aplikácie</string>
+    <string name="support_system_version">Verzia systému</string>
+    <string name="support_device">Zariadenie</string>
+    <string name="support_localization">Lokalizácia</string>
+    <string name="support_bluetooth">Bluetooth</string>
+    <string name="support_bluetooth_supports">podporuje</string>
+    <string name="support_bluetooth_doesnt_support">NEpodporuje</string>
+    <string name="support_location_services">Polohové služby</string>
+    <string name="support_primary_account">Primárny účet</string>
+    <string name="support_battery_optimization_exception">Výnimka z optimalizácie batérie</string>
+    <string name="support_installation">Inštalácia</string>
+    <string name="support_last_key_download">Posledné stiahnutie kľúčov</string>
+    <string name="support_last_notified_risky_encounter">Posledná notifikácia rizikového stretnutia</string>
+    <string name="support_last_risky_encounter_from">Posledné rizikové stretnutie z</string>
+    <string name="support_file_name">diagnosticke_informacie.txt</string>
 </resources>
