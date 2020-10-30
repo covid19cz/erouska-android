@@ -19,7 +19,6 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help.*
@@ -168,6 +167,8 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
             chat_group.hide()
         }
 
+        viewModel.displayedText = help_desc.text.toString()
+
         viewModel.lastMarkedIndex.observe(viewLifecycleOwner) {
             val lineNumber = help_desc?.layout?.getLineForOffset(it)
             val lineTop = help_desc.layout?.getLineTop(lineNumber ?: 0) ?: 0
@@ -198,6 +199,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
         viewModel.content.observe(viewLifecycleOwner) {
             if (help_desc != null) {
                 markdown.show(help_desc, it)
+                viewModel.displayedText = help_desc.text.toString()
             }
         }
 
