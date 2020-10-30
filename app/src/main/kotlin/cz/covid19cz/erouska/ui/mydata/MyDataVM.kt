@@ -31,12 +31,8 @@ class MyDataVM @ViewModelInject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
-            getStats()
-        }
-        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
-            getMetrics()
-        }
+        getStats()
+        getMetrics()
     }
 
     fun measures() {
