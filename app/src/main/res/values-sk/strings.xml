@@ -56,6 +56,7 @@
     <string name="my_data_current_measures">Aktuálne opatrenia</string>
     <string name="my_data_current_measures_title">Informácie o aktuálnych opatreniach</string>
     <string name="my_data_current_situation">Aktuálna situácia v číslach</string>
+    <string name="my_data_stats">eRouška v číslach</string>
     <string name="my_data_yesterday">Za včerajší deň %1$s</string>
     <string name="my_data_for_day">%1$s za %2$s</string>
     <string name="my_data_activated_apps">%1$s aktivovaných aplikácií</string>
@@ -150,7 +151,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
-    <string name="dashboard_positive_test_button">Anonymne upozornit ostatných</string>
+    <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
