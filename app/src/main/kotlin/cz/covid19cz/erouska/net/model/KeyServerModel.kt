@@ -26,3 +26,8 @@ data class ExposureResponse(
     val errorMessage: String?,
     val code: String?
 )
+
+data class CountryUrl(
+    val country: String,
+    val url: String
+)

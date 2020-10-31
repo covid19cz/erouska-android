@@ -2,7 +2,9 @@ package cz.covid19cz.erouska.net
 
 import android.content.Context
 import androidx.work.*
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
 import cz.covid19cz.erouska.R
@@ -18,13 +20,13 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.DataInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.lang.reflect.Type
 import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -122,13 +124,9 @@ class ExposureServerRepository @Inject constructor(
     }
 
     private fun parseCountryUrls(json: String): List<String> {
-        val countries = JSONArray(json)
-        val urls = mutableListOf<String>()
-        for (i in 0 until countries.length()) {
-            val country = countries.getJSONObject(i)
-            urls.add(country.getString(country.keys().next()))
-        }
-        return urls
+        val countryUrlListType: Type = object : TypeToken<ArrayList<CountryUrl>?>() {}.type
+        val countryUrls: ArrayList<CountryUrl> = Gson().fromJson(json, countryUrlListType)
+        return countryUrls.map { it.url }
     }
 
     private suspend fun downloadIndex(url: String): DownloadedKeys? {
