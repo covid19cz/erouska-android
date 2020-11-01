@@ -20,6 +20,8 @@ class ExposureHelpFragment : BaseFragment<FragmentExposureHelpBinding, ExposureH
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableUpInToolbar(true, IconType.UP)
+
         when (args.type) {
             ExposureHelpType.SYMPTOMS -> {
                 activity?.title = AppConfig.symptomsUITitle
