@@ -37,7 +37,7 @@ class ExposureServerRepository @Inject constructor(
 
     companion object {
         private val KEY_EXPORT_INDEX = if (BuildConfig.FLAVOR == "dev") {
-            "${AppConfig.keyExportUrl}/index.txt"
+            "${AppConfig.keyExportUrl}index.txt"
         } else {
             "${AppConfig.keyExportUrl}erouska/index.txt"
         }
