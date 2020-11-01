@@ -19,6 +19,7 @@
         app:layoutStrategy="@{vm.layoutStrategy}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="@dimen/fragment_padding_bottom_larger"
         app:viewModel="@{ vm }" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
