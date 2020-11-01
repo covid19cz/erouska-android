@@ -46,7 +46,7 @@
     <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u majitele kteréhokoliv z nich potvrdí onemocnění COVID-19, eRouška vyhodnotí, zda se jedná o rizikový kontakt a upozorní vás.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, eRouška upozorní všechny ostatní uživatele aplikace, se s&nbsp;kterými jste se potkali.]]></string>
     <string name="welcome_title">D\u00edky eRou\u0161ce ochr\u00e1n\u00edte sebe i\u00a0ostatn\u00ed ve sv\u00e9m okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
-    <string name="send_data">Odeslat data</string>
+    <string name="send_data">Anonymně upozornit ostatní</string>
     <string name="sent">Odesláno</string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
