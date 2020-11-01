@@ -105,7 +105,7 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     private fun onInitState() {
         progress.hide()
         code_input.focusAndShowKeyboard()
-        enableUpInToolbar(true, IconType.UP)
+        enableUpInToolbar(true, IconType.CLOSE)
 
         code_input_layout.error = null
         send_data_group.show()
@@ -159,7 +159,7 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         activity?.setTitle(R.string.sent)
         progress.hide()
         code_input.hideKeyboard()
-        enableUpInToolbar(true, IconType.CLOSE)
+        enableUpInToolbar(true, IconType.UP)
 
         if (hasEnoughKeys) {
             success_header.setText(R.string.send_data_success_header)
