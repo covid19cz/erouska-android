@@ -11,6 +11,8 @@
         android:id="@+id/prevention_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/fragment_padding"
+        android:paddingRight="@dimen/fragment_padding"
         android:text="@{ item.title }"
         android:textAppearance="@style/Erouska.Body" />
 </layout>
