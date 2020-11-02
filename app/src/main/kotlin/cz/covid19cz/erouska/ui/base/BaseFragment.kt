@@ -8,11 +8,15 @@ import android.provider.Settings
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.snackbar.Snackbar
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.utils.L
 import kotlin.reflect.KClass
 
 
@@ -102,6 +106,22 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
     fun requestLocationEnable() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
         startActivity(intent)
+    }
+
+    fun isPlayServicesObsolete(): Boolean {
+        return try {
+            val current = PackageInfoCompat.getLongVersionCode(
+                requireContext().packageManager.getPackageInfo(
+                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
+                    0
+                )
+            )
+
+            current < AppConfig.minGmsVersionCode
+        } catch (e: Exception) {
+            L.e(e)
+            true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

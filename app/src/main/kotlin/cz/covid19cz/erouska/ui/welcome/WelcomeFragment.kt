@@ -64,20 +64,4 @@ class WelcomeFragment :
     private fun showPlayServicesUpdate() {
         navigate(R.id.action_nav_welcome_to_nav_play_services_update)
     }
-
-    private fun isPlayServicesObsolete(): Boolean {
-        return try {
-            val current = PackageInfoCompat.getLongVersionCode(
-                requireContext().packageManager.getPackageInfo(
-                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
-                    0
-                )
-            )
-
-            current < AppConfig.minGmsVersionCode
-        } catch (e: Exception) {
-            L.e(e)
-            true
-        }
-    }
 }
