@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
@@ -27,6 +28,7 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -45,6 +47,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     lateinit var notifications: Notifications
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
+    @Inject
+    internal lateinit var supportEmailGenerator: SupportEmailGenerator
 
     private lateinit var rxPermissions: RxPermissions
     private var demoMode = false
@@ -189,6 +193,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
             menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
             menu.add(0, R.id.action_exposure_screen, 17, "Test Exposure screen")
+            menu.add(0, R.id.action_send_report, 17, "Test Send Report")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -231,6 +236,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
             R.id.action_dashboard_cards -> {
                 showDashboardCards()
+                true
+            }
+            R.id.action_send_report -> {
+                sendReport()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -318,5 +327,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
+    }
+    private fun sendReport() {
+        supportEmailGenerator.sendSupportEmail(
+            requireActivity(),
+            lifecycleScope
+        )
     }
 }
