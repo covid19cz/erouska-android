@@ -37,7 +37,11 @@ class DashboardCardView : ConstraintLayout {
         set(value) {
             field = value
             subtitle_text.text = value
-            subtitle_text.show()
+            if (!value.isNullOrBlank()) {
+                subtitle_text.show()
+            } else {
+                subtitle_text.hide()
+            }
         }
 
     var card_button_text: String? = null
