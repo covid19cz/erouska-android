@@ -76,7 +76,7 @@
     <string name="send_data_code_expired_or_used">Platnosť kódu vypršala alebo už bol použitý.</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
     <string name="send_data_failure_header">Nepodarilo sa nám odoslať dáta</string>
-    <string name="send_data_failure_body">Kontaktujte, prosím, podporu na info@erouska.cz a do e-mailu uveďte nasledujúci kód chyby: \'%s\'.</string>
+    <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
     <string name="send_data_back">Späť</string>
     <string name="send_data_close">Zatvoriť</string>
     <string name="send_data_try_again">Skúsiť znovu</string>

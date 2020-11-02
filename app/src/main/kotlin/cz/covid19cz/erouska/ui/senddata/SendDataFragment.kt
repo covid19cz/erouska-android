@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
@@ -127,6 +128,7 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         error_group.show()
         send_data_group.hide()
         support_button.showOrHide(showSupportButton)
+        back_button.showOrHide(!showSupportButton)
     }
 
     private fun onCodeExpired() {
@@ -146,7 +148,7 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         this.errorMessage = errorMessage
         onError(showSupportButton = true)
         error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_failure_body, errorMessage)
+        error_body.text = getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
     }
 
     private fun onNoInternet() {

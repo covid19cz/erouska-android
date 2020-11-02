@@ -76,7 +76,7 @@
     <string name="send_data_code_expired_or_used">You have already used this code or it has expired.</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
-    <string name="send_data_failure_body">Please contact support and mention this error code in the email: \'%s\'.</string>
+    <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
     <string name="send_data_back">Back</string>
     <string name="send_data_close">Close</string>
     <string name="send_data_try_again">Try again</string>

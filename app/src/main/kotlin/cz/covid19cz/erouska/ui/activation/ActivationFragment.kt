@@ -94,7 +94,6 @@ class ActivationFragment :
     private fun setupListeners() {
         privacy_body_2.setOnClickListener { showWeb(AppConfig.conditionsOfUseUrl, customTabHelper) }
         activate_btn.setOnClickListener { viewModel.activate() }
-        try_again_btn.setOnClickListener { viewModel.activate() }
     }
 
     private fun updateState(state: ActivationState) {
@@ -145,7 +144,7 @@ class ActivationFragment :
 
     private fun onActivationFailed(errorMessage: String?) {
         activity?.setTitle(R.string.activation_error_title)
-        error_body.text = getString(R.string.send_data_failure_body, errorMessage)
+        error_body.text = getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
         support_button.setOnClickListener {
             supportEmailGenerator.sendSupportEmail(requireActivity(), lifecycleScope, errorCode = errorMessage)
         }
