@@ -313,7 +313,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun showPlayServicesUpdate() {
-        navigate(R.id.action_nav_dashboard_to_nav_play_services_update)
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update, Bundle().apply { putBoolean("demo", true) })
     }
 
     private fun showDashboardCards() {
