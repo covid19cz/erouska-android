@@ -15,6 +15,7 @@
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:refreshing="@{vm.isLoading}"

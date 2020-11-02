@@ -517,4 +517,8 @@
         <key>v2_recentExposureNotificationTitle</key>
         <value>It's been some time since your eRouška updated its data with risky encounters. Connect to the internet.</value>
     </entry>
+    <entry>
+        <key>v2_updateNewsOnRequest</key>
+        <value>true</value>
+    </entry>
 </defaultsMap>

@@ -31,12 +31,14 @@ class MyDataVM @ViewModelInject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!DateUtils.isToday(prefs.getLastStatsUpdate())) {
+        if (AppConfig.updateNewsOnRequest || (!AppConfig.updateNewsOnRequest && !DateUtils.isToday(prefs.getLastStatsUpdate()))) {
             getStats()
         }
-        if (!DateUtils.isToday(prefs.getLastMetricsUpdate())) {
+
+        if (AppConfig.updateNewsOnRequest || (!AppConfig.updateNewsOnRequest && !DateUtils.isToday(prefs.getLastMetricsUpdate()))) {
             getMetrics()
         }
+
     }
 
     fun measures() {
@@ -97,7 +99,7 @@ class MyDataVM @ViewModelInject constructor(
             SimpleDateFormat(
                 LAST_UPDATE_UI_FORMAT,
                 Locale.getDefault()
-            ).format(Date(prefs.getLastMetricsUpdate()))
+            ).format(Date(prefs.getLastMetricsUpdate() - TimeUnit.DAYS.toMillis(1))) // increase day = day before day of last update
         )
     }
 
@@ -249,8 +251,8 @@ class MyDataVM @ViewModelInject constructor(
                     ).parse(response.date)
 
                     lastMetricsUpdate?.time?.let { lastUpdateMillis ->
-                        val lastMetricsIncreaseMillis = lastUpdateMillis - TimeUnit.DAYS.toMillis(1)
-                        prefs.setLastMetricsUpdate(lastMetricsIncreaseMillis)
+                        prefs.setLastMetricsUpdate(lastUpdateMillis)
+                        val lastMetricsIncreaseMillis = lastUpdateMillis - TimeUnit.DAYS.toMillis(1) // increase day = day before day of last update
 
                         lastMetricsIncreaseDate.value = SimpleDateFormat(
                             LAST_UPDATE_UI_FORMAT,

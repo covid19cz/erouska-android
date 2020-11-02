@@ -100,6 +100,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
     val recentExposureNotificationTitle
         get() = firebaseRemoteConfig.getString("v2_recentExposureNotificationTitle")
+    val updateNewsOnRequest
+        get() = firebaseRemoteConfig.getBoolean("v2_updateNewsOnRequest")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
