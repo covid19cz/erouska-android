@@ -488,4 +488,8 @@
         <key>v2_recentExposureNotificationTitle</key>
         <value>Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</value>
     </entry>
+    <entry>
+        <key>v2_updateNewsOnRequest</key>
+        <value>true</value>
+    </entry>
 </defaultsMap>
