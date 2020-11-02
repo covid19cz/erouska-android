@@ -33,17 +33,17 @@
     <string name="about_content">Starting with version 2.0, eRouška is being developed by the Ministry of Health in collaboration with the National agency for communication and information technologies (NAKIT). Earlier versions of eRouška were developed by a team of volunteers from the COVID19CZ community. Most of the original eRouška developers continue to work on newer versions in the NAKIT team.</string>
     <string name="about_tos_content"><![CDATA[You can find more information about personal data processing and other terms and conditions in <a href="%1$s">Terms and conditions</a>.]]></string>
     <string name="about_tos_link">Terms and conditions</string>
-    <string name="about_title">About app</string>
+    <string name="about_title">About application</string>
     <string name="permission_rationale_title">The permission to access location needs to be granted to make the application work properly.</string>
     <string name="permission_rationale_body">You can find more information about why that is in Help.</string>
     <string name="permission_rationale_settings">Settings</string>
     <string name="permission_rationale_dismiss">Dismiss</string>
     <string name="welcome_help">How does it work?</string>
     <string name="welcome_activation">Continue to activation</string>
-    <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with the eRouška application you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
+    <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with eRouška you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
     <string name="welcome_title">eRou\u0161ka will help you protect yourself and others too</string>
     <string name="contacts_title">Contacts</string>
-    <string name="send_data">Warn others anonymously</string>
+    <string name="send_data">Anonymously notify others</string>
     <string name="sent">Sent</string>
     <string name="share_app_title">Share eRouška</string>
     <string name="menu_share_app">Share application</string>
@@ -65,7 +65,7 @@
     <string name="my_data_tests">%1$s tests performed</string>
     <string name="my_data_ack_cases">%1$s confirmed cases in total</string>
     <string name="my_data_act_cases">%1$s active cases</string>
-    <string name="my_data_cured">%1$s cured patients</string>
+    <string name="my_data_cured">%1$s cured individuals</string>
     <string name="my_data_death_toll">%1$s deceased</string>
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
     <string name="send_data_body">If you test positive for COVID-19 you will be contacted by a public health officer. You will receive an SMS message with the verification code to notify other eRouška users.</string>
@@ -76,7 +76,7 @@
     <string name="send_data_code_expired_or_used">You have already used this code or it has expired.</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
-    <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
+    <string name="send_data_failure_body">Please contact support at %1$s and mention this error code in the email: \'%2$s\'.</string>
     <string name="send_data_back">Back</string>
     <string name="send_data_close">Close</string>
     <string name="send_data_try_again">Try again</string>
@@ -153,10 +153,10 @@
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
-    <string name="support_request_button">Contact support</string>
-    <string name="support_request">May we attach the log with anonymous diagnostic data about your device to the email message?</string>
-    <string name="support_request_allowed">Attach diagnostics</string>
-    <string name="support_request_denied">Do not attach diagnostics</string>
+    <string name="support_request_button">Email support</string>
+    <string name="support_request">Do you wish to attach a file with anonymous information about your device\'s settings? This information will help us troubleshoot.</string>
+    <string name="support_request_allowed">Yes, attach the file</string>
+    <string name="support_request_denied">No, do not attach the file</string>
     <string name="support_email_chooser">Select email application:</string>
     <string name="support_email_subject">Feedback from eRouška</string>
     <string name="support_error_code">Error code</string>
