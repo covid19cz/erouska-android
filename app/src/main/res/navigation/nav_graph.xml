@@ -318,6 +318,10 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+        <argument
+            android:name="demo"
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_nav_exposure_info_to_nav_exposure"
             app:destination="@id/nav_exposure" />

@@ -20,6 +20,7 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.threeten.bp.LocalDate
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -159,12 +160,29 @@ class ExposureNotificationsRepository @Inject constructor(
         return db.dao().getAllByExposureDate()
     }
 
-    suspend fun getDailySummariesFromDbByImportDate(): List<DailySummaryEntity>{
+    suspend fun getDailySummariesFromDbByImportDate(): List<DailySummaryEntity> {
         return db.dao().getAllByImportDate()
     }
 
-    suspend fun getLastRiskyExposure(): DailySummaryEntity? {
-        return db.dao().getLatest().firstOrNull()
+    suspend fun getLastRiskyExposure(demo: Boolean? = false): DailySummaryEntity? {
+        val lastExposure = db.dao().getLatest().firstOrNull()
+        return if (lastExposure == null && demo == true) {
+            getLastRiskyExposureForDemo()
+        } else {
+            lastExposure
+        }
+    }
+
+    private fun getLastRiskyExposureForDemo(): DailySummaryEntity {
+        return DailySummaryEntity(
+            LocalDate.now().minusDays(1).toEpochDay().toInt(),
+            1000.0,
+            1000.0,
+            1000.0,
+            0,
+            notified = false,
+            accepted = false
+        )
     }
 
     suspend fun markAsAccepted() {

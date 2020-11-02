@@ -184,11 +184,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         if (BuildConfig.FLAVOR == "dev") {
             menu.add(0, R.id.action_news, 10, "Test Novinky")
             menu.add(0, R.id.action_activation, 11, "Test Aktivace")
-            menu.add(0, R.id.action_exposure_demo, 12, "Test Rizikové setkání")
+            menu.add(0, R.id.action_exposure_demo, 12, "Test Riz. Notifikace")
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
             menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
             menu.add(0, R.id.action_exposure_screen, 17, "Test Exposure screen")
+            menu.add(0, R.id.action_exposure_info, 18, "Test Rizikové setkání")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -231,6 +232,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
             R.id.action_dashboard_cards -> {
                 showDashboardCards()
+                true
+            }
+            R.id.action_exposure_info -> {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavExposureInfo(demo = true))
                 true
             }
             else -> super.onOptionsItemSelected(item)
