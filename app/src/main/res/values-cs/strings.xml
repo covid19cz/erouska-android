@@ -80,7 +80,7 @@
     <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
-    <string name="send_data_failure_body">Kontaktujte prosím podporu a do e-mailu uveďte následující kód chyby: \'%s\'.</string>
+    <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
     <string name="send_data_back">Zpět</string>
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>
@@ -175,10 +175,10 @@
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
-    <string name="support_request_button">Kontaktovat podporu</string>
-    <string name="support_request">Můžeme k e-mailu přiložit soubor s anonymními diagnostickými informacemi o Vašem zařízení pro účely podpory?</string>
-    <string name="support_request_allowed">Přiložit diagnostiku</string>
-    <string name="support_request_denied">Nepřikládat diagnostiku</string>
+    <string name="support_request_button">Napsat e-mail na podporu</string>
+    <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informace o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
+    <string name="support_request_allowed">Chci přidat přílohu</string>
+    <string name="support_request_denied">Nechci přidat přílohu</string>
     <string name="support_email_chooser">Vyberte e-mailovou aplikaci:</string>
     <string name="support_email_subject">Zpětná vazba z aplikace eRouška</string>
     <string name="support_error_code">Kód chyby</string>
