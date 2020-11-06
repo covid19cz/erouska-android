@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_efgs.*
 class EfgsFragment :
     BaseFragment<FragmentEfgsBinding, EfgsVM>(R.layout.fragment_efgs, EfgsVM::class) {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,12 +61,10 @@ class EfgsFragment :
     }
 
     private fun turnOn() {
-        // TODO
-        Toast.makeText(requireContext(), "Turn EFGS On", Toast.LENGTH_SHORT).show()
+        // no-op
     }
 
     private fun turnOff() {
-        // TODO
-        Toast.makeText(requireContext(), "Turn EFGS Off", Toast.LENGTH_SHORT).show()
+        // no-op
     }
 }

@@ -34,7 +34,7 @@ class DashboardVM @ViewModelInject constructor(
 
     val bluetoothState = SafeMutableLiveData(true)
     val locationState = SafeMutableLiveData(true)
-    val efgsState = SafeMutableLiveData(false)
+    val efgsState = SafeMutableLiveData(prefs.isTraveller())
 
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
@@ -66,7 +66,7 @@ class DashboardVM @ViewModelInject constructor(
 
         bluetoothState.value = deviceInfo.isBtEnabled()
         locationState.value = deviceInfo.isLocationEnabled()
-        efgsState.value = false // TODO : return true if EFGS is enabled
+        efgsState.value = prefs.isTraveller()
 
         checkRiskyExposures()
 

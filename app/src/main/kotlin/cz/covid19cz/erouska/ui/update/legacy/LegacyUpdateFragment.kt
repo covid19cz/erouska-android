@@ -16,6 +16,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_efgs.*
 import kotlinx.android.synthetic.main.fragment_legacy_update.*
 import javax.inject.Inject
 
@@ -75,7 +76,17 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         legacy_update_checkbox.text = getString(R.string.efgs_check)
         legacy_update_button.text = getString(R.string.legacy_update_button_continue)
         legacy_update_button.setOnClickListener { finish() }
+
+        legacy_update_checkbox.isChecked = viewModel.sharedPrefsRepository.isTraveller()
+        legacy_update_checkbox.setOnCheckedChangeListener { switch, isChecked ->
+            if (isChecked) {
+                viewModel.sharedPrefsRepository.setTraveller(true)
+            } else {
+                viewModel.sharedPrefsRepository.setTraveller(false)
+            }
+        }
     }
+
 
     private fun showExpansionNews() {
         enableUpInToolbar(true, IconType.CLOSE)
