@@ -20,7 +20,7 @@ class ExposureHelpFragment : BaseFragment<FragmentExposureHelpBinding, ExposureH
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableUpInToolbar(true, IconType.UP)
+        enableUpInToolbar(true, IconType.CLOSE)
 
         when (args.type) {
             ExposureHelpType.SYMPTOMS -> {
