@@ -46,8 +46,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/welcome_title"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/Erouska.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mzcr_icon" />
@@ -59,7 +58,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:paddingBottom="136dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textAppearance="@style/Erouska.Body"
                     app:layout_constraintTop_toBottomOf="@id/welcome_title"
                     tools:text="@string/welcome_description" />
             </androidx.constraintlayout.widget.ConstraintLayout>

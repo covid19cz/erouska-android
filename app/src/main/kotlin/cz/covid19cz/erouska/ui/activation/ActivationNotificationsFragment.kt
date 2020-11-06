@@ -13,6 +13,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.BluetoothDisabledEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ActivationNotificationsFragment :
@@ -20,6 +21,9 @@ class ActivationNotificationsFragment :
         R.layout.fragment_activation_notifications,
         ActivationNotificationsVM::class
     ) {
+
+    @Inject
+    internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +33,7 @@ class ActivationNotificationsFragment :
         }
 
         subscribe(GmsApiErrorEvent::class) {
-            ExposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this)
         }
 
         subscribe(BluetoothDisabledEvent::class) {

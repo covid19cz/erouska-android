@@ -30,6 +30,14 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".exposurenotifications.service.PushService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <!-- Receivers -->
         <receiver
             android:name=".exposurenotifications.receiver.ExposureNotificationBroadcastReceiver"
@@ -45,6 +53,16 @@
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/fileprovider_authorities"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_normal" />
@@ -53,5 +71,12 @@
             android:resource="@color/colorSecondary" />
         <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
 
 </manifest>

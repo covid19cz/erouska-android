@@ -7,5 +7,4 @@ class MyDataCommandEvent(val command: Command) : LiveEvent() {
     enum class Command{
         MEASURES,
     }
-
 }

@@ -21,6 +21,8 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
 import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
+import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
+import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,7 +77,7 @@ class MainActivity :
         viewModel.serviceRunning.observe(this, Observer { isRunning ->
             ContextCompat.getColor(
                 this,
-                if (isRunning && passesRequirements()) R.color.green else R.color.red
+                if (isRunning) R.color.green else R.color.red
             ).let {
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
@@ -89,6 +91,10 @@ class MainActivity :
             }
             R.id.nav_help -> {
                 navigate(R.id.nav_help, Bundle().apply { putBoolean("fullscreen", true) })
+                true
+            }
+            R.id.nav_exposure_help -> {
+                navigate(R.id.nav_exposure_help, ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle())
                 true
             }
             else -> {
@@ -158,10 +164,6 @@ class MainActivity :
             } else {
                 VISIBLE
             }
-    }
-
-    private fun passesRequirements(): Boolean {
-        return isBtEnabled()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

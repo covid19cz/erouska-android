@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@{item.getDateString()}"
+            android:text="@{item.getLongDateString()}"
             tools:text="@tools:sample/lorem"
-            android:textColor="@color/textColorPrimary"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

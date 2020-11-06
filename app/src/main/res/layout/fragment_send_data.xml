@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/send_data_body"
-            android:textColor="@color/textColorPrimary"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_error"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_shortcut_resume"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -75,9 +74,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/send_data_success_header"
             android:textAlignment="center"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:visibility="gone"
+            android:textAppearance="@style/Erouska.Title.Active"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ic_success" />
@@ -88,8 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/send_data_success_body_1"
-            android:textColor="@color/textColorPrimary"
-            android:visibility="gone"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/success_header" />
@@ -100,8 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/send_data_success_body_2"
-            android:textColor="@color/textColorPrimary"
-            android:visibility="gone"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/success_body_1" />
@@ -112,8 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/send_data_success_body_3"
-            android:textColor="@color/textColorPrimary"
-            android:visibility="gone"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/success_body_2" />
@@ -124,9 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
-            android:textColor="@color/text_color_error_header"
-            android:textStyle="bold"
-            android:visibility="gone"
+            android:textAppearance="@style/Erouska.Title.Error"
+            tools:text="@tools:sample/lorem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ic_error" />
@@ -137,8 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
-            android:textColor="@color/textColorPrimary"
-            android:visibility="gone"
+            tools:text="@tools:sample/lorem"
+            android:textAppearance="@style/Erouska.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/error_header" />
@@ -161,33 +154,20 @@
             android:layout_marginTop="16dp"
             android:onClick="@{() -> vm.reset()}"
             android:text="@string/send_data_back"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/support_button"
             app:layout_constraintTop_toBottomOf="@+id/error_body" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/try_again_button"
+            android:id="@+id/support_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:onClick="@{() -> vm.reset()}"
-            android:text="@string/send_data_try_again"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/support_request_button"
+            app:layout_constraintEnd_toStartOf="@+id/back_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/error_body" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/close_button"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_data_close"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/try_again_button" />
+            app:layout_constraintTop_toBottomOf="@+id/error_body"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/success_close_button"
@@ -195,7 +175,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/send_data_close"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/success_body_3" />
@@ -209,6 +188,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/success_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="ic_success, success_header, success_body_1, success_body_2, success_body_3, success_close_button" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/error_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="ic_error, error_header, error_body, back_button, support_button" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/send_data_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="send_data_body, code_input_layout, confirm_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

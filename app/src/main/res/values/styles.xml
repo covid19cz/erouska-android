@@ -15,6 +15,13 @@
         <item name="android:backgroundTint">?colorSurface</item>
     </style>
 
+    <style name="DashButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/colorPrimaryVariant</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:backgroundTint">?colorSurface</item>
+    </style>
+
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextColor">@color/toolbarActiveColor</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
@@ -26,5 +33,33 @@
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
+
+    <style name="Erouska.Title" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Erouska.Title.Active" parent="Erouska.Title">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="Erouska.Title.Paused" parent="Erouska.Title">
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="Erouska.Title.Error" parent="Erouska.Title">
+        <item name="android:textColor">@color/text_color_error_header</item>
+    </style>
+
+    <style name="Erouska.Body" parent="TextAppearance.MaterialComponents.Body1"/>
+    <style name="Erouska.Item" parent="TextAppearance.MaterialComponents.Body1"/>
+
+    <style name="Erouska.Description" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Erouska.Caption" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
 
 </resources>

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.exposure.RecentExposuresVM" />
+            type="cz.covid19cz.erouska.ui.recentexposures.RecentExposuresVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_recent_exposure"
             app:items="@{vm.items}"
-            app:layoutId="@{@layout/item_recent_exposure}"
+            app:layoutStrategy="@{vm.layoutStrategy}"
             app:viewModel="@{vm}"
             app:visibleOrGone="@{!vm.items.empty}" />
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textAppearance="@style/Erouska.Body"
             android:text="@string/no_recent_exposures"
             tools:visibility="visible"
             app:visibleOrGone="@{vm.items.empty}"

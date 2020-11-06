@@ -8,33 +8,65 @@ import android.provider.Settings
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.databinding.ViewDataBinding
 import arch.view.BaseArchFragment
 import arch.viewmodel.BaseArchViewModel
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.snackbar.Snackbar
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.utils.L
 import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutId: Int, viewModelClass: KClass<VM>) : BaseArchFragment<B, VM>(layoutId, viewModelClass) {
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
+    layoutId: Int,
+    viewModelClass: KClass<VM>
+) : BaseArchFragment<B, VM>(layoutId, viewModelClass) {
 
     companion object {
         const val REQUEST_BT_ENABLE = 1000
     }
 
-    protected open fun showSnackBar(@StringRes stringRes : Int) {
+    var snackBar: Snackbar? = null
+
+    protected open fun showSnackBar(@StringRes stringRes: Int) {
         showSnackBar(getString(stringRes))
     }
 
-    protected open fun showSnackBar(@StringRes stringRes : Int, vararg args : Any) {
+    protected open fun showSnackBarForever(@StringRes stringRes: Int) {
+        showSnackBarForever(getString(stringRes))
+    }
+
+    protected open fun showSnackBar(@StringRes stringRes: Int, vararg args: Any) {
         showSnackBar(getString(stringRes, args))
     }
 
-    protected open fun showSnackBar(text : String) {
+    protected open fun showSnackBar(text: String) {
+        showSnackBarWithDuration(text, Snackbar.LENGTH_LONG)
+    }
+
+    protected open fun showSnackBarForever(text: String) {
+        showSnackBarWithDuration(text, Snackbar.LENGTH_INDEFINITE)
+    }
+
+    protected open fun hideSnackBar() {
+        snackBar?.dismiss()
+        snackBar = null
+    }
+
+    private fun showSnackBarWithDuration(text: String, length: Int) {
         view?.let {
-            Snackbar.make(it, text, Snackbar.LENGTH_LONG).show()
+            if (snackBar == null) {
+                snackBar = Snackbar.make(it, text, length)
+            } else {
+                snackBar?.setText(text)
+            }
+            snackBar?.show()
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,9 +103,25 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(layoutI
         startActivityForResult(enableBtIntent, REQUEST_BT_ENABLE)
     }
 
-    fun requestLocationEnable(){
+    fun requestLocationEnable() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
         startActivity(intent)
+    }
+
+    fun isPlayServicesObsolete(): Boolean {
+        return try {
+            val current = PackageInfoCompat.getLongVersionCode(
+                requireContext().packageManager.getPackageInfo(
+                    GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE,
+                    0
+                )
+            )
+
+            current < AppConfig.minGmsVersionCode
+        } catch (e: Exception) {
+            L.e(e)
+            true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

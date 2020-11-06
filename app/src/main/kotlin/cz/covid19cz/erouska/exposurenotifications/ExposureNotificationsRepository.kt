@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.exposurenotifications
 
 import android.content.Context
-import android.util.Base64
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -16,10 +15,12 @@ import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.*
+import cz.covid19cz.erouska.ui.senddata.NoKeysException
 import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.threeten.bp.LocalDate
 import retrofit2.HttpException
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -37,7 +38,8 @@ class ExposureNotificationsRepository @Inject constructor(
     private val cryptoTools: ExposureCryptoTools,
     private val prefs: SharedPrefsRepository,
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
-    private val db: DailySummariesDb
+    private val db: DailySummariesDb,
+    private val notifications: Notifications
 ) {
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
@@ -166,12 +168,34 @@ class ExposureNotificationsRepository @Inject constructor(
             }
         }
 
-    suspend fun getDailySummariesFromDb(): List<DailySummaryEntity> {
-        return db.dao().getAll()
+
+    suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity> {
+        return db.dao().getAllByExposureDate()
     }
 
-    suspend fun getLastRiskyExposure(): DailySummaryEntity? {
-        return db.dao().getLatest().firstOrNull()
+    suspend fun getDailySummariesFromDbByImportDate(): List<DailySummaryEntity> {
+        return db.dao().getAllByImportDate()
+    }
+
+    suspend fun getLastRiskyExposure(demo: Boolean? = false): DailySummaryEntity? {
+        val lastExposure = db.dao().getLatest().firstOrNull()
+        return if (lastExposure == null && demo == true) {
+            getLastRiskyExposureForDemo()
+        } else {
+            lastExposure
+        }
+    }
+
+    private fun getLastRiskyExposureForDemo(): DailySummaryEntity {
+        return DailySummaryEntity(
+            LocalDate.now().minusDays(1).toEpochDay().toInt(),
+            1000.0,
+            1000.0,
+            1000.0,
+            0,
+            notified = false,
+            accepted = false
+        )
     }
 
     suspend fun markAsAccepted() {
@@ -198,6 +222,10 @@ class ExposureNotificationsRepository @Inject constructor(
 
     suspend fun reportExposureWithVerification(code: String): Int {
         val keys = getTemporaryExposureKeyHistory()
+        if (keys.isEmpty()) {
+            L.e("No keys found, upload cancelled")
+            throw NoKeysException()
+        }
         try {
             val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
             if (verifyResponse.token != null) {
@@ -216,25 +244,20 @@ class ExposureNotificationsRepository @Inject constructor(
                     L.i("Verify certificate success")
                 }
 
-                val temporaryExposureKeys = keys.map {
+                val dtos = keys.map {
                     TemporaryExposureKeyDto(
-                        Base64.encodeToString(
-                            it.keyData,
-                            Base64.NO_WRAP
-                        ), it.rollingStartIntervalNumber, it.rollingPeriod
+                        it.keyData.encodeBase64(),
+                        it.rollingStartIntervalNumber,
+                        it.rollingPeriod
                     )
                 }
-                val response = server.reportExposure(
-                    temporaryExposureKeys,
-                    certificateResponse.certificate,
-                    hmackey
-                )
+                L.i("Uploading ${dtos.size} keys")
+                val response = server.reportExposure(dtos, certificateResponse.certificate, hmackey)
                 response.errorMessage?.let {
                     L.e("Report exposure failed: $it")
                     throw ReportExposureException(it, response.code)
                 }
                 L.i("Report exposure success, ${response.insertedExposures} keys inserted")
-                prefs.saveRevisionToken(response.revisionToken)
                 return response.insertedExposures ?: 0
             } else {
                 throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
@@ -270,15 +293,15 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun checkExposure(context: Context) {
-        importLegacyExposures()
         db.dao().deleteOld()
+        val timestamp = System.currentTimeMillis()
         db.dao().insert(getDailySummariesFromApi().map {
             DailySummaryEntity(
                 daysSinceEpoch = it.daysSinceEpoch,
                 maximumScore = it.summaryData.maximumScore,
                 scoreSum = it.summaryData.scoreSum,
                 weightenedDurationSum = it.summaryData.weightedDurationSum,
-                importTimestamp = System.currentTimeMillis(),
+                importTimestamp = timestamp,
                 notified = false,
                 accepted = false
             )
@@ -286,7 +309,7 @@ class ExposureNotificationsRepository @Inject constructor(
         val latestExposure = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
         val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()?.daysSinceEpoch
         if (latestExposure != null && latestExposure != lastNotifiedExposure) {
-            LocalNotificationsHelper.showRiskyExposureNotification(context)
+            notifications.showRiskyExposureNotification()
             db.dao().markAsNotified()
             firebaseFunctionsRepository.registerNotification()
         } else {
@@ -295,7 +318,7 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     //TODO: Remove in late november 2020
-    private suspend fun importLegacyExposures() {
+    suspend fun importLegacyExposures() {
         if (!prefs.isLegacyExposuresImported()) {
             db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(
