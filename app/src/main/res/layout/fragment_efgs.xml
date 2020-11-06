@@ -21,9 +21,10 @@
 
             <TextView
                 android:id="@+id/efgs_title"
-                android:text="@string/efgs_visit"
+                android:text="@{@string/efgs_visit(vm.efgsDays)}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/Erouska.Body"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:textAppearance="@style/Erouska.Body"
                 android:text="@string/efgs_check"
+                android:checked="@{vm.efgsState}"
                 app:switchPadding="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,34 +45,13 @@
 
             <TextView
                 android:id="@+id/efgs_desc"
-                android:text="@string/efgs_visit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{@string/efgs_boundaries(vm.efgsDays) + `\n\n` + vm.efgsSupportedCountries() + `\n\n` + @string/efgs_usage(vm.efgsDays)}"
+                android:textAppearance="@style/Erouska.Caption"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/efgs_checkbox" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/turn_on"
-                android:text="Turn on"
-                android:layout_width="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:onClick="@{() -> vm.turnOnEfgs()}"
-                app:layout_constraintTop_toBottomOf="@id/efgs_desc" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/turn_off"
-                android:text="Turn off"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:onClick="@{() -> vm.turnOffEfgs()}"
-                app:layout_constraintTop_toBottomOf="@id/turn_on" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -121,6 +121,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
+                DashboardCommandEvent.Command.EFGS -> showEfgs()
                 DashboardCommandEvent.Command.TURN_OFF -> notifications.showErouskaPausedNotification()
             }
         }
@@ -165,6 +166,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_active.card_on_content_click = View.OnClickListener { viewModel.stop() }
         dash_card_inactive.card_on_content_click = View.OnClickListener { viewModel.start() }
+
+        dash_travel.card_on_content_click =
+            View.OnClickListener { viewModel.showEfgs() }
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
@@ -333,5 +337,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
+    }
+
+    private fun showEfgs() {
+        navigate(R.id.action_nav_dashboard_to_nav_efgs)
     }
 }

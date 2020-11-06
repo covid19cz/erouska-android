@@ -492,4 +492,12 @@
         <key>v2_updateNewsOnRequest</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>v2_efgsDays</key>
+        <value>14</value>
+    </entry>
+    <entry>
+        <key>v2_efgsSupportedCountries</key>
+        <value>Aktuálně s eRouškou spolupracuje Dánsko, Litva, Lotyšsko, Německo a Rakousko.</value>
+    </entry>
 </defaultsMap>
