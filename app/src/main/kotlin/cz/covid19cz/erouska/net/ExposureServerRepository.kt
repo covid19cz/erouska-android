@@ -81,7 +81,7 @@ class ExposureServerRepository @Inject constructor(
                     temporaryExposureKeyDto,
                     certificate,
                     hmackey,
-                    prefs.getRevisionToken(),
+                    null,
                     prefs.isTraveller()
                 )
             )
