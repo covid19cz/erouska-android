@@ -12,6 +12,7 @@ import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.ext.timestampToDateTime
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.model.DownloadedKeys
 import cz.covid19cz.erouska.ui.base.BaseVM
@@ -21,8 +22,6 @@ import cz.covid19cz.erouska.ui.senddata.ReportExposureException
 import cz.covid19cz.erouska.ui.senddata.VerifyException
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SandboxVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
@@ -57,12 +56,8 @@ class SandboxVM @ViewModelInject constructor(
     }
 
     fun rollingStartToString(rollingStart: Int): String {
-        val formatter = SimpleDateFormat("d.M.yyyy H:mm", Locale.getDefault())
-        formatter.timeZone = TimeZone.getTimeZone("UTC")
-        val dateTime = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-            timeInMillis = (rollingStart.toLong() * 10 * 60 * 1000)
-        }
-        return formatter.format(dateTime.time)
+        val timeInMillis = (rollingStart.toLong() * 10 * 60 * 1000)
+        return timeInMillis.timestampToDateTime()
     }
 
     fun rollingIntervalToString(rollingInterval: Int): String {

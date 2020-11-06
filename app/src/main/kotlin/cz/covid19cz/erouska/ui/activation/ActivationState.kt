@@ -5,9 +5,7 @@ import arch.event.LiveEvent
 sealed class ActivationState
 object ActivationStart : ActivationState()
 object ActivationFinished : ActivationState()
-object ActivationFailed : ActivationState()
+data class ActivationFailed(val errorMessage: String?) : ActivationState()
 object ActivationInit : ActivationState()
-
-object StartVerificationEvent : LiveEvent()
-
+object NoInternet : ActivationState()
 object NotificationsVerifiedEvent : LiveEvent()

@@ -3,6 +3,7 @@
 
     <!-- Basics -->
     <dimen name="fragment_padding">16dp</dimen>
+    <dimen name="fragment_padding_bottom_larger">32dp</dimen>
 
     <!-- Material Button -->
     <dimen name="button_height">56dp</dimen>

@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="cz.covid19cz.erouska.ext.LongKt" />
+
         <variable
             name="item"
             type="com.google.android.gms.nearby.exposurenotification.ExposureWindow" />
@@ -23,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@{vm.dateInMilisToString(item.dateMillisSinceEpoch)}"/>
+            android:text="@{LongKt.timestampToDate(item.dateMillisSinceEpoch)}"/>
 
         <TextView
             android:layout_width="0dp"

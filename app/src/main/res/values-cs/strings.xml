@@ -6,15 +6,15 @@
     <string name="enable_bluetooth_button">Zapnout Bluetooth</string>
     <string name="enable">Zapnout</string>
     <string name="bt_disabled_title">Zapněte Bluetooth</string>
-    <string name="bt_disabled_desc">Bez zapnutého Bluetooth nemůže eRouška vytvářet seznam eRoušek ve vašem okolí.\n\nZapněte jej pomocí tlačítka \"Zapnout Bluetooth\".</string>
+    <string name="bt_disabled_desc">Zapnuté Bluetooth je důležité pro sbírání kontaktů s ostatními eRouškami ve vašem okolí.</string>
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
-    <string name="dashboard_body_no_contact">Poslední aktualizace dat - %1$s v %2$s.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace dat %1$s v\u00A0%2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a\u00A0nesbírá žádná data o\u00A0ostatních eRouškách ve vašem okolí.\n\nSpusťte znovu sběr dat a\u00A0chraňte sebe i\u00A0své okolí. Nezapomínejte na to zejména v\u00A0situaci, kdy opouštíte svůj domov.</string>
-    <string name="pause_app">Pozastavit eRoušku</string>
-    <string name="start_app">Spustit eRoušku</string>
+    <string name="pause_app">Pozastavit</string>
+    <string name="start_app">Spustit</string>
 
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
     <string name="privacy_body_text_1">eRouška neobsahuje žádné vaše osobní údaje a sbírá pouze anonymní data o ostatních eRouškách, se kterými se setkáte.</string>
@@ -24,10 +24,9 @@
 
     <string name="activation_error_title">Chyba</string>
     <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
-    <string name="activation_error_body">Zkontrolujte připojení k internetu a aktivaci aplikace zkuste znovu. Pokud chyba přetrvává, kontaktujte nás na info@erouska.cz</string>
     <string name="activation_try_again">Zkusit znovu</string>
 
-    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
+    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
     <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na onemocnění COVID-19.</string>
     <string name="permission_onboarding_desc_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="permission_onboarding_desc_minor">Nemusíte se obávat, aplikace vaši polohu nikdy nesleduje ani neukládá.</string>
@@ -47,10 +46,11 @@
     <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u majitele kteréhokoliv z nich potvrdí onemocnění COVID-19, eRouška vyhodnotí, zda se jedná o rizikový kontakt a upozorní vás.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, eRouška upozorní všechny ostatní uživatele aplikace, se s&nbsp;kterými jste se potkali.]]></string>
     <string name="welcome_title">D\u00edky eRou\u0161ce ochr\u00e1n\u00edte sebe i\u00a0ostatn\u00ed ve sv\u00e9m okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
-    <string name="send_data">Odeslat data</string>
+    <string name="send_data">Anonymně upozornit ostatní</string>
+    <string name="sent">Odesláno</string>
     <string name="share_app_title">Sdílet aplikaci eRouška</string>
     <string name="menu_share_app">Sdílet aplikaci</string>
-    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomozme zastavit šíření onemocnění COVID-19. Aplikace dokáže anonymně a včas upozornit na rizikové setkání s nakaženým uživatelem a doporučit další postup. Najdeš ji na %s</string>
+    <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomožme zastavit šíření onemocnění COVID-19. Aplikace dokáže anonymně a včas upozornit na rizikové setkání s nakaženým uživatelem a doporučit další postup. Najdeš ji na %s</string>
     <string name="delete_registration">Zrušit registraci</string>
     <string name="about">O\u00a0aplikaci</string>
     <string name="no_internet">Va\u0161e za\u0159\u00edzen\u00ed nem\u00e1 aktivn\u00ed p\u0159\u00edstup k\u00a0internetu.</string>
@@ -58,16 +58,20 @@
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
 
     <string name="my_data_current_measures">Aktuální opatření</string>
+    <string name="my_data_current_measures_title">Informace o aktuálních opatřeních</string>
     <string name="my_data_current_situation">Aktuální situace v číslech</string>
+    <string name="my_data_stats">eRouška v číslech</string>
     <string name="my_data_yesterday">Za včerejší den %1$s</string>
+    <string name="my_data_for_day">%1$s za %2$s</string>
+    <string name="my_data_activated_apps">%1$s aktivovaných aplikací</string>
+    <string name="my_data_notifications_sent">%1$s pozitivně testovaných anonymně varovalo ostatní</string>
+    <string name="my_data_notifications_shown">%1$s upozornění na riziková setkání</string>
     <string name="my_data_tests">%1$s provedených testů</string>
     <string name="my_data_ack_cases">%1$s celkem potvrzených případů</string>
     <string name="my_data_act_cases">%1$s aktivních případů</string>
     <string name="my_data_cured">%1$s vyléčených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
-    <string name="my_data_last_update">Poslední aktualizace %1$s</string>
-
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro upozornění ostatních uživatelů eRoušky.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
@@ -76,17 +80,17 @@
     <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
-    <string name="send_data_failure_body">Kontaktujte prosím podporu na info@erouska.cz a do e-mailu uveďte následující kód chyby: \'%s\'.</string>
+    <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
     <string name="send_data_back">Zpět</string>
     <string name="send_data_close">Zavřít</string>
     <string name="send_data_try_again">Zkusit znovu</string>
     <string name="send_data_success_header">Data jste úspěšně odeslali</string>
     <string name="send_data_success_body_1">Děkujeme, že pomáháte bojovat proti šíření onemocnění COVID-19.</string>
+    <string name="send_data_success_body_1_not_enough_keys">eRoušku zatím používáte jen chvíli a nemá zaznamenané žádné jiné eRoušky, proto nikoho ve vašem okolí neupozorní na rizikové setkání.</string>
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
 
     <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
-    <string name="notification_data_outdated_text">Vaše eRouška si dlouhou dobu neaktualizovala data, zda jste se setkali s nakaženým uživatelem eRoušky. Připojte se k internetu.</string>
     <string name="data_notification_close">Zavřít</string>
 
     <string name="notification_exposure_title">Rizikové setkání</string>
@@ -94,7 +98,7 @@
 
     <string name="notification_exposure_notifications_off_text">Nezapomeňte ji spustit</string>
 
-    <string name="notification_channel_exposure">Rizikový kontakt</string>
+    <string name="notification_channel_exposure">Rizikové setkání</string>
     <string name="notification_channel_outdated_data">Aktualizace rizikových setkání</string>
     <string name="notification_channel_exposure_notifications_off">Pozastavená eRouška</string>
 
@@ -116,22 +120,22 @@
     <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
     <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>
-    <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky zpracování</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
+    <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky používání</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
 
-    <string name="play_services_title">Aktualizujte aplikace Služby Google Play</string>
-    <string name="play_services_content">Nejnovější verze Google Play Services je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
+    <string name="play_services_title">Aktualizujte aplikaci Služby Google Play</string>
+    <string name="play_services_content">Nejnovější verze aplikace Služby Google Play je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="play_services_update_button">Aktualizovat</string>
 
     <string name="activation_notifications_title">Oznámení</string>
-    <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnuté oznámení o kontaktu s COVID-19</string>
+    <string name="activation_notifications_header">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
     <string name="activation_notifications_body_1">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na onemocnění COVID-19.</string>
     <string name="activation_notifications_body_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
     <string name="legacy_update_button_continue">Pokračovat</string>
     <string name="legacy_update_button_close">Zavřít</string>
 
     <string name="location_off_header">Zapněte Polohové služby</string>
-    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte je pro správné fungování Bluetooth pomocí tlačítka "Zapnout Polohové služby".</string>
-    <string name="location_off_turn_on">Zapnout polohové služby</string>
+    <string name="location_off_body">I když polohová data nijak nevyužíváme, zapněte Polohové služby pro správné fungování Bluetooth a aplikace eRouška.</string>
+    <string name="location_off_turn_on">Zapnout Polohové služby</string>
 
     <string name="location_bt_off_header">Zapněte Bluetooth a Polohové služby</string>
     <string name="location_bt_off_body_1">Bez zapnutého Bluetooth a Polohových služeb nemůže eRouška vytvářet seznam ostatních eRoušek ve vašem okolí.</string>
@@ -139,6 +143,8 @@
     <string name="location_bt_off_turn_on">Zapnout BT a Polohové služby</string>
 
     <string name="no_recent_exposures">Žádná riziková setkání</string>
+    <string name="recent_exposures_discovered">Riziková setkání zjištěná %s v %s</string>
+    <string name="recent_exposures_discovered_earlier">Starší riziková setkání</string>
     <string name="activation_error">eRoušku nelze aktivovat</string>
     <string name="activation_error_reason">Důvod: %s</string>
     <string name="activation_error_reason_bluetooth_le">Toto zařízení nepodporuje Bluetooth Low Energy.</string>
@@ -147,5 +153,48 @@
     <string name="activation_error_reason_en_api">Toto zařízení nepodporuje Oznámení o možném kontaktu od Google.</string>
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
+    <string name="search">Hledat</string>
+    <string name="previous_search_result">Předešlý výsledek</string>
+    <string name="next_search_result">Následující výsledek</string>
+    <string name="help_no_results">Žádné výsledky vyhledávání</string>
 
+    <string name="exposure_info_date">Naposledy %s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19</string>
+    <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
+    <string name="exposure_info_button">Jak postupovat dál</string>
+
+    <plurals name="dashboard_risky_encounter_title_bad">
+        <item quantity="one">Za posledních 14\u00A0dní %1$d\u00A0rizikové setkání</item>
+        <item quantity="few">Za posledních 14\u00A0dní %1$d\u00A0riziková setkání</item>
+        <item quantity="other">Za posledních 14\u00A0dní %1$d\u00A0rizikových setkání</item>
+    </plurals>
+
+    <string name="dashboard_risky_encounter_subtitle_bad">Dne %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
+    <string name="dashboard_positive_test_title">Máte pozitivní výsledek testu na COVID-19?</string>
+    <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
+
+    <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
+    <string name="enabled">Zapnutá</string>
+    <string name="disable">Vypnutá</string>
+    <string name="support_request_button">Napsat e-mail na podporu</string>
+    <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informace o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
+    <string name="support_request_allowed">Chci přidat přílohu</string>
+    <string name="support_request_denied">Nechci přidat přílohu</string>
+    <string name="support_email_chooser">Vyberte e-mailovou aplikaci:</string>
+    <string name="support_email_subject">Zpětná vazba z aplikace eRouška</string>
+    <string name="support_error_code">Kód chyby</string>
+    <string name="support_app_version">Verze aplikace</string>
+    <string name="support_system_version">Verze systému</string>
+    <string name="support_device">Zařízení</string>
+    <string name="support_localization">Lokalizace</string>
+    <string name="support_bluetooth">Bluetooth</string>
+    <string name="support_bluetooth_supports">podporuje</string>
+    <string name="support_bluetooth_doesnt_support">NEpodporuje</string>
+    <string name="support_location_services">Polohové služby</string>
+    <string name="support_primary_account">Primární účet</string>
+    <string name="support_battery_optimization_exception">Výjimka z optimalizace baterie</string>
+    <string name="support_installation">Instalace</string>
+    <string name="support_last_key_download">Poslední stažení klíčů</string>
+    <string name="support_last_notified_risky_encounter">Poslední notifikace rizikového setkání</string>
+    <string name="support_last_risky_encounter_from">Poslední rizikové setkání z</string>
+    <string name="support_file_name">diagnosticke_informace.txt</string>
 </resources>

@@ -15,7 +15,7 @@ object N1Screen {
     private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=cz.covid19cz.erouska"
     private const val APPLE_TRACKING_URL = "https://www.apple.com/covid19/contacttracing"
     private const val GOOGLE_TRACKING_URL = "https://www.google.com/covid19/exposurenotifications/"
-    private const val CHYTRA_KARANTENA_URL = "https://chytrakarantena.cz/"
+    private const val CHYTRA_KARANTENA_URL = "https://koronavirus.mzcr.cz/chytra-karantena/"
     private const val COVID_MZCR_URL = "https://koronavirus.mzcr.cz/"
 
     const val TERMS_OF_USE_URL = "${EROUSKA_BASE_URL}podminky-pouzivani"

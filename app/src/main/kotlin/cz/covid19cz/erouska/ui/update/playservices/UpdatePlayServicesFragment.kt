@@ -20,6 +20,8 @@ class UpdatePlayServicesFragment :
         const val GMS_STORE_URL = "https://play.google.com/store/apps/details?id=com.google.android.gms"
     }
 
+    private var isDemoMode: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,15 +30,39 @@ class UpdatePlayServicesFragment :
                 UpdatePlayServicesEvent.Command.PLAY_STORE -> openPlayStore()
             }
         }
+
+        isDemoMode = arguments?.let {
+            UpdatePlayServicesFragmentArgs.fromBundle(it).demo
+        } ?: false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isDemoMode && !isPlayServicesObsolete()) {
+            navController().navigateUp()
+        }
     }
 
     private fun openPlayStore() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GMS_STORE_URL)))
+        if (isDemoMode) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GMS_STORE_URL)))
+        } else {
+            if (isPlayServicesObsolete()){
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GMS_STORE_URL)))
+            } else {
+                navController().navigateUp()
+            }
+        }
     }
 
     override fun onBackPressed(): Boolean {
-        activity?.finish()
-        return true
+        return if (isPlayServicesObsolete()) {
+            activity?.finish()
+            true
+        } else {
+            navController().navigateUp()
+            true
+        }
     }
 
 }

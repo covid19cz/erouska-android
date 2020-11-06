@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="cz.covid19cz.erouska.R" />
+
+        <variable
+            name="item"
+            type="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpItem" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/symptom_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"
+            app:placeholder="@{R.drawable.ic_item_empty}"
+            app:url="@{item.iconUrl}"
+            tools:src="@drawable/ic_item_empty"/>
+
+        <TextView
+            android:id="@+id/symptom_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@{item.label}"
+            tools:text="@tools:sample/lorem"
+            android:textAppearance="@style/Erouska.Body"
+            app:layout_constraintBottom_toBottomOf="@id/symptom_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/symptom_img"
+            app:layout_constraintTop_toTopOf="@id/symptom_img" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
