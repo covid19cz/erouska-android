@@ -7,7 +7,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.update.legacy.event.LegacyUpdateEvent
 
 class LegacyUpdateVM @ViewModelInject constructor(
-    private val sharedPrefsRepository: SharedPrefsRepository
+     val sharedPrefsRepository: SharedPrefsRepository
 ) : BaseArchViewModel() {
 
     val state = MutableLiveData<LegacyUpdateEvent>()

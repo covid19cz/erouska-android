@@ -103,9 +103,7 @@
     <string name="legacy_update_title">News</string>
     <string name="legacy_update_expansion_header">eRouška is expanding</string>
     <string name="legacy_update_expansion_body">We are preparing eRouška to be able to communicate with other similar applications around the world. That\'s why we made a few changes which we will now introduce.</string>
-    <string name="legacy_update_efgs_header">Pomozte v boji s COVID-19 i při estách do zahraničí</string>
-    <string name="legacy_update_efgs_body">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.\n\nAktuálně s eRouškou spolupracuje Dánsko, Litva, Lotyšsko, Německo a Rakousko.\n\nPovolte si prosím cesty do zahraničí, pokud jste byli v posledních 14 dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.\nNastavení můžete kdykoliv změnit v aplikaci.</string>
-    <string name="legacy_update_efgs_check">Povolit cesty do zahraničí</string>
+
     <string name="legacy_update_active_notification_header">We support active notifications</string>
     <string name="legacy_update_active_notification_body">If you encounter anyone who tested positive for COVID-19, eRouška will notify you and advise how to proceed.</string>
     <string name="legacy_update_phone_header">We will not require phone numbers anymore</string>
@@ -178,4 +176,16 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
+
+    <string name="efgs_title">Spolupráce se zahraničím</string>
+    <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
+    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.</string>
+    <string name="efgs_visit">Povolte si prosím Spolupráci se zahraničím, pokud jste byli v posledních %1$d dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.</string>
+    <string name="efgs_settings">Nastavení můžete kdykoliv změnit v aplikaci.</string>
+    <string name="efgs_check">Povolit spolupráci se zahraničím</string>
+    <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
+
+    <string name="efgs_disable_confirmation"><![CDATA[Onemocnění COVID-19 se může projevit až %1$d dní po setkání s nakaženou osobou. Spolupráci se zahraničím prosím vypněte nejdříve <b>%1$d</b> dní po návratu.]]></string>
+    <string name="efgs_disable_confirmation_on">Ponechat zapnuté</string>
+    <string name="efgs_disable_confirmation_off">Vypnout</string>
 </resources>

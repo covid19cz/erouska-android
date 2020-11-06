@@ -106,6 +106,10 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_recentExposureNotificationTitle")
     val updateNewsOnRequest
         get() = firebaseRemoteConfig.getBoolean("v2_updateNewsOnRequest")
+    val efgsDays
+        get() = firebaseRemoteConfig.getLong("v2_efgsDays").toInt()
+    val efgsSupportedCountries
+        get() = firebaseRemoteConfig.getString("v2_efgsSupportedCountries")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

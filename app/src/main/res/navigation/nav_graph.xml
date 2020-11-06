@@ -197,6 +197,13 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposure_info"
             app:destination="@id/nav_exposure_info" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_efgs"
+            app:destination="@id/nav_efgs"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nav_exposure"
@@ -311,6 +318,11 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_efgs"
+        android:name="cz.covid19cz.erouska.ui.efgs.EfgsFragment"
+        android:label="@string/efgs_title"
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/nav_sandbox_config"
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"

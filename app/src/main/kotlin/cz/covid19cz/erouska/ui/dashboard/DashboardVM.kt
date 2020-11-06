@@ -34,6 +34,7 @@ class DashboardVM @ViewModelInject constructor(
 
     val bluetoothState = SafeMutableLiveData(true)
     val locationState = SafeMutableLiveData(true)
+    val efgsState = SafeMutableLiveData(prefs.isTraveller())
 
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
@@ -65,6 +66,7 @@ class DashboardVM @ViewModelInject constructor(
 
         bluetoothState.value = deviceInfo.isBtEnabled()
         locationState.value = deviceInfo.isLocationEnabled()
+        efgsState.value = prefs.isTraveller()
 
         checkRiskyExposures()
 
@@ -194,6 +196,10 @@ class DashboardVM @ViewModelInject constructor(
                 navigate(DashboardFragmentDirections.actionNavDashboardToNavExposure())
             }
         }
+    }
+
+    fun showEfgs() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.EFGS))
     }
 
     fun acceptExposure() {

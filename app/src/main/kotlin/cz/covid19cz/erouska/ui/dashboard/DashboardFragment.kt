@@ -121,6 +121,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
+                DashboardCommandEvent.Command.EFGS -> showEfgs()
                 DashboardCommandEvent.Command.TURN_OFF -> notifications.showErouskaPausedNotification()
             }
         }
@@ -166,6 +167,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         dash_card_active.card_on_content_click = View.OnClickListener { viewModel.stop() }
         dash_card_inactive.card_on_content_click = View.OnClickListener { viewModel.start() }
 
+        dash_travel.card_on_content_click =
+            View.OnClickListener { viewModel.showEfgs() }
+
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
         exposure_notification_close.setOnClickListener {
@@ -191,6 +195,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
             menu.add(0, R.id.action_exposure_screen, 17, "Test Exposure screen")
             menu.add(0, R.id.action_exposure_info, 18, "Test Rizikové setkání")
+            menu.add(0, R.id.action_efgs_control, 19, "Test EFGS Control")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -233,6 +238,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
             R.id.action_play_services -> {
                 showPlayServicesUpdate()
+                true
+            }
+            R.id.action_efgs_control -> {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavEfgs())
                 true
             }
             R.id.action_dashboard_cards -> {
@@ -328,5 +337,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun showDashboardCards() {
         navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
+    }
+
+    private fun showEfgs() {
+        navigate(R.id.action_nav_dashboard_to_nav_efgs)
     }
 }

@@ -9,4 +9,5 @@
     <item name="action_dashboard_cards" type="id"/>
     <item name="action_exposure_screen" type="id"/>
     <item name="action_exposure_info" type="id"/>
+    <item name="action_efgs_control" type="id"/>
 </resources>
