@@ -6,4 +6,5 @@
     <item name="action_play_services" type="id"/>
     <item name="action_exposure_demo" type="id"/>
     <item name="action_activation" type="id"/>
+    <item name="action_efgs_control" type="id"/>
 </resources>

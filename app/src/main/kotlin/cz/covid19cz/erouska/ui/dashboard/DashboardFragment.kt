@@ -133,6 +133,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
             menu.add(0, R.id.action_efgs, 14, "Test EFGS")
+            menu.add(0, R.id.action_efgs_control, 15, "Test EFGS Control")
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -171,6 +172,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardVM>(
             }
             R.id.action_play_services -> {
                 showPlayServicesUpdate()
+                true
+            }
+            R.id.action_efgs_control -> {
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavEfgs())
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.update.legacy
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -69,9 +68,12 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         legacy_update_checkbox.show()
         legacy_update_body.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
-        legacy_update_header.text = getString(R.string.legacy_update_efgs_header)
-        legacy_update_body.text = getString(R.string.legacy_update_efgs_body)
-        legacy_update_checkbox.text = getString(R.string.legacy_update_efgs_check)
+        legacy_update_header.text = getString(R.string.efgs_header)
+
+        val efgsBody = getString(R.string.efgs_boundaries) + "\n\n" + getString(R.string.efgs_visit) + "\n\n" +  getString(R.string.efgs_settings)
+        legacy_update_body.text = efgsBody
+
+        legacy_update_checkbox.text = getString(R.string.efgs_check)
         legacy_update_button.text = getString(R.string.legacy_update_button_continue)
         legacy_update_button.setOnClickListener { finish() }
     }
