@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import androidx.work.WorkManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -26,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -119,12 +121,19 @@ class Notifications @Inject constructor(
         dismissNotification(REQ_ID_OUTDATED_DATA)
     }
 
-    fun getDownloadingNotification(): Notification {
+    fun getDownloadingNotification(workId: UUID): Notification {
+        val cancelIntent = WorkManager.getInstance(context)
+            .createCancelPendingIntent(workId)
         return NotificationCompat.Builder(context, CHANNEL_ID_DOWNLOADING)
             .setContentTitle(context.getString(R.string.notification_downloading_title))
             .setContentText(context.getString(R.string.notification_downloading_description))
             .setContentIntent(getContentIntent())
             .setSmallIcon(R.drawable.ic_notification_normal)
+            .addAction(
+                android.R.drawable.ic_delete,
+                context.getString(android.R.string.cancel),
+                cancelIntent
+            )
             .setOngoing(true)
             .build()
     }

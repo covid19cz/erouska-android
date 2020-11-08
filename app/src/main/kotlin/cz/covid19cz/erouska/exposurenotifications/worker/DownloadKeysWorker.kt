@@ -26,7 +26,7 @@ class DownloadKeysWorker @WorkerInject constructor(
 
     override suspend fun doWork(): Result {
         try {
-            setForeground(ForegroundInfo(Notifications.REQ_ID_DOWNLOADING, notifications.getDownloadingNotification()))
+            setForeground(ForegroundInfo(Notifications.REQ_ID_DOWNLOADING, notifications.getDownloadingNotification(id)))
             if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
                 L.i("Starting download keys worker")
                 Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
