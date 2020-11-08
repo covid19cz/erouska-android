@@ -94,6 +94,7 @@
     <string name="notification_channel_outdated_data">Risky encounters update</string>
     <string name="notification_channel_exposure_notifications_off">eRouška is paused</string>
     <string name="exposure_notifications_off_title">Enable COVID-19 Exposure Notifications</string>
+    <string name="notification_channel_downloading">Download progress</string>
     <string name="exposure_notifications_off_body">eRouška cannot communicate with other eRouška applications nearby.\n\nEnable COVID-19 Exposure Notifications by pressing \"Enable\".</string>
     <string name="exposures_title">Risky encounters</string>
     <string name="exposure_notification_close">Close</string>
@@ -175,4 +176,6 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
+    <string name="notification_downloading_title">Downloading data</string>
+    <string name="notification_downloading_description">eRouška is downloading data for calculation of risky contact.</string>
 </resources>
