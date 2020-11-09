@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
-    <string name="dashboard_body_no_contact">Last data update on %1$s at\u00A0%2$s.</string>
+    <string name="dashboard_body_no_contact">Last data update on %1$s at %2$s.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby.\n\nResume data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
@@ -41,7 +41,7 @@
     <string name="welcome_help">How does it work?</string>
     <string name="welcome_activation">Continue to activation</string>
     <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with eRouška you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
-    <string name="welcome_title">eRou\u0161ka will help you protect yourself and others too</string>
+    <string name="welcome_title">eRouška will help you protect yourself and others too</string>
     <string name="contacts_title">Contacts</string>
     <string name="send_data">Anonymously notify others</string>
     <string name="sent">Sent</string>
@@ -94,7 +94,6 @@
     <string name="notification_channel_outdated_data">Risky encounters update</string>
     <string name="notification_channel_exposure_notifications_off">eRouška is paused</string>
     <string name="exposure_notifications_off_title">Enable COVID-19 Exposure Notifications</string>
-    <string name="notification_channel_downloading">Download progress</string>
     <string name="exposure_notifications_off_body">eRouška cannot communicate with other eRouška applications nearby.\n\nEnable COVID-19 Exposure Notifications by pressing \"Enable\".</string>
     <string name="exposures_title">Risky encounters</string>
     <string name="exposure_notification_close">Close</string>
@@ -145,8 +144,8 @@
     <string name="exposure_info_text">You received the notification at least 24 hours after the infected individual tested positive for COVID-19 and entered their verification code in eRouška.\n\nThe encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart.\n\nTo keep identities anonymous, we do not know the time or place of the encounter.</string>
     <string name="exposure_info_button">Next steps</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one">%1$d\u00A0risky encounter in the past 14\u00A0days</item>
-        <item quantity="other">%1$d\u00A0risky encounters in the past 14\u00A0days</item>
+        <item quantity="one">%1$d risky encounter in the past 14 days</item>
+        <item quantity="other">%1$d risky encounters in the past 14 days</item>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">On %1$s, you encountered someone who tested positive for COVID-19.</string>
     <string name="dashboard_positive_test_title">Have you tested positive for COVID-19?</string>
@@ -176,6 +175,7 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
-    <string name="notification_downloading_title">Downloading data</string>
-    <string name="notification_downloading_description">eRouška is downloading data for calculation of risky contact.</string>
+    <string name="notification_downloading_title">Checking for risky encounters</string>
+    <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
+    <string name="notification_channel_downloading">Checking for risky encounters</string>
 </resources>
