@@ -12,6 +12,6 @@ object SignNumberFormat {
 
 fun NumberFormat.showSign() {
     if (this is DecimalFormat) {
-        this.positivePrefix = "+"
+        this.positivePrefix = "+ "
     }
 }
