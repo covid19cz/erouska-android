@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.exposurenotifications.Notifications
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.utils.Analytics
 import cz.covid19cz.erouska.utils.L
@@ -14,7 +16,8 @@ class DownloadKeysWorker @WorkerInject constructor(
     @Assisted val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
-    private val serverRepository: ExposureServerRepository
+    private val serverRepository: ExposureServerRepository,
+    private val notifications: Notifications
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
@@ -23,6 +26,7 @@ class DownloadKeysWorker @WorkerInject constructor(
 
     override suspend fun doWork(): Result {
         try {
+            setForeground(ForegroundInfo(Notifications.REQ_ID_DOWNLOADING, notifications.getDownloadingNotification(id)))
             if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
                 L.i("Starting download keys worker")
                 Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
@@ -34,9 +38,13 @@ class DownloadKeysWorker @WorkerInject constructor(
                 L.i("Skipping download keys worker")
             }
             return Result.success()
-        } catch (t : Throwable){
+        } catch (t: Throwable) {
             L.e(t)
-            return Result.failure()
+            return if (runAttemptCount < 3) {
+                Result.retry()
+            } else {
+                Result.failure()
+            }
         }
     }
 }
