@@ -350,4 +350,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun isEligibleToDownloadKeys(): Boolean {
         return isEnabled() && System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
     }
+
+    fun isLocationlessScanSupported() = client.deviceSupportsLocationlessScanning()
+
 }

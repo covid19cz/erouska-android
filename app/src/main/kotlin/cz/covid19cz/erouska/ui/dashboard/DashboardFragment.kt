@@ -27,7 +27,6 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
-import cz.covid19cz.erouska.utils.isAndroid11andUp
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -94,7 +93,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
             // don't register Location Receiver on devices with Android 11+ (it's not mandatory to have location services turned on)
             // https://developer.android.com/about/versions/11/behavior-changes-all#exposure-notifications
-            if (!isAndroid11andUp()) {
+            // https://developers.google.com/android/exposure-notifications/implementation-guide#locationless_scanning_in_android_11
+            if (!viewModel.isLocationlessScanSupported()) {
                 addAction(LocationManager.PROVIDERS_CHANGED_ACTION)
             }
         }
@@ -114,7 +114,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         mainViewModel.serviceRunning.value =
             viewModel.exposureNotificationsEnabled.value &&
                     context.isBtEnabled() &&
-                    (isAndroid11andUp() || context.isLocationEnabled())
+                    (viewModel.isLocationlessScanSupported() || context.isLocationEnabled())
     }
 
     private fun subscribeToViewModel() {
@@ -309,7 +309,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun onLocationStateChanged(isEnabled: Boolean) {
         // Location services don't need to be turned on on devices with Android 11+
-        if (isAndroid11andUp()) {
+        if (viewModel.isLocationlessScanSupported()) {
             dash_location_off.hide()
         } else {
             dash_location_off.showOrHide(!isEnabled)
@@ -321,7 +321,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         val enEnabled = viewModel.exposureNotificationsEnabled.value
         val lsEnabled = viewModel.locationState.value // Location services don't need to be turned on on devices with Android 11+
         val btEnabled = viewModel.bluetoothState.value
-        dash_card_active.showOrHide( enEnabled && btEnabled && (isAndroid11andUp() || lsEnabled))
+        dash_card_active.showOrHide( enEnabled && btEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled))
     }
 
     private fun showWelcomeScreen() {
