@@ -34,6 +34,10 @@ class ActivationFragment :
         ActivationVM::class
     ) {
 
+    companion object {
+        private const val SCREEN_NAME = "Activation"
+    }
+
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
@@ -47,7 +51,7 @@ class ActivationFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
     }
@@ -151,7 +155,8 @@ class ActivationFragment :
                 requireActivity(),
                 lifecycleScope,
                 errorCode = errorMessage,
-                isError = true
+                isError = true,
+                screenOrigin = SCREEN_NAME
             )
         }
         login_progress.hide()

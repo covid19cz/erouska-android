@@ -35,7 +35,8 @@ class SupportEmailGenerator @Inject constructor(
         scope: CoroutineScope,
         recipient: String = AppConfig.supportEmail,
         errorCode: String? = null,
-        isError: Boolean
+        isError: Boolean,
+        screenOrigin: String
     ) {
         AlertDialog.Builder(activity)
             .setMessage(R.string.support_request)
@@ -44,7 +45,7 @@ class SupportEmailGenerator @Inject constructor(
                     activity.sendEmail(
                         recipient,
                         R.string.support_email_subject,
-                        getDiagnosticFile(errorCode),
+                        getDiagnosticFile(errorCode, screenOrigin),
                         getEmailBodyText(isError)
                     )
                 }
@@ -58,10 +59,10 @@ class SupportEmailGenerator @Inject constructor(
             }.show()
     }
 
-    private suspend fun getDiagnosticFile(errorCode: String?): Uri {
+    private suspend fun getDiagnosticFile(errorCode: String?, screenOrigin: String): Uri {
         return withContext(Dispatchers.IO) {
             val file = File(context.cacheDir, context.getString(R.string.support_file_name))
-            file.writeText(generateDiagnosticText(errorCode))
+            file.writeText(generateDiagnosticText(errorCode, screenOrigin))
             FileProvider.getUriForFile(
                 context,
                 context.getString(R.string.fileprovider_authorities),
@@ -70,7 +71,7 @@ class SupportEmailGenerator @Inject constructor(
         }
     }
 
-    private suspend fun generateDiagnosticText(errorCode: String?): String {
+    private suspend fun generateDiagnosticText(errorCode: String?, screenOrigin: String): String {
         return withContext(Dispatchers.Default) {
             val lastExposureDaysSinceEpoch = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
             val lastNotifiedExposureImportTimestamp =
@@ -125,6 +126,10 @@ class SupportEmailGenerator @Inject constructor(
             text += formatLine(
                 R.string.support_last_risky_encounter_from,
                 lastExposureDaysSinceEpoch?.daysSinceEpochToDateString() ?: "N/A"
+            )
+            text += formatLine(
+                R.string.support_screen_origin,
+                screenOrigin
             )
             text
         }

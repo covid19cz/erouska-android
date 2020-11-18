@@ -25,10 +25,14 @@ import kotlinx.android.synthetic.main.fragment_send_data.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
+class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     R.layout.fragment_send_data,
     SendDataVM::class
 ) {
+
+    companion object {
+        private const val SCREEN_NAME = "SEND DATA"
+    }
 
     private var errorMessage: String? = null
 
@@ -42,7 +46,7 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
         subscribe(SendDataCommandEvent::class) {
@@ -72,7 +76,8 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
                 requireActivity(),
                 lifecycleScope,
                 errorCode = this.errorMessage,
-                isError = true
+                isError = true,
+                screenOrigin = SCREEN_NAME
             )
         }
     }
