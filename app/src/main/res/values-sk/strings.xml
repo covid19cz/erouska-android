@@ -178,6 +178,8 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="support_last_notified_risky_encounter">Posledná notifikácia rizikového stretnutia</string>
     <string name="support_last_risky_encounter_from">Posledné rizikové stretnutie z</string>
     <string name="support_file_name">diagnosticke_informacie.txt</string>
+    <string name="support_email_body_contact">Napíšte nám, s čím vám môžeme poradiť:\n\n</string>
+    <string name="support_email_body_error">Napíšte nám, ako k chybe došlo:\n\n</string>
     <string name="notification_downloading_title">Prebieha kontrola rizikových kontaktov</string>
     <string name="notification_downloading_description">eRouška zisťuje, či ste boli v rizikovom kontakte s ochorením COVID-19.</string>
     <string name="notification_channel_downloading">Kontrola rizikových kontaktov</string>

@@ -197,6 +197,8 @@
     <string name="support_last_notified_risky_encounter">Poslední notifikace rizikového setkání</string>
     <string name="support_last_risky_encounter_from">Poslední rizikové setkání z</string>
     <string name="support_file_name">diagnosticke_informace.txt</string>
+    <string name="support_email_body_contact">Napište nám, s čím vám můžeme poradit:\n\n</string>
+    <string name="support_email_body_error">Napište nám, jak k chybě došlo:\n\n</string>
     <string name="notification_downloading_title">Probíhá kontrola rizikových kontaktů</string>
     <string name="notification_downloading_description">eRouška zjišťuje, zda jste byli v rizikovém kontaktu s onemocněním COVID-19.</string>
     <string name="notification_channel_downloading">Kontrola rizikových kontaktů</string>

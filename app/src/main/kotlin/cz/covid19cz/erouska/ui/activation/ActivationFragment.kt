@@ -144,9 +144,15 @@ class ActivationFragment :
 
     private fun onActivationFailed(errorMessage: String?) {
         activity?.setTitle(R.string.activation_error_title)
-        error_body.text = getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
+        error_body.text =
+            getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
         support_button.setOnClickListener {
-            supportEmailGenerator.sendSupportEmail(requireActivity(), lifecycleScope, errorCode = errorMessage)
+            supportEmailGenerator.sendSupportEmail(
+                requireActivity(),
+                lifecycleScope,
+                errorCode = errorMessage,
+                isError = true
+            )
         }
         login_progress.hide()
 

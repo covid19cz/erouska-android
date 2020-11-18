@@ -71,7 +71,8 @@ class SendDataFragment() : BaseFragment<FragmentSendDataBinding, SendDataVM>(
             supportEmailGenerator.sendSupportEmail(
                 requireActivity(),
                 lifecycleScope,
-                errorCode = this.errorMessage
+                errorCode = this.errorMessage,
+                isError = true
             )
         }
     }

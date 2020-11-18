@@ -70,7 +70,8 @@ class ExposureNotificationsErrorHandling @Inject constructor(
                 supportEmailGenerator.sendSupportEmail(
                     fragment.requireActivity(),
                     fragment.lifecycleScope,
-                    errorCode = errorMessage
+                    errorCode = errorMessage,
+                    isError = true
                 )
             }.setNegativeButton(R.string.send_data_close) { _, _ -> }.show()
     }

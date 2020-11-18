@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.utils
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import cz.covid19cz.erouska.AppConfig
@@ -33,7 +34,8 @@ class SupportEmailGenerator @Inject constructor(
         activity: Activity,
         scope: CoroutineScope,
         recipient: String = AppConfig.supportEmail,
-        errorCode: String? = null
+        errorCode: String? = null,
+        isError: Boolean
     ) {
         AlertDialog.Builder(activity)
             .setMessage(R.string.support_request)
@@ -42,12 +44,17 @@ class SupportEmailGenerator @Inject constructor(
                     activity.sendEmail(
                         recipient,
                         R.string.support_email_subject,
-                        getDiagnosticFile(errorCode)
+                        getDiagnosticFile(errorCode),
+                        getEmailBodyText(isError)
                     )
                 }
             }
             .setNegativeButton(R.string.support_request_denied) { _, _ ->
-                activity.sendEmail(recipient, R.string.support_email_subject)
+                activity.sendEmail(
+                    recipient,
+                    R.string.support_email_subject,
+                    emailBody = getEmailBodyText(isError)
+                )
             }.show()
     }
 
@@ -83,9 +90,9 @@ class SupportEmailGenerator @Inject constructor(
             text += formatLine(
                 R.string.support_bluetooth,
                 "${
-                    deviceInfo.isBtEnabled().toOnOff()
+                deviceInfo.isBtEnabled().toOnOff()
                 } (${
-                    deviceInfo.supportsBLE().toSupports("BLE")
+                deviceInfo.supportsBLE().toSupports("BLE")
                 }, ${deviceInfo.supportsMultiAds().toSupports("MultiAds")})"
             )
             text += formatLine(
@@ -123,6 +130,15 @@ class SupportEmailGenerator @Inject constructor(
         }
     }
 
+    @StringRes
+    private fun getEmailBodyText(isError: Boolean): Int {
+        return if (isError) {
+            R.string.support_email_body_error
+        } else {
+            R.string.support_email_body_contact
+        }
+    }
+
     private fun formatLine(label: Int, value: String): String {
         return "${context.getString(label)}: $value\n"
     }
@@ -137,9 +153,9 @@ class SupportEmailGenerator @Inject constructor(
 
     private fun Boolean.toSupports(subject: String): String {
         return if (this) "${context.getString(R.string.support_bluetooth_supports)} $subject" else "${
-            context.getString(
-                R.string.support_bluetooth_doesnt_support
-            )
+        context.getString(
+            R.string.support_bluetooth_doesnt_support
+        )
         } $subject"
     }
 }

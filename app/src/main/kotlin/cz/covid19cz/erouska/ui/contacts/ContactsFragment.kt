@@ -44,7 +44,8 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding, ContactsVM>(
                 supportEmailGenerator.sendSupportEmail(
                     requireActivity(),
                     lifecycleScope,
-                    recipient = link.split("mailto:")[1]
+                    recipient = link.split("mailto:")[1],
+                    isError = false
                 )
             } else {
                 showWeb(link, customTabHelper)
