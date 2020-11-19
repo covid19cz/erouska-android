@@ -34,6 +34,10 @@ class ActivationFragment :
         ActivationVM::class
     ) {
 
+    companion object {
+        private const val SCREEN_NAME = "Activation"
+    }
+
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
@@ -47,7 +51,7 @@ class ActivationFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
     }
@@ -144,9 +148,16 @@ class ActivationFragment :
 
     private fun onActivationFailed(errorMessage: String?) {
         activity?.setTitle(R.string.activation_error_title)
-        error_body.text = getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
+        error_body.text =
+            getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
         support_button.setOnClickListener {
-            supportEmailGenerator.sendSupportEmail(requireActivity(), lifecycleScope, errorCode = errorMessage)
+            supportEmailGenerator.sendSupportEmail(
+                requireActivity(),
+                lifecycleScope,
+                errorCode = errorMessage,
+                isError = true,
+                screenOrigin = SCREEN_NAME
+            )
         }
         login_progress.hide()
 

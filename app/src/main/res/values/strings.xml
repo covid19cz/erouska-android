@@ -175,6 +175,9 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
+    <string name="support_email_body_contact">What can we help you with?\n\n</string>
+    <string name="support_email_body_error">How did you encounter the error?\n\n</string>
+    <string name="support_screen_origin">Screen</string>
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
