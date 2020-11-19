@@ -133,13 +133,17 @@ class ExposureNotificationsRepository @Inject constructor(
 
             client.getDailySummaries(
                 DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                    for (i in 0..5) {
-                        setReportTypeWeight(i, reportTypeWeights[i])
-                    }
+
+                    setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[0])
+                    setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[1])
+                    setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[2])
+                    setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[3])
+
+                    setInfectiousnessWeight(Infectiousness.NONE, infectiousnessWeights[0])
+                    setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeights[1])
+                    setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeights[2])
+
                     setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    for (i in 0..2) {
-                        setInfectiousnessWeight(i, infectiousnessWeights[i])
-                    }
                     setMinimumWindowScore(AppConfig.minimumWindowScore)
                 }.build()
             ).addOnSuccessListener {
