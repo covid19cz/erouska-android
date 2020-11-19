@@ -31,7 +31,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 ) {
 
     companion object {
-        private const val SCREEN_NAME = "SEND DATA"
+        private const val SCREEN_NAME = "Send data"
     }
 
     private var errorMessage: String? = null
