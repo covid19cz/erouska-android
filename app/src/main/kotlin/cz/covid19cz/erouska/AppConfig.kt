@@ -34,6 +34,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_supportEmail")
     val reportTypeWhenMissing
         get() = firebaseRemoteConfig.getLong("v2_reportTypeWhenMissing").toInt()
+    val infectiousnessWhenDaysSinceOnsetMissing
+        get() = firebaseRemoteConfig.getLong("v2_infectiousnessWhenDaysSinceOnsetMissing").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("v2_shareAppDynamicLink")
     val chatBotLink

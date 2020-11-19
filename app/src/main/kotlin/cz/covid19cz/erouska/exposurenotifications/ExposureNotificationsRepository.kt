@@ -107,7 +107,7 @@ class ExposureNotificationsRepository @Inject constructor(
             }
             val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
                 .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
-                .setInfectiousnessWhenDaysSinceOnsetMissing(Infectiousness.NONE)
+                .setInfectiousnessWhenDaysSinceOnsetMissing(AppConfig.infectiousnessWhenDaysSinceOnsetMissing)
                 .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
                 .build()
             try {
