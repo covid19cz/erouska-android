@@ -1,5 +1,6 @@
 package cz.covid19cz.erouska.exposurenotifications
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,6 +10,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import androidx.work.WorkManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -25,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,10 +42,12 @@ class Notifications @Inject constructor(
         const val CHANNEL_ID_EXPOSURE = "EXPOSURE"
         const val CHANNEL_ID_OUTDATED_DATA = "OUTDATED_DATA"
         const val CHANNEL_ID_NOT_RUNNING = "NOT_RUNNING"
+        const val CHANNEL_ID_DOWNLOADING = "DOWNLOADING"
 
         const val REQ_ID_EXPOSURE = 100
         const val REQ_ID_OUTDATED_DATA = 101
         const val REQ_ID_NOT_RUNNING = 102
+        const val REQ_ID_DOWNLOADING = 103
     }
 
     fun showErouskaPausedNotification() {
@@ -91,25 +96,11 @@ class Notifications @Inject constructor(
         channelId: String,
         autoCancel: Boolean = false
     ) {
-        val notificationIntent = Intent(context, MainActivity::class.java)
-        notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-
-        val contentIntent = PendingIntent.getActivity(
-            context,
-            0,
-            notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, channelId)
-        } else {
-            NotificationCompat.Builder(context)
-        }
-        builder.setContentTitle(title)
+        val builder = NotificationCompat.Builder(context, channelId)
+            .setContentTitle(title)
             .setContentText(text)
             .setSmallIcon(R.drawable.ic_notification_normal)
-            .setContentIntent(contentIntent)
+            .setContentIntent(getContentIntent())
             .setAutoCancel(autoCancel)
 
         (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
@@ -130,6 +121,23 @@ class Notifications @Inject constructor(
         dismissNotification(REQ_ID_OUTDATED_DATA)
     }
 
+    fun getDownloadingNotification(workId: UUID): Notification {
+        val cancelIntent = WorkManager.getInstance(context)
+            .createCancelPendingIntent(workId)
+        return NotificationCompat.Builder(context, CHANNEL_ID_DOWNLOADING)
+            .setContentTitle(context.getString(R.string.notification_downloading_title))
+            .setContentText(context.getString(R.string.notification_downloading_description))
+            .setContentIntent(getContentIntent())
+            .setSmallIcon(R.drawable.ic_notification_normal)
+            .addAction(
+                android.R.drawable.ic_delete,
+                context.getString(android.R.string.cancel),
+                cancelIntent
+            )
+            .setOngoing(true)
+            .build()
+    }
+
     suspend fun getCurrentPushToken(): String {
         val pushToken = FirebaseMessaging.getInstance().token.await()
         L.d("Push token=$pushToken")
@@ -139,6 +147,18 @@ class Notifications @Inject constructor(
     private fun dismissNotification(id: Int) {
         (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(
             id
+        )
+    }
+
+    private fun getContentIntent(): PendingIntent {
+        val notificationIntent = Intent(context, MainActivity::class.java)
+        notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+        return PendingIntent.getActivity(
+            context,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
@@ -160,6 +180,12 @@ class Notifications @Inject constructor(
                 CHANNEL_ID_OUTDATED_DATA,
                 context.getString(R.string.notification_channel_outdated_data),
                 NotificationManager.IMPORTANCE_DEFAULT,
+                context
+            )
+            createNotificationChannel(
+                CHANNEL_ID_DOWNLOADING,
+                context.getString(R.string.notification_channel_downloading),
+                NotificationManager.IMPORTANCE_MIN,
                 context
             )
         }

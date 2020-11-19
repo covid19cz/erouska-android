@@ -23,7 +23,7 @@
     <string name="activation_error_title">Chyba</string>
     <string name="activation_error_header">Aktiváciu aplikácie nie je možné dokončiť</string>
     <string name="activation_try_again">Skúsiť znova</string>
-    <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté oznámenia o kontakte s COVID-19</string>
+    <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté Oznámenia o kontakte s COVID-19</string>
     <string name="permission_onboarding_desc">Tieto oznámenia vás upozornia, ak ste boli v blízkosti užívateľa eRoušky s pozitívnym testom na ochorenie COVID-19</string>
     <string name="permission_onboarding_desc_2">Podstatou správneho fungovania je zdieľanie a zhromažďovanie náhodných identifikačných čísel, ktoré se automaticky menia. Užívateľov eRoušky nie je  možné podľa týchto identifikátorov rozpoznať.</string>
     <string name="permission_onboarding_desc_minor">Nemusíte sa obávať, aplikácia vašu polohu nikdy nezdieľa ani neukladá</string>
@@ -33,7 +33,7 @@
     <string name="about_content">Aplikáciu eRouška od verzie 2.0 vyvíja Ministerstvo zdravotníctva ČR v spolupráci s Národnou agentúrou pre komunikačné a informačné technológie (NAKIT). Predošlú verziu aplikácie eRouška vytvoril tím dobrovoľníkov v rámci komunitnej aktivity COVID19CZ. Väčšina z pôvodných autorov eRoušky pokračuje na vývoji nových verzií v tíme NAKIT.</string>
     <string name="about_tos_content"><![CDATA[Detailné informácie o spracovaní osobných údajov a ďalšie podmienky používania aplikácie nájdete v <a href="%1$s">podmienkach používania</a>.]]></string>
     <string name="about_tos_link">Podmienky používania</string>
-    <string name="about_title">O aplik\u00e1cii</string>
+    <string name="about_title">O aplikácii</string>
     <string name="permission_rationale_title">Pre spr\u00e1vnu funkciu aplik\u00e1cie je nutn\u00e9 opr\u00e1vnenie k pr\u00edstupu k polohe.</string>
     <string name="permission_rationale_body">Viac o tom, pre\u010do to tak je, n\u00e1jdete v n\u00e1povede.</string>
     <string name="permission_rationale_settings">Nastavenia</string>
@@ -41,7 +41,7 @@
     <string name="welcome_help">Ako to funguje</string>
     <string name="welcome_activation">Pokra\u010dova\u0165 na aktiv\u00e1ciu</string>
     <string name="welcome_description"><![CDATA[Aplikácia bude nepretržite monitorovať vaše okolie a&nbsp;zaznamenávať všetky ostatné telefóny s aplikáciou eRouška, ku ktorým sa priblížite.<br/><br/>Pokiaľ sa u majiteľa ktoréhokoľvek z nich potvrdí ochorenie COVID-19, eRouška vyhodnotí, či ide o rizikový kontakt a upozorní vás.<br/><br/>Keď sa potvrdí nákaza u&nbsp;vás, eRouška upozorní všetkých ostatných užívateľov aplikácie, s s&nbsp;ktorými ste sa stretli.]]></string>
-    <string name="welcome_title">V\u010faka eRou\u0161ke ochr\u00e1nite seba aj ostatn\u00fdch vo svojom okol\u00ed</string>
+    <string name="welcome_title">Vďaka eRouške ochránite seba aj ostatných vo svojom okolí</string>
     <string name="contacts_title">Kontakty</string>
     <string name="send_data">Anonymne upozorniť ostatných</string>
     <string name="sent">Odoslané</string>
@@ -110,11 +110,11 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="legacy_update_phone_body">Rušíme evidenciu telefónnych čísel, pretože pre komunikáciu s hygienickou stanicou už nie sú potrebné. Pri rizikovom stretnutí vám eRouška odporučí ďalší postup.</string>
     <string name="legacy_update_privacy_header">Myslíme na vaše súkromie</string>
     <string name="legacy_update_privacy_body"><![CDATA[S týmito úpravami sa zmenili aj <a href="%1$s">podmienky používania</a>. Zásadnou zmenou je, že naďalej nebudeme evidovať telefónne čísla žiadneho užívateľa eRoušky a nebudeme ho vyžadovať pri registrácii.]]></string>
-    <string name="play_services_title">Aktualizujte aplikácie Služby Google Play</string>
-    <string name="play_services_content">Nejnovšia verzia Google Play Services je potrebná pre aktiváciu oznámení o stretnutí s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
+    <string name="play_services_title">Aktualizujte aplikáciu Služby Google Play</string>
+    <string name="play_services_content">Najnovšia verzia Google Play Services je potrebná na aktiváciu Oznámení o stretnutí s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="play_services_update_button">Aktualizovať</string>
     <string name="activation_notifications_title">Upozornenia</string>
-    <string name="activation_notifications_header">eRouška potrebuje na správne fungovanie zapnuté oznámenia o kontakte s COVID-19</string>
+    <string name="activation_notifications_header">eRouška potrebuje na správne fungovanie zapnuté Oznámenia o kontakte s COVID-19</string>
     <string name="activation_notifications_body_1">Tieto oznámenia vás upozornia, ak ste boli v blízkosti užívateľa eRoušky s pozitívnym testom na ochorenie COVID-19</string>
     <string name="activation_notifications_body_2">Podstatou správneho fungovania je zdieľanie a zhromažďovanie náhodných identifikačných čísel, ktoré se automaticky menia. Uživateľov eRoušky nie je možné podľa týchto identifikátorov rozpoznať.</string>
     <string name="legacy_update_button_continue">Pokračovať</string>
@@ -128,7 +128,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="location_bt_off_turn_on">Zapnúť BT a Polohové služby</string>
     <string name="no_recent_exposures">Žiadne rizikové stretnutia</string>
     <string name="recent_exposures_discovered">Rizikové stretnutia zistené %s o %s</string>
-    <string name="recent_exposures_discovered_earlier">Staršie stretnutia</string>
+    <string name="recent_exposures_discovered_earlier">Staršie rizikové stretnutia</string>
     <string name="activation_error">eRoušku nie je možné aktivovať</string>
     <string name="activation_error_reason">Dôvod: %s</string>
     <string name="activation_error_reason_bluetooth_le">Toto zariadenie nepodporuje Bluetooth Low Energy.</string>
@@ -156,7 +156,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
-    <string name="support_request_button">Kontaktovať podporu</string>
+    <string name="support_request_button">Napísať e-mail podpore</string>
     <string name="support_request">Môžeme k e-mailu priložiť súbor s anonymnými diagnostickými informáciami o Vašom zariadení na účely podpory?</string>
     <string name="support_request_allowed">Chcem pridať prílohu</string>
     <string name="support_request_denied">Nechcem pridať prílohu</string>
@@ -178,4 +178,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="support_last_notified_risky_encounter">Posledná notifikácia rizikového stretnutia</string>
     <string name="support_last_risky_encounter_from">Posledné rizikové stretnutie z</string>
     <string name="support_file_name">diagnosticke_informacie.txt</string>
+    <string name="notification_downloading_title">Prebieha kontrola rizikových kontaktov</string>
+    <string name="notification_downloading_description">eRouška zisťuje, či ste boli v rizikovom kontakte s ochorením COVID-19.</string>
+    <string name="notification_channel_downloading">Kontrola rizikových kontaktov</string>
 </resources>
