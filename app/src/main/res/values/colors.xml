@@ -24,7 +24,10 @@
 
     <color name="toolbarColor">@color/white</color>
     <color name="toolbarActiveColor">@android:color/black</color>
-    <color name="statusbarColor">#e8e8e8</color>
     <color name="launch_screen_background">#C9E2F4</color>
     <color name="boxStrokeColor">#BBBBBB</color>
+
+    <color name="statusbarColor">#e8e8e8</color>
+    <bool name="lightStatusBar">true</bool>
+
 </resources>

@@ -41,7 +41,7 @@
     <string name="welcome_help">How does it work?</string>
     <string name="welcome_activation">Continue to activation</string>
     <string name="welcome_description"><![CDATA[The application will monitor your surroundings continuously and record identifiers of phones with eRouška you encounter.<br/><br/>If any of the users test positive for COVID-19, the app will notify you that there was a risky encounter.<br/><br/>If you test positive, the app will notify all application users that you encountered.]]></string>
-    <string name="welcome_title">eRouška will help you protect yourself and others too</string>
+    <string name="welcome_title">eRou\u0161ka will help you protect yourself and others too</string>
     <string name="contacts_title">Contacts</string>
     <string name="send_data">Anonymously notify others</string>
     <string name="sent">Sent</string>
@@ -175,6 +175,9 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
+    <string name="support_screen_origin">Screen</string>
+    <string name="support_email_body_contact">Tell us what we can help you with:\n\n</string>
+    <string name="support_email_body_error">Tell us what happened before the error:\n\n</string>
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>

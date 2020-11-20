@@ -13,6 +13,7 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import androidx.annotation.StringRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
@@ -90,29 +91,45 @@ fun BaseFragment<*, *>.showWeb(url: String, customTabHelper: CustomTabHelper) {
     }
 }
 
-fun Activity.sendEmail(recipient: String, subject: Int, file: Uri? = null) {
-    val originalIntent = createEmailShareIntent(recipient, subject, file)
+fun Activity.sendEmail(
+    recipient: String,
+    subject: Int,
+    file: Uri? = null,
+    @StringRes emailBody: Int
+) {
+    val originalIntent = createEmailShareIntent(recipient, subject, file, emailBody)
     val emailFilterIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
     val originalIntentResults = packageManager.queryIntentActivities(originalIntent, 0)
     val emailFilterIntentResults = packageManager.queryIntentActivities(emailFilterIntent, 0)
     val targetedIntents = originalIntentResults
         .filter { originalResult -> emailFilterIntentResults.any { originalResult.activityInfo.packageName == it.activityInfo.packageName } }
         .map {
-            createEmailShareIntent(recipient, subject, file).apply { `package` = it.activityInfo.packageName }
+            createEmailShareIntent(recipient, subject, file, emailBody).apply {
+                `package` = it.activityInfo.packageName
+            }
         }
         .toMutableList()
     if (targetedIntents.size > 0) {
-        val finalIntent = Intent.createChooser(targetedIntents.removeAt(0), getString(R.string.support_email_chooser))
+        val finalIntent = Intent.createChooser(
+            targetedIntents.removeAt(0),
+            getString(R.string.support_email_chooser)
+        )
         finalIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toTypedArray())
         startActivity(finalIntent)
     }
 }
 
-private fun Activity.createEmailShareIntent(recipient: String, subject: Int, file: Uri?): Intent {
+private fun Activity.createEmailShareIntent(
+    recipient: String,
+    subject: Int,
+    file: Uri?,
+    @StringRes emailBody: Int
+): Intent {
     val builder = ShareCompat.IntentBuilder.from(this)
         .setType("message/rfc822")
         .setEmailTo(arrayOf(recipient))
         .setSubject(getString(subject))
+        .setText(getString(emailBody))
     if (file != null) {
         builder.setStream(file)
     }

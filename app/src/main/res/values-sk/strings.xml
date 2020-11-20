@@ -33,7 +33,7 @@
     <string name="about_content">Aplikáciu eRouška od verzie 2.0 vyvíja Ministerstvo zdravotníctva ČR v spolupráci s Národnou agentúrou pre komunikačné a informačné technológie (NAKIT). Predošlú verziu aplikácie eRouška vytvoril tím dobrovoľníkov v rámci komunitnej aktivity COVID19CZ. Väčšina z pôvodných autorov eRoušky pokračuje na vývoji nových verzií v tíme NAKIT.</string>
     <string name="about_tos_content"><![CDATA[Detailné informácie o spracovaní osobných údajov a ďalšie podmienky používania aplikácie nájdete v <a href="%1$s">podmienkach používania</a>.]]></string>
     <string name="about_tos_link">Podmienky používania</string>
-    <string name="about_title">O aplikácii</string>
+    <string name="about_title">O aplik\u00e1cii</string>
     <string name="permission_rationale_title">Pre spr\u00e1vnu funkciu aplik\u00e1cie je nutn\u00e9 opr\u00e1vnenie k pr\u00edstupu k polohe.</string>
     <string name="permission_rationale_body">Viac o tom, pre\u010do to tak je, n\u00e1jdete v n\u00e1povede.</string>
     <string name="permission_rationale_settings">Nastavenia</string>
@@ -41,7 +41,7 @@
     <string name="welcome_help">Ako to funguje</string>
     <string name="welcome_activation">Pokra\u010dova\u0165 na aktiv\u00e1ciu</string>
     <string name="welcome_description"><![CDATA[Aplikácia bude nepretržite monitorovať vaše okolie a&nbsp;zaznamenávať všetky ostatné telefóny s aplikáciou eRouška, ku ktorým sa priblížite.<br/><br/>Pokiaľ sa u majiteľa ktoréhokoľvek z nich potvrdí ochorenie COVID-19, eRouška vyhodnotí, či ide o rizikový kontakt a upozorní vás.<br/><br/>Keď sa potvrdí nákaza u&nbsp;vás, eRouška upozorní všetkých ostatných užívateľov aplikácie, s s&nbsp;ktorými ste sa stretli.]]></string>
-    <string name="welcome_title">Vďaka eRouške ochránite seba aj ostatných vo svojom okolí</string>
+    <string name="welcome_title">V\u010faka eRou\u0161ke ochr\u00e1nite seba aj ostatn\u00fdch vo svojom okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
     <string name="send_data">Anonymne upozorniť ostatných</string>
     <string name="sent">Odoslané</string>
@@ -49,8 +49,8 @@
     <string name="menu_share_app">Zdieľať aplikáciu</string>
     <string name="share_app_text">Ahoj, používam aplikáciu eRouška. Nainštaluj si ju tiež a spoločne pomôžme zastaviť šírenie ochorenia COVID-19. Aplikácia dokáže anonymne a včas upozorniť na rizikové stretnutie s nakazeným užívateľom a odporučiť ďalší postup. Nájdeš ju na %s</string>
     <string name="delete_registration">Zrušiť registráciu</string>
-    <string name="about">O aplik\u00e1cii</string>
-    <string name="no_internet">Va\u0161e zariadenie nem\u00e1 akt\u00edvny pr\u00edstup k internetu.</string>
+    <string name="about">O aplikácii</string>
+    <string name="no_internet">Vaše zariadenie nemá aktívny prístup k internetu.</string>
     <string name="battery_opt_label">Aplikácia na pozadí</string>
     <string name="help_write_chabot">Napíšte Anežke - podpore eRoušky</string>
     <string name="my_data_current_measures">Aktuálne opatrenia</string>
@@ -145,10 +145,10 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="exposure_info_text">Upozornenie sa vám zobrazilo najskôr 24 hodín po tom, čo sa nakazený dozvedel pozitívny výsledok testu na COVID-19 a zadal overovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút.\n\nKvôli zachovaniu anonymity nakazeného nepoznáme čas ani miesto stretnutia.</string>
     <string name="exposure_info_button">Ako postupovať ďalej</string>
     <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="few">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutia</item>
-        <item quantity="one">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutie</item>
-        <item quantity="other">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00fdch stretnut\u00ed</item>
-        <item quantity="many">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutia</item>
+        <item quantity="few">Za posledných 14 dní %1$d rizikové stretnutia</item>
+        <item quantity="one">Za posledných 14 dní %1$d rizikové stretnutie</item>
+        <item quantity="other">Za posledných 14 dní %1$d rizikových stretnutí</item>
+        <item quantity="many">Za posledných 14 dní %1$d rizikové stretnutia</item>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
@@ -178,6 +178,9 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="support_last_notified_risky_encounter">Posledná notifikácia rizikového stretnutia</string>
     <string name="support_last_risky_encounter_from">Posledné rizikové stretnutie z</string>
     <string name="support_file_name">diagnosticke_informacie.txt</string>
+    <string name="support_email_body_contact">Napíšte nám, s čím vám môžeme poradiť:\n\n</string>
+    <string name="support_email_body_error">Napíšte nám, ako k chybe došlo:\n\n</string>
+    <string name="support_screen_origin">Obrazovka</string>
     <string name="notification_downloading_title">Prebieha kontrola rizikových kontaktov</string>
     <string name="notification_downloading_description">eRouška zisťuje, či ste boli v rizikovom kontakte s ochorením COVID-19.</string>
     <string name="notification_channel_downloading">Kontrola rizikových kontaktov</string>

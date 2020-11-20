@@ -25,6 +25,10 @@
         <value>1</value>
     </entry>
     <entry>
+        <key>v2_infectiousnessWhenDaysSinceOnsetMissing</key>
+        <value>1</value>
+    </entry>
+    <entry>
         <key>v2_daysSinceOnsetToInfectiousness</key>
         <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
     </entry>

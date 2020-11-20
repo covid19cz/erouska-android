@@ -16,6 +16,10 @@ import javax.inject.Inject
 class SandboxFragment :
     BaseFragment<FragmentSandboxBinding, SandboxVM>(R.layout.fragment_sandbox, SandboxVM::class) {
 
+    companion object {
+        private const val SCREEN_NAME = "Sandbox"
+    }
+
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
@@ -23,7 +27,7 @@ class SandboxFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
         subscribe(SnackbarEvent::class) {

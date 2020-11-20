@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.utils
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import cz.covid19cz.erouska.AppConfig
@@ -33,7 +34,9 @@ class SupportEmailGenerator @Inject constructor(
         activity: Activity,
         scope: CoroutineScope,
         recipient: String = AppConfig.supportEmail,
-        errorCode: String? = null
+        errorCode: String? = null,
+        isError: Boolean,
+        screenOrigin: String
     ) {
         AlertDialog.Builder(activity)
             .setMessage(R.string.support_request)
@@ -42,19 +45,24 @@ class SupportEmailGenerator @Inject constructor(
                     activity.sendEmail(
                         recipient,
                         R.string.support_email_subject,
-                        getDiagnosticFile(errorCode)
+                        getDiagnosticFile(errorCode, screenOrigin),
+                        getEmailBodyText(isError)
                     )
                 }
             }
             .setNegativeButton(R.string.support_request_denied) { _, _ ->
-                activity.sendEmail(recipient, R.string.support_email_subject)
+                activity.sendEmail(
+                    recipient,
+                    R.string.support_email_subject,
+                    emailBody = getEmailBodyText(isError)
+                )
             }.show()
     }
 
-    private suspend fun getDiagnosticFile(errorCode: String?): Uri {
+    private suspend fun getDiagnosticFile(errorCode: String?, screenOrigin: String): Uri {
         return withContext(Dispatchers.IO) {
             val file = File(context.cacheDir, context.getString(R.string.support_file_name))
-            file.writeText(generateDiagnosticText(errorCode))
+            file.writeText(generateDiagnosticText(errorCode, screenOrigin))
             FileProvider.getUriForFile(
                 context,
                 context.getString(R.string.fileprovider_authorities),
@@ -63,7 +71,7 @@ class SupportEmailGenerator @Inject constructor(
         }
     }
 
-    private suspend fun generateDiagnosticText(errorCode: String?): String {
+    private suspend fun generateDiagnosticText(errorCode: String?, screenOrigin: String): String {
         return withContext(Dispatchers.Default) {
             val lastExposureDaysSinceEpoch = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
             val lastNotifiedExposureImportTimestamp =
@@ -83,9 +91,9 @@ class SupportEmailGenerator @Inject constructor(
             text += formatLine(
                 R.string.support_bluetooth,
                 "${
-                    deviceInfo.isBtEnabled().toOnOff()
+                deviceInfo.isBtEnabled().toOnOff()
                 } (${
-                    deviceInfo.supportsBLE().toSupports("BLE")
+                deviceInfo.supportsBLE().toSupports("BLE")
                 }, ${deviceInfo.supportsMultiAds().toSupports("MultiAds")})"
             )
             text += formatLine(
@@ -119,7 +127,20 @@ class SupportEmailGenerator @Inject constructor(
                 R.string.support_last_risky_encounter_from,
                 lastExposureDaysSinceEpoch?.daysSinceEpochToDateString() ?: "N/A"
             )
+            text += formatLine(
+                R.string.support_screen_origin,
+                screenOrigin
+            )
             text
+        }
+    }
+
+    @StringRes
+    private fun getEmailBodyText(isError: Boolean): Int {
+        return if (isError) {
+            R.string.support_email_body_error
+        } else {
+            R.string.support_email_body_contact
         }
     }
 
@@ -137,9 +158,9 @@ class SupportEmailGenerator @Inject constructor(
 
     private fun Boolean.toSupports(subject: String): String {
         return if (this) "${context.getString(R.string.support_bluetooth_supports)} $subject" else "${
-            context.getString(
-                R.string.support_bluetooth_doesnt_support
-            )
+        context.getString(
+            R.string.support_bluetooth_doesnt_support
+        )
         } $subject"
     }
 }

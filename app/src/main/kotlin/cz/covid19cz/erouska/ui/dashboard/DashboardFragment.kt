@@ -39,6 +39,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     DashboardVM::class
 ) {
 
+    companion object {
+        private const val SCREEN_NAME = "Dashboard"
+    }
+
     private val mainViewModel: MainVM by activityViewModels()
 
     @Inject
@@ -131,7 +135,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
         }
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
         subscribe(ExposuresCommandEvent::class) {
