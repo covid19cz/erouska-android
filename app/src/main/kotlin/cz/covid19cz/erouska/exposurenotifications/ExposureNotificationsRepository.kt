@@ -134,12 +134,11 @@ class ExposureNotificationsRepository @Inject constructor(
             client.getDailySummaries(
                 DailySummariesConfig.DailySummariesConfigBuilder().apply {
 
-                    setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[0])
-                    setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[1])
-                    setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[2])
-                    setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[3])
+                    setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[1])
+                    setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[2])
+                    setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[3])
+                    setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[4])
 
-                    setInfectiousnessWeight(Infectiousness.NONE, infectiousnessWeights[0])
                     setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeights[1])
                     setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeights[2])
 
