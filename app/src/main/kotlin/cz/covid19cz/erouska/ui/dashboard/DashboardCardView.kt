@@ -79,6 +79,13 @@ class DashboardCardView : ConstraintLayout {
             }
         }
 
+    var card_on_button_click: OnClickListener? = null
+        set(value) {
+            field = value
+            card_actionable_button = value != null
+            button.setOnClickListener(value)
+        }
+
     var card_has_content: Boolean? = true
         set(value) {
             field = value
