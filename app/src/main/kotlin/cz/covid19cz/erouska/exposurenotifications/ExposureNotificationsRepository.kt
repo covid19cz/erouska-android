@@ -31,45 +31,54 @@ import kotlin.coroutines.suspendCoroutine
 
 @Singleton
 class ExposureNotificationsRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val client: ExposureNotificationClient,
-    private val server: ExposureServerRepository,
-    private val cryptoTools: ExposureCryptoTools,
-    private val prefs: SharedPrefsRepository,
-    private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
-    private val db: DailySummariesDb,
-    private val notifications: Notifications
+        @ApplicationContext private val context: Context,
+        private val client: ExposureNotificationClient,
+        private val server: ExposureServerRepository,
+        private val cryptoTools: ExposureCryptoTools,
+        private val prefs: SharedPrefsRepository,
+        private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
+        private val db: DailySummariesDb,
+        private val notifications: Notifications
 ) {
 
     suspend fun start() = suspendCoroutine<Void> { cont ->
         client.start()
-            .addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
-            }
+                .addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
     }
 
     suspend fun stop() = suspendCoroutine<Void> { cont ->
         client.stop()
-            .addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
-            }
+                .addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
     }
 
     suspend fun isEnabled(): Boolean = suspendCoroutine { cont ->
         client.isEnabled
-            .addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
-            }
+                .addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
+    }
+
+    suspend fun getStatus(): Set<ExposureNotificationStatus> = suspendCoroutine { cont ->
+        client.status
+                .addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
     }
 
     suspend fun provideDiagnosisKeys(
-        keys: DownloadedKeys
+            keys: DownloadedKeys
     ): Boolean = suspendCoroutine { cont ->
 
         setDiagnosisKeysMapping()
@@ -78,15 +87,15 @@ class ExposureNotificationsRepository @Inject constructor(
             if (keys.files.isNotEmpty()) {
                 L.i("Importing keys")
                 client.provideDiagnosisKeys(keys.files)
-                    .addOnSuccessListener {
-                        L.i("Import success")
-                        prefs.setLastKeyImport()
+                        .addOnSuccessListener {
+                            L.i("Import success")
+                            prefs.setLastKeyImport()
 
-                        prefs.setLastKeyExportFileName(keys.getLastUrl())
-                        cont.resume(true)
-                    }.addOnFailureListener {
-                        cont.resumeWithException(it)
-                    }
+                            prefs.setLastKeyExportFileName(keys.getLastUrl())
+                            cont.resume(true)
+                        }.addOnFailureListener {
+                            cont.resumeWithException(it)
+                        }
             } else {
                 L.i("Import skipped (no new data)")
                 prefs.setLastKeyImport()
@@ -106,10 +115,10 @@ class ExposureNotificationsRepository @Inject constructor(
                 daysToInfectiousness[i] = daysList[i + 14]
             }
             val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
-                .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
-                .setInfectiousnessWhenDaysSinceOnsetMissing(AppConfig.infectiousnessWhenDaysSinceOnsetMissing)
-                .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
-                .build()
+                    .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
+                    .setInfectiousnessWhenDaysSinceOnsetMissing(AppConfig.infectiousnessWhenDaysSinceOnsetMissing)
+                    .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
+                    .build()
             try {
                 client.setDiagnosisKeysDataMapping(mapping)
             } catch (t: Throwable) {
@@ -121,43 +130,44 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun getDailySummariesFromApi(filter: Boolean = true): List<DailySummary> =
-        suspendCoroutine { cont ->
+            suspendCoroutine { cont ->
 
-            val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
-            val attenuationBucketThresholdDb =
-                prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
-            val attenuationBucketWeights =
-                prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
-            val infectiousnessWeights =
-                prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
+                val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
+                val attenuationBucketThresholdDb =
+                        prefs.getAttenuationBucketThresholdDb()
+                                ?: AppConfig.attenuationBucketThresholdDb
+                val attenuationBucketWeights =
+                        prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
+                val infectiousnessWeights =
+                        prefs.getInfectiousnessWeights() ?: AppConfig.infectiousnessWeights
 
-            client.getDailySummaries(
-                DailySummariesConfig.DailySummariesConfigBuilder().apply {
+                client.getDailySummaries(
+                        DailySummariesConfig.DailySummariesConfigBuilder().apply {
 
-                    setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[1])
-                    setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[2])
-                    setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[3])
-                    setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[4])
+                            setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[1])
+                            setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[2])
+                            setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[3])
+                            setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[4])
 
-                    setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeights[1])
-                    setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeights[2])
+                            setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeights[1])
+                            setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeights[2])
 
-                    setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    setMinimumWindowScore(AppConfig.minimumWindowScore)
-                }.build()
-            ).addOnSuccessListener {
-                if (filter) {
-                    cont.resume(it.filter {
-                        it.summaryData.maximumScore >= AppConfig.minimumWindowScore
-                    })
-                } else {
-                    cont.resume(it)
+                            setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
+                            setMinimumWindowScore(AppConfig.minimumWindowScore)
+                        }.build()
+                ).addOnSuccessListener {
+                    if (filter) {
+                        cont.resume(it.filter {
+                            it.summaryData.maximumScore >= AppConfig.minimumWindowScore
+                        })
+                    } else {
+                        cont.resume(it)
+                    }
+
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
                 }
-
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
             }
-        }
 
     suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity> {
         return db.dao().getAllByExposureDate()
@@ -178,13 +188,13 @@ class ExposureNotificationsRepository @Inject constructor(
 
     private fun getLastRiskyExposureForDemo(): DailySummaryEntity {
         return DailySummaryEntity(
-            LocalDate.now().minusDays(1).toEpochDay().toInt(),
-            1000.0,
-            1000.0,
-            1000.0,
-            0,
-            notified = false,
-            accepted = false
+                LocalDate.now().minusDays(1).toEpochDay().toInt(),
+                1000.0,
+                1000.0,
+                1000.0,
+                0,
+                notified = false,
+                accepted = false
         )
     }
 
@@ -193,21 +203,21 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun getTemporaryExposureKeyHistory(): List<TemporaryExposureKey> =
-        suspendCoroutine { cont ->
-            client.temporaryExposureKeyHistory.addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
+            suspendCoroutine { cont ->
+                client.temporaryExposureKeyHistory.addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
             }
-        }
 
     suspend fun getExposureWindows(): List<ExposureWindow> = suspendCoroutine { cont ->
         client.exposureWindows
-            .addOnSuccessListener {
-                cont.resume(it)
-            }.addOnFailureListener {
-                cont.resumeWithException(it)
-            }
+                .addOnSuccessListener {
+                    cont.resume(it)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
     }
 
     suspend fun reportExposureWithVerification(code: String): Int {
@@ -225,7 +235,7 @@ class ExposureNotificationsRepository @Inject constructor(
                 val token = verifyResponse.token
 
                 val certificateResponse = server.verifyCertificate(
-                    VerifyCertificateRequest(token, keyHash)
+                        VerifyCertificateRequest(token, keyHash)
                 )
                 if (certificateResponse.error != null) {
                     // We ignore error in certificate verification, only log it. It was causing error in production builds with older server.
@@ -235,18 +245,18 @@ class ExposureNotificationsRepository @Inject constructor(
                 }
 
                 val request = ExposureRequest(
-                    keys.map {
-                        TemporaryExposureKeyDto(
-                            it.keyData.encodeBase64(),
-                            it.rollingStartIntervalNumber,
-                            it.rollingPeriod
-                        )
-                    },
-                    certificateResponse.certificate,
-                    hmackey,
-                    null,
-                    null,
-                    healthAuthorityID = "cz.covid19cz.erouska"
+                        keys.map {
+                            TemporaryExposureKeyDto(
+                                    it.keyData.encodeBase64(),
+                                    it.rollingStartIntervalNumber,
+                                    it.rollingPeriod
+                            )
+                        },
+                        certificateResponse.certificate,
+                        hmackey,
+                        null,
+                        null,
+                        healthAuthorityID = "cz.covid19cz.erouska"
                 )
                 L.i("Uploading ${request.temporaryExposureKeys.size} keys")
                 val response = server.reportExposure(request)
@@ -264,7 +274,7 @@ class ExposureNotificationsRepository @Inject constructor(
             try {
                 val errorBody = e.response()?.errorBody()?.string()
                 errorResponse =
-                    Gson().fromJson<VerifyCodeResponse>(errorBody, VerifyCodeResponse::class.java)
+                        Gson().fromJson<VerifyCodeResponse>(errorBody, VerifyCodeResponse::class.java)
             } catch (e: Throwable) {
                 L.e(e)
             }
@@ -277,8 +287,8 @@ class ExposureNotificationsRepository @Inject constructor(
                     throw VerifyException(errorResponse.error, errorResponse.errorCode)
                 } else if (AppConfig.handleError400AsExpiredOrUsedCode) {
                     throw VerifyException(
-                        errorResponse?.error,
-                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE
+                            errorResponse?.error,
+                            VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE
                     )
                 } else {
                     throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
@@ -294,13 +304,13 @@ class ExposureNotificationsRepository @Inject constructor(
         val timestamp = System.currentTimeMillis()
         db.dao().insert(getDailySummariesFromApi().map {
             DailySummaryEntity(
-                daysSinceEpoch = it.daysSinceEpoch,
-                maximumScore = it.summaryData.maximumScore,
-                scoreSum = it.summaryData.scoreSum,
-                weightenedDurationSum = it.summaryData.weightedDurationSum,
-                importTimestamp = timestamp,
-                notified = false,
-                accepted = false
+                    daysSinceEpoch = it.daysSinceEpoch,
+                    maximumScore = it.summaryData.maximumScore,
+                    scoreSum = it.summaryData.scoreSum,
+                    weightenedDurationSum = it.summaryData.weightedDurationSum,
+                    importTimestamp = timestamp,
+                    notified = false,
+                    accepted = false
             )
         })
         val latestExposure = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
@@ -319,13 +329,13 @@ class ExposureNotificationsRepository @Inject constructor(
         if (!prefs.isLegacyExposuresImported()) {
             db.dao().insert(getDailySummariesFromApi(filter = false).map {
                 DailySummaryEntity(
-                    daysSinceEpoch = it.daysSinceEpoch,
-                    maximumScore = it.summaryData.maximumScore,
-                    scoreSum = it.summaryData.scoreSum,
-                    weightenedDurationSum = it.summaryData.weightedDurationSum,
-                    importTimestamp = if (it.daysSinceEpoch > prefs.getLastNotifiedExposure()) System.currentTimeMillis() else 0,
-                    notified = it.daysSinceEpoch <= prefs.getLastNotifiedExposure(),
-                    accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
+                        daysSinceEpoch = it.daysSinceEpoch,
+                        maximumScore = it.summaryData.maximumScore,
+                        scoreSum = it.summaryData.scoreSum,
+                        weightenedDurationSum = it.summaryData.weightedDurationSum,
+                        importTimestamp = if (it.daysSinceEpoch > prefs.getLastNotifiedExposure()) System.currentTimeMillis() else 0,
+                        notified = it.daysSinceEpoch <= prefs.getLastNotifiedExposure(),
+                        accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
                 )
             })
             prefs.cleanLegacyExposurePrefs()
@@ -336,18 +346,18 @@ class ExposureNotificationsRepository @Inject constructor(
     fun scheduleSelfChecker() {
         val constraints = Constraints.Builder().build()
         val worker = PeriodicWorkRequestBuilder<SelfCheckerWorker>(
-            AppConfig.selfCheckerPeriodHours,
-            TimeUnit.HOURS
+                AppConfig.selfCheckerPeriodHours,
+                TimeUnit.HOURS
         ).setConstraints(constraints)
-            .addTag(SelfCheckerWorker.TAG)
-            .build()
+                .addTag(SelfCheckerWorker.TAG)
+                .build()
 
         WorkManager.getInstance(context)
-            .enqueueUniquePeriodicWork(
-                SelfCheckerWorker.TAG,
-                ExistingPeriodicWorkPolicy.REPLACE,
-                worker
-            )
+                .enqueueUniquePeriodicWork(
+                        SelfCheckerWorker.TAG,
+                        ExistingPeriodicWorkPolicy.REPLACE,
+                        worker
+                )
     }
 
     suspend fun isEligibleToDownloadKeys(): Boolean {

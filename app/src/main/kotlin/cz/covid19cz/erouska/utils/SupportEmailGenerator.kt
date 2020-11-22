@@ -102,7 +102,7 @@ class SupportEmailGenerator @Inject constructor(
             )
             text += formatLine(
                 "Exposure API",
-                exposureNotificationsRepository.isEnabled().toOnOff()
+                exposureNotificationsRepository.getStatus().joinToString { it.name }
             )
             text += formatLine(
                 R.string.support_primary_account,
