@@ -60,9 +60,9 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun isEnabled(): Boolean = suspendCoroutine { cont ->
-        client.isEnabled
+        client.status
                 .addOnSuccessListener {
-                    cont.resume(it)
+                    cont.resume(it.contains(ExposureNotificationStatus.ACTIVATED))
                 }.addOnFailureListener {
                     cont.resumeWithException(it)
                 }
