@@ -56,8 +56,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
-                viewModel.bluetoothState.value = context.isBtEnabled()
-                viewModel.locationState.value = context.isLocationEnabled()
+                viewModel.checkStatus()
                 refreshDotIndicator(context)
             }
         }

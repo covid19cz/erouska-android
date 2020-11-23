@@ -60,7 +60,16 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun isEnabled(): Boolean = suspendCoroutine { cont ->
-        client.isEnabled
+        client.status
+            .addOnSuccessListener {
+                cont.resume(it.contains(ExposureNotificationStatus.ACTIVATED))
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
+            }
+    }
+
+    suspend fun getStatus(): Set<ExposureNotificationStatus> = suspendCoroutine { cont ->
+        client.status
             .addOnSuccessListener {
                 cont.resume(it)
             }.addOnFailureListener {
@@ -125,7 +134,8 @@ class ExposureNotificationsRepository @Inject constructor(
 
             val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
             val attenuationBucketThresholdDb =
-                prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
+                prefs.getAttenuationBucketThresholdDb()
+                    ?: AppConfig.attenuationBucketThresholdDb
             val attenuationBucketWeights =
                 prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
             val infectiousnessWeights =
@@ -135,7 +145,10 @@ class ExposureNotificationsRepository @Inject constructor(
                 DailySummariesConfig.DailySummariesConfigBuilder().apply {
 
                     setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[1])
-                    setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeights[2])
+                    setReportTypeWeight(
+                        ReportType.CONFIRMED_CLINICAL_DIAGNOSIS,
+                        reportTypeWeights[2]
+                    )
                     setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[3])
                     setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[4])
 
