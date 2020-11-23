@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.activation
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatus
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
@@ -13,26 +14,33 @@ import kotlinx.coroutines.launch
 
 class ActivationNotificationsVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
-    private val prefs: SharedPrefsRepository,
-    private val deviceUtils: DeviceInfo
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
     fun enableNotifications() {
-        if (deviceUtils.isBtEnabled()) {
             viewModelScope.launch {
-                kotlin.runCatching {
-                    exposureNotificationsRepository.start()
+                runCatching {
+                    exposureNotificationsRepository.getStatus()
                 }.onSuccess {
-                    publish(NotificationsVerifiedEvent)
-                    prefs.setExposureNotificationsEnabled(true)
-                    L.d("Exposure Notifications started")
+                    when{
+                        it.contains(ExposureNotificationStatus.BLUETOOTH_DISABLED) -> {
+                            publish(BluetoothDisabledEvent())
+                        }
+                        else -> {
+                            runCatching {
+                                exposureNotificationsRepository.start()
+                            }.onSuccess {
+                                publish(NotificationsVerifiedEvent)
+                                prefs.setExposureNotificationsEnabled(true)
+                                L.d("Exposure Notifications started")
+                            }.onFailure {
+                                publish(GmsApiErrorEvent(it))
+                            }
+                        }
+                    }
                 }.onFailure {
                     publish(GmsApiErrorEvent(it))
                 }
             }
-        } else {
-            publish(BluetoothDisabledEvent())
         }
-    }
-
 }

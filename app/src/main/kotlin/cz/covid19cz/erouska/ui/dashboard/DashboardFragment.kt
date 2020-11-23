@@ -56,8 +56,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     private val btAndLocationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
-                viewModel.bluetoothState.value = context.isBtEnabled()
-                viewModel.locationState.value = context.isLocationEnabled()
+                viewModel.checkStatus()
                 refreshDotIndicator(context)
             }
         }
@@ -172,10 +171,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
-
-        dash_card_active.card_on_content_click = View.OnClickListener { viewModel.stop() }
-        dash_card_inactive.card_on_content_click = View.OnClickListener { viewModel.start() }
-
+        
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
         exposure_notification_close.setOnClickListener {
