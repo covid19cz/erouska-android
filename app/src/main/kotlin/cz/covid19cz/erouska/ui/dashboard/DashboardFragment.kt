@@ -311,6 +311,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         val lsEnabled = viewModel.locationState.value
         val btEnabled = viewModel.bluetoothState.value
         dash_card_active.showOrHide( enEnabled && lsEnabled && btEnabled)
+        dash_card_inactive.showOrHide(!enEnabled && lsEnabled && btEnabled)
     }
 
     private fun showWelcomeScreen() {
