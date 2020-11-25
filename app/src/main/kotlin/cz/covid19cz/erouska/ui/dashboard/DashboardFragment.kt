@@ -321,11 +321,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         val enEnabled = viewModel.exposureNotificationsEnabled.value
         val lsEnabled = viewModel.locationState.value // Location services don't need to be turned on on devices with Android 11+
         val btEnabled = viewModel.bluetoothState.value
-        dash_card_active.showOrHide( enEnabled && btEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled))
 
-
-        dash_card_active.showOrHide( enEnabled && lsEnabled && btEnabled)
-        dash_card_inactive.showOrHide(!enEnabled && lsEnabled && btEnabled)
+        dash_card_active.showOrHide( enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
+        dash_card_inactive.showOrHide(!enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
     }
 
     private fun showWelcomeScreen() {
