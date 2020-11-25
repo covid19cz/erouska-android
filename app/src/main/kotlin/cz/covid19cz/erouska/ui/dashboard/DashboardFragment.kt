@@ -93,7 +93,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         val intentFilter = IntentFilter().apply {
             addAction(BluetoothAdapter.ACTION_STATE_CHANGED)
-            addAction(LocationManager.PROVIDERS_CHANGED_ACTION)
+
+            // don't register Location Receiver on devices with Android 11+ (it's not mandatory to have location services turned on)
+            // https://developer.android.com/about/versions/11/behavior-changes-all#exposure-notifications
+            // https://developers.google.com/android/exposure-notifications/implementation-guide#locationless_scanning_in_android_11
+            if (!viewModel.isLocationlessScanSupported()) {
+                addAction(LocationManager.PROVIDERS_CHANGED_ACTION)
+            }
         }
 
         context?.registerReceiver(
@@ -111,7 +117,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         mainViewModel.serviceRunning.value =
             viewModel.exposureNotificationsEnabled.value &&
                     context.isBtEnabled() &&
-                    context.isLocationEnabled()
+                    (viewModel.isLocationlessScanSupported() || context.isLocationEnabled())
     }
 
     private fun subscribeToViewModel() {
@@ -302,16 +308,22 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun onLocationStateChanged(isEnabled: Boolean) {
-        dash_location_off.showOrHide(!isEnabled)
+        // Location services don't need to be turned on on devices with Android 11+
+        if (viewModel.isLocationlessScanSupported()) {
+            dash_location_off.hide()
+        } else {
+            dash_location_off.showOrHide(!isEnabled)
+        }
         checkAppActive()
     }
 
     private fun checkAppActive() {
         val enEnabled = viewModel.exposureNotificationsEnabled.value
-        val lsEnabled = viewModel.locationState.value
+        val lsEnabled = viewModel.locationState.value // Location services don't need to be turned on on devices with Android 11+
         val btEnabled = viewModel.bluetoothState.value
-        dash_card_active.showOrHide( enEnabled && lsEnabled && btEnabled)
-        dash_card_inactive.showOrHide(!enEnabled && lsEnabled && btEnabled)
+
+        dash_card_active.showOrHide( enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
+        dash_card_inactive.showOrHide(!enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
     }
 
     private fun showWelcomeScreen() {
