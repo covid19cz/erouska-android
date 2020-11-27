@@ -109,7 +109,7 @@ object AppConfig {
     val efgsDays
         get() = firebaseRemoteConfig.getLong("v2_efgsDays").toInt()
     val efgsSupportedCountries
-        get() = firebaseRemoteConfig.getString("v2_efgsSupportedCountries")
+        get() = firebaseRemoteConfig.getString("v2_efgsCountries")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

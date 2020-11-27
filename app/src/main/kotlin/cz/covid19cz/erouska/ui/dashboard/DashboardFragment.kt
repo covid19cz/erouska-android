@@ -141,6 +141,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (viewModel.shouldIntroduceEFGS()) {
+            navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true, fullscreen = true))
+        }
+
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener {
             viewModel.acceptExposure()

@@ -21,6 +21,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
+        const val EFGS_INTRODUCED = "efgsIntroduced"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -368,5 +369,13 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setNotificationsYesterday(value: Int) {
         return prefs.edit().putInt(NOTIFICATIONS_YESTERDAY, value).apply()
+    }
+
+    fun wasEFGSIntroduced(): Boolean {
+        return prefs.getBoolean(EFGS_INTRODUCED, false)
+    }
+
+    fun setEFGSIntroduced(value: Boolean) {
+        return prefs.edit().putBoolean(EFGS_INTRODUCED, value).apply()
     }
 }
