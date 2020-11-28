@@ -6,7 +6,7 @@
     </entry>
     <entry>
         <key>v2_infectiousnessWeights</key>
-        <value>1;1;1</value>
+        <value>0;1;1</value>
     </entry>
     <entry>
         <key>v2_attenuationBucketThresholdDb</key>
@@ -21,508 +21,163 @@
         <value>900</value>
     </entry>
     <entry>
-        <key>v2_reportTypeWhenMissing</key>
-        <value>1</value>
-    </entry>
-    <entry>
-        <key>v2_infectiousnessWhenDaysSinceOnsetMissing</key>
-        <value>1</value>
-    </entry>
-    <entry>
-        <key>v2_daysSinceOnsetToInfectiousness</key>
-        <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
-    </entry>
-    <entry>
-        <key>v2_diagnosisKeysDataMappingLimitDays</key>
-        <value>7</value>
-    </entry>
-    <entry>
-        <key>v2_supportEmail</key>
-        <value>info@erouska.cz</value>
-    </entry>
-    <entry>
-        <key>v2_helpMarkdown</key>
-        <value>### Why is eRouška needed? Can it protect me from infection?\n\nCílem aplikace
-            eRouška je zpomalit a ideálně zastavit šíření nákazy. Pomáhá co nejdříve izolovat
-            potenciálně nakažené osoby od ostatních. Tím přispívá k postupnému uvolňování celostátní
-            karantény a snížení dopadů pandemie na společnost a ekonomiku ČR. Aplikace na podobném
-            principu fungují i v dalších státech a většinou jsou velmi účinným prostředkem v boji
-            proti šíření koronaviru.\n\nAplikace eRouška je jedním z konceptů chytré karantény.
-            Aplikace se přes Bluetooth spojí s dalšími telefony s eRouškou v nejbližším okolí a
-            uloží jejich identifikátory. Pokud bude později některý z uživatelů eRoušky označen
-            pracovníkem hygieny za pomoci testů jako nakažený, epidemiologický model vyhodnotí, zda
-            jste s ním přišli do kontaktu dost dlouho na to, aby bylo nutné vás varovat a směřovat k
-            dalšímu vyšetření.\n\neRouška tedy pomáhá pracovníkům hygienické stanice co
-            nejefektivněji identifikovat potenciální přenašeče viru a na dobu nezbytně nutnou je
-            požádat o izolaci a opatrnost. Tím se sníží počet infikovaných ve společnosti, a tím i
-            vaše riziko infekce.\n\n### Jak postupuje hygiena? To budu muset pokaždé automaticky do
-            karantény nebo na testy, když aplikace hygieně zahlásí, že jsem byl v kontaktu s někým
-            nakaženým?\n\nPokud hygiena na základě sesbíraných dat z aplikace nakaženého vyhodnotí,
-            že jste s ním mohl/a být dostatečně dlouho v rizikovém kontaktu, pokusí se vás nejprve
-            telefonicky kontaktovat. S pracovníkem hygieny společně po telefonu vyhodnotíte, jestli
-            vám skutečně hrozila nákaza, a podle toho se domluvíte na dobrovolné karanténě,
-            přednostním testování nebo jiném postupu.\n\nAplikace tedy pomáhá hygieně rychleji se
-            spojit s potenciálně rizikovými kontakty a na základě osobního pohovoru vyhodnotit,
-            jestli šlo jen o “planý poplach”, nebo je potřeba vás a ostatní nějak dál chránit.
-            Nemusíte mít proto obavu, že by šlo o automatizovaný proces, který nemůžete
-            ovlivnit.\n\n### V mé blízkosti je jen jeden, nebo dva telefony s aplikací eRouška,
-            přitom ale vidím v záložce Moje Data řadu dalších ID? To chytám i signál lidí z okolních
-            bytů nebo domů?\n\nID každého uživatele se opakovaně mění, abychom zvýšili anonymitu a
-            bezpečí uživatelů. Proto jich můžete v telefonu vidět řádově více, ale přitom může jít
-            stále o jedno stejné zařízení.\n\n### Máme eRoušku nainstalovanou v domácnosti na dvou
-            telefonech. V záložce Moje data jeden druhý vidí, ale druhý nevidí ten první. Čím to
-            je?\n\nNěkteré starší modely telefonů (např. Google Nexus 5, Honor 7 lite, atp.) mohou
-            fungovat jen částečně - vidí přes Bluetooth telefony v okolí, ale ostatní smartphony je
-            bohužel zpětně nevidí. Důvodem je, že ještě nejsou vybavené funkcí Bluetooth LE
-            Advertising. I přesto má jejich použití smysl.\n\n### Nainstaloval jsem eRoušku, ale v
-            záložce Moje data nevidím žádné záznamy. Funguje to?\n\nAplikace vidí ve svém okolí
-            pouze telefony, které mají taky nainstalovanou eRoušku. Je možné, že jste zatím nikoho
-            takového nepotkali. Zkuste prosím eRoušku doporučit někomu blízkému a ověřit, zda se
-            uvidíte.\n\nNěkteré starší modely telefonů mohou fungovat jen částečně - vidí přes
-            Bluetooth telefony v okolí, ale ostatní smartphony je bohužel zpětně nevidí. Důvodem je,
-            že ještě nejsou vybavené funkcí Bluetooth LE Advertising. I přesto má jejich použití
-            smysl.\n\n### Je možné označit člena mé domácnosti jako známého, aby ho aplikace
-            zbytečně neskenovala?\n\nKaždá eRouška mění z důvodu bezpečnosti a ochrany soukromí
-            pravidelně své vysílané ID, proto jeden telefon můžete vidět i několikrát pod různými
-            ID. Z toho důvodu není možné označit danou osobu, respektive konkrétní ID jako člena
-            vaší rodiny, aby ji aplikace vynechala ze skenování.\n\n### Potřebuje aplikace připojení
-            k internetu?\n\nPřipojení k internetu je nutné pouze pro stažení (instalaci) a aktivaci
-            aplikace. Pouze za předpokladu, že by se u vás potvrdila nákaza koronavirem, by vás o
-            zaslání sesbíraných dat požádala hygienická stanice a tehdy by bylo potřeba eRoušku opět
-            připojit k internetu.\n\nVe všech ostatních případech není připojení k internetu
-            potřeba, protože aplikace neodesílá žádná data. Vaše data jsou uložena pouze ve Vašem
-            telefonu, odkud se sama odmazávají po 30 dnech. Nemusíte se tedy bát, že by vám aplikace
-            "žrala data".\n\n### Je možné, že se mi po zapnutí eRoušky se mi zpomalilo Wi-Fi /
-            připojení k internetu?\n\nSama od sebe eRouška žádná data nikam neodesílá, ponechává je
-            uložená v telefonu, takže nemá vliv na vaše připojení k internetu. U některých modelů
-            mobilů s OS Android je bohužel známé, že vysílání Bluetooth může částečně negativně
-            ovlivňovat signál Wi-Fi a naopak.\n\n### Má smysl si eRoušku instalovat, když ji nebude
-            používat dost lidí?\n\nPrávě proto byste neměli váhat. Čím více nás bude eRoušku
-            používat, tím lepší vytvoříme síť, která nás bude vzájemně chránit a varovat před
-            rizikem.\n\nSpolupracujeme s vládou ČR a dalšími organizacemi na tom, aby se o eRoušce
-            dozvědělo co nejvíce lidí. Pomozte nám i vy. Instalací aplikace se můžete aktivně
-            zapojit do boje proti koronaviru. O aplikaci můžete říct i lidem ve svém okolí, případně
-            jim s jejich souhlasem pomoci s instalací.\n\n### Jak se eRouška liší od jiných
-            podobných aplikací?\n\nZ dat aplikace eRouška nelze zjistit, kdy jste se kde pohybovali.
-            Aplikace eRouška nezaznamenává vaši geografickou polohu, ale rozpoznává ostatní zařízení
-            s aplikací eRouška v okolí využitím technologie Bluetooth. Tyto informace jsou
-            anonymizované.\n\n_Zapsaná informace vypadá např. takto: 31.3.2020 od 12:15 do 13:15
-            byla ve vaší blízkosti aplikace s identifikátorem ID 29091._\n\nKromě toho eRouška sama
-            od sebe informace nikam neodesílá, zůstávají uložené ve vašem zařízení. K odeslání dat
-            ministerstvu zdravotnictví či jemu podřízené hygienické stanici může dojít až ve chvíli,
-            kdy vás pracovník call centra hygieny kontaktuje na základě pozitivního testu a požádá
-            vás o souhlas se zpracováním dat, která aplikace sesbírala. Na základě tohoto požadavku
-            pak přímo z aplikace odešlete vámi nasbíraná data do centralizované databáze hygienické
-            stanice.\n\nTato odeslaná data vyhodnotí pověřený pracovník hygienické stanice.
-            Uživatele aplikace eRouška, kteří se delší dobu vyskytovali ve vaší blízkosti,
-            kontaktuje pracovník hygienické stanice s pokyny o dalším postupu.\n\n### Proč chce
-            aplikace znát mé telefonní číslo?\n\nTelefonní číslo využije hygienická stanice, aby vás
-            mohla v případě potřeby co nejdříve kontaktovat. To nastane jen tehdy, pokud bude mít na
-            základě informací z eRoušky nakaženého člověka podezření, že jste s ním byli v rizikovém
-            kontaktu. Proto telefonní číslo registrujete hned při prvním spuštění eRoušky.\n\n###
-            Jak mám postupovat, když mi test potvrdí nákazu?\n\nV první řadě kontaktujte hygienickou
-            stanici, pod kterou místně spadáte, pokud vás již nekontaktovala sama. Pověřený
-            pracovník vám poskytne informace o tom, jak dále postupovat, a případně vás požádá o
-            souhlas s odesláním dat z aplikace. Dále byste měli zavolat svému praktickému lékaři,
-            který vám indikuje léčbu.\n\n**V případě závažných zdravotních komplikací volejte linky
-            112 a 155.**\n\nAktuální informace se dozvíte [na webu Ministerstva zdravotnictví
-            ČR](https://koronavirus.mzcr.cz/).\n\n### Takže všichni budou vědět, že mám
-            COVID-19?\n\nNebudou. Pověřený pracovník hygienické stanice sice kontaktuje registrované
-            uživatele, se kterými byl nakažený podle dat z aplikace v rizikovém kontaktu, ale bez
-            jeho souhlasu nesmí tuto informaci s nikým dalším sdílet. Nikdo se tedy nedozví, že jste
-            to zrovna vy.\n\n### Co když někdo nepřizná, že je nemocný?\n\nI to se může stát. Věříme
-            však, že uživatelé eRoušky chtějí aktivně pomáhat se zastavením dalšího šíření nákazy a
-            aplikaci využijí, aby mohli co nejdříve varovat osoby, se kterými přišli do rizikového
-            kontaktu. Záměrné šíření koronaviru je v ČR považováno za trestný čin.\n\n### Co je to
-            inteligentní/chytrá karanténa? Jakou v ní hraje roli eRouška?\n\nJde o soubor chytrých
-            opatření, která chrání lidi před nákazou a ekonomiku před kolapsem. Místo toho, aby do
-            karantény uvrhla celý národ, do striktní karantény izoluje pouze nemocné a z nemoci
-            důvodně podezřelé lidi. Pomocí dostupných technologií pak následně můžeme aktivně
-            upozornit rizikové jedince, kteří se setkali s nakaženým, a i je dát do preventivní
-            karantény, čímž zamezíme skokovému šíření nákazy. Důsledné testování pak oddělí zdravé
-            od těch, kteří jsou nakažení a potřebují další zdravotnickou péči. Díky těmto krokům
-            věříme, že se podaří zmírnit šíření nákazy a ušetřit zdravotnictví fatálního
-            přetížení.\n\nAplikace eRouška je jeden z projektů, který vznikl na podporu [chytré
-            karantény](https://www.covid19cz.cz/covid19-cz/manifest/chytra-karantena).\n\n### Pozná
-            eRouška, když poruším lékařem nařízenou karanténu nebo třeba pojedu na
-            chatu?\n\nAplikace nesleduje vaši polohu, není to její účel a ani pro to není navržena.
-            Nepozná tedy, zda jste porušili karanténní opatření nebo odjeli na chatu. Má naopak
-            pomoci k tomu, aby v karanténě byly pouze osoby s diagnostikovaným onemocněním nebo s
-            vážným podezřením nákazy.\n\n### Jak dlouho do minulosti jsou data k dispozici? Kdy a
-            jak probíhá jejich mazání?\n\nV aplikaci eRouška se uchovávají data zaznamenaná za
-            posledních 30 dní, starší záznamy se automaticky odmazávají. Pokud na výzvu pracovníka
-            hygieny udělíte souhlas se zpracováním a odešlete data z telefonu na server, zůstanou
-            zde maximálně 12 hodin a poté dojde k jejich smazání.\n\nTelefonní číslo uchováváme po
-            dobu 6 měsíců od registrace, nebo do rozhodnutí ministerstva zdravotnictví o tom, že
-            tento údaj není nutné dále zpracovávat, nebo do vaší žádosti o zrušení registrace, podle
-            toho, co nastane dříve. Data můžete smazat kdykoliv sami přímo v aplikaci v sekci Moje
-            data, registraci tel. čísla zrušíte v aplikaci kliknutím na “Zrušit registraci” pod
-            třemi tečkami vpravo nahoře.\n\nInformace o správcích a zpracovatelích dat naleznete v
-            [Podmínkách zpracování osobních údajů při užívání aplikace
-            eRouška.cz](https://erouska.cz/gdpr).\n\n### Co když mi telefon ukradnou nebo ho
-            ztratím?\n\nV aplikaci eRouška jsou lokálně uložené jen anonymní informace o dalších
-            zařízeních, která eRouška zaznamenala ve svém okolí. Žádné riziko to nepřináší pro vás
-            ani pro majitele takto zaznamenaných zařízení. Jiné aplikace, které běžně využíváte,
-            mohou ve vašem telefonu pravděpodobně ukládat mnohem citlivější údaje. Mějte proto svůj
-            telefon chráněný kódem nebo biometricky (otiskem prstu nebo obličejem).\n\n### Je
-            aplikace eRouška v souladu s GDPR?\n\nCelý systém aplikace eRouška, včetně webových
-            stránek, je navržen plně v souladu se Zákonem o ochraně osobních údajů a GDPR.\n\nZde
-            naleznete bližší informace:\n\n* [Podmínky zpracování osobních údajů při užívání
-            aplikace eRouška.cz](https://erouska.cz/gdpr)\n* [Audit zdrojového kódu
-            aplikace](https://erouska.cz/audit-kod)\n* [Závazek datové důvěry iniciativy
-            COVID19CZ](https://www.covid19cz.cz/covid19-cz/zavazek-datove-duvery)\n\nTechnické
-            dotazy\n----------------\n\n### Na jakých telefonech aplikace eRouška funguje?\n\nPokud
-            váš telefon není s eRouškou kompatibilní, Google Play ani App Store vám neumožní
-            aplikaci nainstalovat.\n\nPro instalaci aplikace eRouška potřebujete chytrý telefon s
-            těmito parametry:\n\n* iOS verze 11 a vyšší\n* OS Android verze 5.0 a vyšší s Google
-            services (nemá jen malé procento telefonů Huawei a některé telefony s vlastní ROM)\n*
-            Bluetooth LE (Low Energy) \*\n\n\* Některé starší modely telefonů (např. Google Nexus 5,
-            Honor 7 lite, atp.) mohou fungovat jen částečně - vidí přes Bluetooth telefony v okolí,
-            ale ostatní smartphony je bohužel zpětně nevidí. Důvodem je, že ještě nejsou vybavené
-            funkcí Bluetooth LE Advertising. I přesto má jejich použití smysl.\n\n### Proč je
-            potřeba aplikaci povolit přístup k GPS/polohovým/lokačním údajům?\n\nAplikace eRouška
-            nesbírá a neukládá data z GPS, avšak operační systém Android zahrnuje pod určování
-            polohy také některé služby Bluetooth LE (LE = low energy), které eRouška pro své
-            fungování potřebuje. Proto je nutný souhlas uživatele s přístupem aplikace k polohovým
-            údajům. V iOS tento souhlas nutný není.\n\nVíce informací je k dispozici [na webu OS
-            Android pro
-            vývojáře](https://developer.android.com/guide/topics/connectivity/bluetooth#Permissions).\n\n###
-            Jak probíhá sběr dat a jejich zpracování?\n\nChytrý telefon s aplikací eRouška zaznamená
-            přes Bluetooth anonymní identifikátor (ID) z jiných zařízení s touto aplikací. Informaci
-            o “setkání” a jeho délce ukládá do své vnitřní paměti.\n\n_Zapsaná informace vypadá
-            např. takto: 31.3.2020 od 12:15 do 13:15 byla ve vaší blízkosti aplikace s
-            identifikátorem ID 29091._\n\nSeznam těchto “setkání” můžete z aplikace odeslat do
-            centrální databáze v případě, že budete osloveni pracovníkem hygienické stanice z důvodu
-            pozitivního testu, nebo kvůli podezření na rizikový kontakt s nakaženým. Do centrální
-            databáze mají přístup jen pověření pracovníci hygienické stanice. Ti mohou spojit
-            identifikátor aplikace s registrovaným telefonním číslem a upozornit ty uživatele
-            eRoušky, kteří s vámi přišli do rizikového kontaktu.\n\n_Pracovníci hygieny tedy vidí,
-            že např. ID 29091 je propojeno s telefonním číslem 123 456 789._\n\n### V záložce Moje
-            Data vidím spoustu ID, přitom v mém okolí je jen pár lidí/telefonů s aplikací eRouška.
-            Funguje to?\n\nKaždá eRouška z důvodu bezpečnosti a ochrany soukromí uživatelů mění
-            pravidelně své vysílané ID, proto jeden telefon můžete vidět i několikrát pod různými
-            ID. Z důvodu transparentnosti vám ukazujeme všechna data, která aplikace zaznamená.
-            Přítomnost jiné eRoušky ve vašem okolí, zapisujeme každé 2 minuty.\n\n### Musím mít
-            Bluetooth zapnutý neustále?\n\nAno. Bez zapnutého Bluetooth není možné zjišťovat
-            blízkost dalších zařízení s nainstalovanou aplikací eRouška. Tuto funkci máte zapnutou
-            možná i nyní, například v případě, že používáte bezdrátová sluchátka, připojení v autě,
-            chytrý náramek nebo hodinky.\n\n### Kolik baterie aplikace a zapnutý Bluetooth
-            spotřebují?\n\nJestliže již nyní používáte telefon se stále zapnutým Bluetooth, spotřeba
-            energie se nezvýší.\n\nPokud Bluetooth nyní běžně nepoužíváte, podle výsledků našeho
-            testování s neustále zapnutým Bluetooth a ukládáním dat do aplikace byla denní spotřeba
-            energie v řádu jednotek procent. Ve většině případů to je méně než 20 % kapacity baterie
-            za den. Záleží přitom na konkrétním chytrém telefonu, stylu jeho používání a stavu
-            baterie.\n\nPokud vám připadá spotřeba příliš vysoká, zkuste prosím zkontrolovat
-            nastavení -&gt; baterie/spotřeba, jestli udělená povolení nezačala využívat jiná
-            aplikace na pozadí. Na optimalizaci spotřeby eRoušky jinak stále pracujeme. Častější
-            nabíjení je bohužel částečná daň za to, že vás a vaše okolí pomůže telefon s eRouškou
-            lépe chránit.\n\n### Proč aplikace používá zrovna Bluetooth? Neexistují lepší řešení
-            jako GPS nebo triangulace od operátorů?\n\nSoukromí uživatelů je pro nás na prvním
-            místě, a právě technologie Bluetooth nabízí nejvyváženější poměr přesnosti záznamu a
-            minimálního zásahu do soukromí. Technologie GPS ani triangulace vysílačů od operátorů
-            nemohou poskytnout potřebné údaje s požadovanou přesností. Mimo jiné i proto, že jejich
-            funkčnost je v budovách, garážích či metru velmi omezená. Aplikace eRouška potřebuje pro
-            svoji funkci informace o tom, že došlo k setkání, na jakou vzdálenost a po jakou dobu.
-            Není důležité, kde k setkání došlo.\n\n### Nemůže se stát, že eRouška mylně vyhodnotí
-            kontakt s jinou osobou, která je například vedle v autě na křižovatce, za dveřmi nebo
-            tenkou zdí?\n\nAplikace eRouška funguje na principu měření síly signálu mezi dvěma
-            zařízeními. Technicky nelze vyloučit, že dojde k mylné detekci - například blízký
-            kontakt skrz tenkou zeď se podobá vzdálenějšímu kontaktu bez překážky. Těmto omylům, byť
-            jsou výjimečné, se nedá úplně zabránit. Pracovníci hygienických stanic a jejich call
-            centra jsou s tímto jevem seznámeni a pracují s ním při telefonickém rozhovoru s
-            rizikovými kontakty nakaženého.\n\nPro vyhodnocení kontaktu jako rizikového je ovšem
-            relevantní též délka kontaktu - prosté zastavení na semaforech je tedy
-            nezajímavé.\n\n### Co znamená to ID a RSSI v záložce Moje data a proč má RSSI různé
-            barvy?\n\nV sekci Moje data vidíte ID jako část anonymního čísla dalšího uživatele
-            aplikace eRouška, kterého jste potkal/a. RSSI pak ukazuje sílu Bluetooth signálu při
-            vašem setkání. Čím je číslo nižší, tím blíže jste k sobě byli. Barva RSSI údajů navíc
-            znázorňuje, v jak těsné blízkosti druhého uživatele jste byli (červená = velmi blízko,
-            oranžová = středně blízko, zelená = nevýznamné setkání).\n\n### Může mě někdo pomocí
-            aplikace eRouška sledovat?\n\nNe. Aplikace nesbírá údaje o vaší poloze a k uloženým
-            datům máte přístup pouze vy. Samotné údaje, které aplikace po vašem souhlasu odesílá,
-            nemohou být použity k vašemu sledování.\n\n_Aplikace automaticky ukládá pouze informace
-            typu: 31.3.2020 od 12:15 do 13:15 byla ve vaší blízkosti (určené sílou Bluetooth signálu
-            v dB) aplikace s identifikátorem ID 29091._\n\n### Lze ověřit, že aplikace nezaznamenává
-            moji polohu?\n\nAno. Nasbíraná data lze kdykoli zobrazit v záložce Moje data. Aplikace
-            eRouška je publikována s otevřeným zdrojovým kódem
-            ([Android](https://github.com/covid19cz/erouska-android),
-            [iOS](https://github.com/covid19cz/erouska-ios)), takže znalý člověk může snadno ověřit,
-            že údaje o poloze aplikace opravdu nesbírá.\n\nZdrojové kódy aplikace eRouška byly
-            [prověřeny nezávislými autoritami](https://erouska.cz/audit-kod), jejichž kontrola
-            potvrdila, že aplikace:\n\n* nesleduje polohu\n* sama automaticky data nikam
-            neodesílá\n\n### Lze identifikátor aplikace (ID) uživatele spárovat s konkrétní
-            osobou?\n\nID eRoušky lze spojit pouze s telefonním číslem uživatele. A to pouze u těch
-            ID, které na základě odeslaných dat od nakažených uživatelů pracovníci hygienické
-            stanice vyhodnotí jako ohrožené nákazou koronavirem. Tuto pravomoc mají jenom určení
-            pracovníci hygienických stanic v zabezpečeném systému.\n\n### Kdo má (může mít) přístup
-            k mým datům?\n\nK seznamu setkání máte přístup pouze vy. Až když se dobrovolně na
-            vyzvání rozhodnete odeslat tato data hygienické stanici, přístup získají na omezenou
-            dobu (maximálně na 12 h.) také její pověření pracovníci. Telefonní číslo má k dispozici
-            ministerstvo zdravotnictví a jemu podřízené hygienické stanice, aby vás mohli
-            kontaktovat v případě zjištění, že ve vašem okolí byl nakažený uživatel aplikace
-            eRouška.\n\n### Jak zjistím, která všechna data přesně aplikace ukládá a odesílá
-            hygienické stanici?\n\nNasbíraná data lze kdykoli v aplikaci zobrazit v záložce Moje
-            data. Aplikace žádná data sama nikam neodesílá.\n\n### Jak uživatele chráníte před
-            zneužitím dat?\n\nUživatele chráníme především minimálním rozsahem zaznamenávaných dat a
-            jejich ukládáním přímo do zařízení. Data uživatelů se bez jejich vědomí a souhlasu nikam
-            neposílají ani nezpracovávají. Do telefonů se zaznamenávají anonymní identifikátory (ID)
-            zařízení s nainstalovanou aplikací eRouška a informace o čase, délce a blízkosti jejich
-            výskytu v okolí uživatele. Zpracovat je mohou po výslovném souhlasu uživatele jen určení
-            pracovníci hygieny.\n\n### Dohlíží na zabezpečení dat z aplikace nějaká nezávislá
-            organizace?\n\nAno. Celý systém aplikace eRouška, včetně podpůrných webových stránek, je
-            navržený plně v souladu s GDPR. Kód aplikace je jako open-source volně k dispozici
-            ([Android](https://github.com/covid19cz/erouska-android),
-            [iOS](https://github.com/covid19cz/erouska-ios)) a prošel [auditem nezávislých
-            vzdělávacích institucí](https://erouska.cz/audit-kod).\n\nDalší informace naleznete v
-            [Podmínkách zpracování osobních údajů při užívání aplikace
-            eRouška.cz](https://erouska.cz/gdpr) a v [Závazku datové důvěry iniciativy
-            COVID19CZ](https://www.covid19cz.cz/covid19-cz/zavazek-datove-duvery).\n\n### Můžu si
-            používání aplikace kdykoli rozmyslet? Budu moci smazat své telefonní číslo a data, která
-            jsem předal hygienikům?\n\nAno. V aplikaci je možné smazat veškerá nasbíraná data - jak
-            z vašeho zařízení, tak i ze serveru hygieniků. Stejně tak zde můžete smazat telefonní
-            číslo (zrušit registraci), které jste poskytli při aktivaci aplikace. Vám přidělené
-            identifikační číslo (ID) eRoušky ovšem zůstane zaznamenáno v eRouškách ostatních
-            uživatelů, kteří vás do té doby potkali. Toto ID ale nebude na základě ostatních údajů z
-            aplikace eRouška nadále možné přiřadit k žádnému telefonu, telefonnímu číslu ani
-            osobě.\n\nPamatujte, že po smazání (zrušení registrace) vašeho telefonního čísla vás
-            nebudou moci hygienici kontaktovat v případě podezření na rizikové setkání s nakaženou
-            osobou.\n\n### Co se děje s daty po smazání aplikace z mobilu?\n\nKdyž smažete aplikaci
-            z telefonu, smažou se i v něm uložená sesbíraná data. Pokud aplikaci znovu
-            nainstalujete, začnou se sbírat a do telefonu ukládat zcela nová data.\n\nSmazáním
-            aplikace se automaticky nesmažou data ze serveru, pokud jste je tam již odeslali, ani se
-            tím nezruší registrace vaše telefonního čísla. Pokud zrušíte registraci svého tel.
-            čísla, nebude vás moci v případě potřeby kontaktovat hygiena.\n\n### Kde najdu zdrojový
-            kód aplikace?\n\nAplikace eRouška je publikována s otevřeným zdrojovým kódem
-            ([Android](https://github.com/covid19cz/erouska-android),
-            [iOS](https://github.com/covid19cz/erouska-ios)).\n\nMobilní
-            aplikace\n----------------\n\n### Jak si můžu stáhnout eRoušku?\n\nPro stažení eRoušky
-            pro Android postupujte podle následujícího návodu (pdf, video):\n\n#### Obrázkový pdf
-            návod:\n\n* [Návod na instalaci aplikace
-            eRouška](https://www.erouska.cz/navody/instalace_aplikace_eRouska.pdf)\n\n#### Video
-            návod:\n\nhttps://www.youtube.com/embed/hVu71yWAIcA\n\n### Co mám dělat, když mi telefon
-            vypíná aplikaci?\n\nNa odkazech níže najdete stručné návody pro nejpoužívanější
-            telefony, v jejichž nastavení je potřeba zakázat automatické vypínání aplikace
-            eRouška:\n\n#### Telefony značky Asus:\n\n* [Zajištění běhu eRoušky na pozadí
-            (.pdf)](https://www.erouska.cz/navody/Asus/1_zajisteni_behu_eRousky_na_pozadi.pdf)\n\n####
-            Telefony značky Honor:\n\n* [Výjimka z optimalizace baterie pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Honor/1_vyjimka_z_optimalizace_baterie_pro_eRousku.pdf)\n*
-            [Ruční zapnutí běhu eRoušky na pozadí
-            (.pdf)](https://www.erouska.cz/navody/Honor/2_rucni_zapnuti_behu_eRousky_na_pozadi.pdf)\n\n####
-            Telefony značky Huawei:\n\n* [Výjimka z optimalizace baterie pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Huawei/1_vyjimka_z_optimalizace_baterie_pro_eRousku.pdf)\n*
-            [Ruční zajištění běhu eRoušky na pozadí
-            (.pdf)](https://www.erouska.cz/navody/Huawei/2_rucni_zajistei_behu_eRousky_na_pozadi.pdf)\n*
-            [Zajištění spuštění eRoušky po vypnutí obrazovky
-            (.pdf)](https://www.erouska.cz/navody/Huawei/3_zajisteni_spusteni_eRousky_po_vypnuti_obrazovky.pdf)\n*
-            [Chráněný status pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Huawei/4_chraneny_status_pro_eRousku.pdf)\n*
-            [Oveření způsobu napájení
-            (.pdf)](https://www.erouska.cz/navody/Huawei/5_overeni_zpusobu_napajeni.pdf)\n*
-            [Deaktivace aplikace powerGenie
-            (.pdf)](https://www.erouska.cz/navody/Huawei/6_deaktivace_aplikace_powerGenie.pdf)\n\n####
-            Telefony značky Lenovo:\n\n* [Uzamčení běhu
-            eRoušky](https://www.erouska.cz/navody/Lenovo/1_uzamceni_behu_eRousky.pdf)\n\n####
-            Telefony značky Samsung:\n\n* [Nastavení baterie pro běh eRoušky
-            (.pdf)](https://www.erouska.cz/navody/Samsung/1_nastaveni_baterie_pro_beh_eRousky.pdf)\n*
-            [Omezení optimalizace využití baterie pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Samsung/2_omezeni_optimalizace_vyuziti_baterie_pro_eRousku.pdf)\n*
-            [Přidání eRoušky do seznamu App power monitor
-            (.pdf)](https://www.erouska.cz/navody/Samsung/3_pridani_eRousky_do_seznamu_App_power_monitor.pdf)\n\n####
-            Telefony značky Sony:\n\n* [Zajištění běhu eRoušky na pozadi
-            (.pdf)](https://www.erouska.cz/navody/Sony/1_zajisteni_behu_eRousky_na_pozadi.pdf)\n\n####
-            Telefony značky Xiaomi:\n\n* [Komplexní návod pro Redmi Note 5 a vyšší
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/1_komplexni_navod_pro_Redmi_Note_5_a_vyssi.pdf)\n*
-            [Vypnutí spořiče baterie
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/2_vypnuti_sporice_baterie.pdf)\n*
-            [Nastavení běhu na pozadí pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/3_nastaveni_behu_na_pozadi_pro_eRousku.pdf)\n*
-            [Omezení adaptivní baterie
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/4_omezeni_adaptivni_baterie.pdf)\n*
-            [Výjimka z optimalizace baterie pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/5_vyjimka_z_optimaizace_baterie_pro_eRousku.pdf)\n*
-            [Výjimka z omezení na pozadí pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/6_vyjimka_z_omezeni_na_pozadi_pro_eRousku.pdf)\n*
-            [Chraněný status pro eRoušku
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/7_chraneny_status_pro_eRousku.pdf)\n*
-            [Ověření způsobu napajení
-            (.pdf)](https://www.erouska.cz/navody/Xiaomi/8_overeni_zpusobu_napajeni.pdf)
-        </value>
-    </entry>
-    <entry>
-        <key>v2_shareAppDynamicLink</key>
-        <value>https://erouska.cz/app/sdilej</value>
-    </entry>
-    <entry>
-        <key>v2_chatBotLink</key>
-        <value>https://erouska.cz/#chat-open</value>
-    </entry>
-    <entry>
-        <key>v2_minSupportedVersionCodeAndroid</key>
-        <value>0</value>
-    </entry>
-    <entry>
-        <key>v2_riskyEncountersTitleAn</key>
-        <value>You encountered a person infected with COVID-19 on %1$s. If a public health officer
-            contacts you, follow their instructions.
-        </value>
-    </entry>
-    <entry>
-        <key>v2_noEncounterHeader</key>
-        <value>You have not encountered anyone with COVID-19 in the past 14 days
-        </value>
-    </entry>
-    <entry>
-        <key>v2_noEncounterCardTitle</key>
-        <value>No risky encounters in the past 14 days
-        </value>
-    </entry>
-    <entry>
-        <key>v2_noEncounterBody</key>
-        <value>We will notify you about a risky encounter in a notification</value>
-    </entry>
-    <entry>
-        <key>v2_encounterUpdateFrequency</key>
-        <value>Data update once every %d hours.</value>
-    </entry>
-    <entry>
-        <key>v2_riskyEncountersWithSymptoms</key>
-        <value>You don't have to stay at home if you are not experiencing any symptoms of COVID-19
-            infection. Behave responsibly and watch your health status.
-        </value>
-    </entry>
-    <entry>
-        <key>v2_riskyEncountersWithoutSymptoms</key>
-        <value>If you experienced respiratory symptoms within 14 days after encountering an infected
-            person, contact your general practitioner and follow their instructions. Outside their
-            office hours, call your nearest medical emergency office. In case of serious health
-            problems call 155.
-        </value>
-    </entry>
-    <entry>
-        <key>v2_exposureUITitle</key>
-        <value>Risky encounters</value>
-    </entry>
-    <entry>
-        <key>v2_symptomsUITitle</key>
-        <value>Main symptoms</value>
-    </entry>
-    <entry>
-        <key>v2_spreadPreventionUITitle</key>
-        <value>Responsible behaviour rules</value>
-    </entry>
-    <entry>
-        <key>v2_recentExposuresUITitle</key>
-        <value>Previous risky encounters</value>
-    </entry>
-    <entry>
-        <key>v2_exposureHelpUITitle</key>
-        <value>Help</value>
-    </entry>
-    <entry>
-        <key>v2_preventionContentJson</key>
-        <value>{"title": "COVID-19 infection is spread mainly via airborne droplets. It can also be
-            transmitted via contaminated
-            objects.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Wash
-            your hands with soap thoroughly and frequently, and use
-            disinfection."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Disinfect
-            your personal belongings (e.g. mobile phone) on a regular
-            basis."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"When
-            coughing or sneezing, cover your mouth with a paper tissue or your
-            sleeve."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Avoid
-            crowds and keep a safe 2-metre
-            distance."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Always
-            wear a mask over your mouth and nose in shops and on public
-            transport."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"If
-            you experience respiratory symptoms, stay at home and call your general
-            practitioner."}]}
-        </value>
-    </entry>
-    <entry>
-        <key>v2_symptomsContentJson</key>
-        <value>{"title":"Symptoms may appear 2–14 days after a risky
-            encounter.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"High
-            temperature"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Cough"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Stuffiness"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Sore
-            throat"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Headache,
-            muscle and joint pain"}]}
-        </value>
-    </entry>
-    <entry>
-        <key>v2_exposureHelpContentJson</key>
-        <value>{"items":[{"iconUrl":"https://erouska.cz/img/exposure/ic_notification.png","label":"You will receive the notification at least 24 hours after the infected individual tests positive for COVID-19 and enters their verification code in eRouška."},
-            {"iconUrl":"https://erouska.cz/img/exposure/ic_privacy.png","label":"To keep identities anonymous, we do not know the time or place of the encounter."},
-            {"iconUrl":"https://erouska.cz/img/exposure/ic_distance.png","label":"The encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart."},
-            {"iconUrl":"https://erouska.cz/img/exposure/ic_14days.png","label":"We evaluate risky encounters from the past 14 days because symptoms of COVID-19 may appear between 2 and 14 days after the encounter."}]}
-        </value>
-    </entry>
-    <entry>
-        <key>v2_encounterWarning</key>
-        <value>You have encountered a person infected with COVID-19. Watch your health status.
-        </value>
-    </entry>
-    <entry>
-        <key>v2_keyExportUrl</key>
-        <value>https://storage.googleapis.com/exposure-notification-export-qhqcx/</value>
-    </entry>
-    <entry>
-        <key>v2_selfCheckerPeriodHours</key>
-        <value>4</value>
-    </entry>
-    <entry>
-        <key>v2_keyImportPeriodHours</key>
-        <value>6</value>
-    </entry>
-    <entry>
-        <key>v2_keyImportDataOutdatedHours</key>
-        <value>24</value>
-    </entry>
-    <entry>
-        <key>v2_contactsContentJson</key>
-        <value>[{"title":"Thinking you are infected?","text":"Stay at home and call your general
-            practitioner. Outside their office hours, call your nearest medical emergency
-            office.","linkTitle":"Important
-            contacts","link":"https://koronavirus.mzcr.cz/dulezite-kontakty-odkazy/"},{"title":"Need
-            help?","text":"You can find questions and answers about COVID-19 on the Ministry of
-            Health's website.","linkTitle":"Frequently asked
-            questions","link":"https://koronavirus.mzcr.cz/otazky-a-odpovedi/"},{"title":"About
-            eRouška","text":"Do you need help with the app or you're curious how it works? Chat with
-            Anežka, eRouška support.","linkTitle":"Anežka – eRouška
-            support","link":"https://erouska.cz/#chat-open"}]
-        </value>
-    </entry>
-    <entry>
-        <key>v2_currentMeasuresUrl</key>
-        <value>https://koronavirus.mzcr.cz/aktualni-opatreni/</value>
-    </entry>
-    <entry>
-        <key>v2_conditionsOfUseUrl</key>
-        <value>https://wwww.erouska.cz</value>
+        <key>v2_covidDataServerUrl</key>
+        <value>https://europe-west1-erouska-key-server-dev.cloudfunctions.net</value>
     </entry>
     <entry>
         <key>v2_minGmsVersionCode</key>
         <value>203019000</value>
     </entry>
     <entry>
-        <key>v2_showChatBotLink</key>
+        <key>v2_keyImportDataOutdatedHours</key>
+        <value>99999999</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersTitleAn</key>
+        <value>You encountered a person infected with COVID-19 on %1$s. If a public health officer contacts you, follow their instructions.</value>
+    </entry>
+    <entry>
+        <key>v2_keyImportPeriodHours</key>
+        <value>6</value>
+    </entry>
+    <entry>
+        <key>v2_keyExportUrl</key>
+        <value>https://storage.googleapis.com/exposure-notification-export-qhqcx/</value>
+    </entry>
+    <entry>
+        <key>v2_recentExposuresUITitle</key>
+        <value>Previous risky encounters</value>
+    </entry>
+    <entry>
+        <key>v2_spreadPreventionUITitle</key>
+        <value>Principles of responsible behaviour</value>
+    </entry>
+    <entry>
+        <key>v2_symptomsUITitle</key>
+        <value>Main symptoms</value>
+    </entry>
+    <entry>
+        <key>v2_exposureUITitle</key>
+        <value>Risky encounters</value>
+    </entry>
+    <entry>
+        <key>v2_chatBotLink</key>
+        <value>https://erouska.cz/caste-dotazy</value>
+    </entry>
+    <entry>
+        <key>v2_noEncounterBody</key>
+        <value>We will notify you about a risky encounter in a notification</value>
+    </entry>
+    <entry>
+        <key>v2_noEncounterHeader</key>
+        <value>You have not encountered anyone with COVID-19 in the past 14 days</value>
+    </entry>
+    <entry>
+        <key>v2_conditionsOfUseUrl</key>
+        <value>https://erouska.cz/podminky-pouzivani</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersWithoutSymptoms</key>
+        <value>You don't have to stay at home if you are not experiencing any symptoms of COVID-19 infection. Behave responsibly and watch your health status.</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersWithSymptoms</key>
+        <value>If you experienced respiratory symptoms within 14 days after encountering an infected person, call your general practitioner and follow their instructions. If you experience serious health problems call 155.</value>
+    </entry>
+    <entry>
+        <key>v2_riskyEncountersTitle</key>
+        <value>You encountered a person infected with COVID-19 on %@.</value>
+    </entry>
+    <entry>
+        <key>v2_contactsContentJson</key>
+        <value>[{"title":"Thinking you are infected?","text":"Stay at home and call your general practitioner.","linkTitle":"Important contacts","link":"https://koronavirus.mzcr.cz/en/important-phone-numbers/"},{"title":"Need help?","text":"You can find questions and answers about COVID-19 on the Ministry of Health's website.","linkTitle":"Frequently asked questions","link":"https://koronavirus.mzcr.cz/otazky-a-odpovedi/"},{"title":"eRouška support","text":"Do you need help with the app? Send us e-mail.","linkTitle":"Send e-mail","link":"mailto:info@erouska.cz"},{"title":"About eRouška","text":"Are you curious how the app works?","linkTitle":"Visit erouska.cz","link":"https://erouska.cz/en"}]</value>
+    </entry>
+    <entry>
+        <key>v2_preventionContentJson</key>
+        <value>{"title":"COVID-19 infection is spread mainly via airborne droplets. It can also be transmitted via contaminated objects.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Wash your hands with soap thoroughly and frequently, and use disinfection."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Disinfect your personal belongings (e.g. mobile phone) on a regular basis."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"When coughing or sneezing, cover your mouth with a paper tissue or your sleeve."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Avoid crowds and keep a safe 2-metre distance."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Always wear a mask over your mouth and nose in shops and on public transport."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"If you experience respiratory symptoms, stay at home and call your general practitioner."}]}</value>
+    </entry>
+    <entry>
+        <key>v2_symptomsContentJson</key>
+        <value>{"title":"Symptoms may appear 2–14 days after a risky encounter.","items":[{"iconUrl":"https://erouska.cz/img/symptoms/ic_temperature.png","label":"High temperature"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_cough.png","label":"Cough"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_stuffiness.png","label":"Stuffiness"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_throatache.png","label":"Sore throat"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_headache.png","label":"Headache, muscle and joint pain"},{"iconUrl":"https://erouska.cz/img/symptoms/ic_smelltaste.png","label":"Loss of smell and taste"}]}</value>
+    </entry>
+    <entry>
+        <key>v2_encounterWarning</key>
+        <value>You have encountered a person infected with COVID-19. Watch your health status.</value>
+    </entry>
+    <entry>
+        <key>v2_verificationServerApiKey</key>
+        <value>4AP6RHk5VlNi7WIhj4ZupI9JZODdUyrPGb1C2mDYKo4cuaGIHdYtOhjyoqhg4vB5r7FDijxnySLb_1CUH6XdDA.1.oZLaUuVOPbvEaiWnzkQxasWlD_71iSTeM9aAIOKrfqhg5QO68t004CKxWutYmfISc7vqJe6uY2dRrt34OFkliw</value>
+    </entry>
+    <entry>
+        <key>v2_helpMarkdown</key>
+        <value># General\n## What should I do when the application notified me about a risky encounter with an infected user?\nIf you have symptoms of infection (e.g. high temperature, cough, stuffiness, sore throat, headache, or a sudden loss of smell or taste), call your general practitioner. In case of an emergency, call 155 for an ambulance or 112 for the integrated rescue system. The mentioned symptoms may appear between 2 and 14 days after the risky encounter.\n\nIf you have no symptoms please act responsibly:\n\n*   Wear a mask or respirator over your mouth and nose.\n*   Wash your hands with soap thoroughly and use hand sanitizer regularly.\n*   Sanitize your personal belongings (e.g. your mobile phone) regularly.\n*   Cough or sneeze into a tissue or your sleeve.\n*   Use disposable tissues and throw them away after use.\n*   Avoid unnecessary large group gatherings and keep a safe distance (approximately 2 meters).\n\nOtherwise, you can live normally. It is possible that a public health officer will contact you soon after epidemiological investigation with the infected person. In that case, follow the officer's instructions.\n\nIf your health deteriorates within 14 days after the risky encounter and you experience COVID-19 symptoms, contact your general practitioner.\n\n## What shall I do when I am positive for COVID-19 or I received an SMS with a verification code for eRouška?\nIf you received and SMS from the laboratory saying you are positive for COVID-19, you should also receive another SMS with the eRouška verification code within a few hours. eRouška messages are sent automatically after your results are saved in the information system. They are sent daily between 8 am and 7 pm.\n\nIf you receive an eRouška SMS message with a verification code, please [follow these instructions](https://erouska.cz/en/sms). This will allow you to anonymously notify other users about the risky encounter. Thank you!\n\n## So every time the app says that I was in contact with and infected person, I will have to stay in quarantine or get tested?\nIf a person tests positive, they are contacted by the public health office to find out who they have been in risky contact in the past days so they can slow spreading the infection down. If that person uses eRouška, they can notify even those who they do not know at all, e.g. when commuting. They can notify other app users via a unique code.\n\nWhen the app notifies you that you have encountered a person tested positive for COVID-19, you should follow the recommendations. If you experience health problems contact your general practitioner immediately.\n\n## Will eRouška find out if I break my quarantine for example by going to my cottage?\nThe application doesn't track your location – it's not its purpose – and it's not designed for it either. It will not find out if you have broken your quarantine or where you have gone. On the contrary, it should help to quarantine only people with a confirmed infection or suspect cases.\n\n## Why is eRouška needed? Can it effectively protect me from the virus?\nOne of eRouška's goals is to stop further spread of the infection by isolating potentially infected individuals from the rest. Therefore, there is no need to introduce full quarantine and limitations. This decreases the impact of the pandemic on the society and economy of the Czech Republic. Similar applications were also introduced in other countries and are an effective tool to fight against COVID-19.\n\neRouška 2.0 is a complementary application of the Smart quarantine – Ministry of Health's system. Using Bluetooth technology, eRouška connects to other eRouška apps nearby and saves their anonymous identifiers. If a user is tested positive for COVID-19, a public health officer contacts them and checks whether they use eRouška. If they do, they will send them a verification SMS code which allows the user to send their anonymous identifiers to other eRouška apps. Other users' apps then evaluate whether they were in close enough contact according to the epidemiological model\*. In such case, the app will notify them and motivate them to get tested. Therefore, eRouška 2.0 helps to inform other potential transmitters of the infection and speeds up their testing. This decreases the number of infected individuals in the society and the risk of you getting infected, too.\n\n_\* Closer than 2 metres apart and longer than 15 minutes._\n\n## What if someone does not admit they are infected?\nThis can also happen. However, we believe that eRouška users want to actively help stop further spread of the virus, and use the application in order to alert people with whom they've come into risky contact. **Intentional spread of COVID-19 is a criminal offence in the Czech Republic.**\n\n## Is it worth installing eRouška if there are not enough people using it?\nThis is the reason why you should not hesitate. The more of us use eRouška, the better network to protect us and warn against risk we will create. Help us. You can actively join the fight against COVID-19 by installing the app. You can also tell people around you about it and help them install it.\n\n## What should I do if I'm tested positive?\nFirst, you should contact the public health office which you belong to locally, if they haven't already contacted you. The authorised employee will provide you with information on what to do next and, if necessary, send you the verification SMS code so that you can send keys from your eRouška. Next, you should call your general practitioner who will discuss your treatment.\n\n**In case of serious health complications, call 112 or 155.**  \n_Look for new information on [the website of the Ministry of Health of the Czech Republic](https://koronavirus.mzcr.cz/en/)._\n\n## How does eRouška differ from other similar apps?\nIt is not possible to find out where and when you were located from the app. eRouška does not record your geographic location (does not use GPS), but recognizes other nearby devices with eRouška using Bluetooth LE technology. This information is anonymous.\n\nApart from that, eRouška does not send any data by itself. The data stays in your device. It is only possible to send anonymous identifiers (keys) to the server and then to other eRouška users after a public health officer contacts you if your test is positive. During the call, they will ask you whether you use eRouška and they can send you a verification code. When you enter this code in the app you can send your keys to other users' apps for evaluation and notification.\n\n## What is the Smart Quarantine? What is the role of eRouška in it?\nIt is a set of clever measures that protect people from contagion and the economy from collapsing. Instead of keeping the whole nation in quarantine, the Smart Quarantine enables finding, testing and isolating only infected individuals and people with suspected infection.\n\nMore specifically, it is a system of management in forecasting, decision support, active contact tracing, testing including sampling point capacity management, laboratories, managing quarantines and related material and IT delivery to contain the pandemic of COVID-19. Smart Quarantine 2.0 is the name for transition of the project under the Ministry of Health which will be able to quickly react to any epidemics in the future thanks to new tools that are being developed.\n\neRouška application is one of the tools that were developed to support [Smart Quarantine (in Czech)](https://koronavirus.mzcr.cz/chytra-karantena/). Using technology – eRouška – we can actively notify risky individuals who encountered an infected person to implement more protective measures, consider voluntary quarantine, and contact their GP in case they experience COVID-19 symptoms. We believe that thanks to these steps, we can contain the spread of the infection and save health care from a fatal overload.\n\n## Do you plan to translate the web and the application to other languages?\nNow, we are translating the application and the eRouška.cz website to English. We are planning to translate it to Vietnamese and perhaps to other languages as well. Try updating the app to the newest version.\n\n# How eRouška works\n## How does eRouška collect and process data about users' encounters?\nYour smartphone with eRouška will record anonymous identifiers (ID) from other devices with this application via Bluetooth LE. It stores information about the “encounter” and its length in its internal memory.\n\nIf your COVID-19 test is positive you will receive a verification code in an SMS. You will enter it in eRouška ([follow these steps](https://erouska.cz/en/sms)) which will send your anonymous identifiers to the server. Other eRouška apps will download them for evaluation. The algorithm in each eRouška will automatically evaluate the data within the epidemiological model: it will compare the identifiers with all logged encounters. For each risky encounter, the app will display a notification, warn the user that they might be potentially infected, and recommend further steps.\n\nYou can find detailed information about data collection and processing in [Information about personal data processing in eRouška 2.0](https://erouska.cz/en/podminky-pouzivani).\n\n## How does eRouška evaluate risky encounters?\nEpidemiologists established that a risky encounter is one that takes place closer than 2 meters apart for more than 15 minutes. eRouška aims to measure this with available technology as precisely as it can. The distance between the users' phones is estimated using Bluetooth signal strength. The length of the encounter is evaluated during measure windows: every few minutes, the phone checks whether there are other phones with eRouška nearby.\n\nA more frequent logging of other nearby devices with eRouška increases the precision of measurement, but it also increases energy consumption. Measurement algorithms are set up by Apple and Google in their Exposure Notification protocol, which eRouška uses. eRouška developers can only partly change some parameters and filter results.\n\n## What if eRouška misinterprets a contact with another person who is, for example, in a car at a crossroads, behind a door or a thin wall?\neRouška works by measuring the signal strength between two devices. Technically, it cannot be ruled out that a false detection occurs. You can read more about technical limitations, risks of app use and the process of encounter evaluation on [Reliability of risky encounter evaluation](https://erouska.cz/en/vyhodnoceni-rizika) and on [Technical requirements in Terms and conditions](https://erouska.cz/en/podminky-pouzivani#technicke).\n\nIn order to evaluate the contact as risky, it is important to measure the distance (up to 2 m) and length of contact (at least 15 minutes) – therefore stopping at traffic lights is insignificant.\n\n## So everyone will know I have COVID-19?\nNo, they won't. If you are tested positive, your identity is only known to the public health officer. People that you encountered will never know who, where or when you could have infected them. The application only displays the general information about risky encounters and recommends further steps. Your identity is safe.\n\n## I was tested for COVID-19, but I still have not received the SMS with the verification code for eRouška. When can I expect it?\nFirst, you will receive test results in an SMS from the laboratory. The lab also sends the results to the central information system of the Ministry of Health. After the results are copied to the public health office's system, automatic eRouška SMS messages with verification codes are sent. If the lab results are not copied in the health office's system by 7 pm, you will receive the SMS the next day. This time frame was chosen so that the code does not expire at night.\n\n**If you do not receive an SMS from eRouška within one day** after you received your positive laboratory results, please contact us at [info@erouska.cz](mailto:info@erouska.cz) and mention this information:\n\n*   Your full name that you filled in the test request\n*   Phone number that you filled in the test request\n*   Laboratory which handled your test results\n\n## Does eRouška use Apple/Google API?\nThe new version eRouška 2.0 for Android and iOS uses Apple/Google Exposure Notification API. Remember to update your eRouška app in [Google Play (Android)](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska) or [App Store (iOS)](https://apps.apple.com/cz/app/erou%C5%A1ka/id1509210215) and activate it again.\n\n## What is Apple/Google Exposure Notification API (protocol)?\nTogether, Apple and Google develop technologies which can be used by public health institutions (Ministry of Health) to develop national applications for tracing risky encounters with individuals with COVID-19.\n\nIt is an interface which allows specific apps (eRouška in the Czech Republic) to reliably access system tools of Android and Apple devices and log encounters – mainly to use Bluetooth LE to verify the contact and run in the background without any more settings of the app or the operation system. Encrypted communication protocol then ensures a safe transmission of current lists of identifiers of infected individuals between tracing applications in order to evaluate risky encounters and send notifications.\n\nFind more information directly on [Apple](https://www.apple.com/covid19/contacttracing) and [Google](https://www.google.com/covid19/exposurenotifications/) websites.\n\n## I can't see My data page in the new app. Where can I find information on stored encounters?\neRouška 2.0 is built on Apple/Google Exposure Notification protocol which manages a secure storage and evaluation of encounters. Due to security reasons, it does not let the app directly access the data of encounters.\n\nOn the main screen, you can see whether the app is working correctly. Information about stored encounters is saved in the system. You can find it in Settings:\n\n*   Android: Settings → Google →COVID-19 Exposure Notifications\n*   iOS: Exposure Notifications → Exposure Logging Status → Exposure Checks\n\n## How will I know that eRouška works if I cannot see any encounters? Why don't I see the app icon in the status bar?\nWe removed notification icon because storing and evaluation of encounters is done by Apple/Google protocol in the system. The app is responsible for downloading keys (identifiers) of infected users once or twice a day and does not need to run permanently.\n\nYou can view the app status on its main page. You can then check that the keys were downloaded in the Settings:\n\n*   Android: Settings → Google →COVID-19 Exposure Notifications\n*   iOS: Exposure Notifications → Exposure Logging Status → Exposure Checks\n\n## Why does the date and time of "Last data update" on the main page of eRouška differ from date and time of "Exposure Checks" that I can see in Settings?\neRouška shows the date and time of the last successful attempt to check new keys (identifiers) of infected individuals on the server. Phone Settings show date and time when the keys were last found and evaluated.\n\nKeys of infected users download once or twice a day.\n\n## Why can't I view the exact time of a risky encounter in eRouška?\neRouška is built on Apple/Google Exposure Notification protocol which manages logging and evaluation of encounters in the operating system. Apple/Google protocol allows eRouška to access only the date of a risky encounter so that the privacy of users is ensured.\n\n## Why do I see "Found keys: 0" in Exposure Checks in the phone Settings?\nIt means that eRouška has not evaluated any encounter as risky. In other words, downloaded keys of infected users do not match keys stored in your device.\n\n## Why do I see keys for specific dates in the phone's Settings > Exposure Checks but eRouška does not display any risky encounters?\nThe number of keys indicates the number of logged encounters with infected individuals. However, they might not be risky encounters. If an encounter was not risky (longer than 15 minutes and closer than 2 metres), eRouška will not notify you about it. That's why you cannot see it in the app.\n\n## I received a notification about a risky encounter that took place several days ago. Why did eRouška only notify me now?\neRouška cannot evaluate risky encounters and display notifications before the user with a positive test sends data from their eRouška. If today you receive a notification that you have encountered an infected individual several days ago, it means that the person only sent their data yesterday. Your eRouška downloaded and evaluated the data today.\n\n## I received a notification about a risky encounter, but I can see several logs with various dates on the Risky encounter page.\neRouška evaluated risky encounters after a user who tested positive for COVID-19 sends data from their eRouška. If you received one notification but there are more logs on the Risky encounter page, it means that you have met that person more than once or that more than one user sent their data on the same day.\n\n# Installation and compatibility\n## For which phones is eRouška available? Why are the requirements stricter than in eRouška 1.0?\nTo install eRouška, you need a mobile device with the following parameters:\n\n*   iPhone with iOS 13.5 and higher\n*   OS Android 6.0 and higher with Google Play Services (only a small percentage of Huawei phones and some phones with their own ROM do not have this)\n*   Bluetooth LE (Low Energy)\n\nIf your phone is not compatible with eRouška (it does not have the necessary features) Google Play Store or Apple App Store will not let you install it. The application is available only for some Android tablets. It is not available for iPads.\n\nApple and Google define the minimum requirements of compatibility. They are based on the Apple/Google Exposure Notification protocol which the new eRouška uses. We decided to start using the Apple/Google protocol to make sure that the app works on iPhones and to be compatible with similar applications in other European countries.\n\n## Where can I safely download and install eRouška?\nYou can only download eRouška from [Play Store for Android](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska) and [App Store for iPhone](https://apps.apple.com/cz/app/erou%C5%A1ka/id1509210215).\n\n## Is it possible to download the application outside Google Play or Apple App Store? Is an apk available?\neRouška 2.0 uses Apple/Google protocol to log encounters and transmit data. Therefore, it depends on Google Play Services, without which it would not work, so it is not possible to install it from other than official app stores. Google Play and Apple App Store will automatically filter for compatible devices.\n\neRouška developers never provide users with links for installation packages (APKs) or installation files outside official application stores. We would not be able to guarantee security, updates or user support for unofficial app installs. Please, do not download eRouška from .apk files that you find online or receive by email. They might contain viruses, trojan horses or other harmful content.\n\n## Can I use eRouška with another tracing application of a foreign country (e.g. Corona-Warn-App)?\nYou can install more tracing apps along eRouška, such as Corona-Warn-App, Stopp Corona App, Imunni, Stop Covid ProteGO Safe etc. However, if they also use Apple/Google Exposure Notification protocol (especially in neighbour countries), only one of them can be active at any given moment. You would need to pause the others. Only one app can access the Apple/Google protocol's logging feature.\n\nIn the future, only eRouška will be needed because European countries are working on common compatibility of applications. Until then, you can use the local app.\n\n## Will I be able to use eRouška on smart watches or smart wristbands?\nThis might be possible in the future. Right now, we are not developing this because the smart watch or wristband would need to support Bluetooth LE (Low Energy) and Apple/Google protocol. Basic Bluetooth without LE only manages data transmission but cannot measure the intensity of user encounters via signal strength.\n\n# Connection and data transmission\n## Do I need to keep Bluetooth turned on all the time?\nYes, you do. Without Bluetooth turned on, it is not possible to detect nearby devices with eRouška. You may have already enabled Bluetooth if you use wireless headphones, a smart watch or a connection with your car. We recommend you to set Bluetooth to be _visible for all devices_.\n\n## Does eRouška need internet connection?\nApart from downloading and activating the application, internet connection is necessary for daily downloads of anonymous identifiers of infected users. Assuming that you are tested positive, a public health office will ask you to send the data, for which you will also need internet connection. Until then, your data is stored only in your phone and they are automatically deleted after 14 days. The app also uses internet connection to download information about current COVID-19 epidemic situation in the Czech Republic which is displayed on the _News_ page.\n\n## How often does the app update online data?\neRouška downloads keys (identifiers) of infected users once or twice a day. Statistics on the News page are updated once a day.\n\n## How much data does eRouška consume daily?\nAccording to our measurements, it is about 300 kB for 500 newly identified cases daily. This update is downloaded once or twice a day (to compare, a regular web page requires about 1–5 MB of data). The app does not necessarily need mobile internet connection, because it can download data when on WiFi.\n\n## Why do I need to allow the application to access GPS/location data?\neRouška does not collect or store GPS data, but the Android operating system also includes some Bluetooth LE (LE = low energy) services, which eRouška components need in order to function properly – specifically, Google Play Services. Therefore, the user's consent to the application's access to location data is required. This consent is not required on iOS. [Google explains](https://support.google.com/android/answer/9930236) why location services must be enabled in the phone.\n\n## How much battery do Bluetooth and eRouška app drain?\nIf you already use a phone with Bluetooth enabled, power consumption will not increase significantly.\n\nIf you do not actively use Bluetooth, the results of our testing where Bluetooth was turned on all the time showed that energy consumption increased by units of percent per day. In most cases, it is less than 20% of battery capacity per day. It depends on the specific smartphone, your style of use and battery condition.\n\nIf you find the energy consumption too high, please check your → battery / power settings to check if it is caused by another app running in the background.\n\n## Is it possible that after turning on eRouška, my Wi-Fi or internet connection slowed down?\nUnfortunately, some Android mobile phones' Bluetooth negatively affects Wi-Fi signal and vice versa.\n\n## Why does the app use Bluetooth? Are there no better alternatives such as GPS or triangulation from phone network operators?\nUser privacy comes first, and Bluetooth technology offers the best balance between logging accuracy and maximal privacy. Neither GPS technology nor operator triangulation can provide necessary data with the required accuracy. Among other things, it is because their functionality inside buildings or metro is very limited. eRouška needs to know that an encounter has occurred, at what distance and its duration. It does not matter where the encounter took place.\n\n## Is Bluetooth a secure enough technology?\nBluetooth is a widely spread standard for connecting mobile devices with other devices such as wireless headphones, speakers, smart wristbands or smart watches. Since Apple and Google have developed the common protocol only for national Bluetooth LE-based contact tracing mobile applications, we are convinced that it was the right choice for eRouška as well. However, it has to be said that each and every technology has vulnerabilities. That is why we recommend our users to regularly update their apps as well as the operating system. The OS updates often contain important security patches.\n\n# Data security\n## How do I know which data the application stores and sends?\neRouška application 2.0 uses Apple/Google Exposure Notification API which allows for collecting data and transmitting identifiers among users. Thanks to that, the application does not have a direct access to logged data which could be displayed to users, as it did in the previous version 1.0.\n\nThe app does not send any data on its own. It only downloads the list of identifiers from users who were confirmed as positive with COVID-19. Only the user can send their own data, and only after entering an SMS code which they will receive from the public health office after they tested positive.\n\nYou can find more information about the data collection and management at [Information about personal data processing in eRouška 2.0](https://erouska.cz/en/podminky-pouzivani).\n\n## Will eRouška data be copied after I perform phone recovery or if I get a new phone?\nTo protect your privacy, neither Android nor iOS back up data from Exposure Notifications. If you reinstall your phone's system or get a new phone, the stored identifiers will not be recovered.\n\n## What if my phone is stolen or I lose it?\nOnly anonymous information about other devices detected by eRouška is stored in the app. This does not bring any risk to you or the owners of other devices. Other applications that you commonly use may store much more sensitive data on your phone. Keep your phone protected with a passcode or biometrics (fingerprint or face).\n\n## Is eRouška compliant with GDPR?\nThe entire system of the application eRouška including the website is designed in full compliance with GDPR and the Personal Data Processing Act.\n\nYou will find more detailed information here:\n\n*   [Information about personal data processing in eRouška 2.0](https://erouska.cz/en/podminky-pouzivani)\n*   [Application source code audit](https://erouska.cz/en/audit-kod)\n\n## How do you protect users from data abuse?\nWe protect users primarily by minimizing the range of logged data and storing them directly in the device. User data is not sent or processed anywhere without their knowledge and consent. The app stores only anonymous identifiers (IDs) of other eRouška users and information about the time, length and Bluetooth strength. Data is automatically processed on the server only after they are sent by the user.\n\n## Does an independent organization oversee the security of application data?\nThe whole system of eRouška application including the supporting website is developed in full compliance with GDPR. The application's code is open-sourced ([Android](https://github.com/covid19cz/erouska-android), [iOS](https://github.com/covid19cz/erouska-ios)) and underwent [an audit by independent education institutions](https://erouska.cz/en/audit-kod).\n\nYou can find more information in [Information about personal data processing in eRouška 2.0](https://erouska.cz/en/podminky-pouzivani).\n\n## Can someone track my location using eRouška?\nNo. The application does not collect information about your location and only you have access to the saved data. The data that the app sends after your consent cannot be used to track your location. Moreover, for safety and privacy reasons, eRouška changes its ID regularly to prevent it from being abused.\n\n_The application only saves data such as: on 31/03/2020 at 12:15 an application with identifier ID 29091 with signal strength −56 dBm was recorded._\n\n## Can I verify that the app is not recording my location?\nYes. eRouška application is published as open-sourced code ([Android](https://github.com/covid19cz/erouska-android), [iOS](https://github.com/covid19cz/erouska-ios)), so an informed person can easily verify that the application indeed does not collect location data.\n\nThe source code of eRouška [is reviewed by independent authorities](https://erouska.cz/en/audit-kod) who confirm that the application:\n\n*   does not track location;\n*   does not automatically send data anywhere.\n\n## Can a user's application identifier (ID) be paired with a specific person?\nApplication eRouška 2.0 [does not work with personal data](https://erouska.cz/en/podminky-pouzivani). Generated anonymous eRouška identifiers are sent between the applications and the server via an encrypted communication protocol developed by Apple and Google. Neither users, nor developers or other authorities can access the identifiers.\n\n## Who has (could have) access to my data?\nNeither the user not any other person can access logged data about encounters in eRouška 2.0. The reason for this is that this app version uses Apple/Google protocol which does not allow access to logged data to users, developers or other individuals. Data (anonymous identifiers of infected individuals) are sent to the server and other users' devices encrypted and are evaluated on the devices automatically if a notification about a risky encounter is needed to be displayed. They are deleted from the devices and the server automatically after 14 days.\n\n## How old data is available? When and how is it deleted?\neRouška saves the data for 14 days. Older entries are automatically deleted. If you consent to personal data processing after you talk to a public health officer, and send identifiers from your phone to the server, the data will stay there for 14 days and then they are deleted. You can delete data from your phone in Exposure Notification settings. The specific steps differ among devices and OS. On Android devices, uninstalling the app is enough to delete stored identifiers. on iPhones, stored identifiers are not deleted during uninstallation. You can find more information about data managers and processors in [Information about personal data processing in eRouška](https://erouska.cz/en/podminky-pouzivani).\n\n## Can I change my mind about using the app at any time? Can I delete the data that I send out to be processed?\nYou can uninstall the application any time you want. You can delete stored identifiers from your phone in Exposure Notification settings. The specific steps differ among devices and OS. On Android devices, uninstalling the app is enough to delete stored identifiers. On iPhones, stored identifiers are not deleted during uninstallation. Data which were sent to the server are automatically deleted after 14 days.\n\nIn eRouška 1.x, you can delete the phone number (cancel registration) that you entered during app activation. Your old identifiers (ID) will stay in eRouška apps of users that you have encountered for 30 days. These identifiers cannot be linked to any mobile device, phone number or person.\n\n## What happens to the data after I delete the app from my smartphone?\nWhen you delete the application from your Android phone, the identifiers stored in it will also be deleted. On iPhones, stored identifiers are not deleted during uninstallation and they will stay in the operating system for the next 14 days. You can delete stored identifiers from your phone in Exposure Notification settings. The specific steps differ among devices and OS. If you reinstall the app, it will start collecting and storing brand new data on your phone.\n\n## Where can I find the application's source code?\neRouška is published with an open-source code ([Android](https://github.com/covid19cz/erouska-android), [iOS](https://github.com/covid19cz/erouska-ios)).\n\n# Frequent problems\n## Basic recommendations for troubleshooting\nIf the app displays an error message please check that your operating system is updated ([how to update Android](https://support.google.com/android/answer/7680439), [how to update iOS](https://support.apple.com/cs-cz/HT204204)) and that you are not using its beta version.\n\nThen, please check whether there are new updates of eRouška in your store ([Google Play for Android](https://play.google.com/store/apps/details?id=cz.covid19cz.erouska) or [App Store for iOS](https://apps.apple.com/cz/app/erouška/id1509210215)).\n\nWe also recommend you enable automatic updates of eRouška:\n\n*   [Steps for Android:](https://support.google.com/googleplay/answer/113412#autoone) Open Google Play Store app, press My apps &amp; games → choose the app to update → press three dots and select Enable auto update.\n*   [Steps for iOS:](https://support.apple.com/cs-cz/HT202180#automatic) Go to Settings → \[your name\] → iTunes and App Store. Turn on App Updates.\n\n## Cannot activate eRouška. / Android: Activation error 17 (Exposure Notification API is not available) / iOS: Error code: 3\nOn Android devices, please follow these steps:\n\n1.  Check if you are the primary user of the device, if Play Services is installed, and if _Settings → Google → COVID-19 Exposure Notifications_ is available.\n2.  Uninstall eRouška.\n3.  Clear cache and data for Google Play Services and Play Store ([see steps 2 and 3](https://support.google.com/googleplay/answer/9037938)).\n4.  Install eRouška and enable _COVID-19 Exposure Notifications_.\n\nOn iPhone devices, please follow these steps:\n\n1.  Check for iOS updates. Check that you are not a beta tester.\n2.  Uninstall eRouška.\n3.  If _Settings → Exposure Notifications (or Exposure Logging Status)_ is disabled, please press the toggle to enable it.\n4.  Install eRouška and enable _Exposure Notifications_.\n\nIf you still experience issues with app activation, it is possible that your device does not support Bluetooth LE (Low Energy Advertising) or Bluetooth Multiple Advertisement, is not authorized for Exposure Notifications by Google, or does not have Exposure Notifications API.\n\n## eRouška was paused on iPhone and cannot be resumed.\nOnly some iPhone users are affected by this after iOS update. Please try uninstall and reinstall eRouška. You will not lose any data from your iPhone because they are stored in the system.\n\n## What should I do if eRouška stops working after I recovered iPhone data from iCloud or got a new iPhone?\niOS 14.0 and 14.1 contain an error that disables the necessary Exposure Notifications settings after the phone data are recovered.\n\nPlease try one of the following steps:\n\n1.  Go to Settings → Exposure Notifications → turn off Exposure Notifications. Open eRouška and confirm the required permissions.\n2.  Uninstall eRouška, reinstall and activate it.\n3.  Set our region as active: go to Settings → Exposure Notifications → No active region → Select our region from authorized regions → press _Set as active region_. Resume eRouška.\n\n## iPhone shows a notification that the exposure notifications location has changed.\nPlease turn off the toggle in Settings → Exposure Notifications → Availability Alerts.\n\n## I received an exposure notification, but eRouška shows that it has not logged any risky encounter near me.\nIf the notification with red virus icon and text Exposure notification (Android) or Exposure log (iOS) surprised you, no need to worry. It is only a system notification on Android and iOS which eRouška cannot influence. View [this picture](https://www.facebook.com/eRouska/posts/180938253548928) which shows what eRouška notification looks like.\n\nYou can find out whether you encountered an infected individual on the main page of eRouška.\n\nIf you saw a risky encounter in eRouška which then disappeared, it is possible that the evaluation parameters have changed in the Android app update so eRouška does not consider that encounter to be risky anymore.\n\n## On iPhone, eRouška displays error 401 or 500 when sending data.\nPlease uninstall eRouška and reinstall it from App Store. You will not lose your logged data because they are stored in your iPhone's system. If the SMS code expires when reinstalling, please contact us at [info@erouska.cz](mailto:info@erouska.cz), mention the error code, your full name and phone number. We will send you a new code.\n\n</value>
+    </entry>
+    <entry>
+        <key>v2_shareAppDynamicLink</key>
+        <value>https://erouska.cz/app/sdilej</value>
+    </entry>
+    <entry>
+        <key>v2_minSupportedVersionCodeAndroid</key>
+        <value>666</value>
+    </entry>
+    <entry>
+        <key>v2_shouldCheckOSVersion</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>v2_unsupportedDeviceLink</key>
+        <value>https://koronavirus.mzcr.cz/en/</value>
+    </entry>
+    <entry>
+        <key>v2_minSupportedVersion</key>
+        <value>2.2.2</value>
+    </entry>
+    <entry>
+        <key>v2_currentMeasuresUrl</key>
+        <value>https://covid.gov.cz/opatreni</value>
+    </entry>
+    <entry>
+        <key>v2_appleExposureConfiguration</key>
+        <value>{"factorHigh":0.17,"factorStandard":1,"factorLow":1.5,"lowerThreshold":55,"higherThreshold":63,"triggerThreshold":15}</value>
+    </entry>
+    <entry>
+        <key>v2_daysSinceOnsetToInfectiousness</key>
+        <value>0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1</value>
+    </entry>
+    <entry>
+        <key>v2_supportEmail</key>
+        <value>info@erouska.cz</value>
+    </entry>
+    <entry>
+        <key>v2_appleServerConfiguration</key>
+        <value>{"minSupportedVersion":"13.5","showExposureForDays":14,"healthAuthority":"cz.covid19cz.erouska","uploadURL":"https://exposure-fghz64a2xa-ew.a.run.app/v1/publish","downloadIndexName":"erouska/index.txt","downloadsURL":"https://storage.googleapis.com/exposure-notification-export-qhqcx/","verificationURL":"https://apiserver-jyvw4xgota-ew.a.run.app","verificationAdminKey":"","verificationDeviceKey":"4AP6RHk5VlNi7WIhj4ZupI9JZODdUyrPGb1C2mDYKo4cuaGIHdYtOhjyoqhg4vB5r7FDijxnySLb_1CUH6XdDA.1.oZLaUuVOPbvEaiWnzkQxasWlD_71iSTeM9aAIOKrfqhg5QO68t004CKxWutYmfISc7vqJe6uY2dRrt34OFkliw","appCurentDataURL":"https://europe-west1-daring-leaf-272223.cloudfunctions.net","firebaseURL":"https://europe-west1-daring-leaf-272223.cloudfunctions.net"}</value>
+    </entry>
+    <entry>
+        <key>v2_handleError400AsExpiredOrUsedCode</key>
         <value>false</value>
     </entry>
     <entry>
         <key>v2_handleError500AsInvalidCode</key>
-        <value>true</value>
+        <value>false</value>
     </entry>
     <entry>
-        <key>v2_handleError400AsExpiredOrUsedCode</key>
-        <value>true</value>
+        <key>v2_exposureHelpContentJson</key>
+        <value>{"items":[{"iconUrl":"https://erouska.cz/img/exposure/ic_notification.png","label":"You will receive the notification at least 24 hours after the infected individual tests positive for COVID-19 and enters their verification code in eRouška."},{"iconUrl":"https://erouska.cz/img/exposure/ic_privacy.png","label":"To keep identities anonymous, we do not know the time or place of the encounter."},{"iconUrl":"https://erouska.cz/img/exposure/ic_distance.png","label":"The encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart."},{"iconUrl":"https://erouska.cz/img/exposure/ic_14days.png","label":"We evaluate risky encounters in the past 14 days because you might experience COVID-19 symptoms between 2 and 14 days after a risky encounter."}]}</value>
     </entry>
     <entry>
-        <key>v2_dbCleanupDays</key>
-        <value>15</value>
-    </entry>
-    <entry>
-        <key>v2_recentExposureNotificationTitle</key>
-        <value>It's been some time since your eRouška updated its data with risky encounters. Connect to the internet.</value>
+        <key>v2_exposureHelpUITitle</key>
+        <value>Help</value>
     </entry>
     <entry>
         <key>v2_updateNewsOnRequest</key>
         <value>true</value>
+    </entry>
+    <entry>
+        <key>v2_recentExposureNotificationTitle</key>
+        <value>It's been some time since your eRouška updated its data with risky encounters. Connect to the internet.</value>
+    </entry>
+    <entry>
+        <key>v2_efgsCountries</key>
+        <value>Denmark, Latvia, Germany and Austria currently cooperate with eRouška.</value>
     </entry>
 </defaultsMap>
