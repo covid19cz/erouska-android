@@ -44,6 +44,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun start() = suspendCoroutine<Void> { cont ->
         client.start()
             .addOnSuccessListener {
+                prefs.setExposureNotificationsEnabled(true)
                 cont.resume(it)
             }.addOnFailureListener {
                 cont.resumeWithException(it)
@@ -53,6 +54,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun stop() = suspendCoroutine<Void> { cont ->
         client.stop()
             .addOnSuccessListener {
+                prefs.setExposureNotificationsEnabled(false)
                 cont.resume(it)
             }.addOnFailureListener {
                 cont.resumeWithException(it)
@@ -60,9 +62,9 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun isEnabled(): Boolean = suspendCoroutine { cont ->
-        client.status
+        client.isEnabled
             .addOnSuccessListener {
-                cont.resume(it.contains(ExposureNotificationStatus.ACTIVATED))
+                cont.resume(it)
             }.addOnFailureListener {
                 cont.resumeWithException(it)
             }
