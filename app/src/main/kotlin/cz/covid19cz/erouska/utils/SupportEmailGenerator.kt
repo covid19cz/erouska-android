@@ -101,7 +101,11 @@ class SupportEmailGenerator @Inject constructor(
                 deviceInfo.isLocationEnabled().toOnOff()
             )
             text += formatLine(
-                "Exposure API",
+                "EN API Enabled",
+                exposureNotificationsRepository.isEnabled().toOnOff()
+            )
+            text += formatLine(
+                "EN API Status",
                 exposureNotificationsRepository.getStatus().joinToString { it.name }
             )
             text += formatLine(

@@ -75,6 +75,9 @@ class DashboardVM @ViewModelInject constructor(
     fun checkStatus() {
         viewModelScope.launch {
             kotlin.runCatching {
+                if (!exposureNotificationsRepository.isEnabled()){
+                    return@runCatching setOf(ExposureNotificationStatus.INACTIVATED)
+                }
                 return@runCatching exposureNotificationsRepository.getStatus()
             }.onSuccess { status ->
                 L.i("EN API Status: ${status.joinToString { it.name }}")
@@ -98,6 +101,7 @@ class DashboardVM @ViewModelInject constructor(
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
             }.onFailure {
                 L.e(it)
+                publish(GmsApiErrorEvent(it)) // handle API error
             }
         }
     }
@@ -126,7 +130,6 @@ class DashboardVM @ViewModelInject constructor(
         bluetoothState.value = !status.contains(ExposureNotificationStatus.BLUETOOTH_DISABLED)
         locationState.value = !status.contains(ExposureNotificationStatus.LOCATION_DISABLED)
         exposureNotificationsEnabled.value = status.contains(ExposureNotificationStatus.ACTIVATED)
-        prefs.setExposureNotificationsEnabled(status.contains(ExposureNotificationStatus.ACTIVATED))
     }
 
     private fun checkForRiskyExposure() {
