@@ -180,4 +180,36 @@
         <key>v2_efgsCountries</key>
         <value>Aktuálne s eRouškou spolupracuje Dánsko, Lotyšsko, Nemecko a Rakúsko.</value>
     </entry>
+    <entry>
+        <key>v2_diagnosisKeysDataMappingLimitDays</key>
+        <value>7</value>
+    </entry>
+    <entry>
+        <key>v2_infectiousnessWhenDaysSinceOnsetMissing</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>v2_reportTypeWhenMissing</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>v2_noEncounterCardTitle</key>
+        <value>Za posledných 14 dní žiadne rizikové stretnutie</value>
+    </entry>
+    <entry>
+        <key>v2_encounterUpdateFrequency</key>
+        <value>Aktualizácia prebieha raz za %d hodín.</value>
+    </entry>
+    <entry>
+        <key>v2_dbCleanupDays</key>
+        <value>15</value>
+    </entry>
+    <entry>
+        <key>v2_selfCheckerPeriodHours</key>
+        <value>4</value>
+    </entry>
+    <entry>
+        <key>v2_showChatBotLink</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>
