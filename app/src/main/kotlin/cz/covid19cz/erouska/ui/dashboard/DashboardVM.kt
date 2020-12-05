@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatus
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -16,7 +17,6 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
-import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.ext.timestampToDate
 import cz.covid19cz.erouska.ext.timestampToTime
@@ -25,8 +25,7 @@ import kotlinx.coroutines.launch
 class DashboardVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
-    private val prefs: SharedPrefsRepository,
-    private val deviceInfo: DeviceInfo
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -63,22 +62,25 @@ class DashboardVM @ViewModelInject constructor(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
-
-        bluetoothState.value = deviceInfo.isBtEnabled()
-        locationState.value = deviceInfo.isLocationEnabled()
         efgsState.value = prefs.isTraveller()
-
+        checkStatus()
         checkRiskyExposures()
 
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
+    }
 
+    fun checkStatus() {
         viewModelScope.launch {
             kotlin.runCatching {
-                return@runCatching exposureNotificationsRepository.isEnabled()
-            }.onSuccess { enabled ->
-                onExposureNotificationsStateChanged(enabled)
+                if (!exposureNotificationsRepository.isEnabled()){
+                    return@runCatching setOf(ExposureNotificationStatus.INACTIVATED)
+                }
+                return@runCatching exposureNotificationsRepository.getStatus()
+            }.onSuccess { status ->
+                L.i("EN API Status: ${status.joinToString { it.name }}")
+                onExposureNotificationsStatusChanged(status)
             }.onFailure {
                 publish(GmsApiErrorEvent(it))
             }
@@ -93,11 +95,12 @@ class DashboardVM @ViewModelInject constructor(
             kotlin.runCatching {
                 exposureNotificationsRepository.stop()
             }.onSuccess {
-                onExposureNotificationsStateChanged(false)
+                L.i("EN API Stopped")
+                checkStatus()
                 publish(DashboardCommandEvent(DashboardCommandEvent.Command.TURN_OFF))
             }.onFailure {
                 L.e(it)
-                onExposureNotificationsStateChanged(false)
+                publish(GmsApiErrorEvent(it)) // handle API error
             }
         }
     }
@@ -110,10 +113,10 @@ class DashboardVM @ViewModelInject constructor(
             kotlin.runCatching {
                 exposureNotificationsRepository.start()
             }.onSuccess {
-                onExposureNotificationsStateChanged(true)
+                L.i("EN API Started")
+                checkStatus()
             }.onFailure {
                 L.e(it)
-                onExposureNotificationsStateChanged(false)
                 publish(GmsApiErrorEvent(it)) // handle API error
             }
         }
@@ -122,9 +125,10 @@ class DashboardVM @ViewModelInject constructor(
     /**
      * EN API state has changed.
      */
-    private fun onExposureNotificationsStateChanged(enabled: Boolean) {
-        exposureNotificationsEnabled.value = enabled
-        prefs.setExposureNotificationsEnabled(enabled)
+    private fun onExposureNotificationsStatusChanged(status: Set<ExposureNotificationStatus>) {
+        bluetoothState.value = !status.contains(ExposureNotificationStatus.BLUETOOTH_DISABLED)
+        locationState.value = !status.contains(ExposureNotificationStatus.LOCATION_DISABLED)
+        exposureNotificationsEnabled.value = status.contains(ExposureNotificationStatus.ACTIVATED)
     }
 
     private fun checkForRiskyExposure() {
@@ -223,4 +227,6 @@ class DashboardVM @ViewModelInject constructor(
     fun shouldIntroduceEFGS(): Boolean {
         return !prefs.wasEFGSIntroduced()
     }
+
+    fun isLocationlessScanSupported() = exposureNotificationsRepository.isLocationlessScanSupported()
 }

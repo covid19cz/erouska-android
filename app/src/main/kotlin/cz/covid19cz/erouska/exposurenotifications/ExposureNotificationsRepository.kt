@@ -45,6 +45,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun start() = suspendCoroutine<Void> { cont ->
         client.start()
             .addOnSuccessListener {
+                prefs.setExposureNotificationsEnabled(true)
                 cont.resume(it)
             }.addOnFailureListener {
                 cont.resumeWithException(it)
@@ -54,6 +55,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun stop() = suspendCoroutine<Void> { cont ->
         client.stop()
             .addOnSuccessListener {
+                prefs.setExposureNotificationsEnabled(false)
                 cont.resume(it)
             }.addOnFailureListener {
                 cont.resumeWithException(it)
@@ -62,6 +64,15 @@ class ExposureNotificationsRepository @Inject constructor(
 
     suspend fun isEnabled(): Boolean = suspendCoroutine { cont ->
         client.isEnabled
+            .addOnSuccessListener {
+                cont.resume(it)
+            }.addOnFailureListener {
+                cont.resumeWithException(it)
+            }
+    }
+
+    suspend fun getStatus(): Set<ExposureNotificationStatus> = suspendCoroutine { cont ->
+        client.status
             .addOnSuccessListener {
                 cont.resume(it)
             }.addOnFailureListener {
@@ -119,7 +130,7 @@ class ExposureNotificationsRepository @Inject constructor(
             }
             val mapping = DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
                 .setDaysSinceOnsetToInfectiousness(daysToInfectiousness)
-                .setInfectiousnessWhenDaysSinceOnsetMissing(Infectiousness.NONE)
+                .setInfectiousnessWhenDaysSinceOnsetMissing(AppConfig.infectiousnessWhenDaysSinceOnsetMissing)
                 .setReportTypeWhenMissing(AppConfig.reportTypeWhenMissing)
                 .build()
             try {
@@ -137,7 +148,8 @@ class ExposureNotificationsRepository @Inject constructor(
 
             val reportTypeWeights = prefs.getReportTypeWeights() ?: AppConfig.reportTypeWeights
             val attenuationBucketThresholdDb =
-                prefs.getAttenuationBucketThresholdDb() ?: AppConfig.attenuationBucketThresholdDb
+                prefs.getAttenuationBucketThresholdDb()
+                    ?: AppConfig.attenuationBucketThresholdDb
             val attenuationBucketWeights =
                 prefs.getAttenuationBucketWeights() ?: AppConfig.attenuationBucketWeights
             val infectiousnessWeights =
@@ -145,13 +157,19 @@ class ExposureNotificationsRepository @Inject constructor(
 
             client.getDailySummaries(
                 DailySummariesConfig.DailySummariesConfigBuilder().apply {
-                    for (i in 0..5) {
-                        setReportTypeWeight(i, reportTypeWeights[i])
-                    }
+
+                    setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeights[1])
+                    setReportTypeWeight(
+                        ReportType.CONFIRMED_CLINICAL_DIAGNOSIS,
+                        reportTypeWeights[2]
+                    )
+                    setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeights[3])
+                    setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeights[4])
+
+                    setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeights[1])
+                    setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeights[2])
+
                     setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    for (i in 0..2) {
-                        setInfectiousnessWeight(i, infectiousnessWeights[i])
-                    }
                     setMinimumWindowScore(AppConfig.minimumWindowScore)
                 }.build()
             ).addOnSuccessListener {
@@ -356,4 +374,7 @@ class ExposureNotificationsRepository @Inject constructor(
     suspend fun isEligibleToDownloadKeys(): Boolean {
         return isEnabled() && System.currentTimeMillis() - prefs.getLastKeyImport() >= AppConfig.keyImportPeriodHours * 60 * 60 * 1000
     }
+
+    fun isLocationlessScanSupported() = client.deviceSupportsLocationlessScanning()
+
 }

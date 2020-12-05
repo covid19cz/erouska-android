@@ -176,7 +176,7 @@
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
     <string name="support_request_button">Napsat e-mail na podporu</string>
-    <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informace o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
+    <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informacemi o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
     <string name="support_request_allowed">Chci přidat přílohu</string>
     <string name="support_request_denied">Nechci přidat přílohu</string>
     <string name="support_email_chooser">Vyberte e-mailovou aplikaci:</string>
@@ -197,4 +197,10 @@
     <string name="support_last_notified_risky_encounter">Poslední notifikace rizikového setkání</string>
     <string name="support_last_risky_encounter_from">Poslední rizikové setkání z</string>
     <string name="support_file_name">diagnosticke_informace.txt</string>
+    <string name="support_email_body_contact">Napište nám, s čím vám můžeme poradit:\n\n</string>
+    <string name="support_email_body_error">Napište nám, jak k chybě došlo:\n\n</string>
+    <string name="support_screen_origin">Obrazovka</string>
+    <string name="notification_downloading_title">Probíhá kontrola rizikových kontaktů</string>
+    <string name="notification_downloading_description">eRouška zjišťuje, zda jste byli v rizikovém kontaktu s onemocněním COVID-19.</string>
+    <string name="notification_channel_downloading">Kontrola rizikových kontaktů</string>
 </resources>

@@ -22,6 +22,10 @@ class ActivationNotificationsFragment :
         ActivationNotificationsVM::class
     ) {
 
+    companion object{
+        private const val SCREEN_NAME = "Activation Notifications"
+    }
+
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
@@ -33,7 +37,7 @@ class ActivationNotificationsFragment :
         }
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this)
+            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
         }
 
         subscribe(BluetoothDisabledEvent::class) {

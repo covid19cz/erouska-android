@@ -19,6 +19,11 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding, ContactsVM>(
     R.layout.fragment_contacts,
     ContactsVM::class
 ) {
+
+    companion object {
+        private const val SCREEN_NAME = "Contacts"
+    }
+
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
@@ -44,7 +49,9 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding, ContactsVM>(
                 supportEmailGenerator.sendSupportEmail(
                     requireActivity(),
                     lifecycleScope,
-                    recipient = link.split("mailto:")[1]
+                    recipient = link.split("mailto:")[1],
+                    isError = false,
+                    screenOrigin = SCREEN_NAME
                 )
             } else {
                 showWeb(link, customTabHelper)

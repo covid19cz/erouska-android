@@ -36,7 +36,7 @@ class ExposureNotificationsErrorHandling @Inject constructor(
     private val CONNECTION_RESULT_PATTERN: Pattern =
         Pattern.compile("ConnectionResult\\{[^}]*statusCode=[a-zA-Z0-9_]+\\((\\d+)\\)")
 
-    fun handle(gmsApiErrorEvent: GmsApiErrorEvent, fragment: Fragment) {
+    fun handle(gmsApiErrorEvent: GmsApiErrorEvent, fragment: Fragment, screen: String) {
         if (gmsApiErrorEvent.throwable is ApiException) {
             try {
                 fragment.startIntentSenderForResult(
@@ -49,14 +49,14 @@ class ExposureNotificationsErrorHandling @Inject constructor(
                     null
                 )
             } catch (t: Throwable) {
-                showErrorDialog(fragment, gmsApiErrorEvent.throwable)
+                showErrorDialog(fragment, gmsApiErrorEvent.throwable, screen)
             }
         } else {
-            showErrorDialog(fragment, gmsApiErrorEvent.throwable)
+            showErrorDialog(fragment, gmsApiErrorEvent.throwable, screen)
         }
     }
 
-    private fun showErrorDialog(fragment: Fragment, throwable: Throwable) {
+    private fun showErrorDialog(fragment: Fragment, throwable: Throwable, screen: String) {
         val errorMessage = getErrorMessage(throwable, fragment.requireContext())
         AlertDialog.Builder(fragment.requireContext())
             .setTitle(fragment.getString(R.string.activation_error))
@@ -70,7 +70,9 @@ class ExposureNotificationsErrorHandling @Inject constructor(
                 supportEmailGenerator.sendSupportEmail(
                     fragment.requireActivity(),
                     fragment.lifecycleScope,
-                    errorCode = errorMessage
+                    errorCode = errorMessage,
+                    isError = true,
+                    screenOrigin = screen
                 )
             }.setNegativeButton(R.string.send_data_close) { _, _ -> }.show()
     }
