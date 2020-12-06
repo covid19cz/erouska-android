@@ -12,7 +12,6 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.mydata.event.MyDataCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -39,10 +38,6 @@ class MyDataVM @ViewModelInject constructor(
             getMetrics()
         }
 
-    }
-
-    fun measures() {
-        publish(MyDataCommandEvent(MyDataCommandEvent.Command.MEASURES))
     }
 
     fun onRefresh() {
