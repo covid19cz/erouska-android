@@ -158,6 +158,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             viewModel.acceptExposure()
             exposure_notification_container.hide()
         }
+        exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
+
         data_notification_close.setOnClickListener { data_notification_container.hide() }
         enableUpInToolbar(false)
 
@@ -175,13 +177,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
-        
-        exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
-        exposure_notification_close.setOnClickListener {
-            viewModel.acceptExposure()
-            exposure_notification_container.hide()
-        }
 
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
