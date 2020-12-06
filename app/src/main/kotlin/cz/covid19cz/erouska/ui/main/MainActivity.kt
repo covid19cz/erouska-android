@@ -19,10 +19,10 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
-import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
+import cz.covid19cz.erouska.utils.Analytics
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +32,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
+
+    companion object {
+        private const val ANALYTICS_KEY_HOME = "click_tab_home"
+        private const val ANALYTICS_KEY_NEWS = "click_tab_news"
+        private const val ANALYTICS_KEY_CONTACTS = "click_tab_contacts"
+        private const val ANALYTICS_KEY_HELP = "click_tab_help"
+    }
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
@@ -61,10 +68,9 @@ class MainActivity :
 
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
-                navigate(
-                    item.itemId,
-                    navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
-                )
+                logTabClickEventToAnalytics(item)
+                val options = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
+                navigate(item.itemId, navOptions = options)
                 true
             }
 
@@ -82,6 +88,17 @@ class MainActivity :
                 bottom_navigation.getOrCreateBadge(R.id.nav_dashboard).backgroundColor = it
             }
         })
+    }
+
+    private fun logTabClickEventToAnalytics(item: MenuItem) {
+        val event = when (item.itemId) {
+            R.id.nav_dashboard -> ANALYTICS_KEY_HOME
+            R.id.nav_my_data -> ANALYTICS_KEY_NEWS
+            R.id.nav_contacts -> ANALYTICS_KEY_CONTACTS
+            R.id.nav_help -> ANALYTICS_KEY_HELP
+            else -> throw IllegalStateException("analytics event for ${item.title} is not mapped")
+        }
+        Analytics.logEvent(this, event)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
