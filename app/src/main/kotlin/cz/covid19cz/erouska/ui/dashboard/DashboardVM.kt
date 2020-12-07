@@ -75,7 +75,7 @@ class DashboardVM @ViewModelInject constructor(
     fun checkStatus() {
         viewModelScope.launch {
             kotlin.runCatching {
-                if (!exposureNotificationsRepository.isEnabled()){
+                if (!exposureNotificationsRepository.isEnabled()) {
                     return@runCatching setOf(ExposureNotificationStatus.INACTIVATED)
                 }
                 return@runCatching exposureNotificationsRepository.getStatus()
@@ -94,7 +94,9 @@ class DashboardVM @ViewModelInject constructor(
     fun stop() {
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.stop()
+                if (exposureNotificationsRepository.isEnabled()) {
+                    exposureNotificationsRepository.stop()
+                }
             }.onSuccess {
                 L.i("EN API Stopped")
                 checkStatus()
