@@ -45,6 +45,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         private const val ANALYTICS_KEY_SHARE_APP = "click_share_app"
         private const val ANALYTICS_KEY_PAUSE_APP = "click_pause_app"
+        private const val ANALYTICS_KEY_RESUME_APP = "click_resume_app"
     }
 
     private val mainViewModel: MainVM by activityViewModels()
@@ -184,7 +185,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             Analytics.logEvent(requireContext(), ANALYTICS_KEY_PAUSE_APP)
             viewModel.stop()
         }
-        dash_card_inactive.setOnClickListener { viewModel.start() }
+        dash_card_inactive.setOnClickListener {
+            Analytics.logEvent(requireContext(), ANALYTICS_KEY_RESUME_APP)
+            viewModel.start()
+        }
 
         updateLastUpdateDateAndTime()
 
