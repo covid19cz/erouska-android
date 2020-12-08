@@ -28,6 +28,9 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.utils.Analytics
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_PAUSE_APP
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_RESUME_APP
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -42,10 +45,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     companion object {
         private const val SCREEN_NAME = "Dashboard"
-
-        private const val ANALYTICS_KEY_SHARE_APP = "click_share_app"
-        private const val ANALYTICS_KEY_PAUSE_APP = "click_pause_app"
-        private const val ANALYTICS_KEY_RESUME_APP = "click_resume_app"
     }
 
     private val mainViewModel: MainVM by activityViewModels()

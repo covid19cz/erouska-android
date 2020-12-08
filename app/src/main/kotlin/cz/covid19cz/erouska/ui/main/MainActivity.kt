@@ -23,6 +23,10 @@ import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
 import cz.covid19cz.erouska.utils.Analytics
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_CONTACTS
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_HELP
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_HOME
+import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_NEWS
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,13 +36,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
-
-    companion object {
-        private const val ANALYTICS_KEY_HOME = "click_tab_home"
-        private const val ANALYTICS_KEY_NEWS = "click_tab_news"
-        private const val ANALYTICS_KEY_CONTACTS = "click_tab_contacts"
-        private const val ANALYTICS_KEY_HELP = "click_tab_help"
-    }
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
