@@ -40,7 +40,7 @@ class MainActivity :
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
-    lateinit var reviewManager: ReviewManager
+    private lateinit var reviewManager: ReviewManager
     var reviewInfo: ReviewInfo? = null
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
@@ -108,7 +108,10 @@ class MainActivity :
                 true
             }
             R.id.nav_exposure_help -> {
-                navigate(R.id.nav_exposure_help, ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle())
+                navigate(
+                    R.id.nav_exposure_help,
+                    ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle()
+                )
                 true
             }
             else -> {
@@ -152,9 +155,7 @@ class MainActivity :
         if (reviewInfo != null) {
             reviewManager.launchReviewFlow(this, reviewInfo).addOnFailureListener {
                 L.e(it)
-            }.addOnCompleteListener { _ ->
-               L.i("Review success")
-            }
+            }.addOnCompleteListener { L.i("Review success") }
         }
     }
 
