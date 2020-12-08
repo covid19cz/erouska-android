@@ -181,12 +181,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         dash_card_active.setOnClickListener {
-            Analytics.logEvent(requireContext(), ANALYTICS_KEY_PAUSE_APP)
             viewModel.stop()
+            Analytics.logEvent(requireContext(), ANALYTICS_KEY_PAUSE_APP)
         }
         dash_card_inactive.setOnClickListener {
-            Analytics.logEvent(requireContext(), ANALYTICS_KEY_RESUME_APP)
             viewModel.start()
+            Analytics.logEvent(requireContext(), ANALYTICS_KEY_RESUME_APP)
         }
 
         updateLastUpdateDateAndTime()
