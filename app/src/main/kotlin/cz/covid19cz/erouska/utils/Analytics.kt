@@ -17,6 +17,8 @@ object Analytics {
     const val ANALYTICS_KEY_CONTACTS = "click_tab_contacts"
     const val ANALYTICS_KEY_HELP = "click_tab_help"
 
+    const val ANALYTICS_KEY_CURRENT_MEASURES = "click_current_measures"
+    
     fun logEvent(context: Context, key: String) {
         val analytics = FirebaseAnalytics.getInstance(context)
         analytics.logEvent(key, Bundle())
