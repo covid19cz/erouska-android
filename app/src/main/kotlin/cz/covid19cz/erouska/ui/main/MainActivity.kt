@@ -88,7 +88,6 @@ class MainActivity :
     }
 
     private fun logTabClickEventToAnalytics(item: MenuItem) {
-        L.i("clicked tab ${item.title}")
         val event = when (item.itemId) {
             R.id.nav_dashboard -> KEY_HOME
             R.id.nav_my_data -> KEY_NEWS

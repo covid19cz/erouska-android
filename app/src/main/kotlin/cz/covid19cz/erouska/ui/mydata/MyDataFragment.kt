@@ -29,8 +29,8 @@ class MyDataFragment :
         }
 
         measures_text.setOnClickListener {
-            Analytics.logEvent(requireContext(), KEY_CURRENT_MEASURES)
             openMeasures()
+            Analytics.logEvent(requireContext(), KEY_CURRENT_MEASURES)
         }
     }
 
