@@ -28,9 +28,9 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
 import cz.covid19cz.erouska.utils.Analytics
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_PAUSE_APP
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_RESUME_APP
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_SHARE_APP
+import cz.covid19cz.erouska.utils.Analytics.KEY_PAUSE_APP
+import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
+import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -182,11 +182,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_active.setOnClickListener {
             viewModel.stop()
-            Analytics.logEvent(requireContext(), ANALYTICS_KEY_PAUSE_APP)
+            Analytics.logEvent(requireContext(), KEY_PAUSE_APP)
         }
         dash_card_inactive.setOnClickListener {
             viewModel.start()
-            Analytics.logEvent(requireContext(), ANALYTICS_KEY_RESUME_APP)
+            Analytics.logEvent(requireContext(), KEY_RESUME_APP)
         }
 
         updateLastUpdateDateAndTime()
@@ -211,7 +211,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_share -> {
-                Analytics.logEvent(requireContext(), ANALYTICS_KEY_SHARE_APP)
+                Analytics.logEvent(requireContext(), KEY_SHARE_APP)
                 requireContext().shareApp()
                 true
             }

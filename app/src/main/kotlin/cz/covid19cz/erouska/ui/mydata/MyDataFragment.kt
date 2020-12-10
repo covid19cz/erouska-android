@@ -8,7 +8,7 @@ import cz.covid19cz.erouska.databinding.FragmentMyDataBinding
 import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.Analytics
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_CURRENT_MEASURES
+import cz.covid19cz.erouska.utils.Analytics.KEY_CURRENT_MEASURES
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_my_data.*
@@ -29,7 +29,7 @@ class MyDataFragment :
         }
 
         measures_text.setOnClickListener {
-            Analytics.logEvent(requireContext(), ANALYTICS_KEY_CURRENT_MEASURES)
+            Analytics.logEvent(requireContext(), KEY_CURRENT_MEASURES)
             openMeasures()
         }
     }

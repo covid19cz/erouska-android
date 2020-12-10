@@ -23,10 +23,10 @@ import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
 import cz.covid19cz.erouska.utils.Analytics
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_CONTACTS
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_HELP
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_HOME
-import cz.covid19cz.erouska.utils.Analytics.ANALYTICS_KEY_NEWS
+import cz.covid19cz.erouska.utils.Analytics.KEY_CONTACTS
+import cz.covid19cz.erouska.utils.Analytics.KEY_HELP
+import cz.covid19cz.erouska.utils.Analytics.KEY_HOME
+import cz.covid19cz.erouska.utils.Analytics.KEY_NEWS
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,11 +88,12 @@ class MainActivity :
     }
 
     private fun logTabClickEventToAnalytics(item: MenuItem) {
+        L.i("clicked tab ${item.title}")
         val event = when (item.itemId) {
-            R.id.nav_dashboard -> ANALYTICS_KEY_HOME
-            R.id.nav_my_data -> ANALYTICS_KEY_NEWS
-            R.id.nav_contacts -> ANALYTICS_KEY_CONTACTS
-            R.id.nav_help -> ANALYTICS_KEY_HELP
+            R.id.nav_dashboard -> KEY_HOME
+            R.id.nav_my_data -> KEY_NEWS
+            R.id.nav_contacts -> KEY_CONTACTS
+            R.id.nav_help -> KEY_HELP
             else -> throw IllegalStateException("analytics event for ${item.title} is not mapped")
         }
         Analytics.logEvent(this, event)
