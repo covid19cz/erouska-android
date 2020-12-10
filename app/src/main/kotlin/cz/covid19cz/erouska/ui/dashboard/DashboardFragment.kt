@@ -211,8 +211,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_share -> {
-                Analytics.logEvent(requireContext(), KEY_SHARE_APP)
                 requireContext().shareApp()
+                Analytics.logEvent(requireContext(), KEY_SHARE_APP)
                 true
             }
             R.id.nav_about -> {
