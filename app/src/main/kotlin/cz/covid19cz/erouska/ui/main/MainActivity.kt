@@ -65,9 +65,9 @@ class MainActivity :
 
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
-                logTabClickEventToAnalytics(item)
                 val options = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
                 navigate(item.itemId, navOptions = options)
+                logTabClickEventToAnalytics(item)
                 true
             }
 
