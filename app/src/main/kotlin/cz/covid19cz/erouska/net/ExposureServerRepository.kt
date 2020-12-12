@@ -75,9 +75,24 @@ class ExposureServerRepository @Inject constructor(
             .build().create(VerificationServerApi::class.java)
     }
 
-    suspend fun reportExposure(request: ExposureRequest): ExposureResponse {
+    suspend fun reportExposure(
+        temporaryExposureKeyDto: List<TemporaryExposureKeyDto>,
+        certificate: String,
+        hmackey: String
+    ): ExposureResponse {
         return withContext(Dispatchers.IO) {
-            keyServerClient.reportExposure(request)
+            keyServerClient.reportExposure(
+                ExposureRequest(
+                    temporaryExposureKeyDto,
+                    certificate,
+                    hmackey,
+                    null,
+                    AppConfig.efgsTravellerDefault,
+                    AppConfig.efgsConsentToFederation,
+                    AppConfig.efgsReportType,
+                    AppConfig.efgsVisitedCountries
+                )
+            )
         }
     }
 

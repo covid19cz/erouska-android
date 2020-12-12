@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface KeyServerApi {
 
-    @POST("v1/publish")
+    @POST("PublishKeys")
     suspend fun reportExposure(@Body exposureRequest: ExposureRequest) : ExposureResponse
 }
