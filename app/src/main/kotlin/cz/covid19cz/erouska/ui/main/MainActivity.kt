@@ -19,10 +19,14 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
-import cz.covid19cz.erouska.ext.isBtEnabled
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
+import cz.covid19cz.erouska.utils.Analytics
+import cz.covid19cz.erouska.utils.Analytics.KEY_CONTACTS
+import cz.covid19cz.erouska.utils.Analytics.KEY_HELP
+import cz.covid19cz.erouska.utils.Analytics.KEY_HOME
+import cz.covid19cz.erouska.utils.Analytics.KEY_NEWS
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +40,7 @@ class MainActivity :
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
-    lateinit var reviewManager: ReviewManager
+    private lateinit var reviewManager: ReviewManager
     var reviewInfo: ReviewInfo? = null
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
@@ -61,10 +65,9 @@ class MainActivity :
 
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
-                navigate(
-                    item.itemId,
-                    navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
-                )
+                val options = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
+                navigate(item.itemId, navOptions = options)
+                logTabClickEventToAnalytics(item)
                 true
             }
 
@@ -84,6 +87,17 @@ class MainActivity :
         })
     }
 
+    private fun logTabClickEventToAnalytics(item: MenuItem) {
+        val event = when (item.itemId) {
+            R.id.nav_dashboard -> KEY_HOME
+            R.id.nav_my_data -> KEY_NEWS
+            R.id.nav_contacts -> KEY_CONTACTS
+            R.id.nav_help -> KEY_HELP
+            else -> throw IllegalStateException("analytics event for ${item.title} is not mapped")
+        }
+        Analytics.logEvent(this, event)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_about -> {
@@ -94,7 +108,10 @@ class MainActivity :
                 true
             }
             R.id.nav_exposure_help -> {
-                navigate(R.id.nav_exposure_help, ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle())
+                navigate(
+                    R.id.nav_exposure_help,
+                    ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle()
+                )
                 true
             }
             else -> {
@@ -138,9 +155,7 @@ class MainActivity :
         if (reviewInfo != null) {
             reviewManager.launchReviewFlow(this, reviewInfo).addOnFailureListener {
                 L.e(it)
-            }.addOnCompleteListener { _ ->
-               L.i("Review success")
-            }
+            }.addOnCompleteListener { L.i("Review success") }
         }
     }
 

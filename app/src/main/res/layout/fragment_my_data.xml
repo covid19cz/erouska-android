@@ -58,7 +58,6 @@
                     android:drawablePadding="16dp"
                     android:focusable="true"
                     android:gravity="center_vertical|start"
-                    android:onClick="@{() -> vm.measures()}"
                     android:paddingStart="16dp"
                     android:paddingTop="24dp"
                     android:paddingEnd="16dp"

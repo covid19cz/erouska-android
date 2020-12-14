@@ -27,6 +27,10 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.ui.main.MainVM
+import cz.covid19cz.erouska.utils.Analytics
+import cz.covid19cz.erouska.utils.Analytics.KEY_PAUSE_APP
+import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
+import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -154,6 +158,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             viewModel.acceptExposure()
             exposure_notification_container.hide()
         }
+        exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
+
         data_notification_close.setOnClickListener { data_notification_container.hide() }
         enableUpInToolbar(false)
 
@@ -171,15 +177,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
-        
-        exposure_notification_content.text = AppConfig.encounterWarning
-        exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
-        exposure_notification_close.setOnClickListener {
-            viewModel.acceptExposure()
-            exposure_notification_container.hide()
-        }
 
         data_notification_close.setOnClickListener { data_notification_container.hide() }
+
+        dash_card_active.setOnClickListener {
+            viewModel.stop()
+            Analytics.logEvent(requireContext(), KEY_PAUSE_APP)
+        }
+        dash_card_inactive.setOnClickListener {
+            viewModel.start()
+            Analytics.logEvent(requireContext(), KEY_RESUME_APP)
+        }
 
         updateLastUpdateDateAndTime()
 
@@ -204,6 +212,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         return when (item.itemId) {
             R.id.menu_share -> {
                 requireContext().shareApp()
+                Analytics.logEvent(requireContext(), KEY_SHARE_APP)
                 true
             }
             R.id.nav_about -> {
