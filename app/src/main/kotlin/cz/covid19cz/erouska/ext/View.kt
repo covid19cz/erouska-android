@@ -2,7 +2,19 @@ package cz.covid19cz.erouska.ext
 
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+
+fun EditText.setOnDoneListener(onDone: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            onDone()
+            return@setOnEditorActionListener true
+        }
+        return@setOnEditorActionListener false
+    }
+}
 
 fun View.attachKeyboardController() {
     setOnFocusChangeListener { _, hasFocus ->

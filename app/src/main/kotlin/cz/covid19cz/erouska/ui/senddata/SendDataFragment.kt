@@ -69,6 +69,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
             (it as MainActivity).initReviews()
         }
         code_input.requestFocus()
+        code_input.setOnDoneListener { viewModel.verifyAndConfirm() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
