@@ -9,10 +9,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSendDataBinding
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsErrorHandling
-import cz.covid19cz.erouska.ext.focusAndShowKeyboard
-import cz.covid19cz.erouska.ext.hide
-import cz.covid19cz.erouska.ext.hideKeyboard
-import cz.covid19cz.erouska.ext.show
+import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainActivity
@@ -71,15 +68,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         activity?.let {
             (it as MainActivity).initReviews()
         }
-        support_button.setOnClickListener {
-            supportEmailGenerator.sendSupportEmail(
-                requireActivity(),
-                lifecycleScope,
-                errorCode = this.errorMessage,
-                isError = true,
-                screenOrigin = SCREEN_NAME
-            )
-        }
+        code_input.requestFocus()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -93,11 +82,21 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     }
 
     private fun setupListeners() {
+        code_input.attachKeyboardController()
         success_close_button.setOnClickListener {
             navController().navigateUp()
             activity?.let {
                 (it as MainActivity).askForReview()
             }
+        }
+        support_button.setOnClickListener {
+            supportEmailGenerator.sendSupportEmail(
+                requireActivity(),
+                lifecycleScope,
+                errorCode = this.errorMessage,
+                isError = true,
+                screenOrigin = SCREEN_NAME
+            )
         }
     }
 
@@ -111,7 +110,6 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun onInitState() {
         progress.hide()
-        code_input.focusAndShowKeyboard()
         enableUpInToolbar(true, IconType.CLOSE)
 
         code_input_layout.error = null
@@ -154,7 +152,8 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
         this.errorMessage = errorMessage
         onError(showSupportButton = true)
         error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
+        error_body.text =
+            getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
     }
 
     private fun onNoInternet() {
@@ -166,7 +165,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
     private fun onSuccess(hasEnoughKeys: Boolean = true) {
         activity?.setTitle(R.string.sent)
         progress.hide()
-        code_input.hideKeyboard()
+        code_input.clearFocus()
         enableUpInToolbar(true, IconType.UP)
 
         if (hasEnoughKeys) {
@@ -187,6 +186,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
             viewModel.reset()
             return true
         }
+        code_input.clearFocus()
         return super.onBackPressed()
     }
 
