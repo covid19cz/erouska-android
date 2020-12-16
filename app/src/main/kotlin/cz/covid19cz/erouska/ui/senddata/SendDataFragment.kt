@@ -69,7 +69,6 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
             (it as MainActivity).initReviews()
         }
         code_input.requestFocus()
-        code_input.setOnDoneListener { viewModel.verifyAndConfirm() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,6 +83,7 @@ class SendDataFragment : BaseFragment<FragmentSendDataBinding, SendDataVM>(
 
     private fun setupListeners() {
         code_input.attachKeyboardController()
+        code_input.setOnDoneListener { viewModel.verifyAndConfirm() }
         success_close_button.setOnClickListener {
             navController().navigateUp()
             activity?.let {
