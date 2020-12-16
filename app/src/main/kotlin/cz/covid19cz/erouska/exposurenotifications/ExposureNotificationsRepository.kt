@@ -249,22 +249,15 @@ class ExposureNotificationsRepository @Inject constructor(
                     L.i("Verify certificate success")
                 }
 
-                val request = ExposureRequest(
-                    keys.map {
-                        TemporaryExposureKeyDto(
-                            it.keyData.encodeBase64(),
-                            it.rollingStartIntervalNumber,
-                            it.rollingPeriod
-                        )
-                    },
-                    certificateResponse.certificate,
-                    hmackey,
-                    null,
-                    null,
-                    healthAuthorityID = "cz.covid19cz.erouska"
-                )
-                L.i("Uploading ${request.temporaryExposureKeys.size} keys")
-                val response = server.reportExposure(request)
+                val dtos = keys.map {
+                    TemporaryExposureKeyDto(
+                        it.keyData.encodeBase64(),
+                        it.rollingStartIntervalNumber,
+                        it.rollingPeriod
+                    )
+                }
+                L.i("Uploading ${dtos.size} keys")
+                val response = server.reportExposure(dtos, certificateResponse.certificate, hmackey)
                 response.errorMessage?.let {
                     L.e("Report exposure failed: $it")
                     throw ReportExposureException(it, response.code)

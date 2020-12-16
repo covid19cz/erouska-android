@@ -7,11 +7,13 @@ data class ExposureRequest(
     val temporaryExposureKeys: List<TemporaryExposureKeyDto>,
     val verificationPayload: String?,
     val hmackey: String?,
-    val symptomOnsetInterval: Int?,
     val revisionToken: String?,
+    val traveler: Boolean,
+    val consentToFederation: Boolean,
+    val reportType: String,
+    val visitedCountries: List<String>,
     val padding: String = Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.NO_WRAP),
-    val traveler: Boolean = false,
-    val healthAuthorityID: String = "cz.covid19cz.erouska"
+    val healthAuthorityID: String = "cz.covid19cz.erouska",
 )
 
 data class TemporaryExposureKeyDto(
