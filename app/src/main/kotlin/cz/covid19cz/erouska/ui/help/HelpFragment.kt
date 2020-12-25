@@ -21,7 +21,6 @@ import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 import javax.inject.Inject
 
@@ -40,6 +39,8 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.fillInHelp()
 
         subscribe(HelpCommandEvent::class) {
             when (it.command) {
@@ -155,26 +156,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
         enableUpInToolbar(isFullscreen, IconType.CLOSE)
 
-        if (isFullscreen) {
-            welcome_continue_btn.visibility = View.VISIBLE
-        } else {
-            welcome_continue_btn.visibility = View.GONE
-        }
-
-        if (AppConfig.showChatBotLink) {
-            chat_group.show()
-        } else {
-            chat_group.hide()
-        }
-
-        viewModel.displayedText = help_desc.text.toString()
-
-        viewModel.lastMarkedIndex.observe(viewLifecycleOwner) {
-            val lineNumber = help_desc?.layout?.getLineForOffset(it)
-            val lineTop = help_desc.layout?.getLineTop(lineNumber ?: 0) ?: 0
-            help_scroll?.scrollTo(0, lineTop)
-        }
-
         viewModel.searchResultCount.observe(viewLifecycleOwner) {
             if (it == 0) {
                 when {
@@ -193,13 +174,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
         viewModel.queryData.observe((viewLifecycleOwner)) {
             if (it.isBlank()) {
                 hideSnackBar()
-            }
-        }
-
-        viewModel.content.observe(viewLifecycleOwner) {
-            if (help_desc != null) {
-                markdown.show(help_desc, it)
-                viewModel.displayedText = help_desc.text.toString()
             }
         }
 

@@ -6,28 +6,38 @@
 
         <variable
             name="item"
-            type="cz.covid19cz.erouska.ui.help.data.Category" />
+            type="cz.covid19cz.erouska.ui.help.data.Question" />
 
         <variable
             name="vm"
-            type="cz.covid19cz.erouska.ui.help.HelpVM" />
+            type="cz.covid19cz.erouska.ui.helpcategory.HelpCategoryVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/fragment_padding">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/help_categories"
+            android:id="@+id/help_questions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="16dp"
+            android:paddingBottom="@dimen/fragment_padding_bottom_larger"
+            android:onClick="@{ () -> vm.onItemClicked(item)}"
             app:items="@{ vm.items }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
             app:viewModel="@{ vm }" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/separator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

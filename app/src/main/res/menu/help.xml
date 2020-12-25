@@ -4,21 +4,10 @@
 
     <item
         android:id="@+id/previous_search_result"
-        android:enabled="false"
-        android:icon="@drawable/ic_previous_search_result"
-        android:title="@string/previous_search_result"
-        android:visible="false"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/next_search_result"
-        android:enabled="false"
-        android:icon="@drawable/ic_next_search_result"
-        android:title="@string/next_search_result"
-        android:visible="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        android:visible="true"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/nav_about"
-        android:title="@string/about"
-        app:showAsAction="always" />
 </menu>
