@@ -7,7 +7,6 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpQuestionBinding
 import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help_question.*
@@ -20,6 +19,9 @@ class HelpQuestionFragment : BaseFragment<FragmentHelpQuestionBinding, HelpQuest
     HelpQuestionVM::class
 ) {
 
+    @Inject
+    lateinit var markdown: Markdown
+
     private val args: HelpQuestionFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,10 +29,9 @@ class HelpQuestionFragment : BaseFragment<FragmentHelpQuestionBinding, HelpQuest
         enableUpInToolbar(true, IconType.UP)
         activity?.title = args.question.question
 
-        activity?.toolbar_search_view?.hide()
-
         question.text = args.question.question
-        answer.text = args.question.answer
+//        answer.text = args.question.answer
+        markdown.show(answer, args.question.answer)
 
     }
 

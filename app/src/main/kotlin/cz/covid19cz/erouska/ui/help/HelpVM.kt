@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.help
 import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
 import arch.adapter.RecyclerLayoutStrategy
+import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.Category
@@ -34,8 +35,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
                     ),
                     Question(
                         "Jak eRouška vyhodnocuje rizikové setkání?",
-                        "Epidemiologové stanovují rizikový kontakt jako setkání, které je ve vzdálenosti bližší než 2 metry po dobu alespoň 15 minut. Aplikace eRouška se to snaží co nejpřesněji změřit dostupnými technologiemi. Vzdálenost mezi uživateli, respektive jejich telefony, se odhaduje na základě síly signálu Bluetooth. Doba setkání se posuzuje podle měřicích oken – telefon v několikaminutových intervalech zjišťuje, zda jsou v okolí jiné telefony s eRouškou."
-                    )
+                        AppConfig.helpMarkdown)
                 )
             ),
             Category(

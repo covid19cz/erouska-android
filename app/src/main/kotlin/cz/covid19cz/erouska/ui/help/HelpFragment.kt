@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
-import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.search_toolbar.*
@@ -33,7 +32,6 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
             }
 
             isIconified = true
-            show()
 
         }
     }

@@ -8,6 +8,9 @@ import android.view.View
 import android.widget.SearchView
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpSearchBinding
+import cz.covid19cz.erouska.ext.attachKeyboardController
+import cz.covid19cz.erouska.ext.hide
+import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
@@ -24,18 +27,6 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
     @Inject
     internal lateinit var markdown: Markdown
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.fillQuestions()
-    }
-
-    private fun collapseSearchView() {
-        activity?.toolbar_search_view?.apply {
-            L.i("Collapsing")
-            setQuery("", false)
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -44,6 +35,11 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.fillQuestions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,6 +53,7 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
 
         activity?.toolbar_search_view?.apply {
 
+            attachKeyboardController()
             setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -76,6 +73,9 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
                 goBack()
                 true
             }
+
+            show()
+            requestFocus()
 
         }
 
@@ -98,6 +98,13 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
         removeSearchViewCallbacks()
         collapseSearchView()
         navController().navigateUp()
+    }
+
+    private fun collapseSearchView() {
+        activity?.toolbar_search_view?.apply {
+            L.i("Collapsing")
+            setQuery("", false)
+        }
     }
 
 }
