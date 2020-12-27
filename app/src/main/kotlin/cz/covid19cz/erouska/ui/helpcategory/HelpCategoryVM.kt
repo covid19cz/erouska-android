@@ -26,4 +26,6 @@ class HelpCategoryVM @ViewModelInject constructor() : BaseVM() {
         items.addAll(questions)
     }
 
+    fun onSearchTapped() = navigate(R.id.nav_help_search)
+
 }

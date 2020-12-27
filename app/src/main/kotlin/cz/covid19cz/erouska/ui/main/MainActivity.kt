@@ -72,6 +72,7 @@ class MainActivity :
             }
 
             it.addOnDestinationChangedListener { _, destination, arguments ->
+                L.i("destination changed")
                 updateTitle(destination)
                 updateBottomNavigation(destination, arguments)
             }

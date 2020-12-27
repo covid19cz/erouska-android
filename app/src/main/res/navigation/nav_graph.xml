@@ -110,10 +110,6 @@
         android:label="@string/help_toolbar_title"
         tools:layout="@layout/fragment_help">
 
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="false"
-            app:argType="boolean" />
         <action
             android:id="@+id/action_nav_help_to_nav_about"
             app:destination="@id/nav_about"
@@ -130,11 +126,6 @@
         tools:layout="@layout/fragment_help_category">
 
         <argument
-            android:name="fullscreen"
-            android:defaultValue="false"
-            app:argType="boolean" />
-
-        <argument
             android:name="category"
             app:argType="cz.covid19cz.erouska.ui.help.data.Category"/>
     </fragment>
@@ -146,13 +137,15 @@
         tools:layout="@layout/fragment_help_question">
 
         <argument
-            android:name="fullscreen"
-            android:defaultValue="false"
-            app:argType="boolean" />
-
-        <argument
             android:name="question"
             app:argType="cz.covid19cz.erouska.ui.help.data.Question"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help_search"
+        android:name="cz.covid19cz.erouska.ui.helpsearch.HelpSearchFragment"
+        tools:layout="@layout/fragment_help_search">
+
     </fragment>
 
     <fragment

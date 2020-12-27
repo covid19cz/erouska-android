@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.helpsearch.HelpSearchVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/help_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            app:items="@{ vm.searchResult }"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutStrategy="@{vm.layoutStrategy}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:viewModel="@{ vm }" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -18,27 +18,7 @@ class HelpQuestionFragment : BaseFragment<FragmentHelpQuestionBinding, HelpQuest
     HelpQuestionVM::class
 ) {
 
-    @Inject
-    internal lateinit var markdown: Markdown
-    private var isFullscreen: Boolean = false
-
     private val args: HelpQuestionFragmentArgs by navArgs()
-
-    @Inject
-    internal lateinit var customTabHelper: CustomTabHelper
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        isFullscreen = arguments?.let {
-            HelpQuestionFragmentArgs.fromBundle(it).fullscreen
-        } ?: false
-
-    }
-
-    fun goBack() {
-        navController().navigateUp()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
