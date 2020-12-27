@@ -117,34 +117,84 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_category"
+            app:destination="@id/nav_help_category"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_search"
+            app:destination="@id/nav_help_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_help_category"
         android:name="cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragment"
-        android:label="@string/help_toolbar_title"
+        android:label="Help Category"
         tools:layout="@layout/fragment_help_category">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
 
         <argument
             android:name="category"
             app:argType="cz.covid19cz.erouska.ui.help.data.Category"/>
+
+        <action
+            android:id="@+id/action_nav_help_category_to_nav_help_question"
+            app:destination="@id/nav_help_question"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_search"
+            app:destination="@id/nav_help_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_help_question"
         android:name="cz.covid19cz.erouska.ui.helpquestion.HelpQuestionFragment"
-        android:label="@string/help_toolbar_title"
+        android:label="Help Question"
         tools:layout="@layout/fragment_help_question">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
 
         <argument
             android:name="question"
             app:argType="cz.covid19cz.erouska.ui.help.data.Question"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_help_search"
         android:name="cz.covid19cz.erouska.ui.helpsearch.HelpSearchFragment"
+        android:label="@string/search"
         tools:layout="@layout/fragment_help_search">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
 
     </fragment>
 
@@ -158,6 +208,7 @@
             android:defaultValue="true"
             app:argType="boolean" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
