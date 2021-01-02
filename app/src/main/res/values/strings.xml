@@ -181,4 +181,8 @@
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
+
+    <string name="how_it_works_content">Zajímá vás, jak eRouška funguje?</string>
+    <string name="how_it_works_more">Zjistit více</string>
+    <string name="how_it_works_close">Zavřít</string>
 </resources>

@@ -33,8 +33,21 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
 import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_content
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_content
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_more_info
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_bluetooth_off
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_active
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_inactive
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_no_risky_encounter
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_positive_test
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_risky_encounter
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_location_off
+import kotlinx.android.synthetic.main.fragment_dashboard_plus.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -131,6 +144,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     notifications.dismissOudatedDataNotification()
                     data_notification_container.hide()
                 }
+                DashboardCommandEvent.Command.HOW_IT_WORKS -> how_it_works_container.show()
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
@@ -161,6 +175,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
 
         data_notification_close.setOnClickListener { data_notification_container.hide() }
+        how_it_works_close.setOnClickListener { how_it_works_container.hide() }
+
         enableUpInToolbar(false)
 
         data_notification_content.text = AppConfig.recentExposureNotificationTitle
@@ -177,8 +193,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
-
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         dash_card_active.setOnClickListener {
             viewModel.stop()

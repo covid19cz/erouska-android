@@ -49,6 +49,7 @@ class DashboardVM @ViewModelInject constructor(
                 lastUpdateTime.value = it.timestampToTime()
             }
             checkForObsoleteData()
+            showHowItWorks()
         }
         exposureNotificationsEnabled.observeForever { enabled ->
             if (enabled) {
@@ -70,6 +71,7 @@ class DashboardVM @ViewModelInject constructor(
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
+        showHowItWorks()
     }
 
     fun checkStatus() {
@@ -157,6 +159,10 @@ class DashboardVM @ViewModelInject constructor(
         } else {
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.DATA_UP_TO_DATE))
         }
+    }
+
+    private fun showHowItWorks() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.HOW_IT_WORKS))
     }
 
     /**
