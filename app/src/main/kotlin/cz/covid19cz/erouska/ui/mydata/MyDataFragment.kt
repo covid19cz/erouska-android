@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.mydata
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentMyDataBinding
@@ -32,9 +33,18 @@ class MyDataFragment :
             openMeasures()
             Analytics.logEvent(requireContext(), KEY_CURRENT_MEASURES)
         }
+
+        data_info_icon.setOnClickListener { showInfoDialog() }
     }
 
     private fun openMeasures() {
         showWeb(viewModel.getMeasuresUrl(), customTabHelper)
+    }
+
+    private fun showInfoDialog() {
+        AlertDialog.Builder(requireContext())
+            .setView(R.layout.view_info_dialog)
+            .setNegativeButton(R.string.info_dialog_close) { _, _ ->
+            }.show()
     }
 }

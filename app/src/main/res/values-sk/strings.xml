@@ -62,7 +62,8 @@
     <string name="my_data_activated_apps">%1$s aktivovaných aplikácií</string>
     <string name="my_data_notifications_sent">%1$s pozitívne testovaných anonymne upozornilo ostatných</string>
     <string name="my_data_notifications_shown">%1$s upozornení na rizikové stretnutia</string>
-    <string name="my_data_tests">%1$s vykonaných testov</string>
+    <string name="my_data_tests">%1$s vykonaných PCR testov</string>
+    <string name="my_data_antigen_tests">%1$s vykonaných antigénnych testov</string>
     <string name="my_data_ack_cases">%1$s celkom potvrdených prípadov</string>
     <string name="my_data_act_cases">%1$s aktívnych prípadov</string>
     <string name="my_data_cured">%1$s vyliečených</string>

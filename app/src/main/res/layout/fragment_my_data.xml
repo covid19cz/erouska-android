@@ -86,9 +86,25 @@
                     android:paddingBottom="8dp"
                     android:text="@string/my_data_current_situation"
                     android:textAppearance="@style/Erouska.Caption"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/data_info_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_top" />
+
+                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/data_info_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_help"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="?selectableItemBackground"
+                    app:layout_constraintStart_toEndOf="@id/situation_text"
+                    app:layout_constraintTop_toBottomOf="@id/divider_top"/>
 
                 <cz.covid19cz.erouska.ui.mydata.CaseItemView
                     android:id="@+id/tests"
@@ -109,6 +125,24 @@
                     app:layout_constraintTop_toBottomOf="@id/tests" />
 
                 <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/antigen_tests"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_test}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.antigenTestsIncrease), vm.antigenTestsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_antigen_tests, NumberFormat.getInstance().format(vm.antigenTestsTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tests" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/antigen_tests" />
+
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
                     android:id="@+id/ack_cases"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -118,7 +152,7 @@
                     app:case_title="@{String.format(@string/my_data_ack_cases, NumberFormat.getInstance().format(vm.confirmedCasesTotal))}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tests" />
+                    app:layout_constraintTop_toBottomOf="@id/antigen_tests" />
 
                 <View
                     style="@style/Divider"

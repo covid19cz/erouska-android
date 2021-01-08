@@ -62,7 +62,8 @@
     <string name="my_data_activated_apps">%1$s applications activated</string>
     <string name="my_data_notifications_sent">%1$s people who tested positive anonymously notified others</string>
     <string name="my_data_notifications_shown">%1$s notifications about risky encounters sent</string>
-    <string name="my_data_tests">%1$s tests performed</string>
+    <string name="my_data_tests">%1$s PCR tests performed</string>
+    <string name="my_data_antigen_tests">%1$s antigen tests performed</string>
     <string name="my_data_ack_cases">%1$s confirmed cases in total</string>
     <string name="my_data_act_cases">%1$s active cases</string>
     <string name="my_data_cured">%1$s cured individuals</string>
@@ -181,4 +182,7 @@
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
+
+    <string name="info_dialog_content">Informace o přehledu aktuální situace získáváme z webových stránek https://onemocneni-aktualne.mzcr.cz/covid-19, které spravuje ÚZIS ČR.</string>
+    <string name="info_dialog_close">Close</string>
 </resources>
