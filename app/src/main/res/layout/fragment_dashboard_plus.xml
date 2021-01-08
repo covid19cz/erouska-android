@@ -37,7 +37,7 @@
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 android:visibility="gone"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/data_notification_content"
@@ -79,14 +79,15 @@
                     android:id="@+id/how_it_works_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:textAppearance="@style/Erouska.Body"
                     android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/how_it_works_content"
+                    android:textAppearance="@style/Erouska.Body"
+                    app:drawableStartCompat="@drawable/ic_how_it_works_banner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="@string/how_it_works_content"
-                    app:drawableStartCompat="@drawable/ic_active" />
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/how_it_works_more"

@@ -3,15 +3,11 @@ package cz.covid19cz.erouska.ui.welcome
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.text.HtmlCompat
-import com.google.android.gms.common.GoogleApiAvailability
-import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentWelcomeBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
-import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
@@ -56,9 +52,7 @@ class WelcomeFragment :
     }
 
     private fun openHelpPage() {
-        navigate(
-            R.id.action_nav_welcome_fragment_to_nav_help,
-            Bundle().apply { putBoolean("fullscreen", true) })
+        navigate(R.id.action_nav_welcome_fragment_to_nav_how_it_works)
     }
 
     private fun showPlayServicesUpdate() {

@@ -11,7 +11,8 @@ class DashboardCommandEvent(val command: Command) : LiveEvent() {
         DATA_UP_TO_DATE,
         RECENT_EXPOSURE,
         NOT_ACTIVATED,
-        HOW_IT_WORKS
+        SHOW_HOW_IT_WORKS,
+        HIDE_HOW_IT_WORKS
     }
 
 }

@@ -228,4 +228,8 @@
         <key>v2_efgsTravellerDefault</key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>v2_howItWorksUITitle</key>
+        <value>Jak eRouška funguje</value>
+    </entry>
 </defaultsMap>

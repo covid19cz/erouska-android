@@ -70,6 +70,13 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_how_it_works"
+            app:destination="@id/nav_how_it_works"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_activation_notifications"
             app:destination="@+id/nav_activation_notifications_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -179,6 +186,13 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposure"
             app:destination="@id/nav_exposure"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_how_it_works"
+            app:destination="@id/nav_how_it_works"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -335,6 +349,16 @@
             android:name="type"
             app:argType="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType"
             android:defaultValue="EXPOSURE" />
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_how_it_works"
+        android:name="cz.covid19cz.erouska.ui.how.HowItWorksFragment"
+        tools:layout="@layout/fragment_how_it_works"
+        android:label="@string/how_it_works_toolbar_title">
         <argument
             android:name="fullscreen"
             android:defaultValue="true"
