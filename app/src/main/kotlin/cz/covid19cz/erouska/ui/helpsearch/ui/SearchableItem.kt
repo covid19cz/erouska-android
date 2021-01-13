@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.android.synthetic.main.item_search_layout.view.*
+import javax.inject.Inject
 
 class SearchableItem : LinearLayout {
 
@@ -22,7 +23,8 @@ class SearchableItem : LinearLayout {
         View.inflate(context, R.layout.item_search_layout, this)
     }
 
-    var markdown: Markdown? = null
+    @Inject
+    lateinit var markdown: Markdown
 
     var search_category: String? = null
         set(value) {
@@ -33,19 +35,18 @@ class SearchableItem : LinearLayout {
     var search_question: String? = null
         set(value) {
             value?.let {
-                value?.let {
-                    markdown?.show(question, it)
-                }
-                field = value
+                markdown.show(question, it)
             }
+            field = value
         }
 
     var search_answer: String? = null
         set(value) {
             value?.let {
-                markdown?.show(answer, it)
+                markdown.show(answer, it)
             }
             field = value
         }
+
 
 }
