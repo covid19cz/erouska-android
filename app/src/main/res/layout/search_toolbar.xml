@@ -9,9 +9,8 @@
         android:layout_gravity="end"
         android:visibility="gone"
         android:queryBackground="@color/white"
-        android:contentDescription="@string/search"
-        android:elevation="4dp"
-        android:queryHint="Napiste, co hledate"
+        android:contentDescription="@string/search_hint"
+        android:queryHint="@string/search_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

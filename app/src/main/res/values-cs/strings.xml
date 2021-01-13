@@ -154,6 +154,7 @@
     <string name="activation_error_reason_unauthorized">Nepovolený přístup k API.</string>
     <string name="ok">OK</string>
     <string name="search">Hledat</string>
+    <string name="search_hint">Napište, co hledáte</string>
     <string name="previous_search_result">Předešlý výsledek</string>
     <string name="next_search_result">Následující výsledek</string>
     <string name="help_no_results">Žádné výsledky vyhledávání</string>
