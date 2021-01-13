@@ -2,17 +2,28 @@ package cz.covid19cz.erouska.ui.help
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
+import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_help.*
 import kotlinx.android.synthetic.main.search_toolbar.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
     R.layout.fragment_help,
     HelpVM::class
 ) {
+
+    companion object {
+        private const val SCREEN_NAME = "Help"
+    }
+
+    @Inject
+    internal lateinit var supportEmailGenerator: SupportEmailGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +45,16 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
             isIconified = true
 
         }
+
+        support_button.setOnClickListener {
+            supportEmailGenerator.sendSupportEmail(
+                requireActivity(),
+                lifecycleScope,
+                isError = false,
+                screenOrigin = SCREEN_NAME
+            )
+        }
+
     }
 
 }

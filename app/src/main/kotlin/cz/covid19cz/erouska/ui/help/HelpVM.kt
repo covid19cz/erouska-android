@@ -2,17 +2,21 @@ package cz.covid19cz.erouska.ui.help
 
 import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.lifecycleScope
 import arch.adapter.RecyclerLayoutStrategy
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.ui.activation.ActivationFragment
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.Category
 import cz.covid19cz.erouska.ui.help.data.Question
 import cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragmentArgs
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import java.lang.reflect.Type
+import javax.inject.Inject
 
 class HelpVM @ViewModelInject constructor() : BaseVM() {
 
