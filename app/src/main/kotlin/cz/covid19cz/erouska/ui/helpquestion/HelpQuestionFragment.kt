@@ -27,8 +27,7 @@ class HelpQuestionFragment : BaseFragment<FragmentHelpQuestionBinding, HelpQuest
         enableUpInToolbar(true, IconType.UP)
         activity?.title = args.question.question
 
-        question.text = args.question.question
-//        answer.text = args.question.answer
+        markdown.show(question, args.question.question)
         markdown.show(answer, args.question.answer)
 
     }
