@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="cz.covid19cz.erouska.ui.help.data.Category" />
+            type="cz.covid19cz.erouska.ui.help.data.FaqCategory" />
 
         <variable
             name="vm"

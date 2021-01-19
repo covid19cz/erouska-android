@@ -10,8 +10,7 @@ import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.help.data.Category
-import cz.covid19cz.erouska.ui.help.data.Question
+import cz.covid19cz.erouska.ui.help.data.FaqCategory
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
 import cz.covid19cz.erouska.utils.L
@@ -40,8 +39,8 @@ class HelpSearchVM @ViewModelInject constructor(
     private var searchJob: Job? = null
 
     fun fillQuestions() {
-        val categoryType: Type = object : TypeToken<ArrayList<Category>>() {}.type
-        val structuredQs: ArrayList<Category> = Gson().fromJson(AppConfig.helpJson, categoryType)
+        val categoryType: Type = object : TypeToken<ArrayList<FaqCategory>>() {}.type
+        val structuredQs: ArrayList<FaqCategory> = Gson().fromJson(AppConfig.helpJson, categoryType)
 
         val allQuestions = structuredQs.map {
             it.questions.map { question ->

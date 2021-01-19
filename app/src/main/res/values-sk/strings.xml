@@ -142,6 +142,8 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="previous_search_result">Predošlý výsledok</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
     <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
+    <string name="help_how_title">Ako eRouška funguje</string>
+    <string name="help_how_subtitle">Zistite viac o tom, ako aplikácia funguje</string>
     <string name="exposure_info_date">Naposledy %s ste sa stretli s osobou, ktorej bolo potvrdené ochorenie COVID-19</string>
     <string name="exposure_info_text">Upozornenie sa vám zobrazilo najskôr 24 hodín po tom, čo sa nakazený dozvedel pozitívny výsledok testu na COVID-19 a zadal overovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút.\n\nKvôli zachovaniu anonymity nakazeného nepoznáme čas ani miesto stretnutia.</string>
     <string name="exposure_info_button">Ako postupovať ďalej</string>

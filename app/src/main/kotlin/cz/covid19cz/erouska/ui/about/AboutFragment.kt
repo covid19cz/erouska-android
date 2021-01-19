@@ -11,11 +11,8 @@ import cz.covid19cz.erouska.ext.showWeb
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.base.UrlEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
-import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_about.*
-import java.lang.Exception
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 @AndroidEntryPoint

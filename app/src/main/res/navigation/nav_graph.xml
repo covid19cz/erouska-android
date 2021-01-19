@@ -148,7 +148,7 @@
 
         <argument
             android:name="category"
-            app:argType="cz.covid19cz.erouska.ui.help.data.Category"/>
+            app:argType="cz.covid19cz.erouska.ui.help.data.FaqCategory"/>
 
         <action
             android:id="@+id/action_nav_help_category_to_nav_help_question"
