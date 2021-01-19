@@ -27,12 +27,11 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_marginStart="17dp"
+            android:src="@drawable/ic_about"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholder="@{R.drawable.ic_item_empty}"
-            app:src="@drawable/ic_about"
-            tools:src="@drawable/ic_item_empty" />
+            />
 
         <TextView
             android:id="@+id/category_title"

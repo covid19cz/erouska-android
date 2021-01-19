@@ -31,7 +31,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholder="@{R.drawable.ic_item_empty}"
             tools:src="@drawable/ic_mask" />
 
         <TextView
