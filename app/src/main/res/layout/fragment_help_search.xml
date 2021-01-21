@@ -24,7 +24,21 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
-            app:viewModel="@{ vm }" />
+            app:viewModel="@{ vm }"
+            app:visibleOrGone="@{!vm.searchResult.empty}" />
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/help_no_results"
+            android:textAppearance="@style/Erouska.Body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleOrGone="@{vm.searchResult.empty}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

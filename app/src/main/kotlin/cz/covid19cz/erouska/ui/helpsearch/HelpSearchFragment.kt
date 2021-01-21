@@ -46,8 +46,6 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
 
-        L.i("help search onViewCreated")
-
         // Associate searchable configuration with the SearchView
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
@@ -82,7 +80,6 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
     }
 
     override fun onBackPressed(): Boolean {
-        L.i("On back pressed")
         goBack()
         return true
     }
@@ -102,7 +99,6 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
 
     private fun collapseSearchView() {
         activity?.toolbar_search_view?.apply {
-            L.i("Collapsing")
             setQuery("", false)
         }
     }

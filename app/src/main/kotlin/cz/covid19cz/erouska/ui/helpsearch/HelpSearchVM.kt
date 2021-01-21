@@ -5,14 +5,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import arch.adapter.RecyclerLayoutStrategy
 import arch.livedata.SafeMutableLiveData
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.FaqCategory
 import cz.covid19cz.erouska.ui.help.data.toFaqCategories
-import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
@@ -20,7 +17,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
-import java.lang.reflect.Type
 import java.util.regex.Pattern
 
 class HelpSearchVM @ViewModelInject constructor(
@@ -88,7 +84,6 @@ class HelpSearchVM @ViewModelInject constructor(
                 q.answer = newA.first
                 q.question = newQ.first
                 searchResult.add(q)
-                L.i("adding to search result:$q")
             }
         }
     }
