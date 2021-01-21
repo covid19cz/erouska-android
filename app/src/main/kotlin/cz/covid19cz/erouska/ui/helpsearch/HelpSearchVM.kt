@@ -76,7 +76,7 @@ class HelpSearchVM @ViewModelInject constructor(
 
     }
 
-    fun resetSearch() {
+    private fun resetSearch() {
         searchResult.clear()
     }
 

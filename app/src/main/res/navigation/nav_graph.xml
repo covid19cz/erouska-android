@@ -138,7 +138,6 @@
     <fragment
         android:id="@+id/nav_help_category"
         android:name="cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragment"
-        android:label=""
         tools:layout="@layout/fragment_help_category">
 
         <argument
@@ -171,7 +170,6 @@
     <fragment
         android:id="@+id/nav_help_question"
         android:name="cz.covid19cz.erouska.ui.helpquestion.HelpQuestionFragment"
-        android:label=""
         tools:layout="@layout/fragment_help_question">
 
         <argument
@@ -188,7 +186,6 @@
     <fragment
         android:id="@+id/nav_help_search"
         android:name="cz.covid19cz.erouska.ui.helpsearch.HelpSearchFragment"
-        android:label=""
         tools:layout="@layout/fragment_help_search">
 
         <argument

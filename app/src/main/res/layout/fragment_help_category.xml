@@ -23,7 +23,6 @@
             android:id="@+id/help_questions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?selectableItemBackground"
             android:onClick="@{ () -> vm.onItemClicked(item)}"
             app:items="@{ vm.items }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
