@@ -11,6 +11,7 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.FaqCategory
+import cz.covid19cz.erouska.ui.help.data.toFaqCategories
 import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
 import cz.covid19cz.erouska.utils.L
@@ -39,8 +40,7 @@ class HelpSearchVM @ViewModelInject constructor(
     private var searchJob: Job? = null
 
     fun fillQuestions() {
-        val categoryType: Type = object : TypeToken<ArrayList<FaqCategory>>() {}.type
-        val structuredQs: ArrayList<FaqCategory> = Gson().fromJson(AppConfig.helpJson, categoryType)
+        val structuredQs: List<FaqCategory> = AppConfig.helpJson.toFaqCategories()
 
         val allQuestions = structuredQs.map {
             it.questions.map { question ->
@@ -50,10 +50,6 @@ class HelpSearchVM @ViewModelInject constructor(
 
         content.clear()
         content.addAll(allQuestions)
-    }
-
-    fun goBack() {
-        publish(HelpCommandEvent(HelpCommandEvent.Command.GO_BACK))
     }
 
     fun searchQuery(query: String?) {
