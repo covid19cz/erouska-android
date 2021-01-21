@@ -33,18 +33,9 @@ class MyDataFragment :
             openMeasures()
             Analytics.logEvent(requireContext(), KEY_CURRENT_MEASURES)
         }
-
-        data_info_icon.setOnClickListener { showInfoDialog() }
     }
 
     private fun openMeasures() {
         showWeb(viewModel.getMeasuresUrl(), customTabHelper)
-    }
-
-    private fun showInfoDialog() {
-        AlertDialog.Builder(requireContext())
-            .setView(R.layout.view_info_dialog)
-            .setNegativeButton(R.string.info_dialog_close) { _, _ ->
-            }.show()
     }
 }

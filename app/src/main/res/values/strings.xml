@@ -182,7 +182,4 @@
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
-
-    <string name="info_dialog_content">Informace o přehledu aktuální situace získáváme z webových stránek https://onemocneni-aktualne.mzcr.cz/covid-19, které spravuje ÚZIS ČR.</string>
-    <string name="info_dialog_close">Close</string>
 </resources>
