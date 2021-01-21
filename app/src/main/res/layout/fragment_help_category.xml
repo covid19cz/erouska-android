@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -22,17 +23,18 @@
             android:id="@+id/help_questions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?selectableItemBackground"
             android:onClick="@{ () -> vm.onItemClicked(item)}"
             app:items="@{ vm.items }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
-            app:viewModel="@{ vm }" />
+            app:viewModel="@{ vm }"
+            tools:listitem="@layout/item_help_question" />
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/separator"
+            android:id="@+id/divider_top"
+            style="@style/Divider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

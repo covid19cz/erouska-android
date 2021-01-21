@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="cz.covid19cz.erouska.R" />
-
         <variable
             name="item"
             type="cz.covid19cz.erouska.ui.help.data.Question" />
@@ -19,7 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{ () -> vm.onItemClicked(item)}">
+        android:onClick="@{ () -> vm.onItemClicked(item)}"
+        android:background="?selectableItemBackground">
 
         <TextView
             android:id="@+id/category_title"
