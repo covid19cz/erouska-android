@@ -20,14 +20,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/help_categories"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:items="@{ vm.items }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/fragment_padding_bottom_larger"
+            app:layout_constraintBottom_toTopOf="@id/support_button"
             app:viewModel="@{ vm }" />
 
         <com.google.android.material.button.MaterialButton
