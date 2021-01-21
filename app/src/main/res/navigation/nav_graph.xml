@@ -181,6 +181,11 @@
             android:name="question"
             app:argType="cz.covid19cz.erouska.ui.help.data.Question"/>
 
+        <argument
+            android:name="category"
+            app:argType="string"
+            />
+
     </fragment>
 
     <fragment

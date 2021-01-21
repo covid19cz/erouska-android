@@ -10,6 +10,8 @@ import cz.covid19cz.erouska.ui.helpquestion.HelpQuestionFragmentArgs
 
 class HelpCategoryVM @ViewModelInject constructor() : BaseVM() {
 
+    lateinit var categoryTitle: String
+
     val layoutStrategy = object : RecyclerLayoutStrategy {
         override fun getLayoutId(item: Any): Int {
             return R.layout.item_help_question
@@ -19,7 +21,7 @@ class HelpCategoryVM @ViewModelInject constructor() : BaseVM() {
     var items = ObservableArrayList<Question>()
 
     fun onItemClicked(question: Question) {
-        navigate(R.id.nav_help_question, HelpQuestionFragmentArgs(question = question).toBundle())
+        navigate(R.id.nav_help_question, HelpQuestionFragmentArgs(question = question, category = categoryTitle).toBundle())
     }
 
     fun fillInQuestions(questions: List<Question>) {

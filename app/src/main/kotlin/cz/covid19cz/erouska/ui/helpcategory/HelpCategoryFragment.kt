@@ -21,12 +21,13 @@ class HelpCategoryFragment : BaseFragment<FragmentHelpCategoryBinding, HelpCateg
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.fillInQuestions(args.category.questions)
+        viewModel.categoryTitle = args.category.title
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        activity?.title = args.category.title
+        activity?.title = viewModel.categoryTitle
 
         activity?.toolbar_search_view?.apply {
 

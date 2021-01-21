@@ -25,7 +25,7 @@ class HelpQuestionFragment : BaseFragment<FragmentHelpQuestionBinding, HelpQuest
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enableUpInToolbar(true, IconType.UP)
-        activity?.title = args.question.question
+        activity?.title = args.category
 
         markdown.show(question, args.question.question)
         markdown.show(answer, args.question.answer)
