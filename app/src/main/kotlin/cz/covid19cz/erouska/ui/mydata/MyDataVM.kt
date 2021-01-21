@@ -147,8 +147,7 @@ class MyDataVM @ViewModelInject constructor(
                         )
                     }
                 }
-                // TODO start : modify once the API is ready
-               /* safeLet(response.antigenTestsTotal,
+               safeLet(response.antigenTestsTotal,
                     response.antigenTestsIncrease,
                     response.antigenTestsIncreaseDate) { total, increase, increaseDate ->
                     antigenTestsTotal.value = total
@@ -172,8 +171,7 @@ class MyDataVM @ViewModelInject constructor(
                             Date(lastUpdateMillis)
                         )
                     }
-                }*/
-                // TODO end
+                }
 
                 safeLet(
                     response.confirmedCasesTotal,
