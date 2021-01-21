@@ -48,5 +48,4 @@ class SearchableItem : LinearLayout {
             field = value
         }
 
-
 }

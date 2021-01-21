@@ -62,12 +62,8 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
                     R.id.nav_exposure_info
                 )
             }
-
-
         }
 
-
     }
-
 
 }

@@ -50,7 +50,7 @@
             android:id="@+id/category_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="17dp"
+            android:paddingHorizontal="18dp"
             android:text="@string/help_how_subtitle"
             android:textAppearance="@style/Erouska.Caption"
             app:layout_constraintBottom_toBottomOf="parent"

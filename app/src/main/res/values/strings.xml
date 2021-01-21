@@ -34,7 +34,6 @@
     <string name="about_tos_content"><![CDATA[You can find more information about personal data processing and other terms and conditions in <a href="%1$s">Terms and conditions</a>.]]></string>
     <string name="about_tos_link">Terms and conditions</string>
     <string name="about_title">About application</string>
-    <string name="about_subtitle" translatable="false"></string>
     <string name="permission_rationale_title">The permission to access location needs to be granted to make the application work properly.</string>
     <string name="permission_rationale_body">You can find more information about why that is in Help.</string>
     <string name="permission_rationale_settings">Settings</string>
