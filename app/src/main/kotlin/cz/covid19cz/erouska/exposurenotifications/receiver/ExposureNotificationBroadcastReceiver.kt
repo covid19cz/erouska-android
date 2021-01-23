@@ -40,7 +40,7 @@ class ExposureNotificationBroadcastReceiver : BroadcastReceiver() {
         if (intent.action == ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED) {
             GlobalScope.launch {
                 try {
-                    exposureNotificationsRepository.checkExposure(context)
+                    exposureNotificationsRepository.checkExposure()
                 } catch (e: Throwable) {
                     L.e(e)
                 }

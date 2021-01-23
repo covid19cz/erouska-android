@@ -21,6 +21,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
+        const val APP_OPEN_TIMESTAMP = "lastTimeAppOpened"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -85,7 +86,8 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun setLastSetDiagnosisKeysDataMapping() {
-        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis()).apply()
+        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis())
+            .apply()
     }
 
     fun getLastSetDiagnosisKeysDataMapping(): Long {
@@ -100,7 +102,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
     }
 
-    fun setLastShownExposureInfo(daysSinceEpoch : Int) {
+    fun setLastShownExposureInfo(daysSinceEpoch: Int) {
         prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
     }
 
@@ -108,31 +110,31 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
     }
 
-    fun cleanLegacyExposurePrefs(){
+    fun cleanLegacyExposurePrefs() {
         prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
     }
 
-    fun isLegacyExposuresImported() : Boolean{
+    fun isLegacyExposuresImported(): Boolean {
         return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
     }
 
-    fun setLegacyExposuresImported(){
+    fun setLegacyExposuresImported() {
         prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
     }
 
-    fun isPushTokenRegistered() : Boolean{
+    fun isPushTokenRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
-    fun setPushTokenRegistered(){
+    fun setPushTokenRegistered() {
         prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
     }
 
-    fun isPushTopicRegistered() : Boolean{
+    fun isPushTopicRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
     }
 
-    fun setPushTopicRegistered(){
+    fun setPushTopicRegistered() {
         prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
@@ -161,6 +163,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setExposureNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
+    }
+
+    fun setAppVisitedTimestamp() {
+        prefs.edit().putLong(APP_OPEN_TIMESTAMP, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastTimeAppOpened(): Long {
+        return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
     }
 
     fun clearCustomConfig() {

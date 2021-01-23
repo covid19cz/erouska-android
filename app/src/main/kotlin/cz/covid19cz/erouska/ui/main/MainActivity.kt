@@ -19,6 +19,7 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
@@ -41,6 +42,9 @@ class MainActivity :
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
+
+    @Inject
+    internal lateinit var prefs : SharedPrefsRepository
 
     private lateinit var reviewManager: ReviewManager
     var reviewInfo: ReviewInfo? = null
@@ -137,6 +141,7 @@ class MainActivity :
         customTabHelper.chromePackageName?.let {
             CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
         }
+        prefs.setAppVisitedTimestamp()
     }
 
     override fun onStop() {
@@ -144,6 +149,7 @@ class MainActivity :
             unbindService(customTabsConnection)
             connectedToCustomTabsService = false
         }
+        prefs.setAppVisitedTimestamp()
         super.onStop()
     }
 
