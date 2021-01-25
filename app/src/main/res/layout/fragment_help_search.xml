@@ -27,17 +27,28 @@
             app:viewModel="@{ vm }"
             app:visibleOrGone="@{!vm.searchResult.empty}" />
 
+        <ImageView
+            android:id="@+id/empty_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_padding"
+            android:src="@drawable/ic_balloon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleOrGone="@{vm.searchResult.empty}" />
+
         <TextView
-            android:id="@+id/empty_view"
+            android:id="@+id/empty_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/help_no_results"
             android:textAppearance="@style/Erouska.Body"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/empty_image_view"
             app:visibleOrGone="@{vm.searchResult.empty}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
