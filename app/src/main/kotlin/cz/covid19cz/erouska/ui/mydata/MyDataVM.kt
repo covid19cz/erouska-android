@@ -1,5 +1,7 @@
 package cz.covid19cz.erouska.ui.mydata
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.text.format.DateUtils
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
@@ -9,9 +11,13 @@ import arch.livedata.SafeMutableLiveData
 import arch.utils.safeLet
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.ErouskaWidget
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
+import cz.covid19cz.erouska.ui.mydata.event.MyDataCommandEvent
+import cz.covid19cz.erouska.updateAppWidget
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -37,7 +43,6 @@ class MyDataVM @ViewModelInject constructor(
         if (AppConfig.updateNewsOnRequest || (!AppConfig.updateNewsOnRequest && !DateUtils.isToday(prefs.getLastMetricsUpdate()))) {
             getMetrics()
         }
-
     }
 
     fun onRefresh() {
@@ -257,6 +262,7 @@ class MyDataVM @ViewModelInject constructor(
                         )
                     }
                 }
+                publish(MyDataCommandEvent(MyDataCommandEvent.Command.UPDATE_WIDGET))
             }.onFailure {
                 isLoading.value = false
                 if (it is ApiException) {

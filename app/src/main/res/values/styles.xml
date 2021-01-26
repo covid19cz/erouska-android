@@ -56,9 +56,16 @@
     <style name="Erouska.Description" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/textColorSecondary</item>
     </style>
+    <style name="Erouska.Description.Widget" parent="Erouska.Description">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
     <style name="Erouska.Caption" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+    <style name="Erouska.Caption.Widget" parent="Erouska.Caption">
+        <item name="android:textSize">12sp</item>
     </style>
 
 
