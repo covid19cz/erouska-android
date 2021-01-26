@@ -113,7 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    app:case_icon="@{@drawable/ic_test}"
+                    app:case_icon="@{@drawable/ic_antigen}"
                     app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.antigenTestsIncrease), vm.antigenTestsIncreaseDate)}"
                     app:case_title="@{String.format(@string/my_data_antigen_tests, NumberFormat.getInstance().format(vm.antigenTestsTotal))}"
                     app:layout_constraintEnd_toEndOf="parent"
