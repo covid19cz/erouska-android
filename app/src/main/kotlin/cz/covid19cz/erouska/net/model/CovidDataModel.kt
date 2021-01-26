@@ -4,9 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class CovidStatsResponse(
     @SerializedName("date") val date: String?,
-    @SerializedName("testsTotal") val testsTotal: Int?,
-    @SerializedName("testsIncrease") val testsIncrease: Int?,
-    @SerializedName("testsIncreaseDate") val testsIncreaseDate: String?,
+    @SerializedName("pcrTestsTotal") val testsTotal: Int?,
+    @SerializedName("pcrTestsIncrease") val testsIncrease: Int?,
+    @SerializedName("pcrTestsIncreaseDate") val testsIncreaseDate: String?,
+    @SerializedName("antigenTestsTotal") val antigenTestsTotal: Int?,
+    @SerializedName("antigenTestsIncrease") val antigenTestsIncrease: Int?,
+    @SerializedName("antigenTestsIncreaseDate") val antigenTestsIncreaseDate: String?,
     @SerializedName("confirmedCasesTotal") val confirmedCasesTotal: Int?,
     @SerializedName("confirmedCasesIncrease") val confirmedCasesIncrease: Int?,
     @SerializedName("confirmedCasesIncreaseDate") val confirmedCasesIncreaseDate: String?,

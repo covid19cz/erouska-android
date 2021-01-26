@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.mydata
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentMyDataBinding
