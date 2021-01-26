@@ -6,15 +6,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.lifecycle.Observer
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpSearchBinding
 import cz.covid19cz.erouska.ext.attachKeyboardController
-import cz.covid19cz.erouska.ext.hide
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_help_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 import javax.inject.Inject
 
@@ -40,6 +40,15 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.fillQuestions()
+
+        viewModel.queryData.observe(this,
+            Observer {
+                if (it.isNotEmpty() && it.length < viewModel.minQueryLength) {
+                    empty_text_view.setText(R.string.help_type_more)
+                } else {
+                    empty_text_view.setText(R.string.help_no_results)
+                }
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

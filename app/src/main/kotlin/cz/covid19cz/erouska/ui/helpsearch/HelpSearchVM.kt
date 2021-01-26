@@ -31,7 +31,8 @@ class HelpSearchVM @ViewModelInject constructor(
 
     val searchResult = ObservableArrayList<SearchableQuestion>()
     val content = ArrayList<SearchableQuestion>()
-    private val queryData = SafeMutableLiveData("")
+    val queryData = SafeMutableLiveData("")
+    val minQueryLength = 2
 
     private var searchJob: Job? = null
 
@@ -54,7 +55,7 @@ class HelpSearchVM @ViewModelInject constructor(
 
         this.queryData.value = query?.trim() ?: ""
 
-        if (queryData.value.length >= 2) {
+        if (queryData.value.length >= minQueryLength) {
             searchJob = viewModelScope.launch {
                 try {
                     searchQueryInText()

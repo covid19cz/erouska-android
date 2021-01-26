@@ -141,6 +141,7 @@
     <string name="previous_search_result">Previous result</string>
     <string name="next_search_result">Next result</string>
     <string name="help_no_results">No search results</string>
+    <string name="help_type_more">Keep typing</string>
     <string name="help_how_title">How it works</string>
     <string name="help_how_subtitle">Find out how the app works</string>
     <string name="exposure_info_date">On %s, you last encountered someone who tested positive for COVID-19.</string>

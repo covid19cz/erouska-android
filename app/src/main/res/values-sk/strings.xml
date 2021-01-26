@@ -142,6 +142,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="previous_search_result">Predošlý výsledok</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
     <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
+    <string name="help_type_more">Málo znakov</string>
     <string name="help_how_title">Ako eRouška funguje</string>
     <string name="help_how_subtitle">Zistite viac o tom, ako aplikácia funguje</string>
     <string name="exposure_info_date">Naposledy %s ste sa stretli s osobou, ktorej bolo potvrdené ochorenie COVID-19</string>
