@@ -112,6 +112,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_efgsConsentToFederation")
     val efgsTravellerDefault
         get() = firebaseRemoteConfig.getBoolean("v2_efgsTravellerDefault")
+    val helpJson
+        get() = firebaseRemoteConfig.getString("v2_helpJson")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

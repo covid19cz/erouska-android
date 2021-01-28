@@ -29,8 +29,10 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_HOME
 import cz.covid19cz.erouska.utils.Analytics.KEY_NEWS
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.search_toolbar.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,6 +44,12 @@ class MainActivity :
 
     private lateinit var reviewManager: ReviewManager
     var reviewInfo: ReviewInfo? = null
+
+    private val fragmentsWithSearch = arrayListOf(
+        R.id.nav_help,
+        R.id.nav_help_search,
+        R.id.nav_help_category
+    )
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
@@ -73,6 +81,7 @@ class MainActivity :
 
             it.addOnDestinationChangedListener { _, destination, arguments ->
                 updateTitle(destination)
+                toolbar_search_view.showOrHide(fragmentsWithSearch.contains(destination.id))
                 updateBottomNavigation(destination, arguments)
             }
         }
@@ -180,7 +189,6 @@ class MainActivity :
                 VISIBLE
             }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         L.d("$requestCode")

@@ -98,6 +98,14 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
         }
     }
 
+    fun setTitle(@StringRes res: Int) {
+        setTitle(getString(res))
+    }
+
+    fun setTitle(title: String) {
+        (activity as AppCompatActivity).supportActionBar?.title = title
+    }
+
     fun requestEnableBt() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         startActivityForResult(enableBtIntent, REQUEST_BT_ENABLE)
