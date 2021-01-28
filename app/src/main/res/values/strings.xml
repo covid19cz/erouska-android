@@ -138,13 +138,13 @@
     <string name="activation_error_reason_unauthorized">Unauthorised API usage.</string>
     <string name="ok">OK</string>
     <string name="search">Search</string>
-    <string name="search_hint">Type to search</string>
+    <string name="search_hint">What are you looking for?</string>
     <string name="previous_search_result">Previous result</string>
     <string name="next_search_result">Next result</string>
     <string name="help_no_results">No search results</string>
     <string name="help_type_more">Keep typing</string>
-    <string name="help_how_title">How it works</string>
-    <string name="help_how_subtitle">Find out how the app works</string>
+    <string name="help_how_title">How eRouška works</string>
+    <string name="help_how_subtitle">Find out more about how the application works</string>
     <string name="exposure_info_date">On %s, you last encountered someone who tested positive for COVID-19.</string>
     <string name="exposure_info_text">You received the notification at least 24 hours after the infected individual tested positive for COVID-19 and entered their verification code in eRouška.\n\nThe encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart.\n\nTo keep identities anonymous, we do not know the time or place of the encounter.</string>
     <string name="exposure_info_button">Next steps</string>
@@ -180,10 +180,31 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
-    <string name="support_screen_origin">Screen</string>
     <string name="support_email_body_contact">Tell us what we can help you with:\n\n</string>
     <string name="support_email_body_error">Tell us what happened before the error:\n\n</string>
+    <string name="support_screen_origin">Screen</string>
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
+    <string name="how_it_works_toolbar_title">How does eRouška work?</string>
+    <string name="how_it_works_write_email">Email support</string>
+    <string name="how_it_works_content">Are you curious how eRouška works?</string>
+    <string name="how_it_works_more">Find out more</string>
+    <string name="how_it_works_close">Close</string>
+    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
+
+When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
+    <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
+    <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
+    <string name="how_it_works_confirm_title">If COVID-19 infection is confirmed</string>
+    <string name="how_it_works_confirm_content">If a person is tested positive for COVID-19, they will automatically receive an SMS with a verification code for eRouška. By entering the code in the application, the person can anonymously notify other eRouška users.</string>
+    <string name="how_it_works_warn_title">Warnings by other eRouška apps</string>
+    <string name="how_it_works_warn_content">After you enter and confirm the code, eRouška sends out data about encounters. Data about all encounters that the phone logged since its owner was infected according to available information is sent.</string>
+    <string name="how_it_works_control_title">Checking encounters with infected individuals</string>
+    <string name="how_it_works_control_content">The following day at the latest, other eRouška apps will check the information about newly infected individuals and compare it to their own encounter logs.</string>
+    <string name="how_it_works_eval_title">Risky encounters evaluation</string>
+    <string name="how_it_works_eval_content">eRouška apps will evaluate the encounter as risky if it was longer than 15 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</string>
+    <string name="how_it_works_notif_title">Displaying notifications</string>
+    <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
+    <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
 </resources>
