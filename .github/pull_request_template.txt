@@ -1,0 +1,26 @@
+# Description
+
+<# Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change. #>
+
+## Screenshots 📸
+
+<details open><summary>Show/Hide content</summary>
+
+<# Please provide screenshots for any visual change. The best way is to take screenshots directly from the app with production-like data. #>
+
+</details> 
+
+# How Has This Been Tested? 👨‍🔬
+
+<# Please describe the tests that you ran to verify your changes. #>
+
+## What Has Not Been Tested? 🙅🏻‍♂️
+
+<# Please describe what has not been possible to test neither automatically nor manually. #>
+
+# Checklist ✅
+
+- [ ] I have performed a self-review of my own code.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] I have updated related Remote Config fields and added defaults.
+- [ ] I have checked all visual changes in both light and dark mode.
