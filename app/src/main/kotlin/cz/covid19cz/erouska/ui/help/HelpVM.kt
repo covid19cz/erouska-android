@@ -49,7 +49,7 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
 
             is HowItWorksCategory -> {
                 navigate(
-                    R.id.nav_exposure_info
+                    R.id.nav_how_it_works
                 )
             }
         }
