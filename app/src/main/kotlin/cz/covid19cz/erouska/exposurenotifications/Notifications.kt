@@ -6,10 +6,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
+import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.work.WorkManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -63,7 +66,9 @@ class Notifications @Inject constructor(
             R.string.notification_exposure_title,
             R.string.notification_exposure_text,
             CHANNEL_ID_EXPOSURE,
-            autoCancel = true
+            autoCancel = true,
+            color = Color.RED,
+            priority = PRIORITY_MAX
         )
     }
 
@@ -80,13 +85,17 @@ class Notifications @Inject constructor(
         @StringRes title: Int,
         @StringRes text: Int,
         channelId: String,
-        autoCancel: Boolean = false
+        autoCancel: Boolean = false,
+        color: Int? = null,
+        priority: Int? = null
     ) {
         showNotification(
             context.getString(title),
             context.getString(text),
             channelId,
-            autoCancel
+            autoCancel,
+            color,
+            priority
         )
     }
 
@@ -94,7 +103,9 @@ class Notifications @Inject constructor(
         title: String,
         text: String,
         channelId: String,
-        autoCancel: Boolean = false
+        autoCancel: Boolean = false,
+        color: Int? = null,
+        priority: Int? = null
     ) {
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
@@ -102,6 +113,19 @@ class Notifications @Inject constructor(
             .setSmallIcon(R.drawable.ic_notification_normal)
             .setContentIntent(getContentIntent())
             .setAutoCancel(autoCancel)
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(text)
+                    .setBigContentTitle(title)
+            )
+
+        color?.let {
+            builder.setColorized(true)
+            builder.color = color
+        }
+        priority?.let {
+            builder.priority = priority
+        }
 
         (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
             when (channelId) {

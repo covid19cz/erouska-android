@@ -1,5 +1,6 @@
 package arch.binding
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -13,13 +14,12 @@ fun setImageResourceCircular(view: ImageButton, resId: Int) {
 }
 
 @BindingAdapter(value = ["url", "placeholder"], requireAll = false)
-fun setUrlCircular(view: ImageView, url: String?, placeholder: Int?) {
+fun setUrlCircular(view: ImageView, url: String?, placeholder: Drawable?) {
     if (placeholder == null) {
         Glide.with(view.context).load(url).into(view)
     } else {
         Glide.with(view.context).load(url).placeholder(placeholder).into(view)
     }
-
 }
 
 @BindingAdapter(value = ["uri"], requireAll = false)

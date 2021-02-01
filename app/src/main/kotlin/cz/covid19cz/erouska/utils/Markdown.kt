@@ -63,7 +63,7 @@ class Markdown @Inject constructor(
                         .setFactory(
                             SearchedTextNode::class.java
                         ) { _, _ ->
-                            arrayOf(BackgroundColorSpan(context.getColor(R.color.green)))
+                            arrayOf(BackgroundColorSpan(context.getColor(R.color.yellow)))
                         }
                 }
             })

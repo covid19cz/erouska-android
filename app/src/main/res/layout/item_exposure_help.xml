@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="cz.covid19cz.erouska.R" />
-
         <variable
             name="item"
             type="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpItem" />
@@ -29,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="8dp"
-            app:placeholder="@{R.drawable.ic_item_empty}"
+            app:placeholder="@{@drawable/ic_item_empty}"
             app:url="@{item.iconUrl}"
             tools:src="@drawable/ic_item_empty"/>
 

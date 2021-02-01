@@ -14,6 +14,7 @@
     <color name="red">#ff0000</color>
     <color name="redDark">#d81d49</color>
     <color name="green">#8cc23f</color>
+    <color name="yellow">#FFF500</color>
     <color name="orange">#DB7627</color>
 
     <color name="text_color_error_header">#DF6061</color>

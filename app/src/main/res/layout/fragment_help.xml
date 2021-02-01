@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="item"
+            type="cz.covid19cz.erouska.ui.help.data.FaqCategory" />
+
+        <variable
             name="vm"
             type="cz.covid19cz.erouska.ui.help.HelpVM" />
     </data>
@@ -13,82 +17,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/chat_container"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:background="@drawable/highlight_selector"
-            android:onClick="@{() -> vm.openChatBot()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/chat_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_chat"
-            app:layout_constraintBottom_toBottomOf="@+id/chat_container"
-            app:layout_constraintStart_toStartOf="@id/chat_container"
-            app:layout_constraintTop_toTopOf="@id/chat_container" />
-
-        <TextView
-            android:id="@+id/chat_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/help_write_chabot"
-            android:textAppearance="@style/Erouska.Body"
-            app:layout_constraintBottom_toBottomOf="@+id/chat_container"
-            app:layout_constraintEnd_toEndOf="@+id/chat_container"
-            app:layout_constraintStart_toEndOf="@id/chat_icon"
-            app:layout_constraintTop_toTopOf="@id/chat_container" />
-
-        <View
-            android:id="@+id/divider_top"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/help_categories"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#cccccc"
-            app:layout_constraintEnd_toEndOf="@id/chat_container"
-            app:layout_constraintStart_toStartOf="@id/chat_container"
-            app:layout_constraintTop_toBottomOf="@+id/chat_container" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/chat_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="chat_container,chat_icon,chat_text,divider_top" />
-
-        <ScrollView
-            android:id="@+id/help_scroll"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:items="@{ vm.items }"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chat_container">
-
-            <TextView
-                android:id="@+id/help_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/fragment_padding"
-                android:paddingTop="@dimen/fragment_padding"
-                android:paddingEnd="@dimen/fragment_padding"
-                android:paddingBottom="68dp"
-                android:textAppearance="@style/Erouska.Body"/>
-
-        </ScrollView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/support_button"
+            app:viewModel="@{ vm }" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/welcome_continue_btn"
+            android:id="@+id/support_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.goBack()}"
-            android:text="@string/go_back_button"
+            android:text="@string/support_request_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

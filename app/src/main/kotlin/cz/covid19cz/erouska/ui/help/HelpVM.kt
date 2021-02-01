@@ -1,129 +1,59 @@
 package cz.covid19cz.erouska.ui.help
 
+import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.viewModelScope
-import arch.livedata.SafeMutableLiveData
+import arch.adapter.RecyclerLayoutStrategy
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.help.event.HelpCommandEvent
-import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.utils.Markdown
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import org.apache.commons.lang3.StringUtils
-import java.util.regex.Pattern
+import cz.covid19cz.erouska.ui.help.data.*
+import cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragmentArgs
 
 class HelpVM @ViewModelInject constructor() : BaseVM() {
 
-    val searchControlsEnabled = SafeMutableLiveData(false)
-    val searchResultCount = SafeMutableLiveData(0)
-    val content = SafeMutableLiveData(AppConfig.helpMarkdown)
-    val lastMarkedIndex = SafeMutableLiveData(0)
-    val queryData = SafeMutableLiveData("")
-    lateinit var displayedText: String
-    private var searchMatches: List<String> = arrayListOf()
-
-    private var searchJob: Job? = null
-
-    fun goBack() {
-        publish(HelpCommandEvent(HelpCommandEvent.Command.GO_BACK))
-    }
-
-    fun openChatBot() {
-        publish(HelpCommandEvent(HelpCommandEvent.Command.OPEN_CHATBOT))
-    }
-
-    fun searchQuery(query: String?) {
-        searchJob?.cancel()
-
-        this.queryData.value = query?.trim() ?: ""
-
-        if (queryData.value.length >= 2) {
-            searchJob = viewModelScope.launch {
-                try {
-                    searchQueryInText()
-                } catch (cancelException: CancellationException) {
-                    L.d("Job cancelled")
-                }
+    val layoutStrategy = object : RecyclerLayoutStrategy {
+        override fun getLayoutId(item: Any): Int {
+            return when (item) {
+                is FaqCategory -> R.layout.item_help_faq_category
+                is AboutAppCategory -> R.layout.item_help_about_category
+                else -> R.layout.item_help_how_category
             }
-        } else {
-            resetSearch()
         }
-
     }
 
-    private fun searchQueryInText() {
-        val pattern = StringUtils.stripAccents(queryData.value)
-        val r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE)
-        val searchedText = StringUtils.stripAccents(AppConfig.helpMarkdown)
-        var printedText = AppConfig.helpMarkdown
+    var items = ObservableArrayList<Category>()
 
-        val m = r.matcher(searchedText)
-
-        val replaceList = arrayListOf<String>()
-        while (m.find()) {
-            replaceList.add(printedText.substring(m.start(0), m.end(0)))
-        }
-        searchResultCount.value = replaceList.size
-        searchMatches = replaceList.distinct()
-
-        for (replaceString in searchMatches) {
-            printedText = printedText.replace(
-                replaceString,
-                "${Markdown.doubleSearchChar}${replaceString}${Markdown.doubleSearchChar}"
-            )
-        }
-
-        content.value = printedText
-        searchControlsEnabled.value = replaceList.isNotEmpty()
-        // we don't want to take into account the currently search query length
-        findPositionOfNextResult(0)
+    fun fillInHelp() {
+        items.clear()
+        items.add(HowItWorksCategory())
+        items.addAll(AppConfig.helpJson.toFaqCategories())
+        items.add(AboutAppCategory())
     }
 
-    fun resetSearch() {
-        searchControlsEnabled.value = false
-        content.value = AppConfig.helpMarkdown
-        searchResultCount.value = 0
-        lastMarkedIndex.value = 0
-    }
+    fun onSearchTapped() = navigate(R.id.nav_help_search)
 
-    fun findPositionOfPreviousResult() {
-        if (searchResultCount.value <= 0) {
-            return
+    fun onItemClicked(category: Category) {
+        when (category) {
+            is FaqCategory -> {
+                navigate(
+                    R.id.nav_help_category,
+                    HelpCategoryFragmentArgs(category = category).toBundle()
+                )
+            }
+
+            is AboutAppCategory -> {
+                navigate(
+                    R.id.nav_about
+                )
+            }
+
+            is HowItWorksCategory -> {
+                navigate(
+                    R.id.nav_exposure_info
+                )
+            }
         }
 
-        val searchedText = displayedText.substring(0, lastMarkedIndex.value)
-        var index = findIndexOfPreviousResult(searchedText)
-        if (index == -1) {
-            // the search match was not found, let's search in the whole text (from the end)
-            index = findIndexOfPreviousResult(displayedText)
-        }
-
-        lastMarkedIndex.value = index
-    }
-
-    private fun findIndexOfPreviousResult(searchableText: String): Int {
-        return searchableText.lastIndexOfAny(searchMatches, ignoreCase = true)
-    }
-
-    fun findPositionOfNextResult(overrideQueryDataLength: Int? = null) {
-        if (searchResultCount.value <= 0) {
-            return
-        }
-
-        var index = findIndexOfNextResult(
-            lastMarkedIndex.value + (overrideQueryDataLength ?: queryData.value.length)
-        )
-        if (index == -1) {
-            // the search match was not found, let's search from the beginning
-            index = findIndexOfNextResult(0)
-        }
-        lastMarkedIndex.value = index
-    }
-
-    private fun findIndexOfNextResult(startIndex: Int): Int {
-        return displayedText.indexOfAny(searchMatches, startIndex, ignoreCase = true)
     }
 
 }

@@ -61,6 +61,19 @@ class MyDataVM @ViewModelInject constructor(
         )
     }
 
+    val antigenTestsTotal = SafeMutableLiveData(prefs.getAntigenTestsTotal())
+    val antigenTestsIncrease = SafeMutableLiveData(prefs.getAntigenTestsIncrease())
+    val antigenTestsIncreaseDate = if (prefs.getAntigenTestsIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getAntigenTestsIncreaseDate()))
+        )
+    }
+
     val confirmedCasesTotal = SafeMutableLiveData(prefs.getConfirmedCasesTotal())
     val confirmedCasesIncrease = SafeMutableLiveData(prefs.getConfirmedCasesIncrease())
     val confirmedCasesIncreaseDate= if (prefs.getConfirmedCasesIncreaseDate() == 0L) {
@@ -134,6 +147,32 @@ class MyDataVM @ViewModelInject constructor(
                         )
                     }
                 }
+               safeLet(response.antigenTestsTotal,
+                    response.antigenTestsIncrease,
+                    response.antigenTestsIncreaseDate) { total, increase, increaseDate ->
+                    antigenTestsTotal.value = total
+                    antigenTestsIncrease.value = increase
+
+                    prefs.setAntigenTestsTotal(total)
+                    prefs.setAntigenTestsIncrease(increase)
+
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setAntigenTestsIncreaseDate(lastUpdateMillis)
+
+                        antigenTestsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
+                }
+
                 safeLet(
                     response.confirmedCasesTotal,
                     response.confirmedCasesIncrease,

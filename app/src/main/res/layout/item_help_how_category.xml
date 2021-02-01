@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="cz.covid19cz.erouska.R" />
+
+        <variable
+            name="item"
+            type="cz.covid19cz.erouska.ui.help.data.Category" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.help.HelpVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{ () -> vm.onItemClicked(item)}"
+        android:background="?selectableItemBackground"
+        android:paddingVertical="6dp">
+
+        <ImageView
+            android:id="@+id/category_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="17dp"
+            android:src="@drawable/ic_mask"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_mask" />
+
+        <TextView
+            android:id="@+id/category_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:paddingHorizontal="17dp"
+            android:text="@string/help_how_title"
+            android:textAppearance="@style/Erouska.Item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/category_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/category_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:text="@string/help_how_subtitle"
+            android:textAppearance="@style/Erouska.Caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/category_title"
+            app:layout_constraintTop_toBottomOf="@id/category_title"
+            tools:text="@tools:sample/lorem" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
