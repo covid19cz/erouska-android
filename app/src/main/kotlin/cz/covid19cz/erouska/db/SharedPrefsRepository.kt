@@ -169,7 +169,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         prefs.edit().putLong(APP_OPEN_TIMESTAMP, System.currentTimeMillis()).apply()
     }
 
-    fun getLastTimeAppOpened(): Long {
+    fun getLastTimeAppVisited(): Long {
         return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
     }
 

@@ -314,18 +314,38 @@ class ExposureNotificationsRepository @Inject constructor(
 
         // latest exposure found in the database
         val latestExposure = db.dao().getLatest().firstOrNull()
+        val latestExposureTime = latestExposure?.daysSinceEpoch
 
         // latest exposure that the user was not notified about yet
-        val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()
+        val lastNotifiedExposureTime = db.dao().getLastNotified().firstOrNull()?.daysSinceEpoch
 
-        // if the latest exposure was found and user was not notified about it, yet
-        if (latestExposure != null && !latestExposure.notified) {
+        // the app should show a notification if there is a new exposure the user was not notified
+        // about, yet, or if there is an exposure, but the app has not been opened since the last
+        // last notification
+        val newExposureFound = latestExposureTime != lastNotifiedExposureTime
+        val userNotNotifiedAboutLatest = latestExposureTime != null && newExposureFound
+        val lastAppUsedTimestamp = prefs.getLastTimeAppVisited()
+        // We can use the import timestamp of the exposure as we are interested in comparing whether
+        // the user visited the app after being notified. The notification can take place only when
+        // the exposure is imported.
+        // In case there is no exposure, the timestamp will default to 0.
+        // It won't cause a false positive as the app timestamp will always be greater than 0.
+        val lastExposureTimestamp = latestExposure?.importTimestamp ?: 0L
+        // If the app visit timestamp is not saved yet, it acts as if the user has not opened the app.
+        // To reduce false positives, we should check the timestamp is non-zero.
+        val appNotOpenedSinceLastNotification = (lastAppUsedTimestamp > 0) && (lastExposureTimestamp > lastAppUsedTimestamp)
+
+        val shouldNotify = latestExposureTime!=null && userNotNotifiedAboutLatest || appNotOpenedSinceLastNotification
+
+        if (shouldNotify) {
             notifications.showRiskyExposureNotification()
             db.dao().markAsNotified()
             firebaseFunctionsRepository.registerNotification()
         } else {
-            L.i("Not showing notification, lastExposure=$latestExposure, " +
-                    "lastNotifiedExposure=${lastNotifiedExposure?.daysSinceEpoch}")
+            L.i(
+                "Not showing notification, lastExposure=$latestExposureTime, " +
+                        "lastNotifiedExposure=$lastNotifiedExposureTime"
+            )
         }
     }
 
