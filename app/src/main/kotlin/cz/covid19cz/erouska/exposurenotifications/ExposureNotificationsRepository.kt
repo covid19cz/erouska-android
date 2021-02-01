@@ -313,19 +313,19 @@ class ExposureNotificationsRepository @Inject constructor(
         })
 
         // latest exposure found in the database
-        val latestExposure = db.dao().getLatest().firstOrNull()?.daysSinceEpoch
+        val latestExposure = db.dao().getLatest().firstOrNull()
 
         // latest exposure that the user was not notified about yet
-        val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()?.daysSinceEpoch
+        val lastNotifiedExposure = db.dao().getLastNotified().firstOrNull()
 
-        // if the latest exposure was found and it is not the same as the last notified one,
-        // let's show the exposure
-        if (latestExposure != null && latestExposure != lastNotifiedExposure) {
+        // if the latest exposure was found and user was not notified about it, yet
+        if (latestExposure != null && !latestExposure.notified) {
             notifications.showRiskyExposureNotification()
             db.dao().markAsNotified()
             firebaseFunctionsRepository.registerNotification()
         } else {
-            L.i("Not showing notification, lastExposure=$latestExposure, lastNotifiedExposure=$lastNotifiedExposure")
+            L.i("Not showing notification, lastExposure=$latestExposure, " +
+                    "lastNotifiedExposure=${lastNotifiedExposure?.daysSinceEpoch}")
         }
     }
 
