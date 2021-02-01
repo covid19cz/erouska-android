@@ -5,6 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import arch.adapter.RecyclerLayoutStrategy
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.ui.about.AboutFragmentArgs
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.*
 import cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragmentArgs
@@ -43,7 +44,8 @@ class HelpVM @ViewModelInject constructor() : BaseVM() {
 
             is AboutAppCategory -> {
                 navigate(
-                    R.id.nav_about
+                    R.id.nav_about,
+                    AboutFragmentArgs(fullscreen = true).toBundle()
                 )
             }
 
