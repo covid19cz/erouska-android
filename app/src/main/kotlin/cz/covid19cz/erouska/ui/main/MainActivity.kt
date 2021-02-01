@@ -149,6 +149,8 @@ class MainActivity :
             unbindService(customTabsConnection)
             connectedToCustomTabsService = false
         }
+        // saving timestamp in onStop so that it eliminates cases when the feature in question
+        // took place while being in the app
         prefs.setAppVisitedTimestamp()
         super.onStop()
     }
