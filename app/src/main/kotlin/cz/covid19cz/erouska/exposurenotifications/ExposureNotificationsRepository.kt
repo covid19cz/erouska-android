@@ -322,8 +322,8 @@ class ExposureNotificationsRepository @Inject constructor(
         // the app should show a notification if there is a new exposure the user was not notified
         // about, yet, or if there is an exposure, but the app has not been opened since the last
         // last notification
-        val newExposureFound = latestExposureTime != lastNotifiedExposureTime
-        val userNotNotifiedAboutLatest = latestExposureTime != null && newExposureFound
+        val userNotNotifiedAboutLatest = latestExposureTime != null
+                && latestExposureTime != lastNotifiedExposureTime
         val lastAppUsedTimestamp = prefs.getLastTimeAppVisited()
         // We can use the import timestamp of the exposure as we are interested in comparing whether
         // the user visited the app after being notified. The notification can take place only when
@@ -333,9 +333,10 @@ class ExposureNotificationsRepository @Inject constructor(
         val lastExposureTimestamp = latestExposure?.importTimestamp ?: 0L
         // If the app visit timestamp is not saved yet, it acts as if the user has not opened the app.
         // To reduce false positives, we should check the timestamp is non-zero.
-        val appNotOpenedSinceLastNotification = (lastAppUsedTimestamp > 0) && (lastExposureTimestamp > lastAppUsedTimestamp)
+        val appNotOpenedSinceLastNotification = (lastAppUsedTimestamp > 0)
+                && (lastExposureTimestamp > lastAppUsedTimestamp)
 
-        val shouldNotify = latestExposureTime!=null && userNotNotifiedAboutLatest || appNotOpenedSinceLastNotification
+        val shouldNotify = userNotNotifiedAboutLatest || appNotOpenedSinceLastNotification
 
         if (shouldNotify) {
             notifications.showRiskyExposureNotification()
