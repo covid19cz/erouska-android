@@ -350,25 +350,6 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
-    //TODO: Remove in late november 2020
-    suspend fun importLegacyExposures() {
-        if (!prefs.isLegacyExposuresImported()) {
-            db.dao().insert(getDailySummariesFromApi(filter = false).map {
-                DailySummaryEntity(
-                    daysSinceEpoch = it.daysSinceEpoch,
-                    maximumScore = it.summaryData.maximumScore,
-                    scoreSum = it.summaryData.scoreSum,
-                    weightenedDurationSum = it.summaryData.weightedDurationSum,
-                    importTimestamp = if (it.daysSinceEpoch > prefs.getLastNotifiedExposure()) System.currentTimeMillis() else 0,
-                    notified = it.daysSinceEpoch <= prefs.getLastNotifiedExposure(),
-                    accepted = it.daysSinceEpoch <= prefs.getLastInAppNotifiedExposure()
-                )
-            })
-            prefs.cleanLegacyExposurePrefs()
-            prefs.setLegacyExposuresImported()
-        }
-    }
-
     fun scheduleSelfChecker() {
         val constraints = Constraints.Builder().build()
         val worker = PeriodicWorkRequestBuilder<SelfCheckerWorker>(

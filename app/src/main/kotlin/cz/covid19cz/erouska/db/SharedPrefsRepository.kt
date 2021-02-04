@@ -16,8 +16,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
-        const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
-        const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
@@ -59,7 +57,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
         const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
 
-        const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
         const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
     }
@@ -94,14 +91,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
-    fun getLastNotifiedExposure(): Int {
-        return prefs.getInt(LAST_NOTIFIED_EXPOSURE, -1)
-    }
-
-    fun getLastInAppNotifiedExposure(): Int {
-        return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
-    }
-
     fun setLastShownExposureInfo(daysSinceEpoch: Int) {
         prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
     }
@@ -110,19 +99,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
     }
 
-    fun cleanLegacyExposurePrefs() {
-        prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
-    }
-
-    fun isLegacyExposuresImported(): Boolean {
-        return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
-    }
-
-    fun setLegacyExposuresImported() {
-        prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
-    }
-
-    fun isPushTokenRegistered(): Boolean {
+    fun isPushTokenRegistered() : Boolean{
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
