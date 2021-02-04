@@ -59,6 +59,8 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
         const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
+
+        const val HOW_IT_WORKS_SHOWN = "howItWorksShown"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -373,5 +375,13 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setNotificationsYesterday(value: Int) {
         return prefs.edit().putInt(NOTIFICATIONS_YESTERDAY, value).apply()
+    }
+
+    fun wasHowItWorksShown() : Boolean{
+        return prefs.getBoolean(HOW_IT_WORKS_SHOWN, false)
+    }
+
+    fun setHowItWorksShown(){
+        prefs.edit().putBoolean(HOW_IT_WORKS_SHOWN, true).apply()
     }
 }

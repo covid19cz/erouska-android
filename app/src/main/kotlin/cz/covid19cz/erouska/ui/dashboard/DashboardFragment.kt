@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -33,8 +34,21 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
 import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.*
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_content
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_close
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_container
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_content
+import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_more_info
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_bluetooth_off
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_active
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_inactive
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_no_risky_encounter
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_positive_test
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_risky_encounter
+import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_location_off
+import kotlinx.android.synthetic.main.fragment_dashboard_plus.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -129,10 +143,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             when (commandEvent.command) {
                 DashboardCommandEvent.Command.DATA_UP_TO_DATE -> {
                     notifications.dismissOudatedDataNotification()
-                    data_notification_container.hide()
+                    showOrHideDataNotification(false)
                 }
-                DashboardCommandEvent.Command.DATA_OBSOLETE -> data_notification_container.show()
-                DashboardCommandEvent.Command.RECENT_EXPOSURE -> exposure_notification_container.show()
+                DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(true)
+                DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(false)
+                DashboardCommandEvent.Command.DATA_OBSOLETE -> showOrHideDataNotification(true)
+                DashboardCommandEvent.Command.RECENT_EXPOSURE -> showOrHideExposureNotification(true)
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
                 DashboardCommandEvent.Command.TURN_OFF -> notifications.showErouskaPausedNotification()
             }
@@ -149,18 +165,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         exposure_notification_content.text = AppConfig.encounterWarning
         exposure_notification_close.setOnClickListener {
             viewModel.acceptExposure()
-            exposure_notification_container.hide()
+            showOrHideExposureNotification(false)
         }
         exposure_notification_more_info.setOnClickListener { viewModel.showExposureDetail() }
 
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
+        data_notification_close.setOnClickListener { showOrHideDataNotification(false) }
+        how_it_works_more.setOnClickListener { viewModel.showHowItWorksPage() }
+        how_it_works_close.setOnClickListener { viewModel.dismissHowItWorksNotification() }
+
         enableUpInToolbar(false)
 
         data_notification_content.text = AppConfig.recentExposureNotificationTitle
@@ -177,8 +195,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_positive_test.card_on_content_click =
             View.OnClickListener { viewModel.sendData() }
-
-        data_notification_close.setOnClickListener { data_notification_container.hide() }
 
         dash_card_active.setOnClickListener {
             viewModel.stop()
@@ -234,7 +250,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             }
             R.id.action_exposure_demo -> {
                 demoMode = true
-                exposure_notification_container.show()
+                showOrHideExposureNotification(true)
                 true
             }
             R.id.action_exposure_screen -> {
@@ -333,6 +349,25 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
         dash_card_active.showOrHide( enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
         dash_card_inactive.showOrHide(!enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
+    }
+
+    private fun checkAndShowOrHideHowItWorksNotification(show: Boolean) {
+        how_it_works_container.showOrHide(
+            show &&
+                    !data_notification_container.isVisible &&
+                    !exposure_notification_container.isVisible
+        )
+    }
+
+    private fun showOrHideDataNotification(show: Boolean) {
+        data_notification_container.showOrHide(show)
+        // TODO: It's weird to call ViewModel after ViewModel calls View - this loop is dangerous. It should be refactored.
+        viewModel.checkAndShowOrHideHowItWorksNotification() // check if How It Works in-app notification should be shown
+    }
+
+    private fun showOrHideExposureNotification(show: Boolean) {
+        exposure_notification_container.showOrHide(show)
+        viewModel.checkAndShowOrHideHowItWorksNotification() // check if How It Works in-app notification should be shown
     }
 
     private fun showWelcomeScreen() {
