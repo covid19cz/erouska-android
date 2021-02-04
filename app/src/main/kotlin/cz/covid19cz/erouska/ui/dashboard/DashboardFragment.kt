@@ -361,6 +361,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun showOrHideDataNotification(show: Boolean) {
         data_notification_container.showOrHide(show)
+        // TODO: It's weird to call ViewModel after ViewModel calls View - this loop is dangerous. It should be refactored.
         viewModel.checkAndShowOrHideHowItWorksNotification() // check if How It Works in-app notification should be shown
     }
 
