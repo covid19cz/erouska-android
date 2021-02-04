@@ -3,6 +3,7 @@ package cz.covid19cz.erouska.ui.help
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
@@ -22,6 +23,8 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
         private const val SCREEN_NAME = "Help"
     }
 
+    private val args: HelpFragmentArgs by navArgs()
+
     @Inject
     internal lateinit var supportEmailGenerator: SupportEmailGenerator
 
@@ -32,7 +35,17 @@ class HelpFragment : BaseFragment<FragmentHelpBinding, HelpVM>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableUpInToolbar(false)
+
+        args.fullscreen.let { fullscreen ->
+            enableUpInToolbar(
+                fullscreen,
+                if (fullscreen) {
+                    IconType.CLOSE
+                } else {
+                    IconType.UP
+                }
+            )
+        }
 
         activity?.toolbar_search_view?.apply {
 
