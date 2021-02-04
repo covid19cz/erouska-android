@@ -19,6 +19,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
+        const val APP_OPEN_TIMESTAMP = "lastTimeAppOpened"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -82,14 +83,15 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun setLastSetDiagnosisKeysDataMapping() {
-        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis()).apply()
+        prefs.edit().putLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, System.currentTimeMillis())
+            .apply()
     }
 
     fun getLastSetDiagnosisKeysDataMapping(): Long {
         return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
-    fun setLastShownExposureInfo(daysSinceEpoch : Int) {
+    fun setLastShownExposureInfo(daysSinceEpoch: Int) {
         prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
     }
 
@@ -101,15 +103,15 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
-    fun setPushTokenRegistered(){
+    fun setPushTokenRegistered() {
         prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
     }
 
-    fun isPushTopicRegistered() : Boolean{
+    fun isPushTopicRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
     }
 
-    fun setPushTopicRegistered(){
+    fun setPushTopicRegistered() {
         prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
@@ -138,6 +140,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setExposureNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
+    }
+
+    fun setAppVisitedTimestamp() {
+        prefs.edit().putLong(APP_OPEN_TIMESTAMP, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastTimeAppVisited(): Long {
+        return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
     }
 
     fun clearCustomConfig() {
