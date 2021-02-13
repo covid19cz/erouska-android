@@ -69,7 +69,7 @@
     <string name="my_data_cured">%1$s vyliečených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
-    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozotniť ostatných užívateľov eRoušky.</string>
+    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozorniť ostatných užívateľov eRoušky.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný, skúste to znova.</string>
@@ -207,6 +207,6 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="how_it_works_eval_title">Vyhodnotenia rizikových stretnutí</string>
     <string name="how_it_works_eval_content">eRoušky vyhodnotia stretnutia ako rizikové v prípade, že boli s nakazeným v kontakte na vzdialenosť bližšiu ako 2 metre a počas aspoň 15 minút od okamihu, keď bol podľa dostupných informácií nákazlivý.</string>
     <string name="how_it_works_notif_title">Zobrazenie varovania</string>
-    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným sa v aplikácii eRouška zobrazí upozonenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
+    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným sa v aplikácii eRouška zobrazí upozornenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
     <string name="how_it_works_support_content">Máte ďalšie otázky alebo vám eRouška nefunguje správne? Napíšte nám.</string>
 </resources>
