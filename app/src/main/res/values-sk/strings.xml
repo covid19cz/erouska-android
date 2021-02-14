@@ -69,7 +69,7 @@
     <string name="my_data_cured">%1$s vyliečených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
-    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozotniť ostatných užívateľov eRoušky.</string>
+    <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód, aby ste mohli upozorniť ostatných užívateľov eRoušky.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný, skúste to znova.</string>
@@ -149,12 +149,6 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="exposure_info_date">Naposledy %s ste sa stretli s osobou, ktorej bolo potvrdené ochorenie COVID-19</string>
     <string name="exposure_info_text">Upozornenie sa vám zobrazilo najskôr 24 hodín po tom, čo sa nakazený dozvedel pozitívny výsledok testu na COVID-19 a zadal overovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v prípade, že ste s nakazeným boli v kontakte na vzdialenosť kratšiu ako 2 metre po dobu aspoň 15 minút.\n\nKvôli zachovaniu anonymity nakazeného nepoznáme čas ani miesto stretnutia.</string>
     <string name="exposure_info_button">Ako postupovať ďalej</string>
-    <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="few">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutia</item>
-        <item quantity="one">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutie</item>
-        <item quantity="other">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00fdch stretnut\u00ed</item>
-        <item quantity="many">Za posledn\u00fdch 14 dn\u00ed %1$d rizikov\u00e9 stretnutia</item>
-    </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
     <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
@@ -207,6 +201,6 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="how_it_works_eval_title">Vyhodnotenia rizikových stretnutí</string>
     <string name="how_it_works_eval_content">eRoušky vyhodnotia stretnutia ako rizikové v prípade, že boli s nakazeným v kontakte na vzdialenosť bližšiu ako 2 metre a počas aspoň 15 minút od okamihu, keď bol podľa dostupných informácií nákazlivý.</string>
     <string name="how_it_works_notif_title">Zobrazenie varovania</string>
-    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným sa v aplikácii eRouška zobrazí upozonenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
+    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným sa v aplikácii eRouška zobrazí upozornenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
     <string name="how_it_works_support_content">Máte ďalšie otázky alebo vám eRouška nefunguje správne? Napíšte nám.</string>
 </resources>
