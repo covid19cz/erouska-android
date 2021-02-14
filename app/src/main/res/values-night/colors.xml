@@ -15,4 +15,8 @@
 
     <color name="statusbarColor">@android:color/black</color>
     <bool name="lightStatusBar">false</bool>
+
+    <color name="highlight">#2f80ed</color>
+    <color name="search_background">#000</color>
+
 </resources>

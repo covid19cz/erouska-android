@@ -15,7 +15,6 @@ import io.noties.markwon.html.HtmlPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.inlineparser.InlineProcessor
 import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin
-import io.noties.markwon.inlineparser.OpenBracketInlineProcessor
 import org.commonmark.ext.autolink.AutolinkExtension
 import org.commonmark.node.CustomNode
 import org.commonmark.node.Node
@@ -63,7 +62,7 @@ class Markdown @Inject constructor(
                         .setFactory(
                             SearchedTextNode::class.java
                         ) { _, _ ->
-                            arrayOf(BackgroundColorSpan(context.getColor(R.color.yellow)))
+                            arrayOf(BackgroundColorSpan(context.getColor(R.color.highlight)))
                         }
                 }
             })
