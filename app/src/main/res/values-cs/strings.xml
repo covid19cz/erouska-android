@@ -69,10 +69,10 @@
     <string name="my_data_cured">%1$s vyléčených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
-    <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro upozornění ostatních uživatelů eRoušky.</string>
+    <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro povolení upozornění ostatních uživatelů eRoušky.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
-    <string name="send_data_code_invalid">Ověřovací kód není správně zadaný, zkuste to znovu.</string>
+    <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
     <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
