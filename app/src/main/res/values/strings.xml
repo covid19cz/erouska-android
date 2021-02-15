@@ -148,6 +148,10 @@
     <string name="exposure_info_date">On %s, you last encountered someone who tested positive for COVID-19.</string>
     <string name="exposure_info_text">You received the notification at least 24 hours after the infected individual tested positive for COVID-19 and entered their verification code in eRouška.\n\nThe encounter will be evaluated as risky if it was longer than 15 minutes and closer than 2 meters apart.\n\nTo keep identities anonymous, we do not know the time or place of the encounter.</string>
     <string name="exposure_info_button">Next steps</string>
+    <plurals name="dashboard_risky_encounter_title_bad">
+        <item quantity="one">%1$d risky encounter in the past 14 days</item>
+        <item quantity="other">%1$d risky encounters in the past 14 days</item>
+    </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">On %1$s, you encountered someone who tested positive for COVID-19.</string>
     <string name="dashboard_positive_test_title">Have you tested positive for COVID-19?</string>
     <string name="dashboard_positive_test_button">Anonymously notify others</string>
