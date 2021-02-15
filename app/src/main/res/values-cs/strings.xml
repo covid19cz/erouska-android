@@ -9,7 +9,7 @@
     <string name="bt_disabled_desc">Zapnuté Bluetooth je důležité pro sbírání kontaktů s ostatními eRouškami ve vašem okolí.</string>
     <string name="dashboard_title_running">eRouška je aktivní</string>
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
-    <string name="dashboard_body">Aplikace pracuje na pozad\u00ed a\u00a0monitoruje okol\u00ed, pros\u00edm neukon\u010dujte ji. Nechte zapnut\u00e9 Bluetooth a\u00a0s\u00a0telefonem pracujte jako obvykle.</string>
+    <string name="dashboard_body">Aplikace aktuálně pracuje na pozadí a monitoruje okolí. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
     <string name="dashboard_body_no_contact">Posledn\u00ed aktualizace dat %1$s v\u00a0%2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o ostatních eRouškách ve vašem okolí. Spusťte znovu eRoušku a chraňte sebe i své okolí. Nezapomínejte na to zejména ve chvíli, kdy opouštíte svůj domov.</string>
