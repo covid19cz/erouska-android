@@ -16,12 +16,11 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val APP_PAUSED = "preference.app_paused"
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
-        const val LAST_NOTIFIED_EXPOSURE = "lastNotifiedExposure"
-        const val LAST_IN_APP_NOTIFIED_EXPOSURE = "lastInAppNotifiedExposure"
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
         const val EFGS_INTRODUCED = "efgsIntroduced"
+        const val APP_OPEN_TIMESTAMP = "lastTimeAppOpened"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -36,6 +35,10 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val TESTS_TOTAL = "testsTotal"
         const val TESTS_INCREASE = "testsIncrease"
         const val TESTS_INCREASE_DATE = "testsIncreaseDate"
+
+        const val ANTIGEN_TESTS_TOTAL = "antigenTestsTotal"
+        const val ANTIGEN_TESTS_INCREASE = "antigenTestsIncrease"
+        const val ANTIGEN_TESTS_INCREASE_DATE = "antigenTestsIncreaseDate"
 
         const val CONFIRMED_CASES_TOTAL = "confirmedCasesTotal"
         const val CONFIRMED_CASES_INCREASE = "confirmedCasesIncrease"
@@ -53,12 +56,11 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val KEY_PUBLISHERS_YESTERDAY = "keyPublishersYesterday"
         const val NOTIFICATIONS_TOTAL = "notificationsTotal"
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
-        const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
-
-        const val LEGACY_EXPOSURES_IMPORTED = "legacyExposuresImported"
         const val TRAVELLER = "traveller"
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
         const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
+
+        const val HOW_IT_WORKS_SHOWN = "howItWorksShown"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -91,32 +93,12 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getLong(LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING, 0L)
     }
 
-    fun getLastNotifiedExposure(): Int {
-        return prefs.getInt(LAST_NOTIFIED_EXPOSURE, -1)
-    }
-
-    fun getLastInAppNotifiedExposure(): Int {
-        return prefs.getInt(LAST_IN_APP_NOTIFIED_EXPOSURE, 0)
-    }
-
-    fun cleanLegacyExposurePrefs() {
-        prefs.edit().remove(LAST_NOTIFIED_EXPOSURE).remove(LAST_IN_APP_NOTIFIED_EXPOSURE).apply()
-    }
-
-    fun setLastShownExposureInfo(daysSinceEpoch : Int) {
+    fun setLastShownExposureInfo(daysSinceEpoch: Int) {
         prefs.edit().putInt(LAST_SHOWN_EXPOSURE_INFO, daysSinceEpoch).apply()
     }
 
     fun getLastShownExposureInfo(): Int {
         return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
-    }
-
-    fun isLegacyExposuresImported(): Boolean {
-        return prefs.getBoolean(LEGACY_EXPOSURES_IMPORTED, false)
-    }
-
-    fun setLegacyExposuresImported() {
-        prefs.edit().putBoolean(LEGACY_EXPOSURES_IMPORTED, true).apply()
     }
 
     fun isTraveller(): Boolean {
@@ -131,15 +113,15 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
-    fun setPushTokenRegistered(){
+    fun setPushTokenRegistered() {
         prefs.edit().putBoolean(PUSH_TOKEN_REGISTERED, true).apply()
     }
 
-    fun isPushTopicRegistered() : Boolean{
+    fun isPushTopicRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOPIC_REGISTERED, false)
     }
 
-    fun setPushTopicRegistered(){
+    fun setPushTopicRegistered() {
         prefs.edit().putBoolean(PUSH_TOPIC_REGISTERED, true).apply()
     }
 
@@ -168,6 +150,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setExposureNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(EXPOSURE_NOTIFICATIONS_ENABLED, enabled).apply()
+    }
+
+    fun setAppVisitedTimestamp() {
+        prefs.edit().putLong(APP_OPEN_TIMESTAMP, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastTimeAppVisited(): Long {
+        return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
     }
 
     fun clearCustomConfig() {
@@ -265,6 +255,30 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setTestsIncreaseDate(value: Long) {
         return prefs.edit().putLong(TESTS_INCREASE_DATE, value).apply()
+    }
+
+    fun getAntigenTestsTotal(): Int {
+        return prefs.getInt(ANTIGEN_TESTS_TOTAL, 0)
+    }
+
+    fun setAntigenTestsTotal(value: Int) {
+        return prefs.edit().putInt(ANTIGEN_TESTS_TOTAL, value).apply()
+    }
+
+    fun getAntigenTestsIncrease(): Int {
+        return prefs.getInt(ANTIGEN_TESTS_INCREASE, 0)
+    }
+
+    fun setAntigenTestsIncrease(value: Int) {
+        return prefs.edit().putInt(ANTIGEN_TESTS_INCREASE, value).apply()
+    }
+
+    fun getAntigenTestsIncreaseDate(): Long {
+        return prefs.getLong(ANTIGEN_TESTS_INCREASE_DATE, 0)
+    }
+
+    fun setAntigenTestsIncreaseDate(value: Long) {
+        return prefs.edit().putLong(ANTIGEN_TESTS_INCREASE_DATE, value).apply()
     }
 
     fun getConfirmedCasesTotal(): Int {
@@ -377,5 +391,13 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setEFGSIntroduced(value: Boolean) {
         return prefs.edit().putBoolean(EFGS_INTRODUCED, value).apply()
+    }
+
+    fun wasHowItWorksShown() : Boolean{
+        return prefs.getBoolean(HOW_IT_WORKS_SHOWN, false)
+    }
+
+    fun setHowItWorksShown(){
+        prefs.edit().putBoolean(HOW_IT_WORKS_SHOWN, true).apply()
     }
 }

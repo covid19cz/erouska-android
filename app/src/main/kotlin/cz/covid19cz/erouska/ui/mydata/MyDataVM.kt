@@ -12,7 +12,6 @@ import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
-import cz.covid19cz.erouska.ui.mydata.event.MyDataCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -41,10 +40,6 @@ class MyDataVM @ViewModelInject constructor(
 
     }
 
-    fun measures() {
-        publish(MyDataCommandEvent(MyDataCommandEvent.Command.MEASURES))
-    }
-
     fun onRefresh() {
         getMetrics()
         getStats()
@@ -63,6 +58,19 @@ class MyDataVM @ViewModelInject constructor(
                 LAST_UPDATE_UI_FORMAT,
                 Locale.getDefault()
             ).format(Date(prefs.getTestsIncreaseDate()))
+        )
+    }
+
+    val antigenTestsTotal = SafeMutableLiveData(prefs.getAntigenTestsTotal())
+    val antigenTestsIncrease = SafeMutableLiveData(prefs.getAntigenTestsIncrease())
+    val antigenTestsIncreaseDate = if (prefs.getAntigenTestsIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getAntigenTestsIncreaseDate()))
         )
     }
 
@@ -139,6 +147,32 @@ class MyDataVM @ViewModelInject constructor(
                         )
                     }
                 }
+               safeLet(response.antigenTestsTotal,
+                    response.antigenTestsIncrease,
+                    response.antigenTestsIncreaseDate) { total, increase, increaseDate ->
+                    antigenTestsTotal.value = total
+                    antigenTestsIncrease.value = increase
+
+                    prefs.setAntigenTestsTotal(total)
+                    prefs.setAntigenTestsIncrease(increase)
+
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setAntigenTestsIncreaseDate(lastUpdateMillis)
+
+                        antigenTestsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
+                }
+
                 safeLet(
                     response.confirmedCasesTotal,
                     response.confirmedCasesIncrease,

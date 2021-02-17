@@ -30,4 +30,7 @@
     <color name="statusbarColor">#e8e8e8</color>
     <bool name="lightStatusBar">true</bool>
 
+    <color name="highlight">#FFF500</color>
+    <color name="search_background">#fff</color>
+
 </resources>

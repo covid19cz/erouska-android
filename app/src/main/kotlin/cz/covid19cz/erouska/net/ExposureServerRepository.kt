@@ -78,11 +78,14 @@ class ExposureServerRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             keyServerClient.reportExposure(
                 ExposureRequest(
-                    temporaryExposureKeyDto,
-                    certificate,
-                    hmackey,
-                    null,
-                    prefs.isTraveller()
+                    temporaryExposureKeys = temporaryExposureKeyDto,
+                    verificationPayload = certificate,
+                    hmackey = hmackey,
+                    revisionToken = null,
+                    traveler = prefs.isTraveller(),
+                    consentToFederation = AppConfig.efgsConsentToFederation,
+                    reportType = AppConfig.efgsReportType,
+                    visitedCountries = AppConfig.efgsVisitedCountries
                 )
             )
         }

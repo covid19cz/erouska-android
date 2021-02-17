@@ -123,7 +123,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.browser:browser:1.2.0"
     implementation "com.google.android.play:core-ktx:1.8.1"
-    implementation "androidx.work:work-runtime-ktx:2.5.0-beta01"
+    implementation "androidx.work:work-runtime-ktx:2.5.0-beta02"
 
     // Arch
     implementation project(':arch')

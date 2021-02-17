@@ -112,6 +112,18 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("v2_efgsDays").toInt()
     val efgsSupportedCountries
         get() = firebaseRemoteConfig.getString("v2_efgsCountries")
+    val efgsVisitedCountries
+        get() = firebaseRemoteConfig.getString("v2_efgsVisitedCountries").split(";")
+    val efgsReportType
+        get() = firebaseRemoteConfig.getString("v2_efgsReportType")
+    val efgsConsentToFederation
+        get() = firebaseRemoteConfig.getBoolean("v2_efgsConsentToFederation")
+    val efgsTravellerDefault
+        get() = firebaseRemoteConfig.getBoolean("v2_efgsTravellerDefault")
+    val howItWorksUITitle
+        get() = firebaseRemoteConfig.getString("v2_howItWorksUITitle")
+    val helpJson
+        get() = firebaseRemoteConfig.getString("v2_helpJson")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

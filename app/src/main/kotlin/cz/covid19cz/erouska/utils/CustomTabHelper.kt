@@ -15,15 +15,16 @@ class CustomTabHelper @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 
-    var sPackageNameToUse: String? = null
-    val STABLE_PACKAGE = "com.android.chrome"
-    val BETA_PACKAGE = "com.chrome.beta"
-    val DEV_PACKAGE = "com.chrome.dev"
-    val LOCAL_PACKAGE = "com.google.android.apps.chrome"
+    companion object {
+        private const val STABLE_PACKAGE = "com.android.chrome"
+        private const val BETA_PACKAGE = "com.chrome.beta"
+        private const val DEV_PACKAGE = "com.chrome.dev"
+        private const val LOCAL_PACKAGE = "com.google.android.apps.chrome"
+    }
+
+    private var sPackageNameToUse: String? = null
 
     val chromePackageName by lazy {
-//        return@lazy getPackageNameToUse(context, AppConfig.homepageLink)
-
         return@lazy getPackageNameToUse(context, "https://erouska.cz")
     }
 
@@ -33,7 +34,7 @@ class CustomTabHelper @Inject constructor(
             return it
         }
 
-        val pm = context.getPackageManager()
+        val pm = context.packageManager
 
         val activityIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         val defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0)
@@ -58,7 +59,7 @@ class CustomTabHelper @Inject constructor(
         when {
             packagesSupportingCustomTabs.isEmpty() -> sPackageNameToUse = null
             packagesSupportingCustomTabs.size == 1 -> sPackageNameToUse =
-                packagesSupportingCustomTabs.get(0)
+                packagesSupportingCustomTabs[0]
             !TextUtils.isEmpty(defaultViewHandlerPackageName)
                     && !hasSpecializedHandlerIntents(context, activityIntent)
                     && packagesSupportingCustomTabs.contains(defaultViewHandlerPackageName) ->
@@ -75,12 +76,12 @@ class CustomTabHelper @Inject constructor(
 
     private fun hasSpecializedHandlerIntents(context: Context, intent: Intent): Boolean {
         try {
-            val pm = context.getPackageManager()
+            val pm = context.packageManager
             val handlers = pm.queryIntentActivities(
                 intent,
                 PackageManager.GET_RESOLVED_FILTER
             )
-            if (handlers == null || handlers.size == 0) {
+            if (handlers.size == 0) {
                 return false
             }
             for (resolveInfo in handlers) {

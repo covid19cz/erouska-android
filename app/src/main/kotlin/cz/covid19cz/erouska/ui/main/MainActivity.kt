@@ -19,14 +19,21 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.ActivityMainBinding
-import cz.covid19cz.erouska.ext.isBtEnabled
+import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseActivity
 import cz.covid19cz.erouska.ui.exposurehelp.ExposureHelpFragmentArgs
 import cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType
+import cz.covid19cz.erouska.utils.Analytics
+import cz.covid19cz.erouska.utils.Analytics.KEY_CONTACTS
+import cz.covid19cz.erouska.utils.Analytics.KEY_HELP
+import cz.covid19cz.erouska.utils.Analytics.KEY_HOME
+import cz.covid19cz.erouska.utils.Analytics.KEY_NEWS
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import cz.covid19cz.erouska.utils.L
+import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.search_toolbar.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,8 +43,17 @@ class MainActivity :
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
 
-    lateinit var reviewManager: ReviewManager
+    @Inject
+    internal lateinit var prefs : SharedPrefsRepository
+
+    private lateinit var reviewManager: ReviewManager
     var reviewInfo: ReviewInfo? = null
+
+    private val fragmentsWithSearch = arrayListOf(
+        R.id.nav_help,
+        R.id.nav_help_search,
+        R.id.nav_help_category
+    )
 
     private val customTabsConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
@@ -61,15 +77,15 @@ class MainActivity :
 
         findNavController(R.id.nav_host_fragment).let {
             bottom_navigation.setOnNavigationItemSelectedListener { item ->
-                navigate(
-                    item.itemId,
-                    navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
-                )
+                val options = NavOptions.Builder().setPopUpTo(R.id.nav_graph, false).build()
+                navigate(item.itemId, navOptions = options)
+                logTabClickEventToAnalytics(item)
                 true
             }
 
             it.addOnDestinationChangedListener { _, destination, arguments ->
                 updateTitle(destination)
+                toolbar_search_view.showOrHide(fragmentsWithSearch.contains(destination.id))
                 updateBottomNavigation(destination, arguments)
             }
         }
@@ -84,6 +100,17 @@ class MainActivity :
         })
     }
 
+    private fun logTabClickEventToAnalytics(item: MenuItem) {
+        val event = when (item.itemId) {
+            R.id.nav_dashboard -> KEY_HOME
+            R.id.nav_my_data -> KEY_NEWS
+            R.id.nav_contacts -> KEY_CONTACTS
+            R.id.nav_help -> KEY_HELP
+            else -> throw IllegalStateException("analytics event for ${item.title} is not mapped")
+        }
+        Analytics.logEvent(this, event)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_about -> {
@@ -94,7 +121,10 @@ class MainActivity :
                 true
             }
             R.id.nav_exposure_help -> {
-                navigate(R.id.nav_exposure_help, ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle())
+                navigate(
+                    R.id.nav_exposure_help,
+                    ExposureHelpFragmentArgs(ExposureHelpType.EXPOSURE).toBundle()
+                )
                 true
             }
             else -> {
@@ -111,6 +141,7 @@ class MainActivity :
         customTabHelper.chromePackageName?.let {
             CustomTabsClient.bindCustomTabsService(this, it, customTabsConnection)
         }
+        prefs.setAppVisitedTimestamp()
     }
 
     override fun onStop() {
@@ -118,6 +149,9 @@ class MainActivity :
             unbindService(customTabsConnection)
             connectedToCustomTabsService = false
         }
+        // saving timestamp in onStop so that it eliminates cases when the feature in question
+        // took place while being in the app
+        prefs.setAppVisitedTimestamp()
         super.onStop()
     }
 
@@ -138,9 +172,7 @@ class MainActivity :
         if (reviewInfo != null) {
             reviewManager.launchReviewFlow(this, reviewInfo).addOnFailureListener {
                 L.e(it)
-            }.addOnCompleteListener { _ ->
-               L.i("Review success")
-            }
+            }.addOnCompleteListener { L.i("Review success") }
         }
     }
 
@@ -165,7 +197,6 @@ class MainActivity :
                 VISIBLE
             }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         L.d("$requestCode")

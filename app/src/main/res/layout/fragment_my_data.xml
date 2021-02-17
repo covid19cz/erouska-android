@@ -58,7 +58,6 @@
                     android:drawablePadding="16dp"
                     android:focusable="true"
                     android:gravity="center_vertical|start"
-                    android:onClick="@{() -> vm.measures()}"
                     android:paddingStart="16dp"
                     android:paddingTop="24dp"
                     android:paddingEnd="16dp"
@@ -110,6 +109,24 @@
                     app:layout_constraintTop_toBottomOf="@id/tests" />
 
                 <cz.covid19cz.erouska.ui.mydata.CaseItemView
+                    android:id="@+id/antigen_tests"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:case_icon="@{@drawable/ic_antigen}"
+                    app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.antigenTestsIncrease), vm.antigenTestsIncreaseDate)}"
+                    app:case_title="@{String.format(@string/my_data_antigen_tests, NumberFormat.getInstance().format(vm.antigenTestsTotal))}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tests" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/antigen_tests" />
+
+                <cz.covid19cz.erouska.ui.mydata.CaseItemView
                     android:id="@+id/ack_cases"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -119,7 +136,7 @@
                     app:case_title="@{String.format(@string/my_data_ack_cases, NumberFormat.getInstance().format(vm.confirmedCasesTotal))}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tests" />
+                    app:layout_constraintTop_toBottomOf="@id/antigen_tests" />
 
                 <View
                     style="@style/Divider"

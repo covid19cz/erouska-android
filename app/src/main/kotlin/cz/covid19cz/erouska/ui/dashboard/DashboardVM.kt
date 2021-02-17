@@ -48,6 +48,7 @@ class DashboardVM @ViewModelInject constructor(
                 lastUpdateTime.value = it.timestampToTime()
             }
             checkForObsoleteData()
+            checkAndShowOrHideHowItWorksNotification()
         }
         exposureNotificationsEnabled.observeForever { enabled ->
             if (enabled) {
@@ -69,12 +70,13 @@ class DashboardVM @ViewModelInject constructor(
         exposureNotificationsServerRepository.scheduleKeyDownload()
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
+        checkAndShowOrHideHowItWorksNotification()
     }
 
     fun checkStatus() {
         viewModelScope.launch {
             kotlin.runCatching {
-                if (!exposureNotificationsRepository.isEnabled()){
+                if (!exposureNotificationsRepository.isEnabled()) {
                     return@runCatching setOf(ExposureNotificationStatus.INACTIVATED)
                 }
                 return@runCatching exposureNotificationsRepository.getStatus()
@@ -93,7 +95,9 @@ class DashboardVM @ViewModelInject constructor(
     fun stop() {
         viewModelScope.launch {
             kotlin.runCatching {
-                exposureNotificationsRepository.stop()
+                if (exposureNotificationsRepository.isEnabled()) {
+                    exposureNotificationsRepository.stop()
+                }
             }.onSuccess {
                 L.i("EN API Stopped")
                 checkStatus()
@@ -134,7 +138,6 @@ class DashboardVM @ViewModelInject constructor(
     private fun checkForRiskyExposure() {
         viewModelScope.launch {
             runCatching {
-                exposureNotificationsRepository.importLegacyExposures()
                 exposureNotificationsRepository.getLastRiskyExposure()
             }.onSuccess {
                 it?.let {
@@ -229,4 +232,21 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun isLocationlessScanSupported() = exposureNotificationsRepository.isLocationlessScanSupported()
+
+    fun checkAndShowOrHideHowItWorksNotification() {
+        if (prefs.wasHowItWorksShown()) {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS))
+        } else {
+            publish(DashboardCommandEvent(DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS))
+        }
+    }
+
+    fun dismissHowItWorksNotification() {
+        prefs.setHowItWorksShown()
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS))
+    }
+
+    fun showHowItWorksPage() {
+        navigate(DashboardFragmentDirections.actionNavDashboardToNavHowItWorks())
+    }
 }

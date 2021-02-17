@@ -74,6 +74,13 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
+            android:id="@+id/action_nav_welcome_fragment_to_nav_how_it_works"
+            app:destination="@id/nav_how_it_works"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
             android:id="@+id/action_nav_welcome_fragment_to_nav_activation_notifications"
             app:destination="@+id/nav_activation_notifications_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -114,10 +121,6 @@
         android:label="@string/help_toolbar_title"
         tools:layout="@layout/fragment_help">
 
-        <argument
-            android:name="fullscreen"
-            android:defaultValue="false"
-            app:argType="boolean" />
         <action
             android:id="@+id/action_nav_help_to_nav_about"
             app:destination="@id/nav_about"
@@ -125,6 +128,93 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_category"
+            app:destination="@id/nav_help_category"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_search"
+            app:destination="@id/nav_help_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help_category"
+        android:name="cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragment"
+        tools:layout="@layout/fragment_help_category">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+        <argument
+            android:name="category"
+            app:argType="cz.covid19cz.erouska.ui.help.data.FaqCategory"/>
+
+        <action
+            android:id="@+id/action_nav_help_category_to_nav_help_question"
+            app:destination="@id/nav_help_question"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_nav_help_to_nav_help_search"
+            app:destination="@id/nav_help_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help_question"
+        android:name="cz.covid19cz.erouska.ui.helpquestion.HelpQuestionFragment"
+        tools:layout="@layout/fragment_help_question">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+        <argument
+            android:name="question"
+            app:argType="cz.covid19cz.erouska.ui.help.data.Question"/>
+
+        <argument
+            android:name="category"
+            app:argType="string"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_help_search"
+        android:name="cz.covid19cz.erouska.ui.helpsearch.HelpSearchFragment"
+        tools:layout="@layout/fragment_help_search">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
     </fragment>
 
     <fragment
@@ -137,6 +227,7 @@
             android:defaultValue="true"
             app:argType="boolean" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="cz.covid19cz.erouska.ui.dashboard.DashboardFragment"
@@ -190,6 +281,13 @@
         <action
             android:id="@+id/action_nav_dashboard_to_nav_exposure"
             app:destination="@id/nav_exposure"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_how_it_works"
+            app:destination="@id/nav_how_it_works"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -358,6 +456,16 @@
             android:name="type"
             app:argType="cz.covid19cz.erouska.ui.exposurehelp.entity.ExposureHelpType"
             android:defaultValue="EXPOSURE" />
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_how_it_works"
+        android:name="cz.covid19cz.erouska.ui.how.HowItWorksFragment"
+        tools:layout="@layout/fragment_how_it_works"
+        android:label="@string/how_it_works_toolbar_title">
         <argument
             android:name="fullscreen"
             android:defaultValue="true"

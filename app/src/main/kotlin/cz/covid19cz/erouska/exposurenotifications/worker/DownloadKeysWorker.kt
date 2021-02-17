@@ -32,7 +32,7 @@ class DownloadKeysWorker @WorkerInject constructor(
                 Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_STARTED)
                 val result = serverRepository.downloadKeyExport()
                 exposureNotificationsRepository.provideDiagnosisKeys(result)
-                exposureNotificationsRepository.checkExposure(context)
+                exposureNotificationsRepository.checkExposure()
                 Analytics.logEvent(context, Analytics.KEY_EXPORT_DOWNLOAD_FINISHED)
             } else {
                 L.i("Skipping download keys worker")

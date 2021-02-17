@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="uri_scheme">erouska</string>
-    <string name="key_server_base_url">https://exposure-fghz64a2xa-ew.a.run.app/</string>
+    <string name="key_server_base_url">https://europe-west1-daring-leaf-272223.cloudfunctions.net/</string>
     <string name="verification_server_base_url">https://apiserver-jyvw4xgota-ew.a.run.app/</string>
     <string name="covid_data_server_base_url">https://europe-west1-daring-leaf-272223.cloudfunctions.net</string>
     <string name="fileprovider_authorities" translatable="false">cz.covid19cz.erouska.fileprovider</string>

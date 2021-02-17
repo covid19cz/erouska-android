@@ -9,9 +9,11 @@ data class ExposureRequest(
     val hmackey: String?,
     val revisionToken: String?,
     val traveler: Boolean,
+    val reportType: String,
+    val visitedCountries: List<String>,
     val consentToFederation: Boolean = true,
     val padding: String = Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.NO_WRAP),
-    val healthAuthorityID: String = "cz.covid19cz.erouska"
+    val healthAuthorityID: String = "cz.covid19cz.erouska",
 )
 
 data class TemporaryExposureKeyDto(

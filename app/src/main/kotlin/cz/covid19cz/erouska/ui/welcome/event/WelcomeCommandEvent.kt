@@ -6,7 +6,6 @@ class WelcomeCommandEvent(val command: Command) : LiveEvent() {
 
     enum class Command{
         VERIFY_APP,
-        OPEN_BT_ONBOARD,
         HELP
     }
 

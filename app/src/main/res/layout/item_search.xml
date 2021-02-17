@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion" />
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.helpsearch.HelpSearchVM" />
+    </data>
+
+    <cz.covid19cz.erouska.ui.helpsearch.ui.SearchableItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/fragment_padding"
+        android:paddingEnd="@dimen/fragment_padding"
+        android:focusable="true"
+        app:markdown="@{vm.markdown}"
+        app:search_answer="@{item.answer}"
+        app:search_category="@{item.category}"
+        app:search_question="@{item.question}" />
+
+</layout>
