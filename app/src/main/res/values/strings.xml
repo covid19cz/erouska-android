@@ -9,10 +9,10 @@
     <string name="bt_disabled_desc">Enabling Bluetooth is necessary to log encounters with other eRouška users near you.</string>
     <string name="dashboard_title_running">eRouška is active</string>
     <string name="dashboard_title_paused">eRouška is paused</string>
-    <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Please do not stop it. Keep Bluetooth enabled and use your phone as usual.</string>
+    <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
     <string name="dashboard_body_no_contact">Last data update on %1$s at %2$s.</string>
-    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby.\n\nResume data collection and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
+    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby. Resume the app and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
     <string name="privacy_header_text">We value your privacy. You are always in control of your data.</string>
@@ -69,10 +69,10 @@
     <string name="my_data_cured">%1$s cured individuals</string>
     <string name="my_data_death_toll">%1$s deceased</string>
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
-    <string name="send_data_body">If you test positive for COVID-19 you will be contacted by a public health officer. You will receive an SMS message with the verification code to notify other eRouška users.</string>
+    <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code to notify other eRouška users.</string>
     <string name="send_data_verification_hint">Verification code</string>
     <string name="send_data_button_text">Verify and send data</string>
-    <string name="send_data_code_invalid">Verification code entered incorrectly, please try again</string>
+    <string name="send_data_code_invalid">Verification code was not entered correctly</string>
     <string name="send_data_code_expired_header">Verification code has expired</string>
     <string name="send_data_code_expired_or_used">You have already used this code or it has expired.</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
@@ -200,7 +200,7 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="how_it_works_confirm_content">If a person is tested positive for COVID-19, they will automatically receive an SMS with a verification code for eRouška. By entering the code in the application, the person can anonymously notify other eRouška users.</string>
     <string name="how_it_works_warn_title">Warnings by other eRouška apps</string>
     <string name="how_it_works_warn_content">After you enter and confirm the code, eRouška sends out data about encounters. Data about all encounters that the phone logged since its owner was infected according to available information is sent.</string>
-    <string name="how_it_works_control_title">Checking encounters with infected individuals</string>
+    <string name="how_it_works_control_title">Processing encounters with infected individuals</string>
     <string name="how_it_works_control_content">The following day at the latest, other eRouška apps will check the information about newly infected individuals and compare it to their own encounter logs.</string>
     <string name="how_it_works_eval_title">Risky encounters evaluation</string>
     <string name="how_it_works_eval_content">eRouška apps will evaluate the encounter as risky if it was longer than 15 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</string>
