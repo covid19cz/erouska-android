@@ -13,6 +13,7 @@ import cz.covid19cz.erouska.ext.attachKeyboardController
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.Markdown
+import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
@@ -43,12 +44,15 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
 
         viewModel.queryData.observe(this,
             Observer {
-                if (it.isNotEmpty() && it.length < viewModel.minQueryLength) {
+                empty_text_view.showOrHide(it.isEmpty())
+
+                if (it.length < viewModel.minQueryLength) {
                     empty_text_view.setText(R.string.help_type_more)
                 } else {
                     empty_text_view.setText(R.string.help_no_results)
                 }
             })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

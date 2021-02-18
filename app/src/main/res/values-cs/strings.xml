@@ -142,7 +142,7 @@
     <string name="previous_search_result">Předešlý výsledek</string>
     <string name="next_search_result">Následující výsledek</string>
     <string name="help_no_results">Žádné výsledky vyhledávání</string>
-    <string name="help_type_more">Málo znaků</string>
+    <string name="help_type_more">Zatím jsme nic nenašli, pokračujte ve psaní</string>
     <string name="help_how_title">Jak eRouška funguje</string>
     <string name="help_how_subtitle">Zjistěte více o tom, jak aplikace funguje</string>
     <string name="exposure_info_date">Naposledy %s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19</string>
