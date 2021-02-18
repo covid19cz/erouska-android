@@ -204,7 +204,7 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="how_it_works_warn_title">Varování ostatních eRoušek</string>
     <string name="how_it_works_warn_content">Po zadání a potvrzení kódu se z eRoušky odešlou informace o setkáních. Odesílají se všechna setkání, která telefon nakaženého zaznamenal od okamžiku, kdy byl podle dostupných informací nakažlivý.</string>
     <string name="how_it_works_control_title">Zpracování setkání s nakaženými</string>
-    <string name="how_it_works_control_content">Ostatní eRoušky nejpozději následující den zkontrolují informace o nově nakažených a porovnají je s vlastním seznamem setkání.</string>
+    <string name="how_it_works_control_content">Ostatní eRoušky nejpozději následující den zkontrolují informace o nově nakažených a porovnají je s těmi, které potkaly.</string>
     <string name="how_it_works_eval_title">Vyhodnocení rizikových setkání</string>
     <string name="how_it_works_eval_content">eRoušky vyhodnotí setkání jako rizikové v případě, že byly s nakaženým v kontaktu na vzdálenost bližší než 2 metry a po dobu alespoň 15 minut od okamžiku, kdy byl podle dostupných informací nakažlivý.</string>
     <string name="how_it_works_notif_title">Zobrazení varování</string>
