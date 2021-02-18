@@ -143,7 +143,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="previous_search_result">Predošlý výsledok</string>
     <string name="next_search_result">Nasledujúci výsledok</string>
     <string name="help_no_results">Žiadne výsledky vyhľadávania</string>
-    <string name="help_type_more">Málo znakov</string>
+    <string name="help_type_more">Zatiaľ sme nič nenašli, pokračujte v písaní</string>
     <string name="help_how_title">Ako eRouška funguje</string>
     <string name="help_how_subtitle">Zistite viac o tom, ako aplikácia funguje</string>
     <string name="exposure_info_date">Naposledy %s ste sa stretli s osobou, ktorej bolo potvrdené ochorenie COVID-19</string>
@@ -157,7 +157,8 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     </plurals>
     <string name="dashboard_risky_encounter_subtitle_bad">Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="dashboard_positive_test_title">Máte pozitívny výsledok COVID-19 testu?</string>
-    <string name="dashboard_positive_test_button">Ak je výsledok pozitívny, upozornite ostatných.</string>
+    <string name="dashboard_positive_test_subtitle">Ak je výsledok pozitívny, upozornite ostatných.</string>
+    <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
@@ -207,6 +208,6 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="how_it_works_eval_title">Vyhodnotenia rizikových stretnutí</string>
     <string name="how_it_works_eval_content">eRoušky vyhodnotia stretnutia ako rizikové v prípade, že boli s nakazeným v kontakte na vzdialenosť bližšiu ako 2 metre a počas aspoň 15 minút od okamihu, keď bol podľa dostupných informácií nákazlivý.</string>
     <string name="how_it_works_notif_title">Zobrazenie varovania</string>
-    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným sa v aplikácii eRouška zobrazí upozornenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
+    <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným, sa v aplikácii eRouška zobrazí upozornenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
     <string name="how_it_works_support_content">Máte ďalšie otázky alebo vám eRouška nefunguje správne? Napíšte nám.</string>
 </resources>
