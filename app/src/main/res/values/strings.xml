@@ -207,4 +207,5 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="how_it_works_notif_title">Displaying notifications</string>
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
+    <string name="dashboard_positive_test_subtitle">If you tested positive, notify others.</string>
 </resources>
