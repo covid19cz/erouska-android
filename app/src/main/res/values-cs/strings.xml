@@ -209,6 +209,6 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="how_it_works_eval_title">Vyhodnocení rizikových setkání</string>
     <string name="how_it_works_eval_content">eRoušky riziková setkání vyhodnotí v případě, že byly s nakaženým v kontaktu na vzdálenost bližší než 2 metry a po dobu alespoň 15 minut od okamžiku, kdy byl podle dostupných informací nakažlivým.</string>
     <string name="how_it_works_notif_title">Zobrazení varování</string>
-    <string name="how_it_works_notif_content">Těm, kteří mohli přijít do rizikového kontaktu s nakaženým, se v aplikaci eRouška zobrazí upozonění. To navede uživatele, jak má dále postupovat a jaká hygienická opatření má dodržovat.</string>
+    <string name="how_it_works_notif_content">Těm, kteří mohli přijít do rizikového kontaktu s nakaženým, se v aplikaci eRouška zobrazí upozornění. To navede uživatele, jak má dále postupovat a jaká hygienická opatření má dodržovat.</string>
     <string name="how_it_works_support_content">Máte další dotazy nebo vám eRouška nefunguje správně? Napište nám.</string>
 </resources>
