@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška je pozastavená</string>
     <string name="dashboard_body">Aplikace aktuálně pracuje na pozadí a monitoruje okolí. Nechte zapnuté Bluetooth a s telefonem pracujte jako obvykle.</string>
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
-    <string name="dashboard_body_no_contact">Posledn\u00ed aktualizace dat %1$s v\u00a0%2$s.</string>
+    <string name="dashboard_body_no_contact">Poslední aktualizace %1$s v %2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o ostatních eRouškách ve vašem okolí. Spusťte znovu eRoušku a chraňte sebe i své okolí. Nezapomínejte na to zejména ve chvíli, kdy opouštíte svůj domov.</string>
     <string name="pause_app">Pozastavit</string>
     <string name="start_app">Spustit</string>
@@ -203,11 +203,11 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="how_it_works_confirm_title">Když se potvrdí COVID-19</string>
     <string name="how_it_works_confirm_content">Pokud se u někoho prokáže onemocnění COVID-19, dostane automaticky SMS s ověřovacím kódem pro eRoušku. Zadáním kódu v aplikaci odemkne možnost anonymně varovat ostatní uživatele.</string>
     <string name="how_it_works_warn_title">Varování ostatních eRoušek</string>
-    <string name="how_it_works_warn_content">Po zadání a potvrzení kódu se z eRoušky odešlou informace o setkáních. Odesílají se všechna setkání, která telefon nakaženého zaznamenal od okamžiku, kdy byl podle dostupných informací nakažlivý.</string>
+    <string name="how_it_works_warn_content">Po zadání a potvrzení kódu dojde k informování ostatních eRoušek o možném rizikovém setkání.</string>
     <string name="how_it_works_control_title">Zpracování setkání s nakaženými</string>
     <string name="how_it_works_control_content">Ostatní eRoušky nejpozději následující den zkontrolují informace o nově nakažených a porovnají je s těmi, které potkaly.</string>
     <string name="how_it_works_eval_title">Vyhodnocení rizikových setkání</string>
-    <string name="how_it_works_eval_content">eRoušky vyhodnotí setkání jako rizikové v případě, že byly s nakaženým v kontaktu na vzdálenost bližší než 2 metry a po dobu alespoň 15 minut od okamžiku, kdy byl podle dostupných informací nakažlivý.</string>
+    <string name="how_it_works_eval_content">eRoušky riziková setkání vyhodnotí v případě, že byly s nakaženým v kontaktu na vzdálenost bližší než 2 metry a po dobu alespoň 15 minut od okamžiku, kdy byl podle dostupných informací nakažlivým.</string>
     <string name="how_it_works_notif_title">Zobrazení varování</string>
     <string name="how_it_works_notif_content">Těm, kteří mohli přijít do rizikového kontaktu s nakaženým, se v aplikaci eRouška zobrazí upozornění. To navede uživatele, jak má dále postupovat a jaká hygienická opatření má dodržovat.</string>
     <string name="how_it_works_support_content">Máte další dotazy nebo vám eRouška nefunguje správně? Napište nám.</string>
