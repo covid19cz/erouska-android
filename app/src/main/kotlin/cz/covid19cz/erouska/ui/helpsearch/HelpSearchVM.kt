@@ -57,7 +57,7 @@ class HelpSearchVM @ViewModelInject constructor(
         resetSearch()
 
         if (queryData.value.length >= minQueryLength) {
-            searchJob = viewModelScope.launch {
+            searchJob = viewModelScope.launch(Dispatchers.Default) {
                 try {
                     searchQueryInText()
                 } catch (cancelException: CancellationException) {
@@ -84,7 +84,8 @@ class HelpSearchVM @ViewModelInject constructor(
                 val q = SearchableQuestion(question.category)
                 q.answer = newA.first
                 q.question = newQ.first
-                searchResult.add(q)
+
+                withContext(Dispatchers.Main) { searchResult.add(q) }
             }
         }
         publish(HelpCommandEvent(HelpCommandEvent.Command.UPDATE_VIEWS))
