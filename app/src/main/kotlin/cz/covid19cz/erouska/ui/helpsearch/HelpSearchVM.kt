@@ -11,17 +11,17 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.FaqCategory
 import cz.covid19cz.erouska.ui.help.data.toFaqCategories
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
+import cz.covid19cz.erouska.ui.helpsearch.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.apache.commons.lang3.StringUtils
 import java.util.regex.Pattern
 
 class HelpSearchVM @ViewModelInject constructor(
     val markdown: Markdown
 ) : BaseVM() {
+
 
     val layoutStrategy = object : RecyclerLayoutStrategy {
         override fun getLayoutId(item: Any): Int {
@@ -54,6 +54,7 @@ class HelpSearchVM @ViewModelInject constructor(
         searchJob?.cancel()
 
         this.queryData.value = query?.trim() ?: ""
+        resetSearch()
 
         if (queryData.value.length >= minQueryLength) {
             searchJob = viewModelScope.launch {
@@ -64,7 +65,7 @@ class HelpSearchVM @ViewModelInject constructor(
                 }
             }
         } else {
-            resetSearch()
+            publish(HelpCommandEvent(HelpCommandEvent.Command.UPDATE_VIEWS))
         }
 
     }
@@ -73,8 +74,7 @@ class HelpSearchVM @ViewModelInject constructor(
         searchResult.clear()
     }
 
-    private fun searchQueryInText() {
-        searchResult.clear()
+    private suspend fun searchQueryInText() {
         content.forEach { question ->
 
             val newQ = highlightSearchedText(question.question)
@@ -87,6 +87,7 @@ class HelpSearchVM @ViewModelInject constructor(
                 searchResult.add(q)
             }
         }
+        publish(HelpCommandEvent(HelpCommandEvent.Command.UPDATE_VIEWS))
     }
 
     private fun highlightSearchedText(originalText: String): Pair<String, Boolean> {
