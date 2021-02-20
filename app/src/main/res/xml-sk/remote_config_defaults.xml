@@ -34,7 +34,7 @@
     </entry>
     <entry>
         <key>v2_riskyEncountersTitleAn</key>
-        <value>Dňa %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19. V prípade, že vás bude kontaktovať pracovník hygienickej stanice, postupujte podľa jeho pokynov.</value>
+        <value>Naposledy %1$s ste sa stretli s osobou, u ktorej bolo potvrdené ochorenie COVID-19. V prípade, že vás bude kontaktovať pracovník hygienickej stanice, postupujte podľa jeho pokynov.</value>
     </entry>
     <entry>
         <key>v2_keyImportPeriodHours</key>
@@ -117,6 +117,7 @@
         <value>https://erouska.cz/app/sdilej</value>
     </entry>
     <entry>
+        <key>v2_minSupportedVersionCodeAndroid</key>
         <key>v2_minSupportedVersionCodeAndroid</key>
         <value>666</value>
     </entry>
