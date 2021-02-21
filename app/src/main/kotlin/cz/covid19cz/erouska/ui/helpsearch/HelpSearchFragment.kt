@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.databinding.ObservableList
+import androidx.lifecycle.Observer
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpSearchBinding
 import cz.covid19cz.erouska.ext.attachKeyboardController
 import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.helpsearch.event.HelpCommandEvent
+import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
 import cz.covid19cz.erouska.utils.Markdown
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,13 +44,21 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
         super.onCreate(savedInstanceState)
         viewModel.fillQuestions()
 
-        subscribe(HelpCommandEvent::class) { commandEvent ->
-            when (commandEvent.command) {
-                HelpCommandEvent.Command.UPDATE_VIEWS -> {
-                    updateViews()
+        viewModel.queryData.observe(this,
+            Observer {
+                when {
+                    it.isEmpty() -> empty_text_view.text = ""
+                    it.length < viewModel.minQueryLength -> empty_text_view.setText(R.string.help_type_more)
+                    else -> empty_text_view.setText(R.string.help_no_results)
                 }
-            }
-        }
+            })
+
+        viewModel.searchEmpty.observe(this,
+            Observer { isEmpty ->
+                help_categories.showOrHide(!isEmpty)
+                empty_text_view.showOrHide(isEmpty)
+                empty_image_view.showOrHide(isEmpty)
+            })
 
     }
 
@@ -110,23 +120,6 @@ class HelpSearchFragment : BaseFragment<FragmentHelpSearchBinding, HelpSearchVM>
     private fun collapseSearchView() {
         activity?.toolbar_search_view?.apply {
             setQuery("", false)
-        }
-    }
-
-    private fun updateViews() {
-        val query = viewModel.queryData.value
-
-        val resultEmpty = viewModel.searchResult.isEmpty()
-        val queryNotEmpty = query.isNotEmpty()
-
-        empty_text_view.showOrHide(resultEmpty && queryNotEmpty)
-        empty_image_view.showOrHide(resultEmpty)
-        help_categories.showOrHide(!resultEmpty)
-
-        if (query.length < viewModel.minQueryLength) {
-            empty_text_view.setText(R.string.help_type_more)
-        } else {
-            empty_text_view.setText(R.string.help_no_results)
         }
     }
 

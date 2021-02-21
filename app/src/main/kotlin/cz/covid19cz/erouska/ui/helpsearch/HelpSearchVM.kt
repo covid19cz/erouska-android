@@ -11,7 +11,6 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.FaqCategory
 import cz.covid19cz.erouska.ui.help.data.toFaqCategories
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
-import cz.covid19cz.erouska.ui.helpsearch.event.HelpCommandEvent
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
 import kotlinx.coroutines.*
@@ -22,7 +21,6 @@ class HelpSearchVM @ViewModelInject constructor(
     val markdown: Markdown
 ) : BaseVM() {
 
-
     val layoutStrategy = object : RecyclerLayoutStrategy {
         override fun getLayoutId(item: Any): Int {
             return R.layout.item_search
@@ -30,6 +28,7 @@ class HelpSearchVM @ViewModelInject constructor(
     }
 
     val searchResult = ObservableArrayList<SearchableQuestion>()
+    val searchEmpty = SafeMutableLiveData(searchResult.isEmpty())
     val content = ArrayList<SearchableQuestion>()
     val queryData = SafeMutableLiveData("")
     val minQueryLength = 2
@@ -50,33 +49,48 @@ class HelpSearchVM @ViewModelInject constructor(
     }
 
     fun searchQuery(query: String?) {
-
         searchJob?.cancel()
-
         this.queryData.value = query?.trim() ?: ""
-        resetSearch()
 
         if (queryData.value.length >= minQueryLength) {
-            searchJob = viewModelScope.launch(Dispatchers.Default) {
-                try {
-                    searchQueryInText()
-                } catch (cancelException: CancellationException) {
-                    L.d("Job cancelled")
-                }
+            searchJob = viewModelScope.launch {
+                startSearch()
             }
         } else {
-            publish(HelpCommandEvent(HelpCommandEvent.Command.UPDATE_VIEWS))
+            resetSearchResult()
+        }
+    }
+
+    private suspend fun updateSearchResult(searchResults: List<SearchableQuestion>) =
+        withContext(Dispatchers.Main) {
+            searchResult.clear()
+            searchResult.addAll(searchResults)
+            updateSearchResultCount()
         }
 
-    }
-
-    private fun resetSearch() {
+    private fun resetSearchResult() {
         searchResult.clear()
+        updateSearchResultCount()
     }
 
-    private suspend fun searchQueryInText() {
-        content.forEach { question ->
+    private fun updateSearchResultCount() {
+        searchEmpty.value = searchResult.isEmpty()
+    }
 
+    private suspend fun startSearch() = withContext(Dispatchers.Default) {
+        val result = searchQueryInText()
+        if (isActive) {
+            launch {
+                updateSearchResult(result)
+            }
+        } else {
+            L.d("Job was already cancelled, not going to display results")
+        }
+    }
+
+    private fun searchQueryInText(): List<SearchableQuestion> {
+        val tempSearchResult = mutableListOf<SearchableQuestion>()
+        content.forEach { question ->
             val newQ = highlightSearchedText(question.question)
             val newA = highlightSearchedText(question.answer)
 
@@ -84,11 +98,10 @@ class HelpSearchVM @ViewModelInject constructor(
                 val q = SearchableQuestion(question.category)
                 q.answer = newA.first
                 q.question = newQ.first
-
-                withContext(Dispatchers.Main) { searchResult.add(q) }
+                tempSearchResult.add(q)
             }
         }
-        publish(HelpCommandEvent(HelpCommandEvent.Command.UPDATE_VIEWS))
+        return tempSearchResult
     }
 
     private fun highlightSearchedText(originalText: String): Pair<String, Boolean> {
