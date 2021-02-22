@@ -74,15 +74,13 @@ class HelpSearchVM @ViewModelInject constructor(
     }
 
     private fun updateSearchResultCount() {
-        searchEmpty.value = searchResult.isEmpty()
+        searchEmpty.postValue(searchResult.isEmpty())
     }
 
     private suspend fun startSearch() = withContext(Dispatchers.Default) {
         val result = searchQueryInText()
         if (isActive) {
-            launch {
-                updateSearchResult(result)
-            }
+            updateSearchResult(result)
         } else {
             L.d("Job was already cancelled, not going to display results")
         }
