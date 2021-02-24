@@ -25,7 +25,7 @@
             app:layoutStrategy="@{vm.layoutStrategy}"
             app:layout_constraintStart_toStartOf="parent"
             app:viewModel="@{ vm }"
-            app:visibleOrGone="@{!vm.searchResult.empty}" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/empty_image_view"
@@ -37,7 +37,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibleOrGone="@{vm.searchResult.empty}" />
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/empty_text_view"
@@ -49,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/empty_image_view"
-            app:visibleOrGone="@{vm.searchResult.empty}" />
+            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
