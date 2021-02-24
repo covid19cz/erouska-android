@@ -155,7 +155,7 @@
         <item quantity="other">Za posledních 14\u00A0dní %1$d\u00A0rizikových setkání</item>
     </plurals>
 
-    <string name="dashboard_risky_encounter_subtitle_bad">Naposledy %1$s jste se setkali s osobou u které bylo potvrzeno onemocnění COVID-19.</string>
+    <string name="dashboard_risky_encounter_subtitle_bad">Naposledy %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="dashboard_positive_test_title">Byli jste na testu COVID-19?</string>
     <string name="dashboard_positive_test_subtitle">Pokud je výsledek pozitivní, upozorněte ostatní.</string>
     <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
