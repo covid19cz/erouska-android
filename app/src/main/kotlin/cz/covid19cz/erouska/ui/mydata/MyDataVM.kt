@@ -74,6 +74,19 @@ class MyDataVM @ViewModelInject constructor(
         )
     }
 
+    val vaccinationsTotal = SafeMutableLiveData(prefs.getVaccinationsTotal())
+    val vaccinationsIncrease = SafeMutableLiveData(prefs.getVaccinationsIncrease())
+    val vaccinationsIncreaseDate = if (prefs.getVaccinationsIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getVaccinationsIncreaseDate()))
+        )
+    }
+
     val confirmedCasesTotal = SafeMutableLiveData(prefs.getConfirmedCasesTotal())
     val confirmedCasesIncrease = SafeMutableLiveData(prefs.getConfirmedCasesIncrease())
     val confirmedCasesIncreaseDate= if (prefs.getConfirmedCasesIncreaseDate() == 0L) {
@@ -165,6 +178,31 @@ class MyDataVM @ViewModelInject constructor(
                         prefs.setAntigenTestsIncreaseDate(lastUpdateMillis)
 
                         antigenTestsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
+                }
+               safeLet(response.vaccinationsTotal,
+                    response.vaccinationsIncrease,
+                    response.vaccinationsIncreaseDate) { total, increase, increaseDate ->
+                    vaccinationsTotal.value = total
+                    vaccinationsIncrease.value = increase
+
+                    prefs.setVaccinationsTotal(total)
+                    prefs.setVaccinationsIncrease(increase)
+
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setVaccinationsIncreaseDate(lastUpdateMillis)
+
+                        vaccinationsIncreaseDate.value = SimpleDateFormat(
                             LAST_UPDATE_UI_FORMAT,
                             Locale.getDefault()
                         ).format(
