@@ -218,7 +218,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    app:case_icon="@{@drawable/ic_test}"
+                    app:case_icon="@{@drawable/ic_vacc}"
                     app:case_subtitle="@{String.format(@string/my_data_for_day, SignNumberFormat.format(vm.vaccinationsIncrease), vm.vaccinationsIncreaseDate)}"
                     app:case_title="@{String.format(@string/my_data_vaccinations, NumberFormat.getInstance().format(vm.vaccinationsTotal))}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +228,7 @@
                 <View
                     style="@style/Divider"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hospitalized" />
+                    app:layout_constraintTop_toBottomOf="@id/vaccinations" />
 
                 <TextView
                     android:id="@+id/stats_text"
