@@ -32,7 +32,7 @@ class EfgsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        enableUpInToolbar(true, IconType.UP)
+        enableUpInToolbar(true, IconType.CLOSE)
 
         efgs_checkbox.setOnCheckedChangeListener { switch, isChecked ->
             if (isChecked) {
