@@ -72,7 +72,7 @@ class LegacyUpdateFragment : BaseFragment<FragmentLegacyUpdateBinding, LegacyUpd
         legacy_update_img.setImageResource(R.drawable.ic_update_expansion)
         legacy_update_header.text = getString(R.string.efgs_header)
 
-        legacy_update_body.text = getString(R.string.efgs_boundaries) + "\n\n" + getString(R.string.efgs_visit, AppConfig.efgsDays) + "\n\n" + AppConfig.efgsSupportedCountries + "\n\n" +  getString(R.string.efgs_settings)
+        legacy_update_body.text = getString(R.string.efgs_boundaries) + "\n\n" + getString(R.string.efgs_visit, AppConfig.efgsDays) + "\n\n" + AppConfig.efgsSupportedCountries
 
         legacy_update_checkbox.text = getString(R.string.efgs_check)
         legacy_update_button.text = getString(R.string.legacy_update_button_continue)
