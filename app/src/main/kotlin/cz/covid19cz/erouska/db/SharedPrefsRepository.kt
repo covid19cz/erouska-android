@@ -160,6 +160,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
     }
 
+    fun setSuppressUpdateScreens(suppress: Boolean) {
+        prefs.edit().putBoolean(APP_OPEN_TIMESTAMP, suppress).apply()
+    }
+
+    fun shouldSuppressUpdateScreens(): Boolean {
+        return prefs.getBoolean(APP_OPEN_TIMESTAMP, false)
+    }
+
     fun clearCustomConfig() {
         prefs.edit().apply {
             remove(REPORT_TYPE_WEIGHTS)

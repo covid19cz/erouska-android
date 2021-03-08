@@ -221,7 +221,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
 
         updateLastUpdateDateAndTime()
-
+        viewModel.cancelSuppression()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
