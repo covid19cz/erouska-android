@@ -118,7 +118,8 @@ class SandboxVM @ViewModelInject constructor(
     fun reportExposureWithVerification(code: String) {
         viewModelScope.launch {
             runCatching {
-                exposureNotificationsRepository.reportExposureWithVerification(code)
+                exposureNotificationsRepository.verifyCode(code)
+                exposureNotificationsRepository.publishKeys()
             }.onSuccess {
                 showSnackbar("Upload success: $it keys")
             }.onFailure {
