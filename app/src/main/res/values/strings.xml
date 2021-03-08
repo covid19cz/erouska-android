@@ -12,7 +12,7 @@
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
     <string name="dashboard_body_no_contact">Last data update on %1$s at %2$s.</string>
-    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRou\u0161ka applications nearby. Resume the app and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
+    <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRouška applications nearby. Resume the app and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
     <string name="privacy_header_text">We value your privacy. You are always in control of your data.</string>
@@ -202,9 +202,7 @@
     <string name="how_it_works_content">Are you curious how eRouška works?</string>
     <string name="how_it_works_more">Find out more</string>
     <string name="how_it_works_close">Close</string>
-    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
-
-When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
+    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
     <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
     <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
     <string name="how_it_works_confirm_title">If COVID-19 infection is confirmed</string>
@@ -218,4 +216,5 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="how_it_works_notif_title">Displaying notifications</string>
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
+    <string name="dashboard_positive_test_subtitle">If you tested positive, notify others.</string>
 </resources>
