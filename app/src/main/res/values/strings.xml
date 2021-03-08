@@ -20,7 +20,7 @@
     <string name="privacy_body_text_2"><![CDATA[You can find more information about personal data processing and other conditions in <a href="%1$s">Terms and conditions</a>.]]></string>
     <string name="privacy_finish">Finish activation</string>
     <string name="privacy_toolbar_title">Privacy</string>
-    <string name="activation_error_title">Error</string>
+    <string name="error_title">Error</string>
     <string name="activation_error_header">Activation could not be finished</string>
     <string name="activation_try_again">Try again</string>
     <string name="permission_onboarding_title">To work properly, eRouška requires COVID-19 Exposure Notifications to be enabled</string>
@@ -70,6 +70,7 @@
     <string name="my_data_death_toll">%1$s deceased</string>
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
     <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code to notify other eRouška users.</string>
+    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %d</string>
     <string name="send_data_verification_hint">Verification code</string>
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code was not entered correctly</string>
@@ -86,6 +87,25 @@
     <string name="send_data_success_body_1_not_enough_keys">You have activated eRouška only recently, so it has not logged any other eRouška users. Therefore, the app will not notify anyone about a risky encounter.</string>
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
+    <string name="symptom_date_title">Datum prvních příznaků</string>
+    <string name="symptom_date_body">Vyplňte prosím datum prvních příznaků. Upozorníme všechny uživatele eRoušky, které jste potkali ve dnech, kdy se u vás objevily první příznaky.</string>
+    <string name="symptom_date_switch_text">Mám příznaky onemocnění COVID-19</string>
+    <string name="symptom_date_symptoms">Kašel, teplota, dušnost, bolest v krku, bolest hlavy, ztráta čichu a chuti.</string>
+    <string name="symptom_date_hint">Datum prvních příznaků</string>
+    <string name="button_continue">Pokračovat</string>
+    <string name="traveller_title">Cesty do zahraničí</string>
+    <string name="traveller_body">Cestovali jste v posledních 14 dnech do některé ze zemí Evropské unie?</string>
+    <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, ketré jste potkali při svých cestách do zahraničí.</string>
+    <string name="traveller_button_yes">Ano, byl(a) jsem v zahraničí</string>
+    <string name="traveller_button_no">Nebyl(a) jsem v zahraničí</string>
+
+    <string name="efgs_agreement_title">Spolupráce se zahraničím</string>
+    <string name="efgs_agreement_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice i v zahraničí?</string>
+    <string name="efgs_agreement_non_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice?</string>
+    <string name="efgs_agreement_description">Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle souhlasu se zpracováním osobních údajů.</string>
+    <string name="efgs_agreement_agree">Souhlasím</string>
+    <string name="efgs_agreement_disagree">Nesouhlasím</string>
+
     <string name="notification_data_outdated_title">Risky encounters update</string>
     <string name="data_notification_close">Close</string>
     <string name="notification_exposure_title">Risky encounter</string>
@@ -160,6 +180,7 @@
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
     <string name="support_request_button">Email support</string>
+    <string name="support_description">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
     <string name="support_request">Do you wish to attach a file with anonymous information about your device\'s settings? This information will help us troubleshoot.</string>
     <string name="support_request_allowed">Yes, attach the file</string>
     <string name="support_request_denied">No, do not attach the file</string>

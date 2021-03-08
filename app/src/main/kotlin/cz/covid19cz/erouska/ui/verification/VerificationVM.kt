@@ -1,0 +1,96 @@
+package cz.covid19cz.erouska.ui.verification
+
+import androidx.core.text.isDigitsOnly
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import arch.livedata.SafeMutableLiveData
+import cz.covid19cz.erouska.R
+import cz.covid19cz.erouska.db.SharedPrefsRepository
+import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
+import cz.covid19cz.erouska.net.model.VerifyCodeResponse
+import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.verification.event.SendDataCommandEvent
+import cz.covid19cz.erouska.utils.L
+import kotlinx.coroutines.launch
+import java.net.UnknownHostException
+
+class VerificationVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository, private val prefs : SharedPrefsRepository) :
+    BaseVM() {
+
+    val code = SafeMutableLiveData("")
+    val error = MutableLiveData<Int>(null)
+    val lastDataSentDate = MutableLiveData<String>(prefs.getLastDataSentDateString())
+    val loading = SafeMutableLiveData(false)
+
+    init {
+        publish(SendDataCommandEvent(SendDataCommandEvent.Command.INIT))
+        code.observeForever {
+            if (error.value != null) {
+                error.value = null
+            }
+        }
+    }
+
+    fun verifyAndConfirm() {
+        if (!isCodeValid(code.value)) {
+            error.value = R.string.send_data_code_invalid
+            return
+        }
+        validate()
+    }
+
+    private fun validate() {
+        if (prefs.isCodeValidated(code.value)) {
+            navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+        } else {
+            loading.value = true
+            viewModelScope.launch {
+                runCatching {
+                    if (!exposureNotificationRepo.isEnabled()) {
+                        exposureNotificationRepo.start()
+                    }
+                    exposureNotificationRepo.verifyCode(code.value)
+                }.onSuccess {
+                    loading.value = false
+                    navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+                }.onFailure {
+                    loading.value = false
+                    handleSendDataErrors(it)
+                }
+            }
+        }
+    }
+
+    private fun handleSendDataErrors(exception: Throwable) {
+        when (exception) {
+            is VerifyException -> {
+                when (exception.code) {
+                    VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
+                        //TODO: Integrate with Tomas's error screen
+                    }
+                    VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
+                        //TODO: Integrate with Tomas's error screen
+                    }
+                    VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE -> {
+                        //TODO: Integrate with Tomas's error screen
+                    }
+                    else -> {
+                        L.e(exception)
+                        //TODO: Integrate with Tomas's error screen
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                //TODO: Integrate with Tomas's error screen
+            }
+            else -> {
+                L.e(exception)
+            }
+        }
+    }
+
+    private fun isCodeValid(code: String): Boolean {
+        return code.length == 8 && code.isDigitsOnly()
+    }
+}

@@ -197,6 +197,9 @@ dependencies {
     implementation 'com.jaredrummler:android-device-names:2.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 
+    // JWT
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
+
     // Tests
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'org.awaitility:awaitility:3.1.6'

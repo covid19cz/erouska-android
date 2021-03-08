@@ -22,7 +22,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="privacy_body_text_2"><![CDATA[Detailné informácie o spracovaní osobných údajov a ďalšie podmienky používania aplikácie nájdete v <a href="%1$s">podmienkach používania</a>.]]></string>
     <string name="privacy_finish">Dokončiť aktiváciu</string>
     <string name="privacy_toolbar_title">Súkromie</string>
-    <string name="activation_error_title">Chyba</string>
+    <string name="error_title">Chyba</string>
     <string name="activation_error_header">Aktiváciu aplikácie nie je možné dokončiť</string>
     <string name="activation_try_again">Skúsiť znova</string>
     <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté Oznámenia o kontakte s COVID-19</string>

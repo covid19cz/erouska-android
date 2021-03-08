@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.efgsagreement.EfgsAgreementVM" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fragment_padding">
+
+    <TextView
+        android:id="@+id/text_traveller_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{vm.traveller ? @string/efgs_agreement_traveller_body : @string/efgs_agreement_non_traveller_body}"
+        tools:text="@string/efgs_agreement_traveller_body"
+        android:textAppearance="@style/Erouska.Body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_description"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/Erouska.Description"
+        android:text="@string/efgs_agreement_description"
+        app:layout_constraintTop_toBottomOf="@id/text_traveller_body"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="@{() -> vm.agree()}"
+        android:text="@string/efgs_agreement_agree"
+        app:visibleOrInvisible="@{!vm.loading}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/OutlinedButton"
+        android:onClick="@{() -> vm.disagree()}"
+        app:visibleOrInvisible="@{!vm.loading}"
+        android:text="@string/efgs_agreement_disagree"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_yes" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/button_no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_yes"
+        app:visibleOrGone="@{vm.loading}" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -147,7 +147,7 @@ class ActivationFragment :
     }
 
     private fun onActivationFailed(errorMessage: String?) {
-        activity?.setTitle(R.string.activation_error_title)
+        activity?.setTitle(R.string.error_title)
         error_body.text =
             getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
         support_button.setOnClickListener {

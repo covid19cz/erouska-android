@@ -15,9 +15,10 @@ import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.*
-import cz.covid19cz.erouska.ui.senddata.NoKeysException
-import cz.covid19cz.erouska.ui.senddata.ReportExposureException
-import cz.covid19cz.erouska.ui.senddata.VerifyException
+import cz.covid19cz.erouska.ui.verification.InvalidTokenException
+import cz.covid19cz.erouska.ui.verification.NoKeysException
+import cz.covid19cz.erouska.ui.verification.ReportExposureException
+import cz.covid19cz.erouska.ui.verification.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.threeten.bp.LocalDate
@@ -236,6 +237,86 @@ class ExposureNotificationsRepository @Inject constructor(
             }.addOnFailureListener {
                 cont.resumeWithException(it)
             }
+    }
+
+    suspend fun verifyCode(code: String) {
+        try {
+            val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
+            if (verifyResponse.token != null) {
+                L.i("Verify code success")
+                prefs.setVerificationData(code, verifyResponse.token)
+            } else {
+                throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
+            }
+        } catch (e: HttpException) {
+            var errorResponse: VerifyCodeResponse? = null
+            try {
+                val errorBody = e.response()?.errorBody()?.string()
+                errorResponse =
+                    Gson().fromJson<VerifyCodeResponse>(errorBody, VerifyCodeResponse::class.java)
+            } catch (e: Throwable) {
+                L.e(e)
+            }
+            // called when we have HTTP not 200
+            if (e.code() == 500 && AppConfig.handleError500AsInvalidCode) {
+                // This should be enabled only on the old prod server
+                throw VerifyException("Invalid code", VerifyCodeResponse.ERROR_CODE_INVALID_CODE)
+            } else if (e.code() == 400) {
+                if (errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_INVALID_CODE || errorResponse?.errorCode == VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE) {
+                    throw VerifyException(errorResponse.error, errorResponse.errorCode)
+                } else if (AppConfig.handleError400AsExpiredOrUsedCode) {
+                    throw VerifyException(
+                        errorResponse?.error,
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE
+                    )
+                } else {
+                    throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
+                }
+            } else {
+                throw VerifyException(errorResponse?.error, errorResponse?.errorCode)
+            }
+        }
+    }
+
+    suspend fun publishKeys(): Int {
+        val keys = getTemporaryExposureKeyHistory()
+        if (keys.isEmpty()) {
+            L.e("No keys found, upload cancelled")
+            throw NoKeysException()
+        }
+        if (prefs.hasValidationToken(useLeeway = false)) {
+            val token = prefs.getVerificationToken()!!
+            val hmackey = cryptoTools.newHmacKey()
+            val keyHash = cryptoTools.hashedKeys(keys, hmackey)
+
+            val certificateResponse = server.verifyCertificate(
+                VerifyCertificateRequest(token, keyHash)
+            )
+            if (certificateResponse.error != null) {
+                // We ignore error in certificate verification, only log it. It was causing error in production builds with older server.
+                L.e("Error in certificate verification: " + certificateResponse.error + " (" + certificateResponse.errorCode + ")")
+            } else {
+                L.i("Verify certificate success")
+            }
+
+            val dtos = keys.map {
+                TemporaryExposureKeyDto(
+                    it.keyData.encodeBase64(),
+                    it.rollingStartIntervalNumber,
+                    it.rollingPeriod
+                )
+            }
+            L.i("Uploading ${dtos.size} keys")
+            val response = server.reportExposure(dtos, certificateResponse.certificate, hmackey)
+            response.errorMessage?.let {
+                L.e("Report exposure failed: $it")
+                throw ReportExposureException(it, response.code)
+            }
+            L.i("Report exposure success, ${response.insertedExposures} keys inserted")
+            return response.insertedExposures ?: 0
+        } else {
+            throw InvalidTokenException()
+        }
     }
 
     suspend fun reportExposureWithVerification(code: String): Int {

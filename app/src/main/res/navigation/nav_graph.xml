@@ -218,14 +218,17 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_send_data"
-        android:name="cz.covid19cz.erouska.ui.senddata.SendDataFragment"
+        android:id="@+id/nav_verification"
+        android:name="cz.covid19cz.erouska.ui.verification.VerificationFragment"
         android:label="@string/send_data"
-        tools:layout="@layout/fragment_send_data">
+        tools:layout="@layout/fragment_verification">
         <argument
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_verification_to_nav_symptom_date"
+            app:destination="@id/nav_symptom_date" />
     </fragment>
 
     <fragment
@@ -255,8 +258,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_send_data"
-            app:destination="@+id/nav_send_data"
+            android:id="@+id/action_nav_dashboard_to_nav_verification"
+            app:destination="@+id/nav_verification"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -409,8 +412,8 @@
         android:label="DashboardCards"
         >
         <action
-            android:id="@+id/action_nav_dashboard_cards_to_nav_send_data"
-            app:destination="@+id/nav_send_data"
+            android:id="@+id/action_nav_dashboard_cards_to_nav_verification"
+            app:destination="@+id/nav_verification"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -470,6 +473,46 @@
             android:name="fullscreen"
             android:defaultValue="true"
             app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_symptom_date"
+        android:name="cz.covid19cz.erouska.ui.symptomdate.SymptomDateFragment"
+        tools:layout="@layout/fragment_symptom_date"
+        android:label="@string/symptom_date_title" >
+        <action
+            android:id="@+id/action_nav_symptom_date_to_nav_traveller"
+            app:destination="@id/nav_traveller" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_traveller"
+        android:name="cz.covid19cz.erouska.ui.traveller.TravellerFragment"
+        tools:layout="@layout/fragment_traveller"
+        android:label="@string/traveller_title" >
+        <action
+            android:id="@+id/action_nav_traveller_to_efgsAgreementFragment"
+            app:destination="@id/nav_efgs_agreement" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_efgs_agreement"
+        android:name="cz.covid19cz.erouska.ui.efgsagreement.EfgsAgreementFragment"
+        tools:layout="@layout/fragment_efgs_agreement"
+        android:label="@string/efgs_agreement_title" >
+        <action
+            android:id="@+id/action_nav_efgs_agreement_to_nav_publish_success"
+            app:destination="@id/nav_publish_success"
+            app:popUpTo="@id/nav_dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_publish_success"
+        android:name="cz.covid19cz.erouska.ui.publishsuccess.PublishSuccessFragment"
+        tools:layout="@layout/fragment_publish_success"
+        android:label="@string/sent" >
+        <argument
+            android:name="enoughKeys"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_publish_success_to_nav_dashboard"
+            app:popUpTo="@id/nav_dashboard" />
     </fragment>
 
 </navigation>

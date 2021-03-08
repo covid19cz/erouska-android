@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import arch.livedata.SafeMutableLiveData
+import com.auth0.android.jwt.JWT
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.ext.timestampToDate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -57,10 +59,16 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val NOTIFICATIONS_TOTAL = "notificationsTotal"
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
         const val TRAVELLER = "traveller"
+        const val CONSENT_TO_FEDERATION = "consentToFederation"
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
         const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
 
         const val HOW_IT_WORKS_SHOWN = "howItWorksShown"
+
+        const val LAST_DATA_SENT_TIME = "lastDataSentTime"
+        const val VALIDATION_CODE = "validationCode"
+        const val VALIDATION_TOKEN = "validationToken"
+        const val SYMPTOM_DATE = "symptomDate"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -109,7 +117,15 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         prefs.edit().putBoolean(TRAVELLER, traveller).apply()
     }
 
-    fun isPushTokenRegistered() : Boolean{
+    fun isConsentToFederation(): Boolean {
+        return prefs.getBoolean(CONSENT_TO_FEDERATION, false)
+    }
+
+    fun setConsentToFederation(consentToFederation: Boolean) {
+        prefs.edit().putBoolean(CONSENT_TO_FEDERATION, consentToFederation).apply()
+    }
+
+    fun isPushTokenRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
@@ -393,11 +409,76 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putBoolean(EFGS_INTRODUCED, value).apply()
     }
 
-    fun wasHowItWorksShown() : Boolean{
+    fun wasHowItWorksShown(): Boolean {
         return prefs.getBoolean(HOW_IT_WORKS_SHOWN, false)
     }
 
-    fun setHowItWorksShown(){
+    fun setHowItWorksShown() {
         prefs.edit().putBoolean(HOW_IT_WORKS_SHOWN, true).apply()
+    }
+
+    fun setVerificationData(code: String, token: String) {
+        prefs.edit().putString(VALIDATION_CODE, code)
+            .putString(VALIDATION_TOKEN, token).apply()
+    }
+
+    fun getVerificationCode(): String? {
+        return prefs.getString(VALIDATION_CODE, null)
+    }
+
+    fun getVerificationToken(): String? {
+        return prefs.getString(VALIDATION_TOKEN, null)
+    }
+
+    fun deletePublishKeysTemporaryData() {
+        prefs.edit().remove(VALIDATION_CODE)
+            .remove(VALIDATION_TOKEN)
+            .remove(TRAVELLER)
+            .remove(CONSENT_TO_FEDERATION)
+            .remove(SYMPTOM_DATE)
+            .apply()
+    }
+
+    fun isCodeValidated(code : String?): Boolean {
+        val savedCode = prefs.getString(VALIDATION_CODE, null)
+        return if (savedCode == code) {
+            hasValidationToken(useLeeway = true)
+        } else {
+            false
+        }
+    }
+
+    fun hasValidationToken(useLeeway : Boolean) : Boolean{
+        val token = prefs.getString(VALIDATION_TOKEN, null)
+        return if (token != null) {
+            !JWT(token).isExpired(if (useLeeway) AppConfig.validationTokenExpirationLeewayMinutes * 60 else 60)
+        } else {
+            false
+        }
+    }
+
+    fun setSymptomDate(timestamp : Long?) {
+        if (timestamp == null){
+            prefs.edit().remove(SYMPTOM_DATE).apply()
+        } else {
+            prefs.edit().putLong(SYMPTOM_DATE, timestamp).apply()
+        }
+    }
+
+    fun getSymptomOnsetInterval(): Long? {
+        return prefs.getLong(SYMPTOM_DATE, 0L).let {
+            //Unix timestamp / 600
+            if (it != 0L) it/1000/600 else null
+        }
+    }
+
+    fun setLastDataSentDate() {
+        prefs.edit().putLong(LAST_DATA_SENT_TIME, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastDataSentDateString(): String? {
+        return prefs.getLong(LAST_DATA_SENT_TIME, 0L).let {
+            if (it != 0L) it.timestampToDate() else null
+        }
     }
 }

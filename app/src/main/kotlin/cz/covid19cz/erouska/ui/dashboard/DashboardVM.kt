@@ -224,7 +224,7 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun sendData() {
-        navigate(R.id.action_nav_dashboard_to_nav_send_data)
+        navigate(R.id.action_nav_dashboard_to_nav_verification)
     }
 
     fun shouldIntroduceEFGS(): Boolean {

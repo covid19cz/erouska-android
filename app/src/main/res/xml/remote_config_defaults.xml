@@ -252,4 +252,10 @@
         <key>v2_howItWorksUITitle</key>
         <value>How eRouška works</value>
     </entry>
+    <entry>
+        <key>v2_validationTokenExpirationLeewayMinutes</key>
+        <value>15</value>
+    </entry>
+
+
 </defaultsMap>
