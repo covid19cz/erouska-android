@@ -13,8 +13,6 @@ import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.main.MainActivity
-import cz.covid19cz.erouska.ui.verification.event.SendDataCommandEvent
-import cz.covid19cz.erouska.ui.verification.event.SendDataFailedState
 import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +26,7 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding, Verificat
 ) {
 
     companion object {
-        private const val SCREEN_NAME = "Verification"
+        public const val SCREEN_NAME = "Verification"
     }
 
     @Inject
@@ -36,6 +34,8 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding, Verificat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        enableUpInToolbar(true, IconType.CLOSE)
         setupListeners()
         activity?.let {
             (it as MainActivity).initReviews()

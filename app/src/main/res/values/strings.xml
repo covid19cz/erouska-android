@@ -75,7 +75,6 @@
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code was not entered correctly</string>
     <string name="send_data_code_expired_header">Verification code has expired</string>
-    <string name="send_data_code_expired_or_used">You have already used this code or it has expired.</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
     <string name="send_data_failure_header">We couldn\'t send your data</string>
     <string name="send_data_failure_body">Please contact support at %1$s and mention this error code in the email: \'%2$s\'.</string>
@@ -238,4 +237,12 @@
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
     <string name="dashboard_positive_test_subtitle">If you tested positive, notify others.</string>
+
+    <string name="no_internet_error">Zkontrolujte připojení k internetu a zkuste to znovu.</string>
+    <string name="general_error">Kontaktujte prosím podporu na e-mailu %1$s a uveďte následující kód chyby: %2$s.</string>
+    <string name="general_desc">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
+    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo jste ho už jednou použili. Pro nový kód napište na %1$s.</string>
+    <string name="email_button">Napsat e-mail</string>
+    <string name="verification_email_subject">Nepřišla mi SMS s ověřovacím kódem</string>
+    <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
 </resources>

@@ -76,7 +76,6 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný</string>
     <string name="send_data_code_expired_header">Vypršala platnosť overovacieho kódu</string>
-    <string name="send_data_code_expired_or_used">Platnosť kódu vypršala alebo už bol použitý.</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
     <string name="send_data_failure_header">Nepodarilo sa nám odoslať dáta</string>
     <string name="send_data_failure_body">Kontaktujte, prosím, podporu na emaili %1$s a uveďte nasledujúci kód chyby: \'%2$s\'.</string>

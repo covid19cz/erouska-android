@@ -59,6 +59,17 @@ class SupportEmailGenerator @Inject constructor(
             }.show()
     }
 
+    fun sendVerificationEmail(
+        activity: Activity,
+        recipient: String = AppConfig.supportEmail,
+    ) {
+        activity.sendEmail(
+            recipient,
+            R.string.verification_email_subject,
+            emailBody = R.string.verification_email_body_error
+        )
+    }
+
     private suspend fun getDiagnosticFile(errorCode: String?, screenOrigin: String): Uri {
         return withContext(Dispatchers.IO) {
             val file = File(context.cacheDir, context.getString(R.string.support_file_name))
