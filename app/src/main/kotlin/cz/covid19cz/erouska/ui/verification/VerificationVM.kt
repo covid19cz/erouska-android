@@ -67,33 +67,19 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
         when (exception) {
             is VerifyException -> {
                 exception.code?.let {
-                    when (exception.code) {
-                        VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
-                            navigate(
-                                VerificationFragmentDirections.actionNavVerificationToNavError(
-                                    ErrorType.EXPIRED_CODE, errorCode = exception.message +
-                                            " " + exception.code))
-                        }
-                        VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
-                            navigate(
-                                VerificationFragmentDirections.actionNavVerificationToNavError(
-                                    ErrorType.INVALID_CODE, errorCode = exception.message +
-                                            " " + exception.code))
-                        }
-                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE -> {
-                            navigate(
-                                VerificationFragmentDirections.actionNavVerificationToNavError(
-                                    ErrorType.EXPIRED_CODE, errorCode = exception.message +
-                                            " " + exception.code))
-                        }
-                        else -> {
-                            L.e(exception)
-                            navigate(
-                                VerificationFragmentDirections.actionNavVerificationToNavError(
-                                    type = ErrorType.GENERAL_ERROR, errorCode = exception.message +
-                                            " " + exception.code))
-                        }
-                    }
+
+                    val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+                        VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
+                    )
+
+                    navigate(
+                        VerificationFragmentDirections.actionNavVerificationToNavError(
+                            type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR }),
+                            errorCode = "${exception.message} ${exception.code}"
+                        ))
+
                 } ?: navigate(
                     VerificationFragmentDirections.actionNavVerificationToNavError(
                         ErrorType.NO_INTERNET))

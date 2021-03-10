@@ -38,11 +38,11 @@ class ErrorFragment : BaseFragment<FragmentVerificationBinding, ErrorVM>(
         enableUpInToolbar(true, IconType.CLOSE)
 
         when (args.type) {
-            ErrorType.EXPIRED_CODE -> {
-                onCodeExpiredOrUsed(args.errorCode)
+            ErrorType.EXPIRED_OR_USED_CODE -> {
+                onCodeExpiredOrUsed()
             }
             ErrorType.INVALID_CODE -> {
-                onCodeExpiredOrUsed(args.errorCode)
+                onCodeInvalid()
             }
             ErrorType.GENERAL_ERROR -> {
                 onGeneralError(args.errorCode)
@@ -53,7 +53,7 @@ class ErrorFragment : BaseFragment<FragmentVerificationBinding, ErrorVM>(
         }
     }
 
-    private fun onCodeExpiredOrUsed(errorMessage: String) {
+    private fun onCodeExpiredOrUsed() {
         email_button.show()
         close_button.hide()
         try_again_button.hide()
@@ -64,7 +64,21 @@ class ErrorFragment : BaseFragment<FragmentVerificationBinding, ErrorVM>(
         email_button.setOnClickListener {
             supportEmailGenerator.sendVerificationEmail(requireActivity())
         }
-     }
+    }
+
+    private fun onCodeInvalid() {
+        email_button.show()
+        close_button.hide()
+        try_again_button.hide()
+
+        error_header.text = getString(R.string.send_data_failure_header)
+        error_body.text = getString(R.string.send_data_code_invalid)
+
+        email_button.setOnClickListener {
+            supportEmailGenerator.sendVerificationEmail(requireActivity())
+        }
+    }
+
 
     private fun onGeneralError(errorMessage: String) {
         email_button.show()
