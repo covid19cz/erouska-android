@@ -228,7 +228,11 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun shouldIntroduceEFGS(): Boolean {
-        return !prefs.wasEFGSIntroduced()
+        return !prefs.wasEFGSIntroduced() && !prefs.shouldSuppressUpdateScreens()
+    }
+
+    fun cancelSuppression() {
+        return prefs.setSuppressUpdateScreens(false)
     }
 
     fun isLocationlessScanSupported() = exposureNotificationsRepository.isLocationlessScanSupported()

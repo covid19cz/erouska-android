@@ -170,7 +170,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         super.onViewCreated(view, savedInstanceState)
 
         if (viewModel.shouldIntroduceEFGS()) {
-            navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true, fullscreen = true))
+            navigate(DashboardFragmentDirections.actionNavDashboardToNavEfgsUpdate(fullscreen = true))
         }
 
         exposure_notification_content.text = AppConfig.encounterWarning
@@ -221,13 +221,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
         }
 
         updateLastUpdateDateAndTime()
-
+        viewModel.cancelSuppression()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dashboard, menu)
         if (BuildConfig.FLAVOR == "dev") {
-            menu.add(0, R.id.action_news, 10, "Test Novinky")
             menu.add(0, R.id.action_activation, 11, "Test Aktivace")
             menu.add(0, R.id.action_exposure_demo, 12, "Test Riz. Notifikace")
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
@@ -256,12 +255,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 navigate(R.id.nav_sandbox)
                 true
             }
-            R.id.action_news -> {
-                navigate(R.id.nav_legacy_update_fragment)
-                true
-            }
             R.id.action_efgs -> {
-                navigate(DashboardFragmentDirections.actionNavDashboardToNavLegacyUpdate(efgs = true, fullscreen = true))
+                navigate(DashboardFragmentDirections.actionNavDashboardToNavEfgsUpdate(fullscreen = true))
                 true
             }
             R.id.action_activation -> {

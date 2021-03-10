@@ -338,6 +338,8 @@ class ExposureNotificationsRepository @Inject constructor(
         val userNotNotifiedAboutLatest = latestExposureTime != null
                 && latestExposureTime != lastNotifiedExposureTime
         val lastAppUsedTimestamp = prefs.getLastTimeAppVisited()
+        // Suppress showing update screen after launching the app for first time with a new exposure.
+        prefs.setSuppressUpdateScreens(true)
         // We can use the import timestamp of the exposure as we are interested in comparing whether
         // the user visited the app after being notified. The notification can take place only when
         // the exposure is imported.
