@@ -41,7 +41,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="permission_rationale_settings">Nastavenia</string>
     <string name="permission_rationale_dismiss">Zrušiť</string>
     <string name="welcome_help">Ako to funguje</string>
-    <string name="welcome_activation">Pokra\u010dova\u0165 na aktiv\u00e1ciu</string>
+    <string name="welcome_activation">Pokračovať na aktiváciu</string>
     <string name="welcome_description"><![CDATA[Aplikácia bude nepretržite monitorovať vaše okolie a&nbsp;zaznamenávať všetky ostatné telefóny s aplikáciou eRouška, ku ktorým sa priblížite.<br/><br/>Pokiaľ sa u majiteľa ktoréhokoľvek z nich potvrdí ochorenie COVID-19, eRouška vyhodnotí, či ide o rizikový kontakt a upozorní vás.<br/><br/>Keď sa potvrdí nákaza u&nbsp;vás, eRouška upozorní všetkých ostatných užívateľov aplikácie, s s&nbsp;ktorými ste sa stretli.]]></string>
     <string name="welcome_title">V\u010faka eRou\u0161ke ochr\u00e1nite seba aj ostatn\u00fdch vo svojom okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
@@ -71,6 +71,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="my_data_cured">%1$s vyliečených</string>
     <string name="my_data_death_toll">%1$s úmrtí</string>
     <string name="my_data_hospitalized">%1$s aktuálne hospitalizovaných</string>
+    <string name="my_data_vaccinations">%1$s vykázaných očkovaní</string>
     <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód pre povolenie upozornenia ostatných užívateľov eRoušky.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
