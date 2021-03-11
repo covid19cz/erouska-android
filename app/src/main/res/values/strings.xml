@@ -23,11 +23,6 @@
     <string name="error_title">Error</string>
     <string name="activation_error_header">Activation could not be finished</string>
     <string name="activation_try_again">Try again</string>
-    <string name="permission_onboarding_title">To work properly, eRouška requires COVID-19 Exposure Notifications to be enabled</string>
-    <string name="permission_onboarding_desc">These notifications will indicate that you have encountered a user with eRouška who tested positive for COVID-19.</string>
-    <string name="permission_onboarding_desc_2">The app can only work correctly if it collects and shares random identifiers which change automatically. We cannot identify an eRouška user based on these identifiers.</string>
-    <string name="permission_onboarding_desc_minor">You don\'t have to worry: the application does not track your location nor does it store it.</string>
-    <string name="permission_onboarding_toolbar_title">Notifications</string>
     <string name="menu_help">Help</string>
     <string name="my_data_title">News</string>
     <string name="about_content">Starting with version 2.0, eRouška is being developed by the Ministry of Health in collaboration with the National agency for communication and information technologies (NAKIT). Earlier versions of eRouška were developed by a team of volunteers from the COVID19CZ community. Most of the original eRouška developers continue to work on newer versions in the NAKIT team.</string>
@@ -120,16 +115,6 @@
     <string name="exposure_notification_more_info">More information</string>
     <string name="exposures_symptoms_header">I have symptoms</string>
     <string name="exposures_no_symptoms_header">I don\'t have symptoms</string>
-    <string name="legacy_update_title">News</string>
-    <string name="legacy_update_expansion_header">eRouška is expanding</string>
-    <string name="legacy_update_expansion_body">We are preparing eRouška to be able to communicate with other similar applications around the world. That\'s why we made a few changes which we will now introduce.</string>
-
-    <string name="legacy_update_active_notification_header">We support active notifications</string>
-    <string name="legacy_update_active_notification_body">If you encounter anyone who tested positive for COVID-19, eRouška will notify you and advise how to proceed.</string>
-    <string name="legacy_update_phone_header">We will not require phone numbers anymore</string>
-    <string name="legacy_update_phone_body">We are cancelling phone number registration because it will not be necessary to communicate with public health offices anymore. eRouška will recommend you the next steps in case you encountered an infected person.</string>
-    <string name="legacy_update_privacy_header">We value your privacy</string>
-    <string name="legacy_update_privacy_body"><![CDATA[With these changes, <a href="%1$s">Terms and conditions</a> have changed, too. The main change is that we no longer register phone numbers of eRouška users and they will not be required for registration.]]></string>
     <string name="play_services_title">Update Google Play Services</string>
     <string name="play_services_content">The latest version of Google Play Services is needed to enable Exposure Notifications about risky encounters.</string>
     <string name="play_services_update_button">Update</string>

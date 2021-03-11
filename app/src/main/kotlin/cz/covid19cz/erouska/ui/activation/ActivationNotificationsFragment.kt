@@ -33,7 +33,7 @@ class ActivationNotificationsFragment :
         super.onCreate(savedInstanceState)
 
         subscribe(NotificationsVerifiedEvent::class) {
-            toActivation()
+            toEfgs()
         }
 
         subscribe(GmsApiErrorEvent::class) {
@@ -65,8 +65,8 @@ class ActivationNotificationsFragment :
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun toActivation() {
-        navigate(R.id.action_nav_activation_notifications_to_activation_fragment)
+    private fun toEfgs() {
+        navigate(ActivationNotificationsFragmentDirections.actionNavActivationNotificationsToEfgsUpdate(onboarding = true, fullscreen = true))
     }
 
 }

@@ -25,11 +25,6 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="error_title">Chyba</string>
     <string name="activation_error_header">Aktiváciu aplikácie nie je možné dokončiť</string>
     <string name="activation_try_again">Skúsiť znova</string>
-    <string name="permission_onboarding_title">eRouška potrebuje pre správne fungovanie zapnuté Oznámenia o kontakte s COVID-19</string>
-    <string name="permission_onboarding_desc">Tieto oznámenia vás upozornia, ak ste boli v blízkosti užívateľa eRoušky s pozitívnym testom na ochorenie COVID-19</string>
-    <string name="permission_onboarding_desc_2">Podstatou správneho fungovania je zdieľanie a zhromažďovanie náhodných identifikačných čísel, ktoré se automaticky menia. Užívateľov eRoušky nie je  možné podľa týchto identifikátorov rozpoznať.</string>
-    <string name="permission_onboarding_desc_minor">Nemusíte sa obávať, aplikácia vašu polohu nikdy nezdieľa ani neukladá</string>
-    <string name="permission_onboarding_toolbar_title">Oznámenia</string>
     <string name="menu_help">Nápoveda</string>
     <string name="my_data_title">Aktuálne</string>
     <string name="about_content">Aplikáciu eRouška od verzie 2.0 vyvíja Ministerstvo zdravotníctva ČR v spolupráci s Národnou agentúrou pre komunikačné a informačné technológie (NAKIT). Predošlú verziu aplikácie eRouška vytvoril tím dobrovoľníkov v rámci komunitnej aktivity COVID19CZ. Väčšina z pôvodných autorov eRoušky pokračuje na vývoji nových verzií v tíme NAKIT.</string>
@@ -103,15 +98,6 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="exposure_notification_more_info">Viac informácií</string>
     <string name="exposures_symptoms_header">Mám príznaky</string>
     <string name="exposures_no_symptoms_header">Nemám príznaky</string>
-    <string name="legacy_update_title">Novinky</string>
-    <string name="legacy_update_expansion_header">eRouška sa chystá do sveta</string>
-    <string name="legacy_update_expansion_body">Pripravujeme eRoušku na to, aby si rozumela s podobnými aplikáciami na celom svete. Urobili sme preto niekoľko zmien, ktoré vám teraz predstavíme.</string>
-    <string name="legacy_update_active_notification_header">Prechádzame na aktívne oznámenia</string>
-    <string name="legacy_update_active_notification_body">Ak sa stretnete s niekým, u koho sa potvrdí ochorenie COVID-19, eRouška vás bude informovať pomocou upozornenia a poradí vám, ako ďalej postupovať.</string>
-    <string name="legacy_update_phone_header">Telefónne čísla nebudeme potrebovať</string>
-    <string name="legacy_update_phone_body">Rušíme evidenciu telefónnych čísel, pretože pre komunikáciu s hygienickou stanicou už nie sú potrebné. Pri rizikovom stretnutí vám eRouška odporučí ďalší postup.</string>
-    <string name="legacy_update_privacy_header">Myslíme na vaše súkromie</string>
-    <string name="legacy_update_privacy_body"><![CDATA[S týmito úpravami sa zmenili aj <a href="%1$s">podmienky používania</a>. Zásadnou zmenou je, že naďalej nebudeme evidovať telefónne čísla žiadneho užívateľa eRoušky a nebudeme ho vyžadovať pri registrácii.]]></string>
     <string name="play_services_title">Aktualizujte aplikáciu Služby Google Play</string>
     <string name="play_services_content">Najnovšia verzia Google Play Services je potrebná na aktiváciu Oznámení o stretnutí s osobou, u ktorej bolo potvrdené ochorenie COVID-19.</string>
     <string name="play_services_update_button">Aktualizovať</string>
