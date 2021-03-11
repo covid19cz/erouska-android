@@ -21,9 +21,6 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding, Verificat
         const val SCREEN_NAME = "Verification"
     }
 
-    @Inject
-    internal lateinit var supportEmailGenerator: SupportEmailGenerator
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

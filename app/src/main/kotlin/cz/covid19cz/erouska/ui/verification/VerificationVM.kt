@@ -11,7 +11,6 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepositor
 import cz.covid19cz.erouska.net.model.VerifyCodeResponse
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.error.entity.ErrorType
-import cz.covid19cz.erouska.ui.verification.event.SendDataCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
@@ -25,7 +24,6 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
     val loading = SafeMutableLiveData(false)
 
     init {
-        publish(SendDataCommandEvent(SendDataCommandEvent.Command.INIT))
         code.observeForever {
             if (error.value != null) {
                 error.value = null
