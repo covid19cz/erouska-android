@@ -83,9 +83,10 @@ class ExposureServerRepository @Inject constructor(
                     hmackey = hmackey,
                     revisionToken = null,
                     traveler = prefs.isTraveller(),
-                    consentToFederation = AppConfig.efgsConsentToFederation,
+                    consentToFederation = prefs.isConsentToFederation(),
                     reportType = AppConfig.efgsReportType,
-                    visitedCountries = AppConfig.efgsVisitedCountries
+                    visitedCountries = if (prefs.isTraveller()) AppConfig.efgsVisitedCountries else emptyList(),
+                    symptomOnsetInterval = prefs.getSymptomOnsetInterval()
                 )
             )
         }

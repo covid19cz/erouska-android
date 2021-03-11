@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.symptomdate.SymptomDateVM" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fragment_padding">
+
+    <TextView
+        android:id="@+id/text_symptom_date_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptom_date_body"
+        android:textAppearance="@style/Erouska.Body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_symptom_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Erouska.Body"
+        android:checked="@={vm.hasSymptoms}"
+        app:layout_constraintTop_toBottomOf="@id/text_symptom_date_body"
+        android:text="@string/symptom_date_switch_text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_symptoms"
+        android:layout_marginEnd="56dp"
+        android:textAppearance="@style/Erouska.Description"
+        android:text="@string/symptom_date_symptoms"
+        app:layout_constraintTop_toBottomOf="@id/switch_symptom_date"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/symptom_date_hint"
+        app:visibleOrGone="@{vm.hasSymptoms}"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/text_symptoms"
+        android:layout_marginTop="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{vm.symptomDateString}"
+            android:enabled="false"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_calendar"
+        android:background="@drawable/highlight_selector"
+        app:visibleOrGone="@{vm.hasSymptoms}"
+        app:layout_constraintEnd_toEndOf="@id/text_input_date"
+        app:layout_constraintTop_toTopOf="@id/text_input_date"
+        app:layout_constraintBottom_toBottomOf="@id/text_input_date"
+        android:onClick="@{() -> vm.showDatePicker()}"
+        android:tint="@color/colorPrimary"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:enabled="@{vm.nextEnabled}"
+        android:onClick="@{() -> vm.next()}"
+        android:text="@string/button_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_date" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

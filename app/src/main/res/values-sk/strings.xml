@@ -22,7 +22,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="privacy_body_text_2"><![CDATA[Detailné informácie o spracovaní osobných údajov a ďalšie podmienky používania aplikácie nájdete v <a href="%1$s">podmienkach používania</a>.]]></string>
     <string name="privacy_finish">Dokončiť aktiváciu</string>
     <string name="privacy_toolbar_title">Súkromie</string>
-    <string name="activation_error_title">Chyba</string>
+    <string name="error_title">Chyba</string>
     <string name="activation_error_header">Aktiváciu aplikácie nie je možné dokončiť</string>
     <string name="activation_try_again">Skúsiť znova</string>
     <string name="menu_help">Nápoveda</string>
@@ -71,7 +71,6 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="send_data_button_text">Overiť a odoslať údaje</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný</string>
     <string name="send_data_code_expired_header">Vypršala platnosť overovacieho kódu</string>
-    <string name="send_data_code_expired_or_used">Platnosť kódu vypršala alebo už bol použitý.</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
     <string name="send_data_failure_header">Nepodarilo sa nám odoslať dáta</string>
     <string name="send_data_failure_body">Kontaktujte, prosím, podporu na emaili %1$s a uveďte nasledujúci kód chyby: \'%2$s\'.</string>
