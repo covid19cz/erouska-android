@@ -9,8 +9,10 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
+import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.NoKeysException
 import cz.covid19cz.erouska.ui.verification.ReportExposureException
+import cz.covid19cz.erouska.ui.verification.VerificationFragmentDirections
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
@@ -52,14 +54,22 @@ class EfgsAgreementVM @ViewModelInject constructor(val prefs : SharedPrefsReposi
             is ApiException -> publish(GmsApiErrorEvent(exception))
             is NoKeysException -> navigate(EfgsAgreementFragmentDirections.actionNavEfgsAgreementToNavPublishSuccess(false))
             is ReportExposureException -> {
-                //TODO: Integrate with Tomas's error screen
+                VerificationFragmentDirections.actionNavVerificationToNavError(
+                    type = ErrorType.GENERAL_ERROR ,
+                    errorCode = "${exception.message} ${exception.code}"
+                )
             }
             is UnknownHostException -> {
-                //TODO: Integrate with Tomas's error screen
+                VerificationFragmentDirections.actionNavVerificationToNavError(
+                    type = ErrorType.NO_INTERNET
+                )
             }
             else -> {
                 L.e(exception)
-                //TODO: Integrate with Tomas's error screen
+                VerificationFragmentDirections.actionNavVerificationToNavError(
+                    type = ErrorType.GENERAL_ERROR ,
+                    errorCode = "${exception.message}"
+                )
             }
         }
     }
