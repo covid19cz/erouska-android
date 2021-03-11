@@ -150,7 +150,7 @@ class ActivationFragment :
         activity?.setTitle(R.string.error_title)
         error_body.text =
             getString(R.string.send_data_failure_body, AppConfig.supportEmail, errorMessage)
-        support_button.setOnClickListener {
+        email_button.setOnClickListener {
             supportEmailGenerator.sendSupportEmail(
                 requireActivity(),
                 lifecycleScope,

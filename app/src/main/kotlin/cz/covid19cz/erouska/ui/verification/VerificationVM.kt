@@ -10,6 +10,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.net.model.VerifyCodeResponse
 import cz.covid19cz.erouska.ui.base.BaseVM
+import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.event.SendDataCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
@@ -40,6 +41,10 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
         validate()
     }
 
+    fun needVerificationCode() {
+        navigate(VerificationFragmentDirections.actionNavErrorToNavNoVerificationCode())
+    }
+
     private fun validate() {
         if (prefs.isCodeValidated(code.value)) {
             navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
@@ -65,27 +70,34 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
     private fun handleSendDataErrors(exception: Throwable) {
         when (exception) {
             is VerifyException -> {
-                when (exception.code) {
-                    VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE -> {
-                        //TODO: Integrate with Tomas's error screen
-                    }
-                    VerifyCodeResponse.ERROR_CODE_INVALID_CODE -> {
-                        //TODO: Integrate with Tomas's error screen
-                    }
-                    VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE -> {
-                        //TODO: Integrate with Tomas's error screen
-                    }
-                    else -> {
-                        L.e(exception)
-                        //TODO: Integrate with Tomas's error screen
-                    }
-                }
+                exception.code?.let {
+
+                    val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+                        VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
+                    )
+
+                    navigate(
+                        VerificationFragmentDirections.actionNavVerificationToNavError(
+                            type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR }),
+                            errorCode = "${exception.message} ${exception.code}"
+                        ))
+
+                } ?: navigate(
+                    VerificationFragmentDirections.actionNavVerificationToNavError(
+                        ErrorType.NO_INTERNET))
             }
             is UnknownHostException -> {
-                //TODO: Integrate with Tomas's error screen
+                navigate(
+                    VerificationFragmentDirections.actionNavVerificationToNavError(
+                        ErrorType.NO_INTERNET))
             }
             else -> {
                 L.e(exception)
+                navigate(
+                    VerificationFragmentDirections.actionNavVerificationToNavError(
+                        ErrorType.NO_INTERNET))
             }
         }
     }

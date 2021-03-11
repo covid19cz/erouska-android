@@ -75,7 +75,6 @@
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
-    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
     <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
@@ -102,7 +101,7 @@
     <string name="efgs_agreement_title">Spolupráce se zahraničím</string>
     <string name="efgs_agreement_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice i v zahraničí?</string>
     <string name="efgs_agreement_non_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice?</string>
-    <string name="efgs_agreement_description">Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle souhlasu se zpracováním osobních údajů.</string>
+    <string name="efgs_agreement_description"><![CDATA[Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle <a href="%1$s">souhlasu se zpracováním osobních údajů</a>.]]></string>
     <string name="efgs_agreement_agree">Souhlasím</string>
     <string name="efgs_agreement_disagree">Nesouhlasím</string>
 
