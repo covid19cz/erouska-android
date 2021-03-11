@@ -49,5 +49,4 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding, Verificat
         code_input.attachKeyboardController()
         code_input.setOnDoneListener { viewModel.verifyAndConfirm() }
     }
-
 }

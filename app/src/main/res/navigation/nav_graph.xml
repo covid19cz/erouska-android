@@ -232,6 +232,10 @@
         <action
             android:id="@+id/action_nav_verification_to_nav_error"
             app:destination="@id/nav_error" />
+        <action
+            android:id="@+id/action_nav_error_to_nav_no_verification_code"
+            app:destination="@id/nav_no_verification_code"
+            />
     </fragment>
 
     <fragment
@@ -243,7 +247,7 @@
         <argument
             android:name="type"
             app:argType="cz.covid19cz.erouska.ui.error.entity.ErrorType"
-            android:defaultValue="GENERAL_ERROR" />
+            android:defaultValue="NO_INTERNET" />
 
         <argument
             android:name="fullscreen"
@@ -259,6 +263,18 @@
             android:id="@+id/action_nav_error_to_nav_dashboard"
             app:popUpTo="@+id/nav_dashboard"
             />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_no_verification_code"
+        android:name="cz.covid19cz.erouska.ui.noverificationcode.NoVerificationCodeFragment"
+        android:label="@string/no_verification_code"
+        tools:layout="@layout/fragment_no_verification_code">
+
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
 
     <fragment

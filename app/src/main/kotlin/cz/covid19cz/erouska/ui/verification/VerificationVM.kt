@@ -41,6 +41,10 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
         validate()
     }
 
+    fun needVerificationCode() {
+        navigate(VerificationFragmentDirections.actionNavErrorToNavNoVerificationCode())
+    }
+
     private fun validate() {
         if (prefs.isCodeValidated(code.value)) {
             navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())

@@ -245,4 +245,8 @@
     <string name="email_button">Napsat e-mail</string>
     <string name="verification_email_subject">Nepřišla mi SMS s ověřovacím kódem</string>
     <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
+
+    <string name="no_verification_code">Nemám ověřovací kód</string>
+    <string name="no_verification_body">Máte pozitivní test a nepřišla vám SMS pro eRoušku? Napište si o náhradní kód na %1$s.</string>
+    <string name="no_verification_caption">Zajímá vás, jak odesílání kódu funguje?\n\nV případě, že máte pozitivní výsledek testu na COVID-19, měl by vám přijít výsledek testu v SMS od testovací laboratoře. Ta výsledky současně odesílá do centrálního informačního systému Ministerstva zdravotnictví.\n\nPoté, co se informace z informačního systému propíšou do systému hygieny, se odesílají automatické SMS eRoušky s ověřovacími kódy.\n\nPokud se výsledky z laboratoře nestihnou propsat do systému hygieny do 22:00, může vám SMS s ověřovacím kódem přijít až následující den.\n\nPokud vám SMS eRoušky nepřišla ani následující den poté, co vám přišla SMS s pozitivními výsledky z laboratoře, napište nám na %1$s.</string>
 </resources>

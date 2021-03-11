@@ -81,6 +81,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/code_input_layout" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/no_verification_code_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> vm.needVerificationCode()}"
+                android:text="@string/no_verification_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirm_button" />
+
             <ProgressBar
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
