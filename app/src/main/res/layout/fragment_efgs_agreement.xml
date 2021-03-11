@@ -31,7 +31,7 @@
         android:id="@+id/text_description"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/Erouska.Description"
-        android:text="@string/efgs_agreement_description"
+        tools:text="@string/efgs_agreement_description"
         app:layout_constraintTop_toBottomOf="@id/text_traveller_body"/>
 
     <com.google.android.material.button.MaterialButton

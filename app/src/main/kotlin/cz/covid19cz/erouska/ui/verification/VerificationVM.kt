@@ -46,25 +46,25 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
     }
 
     private fun validate() {
-//        if (prefs.isCodeValidated(code.value)) {
+        if (prefs.isCodeValidated(code.value)) {
             navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
-//        } else {
-//            loading.value = true
-//            viewModelScope.launch {
-//                runCatching {
-//                    if (!exposureNotificationRepo.isEnabled()) {
-//                        exposureNotificationRepo.start()
-//                    }
-//                    exposureNotificationRepo.verifyCode(code.value)
-//                }.onSuccess {
-//                    loading.value = false
-//                    navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
-//                }.onFailure {
-//                    loading.value = false
-//                    handleSendDataErrors(it)
-//                }
-//            }
-//        }
+        } else {
+            loading.value = true
+            viewModelScope.launch {
+                runCatching {
+                    if (!exposureNotificationRepo.isEnabled()) {
+                        exposureNotificationRepo.start()
+                    }
+                    exposureNotificationRepo.verifyCode(code.value)
+                }.onSuccess {
+                    loading.value = false
+                    navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+                }.onFailure {
+                    loading.value = false
+                    handleSendDataErrors(it)
+                }
+            }
+        }
     }
 
     private fun handleSendDataErrors(exception: Throwable) {
