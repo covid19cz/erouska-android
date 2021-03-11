@@ -8,6 +8,7 @@ import com.auth0.android.jwt.JWT
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.ext.timestampToDate
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -439,7 +440,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
             .apply()
     }
 
-    fun isCodeValidated(code : String?): Boolean {
+    fun isCodeValidated(code: String?): Boolean {
         val savedCode = prefs.getString(VALIDATION_CODE, null)
         return if (savedCode == code) {
             hasValidationToken(useLeeway = true)
@@ -448,17 +449,18 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         }
     }
 
-    fun hasValidationToken(useLeeway : Boolean) : Boolean{
+    fun hasValidationToken(useLeeway: Boolean): Boolean {
         val token = prefs.getString(VALIDATION_TOKEN, null)
         return if (token != null) {
+            //Leeway is time, which is subtracted from expiration, to be sure, user has enough time to complete the process before expiration
             !JWT(token).isExpired(if (useLeeway) AppConfig.validationTokenExpirationLeewayMinutes * 60 else 60)
         } else {
             false
         }
     }
 
-    fun setSymptomDate(timestamp : Long?) {
-        if (timestamp == null){
+    fun setSymptomDate(timestamp: Long?) {
+        if (timestamp == null) {
             prefs.edit().remove(SYMPTOM_DATE).apply()
         } else {
             prefs.edit().putLong(SYMPTOM_DATE, timestamp).apply()
@@ -468,7 +470,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     fun getSymptomOnsetInterval(): Long? {
         return prefs.getLong(SYMPTOM_DATE, 0L).let {
             //Unix timestamp / 600
-            if (it != 0L) it/1000/600 else null
+            if (it != 0L) TimeUnit.SECONDS.convert(it, TimeUnit.MILLISECONDS) / 600 else null
         }
     }
 

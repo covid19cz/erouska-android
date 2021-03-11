@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.efgsagreement
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
@@ -15,12 +14,13 @@ import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 
-class EfgsAgreementVM @ViewModelInject constructor(val prefs : SharedPrefsRepository, val exposureNotificationsRepo: ExposureNotificationsRepository) : BaseVM() {
+class EfgsAgreementVM @ViewModelInject constructor(val prefs: SharedPrefsRepository, val exposureNotificationsRepo: ExposureNotificationsRepository) :
+    BaseVM() {
 
     val traveller = prefs.isTraveller()
     val loading = SafeMutableLiveData(false)
 
-    fun agree(){
+    fun agree() {
         prefs.setConsentToFederation(true)
         publishKeys()
     }
@@ -30,7 +30,7 @@ class EfgsAgreementVM @ViewModelInject constructor(val prefs : SharedPrefsReposi
         publishKeys()
     }
 
-    fun publishKeys(){
+    fun publishKeys() {
         loading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
