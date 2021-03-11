@@ -43,6 +43,10 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val ANTIGEN_TESTS_INCREASE = "antigenTestsIncrease"
         const val ANTIGEN_TESTS_INCREASE_DATE = "antigenTestsIncreaseDate"
 
+        const val VACCINATIONS_TOTAL = "vaccinationsTotal"
+        const val VACCINATIONS_INCREASE = "vaccinationsIncrease"
+        const val VACCINATIONS_INCREASE_DATE = "vaccinationsIncreaseDate"
+
         const val CONFIRMED_CASES_TOTAL = "confirmedCasesTotal"
         const val CONFIRMED_CASES_INCREASE = "confirmedCasesIncrease"
         const val CONFIRMED_CASES_INCREASE_DATE = "confirmedCasesIncreaseDate"
@@ -304,6 +308,30 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setAntigenTestsIncreaseDate(value: Long) {
         return prefs.edit().putLong(ANTIGEN_TESTS_INCREASE_DATE, value).apply()
+    }
+
+    fun getVaccinationsTotal(): Int {
+        return prefs.getInt(VACCINATIONS_TOTAL, 0)
+    }
+
+    fun setVaccinationsTotal(value: Int) {
+        return prefs.edit().putInt(VACCINATIONS_TOTAL, value).apply()
+    }
+
+    fun getVaccinationsIncrease(): Int {
+        return prefs.getInt(VACCINATIONS_INCREASE, 0)
+    }
+
+    fun setVaccinationsIncrease(value: Int) {
+        return prefs.edit().putInt(VACCINATIONS_INCREASE, value).apply()
+    }
+
+    fun getVaccinationsIncreaseDate(): Long {
+        return prefs.getLong(VACCINATIONS_INCREASE_DATE, 0)
+    }
+
+    fun setVaccinationsIncreaseDate(value: Long) {
+        return prefs.edit().putLong(VACCINATIONS_INCREASE_DATE, value).apply()
     }
 
     fun getConfirmedCasesTotal(): Int {

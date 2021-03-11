@@ -11,7 +11,7 @@
     <string name="dashboard_title_paused">eRouška is paused</string>
     <string name="dashboard_body">Application is running in the background and monitoring your surroundings. Keep Bluetooth enabled and use your phone as usual.</string>
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
-    <string name="dashboard_body_no_contact">Last data update on %1$s at %2$s.</string>
+    <string name="dashboard_body_no_contact">Last update on %1$s at %2$s.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRouška applications nearby. Resume the app and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
@@ -64,6 +64,7 @@
     <string name="my_data_cured">%1$s cured individuals</string>
     <string name="my_data_death_toll">%1$s deceased</string>
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
+    <string name="my_data_vaccinations">%1$s vaccine doses administered</string>
     <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code to notify other eRouška users.</string>
     <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %d</string>
     <string name="send_data_verification_hint">Verification code</string>
@@ -147,7 +148,7 @@
     <string name="previous_search_result">Previous result</string>
     <string name="next_search_result">Next result</string>
     <string name="help_no_results">No search results</string>
-    <string name="help_type_more">Keep typing</string>
+    <string name="help_type_more">We haven\'t found anything yet, so keep typing</string>
     <string name="help_how_title">How eRouška works</string>
     <string name="help_how_subtitle">Find out more about how the application works</string>
     <string name="exposure_info_date">On %s, you last encountered someone who tested positive for COVID-19.</string>
@@ -157,8 +158,9 @@
         <item quantity="one">%1$d risky encounter in the past 14 days</item>
         <item quantity="other">%1$d risky encounters in the past 14 days</item>
     </plurals>
-    <string name="dashboard_risky_encounter_subtitle_bad">On %1$s, you encountered someone who tested positive for COVID-19.</string>
-    <string name="dashboard_positive_test_title">Have you tested positive for COVID-19?</string>
+    <string name="dashboard_risky_encounter_subtitle_bad">On %1$s, you last encountered someone who tested positive for COVID-19.</string>
+    <string name="dashboard_positive_test_title">Have you been tested for COVID-19?</string>
+    <string name="dashboard_positive_test_subtitle">Notify others if your test is positive.</string>
     <string name="dashboard_positive_test_button">Anonymously notify others</string>
     <string name="dashboard_travel_title">Cross-border cooperation</string>
     <string name="enabled">Enabled</string>
@@ -207,21 +209,22 @@
     <string name="how_it_works_content">Are you curious how eRouška works?</string>
     <string name="how_it_works_more">Find out more</string>
     <string name="how_it_works_close">Close</string>
-    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
+    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
+
+When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
     <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
     <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
     <string name="how_it_works_confirm_title">If COVID-19 infection is confirmed</string>
     <string name="how_it_works_confirm_content">If a person is tested positive for COVID-19, they will automatically receive an SMS with a verification code for eRouška. By entering the code in the application, the person can anonymously notify other eRouška users.</string>
     <string name="how_it_works_warn_title">Warnings by other eRouška apps</string>
-    <string name="how_it_works_warn_content">After you enter and confirm the code, eRouška sends out data about encounters. Data about all encounters that the phone logged since its owner was infected according to available information is sent.</string>
+    <string name="how_it_works_warn_content">"After you enter and confirm the code, eRouška sends out notifications about possible risky encounters to other eRouška users. "</string>
     <string name="how_it_works_control_title">Processing encounters with infected individuals</string>
-    <string name="how_it_works_control_content">The following day at the latest, other eRouška apps will check the information about newly infected individuals and compare it to their own encounter logs.</string>
+    <string name="how_it_works_control_content">The following day at the latest, other eRouška apps will check the information about newly infected individuals and compare it to those they have met.</string>
     <string name="how_it_works_eval_title">Risky encounters evaluation</string>
-    <string name="how_it_works_eval_content">eRouška apps will evaluate the encounter as risky if it was longer than 15 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</string>
+    <string name="how_it_works_eval_content">eRouška apps will evaluate a risky encounter if it was longer than 15 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</string>
     <string name="how_it_works_notif_title">Displaying notifications</string>
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
-    <string name="dashboard_positive_test_subtitle">If you tested positive, notify others.</string>
 
     <string name="no_internet_error">Zkontrolujte připojení k internetu a zkuste to znovu.</string>
     <string name="general_error">Kontaktujte prosím podporu na e-mailu %1$s a uveďte následující kód chyby: %2$s.</string>
