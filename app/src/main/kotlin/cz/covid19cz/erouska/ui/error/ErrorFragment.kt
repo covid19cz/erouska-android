@@ -7,27 +7,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.databinding.FragmentVerificationBinding
+import cz.covid19cz.erouska.databinding.FragmentErrorBinding
 import cz.covid19cz.erouska.ext.*
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.VerificationFragment
 import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_error.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ErrorFragment : BaseFragment<FragmentVerificationBinding, ErrorVM>(
+class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
     R.layout.fragment_error,
     ErrorVM::class
 ) {
 
-    companion object {
-        private const val SCREEN_NAME = "Error Screen"
-    }
-
-    val args: ErrorFragmentArgs by navArgs()
+    private val args: ErrorFragmentArgs by navArgs()
 
     @Inject
     internal lateinit var supportEmailGenerator: SupportEmailGenerator
@@ -54,67 +49,76 @@ class ErrorFragment : BaseFragment<FragmentVerificationBinding, ErrorVM>(
     }
 
     private fun onCodeExpiredOrUsed() {
-        email_button.show()
-        close_button.hide()
-        try_again_button.hide()
+        with(binding) {
+            emailButton.show()
+            closeButton.hide()
+            tryAgainButton.hide()
 
-        error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_code_expired_or_used, AppConfig.supportEmail)
+            errorHeader.text = getString(R.string.send_data_failure_header)
+            errorBody.text =
+                getString(R.string.send_data_code_expired_or_used, AppConfig.supportEmail)
 
-        email_button.setOnClickListener {
-            supportEmailGenerator.sendVerificationEmail(requireActivity())
+            emailButton.setOnClickListener {
+                supportEmailGenerator.sendVerificationEmail(requireActivity())
+            }
         }
     }
 
     private fun onCodeInvalid() {
-        email_button.show()
-        close_button.hide()
-        try_again_button.hide()
+        with(binding){
+            emailButton.show()
+            closeButton.hide()
+            tryAgainButton.hide()
 
-        error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.send_data_code_invalid)
+            errorHeader.text = getString(R.string.send_data_failure_header)
+            errorBody.text = getString(R.string.send_data_code_invalid)
 
-        email_button.setOnClickListener {
-            supportEmailGenerator.sendVerificationEmail(requireActivity())
+            errorBody.setOnClickListener {
+                supportEmailGenerator.sendVerificationEmail(requireActivity())
+            }
         }
     }
 
 
     private fun onGeneralError(errorMessage: String) {
-        email_button.show()
-        close_button.hide()
-        try_again_button.hide()
+        with(binding) {
+            emailButton.show()
+            closeButton.hide()
+            tryAgainButton.hide()
 
-        error_desc.show()
-        error_desc.text = getString(R.string.general_desc)
+            errorDesc.show()
+            errorDesc.text = getString(R.string.general_desc)
 
-        email_button.text = getString(R.string.support_request_button)
-        error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.general_error, AppConfig.supportEmail, errorMessage)
+            emailButton.text = getString(R.string.support_request_button)
+            errorHeader.text = getString(R.string.send_data_failure_header)
+            errorBody.text = getString(R.string.general_error, AppConfig.supportEmail, errorMessage)
 
-        email_button.setOnClickListener {
-            supportEmailGenerator.sendSupportEmail(
-                requireActivity(),
-                lifecycleScope,
-                errorCode = errorMessage,
-                isError = true,
-                screenOrigin = VerificationFragment.SCREEN_NAME
-            )
+            emailButton.setOnClickListener {
+                supportEmailGenerator.sendSupportEmail(
+                    requireActivity(),
+                    lifecycleScope,
+                    errorCode = errorMessage,
+                    isError = true,
+                    screenOrigin = VerificationFragment.SCREEN_NAME
+                )
+            }
         }
     }
 
     private fun onNoInternet() {
-        email_button.hide()
-        close_button.show()
-        try_again_button.show()
+        with(binding) {
+            emailButton.hide()
+            closeButton.show()
+            tryAgainButton.show()
 
-        close_button.setOnClickListener {
-            navigate(ErrorFragmentDirections.actionNavErrorToNavDashboard())
+            closeButton.setOnClickListener {
+                navigate(ErrorFragmentDirections.actionNavErrorToNavDashboard())
+            }
+            tryAgainButton.setOnClickListener { navController().navigateUp() }
+
+            errorHeader.text = getString(R.string.send_data_failure_header)
+            errorBody.text = getString(R.string.no_internet_error)
         }
-        try_again_button.setOnClickListener { navController().navigateUp() }
-
-        error_header.text = getString(R.string.send_data_failure_header)
-        error_body.text = getString(R.string.no_internet_error)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
