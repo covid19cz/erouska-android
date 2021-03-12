@@ -148,8 +148,8 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="dashboard_positive_test_subtitle">Ak je výsledok pozitívny, upozornite ostatných.</string>
     <string name="dashboard_positive_test_button">Anonymne upozorniť ostatných</string>
     <string name="dashboard_travel_title">Spolupráca so zahraničím</string>
-    <string name="enabled">Zapnutá</string>
-    <string name="disable">Vypnutá</string>
+    <string name="enabled">Zapnuto</string>
+    <string name="disable">Vypnuto</string>
     <string name="support_request_button">Napísať e-mail podpore</string>
     <string name="support_request">Chcete do e-mailu pridať prílohu s anonymnými informáciami o nastavení telefónu? Tieto informácie nám pomôžu s riešením prípadnej chyby.</string>
     <string name="support_request_allowed">Chcem pridať prílohu</string>

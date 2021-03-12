@@ -63,6 +63,9 @@ class EfgsUpdateFragment : BaseFragment<FragmentEfgsUpdateBinding, EfgsUpdateVM>
             }
         }
 
+        // turn on EFGS automatically on this screen
+        viewModel.sharedPrefsRepository.setTraveller(true)
+
         legacy_update_checkbox.isChecked = viewModel.sharedPrefsRepository.isTraveller()
         legacy_update_checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
