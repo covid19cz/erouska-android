@@ -66,7 +66,7 @@
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
     <string name="my_data_vaccinations">%1$s vaccine doses administered</string>
     <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code to notify other eRouška users.</string>
-    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %s</string>
+    <string name="send_data_last_sent_date">You last notified others on %s</string>
     <string name="send_data_verification_hint">Verification code</string>
     <string name="send_data_button_text">Verify and send data</string>
     <string name="send_data_code_invalid">Verification code was not entered correctly</string>
@@ -82,25 +82,23 @@
     <string name="send_data_success_body_1_not_enough_keys">You have activated eRouška only recently, so it has not logged any other eRouška users. Therefore, the app will not notify anyone about a risky encounter.</string>
     <string name="send_data_success_body_2">Please cooperate with public health officers on tracing everyone that you encountered.</string>
     <string name="send_data_success_body_3">Follow the instructions of public health officers and medical workers.</string>
-    <string name="symptom_date_title">Datum prvních příznaků</string>
-    <string name="symptom_date_body">Vyplňte prosím datum prvních příznaků. Upozorníme všechny uživatele eRoušky, které jste potkali ve dnech, kdy se u vás objevily první příznaky.</string>
-    <string name="symptom_date_switch_text">Mám příznaky onemocnění COVID-19</string>
-    <string name="symptom_date_symptoms">Kašel, teplota, dušnost, bolest v krku, bolest hlavy, ztráta čichu a chuti.</string>
-    <string name="symptom_date_hint">Datum prvních příznaků</string>
-    <string name="button_continue">Pokračovat</string>
-    <string name="traveller_title">Cesty do zahraničí</string>
-    <string name="traveller_body">Cestovali jste v posledních 14 dnech do některé ze zemí Evropské unie?</string>
-    <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, ketré jste potkali při svých cestách do zahraničí.</string>
-    <string name="traveller_button_yes">Ano, byl(a) jsem v zahraničí</string>
-    <string name="traveller_button_no">Nebyl(a) jsem v zahraničí</string>
-
-    <string name="efgs_agreement_title">Spolupráce se zahraničím</string>
-    <string name="efgs_agreement_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice i v zahraničí?</string>
-    <string name="efgs_agreement_non_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice?</string>
-    <string name="efgs_agreement_description"><![CDATA[Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle <a href="%1$s">souhlasu se zpracováním osobních údajů</a>.]]></string>
-    <string name="efgs_agreement_agree">Souhlasím</string>
-    <string name="efgs_agreement_disagree">Nesouhlasím</string>
-
+    <string name="symptom_date_title">Date of first symptoms</string>
+    <string name="symptom_date_body">Please enter the date of first symptoms. We will notify other eRouška apps that you met during this period.</string>
+    <string name="symptom_date_switch_text">I am experiencing symptoms of COVID-19</string>
+    <string name="symptom_date_symptoms">Cough, high temperature, laboured breathing, sore throat, headache, loss of smell and taste.</string>
+    <string name="symptom_date_hint">Date of first symptoms</string>
+    <string name="button_continue">Continue</string>
+    <string name="traveller_title">Cross-border travel</string>
+    <string name="traveller_body">Have you travelled to an EU country in the past 14 days?</string>
+    <string name="traveller_description">Thanks to cross-border cooperation, you can notify users of foreign apps that you have met during your travel abroad about the risk of infection.</string>
+    <string name="traveller_button_yes">Yes, I have been abroad</string>
+    <string name="traveller_button_no">I have not been abroad</string>
+    <string name="efgs_agreement_title">Cross-border cooperation</string>
+    <string name="efgs_agreement_traveller_body">Do you consent to notifying users of foreign apps who you have met in the Czech Republic or abroad?</string>
+    <string name="efgs_agreement_non_traveller_body">Do you consent to notifying users of foreign apps who you have met in the Czech Republic?</string>
+    <string name="efgs_agreement_description"><![CDATA[Sharing data with EU countries is anonymous. By sending data abroad you agree they will be processed by EU countries according to <a href="%1$s">the personal data processing agreement</a>.]]></string>
+    <string name="efgs_agreement_agree">I agree</string>
+    <string name="efgs_agreement_disagree">I do not agree</string>
     <string name="notification_data_outdated_title">Risky encounters update</string>
     <string name="data_notification_close">Close</string>
     <string name="notification_exposure_title">Risky encounter</string>
@@ -166,7 +164,7 @@
     <string name="enabled">Enabled</string>
     <string name="disable">Disabled</string>
     <string name="support_request_button">Email support</string>
-    <string name="support_description">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
+    <string name="support_description">When you press \"Email support\" we will create an email attachment with anonymous information about your device\'s settings (such as enabled Bluetooth, phone type etc.) and the error. This information will help us troubleshoot.</string>
     <string name="support_request">Do you wish to attach a file with anonymous information about your device\'s settings? This information will help us troubleshoot.</string>
     <string name="support_request_allowed">Yes, attach the file</string>
     <string name="support_request_denied">No, do not attach the file</string>
@@ -188,19 +186,9 @@
     <string name="support_last_notified_risky_encounter">Last notification of a risky encounter</string>
     <string name="support_last_risky_encounter_from">Last risky encounter on</string>
     <string name="support_file_name">diagnostic_information.txt</string>
-    <string name="efgs_title">Spolupráce se zahraničím</string>
-    <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
-    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.</string>
-    <string name="efgs_visit">Povolte si prosím Spolupráci se zahraničím, pokud jste byli v posledních %1$d dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.</string>
-    <string name="efgs_check">Povolit spolupráci se zahraničím</string>
-    <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
-
-    <string name="efgs_disable_confirmation"><![CDATA[Onemocnění COVID-19 se může projevit až %1$d dní po setkání s nakaženou osobou. Spolupráci se zahraničím prosím vypněte nejdříve <b>%1$d dní</b> po návratu.]]></string>
-    <string name="efgs_disable_confirmation_on">Ponechat zapnuté</string>
-    <string name="efgs_disable_confirmation_off">Vypnout</string>
-    <string name="support_screen_origin">Screen</string>
     <string name="support_email_body_contact">Tell us what we can help you with:\n\n</string>
     <string name="support_email_body_error">Tell us what happened before the error:\n\n</string>
+    <string name="support_screen_origin">Screen</string>
     <string name="notification_downloading_title">Checking for risky encounters</string>
     <string name="notification_downloading_description">eRouška is checking for risky encounters with COVID-19.</string>
     <string name="notification_channel_downloading">Checking for risky encounters</string>
@@ -210,7 +198,6 @@
     <string name="how_it_works_more">Find out more</string>
     <string name="how_it_works_close">Close</string>
     <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
-
 When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
     <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
     <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
@@ -225,18 +212,25 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="how_it_works_notif_title">Displaying notifications</string>
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
-
-    <string name="no_internet_error">Zkontrolujte připojení k internetu a zkuste to znovu.</string>
-    <string name="general_error">Kontaktujte prosím podporu na e-mailu %1$s a uveďte následující kód chyby: %2$s.</string>
-    <string name="general_desc">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
-    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo jste ho už jednou použili. Pro nový kód napište na %1$s.</string>
-    <string name="email_button">Napsat e-mail</string>
-    <string name="verification_email_subject">Nepřišla mi SMS s ověřovacím kódem</string>
-    <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
-
-    <string name="no_verification_code">Nemám ověřovací kód</string>
-    <string name="no_verification_body">Máte pozitivní test a nepřišla vám SMS pro eRoušku? Napište si o náhradní kód na %1$s.</string>
-    <string name="no_verification_caption">Zajímá vás, jak odesílání kódu funguje?\n\nV případě, že máte pozitivní výsledek testu na COVID-19, měl by vám přijít výsledek testu v SMS od testovací laboratoře. Ta výsledky současně odesílá do centrálního informačního systému Ministerstva zdravotnictví.\n\nPoté, co se informace z informačního systému propíšou do systému hygieny, se odesílají automatické SMS eRoušky s ověřovacími kódy.\n\nPokud se výsledky z laboratoře nestihnou propsat do systému hygieny do 22:00, může vám SMS s ověřovacím kódem přijít až následující den.\n\nPokud vám SMS eRoušky nepřišla ani následující den poté, co vám přišla SMS s pozitivními výsledky z laboratoře, napište nám na %1$s.</string>
-    <string name="send_data_code_invalid_header">TODO: Translate</string>
-    <string name="send_data_code_invalid_body">TODO: Translate %1$s.</string>
+    <string name="no_internet_error">Check your internet connection and try again.</string>
+    <string name="general_error">Please contact support at %1$s and mention this error code in the email: %2$s.</string>
+    <string name="general_desc">When you press \"Email support\" we will create an email attachment with anonymous information about your device\'s settings (such as enabled Bluetooth, phone type etc.) and the error. This information will help us troubleshoot.</string>
+    <string name="send_data_code_expired_or_used">You have already used this code or it has expired. Request a new code at %1$s.</string>
+    <string name="email_button">Email support</string>
+    <string name="verification_email_subject">I have not received the SMS with a verification code</string>
+    <string name="verification_email_body_error">"Dear eRouška team,\n\nmy COVID-19 test is positive and I have not received the SMS with a verification code.\n\n\nFull name on the test request form: \n\n\nPhone number on the test request form: \n\n\nDate of test results: \n\n\nTesting location or laboratory which handled my test results: \n\n\nTest type (PCR/antigen): "</string>
+    <string name="no_verification_code">I do not have the verification code</string>
+    <string name="no_verification_body">Have you tested positive but have not received your eRouška code in an SMS? Request your code at %1$s.</string>
+    <string name="no_verification_caption">Are you interested in learning how sending the code works? \n\n\nIf you are tested positive for COVID-19, you will receive test results in an SMS from the laboratory. The lab also sends the results to the central information system of the Ministry of Health. \n\n\nAfter the results are copied from the information system to the public health office\'s system, automatic eRouška SMS messages with verification codes are sent. \n\n\nIf the lab results are not copied in the public health office\'s system by 10 pm, you might not receive the SMS with the verification code until the next day. \n\n\nIf you did not receive eRouška SMS within one day after you received your results from the lab, please contact us at %1$s.</string>
+    <string name="efgs_title">Cross-border cooperation</string>
+    <string name="efgs_header">Help to fight against COVID-19 when abroad</string>
+    <string name="efgs_boundaries">COVID-19 does not respect borders. Thanks to cooperation of EU countries, eRouška can warn you against risk of infection.</string>
+    <string name="efgs_visit">Please enable Cross-border cooperation if you have visited an EU country in the past %1$d days or you travel regularly. eRouška will notify you if you encounter someone with COVID-19.</string>
+    <string name="efgs_check">Enable Cross-border cooperation</string>
+    <string name="efgs_usage">This feature may increase the volume of downloaded data. Disable it %1$d days after you return from abroad.</string>
+    <string name="efgs_disable_confirmation"><![CDATA[You may not experience COVID-19 symptoms until %1$d days after you met an infected individual. Please do not disable Cross-border cooperation until <b>%1$d days</b> after you return from abroad.]]></string>
+    <string name="efgs_disable_confirmation_on">Keep enabled</string>
+    <string name="efgs_disable_confirmation_off">Disable</string>
+    <string name="send_data_code_invalid_header">Verification code is not valid</string>
+    <string name="send_data_code_invalid_body">Check the code and try entering it again. If a valid code fails repeatedly, contact us at %1$s.</string>
 </resources>
