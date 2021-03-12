@@ -90,7 +90,7 @@
     <string name="button_continue">Pokračovat</string>
     <string name="traveller_title">Cesty do zahraničí</string>
     <string name="traveller_body">Cestovali jste v posledních 14 dnech do některé ze zemí Evropské unie?</string>
-    <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, ketré jste potkali při svých cestách do zahraničí.</string>
+    <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, které jste potkali při svých cestách do zahraničí.</string>
     <string name="traveller_button_yes">Ano, byl(a) jsem v zahraničí</string>
     <string name="traveller_button_no">Nebyl(a) jsem v zahraničí</string>
 
