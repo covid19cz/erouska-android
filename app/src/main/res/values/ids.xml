@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="action_sandbox" type="id"/>
+    <item name="action_efgs" type="id"/>
     <item name="action_news" type="id"/>
     <item name="action_play_services" type="id"/>
     <item name="action_exposure_demo" type="id"/>
@@ -8,4 +9,5 @@
     <item name="action_dashboard_cards" type="id"/>
     <item name="action_exposure_screen" type="id"/>
     <item name="action_exposure_info" type="id"/>
+    <item name="action_efgs_control" type="id"/>
 </resources>

@@ -26,7 +26,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
+                    android:src="@drawable/ic_update_expansion"
+                    />
 
                 <TextView
                     android:id="@+id/legacy_update_header"
@@ -38,20 +39,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_img"
-                    tools:text="@tools:sample/lorem" />
+                    android:text="@string/efgs_header" />
 
                 <TextView
                     android:id="@+id/legacy_update_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingBottom="68dp"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textAppearance="@style/Erouska.Body"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_header"
                     tools:text="@tools:sample/lorem" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/legacy_update_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/efgs_check"
+                    app:switchPadding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
+                    />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="68dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/legacy_update_checkbox" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -64,7 +83,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="@tools:sample/lorem" />
+            android:text="@string/legacy_update_button_continue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -100,10 +100,18 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_handleError500AsInvalidCode")
     val handleError400AsExpiredOrUsedCode
         get() = firebaseRemoteConfig.getBoolean("v2_handleError400AsExpiredOrUsedCode")
+    val keyExportNonTravellerUrls
+        get() = firebaseRemoteConfig.getString("v2_keyExportNonTravellerUrls")
+    val keyExportEuTravellerUrls
+        get() = firebaseRemoteConfig.getString("v2_keyExportEuTravellerUrls")
     val recentExposureNotificationTitle
         get() = firebaseRemoteConfig.getString("v2_recentExposureNotificationTitle")
     val updateNewsOnRequest
         get() = firebaseRemoteConfig.getBoolean("v2_updateNewsOnRequest")
+    val efgsDays
+        get() = firebaseRemoteConfig.getLong("v2_efgsDays").toInt()
+    val efgsSupportedCountries
+        get() = firebaseRemoteConfig.getString("v2_efgsCountries")
     val efgsVisitedCountries
         get() = firebaseRemoteConfig.getString("v2_efgsVisitedCountries").split(";")
     val efgsReportType
@@ -116,6 +124,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_howItWorksUITitle")
     val helpJson
         get() = firebaseRemoteConfig.getString("v2_helpJson")
+    val validationTokenExpirationLeewayMinutes
+        get() = firebaseRemoteConfig.getLong("v2_validationTokenExpirationLeewayMinutes")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

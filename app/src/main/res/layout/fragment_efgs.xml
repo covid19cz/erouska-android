@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.efgs.EfgsVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding">
+
+            <TextView
+                android:id="@+id/efgs_title"
+                android:text="@{@string/efgs_visit(vm.efgsDays)}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Erouska.Body"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/efgs_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/Erouska.Body"
+                android:text="@string/efgs_check"
+                android:checked="@{vm.efgsState}"
+                app:switchPadding="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/efgs_title"
+                />
+
+            <TextView
+                android:id="@+id/efgs_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/efgs_boundaries(vm.efgsDays) + `\n\n` + vm.efgsSupportedCountries() + `\n\n` + @string/efgs_usage(vm.efgsDays)}"
+                android:textAppearance="@style/Erouska.Caption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/efgs_checkbox" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

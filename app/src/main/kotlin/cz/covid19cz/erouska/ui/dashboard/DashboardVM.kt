@@ -17,7 +17,6 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
-import cz.covid19cz.erouska.utils.DeviceInfo
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.ext.timestampToDate
 import cz.covid19cz.erouska.ext.timestampToTime
@@ -26,8 +25,7 @@ import kotlinx.coroutines.launch
 class DashboardVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
-    private val prefs: SharedPrefsRepository,
-    private val deviceInfo: DeviceInfo
+    private val prefs: SharedPrefsRepository
 ) : BaseVM() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -35,6 +33,7 @@ class DashboardVM @ViewModelInject constructor(
 
     val bluetoothState = SafeMutableLiveData(true)
     val locationState = SafeMutableLiveData(true)
+    val efgsState = SafeMutableLiveData(prefs.isTraveller())
 
     val lastUpdateDate = MutableLiveData<String>()
     val lastUpdateTime = MutableLiveData<String>()
@@ -64,7 +63,7 @@ class DashboardVM @ViewModelInject constructor(
             publish(DashboardCommandEvent(DashboardCommandEvent.Command.NOT_ACTIVATED))
             return
         }
-
+        efgsState.value = prefs.isTraveller()
         checkStatus()
         checkRiskyExposures()
 
@@ -206,6 +205,10 @@ class DashboardVM @ViewModelInject constructor(
         }
     }
 
+    fun showEfgs() {
+        publish(DashboardCommandEvent(DashboardCommandEvent.Command.EFGS))
+    }
+
     fun acceptExposure() {
         viewModelScope.launch {
             runCatching {
@@ -221,7 +224,15 @@ class DashboardVM @ViewModelInject constructor(
     }
 
     fun sendData() {
-        navigate(R.id.action_nav_dashboard_to_nav_send_data)
+        navigate(R.id.action_nav_dashboard_to_nav_verification)
+    }
+
+    fun shouldIntroduceEFGS(): Boolean {
+        return !prefs.wasEFGSIntroduced() && !prefs.shouldSuppressUpdateScreens()
+    }
+
+    fun cancelSuppression() {
+        return prefs.setSuppressUpdateScreens(false)
     }
 
     fun isLocationlessScanSupported() = exposureNotificationsRepository.isLocationlessScanSupported()

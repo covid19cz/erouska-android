@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.traveller.TravellerVM" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fragment_padding">
+
+    <TextView
+        android:id="@+id/text_traveller_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/traveller_body"
+        android:textAppearance="@style/Erouska.Body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_description"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/Erouska.Description"
+        android:text="@string/traveller_description"
+        app:layout_constraintTop_toBottomOf="@id/text_traveller_body"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="@{() -> vm.next(true)}"
+        android:text="@string/traveller_button_yes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/OutlinedButton"
+        android:onClick="@{() -> vm.next(false)}"
+        android:text="@string/traveller_button_no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_yes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

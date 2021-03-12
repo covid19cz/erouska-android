@@ -9,9 +9,10 @@ data class ExposureRequest(
     val hmackey: String?,
     val revisionToken: String?,
     val traveler: Boolean,
-    val consentToFederation: Boolean,
     val reportType: String,
     val visitedCountries: List<String>,
+    val consentToFederation: Boolean = true,
+    val symptomOnsetInterval: Long? = null,
     val padding: String = Base64.encodeToString(UUID.randomUUID().toString().toByteArray(), Base64.NO_WRAP),
     val healthAuthorityID: String = "cz.covid19cz.erouska",
 )
@@ -27,4 +28,9 @@ data class ExposureResponse(
     val insertedExposures: Int?,
     val errorMessage: String?,
     val code: String?
+)
+
+data class CountryUrl(
+    val country: String,
+    val url: String
 )

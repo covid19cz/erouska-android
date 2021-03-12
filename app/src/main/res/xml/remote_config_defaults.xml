@@ -213,6 +213,14 @@
         <value>false</value>
     </entry>
     <entry>
+        <key>v2_efgsDays</key>
+        <value>14</value>
+    </entry>
+    <entry>
+        <key>v2_efgsCountries</key>
+        <value>Aktuálně s eRouškou spolupracuje Dánsko, Litva, Lotyšsko, Německo a Rakousko.</value>
+    </entry>
+    <entry>
         <key>v2_efgsVisitedCountries</key>
         <value></value>
     </entry>
@@ -244,4 +252,10 @@
         <key>v2_howItWorksUITitle</key>
         <value>How eRouška works</value>
     </entry>
+    <entry>
+        <key>v2_validationTokenExpirationLeewayMinutes</key>
+        <value>15</value>
+    </entry>
+
+
 </defaultsMap>

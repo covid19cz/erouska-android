@@ -3,7 +3,8 @@ package cz.covid19cz.erouska.net.model
 import cz.covid19cz.erouska.utils.L
 import java.io.File
 
-class DownloadedKeys(
+data class DownloadedKeys(
+    val indexUrl: String,
     val files : List<File>,
     val urls : List<String>
 ) {

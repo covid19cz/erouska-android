@@ -134,7 +134,7 @@
                 app:card_has_content="@{true}"
                 app:card_actionable_button="@{false}"
                 app:card_alert="@{false}"
-                app:card_title="@{@string/dashboard_travel_title}"
+                app:card_title="@{@string/dashboard_travel_title + ` (` + @string/enabled + `)`}"
                 app:card_subtitle="@{@string/enabled}"
                 app:card_icon="@{@drawable/ic_travel}"
                 app:layout_constraintEnd_toEndOf="parent"

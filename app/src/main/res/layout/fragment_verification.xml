@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.verification.VerificationVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/send_data_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_data_body"
+                android:textAppearance="@style/Erouska.Body"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/last_data_sent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/send_data_last_sent_date(vm.lastDataSentDate)}"
+                android:layout_marginTop="16dp"
+                tools:text="@string/send_data_last_sent_date"
+                app:visibleOrGone="@{vm.lastDataSentDate != null}"
+                app:layout_constraintTop_toBottomOf="@id/send_data_body"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="@style/Erouska.Description" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/code_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/send_data_verification_hint"
+                android:textColorHint="@color/textColorPrimary"
+                app:boxStrokeColor="@color/boxStrokeColor"
+                app:boxStrokeWidthFocused="1dp"
+                app:errorResource="@{vm.error}"
+                app:hintTextColor="@color/textColorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/last_data_sent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/code_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:maxLength="8"
+                    android:text="@={vm.code}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:visibleOrInvisible="@{!vm.loading}"
+                android:onClick="@{() -> vm.verifyAndConfirm()}"
+                android:text="@string/send_data_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/code_input_layout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/no_verification_code_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> vm.needVerificationCode()}"
+                android:text="@string/no_verification_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirm_button" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:visibleOrGone="@{vm.loading}"
+                tools:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/confirm_button"
+                app:layout_constraintEnd_toEndOf="@+id/confirm_button"
+                app:layout_constraintStart_toStartOf="@+id/confirm_button"
+                app:layout_constraintTop_toTopOf="@id/confirm_button" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

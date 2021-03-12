@@ -18,8 +18,8 @@ import cz.covid19cz.erouska.net.model.DownloadedKeys
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
-import cz.covid19cz.erouska.ui.senddata.ReportExposureException
-import cz.covid19cz.erouska.ui.senddata.VerifyException
+import cz.covid19cz.erouska.ui.verification.ReportExposureException
+import cz.covid19cz.erouska.ui.verification.VerifyException
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 
@@ -30,16 +30,13 @@ class SandboxVM @ViewModelInject constructor(
 ) : BaseVM() {
 
     val filesString = MutableLiveData<String>()
-    val lastDownload = MutableLiveData<String>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
-    var downloadResult: DownloadedKeys? = null
+    var downloadResult: List<DownloadedKeys>? = null
     val code = MutableLiveData("")
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         refreshTeks()
-        lastDownload.value =
-            prefs.lastKeyExportFileName() + " " + prefs.getLastKeyImport().timestampToDateTime()
     }
 
     fun tekToString(tek: TemporaryExposureKey): String {
@@ -85,14 +82,10 @@ class SandboxVM @ViewModelInject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 downloadResult = serverRepository.downloadKeyExport()
-                L.d("files=${downloadResult?.files}")
+                L.d("files=${downloadResult}")
                 return@runCatching downloadResult
             }.onSuccess {
-                lastDownload.value =
-                    prefs.lastKeyExportFileName() + " " + prefs.getLastKeyImport().timestampToDateTime()
-                filesString.value =
-                    downloadResult?.files?.joinToString(separator = "\n", transform = { it.name })
-                showSnackbar("Download success: ${it?.files?.size}/${it?.urls?.size} files")
+                showSnackbar("Download success")
             }.onFailure {
                 showSnackbar("Download failed: ${it.message}")
             }
@@ -102,7 +95,6 @@ class SandboxVM @ViewModelInject constructor(
 
     fun deleteKeys() {
         serverRepository.deleteFiles()
-        lastDownload.value = null
         filesString.value = null
     }
 
@@ -126,7 +118,8 @@ class SandboxVM @ViewModelInject constructor(
     fun reportExposureWithVerification(code: String) {
         viewModelScope.launch {
             runCatching {
-                exposureNotificationsRepository.reportExposureWithVerification(code)
+                exposureNotificationsRepository.verifyCode(code)
+                exposureNotificationsRepository.publishKeys()
             }.onSuccess {
                 showSnackbar("Upload success: $it keys")
             }.onFailure {

@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import arch.livedata.SafeMutableLiveData
+import com.auth0.android.jwt.JWT
 import cz.covid19cz.erouska.AppConfig
+import cz.covid19cz.erouska.ext.timestampToDate
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +22,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
         const val EXPOSURE_NOTIFICATIONS_ENABLED = "exposureNotificationsEnabled"
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
+        const val EFGS_INTRODUCED = "efgsIntroduced"
         const val APP_OPEN_TIMESTAMP = "lastTimeAppOpened"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
@@ -59,23 +63,28 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val KEY_PUBLISHERS_YESTERDAY = "keyPublishersYesterday"
         const val NOTIFICATIONS_TOTAL = "notificationsTotal"
         const val NOTIFICATIONS_YESTERDAY = "notificationsTotal"
-        const val CURRENTLY_HOSPITALIZED_INCREASE = "currentlyHospitalizedIncrease"
-
+        const val TRAVELLER = "traveller"
+        const val CONSENT_TO_FEDERATION = "consentToFederation"
         const val PUSH_TOKEN_REGISTERED = "pushTokenRegistered"
         const val PUSH_TOPIC_REGISTERED = "pushTopicRegistered"
 
         const val HOW_IT_WORKS_SHOWN = "howItWorksShown"
+
+        const val LAST_DATA_SENT_TIME = "lastDataSentTime"
+        const val VALIDATION_CODE = "validationCode"
+        const val VALIDATION_TOKEN = "validationToken"
+        const val SYMPTOM_DATE = "symptomDate"
     }
 
     private val prefs: SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
     val lastKeyImportLive = SafeMutableLiveData(getLastKeyImport())
 
-    fun lastKeyExportFileName(): String {
-        return prefs.getString(LAST_KEY_IMPORT, "") ?: ""
+    fun lastKeyExportFileName(indexUrl: String): String {
+        return prefs.getString(LAST_KEY_IMPORT + indexUrl, "") ?: ""
     }
 
-    fun setLastKeyExportFileName(filename: String) {
-        prefs.edit().putString(LAST_KEY_IMPORT, filename).apply()
+    fun setLastKeyExportFileName(indexUrl: String, filename: String) {
+        prefs.edit().putString(LAST_KEY_IMPORT + indexUrl, filename).apply()
     }
 
     fun setLastKeyImport() {
@@ -105,7 +114,23 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.getInt(LAST_SHOWN_EXPOSURE_INFO, 0)
     }
 
-    fun isPushTokenRegistered() : Boolean{
+    fun isTraveller(): Boolean {
+        return prefs.getBoolean(TRAVELLER, false)
+    }
+
+    fun setTraveller(traveller: Boolean) {
+        prefs.edit().putBoolean(TRAVELLER, traveller).apply()
+    }
+
+    fun isConsentToFederation(): Boolean {
+        return prefs.getBoolean(CONSENT_TO_FEDERATION, false)
+    }
+
+    fun setConsentToFederation(consentToFederation: Boolean) {
+        prefs.edit().putBoolean(CONSENT_TO_FEDERATION, consentToFederation).apply()
+    }
+
+    fun isPushTokenRegistered(): Boolean {
         return prefs.getBoolean(PUSH_TOKEN_REGISTERED, false)
     }
 
@@ -154,6 +179,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun getLastTimeAppVisited(): Long {
         return prefs.getLong(APP_OPEN_TIMESTAMP, 0L)
+    }
+
+    fun setSuppressUpdateScreens(suppress: Boolean) {
+        prefs.edit().putBoolean(APP_OPEN_TIMESTAMP, suppress).apply()
+    }
+
+    fun shouldSuppressUpdateScreens(): Boolean {
+        return prefs.getBoolean(APP_OPEN_TIMESTAMP, false)
     }
 
     fun clearCustomConfig() {
@@ -405,11 +438,85 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         return prefs.edit().putInt(NOTIFICATIONS_YESTERDAY, value).apply()
     }
 
-    fun wasHowItWorksShown() : Boolean{
+    fun wasEFGSIntroduced(): Boolean {
+        return prefs.getBoolean(EFGS_INTRODUCED, false)
+    }
+
+    fun setEFGSIntroduced(value: Boolean) {
+        return prefs.edit().putBoolean(EFGS_INTRODUCED, value).apply()
+    }
+
+    fun wasHowItWorksShown(): Boolean {
         return prefs.getBoolean(HOW_IT_WORKS_SHOWN, false)
     }
 
-    fun setHowItWorksShown(){
+    fun setHowItWorksShown() {
         prefs.edit().putBoolean(HOW_IT_WORKS_SHOWN, true).apply()
+    }
+
+    fun setVerificationData(code: String, token: String) {
+        prefs.edit().putString(VALIDATION_CODE, code)
+            .putString(VALIDATION_TOKEN, token).apply()
+    }
+
+    fun getVerificationCode(): String? {
+        return prefs.getString(VALIDATION_CODE, null)
+    }
+
+    fun getVerificationToken(): String? {
+        return prefs.getString(VALIDATION_TOKEN, null)
+    }
+
+    fun deletePublishKeysTemporaryData() {
+        prefs.edit().remove(VALIDATION_CODE)
+            .remove(VALIDATION_TOKEN)
+            .remove(TRAVELLER)
+            .remove(CONSENT_TO_FEDERATION)
+            .remove(SYMPTOM_DATE)
+            .apply()
+    }
+
+    fun isCodeValidated(code: String?): Boolean {
+        val savedCode = prefs.getString(VALIDATION_CODE, null)
+        return if (savedCode == code) {
+            hasValidationToken(useLeeway = true)
+        } else {
+            false
+        }
+    }
+
+    fun hasValidationToken(useLeeway: Boolean): Boolean {
+        val token = prefs.getString(VALIDATION_TOKEN, null)
+        return if (token != null) {
+            //Leeway is time, which is subtracted from expiration, to be sure, user has enough time to complete the process before expiration
+            !JWT(token).isExpired(if (useLeeway) AppConfig.validationTokenExpirationLeewayMinutes * 60 else 60)
+        } else {
+            false
+        }
+    }
+
+    fun setSymptomDate(timestamp: Long?) {
+        if (timestamp == null) {
+            prefs.edit().remove(SYMPTOM_DATE).apply()
+        } else {
+            prefs.edit().putLong(SYMPTOM_DATE, timestamp).apply()
+        }
+    }
+
+    fun getSymptomOnsetInterval(): Long? {
+        return prefs.getLong(SYMPTOM_DATE, 0L).let {
+            //Unix timestamp / 600
+            if (it != 0L) TimeUnit.SECONDS.convert(it, TimeUnit.MILLISECONDS) / 600 else null
+        }
+    }
+
+    fun setLastDataSentDate() {
+        prefs.edit().putLong(LAST_DATA_SENT_TIME, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastDataSentDateString(): String? {
+        return prefs.getLong(LAST_DATA_SENT_TIME, 0L).let {
+            if (it != 0L) it.timestampToDate() else null
+        }
     }
 }

@@ -20,14 +20,9 @@
     <string name="privacy_body_text_2"><![CDATA[Detailní informace o zpracování osobních údajů a další podmínky používání aplikace najdete v <a href="%1$s">podmínkách používání</a>.]]></string>
     <string name="privacy_finish">Dokončit aktivaci</string>
     <string name="privacy_toolbar_title">Soukromí</string>
-    <string name="activation_error_title">Chyba</string>
+    <string name="error_title">Chyba</string>
     <string name="activation_error_header">Aktivaci aplikace nelze dokončit</string>
     <string name="activation_try_again">Zkusit znovu</string>
-    <string name="permission_onboarding_title">eRouška potřebuje pro správné fungování zapnutá oznámení o kontaktu s COVID-19</string>
-    <string name="permission_onboarding_desc">Tato oznámení vás upozorní, pokud jste byli v blízkosti uživatele eRoušky s pozitivním testem na onemocnění COVID-19.</string>
-    <string name="permission_onboarding_desc_2">Podstatou správného fungování je sdílení a shromažďování náhodných identifikačních čísel, která se automaticky mění. Uživatele eRoušky není možno podle těchto identifikátorů rozpoznat.</string>
-    <string name="permission_onboarding_desc_minor">Nemusíte se obávat, aplikace vaši polohu nikdy nesleduje ani neukládá.</string>
-    <string name="permission_onboarding_toolbar_title">Oznámení</string>
     <string name="menu_help">Nápověda</string>
     <string name="my_data_title">Aktuálně</string>
     <string name="about_content">Aplikaci eRouška od verze 2.0 vyvíjí Ministerstvo zdravotnictví ve spolupráci s Národní agenturou pro komunikační a informační technologie (NAKIT). Předchozí verzi aplikace eRouška vytvořil tým dobrovolníků v rámci komunitní aktivity COVID19CZ. Většina z původních autorů eRoušky pokračuje na vývoji nových verzí v týmu NAKIT.</string>
@@ -71,11 +66,11 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_vaccinations">%1$s vykázaných očkování</string>
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro povolení upozornění ostatních uživatelů eRoušky.</string>
+    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %d</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
-    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo už byl použit.</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
     <string name="send_data_failure_header">Nepodařilo se nám odeslat data</string>
     <string name="send_data_failure_body">Kontaktujte prosím podporu na emailu %1$s a uveďte následující kód chyby: \'%2$s\'.</string>
@@ -87,6 +82,25 @@
     <string name="send_data_success_body_1_not_enough_keys">eRoušku zatím používáte jen chvíli a nemá zaznamenané žádné jiné eRoušky, proto nikoho ve vašem okolí neupozorní na rizikové setkání.</string>
     <string name="send_data_success_body_2">Spolupracujte prosím s pracovníky hygienické stanice na dohledání všech osob, se kterými jste byli v kontaktu.</string>
     <string name="send_data_success_body_3">Řiďte se pokyny hygieniků a lékařů.</string>
+    <string name="symptom_date_title">Datum prvních příznaků</string>
+    <string name="symptom_date_body">Vyplňte prosím datum prvních příznaků. Upozorníme všechny uživatele eRoušky, které jste potkali ve dnech, kdy se u vás objevily první příznaky.</string>
+    <string name="symptom_date_switch_text">Mám příznaky onemocnění COVID-19</string>
+    <string name="symptom_date_symptoms">Kašel, teplota, dušnost, bolest v krku, bolest hlavy, ztráta čichu a chuti.</string>
+    <string name="symptom_date_hint">Datum prvních příznaků</string>
+    <string name="button_continue">Pokračovat</string>
+    <string name="traveller_title">Cesty do zahraničí</string>
+    <string name="traveller_body">Cestovali jste v posledních 14 dnech do některé ze zemí Evropské unie?</string>
+    <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, ketré jste potkali při svých cestách do zahraničí.</string>
+    <string name="traveller_button_yes">Ano, byl(a) jsem v zahraničí</string>
+    <string name="traveller_button_no">Nebyl(a) jsem v zahraničí</string>
+
+    <string name="efgs_agreement_title">Spolupráce se zahraničím</string>
+    <string name="efgs_agreement_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice i v zahraničí?</string>
+    <string name="efgs_agreement_non_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice?</string>
+    <string name="efgs_agreement_description"><![CDATA[Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle <a href="%1$s">souhlasu se zpracováním osobních údajů</a>.]]></string>
+    <string name="efgs_agreement_agree">Souhlasím</string>
+    <string name="efgs_agreement_disagree">Nesouhlasím</string>
+
     <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
     <string name="data_notification_close">Zavřít</string>
     <string name="notification_exposure_title">Rizikové setkání</string>
@@ -102,15 +116,6 @@
     <string name="exposure_notification_more_info">Více informací</string>
     <string name="exposures_symptoms_header">Mám příznaky</string>
     <string name="exposures_no_symptoms_header">Nemám příznaky</string>
-    <string name="legacy_update_title">Novinky</string>
-    <string name="legacy_update_expansion_header">eRouška se chystá do světa</string>
-    <string name="legacy_update_expansion_body">Připravujeme eRoušku na to, aby si rozuměla s podobnými aplikacemi na celém světě. Provedli jsme proto několik změn, které vám nyní představíme.</string>
-    <string name="legacy_update_active_notification_header">Přecházíme na aktivní oznámení</string>
-    <string name="legacy_update_active_notification_body">Pokud se setkáte s někým, u koho se potvrdí onemocnění COVID-19, eRouška vás bude informovat pomocí oznámení a poradí vám, jak postupovat dále.</string>
-    <string name="legacy_update_phone_header">Telefonní čísla už nebudeme potřebovat</string>
-    <string name="legacy_update_phone_body">Rušíme evidenci telefonních čísel, protože pro komunikaci s hygienickou stanicí již nejsou potřeba. Při rizikovém setkání vám eRouška doporučí další postup.</string>
-    <string name="legacy_update_privacy_header">Myslíme na vaše soukromí</string>
-    <string name="legacy_update_privacy_body"><![CDATA[S těmito úpravami se změnily i <a href="%1$s">podmínky používání</a>. Zásadní změnou je, že nadále nebudeme evidovat telefonní čísla žádného uživatele eRoušky a nebudeme ho vyžadovat při registraci.]]></string>
     <string name="play_services_title">Aktualizujte aplikaci Služby Google Play</string>
     <string name="play_services_content">Nejnovější verze aplikace Služby Google Play je nezbytná pro aktivaci oznámení o setkání s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="play_services_update_button">Aktualizovat</string>
@@ -165,6 +170,7 @@
     <string name="enabled">Zapnutá</string>
     <string name="disable">Vypnutá</string>
     <string name="support_request_button">Napsat e-mail na podporu</string>
+    <string name="support_description">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
     <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informacemi o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
     <string name="support_request_allowed">Chci přidat přílohu</string>
     <string name="support_request_denied">Nechci přidat přílohu</string>

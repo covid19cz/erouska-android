@@ -295,12 +295,12 @@
                     app:card_alert="@{false}"
                     app:card_has_content="@{true}"
                     app:card_icon="@{@drawable/ic_travel}"
-                    app:card_subtitle="@{@string/enabled}"
                     app:card_title="@{@string/dashboard_travel_title}"
+                    app:card_subtitle="@{vm.efgsState ? @string/enabled : @string/disable}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dash_card_positive_test"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

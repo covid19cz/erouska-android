@@ -15,13 +15,15 @@ import cz.covid19cz.erouska.exposurenotifications.worker.SelfCheckerWorker
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.net.model.*
-import cz.covid19cz.erouska.ui.senddata.NoKeysException
-import cz.covid19cz.erouska.ui.senddata.ReportExposureException
-import cz.covid19cz.erouska.ui.senddata.VerifyException
+import cz.covid19cz.erouska.ui.verification.InvalidTokenException
+import cz.covid19cz.erouska.ui.verification.NoKeysException
+import cz.covid19cz.erouska.ui.verification.ReportExposureException
+import cz.covid19cz.erouska.ui.verification.VerifyException
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.threeten.bp.LocalDate
 import retrofit2.HttpException
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -80,32 +82,43 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     suspend fun provideDiagnosisKeys(
-        keys: DownloadedKeys
+        keyList: List<DownloadedKeys>
     ): Boolean = suspendCoroutine { cont ->
 
         setDiagnosisKeysMapping()
 
-        if (keys.isValid()) {
-            if (keys.files.isNotEmpty()) {
-                L.i("Importing keys")
-                client.provideDiagnosisKeys(keys.files)
-                    .addOnSuccessListener {
-                        L.i("Import success")
-                        prefs.setLastKeyImport()
-
-                        prefs.setLastKeyExportFileName(keys.getLastUrl())
-                        cont.resume(true)
-                    }.addOnFailureListener {
-                        cont.resumeWithException(it)
-                    }
+        val filesToImport = mutableListOf<File>()
+        keyList.forEach { keys ->
+            if (keys.isValid()) {
+                if (keys.files.isNotEmpty()) {
+                    L.i("Importing keys ${keys.indexUrl}")
+                    filesToImport.addAll(keys.files)
+                } else {
+                    L.i("Import skipped (no new data) ${keys.indexUrl}")
+                }
             } else {
-                L.i("Import skipped (no new data)")
-                prefs.setLastKeyImport()
-                cont.resume(true)
+                L.i("Import skipped (invalid data) ${keys.indexUrl}")
             }
+        }
+
+        if (filesToImport.isEmpty()) {
+            L.i("All skipped (empty)")
+            prefs.setLastKeyImport()
         } else {
-            L.i("Import skipped (invalid data)")
-            cont.resume(true)
+            client.provideDiagnosisKeys(filesToImport)
+                .addOnSuccessListener {
+                    L.i("Import success of ${filesToImport.size} files")
+                    prefs.setLastKeyImport()
+                    keyList.forEach { keys ->
+                        if (keys.isValid() && keys.files.isNotEmpty()) {
+                            L.d("Last successful import for ${keys.indexUrl} is ${keys.getLastUrl()}")
+                            prefs.setLastKeyExportFileName(keys.indexUrl, keys.getLastUrl())
+                        }
+                    }
+                    cont.resume(true)
+                }.addOnFailureListener {
+                    cont.resumeWithException(it)
+                }
         }
     }
 
@@ -174,6 +187,7 @@ class ExposureNotificationsRepository @Inject constructor(
             }
         }
 
+
     suspend fun getDailySummariesFromDbByExposureDate(): List<DailySummaryEntity> {
         return db.dao().getAllByExposureDate()
     }
@@ -225,45 +239,12 @@ class ExposureNotificationsRepository @Inject constructor(
             }
     }
 
-    suspend fun reportExposureWithVerification(code: String): Int {
-        val keys = getTemporaryExposureKeyHistory()
-        if (keys.isEmpty()) {
-            L.e("No keys found, upload cancelled")
-            throw NoKeysException()
-        }
+    suspend fun verifyCode(code: String) {
         try {
             val verifyResponse = server.verifyCode(VerifyCodeRequest(code))
             if (verifyResponse.token != null) {
                 L.i("Verify code success")
-                val hmackey = cryptoTools.newHmacKey()
-                val keyHash = cryptoTools.hashedKeys(keys, hmackey)
-                val token = verifyResponse.token
-
-                val certificateResponse = server.verifyCertificate(
-                    VerifyCertificateRequest(token, keyHash)
-                )
-                if (certificateResponse.error != null) {
-                    // We ignore error in certificate verification, only log it. It was causing error in production builds with older server.
-                    L.e("Error in certificate verification: " + certificateResponse.error + " (" + certificateResponse.errorCode + ")")
-                } else {
-                    L.i("Verify certificate success")
-                }
-
-                val dtos = keys.map {
-                    TemporaryExposureKeyDto(
-                        it.keyData.encodeBase64(),
-                        it.rollingStartIntervalNumber,
-                        it.rollingPeriod
-                    )
-                }
-                L.i("Uploading ${dtos.size} keys")
-                val response = server.reportExposure(dtos, certificateResponse.certificate, hmackey)
-                response.errorMessage?.let {
-                    L.e("Report exposure failed: $it")
-                    throw ReportExposureException(it, response.code)
-                }
-                L.i("Report exposure success, ${response.insertedExposures} keys inserted")
-                return response.insertedExposures ?: 0
+                prefs.setVerificationData(code, verifyResponse.token)
             } else {
                 throw VerifyException(verifyResponse.error, verifyResponse.errorCode)
             }
@@ -297,6 +278,47 @@ class ExposureNotificationsRepository @Inject constructor(
         }
     }
 
+    suspend fun publishKeys(): Int {
+        val keys = getTemporaryExposureKeyHistory()
+        if (keys.isEmpty()) {
+            L.e("No keys found, upload cancelled")
+            throw NoKeysException()
+        }
+        if (prefs.hasValidationToken(useLeeway = false)) {
+            val token = prefs.getVerificationToken()!!
+            val hmackey = cryptoTools.newHmacKey()
+            val keyHash = cryptoTools.hashedKeys(keys, hmackey)
+
+            val certificateResponse = server.verifyCertificate(
+                VerifyCertificateRequest(token, keyHash)
+            )
+            if (certificateResponse.error != null) {
+                // We ignore error in certificate verification, only log it. It was causing error in production builds with older server.
+                L.e("Error in certificate verification: " + certificateResponse.error + " (" + certificateResponse.errorCode + ")")
+            } else {
+                L.i("Verify certificate success")
+            }
+
+            val dtos = keys.map {
+                TemporaryExposureKeyDto(
+                    it.keyData.encodeBase64(),
+                    it.rollingStartIntervalNumber,
+                    it.rollingPeriod
+                )
+            }
+            L.i("Uploading ${dtos.size} keys")
+            val response = server.reportExposure(dtos, certificateResponse.certificate, hmackey)
+            response.errorMessage?.let {
+                L.e("Report exposure failed: $it")
+                throw ReportExposureException(it, response.code)
+            }
+            L.i("Report exposure success, ${response.insertedExposures} keys inserted")
+            return response.insertedExposures ?: 0
+        } else {
+            throw InvalidTokenException()
+        }
+    }
+
     suspend fun checkExposure() {
         db.dao().deleteOld()
         val timestamp = System.currentTimeMillis()
@@ -325,6 +347,8 @@ class ExposureNotificationsRepository @Inject constructor(
         val userNotNotifiedAboutLatest = latestExposureTime != null
                 && latestExposureTime != lastNotifiedExposureTime
         val lastAppUsedTimestamp = prefs.getLastTimeAppVisited()
+        // Suppress showing update screen after launching the app for first time with a new exposure.
+        prefs.setSuppressUpdateScreens(true)
         // We can use the import timestamp of the exposure as we are interested in comparing whether
         // the user visited the app after being notified. The notification can take place only when
         // the exposure is imported.
