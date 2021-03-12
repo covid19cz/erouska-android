@@ -36,6 +36,9 @@ class EfgsAgreementVM @ViewModelInject constructor(val prefs: SharedPrefsReposit
         loading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
+                if (!exposureNotificationsRepo.isEnabled()) {
+                    exposureNotificationsRepo.start()
+                }
                 exposureNotificationsRepo.publishKeys()
             }.onSuccess {
                 loading.value = false

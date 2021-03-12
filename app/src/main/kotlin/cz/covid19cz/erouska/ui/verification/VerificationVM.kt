@@ -50,9 +50,6 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
             loading.value = true
             viewModelScope.launch {
                 runCatching {
-                    if (!exposureNotificationRepo.isEnabled()) {
-                        exposureNotificationRepo.start()
-                    }
                     exposureNotificationRepo.verifyCode(code.value)
                 }.onSuccess {
                     loading.value = false
@@ -69,7 +66,6 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
         when (exception) {
             is VerifyException -> {
                 exception.code?.let {
-
                     val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
                         VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
                         VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,

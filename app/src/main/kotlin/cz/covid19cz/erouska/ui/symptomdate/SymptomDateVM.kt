@@ -11,7 +11,6 @@ import java.util.*
 
 class SymptomDateVM @ViewModelInject constructor(val prefs : SharedPrefsRepository) : BaseVM() {
 
-    val nextEnabled = SafeMutableLiveData(true)
     val hasSymptoms = SafeMutableLiveData(true)
     val symptomDate = MutableLiveData<Date>()
     val symptomDateString = MutableLiveData<String>()
@@ -23,19 +22,13 @@ class SymptomDateVM @ViewModelInject constructor(val prefs : SharedPrefsReposito
             } else {
                 symptomDateString.value = null
             }
-            handleNextEnabled()
         }
         hasSymptoms.observeForever {
             if (!it){
                 symptomDate.value = null
                 symptomDateString.value = null
             }
-            handleNextEnabled()
         }
-    }
-
-    fun handleNextEnabled(){
-        nextEnabled.value = !hasSymptoms.value || (hasSymptoms.value && symptomDate.value != null)
     }
 
     fun showDatePicker(){
