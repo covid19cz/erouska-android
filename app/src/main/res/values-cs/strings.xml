@@ -167,8 +167,8 @@
     <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
 
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
-    <string name="enabled">Zapnutá</string>
-    <string name="disable">Vypnutá</string>
+    <string name="enabled">Zapnuto</string>
+    <string name="disable">Vypnuto</string>
     <string name="support_request_button">Napsat e-mail na podporu</string>
     <string name="support_description">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
     <string name="support_request">Chcete do e-mailu přidat přílohu s anonymními informacemi o nastavení telefonu? Tyto informace nám pomohou s řešením případné chyby.</string>
@@ -218,4 +218,6 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="how_it_works_notif_title">Zobrazení varování</string>
     <string name="how_it_works_notif_content">Těm, kteří mohli přijít do rizikového kontaktu s nakaženým, se v aplikaci eRouška zobrazí upozornění. To navede uživatele, jak má dále postupovat a jaká hygienická opatření má dodržovat.</string>
     <string name="how_it_works_support_content">Máte další dotazy nebo vám eRouška nefunguje správně? Napište nám.</string>
+    <string name="send_data_code_invalid_header">Zadaný kód není platný</string>
+    <string name="send_data_code_invalid_body">Zkontrolujte kód a zkuste ho zadat znovu. V případě, že se vám opakovaně nedaří zadat platný kód, kontaktujte nás na %1$s.</string>
 </resources>
