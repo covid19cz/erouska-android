@@ -36,7 +36,7 @@
                 android:layout_marginTop="8dp"
                 android:textAppearance="@style/Erouska.Body"
                 android:text="@string/efgs_check"
-                android:checked="@{vm.efgsState}"
+                android:checked="@={vm.efgsState}"
                 app:switchPadding="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

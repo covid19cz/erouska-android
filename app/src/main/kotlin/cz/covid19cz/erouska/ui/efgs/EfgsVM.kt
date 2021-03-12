@@ -13,21 +13,11 @@ class EfgsVM @ViewModelInject constructor(val prefs : SharedPrefsRepository) : B
 
     val efgsState = SafeMutableLiveData(prefs.isTraveller())
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        efgsState.value = prefs.isTraveller()
-    }
-
-    fun turnOnEfgs() {
-        efgsState.value = true
-        prefs.setTraveller(true)
-        publish(EfgsCommandEvent(EfgsCommandEvent.Command.TURN_ON))
-    }
-
-    fun turnOffEfgs() {
-        efgsState.value = false
-        prefs.setTraveller(false)
-        publish(EfgsCommandEvent(EfgsCommandEvent.Command.TURN_OFF))
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate(){
+        efgsState.observeForever {
+            prefs.setTraveller(it)
+        }
     }
 
     fun efgsDays() = AppConfig.efgsDays
