@@ -18,32 +18,24 @@ import kotlinx.android.synthetic.main.fragment_efgs.*
 class EfgsFragment :
     BaseFragment<FragmentEfgsBinding, EfgsVM>(R.layout.fragment_efgs, EfgsVM::class) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        subscribe(EfgsCommandEvent::class) { commandEvent ->
-            when (commandEvent.command) {
-                EfgsCommandEvent.Command.TURN_ON -> turnOn()
-                EfgsCommandEvent.Command.TURN_OFF -> turnOff()
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         enableUpInToolbar(true, IconType.CLOSE)
 
-        efgs_checkbox.setOnCheckedChangeListener { switch, isChecked ->
-            if (isChecked) {
-                viewModel.turnOnEfgs()
+        viewModel.efgsState.observe(viewLifecycleOwner){ checked ->
+            if (binding.efgsCheckbox.tag != null) {
+                if (!checked) {
+                    showEfgsDisableConfirmationDialog()
+                }
             } else {
-                showEfgsDisableConfirmationDialog(switch)
+                // using tag as init flag to prevent dialog onCreate
+                binding.efgsCheckbox.tag = true
             }
         }
     }
 
-    private fun showEfgsDisableConfirmationDialog(switch: CompoundButton) {
+    private fun showEfgsDisableConfirmationDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage(
                 HtmlCompat.fromHtml(
@@ -52,19 +44,10 @@ class EfgsFragment :
                 )
             )
             .setPositiveButton(R.string.efgs_disable_confirmation_on) { _, _ ->
-                switch.isChecked = true
+                viewModel.efgsState.value = true
             }
             .setNegativeButton(R.string.efgs_disable_confirmation_off) { _, _ ->
-                switch.isChecked = false
-                viewModel.turnOffEfgs()
+
             }.show()
-    }
-
-    private fun turnOn() {
-        // no-op
-    }
-
-    private fun turnOff() {
-        // no-op
     }
 }

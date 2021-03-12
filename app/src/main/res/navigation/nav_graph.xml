@@ -563,6 +563,9 @@
             android:id="@+id/action_nav_efgs_agreement_to_nav_publish_success"
             app:destination="@id/nav_publish_success"
             app:popUpTo="@id/nav_dashboard" />
+        <action
+            android:id="@+id/action_nav_efgs_agreement_to_nav_error"
+            app:destination="@id/nav_error" />
     </fragment>
     <fragment
         android:id="@+id/nav_publish_success"

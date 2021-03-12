@@ -75,7 +75,7 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
             errorHeader.text = getString(R.string.send_data_code_invalid_header)
             errorBody.text = getString(R.string.send_data_code_invalid_body, AppConfig.supportEmail)
 
-            errorBody.setOnClickListener {
+            emailButton.setOnClickListener {
                 supportEmailGenerator.sendVerificationEmail(requireActivity())
             }
         }
