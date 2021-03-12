@@ -57,22 +57,22 @@ class EfgsAgreementVM @ViewModelInject constructor(val prefs: SharedPrefsReposit
             is ApiException -> publish(GmsApiErrorEvent(exception))
             is NoKeysException -> navigate(EfgsAgreementFragmentDirections.actionNavEfgsAgreementToNavPublishSuccess(false))
             is ReportExposureException -> {
-                VerificationFragmentDirections.actionNavVerificationToNavError(
+                navigate(EfgsAgreementFragmentDirections.actionNavEfgsAgreementToNavError(
                     type = ErrorType.GENERAL_ERROR ,
                     errorCode = "${exception.message} ${exception.code}"
-                )
+                ))
             }
             is UnknownHostException -> {
-                VerificationFragmentDirections.actionNavVerificationToNavError(
+                navigate(EfgsAgreementFragmentDirections.actionNavEfgsAgreementToNavError(
                     type = ErrorType.NO_INTERNET
-                )
+                ))
             }
             else -> {
                 L.e(exception)
-                VerificationFragmentDirections.actionNavVerificationToNavError(
+                navigate(EfgsAgreementFragmentDirections.actionNavEfgsAgreementToNavError(
                     type = ErrorType.GENERAL_ERROR ,
                     errorCode = "${exception.message}"
-                )
+                ))
             }
         }
     }
