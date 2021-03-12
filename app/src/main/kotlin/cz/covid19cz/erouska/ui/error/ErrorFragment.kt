@@ -66,12 +66,14 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
 
     private fun onCodeInvalid() {
         with(binding){
+            tryAgainButton.show()
             emailButton.show()
             closeButton.hide()
-            tryAgainButton.hide()
 
-            errorHeader.text = getString(R.string.send_data_failure_header)
-            errorBody.text = getString(R.string.send_data_code_invalid)
+            emailButton.text = getString(R.string.support_request_button)
+
+            errorHeader.text = getString(R.string.send_data_code_invalid_header)
+            errorBody.text = getString(R.string.send_data_code_invalid_body, AppConfig.supportEmail)
 
             errorBody.setOnClickListener {
                 supportEmailGenerator.sendVerificationEmail(requireActivity())
