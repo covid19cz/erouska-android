@@ -66,7 +66,7 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_vaccinations">%1$s vykázaných očkování</string>
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro povolení upozornění ostatních uživatelů eRoušky.</string>
-    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %d</string>
+    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %s</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
     <string name="send_data_button_text">Ověřit a odeslat data</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
