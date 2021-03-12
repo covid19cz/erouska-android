@@ -24,6 +24,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val LAST_SET_DIAGNOSIS_KEYS_DATA_MAPPING = "lastSetDiagnosisKeysDataMapping"
         const val EFGS_INTRODUCED = "efgsIntroduced"
         const val APP_OPEN_TIMESTAMP = "lastTimeAppOpened"
+        const val SUPPRESS_UPDATE_SCREENS = "suppressUpdateScreens"
 
         const val REPORT_TYPE_WEIGHTS = "reportTypeWeights"
         const val INFECTIOUSNESS_WEIGHTS = "infectiousnessWeights"
@@ -182,11 +183,11 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun setSuppressUpdateScreens(suppress: Boolean) {
-        prefs.edit().putBoolean(APP_OPEN_TIMESTAMP, suppress).apply()
+        prefs.edit().putBoolean(SUPPRESS_UPDATE_SCREENS, suppress).apply()
     }
 
     fun shouldSuppressUpdateScreens(): Boolean {
-        return prefs.getBoolean(APP_OPEN_TIMESTAMP, false)
+        return prefs.getBoolean(SUPPRESS_UPDATE_SCREENS, false)
     }
 
     fun clearCustomConfig() {
