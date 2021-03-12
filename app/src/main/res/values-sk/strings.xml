@@ -198,4 +198,5 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="how_it_works_notif_title">Zobrazenie varovania</string>
     <string name="how_it_works_notif_content">Tým, ktorí mohli prísť do rizikového kontaktu s nakazeným, sa v aplikácii eRouška zobrazí upozornenie. To navedie používateľa, ako má ďalej postupovať a aké hygienické opatrenia má dodržiavať.</string>
     <string name="how_it_works_support_content">Máte ďalšie otázky alebo vám eRouška nefunguje správne? Napíšte nám.</string>
+    <string name="send_data_code_expired_or_used">Platnosť kódu vypršala alebo už bol použitý.</string>
 </resources>

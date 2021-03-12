@@ -218,6 +218,27 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="how_it_works_notif_title">Zobrazení varování</string>
     <string name="how_it_works_notif_content">Těm, kteří mohli přijít do rizikového kontaktu s nakaženým, se v aplikaci eRouška zobrazí upozornění. To navede uživatele, jak má dále postupovat a jaká hygienická opatření má dodržovat.</string>
     <string name="how_it_works_support_content">Máte další dotazy nebo vám eRouška nefunguje správně? Napište nám.</string>
+    <string name="no_internet_error">Zkontrolujte připojení k internetu a zkuste to znovu.</string>
+    <string name="general_error">Kontaktujte prosím podporu na e-mailu %1$s a uveďte následující kód chyby: %2$s.</string>
+    <string name="general_desc">Po stisknutí tlačítka “Napsat e-mail na podporu” vytvoříme přílohu e-mailu s anonymními informacemi o nastavení telefonu (například zapnuté Bluetooth, typ telefonu) a chybě. Tyto informace nám pomohou s řešením chyby.</string>
+    <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo jste ho už jednou použili. Pro nový kód napište na %1$s.</string>
+    <string name="email_button">Napsat e-mail</string>
+    <string name="verification_email_subject">Nepřišla mi SMS s ověřovacím kódem</string>
+    <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
+
+    <string name="no_verification_code">Nemám ověřovací kód</string>
+    <string name="no_verification_body">Máte pozitivní test a nepřišla vám SMS pro eRoušku? Napište si o náhradní kód na %1$s.</string>
+    <string name="no_verification_caption">Zajímá vás, jak odesílání kódu funguje?\n\nV případě, že máte pozitivní výsledek testu na COVID-19, měl by vám přijít výsledek testu v SMS od testovací laboratoře. Ta výsledky současně odesílá do centrálního informačního systému Ministerstva zdravotnictví.\n\nPoté, co se informace z informačního systému propíšou do systému hygieny, se odesílají automatické SMS eRoušky s ověřovacími kódy.\n\nPokud se výsledky z laboratoře nestihnou propsat do systému hygieny do 22:00, může vám SMS s ověřovacím kódem přijít až následující den.\n\nPokud vám SMS eRoušky nepřišla ani následující den poté, co vám přišla SMS s pozitivními výsledky z laboratoře, napište nám na %1$s.</string>
+    <string name="efgs_title">Spolupráce se zahraničím</string>
+    <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
+    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.</string>
+    <string name="efgs_visit">Povolte si prosím Spolupráci se zahraničím, pokud jste byli v posledních %1$d dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.</string>
+    <string name="efgs_check">Povolit spolupráci se zahraničím</string>
+    <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
+
+    <string name="efgs_disable_confirmation"><![CDATA[Onemocnění COVID-19 se může projevit až %1$d dní po setkání s nakaženou osobou. Spolupráci se zahraničím prosím vypněte nejdříve <b>%1$d dní</b> po návratu.]]></string>
+    <string name="efgs_disable_confirmation_on">Ponechat zapnuté</string>
+    <string name="efgs_disable_confirmation_off">Vypnout</string>
     <string name="send_data_code_invalid_header">Zadaný kód není platný</string>
     <string name="send_data_code_invalid_body">Zkontrolujte kód a zkuste ho zadat znovu. V případě, že se vám opakovaně nedaří zadat platný kód, kontaktujte nás na %1$s.</string>
 </resources>
