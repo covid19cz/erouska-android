@@ -65,11 +65,7 @@ class EfgsUpdateFragment : BaseFragment<FragmentEfgsUpdateBinding, EfgsUpdateVM>
 
         legacy_update_checkbox.isChecked = viewModel.sharedPrefsRepository.isTraveller()
         legacy_update_checkbox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                viewModel.sharedPrefsRepository.setTraveller(true)
-            } else {
-                viewModel.sharedPrefsRepository.setTraveller(false)
-            }
+            viewModel.sharedPrefsRepository.setTraveller(isChecked)
         }
     }
 }
