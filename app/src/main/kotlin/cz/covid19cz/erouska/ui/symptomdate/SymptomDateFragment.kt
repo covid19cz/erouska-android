@@ -21,14 +21,14 @@ class SymptomDateFragment : BaseFragment<FragmentSymptomDateBinding, SymptomDate
         }
     }
 
-    fun showDatePickerDialog(preselect: Date?) {
+    private fun showDatePickerDialog(preselect: Date?) {
         val preselectCalendar = Calendar.getInstance()
         if (preselect != null) {
             preselectCalendar.time = preselect
         }
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { view, year, month, day ->
+            { _, year, month, day ->
                 viewModel.symptomDate.value = Calendar.getInstance().apply {
                     set(Calendar.YEAR, year)
                     set(Calendar.MONTH, month)
