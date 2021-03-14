@@ -42,27 +42,35 @@ class VerificationVM @ViewModelInject constructor(
         validate()
     }
 
-    fun needVerificationCode() {
+    fun navigateToVerificationCode() {
         navigate(VerificationFragmentDirections.actionNavErrorToNavNoVerificationCode())
     }
 
     private fun validate() {
         if (prefs.isCodeValidated(code.value)) {
-            navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+            navigateToSymptomsScreen()
         } else {
-            loading.value = true
+            startLoading()
             viewModelScope.launch {
                 runCatching {
                     exposureNotificationRepo.verifyCode(code.value)
                 }.onSuccess {
-                    loading.value = false
-                    navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+                    stopLoading()
+                    navigateToSymptomsScreen()
                 }.onFailure {
-                    loading.value = false
+                    stopLoading()
                     handleSendDataErrors(it)
                 }
             }
         }
+    }
+
+    private fun startLoading() {
+        loading.value = true
+    }
+
+    private fun stopLoading() {
+        loading.value = false
     }
 
     private fun handleSendDataErrors(exception: Throwable) {
@@ -105,6 +113,10 @@ class VerificationVM @ViewModelInject constructor(
                 errorCode = errorMessage
             )
         )
+    }
+
+    private fun navigateToSymptomsScreen() {
+        navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
     }
 
     private fun isCodeValid(code: String): Boolean {
