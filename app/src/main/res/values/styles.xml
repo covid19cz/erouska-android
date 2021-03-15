@@ -34,6 +34,10 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="SwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="useMaterialThemeColors">false</item>
+    </style>
+
     <style name="Erouska.Title" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textStyle">bold</item>
     </style>

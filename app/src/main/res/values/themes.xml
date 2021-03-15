@@ -9,8 +9,6 @@
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorSecondaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:statusBarColor">@color/statusbarColor</item>
@@ -22,6 +20,7 @@
         <item name="materialButtonStyle">@style/Button</item>
         <item name="materialButtonOutlinedStyle">@style/OutlinedButton</item>
         <item name="android:actionMenuTextColor">@color/colorPrimary</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
     </style>
 
     <style name="AppTheme.Launchscreen">
