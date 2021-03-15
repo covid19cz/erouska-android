@@ -7,6 +7,7 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.timestampToDate
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.symptomdate.event.DatePickerEvent
+import cz.covid19cz.erouska.ui.traveller.TravellerFragmentDirections
 import java.util.*
 
 class SymptomDateVM @ViewModelInject constructor(val prefs: SharedPrefsRepository) : BaseVM() {
@@ -41,7 +42,11 @@ class SymptomDateVM @ViewModelInject constructor(val prefs: SharedPrefsRepositor
 
     fun next() {
         prefs.setSymptomDate(symptomDate.value?.time)
-        navigate(SymptomDateFragmentDirections.actionNavSymptomDateToNavTraveller())
+        if (!prefs.isTraveller()) {
+            navigate(SymptomDateFragmentDirections.actionNavSymptomDateToNavTraveller())
+        } else {
+            navigate(TravellerFragmentDirections.actionNavTravellerToEfgsAgreementFragment())
+        }
     }
 
 }
