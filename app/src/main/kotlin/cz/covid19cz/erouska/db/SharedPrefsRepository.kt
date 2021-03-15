@@ -116,7 +116,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun isTraveller(): Boolean {
-        return prefs.getBoolean(TRAVELLER, false)
+        return prefs.getBoolean(TRAVELLER, true)
     }
 
     fun setTraveller(traveller: Boolean) {
