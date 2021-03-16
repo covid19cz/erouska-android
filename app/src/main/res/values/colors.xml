@@ -3,8 +3,6 @@
     <color name="colorPrimary">#2f80ed</color>
     <color name="colorPrimaryVariant">#2874ed</color>
     <color name="colorSecondary">#EE225B</color>
-    <color name="colorSurface">@color/white</color>
-    <color name="colorOnSurface">#717171</color>
 
     <color name="textColorPrimary">#000</color>
     <color name="textColorSecondary">#444</color>
@@ -32,5 +30,8 @@
 
     <color name="highlight">#FFF500</color>
     <color name="search_background">#fff</color>
+
+    <color name="background">@color/white</color>
+    <color name="ic_help">#717171</color>
 
 </resources>
