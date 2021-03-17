@@ -112,15 +112,17 @@ class ExposureServerRepository @Inject constructor(
 
     suspend fun downloadKeyExport(): List<DownloadedKeys> {
         return withContext(Dispatchers.IO) {
-            val countryUrls = parseCountryUrls(if (prefs.isTraveller()) {
-                AppConfig.keyExportEuTravellerUrls
-            } else {
-                AppConfig.keyExportNonTravellerUrls
-            })
+            val countryUrls = parseCountryUrls(
+                if (prefs.isTraveller()) {
+                    AppConfig.keyExportEuTravellerUrls
+                } else {
+                    AppConfig.keyExportNonTravellerUrls
+                }
+            )
             val keysList = mutableListOf<DownloadedKeys>()
             val keysListTasks = mutableListOf<Deferred<DownloadedKeys?>>()
             countryUrls.forEach {
-                keysListTasks.add(async {downloadIndex(it) })
+                keysListTasks.add(async { downloadIndex(it) })
             }
             keysList.addAll(keysListTasks.awaitAll().filterNotNull())
             return@withContext keysList
@@ -164,9 +166,17 @@ class ExposureServerRepository @Inject constructor(
     private fun downloadFile(zipfile: String): File? {
         try {
             val dir = File(context.cacheDir.path + "/export/")
-            val file =
-                File(context.cacheDir.path + "/export/" + zipfile.substring(zipfile.lastIndexOf("/") + 1))
-            dir.mkdirs()
+            val fileName = if (zipfile.contains("efgs_")) {
+                // EFGS files; e.g. efgs_de/1607061600-1607068800-00001.zip
+                zipfile.split("/").takeLast(2).joinToString("/")
+            } else {
+                // CZ files; e.g. 1607061600-1607068800-00001.zip
+                zipfile.substring(zipfile.lastIndexOf("/") + 1)
+            }
+            val file = File(dir.absolutePath + "/" + fileName)
+
+            checkNotNull(file.parentFile).mkdirs()
+
             file.createNewFile()
             val u = URL(zipfile)
             val inputStream: InputStream = u.openStream()
