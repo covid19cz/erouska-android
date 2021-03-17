@@ -91,17 +91,14 @@ class VerificationVM @ViewModelInject constructor(
         if (exception.code == null) {
             return createNoInternetErrorType()
         }
-        return exception.code.let {
-            val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
-                VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
-                VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
-                VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
-            )
-
-            val type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR })
-            val message = "${exception.message} ${exception.code}"
-            Pair(type, message)
-        }
+        val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
+            VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+            VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+            VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
+        )
+        val type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR })
+        val message = "${exception.message} ${exception.code}"
+        return Pair(type, message)
     }
 
     private fun createNoInternetErrorType() = Pair(ErrorType.NO_INTERNET, "")
