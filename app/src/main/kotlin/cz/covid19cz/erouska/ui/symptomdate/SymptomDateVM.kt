@@ -7,9 +7,10 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.timestampToDate
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.symptomdate.event.DatePickerEvent
+import cz.covid19cz.erouska.ui.traveller.TravellerFragmentDirections
 import java.util.*
 
-class SymptomDateVM @ViewModelInject constructor(val prefs : SharedPrefsRepository) : BaseVM() {
+class SymptomDateVM @ViewModelInject constructor(val prefs: SharedPrefsRepository) : BaseVM() {
 
     val hasSymptoms = SafeMutableLiveData(true)
     val symptomDate = MutableLiveData<Date>()
@@ -17,27 +18,35 @@ class SymptomDateVM @ViewModelInject constructor(val prefs : SharedPrefsReposito
 
     init {
         symptomDate.observeForever {
-            if (it != null){
-                symptomDateString.value = it.time.timestampToDate()
-            } else {
-                symptomDateString.value = null
-            }
+            setSymptomDateString(it?.time?.timestampToDate())
         }
         hasSymptoms.observeForever {
-            if (!it){
-                symptomDate.value = null
-                symptomDateString.value = null
+            if (!it) {
+                clearSymptomFields()
             }
         }
     }
 
-    fun showDatePicker(){
+    private fun clearSymptomFields() {
+        symptomDate.value = null
+        setSymptomDateString(null)
+    }
+
+    private fun setSymptomDateString(symptomDate: String?) {
+        symptomDateString.value = symptomDate
+    }
+
+    fun showDatePicker() {
         publish(DatePickerEvent(symptomDate.value))
     }
 
-    fun next(){
+    fun next() {
         prefs.setSymptomDate(symptomDate.value?.time)
-        navigate(SymptomDateFragmentDirections.actionNavSymptomDateToNavTraveller())
+        if (!prefs.isTraveller()) {
+            navigate(SymptomDateFragmentDirections.actionNavSymptomDateToNavTraveller())
+        } else {
+            navigate(TravellerFragmentDirections.actionNavTravellerToEfgsAgreementFragment())
+        }
     }
 
 }

@@ -15,7 +15,10 @@ import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 
-class VerificationVM @ViewModelInject constructor(private val exposureNotificationRepo: ExposureNotificationsRepository, private val prefs : SharedPrefsRepository) :
+class VerificationVM @ViewModelInject constructor(
+    private val exposureNotificationRepo: ExposureNotificationsRepository,
+    private val prefs: SharedPrefsRepository
+) :
     BaseVM() {
 
     val code = SafeMutableLiveData("")
@@ -39,61 +42,78 @@ class VerificationVM @ViewModelInject constructor(private val exposureNotificati
         validate()
     }
 
-    fun needVerificationCode() {
+    fun navigateToVerificationCode() {
         navigate(VerificationFragmentDirections.actionNavErrorToNavNoVerificationCode())
     }
 
     private fun validate() {
         if (prefs.isCodeValidated(code.value)) {
-            navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+            navigateToSymptomsScreen()
         } else {
-            loading.value = true
+            startLoading()
             viewModelScope.launch {
                 runCatching {
                     exposureNotificationRepo.verifyCode(code.value)
                 }.onSuccess {
-                    loading.value = false
-                    navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+                    stopLoading()
+                    navigateToSymptomsScreen()
                 }.onFailure {
-                    loading.value = false
+                    stopLoading()
                     handleSendDataErrors(it)
                 }
             }
         }
     }
 
+    private fun startLoading() {
+        loading.value = true
+    }
+
+    private fun stopLoading() {
+        loading.value = false
+    }
+
     private fun handleSendDataErrors(exception: Throwable) {
-        when (exception) {
-            is VerifyException -> {
-                exception.code?.let {
-                    val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
-                        VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
-                        VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
-                        VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
-                    )
-
-                    navigate(
-                        VerificationFragmentDirections.actionNavVerificationToNavError(
-                            type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR }),
-                            errorCode = "${exception.message} ${exception.code}"
-                        ))
-
-                } ?: navigate(
-                    VerificationFragmentDirections.actionNavVerificationToNavError(
-                        ErrorType.NO_INTERNET))
-            }
-            is UnknownHostException -> {
-                navigate(
-                    VerificationFragmentDirections.actionNavVerificationToNavError(
-                        ErrorType.NO_INTERNET))
-            }
+        val errorAndCode: Pair<ErrorType, String> = when (exception) {
+            is VerifyException -> mapExceptionToErrorType(exception)
+            is UnknownHostException -> createNoInternetErrorType()
             else -> {
                 L.e(exception)
-                navigate(
-                    VerificationFragmentDirections.actionNavVerificationToNavError(
-                        ErrorType.NO_INTERNET))
+                createNoInternetErrorType()
             }
         }
+
+        showError(errorAndCode.first, errorAndCode.second)
+    }
+
+
+    private fun mapExceptionToErrorType(exception: VerifyException): Pair<ErrorType, String> {
+        if (exception.code == null) {
+            return createNoInternetErrorType()
+        }
+        val errorCodeMap: Map<String, ErrorType> = mutableMapOf(
+            VerifyCodeResponse.ERROR_CODE_EXPIRED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+            VerifyCodeResponse.ERROR_CODE_EXPIRED_USED_CODE to ErrorType.EXPIRED_OR_USED_CODE,
+            VerifyCodeResponse.ERROR_CODE_INVALID_CODE to ErrorType.INVALID_CODE,
+        )
+        val type = errorCodeMap.getOrElse(exception.code, { ErrorType.GENERAL_ERROR })
+        val message = "${exception.message} ${exception.code}"
+        return Pair(type, message)
+    }
+
+    private fun createNoInternetErrorType() = Pair(ErrorType.NO_INTERNET, "")
+
+    private fun showError(errorType: ErrorType, errorMessage: String) {
+        navigate(
+            VerificationFragmentDirections.actionNavVerificationToNavError(
+                type = errorType,
+                errorCode = errorMessage
+            )
+        )
+    }
+
+    private fun navigateToSymptomsScreen() {
+        navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
     }
 
     private fun isCodeValid(code: String): Boolean {
