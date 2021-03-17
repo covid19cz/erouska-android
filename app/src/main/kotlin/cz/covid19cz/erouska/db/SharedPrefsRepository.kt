@@ -116,7 +116,7 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     }
 
     fun isTraveller(): Boolean {
-        return prefs.getBoolean(TRAVELLER, false)
+        return prefs.getBoolean(TRAVELLER, true)
     }
 
     fun setTraveller(traveller: Boolean) {
@@ -471,7 +471,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
     fun deletePublishKeysTemporaryData() {
         prefs.edit().remove(VALIDATION_CODE)
             .remove(VALIDATION_TOKEN)
-            .remove(TRAVELLER)
             .remove(CONSENT_TO_FEDERATION)
             .remove(SYMPTOM_DATE)
             .apply()
