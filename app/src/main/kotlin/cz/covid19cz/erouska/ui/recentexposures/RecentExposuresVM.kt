@@ -40,7 +40,7 @@ class RecentExposuresVM @ViewModelInject constructor(
                 }.onSuccess { dailySummaries ->
                     viewModelScope.launch(Dispatchers.Main) {
                         var previousTimestamp = -1L
-                        dailySummaries.forEachIndexed { index, item ->
+                        dailySummaries.forEachIndexed { _, item ->
                             if (previousTimestamp != item.importTimestamp){
                                 items.add(RecentExposureGroupHeaderItem(item.importTimestamp))
                                 previousTimestamp = item.importTimestamp

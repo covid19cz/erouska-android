@@ -1,29 +1,11 @@
 package cz.covid19cz.erouska.utils
 
-import android.app.Application
-import android.app.Fragment
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
-import android.preference.PreferenceManager
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-
-// obtain SharedPreferencesProvider within Activity/Fragment/ViewModel/Service/Context etc.
-fun Context.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) =
-    SharedPreferencesProvider({
-        if (name == null)
-            PreferenceManager.getDefaultSharedPreferences(this)
-        else
-            getSharedPreferences(name, mode)
-    })
-
-fun AndroidViewModel.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = getApplication<Application>().sharedPrefs(name, mode)
-fun Fragment.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = activity.sharedPrefs(name, mode)
 
 // Simple SharedPreferences delegates - supports getter/setter
 // Note: When not specified explicitly, the name of the property is used as a preference key
