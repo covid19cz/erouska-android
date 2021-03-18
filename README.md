@@ -50,3 +50,16 @@ Versioning is automatic: major and minor version is in Git, patch is _versionCod
 
 Release is done by executing the release.sh script. Right click it on Android Studio and hit Run 'release.sh' or execute via command line.
 If it fails, it fails. Most likely your master has different history from origin. That should never be the case, so you should fix it.
+
+Make sure to update translations & RC defaults before release (next section).
+
+## Updating translations
+- Update only Czech and English file in a PR, don't upload anything to OneSky
+- Don't put Czech strings into English file, add there either your English translation or `TODO: translate`
+- Before every release, the person who is preparing the release will upload Czech file into OneSky and notify translators
+- After it's translated, push English and Slovak file from OneSky to develop. Don't update Czech file.
+
+## Updating RC defaults
+- Don't add any RC defaults to a pull request, change it only in Dev RC for testing ([follow this guide](https://github.com/covid19cz/erouska-remote-config#how-to-add-new-localizable-rc-key))
+- Before every release, the person who is preparing the release should update RC defaults and push them to develop
+
