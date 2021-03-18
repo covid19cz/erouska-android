@@ -14,8 +14,4 @@ class WelcomeVM @ViewModelInject constructor(private val prefs: SharedPrefsRepos
     fun help() {
         publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.HELP))
     }
-
-    fun wasAppUpdated(): Boolean {
-        return prefs.isUpdateFromLegacyVersion()
-    }
 }

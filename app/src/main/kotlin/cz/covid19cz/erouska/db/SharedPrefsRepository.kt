@@ -16,7 +16,6 @@ import javax.inject.Singleton
 class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) {
 
     companion object {
-        const val APP_PAUSED = "preference.app_paused"
         const val LAST_KEY_IMPORT = "preference.last_import"
         const val LAST_KEY_IMPORT_TIME = "preference.last_import_time"
         const val LAST_SHOWN_EXPOSURE_INFO = "lastShownExposureInfo"
@@ -158,12 +157,6 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun clearLastKeyImportTime() {
         prefs.edit().remove(LAST_KEY_IMPORT_TIME).apply()
-    }
-
-    fun isUpdateFromLegacyVersion() = prefs.contains(APP_PAUSED)
-
-    fun markUpdateFromLegacyVersionCompleted() {
-        prefs.edit().remove(APP_PAUSED).apply()
     }
 
     fun isExposureNotificationsEnabled(): Boolean {

@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ext.timestampToDateTime
 import cz.covid19cz.erouska.net.ExposureServerRepository
@@ -25,8 +24,7 @@ import kotlinx.coroutines.launch
 
 class SandboxVM @ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
-    private val serverRepository: ExposureServerRepository,
-    private val prefs: SharedPrefsRepository
+    private val serverRepository: ExposureServerRepository
 ) : BaseVM() {
 
     val filesString = MutableLiveData<String>()
