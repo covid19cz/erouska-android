@@ -118,6 +118,8 @@ object AppConfig {
         get() = firebaseRemoteConfig.getBoolean("v2_efgsTravellerDefault")
     val howItWorksUITitle
         get() = firebaseRemoteConfig.getString("v2_howItWorksUITitle")
+    val howItWorksEvalContent
+        get() = firebaseRemoteConfig.getString("v2_howItWorksEvalContent")
     val helpJson
         get() = firebaseRemoteConfig.getString("v2_helpJson")
     val validationTokenExpirationLeewayMinutes

@@ -10,6 +10,7 @@ import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.how.event.HowItWorksEvent
 import cz.covid19cz.erouska.utils.SupportEmailGenerator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_how_it_works.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +36,7 @@ class HowItWorksFragment : BaseFragment<FragmentExposureBinding, HowItWorksVM>(
         enableUpInToolbar(true, IconType.CLOSE)
 
         activity?.title = AppConfig.howItWorksUITitle
+        how_it_works_eval_content.text = AppConfig.howItWorksEvalContent
 
         subscribe(HowItWorksEvent::class) {
             when (it.command) {
