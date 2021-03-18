@@ -34,9 +34,9 @@
     <string name="permission_rationale_settings">Nastavení</string>
     <string name="permission_rationale_dismiss">Zrušit</string>
     <string name="welcome_help">Jak to funguje</string>
-    <string name="welcome_activation">Pokra\u010dovat k\u00a0aktivaci</string>
+    <string name="welcome_activation">Pokračovat k aktivaci</string>
     <string name="welcome_description"><![CDATA[Aplikace bude nepřetržitě monitorovat vaše okolí a&nbsp;zaznamenávat všechny ostatní telefony s aplikací eRouška, ke kterým se přiblížíte.<br/><br/>Pokud se u majitele kteréhokoliv z nich potvrdí onemocnění COVID-19, eRouška vyhodnotí, zda se jedná o rizikový kontakt a upozorní vás.<br/><br/>Když se potvrdí nákaza u&nbsp;vás, eRouška upozorní všechny ostatní uživatele aplikace, se s&nbsp;kterými jste se potkali.]]></string>
-    <string name="welcome_title">D\u00edky eRou\u0161ce ochr\u00e1n\u00edte sebe i\u00a0ostatn\u00ed ve sv\u00e9m okol\u00ed</string>
+    <string name="welcome_title">D\u00edky eRou\u0161ce ochr\u00e1n\u00edte sebe i ostatn\u00ed ve sv\u00e9m okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
     <string name="send_data">Anonymně upozornit ostatní</string>
     <string name="sent">Odesláno</string>
@@ -44,7 +44,7 @@
     <string name="menu_share_app">Sdílet aplikaci</string>
     <string name="share_app_text">Ahoj, používám aplikaci eRouška. Nainstaluj si ji taky a společně pomožme zastavit šíření onemocnění COVID-19. Aplikace dokáže anonymně a včas upozornit na rizikové setkání s nakaženým uživatelem a doporučit další postup. Najdeš ji na %s</string>
     <string name="delete_registration">Zrušit registraci</string>
-    <string name="about">O\u00a0aplikaci</string>
+    <string name="about">O aplikaci</string>
     <string name="no_internet">Vaše zařízení nemá aktivní přístup k internetu.</string>
     <string name="battery_opt_label">Aplikace na pozadí</string>
     <string name="help_write_chabot">Napište Anežce – podpoře eRoušky</string>
@@ -93,14 +93,12 @@
     <string name="traveller_description">Díky spolupráci mezi zeměmi Evropské unie můžete upozornit o riziku možné nákazy i uživatele zahraničních aplikací, které jste potkali při svých cestách do zahraničí.</string>
     <string name="traveller_button_yes">Ano, byl(a) jsem v zahraničí</string>
     <string name="traveller_button_no">Nebyl(a) jsem v zahraničí</string>
-
     <string name="efgs_agreement_title">Spolupráce se zahraničím</string>
     <string name="efgs_agreement_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice i v zahraničí?</string>
     <string name="efgs_agreement_non_traveller_body">Souhlasíte s upozorněním uživatelů zahraničních aplikací, které jste potkali v České republice?</string>
     <string name="efgs_agreement_description"><![CDATA[Sdílení dat se zeměmi EU je anonymní a odesláním dat do zahraničí souhlasíte s jejich zpracováním zeměmi Evropské unie podle <a href="%1$s">souhlasu se zpracováním osobních údajů</a>.]]></string>
     <string name="efgs_agreement_agree">Souhlasím</string>
     <string name="efgs_agreement_disagree">Nesouhlasím</string>
-
     <string name="notification_data_outdated_title">Aktualizace rizikových setkání</string>
     <string name="data_notification_close">Zavřít</string>
     <string name="notification_exposure_title">Rizikové setkání</string>
@@ -154,18 +152,10 @@
     <string name="exposure_info_date">Naposledy %s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19</string>
     <string name="exposure_info_text">Upozornění se vám zobrazilo nejdříve 24 hodin poté, co se nakažený dozvěděl pozitivní výsledek testu na COVID-19 a zadal ověřovací kód do eRoušky.\n\nRizikový kontakt vyhodnotíme v případě, že jste s nakaženým byli v kontaktu na vzdálenost kratší než 2 metry po dobu alespoň 15 minut.\n\nKvůli zachování anonymity nakaženého neznáme čas ani místo setkání.</string>
     <string name="exposure_info_button">Jak postupovat dál</string>
-
-    <plurals name="dashboard_risky_encounter_title_bad">
-        <item quantity="one">Za posledních 14\u00A0dní %1$d\u00A0rizikové setkání</item>
-        <item quantity="few">Za posledních 14\u00A0dní %1$d\u00A0riziková setkání</item>
-        <item quantity="other">Za posledních 14\u00A0dní %1$d\u00A0rizikových setkání</item>
-    </plurals>
-
     <string name="dashboard_risky_encounter_subtitle_bad">Naposledy %1$s jste se setkali s osobou, u které bylo potvrzeno onemocnění COVID-19.</string>
     <string name="dashboard_positive_test_title">Byli jste na testu COVID-19?</string>
     <string name="dashboard_positive_test_subtitle">Pokud je výsledek pozitivní, upozorněte ostatní.</string>
     <string name="dashboard_positive_test_button">Anonymně upozornit ostatní</string>
-
     <string name="dashboard_travel_title">Spolupráce se zahraničím</string>
     <string name="enabled">Zapnuto</string>
     <string name="disable">Vypnuto</string>
@@ -223,18 +213,16 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="send_data_code_expired_or_used">Platnost kódu vypršela nebo jste ho už jednou použili. Pro nový kód napište na %1$s.</string>
     <string name="email_button">Napsat e-mail</string>
     <string name="verification_email_subject">Nepřišla mi SMS s ověřovacím kódem</string>
-    <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
-
+    <string name="verification_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nepřišla mi SMS s ověřovacím kódem pro eRoušku.\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen):</string>
     <string name="no_verification_code">Nemám ověřovací kód</string>
     <string name="no_verification_body">Máte pozitivní test a nepřišla vám SMS pro eRoušku? Napište si o náhradní kód na %1$s.</string>
     <string name="no_verification_caption">Zajímá vás, jak odesílání kódu funguje?\n\nV případě, že máte pozitivní výsledek testu na COVID-19, měl by vám přijít výsledek testu v SMS od testovací laboratoře. Ta výsledky současně odesílá do centrálního informačního systému Ministerstva zdravotnictví.\n\nPoté, co se informace z informačního systému propíšou do systému hygieny, se odesílají automatické SMS eRoušky s ověřovacími kódy.\n\nPokud se výsledky z laboratoře nestihnou propsat do systému hygieny do 22:00, může vám SMS s ověřovacím kódem přijít až následující den.\n\nPokud vám SMS eRoušky nepřišla ani následující den poté, co vám přišla SMS s pozitivními výsledky z laboratoře, napište nám na %1$s.</string>
     <string name="efgs_title">Spolupráce se zahraničím</string>
     <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
-    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.</string>
-    <string name="efgs_visit">Povolte si prosím Spolupráci se zahraničím, pokud jste byli v posledních %1$d dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.</string>
-    <string name="efgs_check">Povolit spolupráci se zahraničím</string>
+    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi evropskými státy vás eRouška může upozornit na riziková setkání i v případě, že jste se potkali s cizinci, kteří používají podobné aplikace jiných států.</string>
+    <string name="efgs_visit">Povolte upozornění na zahraniční riziková setkání, pokud jste byli v posledních 14 dnech v zahraničí nebo tam jezdíte pravidelně.\n\nNastavení můžete kdykoliv změnit v aplikaci.</string>
+    <string name="efgs_check">Upozorňovat na zahraniční riziková setkání</string>
     <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
-
     <string name="efgs_disable_confirmation"><![CDATA[Onemocnění COVID-19 se může projevit až %1$d dní po setkání s nakaženou osobou. Spolupráci se zahraničím prosím vypněte nejdříve <b>%1$d dní</b> po návratu.]]></string>
     <string name="efgs_disable_confirmation_on">Ponechat zapnuté</string>
     <string name="efgs_disable_confirmation_off">Vypnout</string>
