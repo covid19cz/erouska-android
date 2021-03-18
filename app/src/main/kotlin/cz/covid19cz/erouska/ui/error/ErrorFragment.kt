@@ -75,6 +75,7 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
             errorHeader.text = getString(R.string.send_data_code_invalid_header)
             errorBody.text = getString(R.string.send_data_code_invalid_body, AppConfig.supportEmail)
 
+            tryAgainButton.setOnClickListener { navController().navigateUp() }
             emailButton.setOnClickListener {
                 supportEmailGenerator.sendVerificationEmail(requireActivity())
             }
@@ -113,10 +114,10 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
             closeButton.show()
             tryAgainButton.show()
 
+            tryAgainButton.setOnClickListener { navController().navigateUp() }
             closeButton.setOnClickListener {
                 navigate(ErrorFragmentDirections.actionNavErrorToNavDashboard())
             }
-            tryAgainButton.setOnClickListener { navController().navigateUp() }
 
             errorHeader.text = getString(R.string.send_data_failure_header)
             errorBody.text = getString(R.string.no_internet_error)
