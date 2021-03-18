@@ -208,7 +208,6 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="how_it_works_control_title">Processing encounters with infected individuals</string>
     <string name="how_it_works_control_content">The following day at the latest, other eRouška apps will check the information about newly infected individuals and compare it to those they have met.</string>
     <string name="how_it_works_eval_title">Risky encounters evaluation</string>
-    <string name="how_it_works_eval_content">eRouška apps will evaluate a risky encounter if it was longer than 15 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</string>
     <string name="how_it_works_notif_title">Displaying notifications</string>
     <string name="how_it_works_notif_content">Those who may have encountered an infected person will receive a warning in the app. It will explain the user what further steps and health measures to take.</string>
     <string name="how_it_works_support_content">Do you still have more questions or eRouška does not work properly? Contact us.</string>
