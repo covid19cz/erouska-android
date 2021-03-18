@@ -550,6 +550,9 @@
         <action
             android:id="@+id/action_nav_symptom_date_to_nav_traveller"
             app:destination="@id/nav_traveller" />
+        <action
+            android:id="@+id/action_nav_symptom_date_to_efgsAgreementFragment"
+            app:destination="@id/nav_efgs_agreement" />
     </fragment>
     <fragment
         android:id="@+id/nav_traveller"
