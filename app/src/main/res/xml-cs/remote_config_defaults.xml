@@ -94,7 +94,7 @@
     </entry>
     <entry>
         <key>v2_preventionContentJson</key>
-        <value>{"title":"COVID-19 se přenáší hlavně kapénkami, která se šíří vzduchem. Přenášet se může také kontaminovanými předměty.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často a důkladně si myjte ruce mýdlem a používejte dezinfekci."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelně dezinfikujte také osobní předměty (např. mobilní telefon)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlejte a kýchejte do jednorázového kapesníku či rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbejte se velkým skupinám osob a udržujte bezpečný odstup (cca 2 metry)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodů a hromadných dopravních prostředků vždy noste roušku přes ústa a nos."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokud cítíte příznaky respiračního onemocnění, zůstaňte doma a kontaktujte lékaře."}]}</value>
+        <value>{"title":"COVID-19 se přenáší hlavně kapénkami, která se šíří vzduchem. Přenášet se může také kontaminovanými předměty.","items":[{"iconUrl":"https://erouska.cz/img/prevention/ic_clean_hands.png","label":"Často a důkladně si myjte ruce mýdlem a používejte dezinfekci."},{"iconUrl":"https://erouska.cz/img/prevention/ic_disinfenction.png","label":"Pravidelně dezinfikujte také osobní předměty (např. mobilní telefon)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_tissue.png","label":"Kašlejte a kýchejte do jednorázového kapesníku či rukávu."},{"iconUrl":"https://erouska.cz/img/prevention/ic_social_distance.png","label":"Vyhýbejte se velkým skupinám osob a udržujte bezpečný odstup (cca 2 metry)."},{"iconUrl":"https://erouska.cz/img/prevention/ic_mask.png","label":"Do obchodů a hromadných dopravních prostředků vždy noste ochranu dýchacích cest dle aktuálních opatření."},{"iconUrl":"https://erouska.cz/img/prevention/ic_stay_home.png","label":"Pokud cítíte příznaky respiračního onemocnění, zůstaňte doma a kontaktujte lékaře."}]}</value>
     </entry>
     <entry>
         <key>v2_symptomsContentJson</key>
@@ -178,7 +178,7 @@
     </entry>
     <entry>
         <key>v2_efgsCountries</key>
-        <value>Aktuálně s eRouškou spolupracuje Belgie, Dánsko, Finsko, Chorvatsko, Irsko, Itálie, Lotyšsko, Německo, Nizozemsko, Norsko, Polsko, Rakousko, Slovinsko a Španělsko.</value>
+        <value>Aktuálně s eRouškou spolupracuje Belgie, Dánsko, Finsko, Chorvatsko, Irsko, Itálie, Kypr, Lotyšsko, Německo, Nizozemsko, Norsko, Polsko, Rakousko, Slovinsko a Španělsko.</value>
     </entry>
     <entry>
         <key>v2_diagnosisKeysDataMappingLimitDays</key>
@@ -251,5 +251,17 @@
     <entry>
         <key>v2_efgsDays</key>
         <value>14</value>
+    </entry>
+    <entry>
+        <key>v2_keyExportNonTravellerUrls</key>
+        <value>[{"country":"CZ","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/erouska/index.txt"}]</value>
+    </entry>
+    <entry>
+        <key>v2_keyExportEuTravellerUrls</key>
+        <value>[{"country":"CZ","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/erouska/index.txt"},{"country":"BE","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/be/index.txt"},{"country":"GR","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/gr/index.txt"},{"country":"LT","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/lt/index.txt"},{"country":"PT","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/pt/index.txt"},{"country":"BG","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/bg/index.txt"},{"country":"ES","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/es/index.txt"},{"country":"LU","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/lu/index.txt"},{"country":"RO","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/ro/index.txt"},{"country":"FR","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/fr/index.txt"},{"country":"HU","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/hu/index.txt"},{"country":"SI","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/si/index.txt"},{"country":"DK","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/dk/index.txt"},{"country":"HR","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/hr/index.txt"},{"country":"MT","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/mt/index.txt"},{"country":"SK","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/sk/index.txt"},{"country":"DE","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/de/index.txt"},{"country":"IT","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/it/index.txt"},{"country":"NL","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/nl/index.txt"},{"country":"FI","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/fi/index.txt"},{"country":"EE","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/ee/index.txt"},{"country":"CY","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/cy/index.txt"},{"country":"AT","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/at/index.txt"},{"country":"SE","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/se/index.txt"},{"country":"IE","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/ie/index.txt"},{"country":"LV","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/lv/index.txt"},{"country":"PL","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/pl/index.txt"},{"country":"IS","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/is/index.txt"},{"country":"NO","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/no/index.txt"},{"country":"LI","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/li/index.txt"},{"country":"CH","url":"https://storage.googleapis.com/exposure-notification-export-qhqcx/efgs/ch/index.txt"}]</value>
+    </entry>
+    <entry>
+        <key>v2_howItWorksEvalContent</key>
+        <value>eRoušky riziková setkání vyhodnotí v případě, že byly s nakaženým v kontaktu na vzdálenost bližší než 2 metry a po dobu alespoň 15 minut od okamžiku, kdy byl podle dostupných informací nakažlivým.</value>
     </entry>
 </defaultsMap>

@@ -36,7 +36,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="permission_rationale_settings">Nastavenia</string>
     <string name="permission_rationale_dismiss">Zrušiť</string>
     <string name="welcome_help">Ako to funguje</string>
-    <string name="welcome_activation">Pokračovať na aktiváciu</string>
+    <string name="welcome_activation">Pokra\u010dova\u0165 na aktiv\u00e1ciu</string>
     <string name="welcome_description"><![CDATA[Aplikácia bude nepretržite monitorovať vaše okolie a&nbsp;zaznamenávať všetky ostatné telefóny s aplikáciou eRouška, ku ktorým sa priblížite.<br/><br/>Pokiaľ sa u majiteľa ktoréhokoľvek z nich potvrdí ochorenie COVID-19, eRouška vyhodnotí, či ide o rizikový kontakt a upozorní vás.<br/><br/>Keď sa potvrdí nákaza u&nbsp;vás, eRouška upozorní všetkých ostatných užívateľov aplikácie, s s&nbsp;ktorými ste sa stretli.]]></string>
     <string name="welcome_title">V\u010faka eRou\u0161ke ochr\u00e1nite seba aj ostatn\u00fdch vo svojom okol\u00ed</string>
     <string name="contacts_title">Kontakty</string>
@@ -46,7 +46,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="menu_share_app">Zdieľať aplikáciu</string>
     <string name="share_app_text">Ahoj, používam aplikáciu eRouška. Nainštaluj si ju tiež a spoločne pomôžme zastaviť šírenie ochorenia COVID-19. Aplikácia dokáže anonymne a včas upozorniť na rizikové stretnutie s nakazeným užívateľom a odporučiť ďalší postup. Nájdeš ju na %s</string>
     <string name="delete_registration">Zrušiť registráciu</string>
-    <string name="about">O aplikácii</string>
+    <string name="about">O aplik\u00e1cii</string>
     <string name="no_internet">Vaše zariadenie nemá aktívny prístup k internetu.</string>
     <string name="battery_opt_label">Aplikácia na pozadí</string>
     <string name="help_write_chabot">Napíšte Anežke - podpore eRoušky</string>
@@ -228,9 +228,9 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="no_verification_caption">Zaujíma vás, ako odosielanie kódu funguje? \n\nV prípade, že máte pozitívny výsledok testu na COVID-19, mal by vám prísť výsledok testu v SMS od testovacieho laboratória. To výsledky súčasne odosiela do centrálneho informačného systému Ministerstva zdravotníctva. \n\nPo tom, čo sa informácie z informačného systému prepíšu do systému hygieny, sa odosielajú automatické SMS eRoušky s overovacími kódmi. \n\nAk sa výsledky z laboratória nestihnú prepísať do systému hygieny do 22:00, môže vám SMS s overovacím kódom prísť až nasledujúci deň. Ak vám SMS eRoušky neprišla ani nasledujúci deň po tom, čo vám prišla SMS s pozitívnymi výsledkami z laboratória, napíšte nám na %1$s.</string>
     <string name="efgs_title">Spolupráca so zahraničím</string>
     <string name="efgs_header">Pomôžte v boji s COVID-19 aj pri cestách do zahraničia</string>
-    <string name="efgs_boundaries">COVID-19 nepozná hranice a vďaka spolupráci medzi krajinami Európskej únie vás eRouška môže informovať o možnom riziku nákazy.</string>
+    <string name="efgs_boundaries">COVID-19 nepozná hranice a vďaka spolupráci medzi európskymi štátmi vás eRouška môže upozorniť na rizikové stretnutie aj v prípade, že ste sa stretli s cudzincami, ktorí používajú podobné aplikácie iných štátov.</string>
     <string name="efgs_visit">Povoľte si, prosím, Spoluprácu so zahraničím, ak ste boli v posledných %1$d dňoch v niektorej z krajín Európskej únie alebo do nich jazdíte pravidelne. eRouška vás upozorní na možnosť stretnutia s nakazeným chorobou COVID-19.</string>
-    <string name="efgs_check">Povoliť spoluprácu so zahraničím</string>
+    <string name="efgs_check">Upozorňovať na zahraničné rizikové stretnutia</string>
     <string name="efgs_usage">Využívanie tejto funkcie môže spôsobiť vyšší objem sťahovaných dát. Vypnite ju %1$d dní po návrate zo zahraničia.</string>
     <string name="efgs_disable_confirmation"><![CDATA[Ochorenie COVID-19 sa môže prejaviť až %1$d dní po stretnutí s nakazenou osobou. Spoluprácu so zahraničím, prosím, vypnite najskôr <b>%1$d dní</b> po návrate.]]></string>
     <string name="efgs_disable_confirmation_on">Ponechať zapnuté</string>
