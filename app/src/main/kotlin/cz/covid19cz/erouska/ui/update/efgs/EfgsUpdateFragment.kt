@@ -1,13 +1,11 @@
 package cz.covid19cz.erouska.ui.update.efgs
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentEfgsUpdateBinding
-import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import dagger.hilt.android.AndroidEntryPoint

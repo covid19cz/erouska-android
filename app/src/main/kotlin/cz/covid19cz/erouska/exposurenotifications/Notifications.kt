@@ -11,7 +11,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.work.WorkManager
 import com.google.firebase.auth.FirebaseAuth

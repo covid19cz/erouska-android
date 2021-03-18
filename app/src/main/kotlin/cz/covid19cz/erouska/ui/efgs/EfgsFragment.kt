@@ -2,17 +2,13 @@ package cz.covid19cz.erouska.ui.efgs
 
 import android.os.Bundle
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentEfgsBinding
 import cz.covid19cz.erouska.ui.base.BaseFragment
-import cz.covid19cz.erouska.ui.efgs.event.EfgsCommandEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_efgs.*
 
 @AndroidEntryPoint
 class EfgsFragment :

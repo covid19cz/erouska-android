@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.ui.exposure
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ext.daysSinceEpochToDateString

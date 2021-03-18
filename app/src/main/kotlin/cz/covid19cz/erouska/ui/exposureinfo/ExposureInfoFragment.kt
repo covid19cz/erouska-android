@@ -3,7 +3,6 @@ package cz.covid19cz.erouska.ui.exposureinfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.AppConfig

@@ -11,7 +11,6 @@ import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.NoKeysException
 import cz.covid19cz.erouska.ui.verification.ReportExposureException
-import cz.covid19cz.erouska.ui.verification.VerificationFragmentDirections
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException

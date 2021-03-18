@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import cz.covid19cz.erouska.AppConfig
 import java.util.concurrent.TimeUnit
-import kotlin.time.days
 
 @Dao
 interface DailySummaryDao {

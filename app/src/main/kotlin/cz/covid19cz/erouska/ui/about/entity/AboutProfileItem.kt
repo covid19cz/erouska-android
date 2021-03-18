@@ -10,5 +10,4 @@ class AboutProfileItem(
     @SerializedName("photoUrl")
     val photoUrl : String?,
     @SerializedName("linkedin")
-    val linkedin : String? ) {
-}
+    val linkedin : String? )

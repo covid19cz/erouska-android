@@ -5,7 +5,6 @@ import android.view.View
 import androidx.navigation.fragment.navArgs
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentHelpCategoryBinding
-import cz.covid19cz.erouska.ext.show
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.search_toolbar.*
