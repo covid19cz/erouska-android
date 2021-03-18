@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.databinding.FragmentSymptomDateBinding
+import cz.covid19cz.erouska.ext.hideKeyboard
 import cz.covid19cz.erouska.ui.base.BaseFragment
 import cz.covid19cz.erouska.ui.symptomdate.event.DatePickerEvent
 import cz.covid19cz.erouska.ui.symptomdate.event.SymptomDateCommandEvent
@@ -21,6 +22,7 @@ class SymptomDateFragment : BaseFragment<FragmentSymptomDateBinding, SymptomDate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.hideKeyboard()
         subscribe(DatePickerEvent::class) {
             showDatePickerDialog(it.preselect)
         }
@@ -40,7 +42,7 @@ class SymptomDateFragment : BaseFragment<FragmentSymptomDateBinding, SymptomDate
         }
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { _, year, month, day ->
+            { view, year, month, day ->
                 viewModel.symptomDate.value = Calendar.getInstance().apply {
                     set(Calendar.YEAR, year)
                     set(Calendar.MONTH, month)

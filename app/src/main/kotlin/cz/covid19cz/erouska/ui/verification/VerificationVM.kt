@@ -11,6 +11,7 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepositor
 import cz.covid19cz.erouska.net.model.VerifyCodeResponse
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.error.entity.ErrorType
+import cz.covid19cz.erouska.ui.verification.event.VerificationCommandEvent
 import cz.covid19cz.erouska.utils.L
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
@@ -43,7 +44,7 @@ class VerificationVM @ViewModelInject constructor(
     }
 
     fun navigateToVerificationCode() {
-        navigate(VerificationFragmentDirections.actionNavErrorToNavNoVerificationCode())
+        publish(VerificationCommandEvent(VerificationCommandEvent.Command.NAV_NO_CODE))
     }
 
     private fun validate() {
@@ -113,7 +114,7 @@ class VerificationVM @ViewModelInject constructor(
     }
 
     private fun navigateToSymptomsScreen() {
-        navigate(VerificationFragmentDirections.actionNavVerificationToNavSymptomDate())
+        publish(VerificationCommandEvent(VerificationCommandEvent.Command.NAV_SYMPTOMS))
     }
 
     private fun isCodeValid(code: String): Boolean {
