@@ -51,8 +51,6 @@ class EfgsUpdateFragment : BaseFragment<FragmentEfgsUpdateBinding, EfgsUpdateVM>
 
     private fun showEFGSNews() {
         viewModel.sharedPrefsRepository.setEFGSIntroduced(true)
-        legacy_update_body.text = getString(R.string.efgs_boundaries) + "\n\n" + getString(R.string.efgs_visit, AppConfig.efgsDays)
-        legacy_update_countries.text = AppConfig.efgsSupportedCountries
 
         legacy_update_button.setOnClickListener {
             if (isOnboarding){
@@ -62,7 +60,6 @@ class EfgsUpdateFragment : BaseFragment<FragmentEfgsUpdateBinding, EfgsUpdateVM>
             }
         }
 
-        legacy_update_checkbox.isChecked = viewModel.sharedPrefsRepository.isTraveller()
         legacy_update_checkbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.sharedPrefsRepository.setTraveller(isChecked)
         }

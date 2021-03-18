@@ -49,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@{@string/efgs_boundaries(vm.efgsDays) + `\n\n` + vm.efgsSupportedCountries() + `\n\n` + @string/efgs_usage(vm.efgsDays)}"
+                android:text="@{@string/efgs_boundaries + `\n\n` + vm.efgsSupportedCountries() + `\n\n` + @string/efgs_usage(vm.efgsDays)}"
                 tools:text="@tools:sample/lorem"
                 android:textAppearance="@style/Erouska.Caption"
                 app:layout_constraintEnd_toEndOf="parent"

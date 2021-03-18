@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="cz.covid19cz.erouska.ui.update.efgs.EfgsUpdateVM" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,6 +57,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_header"
+                    android:text="@{@string/efgs_boundaries + `\n\n` + @string/efgs_visit(vm.efgsDays)}"
                     tools:text="@tools:sample/lorem" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -61,6 +68,7 @@
                     android:text="@string/efgs_check"
                     android:textAppearance="@style/Erouska.Body"
                     app:switchPadding="8dp"
+                    android:checked="@{vm.sharedPrefsRepository.isTraveller()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
@@ -76,7 +84,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_checkbox"
-                    tools:text="@tools:sample/lorem" />
+                    android:text="@{vm.efgsSupportedCountries()}"
+                    tools:text="@tools:sample/lorem"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/legacy_update_button"

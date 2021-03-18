@@ -485,7 +485,13 @@
         android:id="@+id/nav_efgs"
         android:name="cz.covid19cz.erouska.ui.efgs.EfgsFragment"
         android:label="@string/efgs_title"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_efgs"
+        >
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/nav_sandbox_config"
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"
