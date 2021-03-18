@@ -30,7 +30,6 @@
             android:text="Daily summaries"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:text="Max Score"/>
 
@@ -56,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:text="Score Sum"/>
 
@@ -64,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:text="Weighted Duration Sum"/>
 
@@ -90,7 +89,6 @@
             android:text="Exposure Windows"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:text="Report Type"/>
 
@@ -117,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="Infectiousness"/>
 
             <TextView
@@ -125,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="Calibration Confidence"/>
 
         </LinearLayout>

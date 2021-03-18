@@ -34,13 +34,6 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
 import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_close
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_container
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_content
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_close
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_container
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_content
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_more_info
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_bluetooth_off
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_active
 import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_inactive

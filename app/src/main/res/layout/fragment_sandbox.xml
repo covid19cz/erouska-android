@@ -37,7 +37,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:onClick="@{() -> vm.navigateToData()}"
                     android:text="Data" />
             </LinearLayout>
@@ -86,7 +86,7 @@
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:onClick="@{() -> vm.provideDiagnosisKeys()}"
                             android:text="Import keys" />
 
