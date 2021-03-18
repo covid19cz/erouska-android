@@ -55,15 +55,28 @@
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/legacy_update_checkbox"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/efgs_check"
+                    android:textAppearance="@style/Erouska.Body"
                     app:switchPadding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
                     />
+
+                <TextView
+                    android:id="@+id/legacy_update_countries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/Erouska.Body"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_checkbox"
+                    tools:text="@tools:sample/lorem" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/legacy_update_button"
@@ -74,7 +87,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/legacy_update_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_countries"
                     android:text="@string/legacy_update_button_continue" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
