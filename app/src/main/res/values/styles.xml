@@ -28,16 +28,22 @@
         <item name="android:theme">@style/ToolbarTheme</item>
     </style>
 
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/colorPrimaryVariant</item>
+        <item name="colorSurface">@color/gray_light</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
-
-    <style name="SwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
-        <item name="useMaterialThemeColors">false</item>
-    </style>
-
+    
     <style name="Erouska.Title" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textStyle">bold</item>
     </style>
