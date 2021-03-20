@@ -14,13 +14,12 @@
         <item name="android:statusBarColor">@color/statusbarColor</item>
         <item name="android:windowLightStatusBar">@bool/lightStatusBar</item>
         <item name="android:background">@null</item>
-
+        <item name="switchStyle">@style/Widget.App.Switch</item>
         <item name="toolbarStyle">@style/Toolbar</item>
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
         <item name="materialButtonStyle">@style/Button</item>
         <item name="materialButtonOutlinedStyle">@style/OutlinedButton</item>
         <item name="android:actionMenuTextColor">@color/colorPrimary</item>
-        <item name="switchStyle">@style/SwitchStyle</item>
     </style>
 
     <style name="AppTheme.Launchscreen">
