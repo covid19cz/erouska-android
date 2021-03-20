@@ -85,20 +85,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_checkbox"
                     android:text="@{vm.efgsSupportedCountries()}"
-                    tools:text="@tools:sample/lorem"
+                    tools:text="@tools:sample/lorem"/>
+                
+                <Space
+                    android:id="@+id/legacy_update_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_countries"
+                    app:layout_constraintBottom_toTopOf="@id/legacy_update_button"
                     />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/legacy_update_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/legacy_update_button_continue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/legacy_update_countries"
-                    android:text="@string/legacy_update_button_continue" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
