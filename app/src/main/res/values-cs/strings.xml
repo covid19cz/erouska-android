@@ -68,7 +68,7 @@
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro povolení upozornění ostatních uživatelů eRoušky.</string>
     <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %s.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
-    <string name="send_data_button_text">Ověřit a odeslat data</string>
+    <string name="send_data_button_text">Ověřit</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
