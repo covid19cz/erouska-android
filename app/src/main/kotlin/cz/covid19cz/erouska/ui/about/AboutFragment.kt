@@ -2,6 +2,7 @@ package cz.covid19cz.erouska.ui.about
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
@@ -19,6 +20,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AboutFragment :
     BaseFragment<FragmentAboutBinding, AboutVM>(R.layout.fragment_about, AboutVM::class) {
+
+    private var easterEggShown = false
 
     @Inject
     internal lateinit var customTabHelper: CustomTabHelper
@@ -40,7 +43,13 @@ class AboutFragment :
         )
 
         about_version.setOnLongClickListener {
-            throw RuntimeException("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}.")
+            if (easterEggShown) {
+                throw RuntimeException("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}.")
+            } else {
+                Toast.makeText(context, "Ještě jeden long-press a asi něco vypustíme", Toast.LENGTH_LONG).show()
+                easterEggShown = true
+                true
+            }
         }
     }
 }
