@@ -70,7 +70,7 @@ Spustite znovu zber dát a chráňte seba aj svoje okolie. Nezabúdajte na to hl
     <string name="send_data_body">V prípade potvrdenej nákazy ochorením COVID-19 obdržíte SMS správu obsahujúcu overovací kód pre povolenie upozornenia ostatných užívateľov eRoušky.</string>
     <string name="send_data_last_sent_date">Naposledy ste upozornili ostatných %s.</string>
     <string name="send_data_verification_hint">Overovací kód</string>
-    <string name="send_data_button_text">Overiť a odoslať údaje</string>
+    <string name="send_data_button_text">Overiť</string>
     <string name="send_data_code_invalid">Overovací kód nie je správne zadaný</string>
     <string name="send_data_code_expired_header">Vypršala platnosť overovacieho kódu</string>
     <string name="send_data_code_expired_body">Požiadajte pracovníka hygienickej stanice o zaslanie novej SMS správy s overovacím kódom</string>
