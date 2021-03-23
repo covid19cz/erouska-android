@@ -6,7 +6,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
-import arch.utils.safeLet
 import com.google.android.gms.common.api.ApiException
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -48,70 +47,36 @@ class MyDataVM @ViewModelInject constructor(
     val isLoading = SafeMutableLiveData(false)
 
     // stats
-    val testsTotal = SafeMutableLiveData(prefs.getTestsTotal())
-    val testsIncrease = SafeMutableLiveData(prefs.getTestsIncrease())
-    val testsIncreaseDate = if (prefs.getTestsIncreaseDate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getTestsIncreaseDate()))
-        )
-    }
+    val testsTotal = setTotal { prefs.getTestsTotal() }
+    val testsIncrease = setIncrease { prefs.getTestsIncrease() }
+    val testsIncreaseDate = setIncreaseDate { prefs.getTestsIncreaseDate() }
 
-    val antigenTestsTotal = SafeMutableLiveData(prefs.getAntigenTestsTotal())
-    val antigenTestsIncrease = SafeMutableLiveData(prefs.getAntigenTestsIncrease())
-    val antigenTestsIncreaseDate = if (prefs.getAntigenTestsIncreaseDate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getAntigenTestsIncreaseDate()))
-        )
-    }
+    val antigenTestsTotal = setTotal { prefs.getAntigenTestsTotal() }
+    val antigenTestsIncrease = setIncrease { prefs.getAntigenTestsIncrease() }
+    val antigenTestsIncreaseDate = setIncreaseDate { prefs.getTestsIncreaseDate() }
 
-    val vaccinationsTotal = SafeMutableLiveData(prefs.getVaccinationsTotal())
-    val vaccinationsIncrease = SafeMutableLiveData(prefs.getVaccinationsIncrease())
-    val vaccinationsIncreaseDate = if (prefs.getVaccinationsIncreaseDate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getVaccinationsIncreaseDate()))
-        )
-    }
+    val vaccinationsTotal = setTotal { prefs.getVaccinationsTotal() }
+    val vaccinationsIncrease = setIncrease { prefs.getVaccinationsIncrease() }
+    val vaccinationsIncreaseDate = setIncreaseDate { prefs.getVaccinationsIncreaseDate() }
 
-    val confirmedCasesTotal = SafeMutableLiveData(prefs.getConfirmedCasesTotal())
-    val confirmedCasesIncrease = SafeMutableLiveData(prefs.getConfirmedCasesIncrease())
-    val confirmedCasesIncreaseDate= if (prefs.getConfirmedCasesIncreaseDate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getConfirmedCasesIncreaseDate()))
-        )
-    }
+    val confirmedCasesTotal = setTotal { prefs.getConfirmedCasesTotal() }
+    val confirmedCasesIncrease = setIncrease { prefs.getConfirmedCasesIncrease() }
+    val confirmedCasesIncreaseDate = setIncreaseDate { prefs.getConfirmedCasesIncreaseDate() }
 
-    val activeCasesTotal = SafeMutableLiveData(prefs.getActiveCasesTotal())
-    val curedTotal = SafeMutableLiveData(prefs.getCuredTotal())
-    val deceasedTotal = SafeMutableLiveData(prefs.getDeceasedTotal())
-    val currentlyHospitalizedTotal = SafeMutableLiveData(prefs.getCurrentlyHospitalizedTotal())
+    val activeCasesTotal = setTotal { prefs.getActiveCasesTotal() }
+    val curedTotal = setTotal { prefs.getCuredTotal() }
+    val deceasedTotal = setTotal { prefs.getDeceasedTotal() }
+    val currentlyHospitalizedTotal = setTotal { prefs.getCurrentlyHospitalizedTotal() }
 
     // metrics
-    val activationsTotal = SafeMutableLiveData(prefs.getActivationsTotal())
-    val activationsYesterday = SafeMutableLiveData(prefs.getActivationsYesterday())
-    val keyPublishersTotal = SafeMutableLiveData(prefs.getKeyPublishersTotal())
-    val keyPublishersYesterday = SafeMutableLiveData(prefs.getKeyPublishersYesterday())
-    val notificationsTotal = SafeMutableLiveData(prefs.getNotificationsTotal())
-    val notificationsYesterday = SafeMutableLiveData(prefs.getNotificationsYesterday())
+    val activationsTotal = setTotal { prefs.getActivationsTotal() }
+    val activationsYesterday = setIncrease { prefs.getActivationsYesterday() }
+
+    val keyPublishersTotal = setTotal { prefs.getKeyPublishersTotal() }
+    val keyPublishersYesterday = setIncrease { prefs.getKeyPublishersYesterday() }
+
+    val notificationsTotal = setTotal { prefs.getNotificationsTotal() }
+    val notificationsYesterday = setIncrease { prefs.getNotificationsYesterday() }
 
     var lastMetricsIncreaseDate = if (prefs.getLastMetricsUpdate() == 0L) {
         SafeMutableLiveData("-")
@@ -131,140 +96,87 @@ class MyDataVM @ViewModelInject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 return@runCatching firebaseFunctionsRepository.getStats(date)
-            }.onSuccess { response ->
-                L.d(response.toString())
+            }.onSuccess { res ->
+                L.d(res.toString())
                 isLoading.value = false
 
-                safeLet(response.testsTotal,
-                    response.testsIncrease,
-                    response.testsIncreaseDate) { total, increase, increaseDate ->
-                    testsTotal.value = total
-                    testsIncrease.value = increase
+                /* Tests */
+                safeLetAndSet(responseTotal = res.testsTotal,
+                    responseIncrease = res.testsIncrease,
+                    responseIncreaseDate = res.testsIncreaseDate,
+                    liveTotal = testsTotal,
+                    liveIncrease = testsIncrease,
+                    liveIncreaseDate = testsIncreaseDate,
+                    prefTotal = { prefs.setTestsTotal(it) },
+                    prefIncrease = { prefs.setTestsIncrease(it) },
+                    prefIncreaseDate = { prefs.setTestsIncreaseDate(it) },
+                )
 
-                    prefs.setTestsTotal(total)
-                    prefs.setTestsIncrease(increase)
+                /* Antigen Tests */
+                safeLetAndSet(res.antigenTestsTotal,
+                    res.antigenTestsIncrease,
+                    res.antigenTestsIncreaseDate,
+                    antigenTestsTotal,
+                    antigenTestsIncrease,
+                    antigenTestsIncreaseDate,
+                    { prefs.setAntigenTestsTotal(it) },
+                    { prefs.setAntigenTestsIncrease(it) },
+                    { prefs.setAntigenTestsIncreaseDate(it) },
+                )
 
-                    val lastUpdateDate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(increaseDate)
+                /* Vaccination */
+                safeLetAndSet(res.vaccinationsTotal,
+                    res.vaccinationsIncrease,
+                    res.vaccinationsIncreaseDate,
+                    vaccinationsTotal,
+                    vaccinationsIncrease,
+                    vaccinationsIncreaseDate,
+                    { prefs.setVaccinationsTotal(it) },
+                    { prefs.setVaccinationsIncrease(it) },
+                    { prefs.setVaccinationsIncreaseDate(it) },
+                )
 
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
-                        prefs.setTestsIncreaseDate(lastUpdateMillis)
+                /* Confirmed cases */
+                safeLetAndSet(res.confirmedCasesTotal,
+                    res.confirmedCasesIncrease,
+                    res.confirmedCasesIncreaseDate,
+                    confirmedCasesTotal,
+                    confirmedCasesIncrease,
+                    confirmedCasesIncreaseDate,
+                    { prefs.setConfirmedCasesTotal(it) },
+                    { prefs.setConfirmedCasesIncrease(it) },
+                    { prefs.setConfirmedCasesIncreaseDate(it) },
+                )
 
-                        testsIncreaseDate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(
-                            Date(lastUpdateMillis)
-                        )
-                    }
-                }
-               safeLet(response.antigenTestsTotal,
-                    response.antigenTestsIncrease,
-                    response.antigenTestsIncreaseDate) { total, increase, increaseDate ->
-                    antigenTestsTotal.value = total
-                    antigenTestsIncrease.value = increase
+                /* Active cases */
+                safeLetAndSet(responseTotal = res.activeCasesTotal,
+                    liveTotal = activeCasesTotal,
+                    prefTotal = { prefs.setActiveCasesTotal(it) }
+                )
 
-                    prefs.setAntigenTestsTotal(total)
-                    prefs.setAntigenTestsIncrease(increase)
+                /* Cured */
+                safeLetAndSet(res.curedTotal,
+                    curedTotal,
+                    { prefs.setCuredTotal(it) }
+                )
 
-                    val lastUpdateDate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(increaseDate)
+                /* Deceased */
+                safeLetAndSet(res.deceasedTotal,
+                    deceasedTotal,
+                    { prefs.setDeceasedTotal(it) }
+                )
 
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
-                        prefs.setAntigenTestsIncreaseDate(lastUpdateMillis)
+                /* Hospitalized */
+                safeLetAndSet(res.currentlyHospitalizedTotal,
+                    currentlyHospitalizedTotal,
+                    { prefs.setCurrentlyHospitalizedTotal(it) }
+                )
 
-                        antigenTestsIncreaseDate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(
-                            Date(lastUpdateMillis)
-                        )
-                    }
-                }
-               safeLet(response.vaccinationsTotal,
-                    response.vaccinationsIncrease,
-                    response.vaccinationsIncreaseDate) { total, increase, increaseDate ->
-                    vaccinationsTotal.value = total
-                    vaccinationsIncrease.value = increase
+                /* Date */
+                safeLetAndSet(responseDate = res.date,
+                    prefDate = { prefs.setLastStatsUpdate(it) }
+                )
 
-                    prefs.setVaccinationsTotal(total)
-                    prefs.setVaccinationsIncrease(increase)
-
-                    val lastUpdateDate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(increaseDate)
-
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
-                        prefs.setVaccinationsIncreaseDate(lastUpdateMillis)
-
-                        vaccinationsIncreaseDate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(
-                            Date(lastUpdateMillis)
-                        )
-                    }
-                }
-
-                safeLet(
-                    response.confirmedCasesTotal,
-                    response.confirmedCasesIncrease,
-                    response.confirmedCasesIncreaseDate,
-                ) { total, increase, increaseDate ->
-                    confirmedCasesTotal.value = total
-                    confirmedCasesIncrease.value = increase
-
-                    prefs.setConfirmedCasesTotal(total)
-                    prefs.setConfirmedCasesIncrease(increase)
-
-                    val lastUpdateDate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(increaseDate)
-
-                    lastUpdateDate?.time?.let { lastUpdateMillis ->
-                        prefs.setConfirmedCasesIncreaseDate(lastUpdateMillis)
-
-                        confirmedCasesIncreaseDate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(
-                            Date(lastUpdateMillis)
-                        )
-                    }
-                }
-                response.activeCasesTotal?.let { total ->
-                    activeCasesTotal.value = total
-                    prefs.setActiveCasesTotal(total)
-                }
-                response.curedTotal?.let { total ->
-                    curedTotal.value = total
-                    prefs.setCuredTotal(total)
-                }
-                response.deceasedTotal?.let { total ->
-                    deceasedTotal.value = total
-                    prefs.setDeceasedTotal(total)
-                }
-                response.currentlyHospitalizedTotal?.let { total ->
-                    currentlyHospitalizedTotal.value = total
-                    prefs.setCurrentlyHospitalizedTotal(total)
-                }
-
-                response.date?.let {
-                    val lastStatsUpdate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(response.date)
-
-                    lastStatsUpdate?.time?.let { lastUpdateMillis ->
-                        prefs.setLastStatsUpdate(lastUpdateMillis)
-                    }
-                }
             }.onFailure {
                 isLoading.value = false
                 if (it is ApiException) {
@@ -281,46 +193,45 @@ class MyDataVM @ViewModelInject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 return@runCatching firebaseFunctionsRepository.getDownloadMetrics()
-            }.onSuccess { response ->
-                L.d(response.toString())
+            }.onSuccess { res ->
+                L.d(res.toString())
                 isLoading.value = false
 
-                safeLet(
-                    response.activationsTotal,
-                    response.activationsYesterday
-                ) { total, yesterday ->
-                    activationsTotal.value = total
-                    activationsYesterday.value = yesterday
+                /* Activations */
+                safeLetAndSet(
+                    res.activationsTotal,
+                    res.activationsYesterday,
+                    activationsTotal,
+                    activationsYesterday,
+                    { prefs.setActivationsTotal(it) },
+                    { prefs.setActivationsYesterday(it) },
+                )
 
-                    prefs.setActivationsTotal(total)
-                    prefs.setActivationsYesterday(yesterday)
-                }
-                safeLet(
-                    response.keyPublishersTotal,
-                    response.keyPublishersYesterday
-                ) { total, yesterday ->
-                    keyPublishersTotal.value = total
-                    keyPublishersYesterday.value = yesterday
+                /* Positive people whoa anonymously notified others */
+                safeLetAndSet(
+                    res.keyPublishersTotal,
+                    res.keyPublishersYesterday,
+                    keyPublishersTotal,
+                    keyPublishersYesterday,
+                    { prefs.setKeyPublishersTotal(it) },
+                    { prefs.setKeyPublishersYesterday(it) },
+                )
 
-                    prefs.setKeyPublishersTotal(total)
-                    prefs.setKeyPublishersYesterday(yesterday)
-                }
-                safeLet(
-                    response.notificationsTotal,
-                    response.notificationsYesterday
-                ) { total, yesterday ->
-                    notificationsTotal.value = total
-                    notificationsYesterday.value = yesterday
+                /* Sent notifications about risky encounters */
+                safeLetAndSet(
+                    res.notificationsTotal,
+                    res.notificationsYesterday,
+                    notificationsTotal,
+                    notificationsYesterday,
+                    { prefs.setNotificationsTotal(it) },
+                    { prefs.setNotificationsYesterday(it) },
+                )
 
-                    prefs.setNotificationsTotal(total)
-                    prefs.setNotificationsYesterday(yesterday)
-                }
-
-                response.date?.let {
+                res.date?.let {
                     val lastMetricsUpdate = SimpleDateFormat(
                         LAST_UPDATE_API_FORMAT,
                         Locale.getDefault()
-                    ).parse(response.date)
+                    ).parse(res.date)
 
                     lastMetricsUpdate?.time?.let { lastUpdateMillis ->
                         prefs.setLastMetricsUpdate(lastUpdateMillis)
