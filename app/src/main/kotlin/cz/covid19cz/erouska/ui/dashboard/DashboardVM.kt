@@ -18,11 +18,10 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
-import cz.covid19cz.erouska.ext.timestampToDate
-import cz.covid19cz.erouska.ext.timestampToTime
 import kotlinx.coroutines.launch
 
-class DashboardVM @ViewModelInject constructor(
+class DashboardVM
+@ViewModelInject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository
@@ -35,21 +34,18 @@ class DashboardVM @ViewModelInject constructor(
     val locationState = SafeMutableLiveData(true)
     val efgsState = SafeMutableLiveData(prefs.isTraveller())
 
-    val lastUpdateDate = MutableLiveData<String>()
-    val lastUpdateTime = MutableLiveData<String>()
+    val lastUpdateTimestamp = MutableLiveData(prefs.getLastKeyImport())
     val lastExposureDate = MutableLiveData<String>()
     val exposuresCount = MutableLiveData(0)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         prefs.lastKeyImportLive.observeForever {
-            if (it != 0L) {
-                lastUpdateDate.value = it.timestampToDate()
-                lastUpdateTime.value = it.timestampToTime()
-            }
+            updateLastKeyImport(it)
             checkForObsoleteData()
             checkAndShowOrHideHowItWorksNotification()
         }
+
         exposureNotificationsEnabled.observeForever { enabled ->
             if (enabled) {
                 checkForRiskyExposure()
@@ -71,6 +67,12 @@ class DashboardVM @ViewModelInject constructor(
         exposureNotificationsRepository.scheduleSelfChecker()
         checkForObsoleteData()
         checkAndShowOrHideHowItWorksNotification()
+    }
+
+    private fun updateLastKeyImport(lastKeyImport: Long) {
+        if (lastKeyImport != 0L) {
+            lastUpdateTimestamp.value = lastKeyImport
+        }
     }
 
     fun checkStatus() {
