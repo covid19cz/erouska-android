@@ -13,6 +13,7 @@
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
     <string name="dashboard_body_no_contact">Poslední aktualizace %1$s v %2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o ostatních eRouškách ve vašem okolí. Spusťte znovu eRoušku a chraňte sebe i své okolí. Nezapomínejte na to zejména ve chvíli, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_loading_data">Probíhá aktualizace dat…</string>
     <string name="pause_app">Pozastavit</string>
     <string name="start_app">Spustit</string>
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>

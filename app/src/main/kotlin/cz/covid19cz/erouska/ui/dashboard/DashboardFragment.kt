@@ -34,20 +34,6 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
 import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_close
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_container
-import kotlinx.android.synthetic.main.fragment_dashboard.data_notification_content
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_close
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_container
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_content
-import kotlinx.android.synthetic.main.fragment_dashboard.exposure_notification_more_info
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_bluetooth_off
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_active
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_inactive
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_no_risky_encounter
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_positive_test
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_risky_encounter
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_location_off
 import kotlinx.android.synthetic.main.fragment_dashboard_plus.*
 import javax.inject.Inject
 
@@ -65,6 +51,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     @Inject
     lateinit var notifications: Notifications
+
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
 
@@ -102,8 +89,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             this,
             Observer { isEnabled -> onLocationStateChanged(isEnabled) })
 
-        viewModel.lastUpdateTime.observe(this, Observer { updateLastUpdateDateAndTime() })
-        viewModel.lastExposureDate.observe(this, Observer { updateLastUpdateDateAndTime() })
+        viewModel.lastUpdateTimestamp.observe(this, { updateLastUpdateDateAndTime() })
+        viewModel.lastExposureDate.observe(this, { updateLastUpdateDateAndTime() })
     }
 
     override fun onStart() {
@@ -145,8 +132,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     notifications.dismissOudatedDataNotification()
                     showOrHideDataNotification(false)
                 }
-                DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(true)
-                DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(false)
+                DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS -> updateOnboardingNotif(true)
+                DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS -> updateOnboardingNotif(false)
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> showOrHideDataNotification(true)
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> showOrHideExposureNotification(true)
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
@@ -232,7 +219,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             menu.add(0, R.id.action_play_services, 13, "Test PlayServices")
             menu.add(0, R.id.action_sandbox, 14, "Test Sandbox")
             menu.add(0, R.id.action_efgs, 15, "Test EFGS")
-            menu.add(0, R.id.action_dashboard_cards, 16, "Test Dashboard Cards")
             menu.add(0, R.id.action_exposure_screen, 17, "Test Exposure screen")
             menu.add(0, R.id.action_exposure_info, 18, "Test Rizikové setkání")
             menu.add(0, R.id.action_efgs_control, 19, "Test EFGS Control")
@@ -281,10 +267,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                 navigate(DashboardFragmentDirections.actionNavDashboardToNavEfgs())
                 true
             }
-            R.id.action_dashboard_cards -> {
-                showDashboardCards()
-                true
-            }
             R.id.action_exposure_info -> {
                 navigate(DashboardFragmentDirections.actionNavDashboardToNavExposureInfo(demo = true))
                 true
@@ -304,24 +286,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun updateLastUpdateDateAndTime() {
-        val lastUpdateString =
-            if (viewModel.lastUpdateTime.value != null && viewModel.lastUpdateDate.value != null) {
-                "${
-                    resources.getString(
-                        R.string.dashboard_body_no_contact,
-                        viewModel.lastUpdateDate.value,
-                        viewModel.lastUpdateTime.value
-                    )
-                }\n${AppConfig.encounterUpdateFrequency}"
-            } else {
-                null
-            }
+        val lastUpdateTimestamp = viewModel.lastUpdateTimestamp.value
+        val lastUpdateString = lastUpdateTimestamp?.let {
+            if (it != 0L) {
+                resources.getString(
+                    R.string.dashboard_body_no_contact,
+                    it.timestampToDate(), it.timestampToTime()
+                )
+            } else null
+        } ?: resources.getString(R.string.dashboard_loading_data)
 
-        if (viewModel.lastExposureDate.value != null) {
-            updateLastUpdateOnExposureCard(lastUpdateString)
-        } else {
-            dash_card_no_risky_encounter.card_subtitle = lastUpdateString.orEmpty()
-        }
+        val text = lastUpdateString + "\n${AppConfig.encounterUpdateFrequency}"
+        dash_card_no_risky_encounter.card_subtitle = text
+        updateLastUpdateOnExposureCard(lastUpdateString)
     }
 
     private fun updateLastUpdateOnExposureCard(lastUpdateString: String?) {
@@ -330,11 +307,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             viewModel.lastExposureDate.value
         )
 
-        if (lastUpdateString != null) {
-            dash_card_risky_encounter.card_subtitle = "${lastExposureString}\n\n${lastUpdateString}"
-        } else {
-            dash_card_risky_encounter.card_subtitle = lastExposureString
-        }
+        val text = lastUpdateString?.let {
+            "${lastExposureString}\n\n${lastUpdateString}"
+        } ?: lastExposureString
+
+        dash_card_risky_encounter.card_subtitle = text
     }
 
     private fun onRecentExposureDiscovered() {
@@ -364,14 +341,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun checkAppActive() {
         val enEnabled = viewModel.exposureNotificationsEnabled.value
-        val lsEnabled = viewModel.locationState.value // Location services don't need to be turned on on devices with Android 11+
+        // Location services don't need to be turned on on devices with Android 11+
+        val lsEnabled = viewModel.locationState.value
         val btEnabled = viewModel.bluetoothState.value
 
-        dash_card_active.showOrHide( enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
+        dash_card_active.showOrHide(enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
         dash_card_inactive.showOrHide(!enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
     }
 
-    private fun checkAndShowOrHideHowItWorksNotification(show: Boolean) {
+    private fun updateOnboardingNotif(show: Boolean) {
         how_it_works_container.showOrHide(
             show &&
                     !data_notification_container.isVisible &&
@@ -395,11 +373,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun showPlayServicesUpdate() {
-        navigate(R.id.action_nav_dashboard_to_nav_play_services_update, Bundle().apply { putBoolean("demo", true) })
-    }
-
-    private fun showDashboardCards() {
-        navigate(R.id.action_nav_dashboard_to_nav_dashboard_cards)
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update,
+            Bundle().apply { putBoolean("demo", true) })
     }
 
     private fun showEfgs() {
