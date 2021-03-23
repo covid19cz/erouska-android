@@ -203,8 +203,7 @@
     <string name="how_it_works_content">Zajímá vás, jak eRouška funguje?</string>
     <string name="how_it_works_more">Zjistit více</string>
     <string name="how_it_works_close">Zavřít</string>
-    <string name="how_it_works_info_content">eRouška vás upozorní na riziková setkání s ostatními uživateli eRoušky, které jste potkali v posledních 14 dnech a potvrdilo se u nich onemocnění COVID-19.
-Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné údaje o vás nebo telefonu.</string>
+    <string name="how_it_works_info_content">eRouška vás upozorní na riziková setkání s ostatními uživateli eRoušky, které jste potkali v posledních 14 dnech a potvrdilo se u nich onemocnění COVID-19.\n\nPři používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné údaje o vás nebo telefonu.</string>
     <string name="how_it_works_encounter_title">Telefony s eRouškou čekají na setkání</string>
     <string name="how_it_works_encounter_content">Když se potkají telefony s aplikací eRouška, vymění si několik základních informací o setkání. Zaznamenají si den setkání, vzdálenost mezi sebou a anonymní označení telefonu. Tato setkání si pamatují 14 dní.</string>
     <string name="how_it_works_confirm_title">Když se potvrdí COVID-19</string>
