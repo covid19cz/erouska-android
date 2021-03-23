@@ -313,13 +313,6 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_nav_dashboard_to_nav_dashboard_cards"
-            app:destination="@id/nav_dashboard_cards"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_nav_dashboard_to_nav_verification"
             app:destination="@+id/nav_verification"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -469,23 +462,16 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/nav_dashboard_cards"
-        android:name="cz.covid19cz.erouska.ui.dashboardcards.DashboardCards"
-        android:label="DashboardCards"
-        >
-        <action
-            android:id="@+id/action_nav_dashboard_cards_to_nav_verification"
-            app:destination="@+id/nav_verification"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
-    <fragment
         android:id="@+id/nav_efgs"
         android:name="cz.covid19cz.erouska.ui.efgs.EfgsFragment"
         android:label="@string/efgs_title"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_efgs"
+        >
+        <argument
+            android:name="fullscreen"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/nav_sandbox_config"
         android:name="cz.covid19cz.erouska.ui.sandbox.SandboxConfigFragment"
@@ -544,6 +530,9 @@
         <action
             android:id="@+id/action_nav_symptom_date_to_nav_traveller"
             app:destination="@id/nav_traveller" />
+        <action
+            android:id="@+id/action_nav_symptom_date_to_efgsAgreementFragment"
+            app:destination="@id/nav_efgs_agreement" />
     </fragment>
     <fragment
         android:id="@+id/nav_traveller"

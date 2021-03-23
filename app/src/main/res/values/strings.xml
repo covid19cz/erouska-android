@@ -66,9 +66,9 @@
     <string name="my_data_hospitalized">%1$s currently hospitalized</string>
     <string name="my_data_vaccinations">%1$s vaccine doses administered</string>
     <string name="send_data_body">If you test positive for COVID-19 you will receive an SMS message with the verification code to notify other eRouška users.</string>
-    <string name="send_data_last_sent_date">You last notified others on %s</string>
+    <string name="send_data_last_sent_date">You last notified others on %s.</string>
     <string name="send_data_verification_hint">Verification code</string>
-    <string name="send_data_button_text">Verify and send data</string>
+    <string name="send_data_button_text">Verify data</string>
     <string name="send_data_code_invalid">Verification code was not entered correctly</string>
     <string name="send_data_code_expired_header">Verification code has expired</string>
     <string name="send_data_code_expired_body">Request a new SMS message with a verification code from the public health officer.</string>
@@ -197,7 +197,7 @@
     <string name="how_it_works_content">Are you curious how eRouška works?</string>
     <string name="how_it_works_more">Find out more</string>
     <string name="how_it_works_close">Close</string>
-    <string name="how_it_works_info_content">eRouška will notify you of risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
+    <string name="how_it_works_info_content">eRouška will notify you about risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
 When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
     <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
     <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
@@ -218,18 +218,19 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="email_button">Email support</string>
     <string name="verification_email_subject">I have not received the SMS with a verification code</string>
     <string name="verification_email_body_error">"Dear eRouška team,\n\nmy COVID-19 test is positive and I have not received the SMS with a verification code.\n\n\nFull name on the test request form: \n\n\nPhone number on the test request form: \n\n\nDate of test results: \n\n\nTesting location or laboratory which handled my test results: \n\n\nTest type (PCR/antigen): "</string>
-    <string name="no_verification_code">I do not have the verification code</string>
+    <string name="no_verification_code">I don\'t have the code</string>
     <string name="no_verification_body">Have you tested positive but have not received your eRouška code in an SMS? Request your code at %1$s.</string>
     <string name="no_verification_caption">Are you interested in learning how sending the code works? \n\n\nIf you are tested positive for COVID-19, you will receive test results in an SMS from the laboratory. The lab also sends the results to the central information system of the Ministry of Health. \n\n\nAfter the results are copied from the information system to the public health office\'s system, automatic eRouška SMS messages with verification codes are sent. \n\n\nIf the lab results are not copied in the public health office\'s system by 10 pm, you might not receive the SMS with the verification code until the next day. \n\n\nIf you did not receive eRouška SMS within one day after you received your results from the lab, please contact us at %1$s.</string>
     <string name="efgs_title">Cross-border cooperation</string>
     <string name="efgs_header">Help to fight against COVID-19 when abroad</string>
-    <string name="efgs_boundaries">COVID-19 does not respect borders. Thanks to cooperation of EU countries, eRouška can warn you against risk of infection.</string>
-    <string name="efgs_visit">Please enable Cross-border cooperation if you have visited an EU country in the past %1$d days or you travel regularly. eRouška will notify you if you encounter someone with COVID-19.</string>
-    <string name="efgs_check">Enable Cross-border cooperation</string>
+    <string name="efgs_boundaries">COVID-19 does not respect borders. Thanks to cooperation of EU countries, eRouška can warn you against risk of infection if you encountered foreigners who use similar applications of other countries.</string>
+    <string name="efgs_visit">Please enable notifications about foreign risky encounters if you have been abroad in the past 14 days or you travel regularly.\n\n\nYou can change the settings anytime.</string>
+    <string name="efgs_check">Notify me about risky encounters abroad</string>
     <string name="efgs_usage">This feature may increase the volume of downloaded data. Disable it %1$d days after you return from abroad.</string>
     <string name="efgs_disable_confirmation"><![CDATA[You may not experience COVID-19 symptoms until %1$d days after you met an infected individual. Please do not disable Cross-border cooperation until <b>%1$d days</b> after you return from abroad.]]></string>
     <string name="efgs_disable_confirmation_on">Keep enabled</string>
     <string name="efgs_disable_confirmation_off">Disable</string>
     <string name="send_data_code_invalid_header">Verification code is not valid</string>
     <string name="send_data_code_invalid_body">Check the code and try entering it again. If a valid code fails repeatedly, contact us at %1$s.</string>
+    <string name="dashboard_loading_data">Loading data...</string>
 </resources>

@@ -13,6 +13,7 @@
     <string name="dashboard_body_secondary">Upozorníme vás v případě možného podezření na setkání s COVID-19 a zobrazíme vám všechny potřebné informace.</string>
     <string name="dashboard_body_no_contact">Poslední aktualizace %1$s v %2$s.</string>
     <string name="dashboard_body_paused">Aplikace je aktuálně pozastavená a nesbírá žádná data o ostatních eRouškách ve vašem okolí. Spusťte znovu eRoušku a chraňte sebe i své okolí. Nezapomínejte na to zejména ve chvíli, kdy opouštíte svůj domov.</string>
+    <string name="dashboard_loading_data">Probíhá aktualizace dat…</string>
     <string name="pause_app">Pozastavit</string>
     <string name="start_app">Spustit</string>
     <string name="privacy_header_text">Myslíme na vaše soukromí, odesílání dat máte vždy pod kontrolou</string>
@@ -66,9 +67,9 @@
     <string name="my_data_hospitalized">%1$s aktuálně hospitalizovaných</string>
     <string name="my_data_vaccinations">%1$s vykázaných očkování</string>
     <string name="send_data_body">V případě potvrzené nákazy onemocněním COVID-19 obdržíte SMS zprávu obsahující ověřovací kód pro povolení upozornění ostatních uživatelů eRoušky.</string>
-    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %s</string>
+    <string name="send_data_last_sent_date">Naposledy jste upozornili ostatní %s.</string>
     <string name="send_data_verification_hint">Ověřovací kód</string>
-    <string name="send_data_button_text">Ověřit a odeslat data</string>
+    <string name="send_data_button_text">Ověřit</string>
     <string name="send_data_code_invalid">Ověřovací kód není správně zadaný</string>
     <string name="send_data_code_expired_header">Vypršela platnost ověřovacího kódu</string>
     <string name="send_data_code_expired_body">Požádejte pracovníka hygienické stanice o zaslání nové SMS zprávy s ověřovacím kódem.</string>
@@ -203,8 +204,7 @@
     <string name="how_it_works_content">Zajímá vás, jak eRouška funguje?</string>
     <string name="how_it_works_more">Zjistit více</string>
     <string name="how_it_works_close">Zavřít</string>
-    <string name="how_it_works_info_content">eRouška vás upozorní na riziková setkání s ostatními uživateli eRoušky, které jste potkali v posledních 14 dnech a potvrdilo se u nich onemocnění COVID-19.
-Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné údaje o vás nebo telefonu.</string>
+    <string name="how_it_works_info_content">eRouška vás upozorní na riziková setkání s ostatními uživateli eRoušky, které jste potkali v posledních 14 dnech a potvrdilo se u nich onemocnění COVID-19.\n\nPři používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné údaje o vás nebo telefonu.</string>
     <string name="how_it_works_encounter_title">Telefony s eRouškou čekají na setkání</string>
     <string name="how_it_works_encounter_content">Když se potkají telefony s aplikací eRouška, vymění si několik základních informací o setkání. Zaznamenají si den setkání, vzdálenost mezi sebou a anonymní označení telefonu. Tato setkání si pamatují 14 dní.</string>
     <string name="how_it_works_confirm_title">Když se potvrdí COVID-19</string>
@@ -230,9 +230,9 @@ Při používání aplikace eRouška nikdo nezná vaši polohu a žádné jiné 
     <string name="no_verification_caption">Zajímá vás, jak odesílání kódu funguje?\n\nV případě, že máte pozitivní výsledek testu na COVID-19, měl by vám přijít výsledek testu v SMS od testovací laboratoře. Ta výsledky současně odesílá do centrálního informačního systému Ministerstva zdravotnictví.\n\nPoté, co se informace z informačního systému propíšou do systému hygieny, se odesílají automatické SMS eRoušky s ověřovacími kódy.\n\nPokud se výsledky z laboratoře nestihnou propsat do systému hygieny do 22:00, může vám SMS s ověřovacím kódem přijít až následující den.\n\nPokud vám SMS eRoušky nepřišla ani následující den poté, co vám přišla SMS s pozitivními výsledky z laboratoře, napište nám na %1$s.</string>
     <string name="efgs_title">Spolupráce se zahraničím</string>
     <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
-    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi zeměmi Evropské unie vás eRouška může informovat o možném riziku nákazy.</string>
-    <string name="efgs_visit">Povolte si prosím Spolupráci se zahraničím, pokud jste byli v posledních %1$d dnech v některé ze zemí Evropské unie nebo do nich jezdíte pravidelně. eRouška vás upozorní na možnost setkání s nakaženým nemocí COVID-19.</string>
-    <string name="efgs_check">Povolit spolupráci se zahraničím</string>
+    <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi evropskými státy vás eRouška může upozornit na riziková setkání i v případě, že jste se potkali s cizinci, kteří používají podobné aplikace jiných států.</string>
+    <string name="efgs_visit">Povolte upozornění na zahraniční riziková setkání, pokud jste byli v posledních 14 dnech v zahraničí nebo tam jezdíte pravidelně.\n\nNastavení můžete kdykoliv změnit v aplikaci.</string>
+    <string name="efgs_check">Upozorňovat na zahraniční riziková setkání</string>
     <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
 
     <string name="efgs_disable_confirmation"><![CDATA[Onemocnění COVID-19 se může projevit až %1$d dní po setkání s nakaženou osobou. Spolupráci se zahraničím prosím vypněte nejdříve <b>%1$d dní</b> po návratu.]]></string>

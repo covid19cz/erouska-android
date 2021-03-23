@@ -233,37 +233,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingBottom="140dp"
                     android:text="@string/how_it_works_support_content"
                     android:textAppearance="@style/Erouska.Body"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/how_it_works_notif_content" />
 
+                <android.widget.Space
+                    android:id="@+id/how_it_works_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/how_it_works_write_email"
+                    app:layout_constraintTop_toBottomOf="@id/how_it_works_support_content"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/how_it_works_write_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:onClick="@{() -> vm.writeEmail()}"
+                    android:text="@string/how_it_works_write_email"
+                    app:layout_constraintBottom_toTopOf="@id/how_it_works_close"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/how_it_works_close"
+                    style="?materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{() -> vm.close()}"
+                    android:text="@string/how_it_works_close"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/how_it_works_close"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{() -> vm.close()}"
-            android:text="@string/how_it_works_close"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/how_it_works_write_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:onClick="@{() -> vm.writeEmail()}"
-            android:text="@string/how_it_works_write_email"
-            app:layout_constraintBottom_toTopOf="@id/how_it_works_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

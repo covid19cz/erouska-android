@@ -3,7 +3,7 @@ name: Deploy production app
 on:
   push:
     branches:
-    - master
+    - develop
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         fileName: 'erouska_release.jks'
         encodedString: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
     - name: Build release apps
-      run: ./gradlew assembleProdRelease bundleProdRelease
+      run: ./gradlew assembleDevRelease
       env:
         EROUSKA_RELEASE_KEYSTORE_PATH: ${{ steps.release_cert.outputs.filePath }}
         EROUSKA_RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
@@ -39,10 +39,10 @@ jobs:
       with:
         name: app-releases
         path: app/build/outputs
-    - name: Upload PROD app to Firebase App Distribution
+    - name: Upload DEV app to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
-        appId: 1:941144972907:android:937903c1584d72a673db2e
+        appId: 1:1077972356575:android:75624eb96818aa0d61886a
         token: ${{ secrets.FIREBASE_TOKEN }}
         groups: internal-test
-        file: app/build/outputs/apk/prod/release/covid19-cz-prod-release.apk
+        file: app/build/outputs/apk/dev/release/covid19-cz-dev-release.apk
