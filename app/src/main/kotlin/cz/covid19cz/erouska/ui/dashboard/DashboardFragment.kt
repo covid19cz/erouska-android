@@ -291,7 +291,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
             if (it != 0L) {
                 resources.getString(
                     R.string.dashboard_body_no_contact,
-                    it.timestampToTime(), it.timestampToDate()
+                    it.timestampToDate(), it.timestampToTime()
                 )
             } else null
         } ?: resources.getString(R.string.dashboard_loading_data)
