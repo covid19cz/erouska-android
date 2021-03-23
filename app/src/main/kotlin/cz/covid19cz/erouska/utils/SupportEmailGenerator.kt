@@ -70,6 +70,17 @@ class SupportEmailGenerator @Inject constructor(
         )
     }
 
+    fun sendInvalidCodeEmail(
+        activity: Activity,
+        recipient: String = AppConfig.supportEmail,
+    ) {
+        activity.sendEmail(
+            recipient,
+            R.string.send_data_code_invalid_header,
+            emailBody = R.string.no_code_email_body_error
+        )
+    }
+
     private suspend fun getDiagnosticFile(errorCode: String?, screenOrigin: String): Uri {
         return withContext(Dispatchers.IO) {
             val file = File(context.cacheDir, context.getString(R.string.support_file_name))
