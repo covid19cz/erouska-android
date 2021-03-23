@@ -132,12 +132,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     notifications.dismissOudatedDataNotification()
                     showOrHideDataNotification(false)
                 }
-                DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(
-                    true
-                )
-                DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS -> checkAndShowOrHideHowItWorksNotification(
-                    false
-                )
+                DashboardCommandEvent.Command.SHOW_HOW_IT_WORKS -> updateOnboardingNotif(true)
+                DashboardCommandEvent.Command.HIDE_HOW_IT_WORKS -> updateOnboardingNotif(false)
                 DashboardCommandEvent.Command.DATA_OBSOLETE -> showOrHideDataNotification(true)
                 DashboardCommandEvent.Command.RECENT_EXPOSURE -> showOrHideExposureNotification(true)
                 DashboardCommandEvent.Command.NOT_ACTIVATED -> showWelcomeScreen()
@@ -345,15 +341,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
 
     private fun checkAppActive() {
         val enEnabled = viewModel.exposureNotificationsEnabled.value
-        val lsEnabled =
-            viewModel.locationState.value // Location services don't need to be turned on on devices with Android 11+
+        // Location services don't need to be turned on on devices with Android 11+
+        val lsEnabled = viewModel.locationState.value
         val btEnabled = viewModel.bluetoothState.value
 
         dash_card_active.showOrHide(enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
         dash_card_inactive.showOrHide(!enEnabled && (viewModel.isLocationlessScanSupported() || lsEnabled) && btEnabled)
     }
 
-    private fun checkAndShowOrHideHowItWorksNotification(show: Boolean) {
+    private fun updateOnboardingNotif(show: Boolean) {
         how_it_works_container.showOrHide(
             show &&
                     !data_notification_container.isVisible &&
@@ -377,8 +373,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
     }
 
     private fun showPlayServicesUpdate() {
-        navigate(
-            R.id.action_nav_dashboard_to_nav_play_services_update,
+        navigate(R.id.action_nav_dashboard_to_nav_play_services_update,
             Bundle().apply { putBoolean("demo", true) })
     }
 
