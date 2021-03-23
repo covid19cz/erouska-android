@@ -237,4 +237,5 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="efgs_disable_confirmation_off">Vypnúť</string>
     <string name="send_data_code_invalid_header">Zadaný kód nie je platný</string>
     <string name="send_data_code_invalid_body">Skontrolujte kód a skúste ho zadať znova. V prípade, že sa vám opakovane nedarí zadať platný kód, kontaktujte nás na %1$s.</string>
+    <string name="dashboard_loading_data">Prebieha aktualizácia dát</string>
 </resources>

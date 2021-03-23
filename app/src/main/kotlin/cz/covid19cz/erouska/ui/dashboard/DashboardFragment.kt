@@ -298,8 +298,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardPlusBinding, DashboardVM
                     it.timestampToTime(), it.timestampToDate()
                 )
             } else null
-        }
-        val text = lastUpdateString.orEmpty() + "\n${AppConfig.encounterUpdateFrequency}"
+        } ?: resources.getString(R.string.dashboard_loading_data)
+
+        val text = lastUpdateString + "\n${AppConfig.encounterUpdateFrequency}"
         dash_card_no_risky_encounter.card_subtitle = text
         updateLastUpdateOnExposureCard(lastUpdateString)
     }
