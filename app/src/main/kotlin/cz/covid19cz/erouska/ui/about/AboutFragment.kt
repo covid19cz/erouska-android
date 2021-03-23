@@ -14,7 +14,6 @@ import cz.covid19cz.erouska.ui.base.UrlEvent
 import cz.covid19cz.erouska.utils.CustomTabHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_about.*
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,6 +46,7 @@ class AboutFragment :
                 throw RuntimeException("Crashlytics exception test for version ${BuildConfig.VERSION_NAME}.")
             } else {
                 Toast.makeText(context, "Ještě jeden long-press a asi něco vypustíme", Toast.LENGTH_LONG).show()
+                about_content.text = about_content.text.toString().replace("eRouška", "eRespirátor")
                 easterEggShown = true
                 true
             }
