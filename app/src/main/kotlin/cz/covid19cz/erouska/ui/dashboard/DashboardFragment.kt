@@ -15,6 +15,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.tbruyelle.rxpermissions2.RxPermissions
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.BuildConfig
@@ -34,13 +35,6 @@ import cz.covid19cz.erouska.utils.Analytics.KEY_RESUME_APP
 import cz.covid19cz.erouska.utils.Analytics.KEY_SHARE_APP
 import cz.covid19cz.erouska.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_bluetooth_off
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_active
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_inactive
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_no_risky_encounter
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_positive_test
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_card_risky_encounter
-import kotlinx.android.synthetic.main.fragment_dashboard_cards.dash_location_off
 import kotlinx.android.synthetic.main.fragment_dashboard_plus.*
 import javax.inject.Inject
 
