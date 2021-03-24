@@ -78,16 +78,7 @@ class MyDataVM @ViewModelInject constructor(
     val notificationsTotal = setTotal { prefs.getNotificationsTotal() }
     val notificationsYesterday = setIncrease { prefs.getNotificationsYesterday() }
 
-    var lastMetricsIncreaseDate = if (prefs.getLastMetricsUpdate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getLastMetricsUpdate() - TimeUnit.DAYS.toMillis(1))) // increase day = day before day of last update
-        )
-    }
+    var lastMetricsIncreaseDate = setLastMetricsUpdateDate { prefs.getLastMetricsUpdate() }
 
     fun getMeasuresUrl() = AppConfig.currentMeasuresUrl
 
@@ -107,9 +98,9 @@ class MyDataVM @ViewModelInject constructor(
                     liveTotal = testsTotal,
                     liveIncrease = testsIncrease,
                     liveIncreaseDate = testsIncreaseDate,
-                    prefTotal = { prefs.setTestsTotal(it) },
-                    prefIncrease = { prefs.setTestsIncrease(it) },
-                    prefIncreaseDate = { prefs.setTestsIncreaseDate(it) },
+                    funTotal = { prefs.setTestsTotal(it) },
+                    funIncrease = { prefs.setTestsIncrease(it) },
+                    funIncreaseDate = { prefs.setTestsIncreaseDate(it) },
                 )
 
                 /* Antigen Tests */
@@ -151,7 +142,7 @@ class MyDataVM @ViewModelInject constructor(
                 /* Active cases */
                 safeLetAndSet(responseTotal = res.activeCasesTotal,
                     liveTotal = activeCasesTotal,
-                    prefTotal = { prefs.setActiveCasesTotal(it) }
+                    funTotal = { prefs.setActiveCasesTotal(it) }
                 )
 
                 /* Cured */
@@ -172,18 +163,13 @@ class MyDataVM @ViewModelInject constructor(
                     { prefs.setCurrentlyHospitalizedTotal(it) }
                 )
 
-                /* Date */
-                safeLetAndSet(responseDate = res.date,
-                    prefDate = { prefs.setLastStatsUpdate(it) }
+                /* Last stats update date */
+                safeLetAndSetStatsDate(responseDate = res.date,
+                    funLastUpdateDate = { prefs.setLastStatsUpdate(it) }
                 )
 
             }.onFailure {
-                isLoading.value = false
-                if (it is ApiException) {
-                    L.e(it.status.toString() + " " + it.message)
-                } else {
-                    L.e(it)
-                }
+                onFailure(it)
             }
         }
     }
@@ -227,32 +213,26 @@ class MyDataVM @ViewModelInject constructor(
                     { prefs.setNotificationsYesterday(it) },
                 )
 
-                res.date?.let {
-                    val lastMetricsUpdate = SimpleDateFormat(
-                        LAST_UPDATE_API_FORMAT,
-                        Locale.getDefault()
-                    ).parse(res.date)
-
-                    lastMetricsUpdate?.time?.let { lastUpdateMillis ->
-                        prefs.setLastMetricsUpdate(lastUpdateMillis)
-                        val lastMetricsIncreaseMillis = lastUpdateMillis - TimeUnit.DAYS.toMillis(1) // increase day = day before day of last update
-
-                        lastMetricsIncreaseDate.value = SimpleDateFormat(
-                            LAST_UPDATE_UI_FORMAT,
-                            Locale.getDefault()
-                        ).format(
-                            Date(lastMetricsIncreaseMillis)
-                        )
-                    }
-                }
+                /* Last metrics update date */
+                safeLetAndSetMetricsDate(responseDate = res.date,
+                    liveIncreaseDate = lastMetricsIncreaseDate,
+                    funLastUpdateDate = { prefs.setLastMetricsUpdate(it) }
+                )
             }.onFailure {
-                isLoading.value = false
-                if (it is ApiException) {
-                    L.e(it.status.toString() + " " + it.message)
-                } else {
-                    L.e(it)
-                }
+                onFailure(it)
             }
+        }
+    }
+
+    /**
+     * Handle failures.
+     */
+    private fun onFailure(it: Throwable) {
+        isLoading.value = false
+        if (it is ApiException) {
+            L.e(it.status.toString() + " " + it.message)
+        } else {
+            L.e(it)
         }
     }
 }
