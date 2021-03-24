@@ -233,4 +233,7 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="send_data_code_invalid_header">Verification code is not valid</string>
     <string name="send_data_code_invalid_body">Check the code and try entering it again. If a valid code fails repeatedly, contact us at %1$s.</string>
     <string name="dashboard_loading_data">Loading data...</string>
+
+    <!-- TODO : Translate-->
+    <string name="no_code_email_body_error">TODO: translate</string>
 </resources>

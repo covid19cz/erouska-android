@@ -77,7 +77,7 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorVM>(
 
             tryAgainButton.setOnClickListener { navController().navigateUp() }
             emailButton.setOnClickListener {
-                supportEmailGenerator.sendVerificationEmail(requireActivity())
+                supportEmailGenerator.sendInvalidCodeEmail(requireActivity())
             }
         }
     }
