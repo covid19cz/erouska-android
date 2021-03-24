@@ -54,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_restriction"
                     android:drawablePadding="16dp"
                     android:focusable="true"
                     android:gravity="center_vertical|start"
@@ -66,7 +65,8 @@
                     android:textAppearance="@style/Erouska.Item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/measures_info_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/measures_info_text"
+                    app:drawableStartCompat="@drawable/ic_restriction" />
 
                 <View
                     android:id="@+id/divider_top"

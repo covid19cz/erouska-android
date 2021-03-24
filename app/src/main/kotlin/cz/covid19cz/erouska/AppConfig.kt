@@ -38,10 +38,6 @@ object AppConfig {
         get() = firebaseRemoteConfig.getLong("v2_infectiousnessWhenDaysSinceOnsetMissing").toInt()
     val shareAppDynamicLink
         get() = firebaseRemoteConfig.getString("v2_shareAppDynamicLink")
-    val chatBotLink
-        get() = firebaseRemoteConfig.getString("v2_chatBotLink")
-    val helpMarkdown
-        get() = firebaseRemoteConfig.getString("v2_helpMarkdown")
     val minSupportedVersionCodeAndroid
         get() = firebaseRemoteConfig.getLong("v2_minSupportedVersionCodeAndroid")
     val riskyEncountersTitle

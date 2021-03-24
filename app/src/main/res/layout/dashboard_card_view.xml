@@ -32,15 +32,15 @@
                     android:id="@+id/title_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_help"
-                    android:drawableEnd="@drawable/ic_arrow_right"
                     android:drawablePadding="16dp"
                     android:gravity="center_vertical|start"
                     tools:text="eRouška je aktivní"
                     android:textAppearance="@style/Erouska.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableStartCompat="@drawable/ic_help"
+                    app:drawableEndCompat="@drawable/ic_arrow_right" />
 
                 <TextView
                     android:id="@+id/subtitle_text"

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import arch.adapter.RecyclerLayoutStrategy
 import arch.viewmodel.BaseArchViewModel
 import cz.covid19cz.erouska.R
-import cz.covid19cz.erouska.db.DailySummariesDb
 import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.recentexposures.entity.RecentExposureGroupHeaderItem
@@ -17,8 +16,7 @@ import org.threeten.bp.LocalDate
 import java.lang.IllegalArgumentException
 
 class RecentExposuresVM @ViewModelInject constructor(
-    private val exposureNotificationsRepo: ExposureNotificationsRepository,
-    private val db: DailySummariesDb
+    private val exposureNotificationsRepo: ExposureNotificationsRepository
 ) : BaseArchViewModel() {
 
     val layoutStrategy = object: RecyclerLayoutStrategy{
@@ -42,7 +40,7 @@ class RecentExposuresVM @ViewModelInject constructor(
                 }.onSuccess { dailySummaries ->
                     viewModelScope.launch(Dispatchers.Main) {
                         var previousTimestamp = -1L
-                        dailySummaries.forEachIndexed { index, item ->
+                        dailySummaries.forEachIndexed { _, item ->
                             if (previousTimestamp != item.importTimestamp){
                                 items.add(RecentExposureGroupHeaderItem(item.importTimestamp))
                                 previousTimestamp = item.importTimestamp

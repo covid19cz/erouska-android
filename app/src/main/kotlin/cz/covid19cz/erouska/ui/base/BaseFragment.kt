@@ -70,7 +70,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseArchViewModel>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

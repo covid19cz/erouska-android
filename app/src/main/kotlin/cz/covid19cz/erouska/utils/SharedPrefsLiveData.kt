@@ -1,29 +1,11 @@
 package cz.covid19cz.erouska.utils
 
-import android.app.Application
-import android.app.Fragment
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
-import android.preference.PreferenceManager
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-
-// obtain SharedPreferencesProvider within Activity/Fragment/ViewModel/Service/Context etc.
-fun Context.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) =
-    SharedPreferencesProvider({
-        if (name == null)
-            PreferenceManager.getDefaultSharedPreferences(this)
-        else
-            getSharedPreferences(name, mode)
-    })
-
-fun AndroidViewModel.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = getApplication<Application>().sharedPrefs(name, mode)
-fun Fragment.sharedPrefs(name: String? = null, mode: Int = ContextWrapper.MODE_PRIVATE) = activity.sharedPrefs(name, mode)
 
 // Simple SharedPreferences delegates - supports getter/setter
 // Note: When not specified explicitly, the name of the property is used as a preference key
@@ -39,13 +21,13 @@ fun SharedPreferencesProvider.string(def: String? = null, key: String? = null): 
 // LiveData SharedPreferences delegates - provides LiveData access to prefs with sync across app on changes
 // Note: When not specified explicitly, the name of the property is used as a preference key
 // Example: `val userName by sharedPrefs().stringLiveData()`
-fun SharedPreferencesProvider.intLiveData(def: Int, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Int>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getInt, SharedPreferences.Editor::putInt)
+fun SharedPreferencesProvider.intLiveData(def: Int, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Int>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getInt, Editor::putInt)
 
-fun SharedPreferencesProvider.longLiveData(def: Long, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Long>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getLong, SharedPreferences.Editor::putLong)
-fun SharedPreferencesProvider.floatLiveData(def: Float, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Float>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getFloat, SharedPreferences.Editor::putFloat)
-fun SharedPreferencesProvider.booleanLiveData(def: Boolean, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Boolean>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getBoolean, SharedPreferences.Editor::putBoolean)
-fun SharedPreferencesProvider.stringLiveData(def: String? = null, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<String?>> = liveDataDelegate(def, key, SharedPreferences::getString, SharedPreferences.Editor::putString)
-fun SharedPreferencesProvider.stringSetLiveData(def: Set<String>? = null, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Set<String>?>> = liveDataDelegate(def, key, SharedPreferences::getStringSet, SharedPreferences.Editor::putStringSet)
+fun SharedPreferencesProvider.longLiveData(def: Long, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Long>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getLong, Editor::putLong)
+fun SharedPreferencesProvider.floatLiveData(def: Float, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Float>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getFloat, Editor::putFloat)
+fun SharedPreferencesProvider.booleanLiveData(def: Boolean, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Boolean>> = liveDataDelegatePrimitive(def, key, SharedPreferences::getBoolean, Editor::putBoolean)
+fun SharedPreferencesProvider.stringLiveData(def: String? = null, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<String?>> = liveDataDelegate(def, key, SharedPreferences::getString, Editor::putString)
+fun SharedPreferencesProvider.stringSetLiveData(def: Set<String>? = null, key: String? = null): ReadOnlyProperty<Any?, MutableLiveData<Set<String>?>> = liveDataDelegate(def, key, SharedPreferences::getStringSet, Editor::putStringSet)
 
 // -- internal
 

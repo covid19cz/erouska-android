@@ -235,7 +235,7 @@ class ExposureServerRepository @Inject constructor(
     class UserAgentInterceptor : Interceptor {
 
         companion object {
-            const val USER_AGENT = "User-agent";
+            const val USER_AGENT = "User-agent"
         }
 
         private val userAgent =

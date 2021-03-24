@@ -1,6 +1,5 @@
 package arch.binding
 
-import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 

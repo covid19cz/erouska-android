@@ -33,7 +33,7 @@ class ExposureCryptoTools @Inject constructor() {
         }
         val cleartext = cleartextSegments.sortedBy { it.base64key }.joinToString(",") { it.data }
         L.i("Hashing ${keys.size} keys")
-        val mac = Mac.getInstance("HmacSHA256");
+        val mac = Mac.getInstance("HmacSHA256")
         mac.init(SecretKeySpec(hmacKey.decodeBase64(), "HmacSHA256"))
         return mac.doFinal(cleartext.toByteArray(StandardCharsets.UTF_8)).encodeBase64()
     }

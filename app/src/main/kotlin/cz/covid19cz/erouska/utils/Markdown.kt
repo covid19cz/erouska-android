@@ -92,7 +92,7 @@ class Markdown @Inject constructor(
 
         @Nullable
         override fun parse(): Node? {
-            val match = match(RE);
+            val match = match(RE)
             if (match != null) {
                 // consume syntax
                 val text = match.substring(2, match.length - 2)
