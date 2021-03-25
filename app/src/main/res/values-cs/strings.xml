@@ -231,7 +231,8 @@
     <string name="efgs_title">Spolupráce se zahraničím</string>
     <string name="efgs_header">Pomozte v boji s COVID-19 i při cestách do zahraničí</string>
     <string name="efgs_boundaries">COVID-19 nezná hranice a díky spolupráci mezi evropskými státy vás eRouška může upozornit na riziková setkání i v případě, že jste se potkali s cizinci, kteří používají podobné aplikace jiných států.</string>
-    <string name="efgs_visit">Povolte upozornění na zahraniční riziková setkání, pokud jste byli v posledních 14 dnech v zahraničí nebo tam jezdíte pravidelně.\n\nNastavení můžete kdykoliv změnit v aplikaci.</string>
+    <string name="efgs_visit_onboard">Povolte upozornění na zahraniční riziková setkání, pokud jste byli v posledních 14 dnech v zahraničí nebo tam jezdíte pravidelně.\n\nNastavení můžete kdykoliv změnit v aplikaci.</string>
+    <string name="efgs_visit">Povolte upozornění na zahraniční riziková setkání, pokud jste byli v posledních 14 dnech v zahraničí nebo tam jezdíte pravidelně.</string>
     <string name="efgs_check">Upozorňovat na zahraniční riziková setkání</string>
     <string name="efgs_usage">Využívání této funkce může způsobit vyšší objem stahovaných dat. Vypněte ji %1$d dní po návratu ze zahraničí.</string>
 

@@ -57,7 +57,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_header"
-                    android:text="@{@string/efgs_boundaries + `\n\n` + @string/efgs_visit(vm.efgsDays)}"
+                    android:text="@{@string/efgs_boundaries + `\n\n` + @string/efgs_visit_onboard(vm.efgsDays)}"
                     tools:text="@tools:sample/lorem" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
