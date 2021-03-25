@@ -166,7 +166,7 @@ class ExposureServerRepository @Inject constructor(
     private fun downloadFile(zipfile: String): File? {
         try {
             val dir = File(context.cacheDir.path + "/export/")
-            val fileName = if (zipfile.contains("efgs_")) {
+            val fileName = if (zipfile.contains("efgs")) {
                 // EFGS files; e.g. efgs_de/1607061600-1607068800-00001.zip
                 zipfile.split("/").takeLast(2).joinToString("/")
             } else {
