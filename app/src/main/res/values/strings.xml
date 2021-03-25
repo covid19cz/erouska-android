@@ -224,7 +224,8 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="efgs_title">Cross-border cooperation</string>
     <string name="efgs_header">Help to fight against COVID-19 when abroad</string>
     <string name="efgs_boundaries">COVID-19 does not respect borders. Thanks to cooperation of EU countries, eRouška can warn you against risk of infection if you encountered foreigners who use similar applications of other countries.</string>
-    <string name="efgs_visit">Please enable notifications about foreign risky encounters if you have been abroad in the past 14 days or you travel regularly.\n\n\nYou can change the settings anytime.</string>
+    <string name="efgs_visit">Please enable notifications about foreign risky encounters if you have been abroad in the past %1$s days or you travel regularly.</string>
+    <string name="efgs_visit_plus">You can change the settings anytime.</string>
     <string name="efgs_check">Notify me about risky encounters abroad</string>
     <string name="efgs_usage">This feature may increase the volume of downloaded data. Disable it %1$d days after you return from abroad.</string>
     <string name="efgs_disable_confirmation"><![CDATA[You may not experience COVID-19 symptoms until %1$d days after you met an infected individual. Please do not disable Cross-border cooperation until <b>%1$d days</b> after you return from abroad.]]></string>

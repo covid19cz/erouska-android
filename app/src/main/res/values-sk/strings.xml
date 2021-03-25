@@ -230,6 +230,7 @@ Pri používaní aplikácie eRouška nikto nepozná vašu polohu a žiadne iné 
     <string name="efgs_header">Pomôžte v boji s COVID-19 aj pri cestách do zahraničia</string>
     <string name="efgs_boundaries">COVID-19 nepozná hranice a vďaka spolupráci medzi európskymi štátmi vás eRouška môže upozorniť na rizikové stretnutie aj v prípade, že ste sa stretli s cudzincami, ktorí používajú podobné aplikácie iných štátov.</string>
     <string name="efgs_visit">Povoľte si, prosím, Spoluprácu so zahraničím, ak ste boli v posledných %1$d dňoch v niektorej z krajín Európskej únie alebo do nich jazdíte pravidelne. eRouška vás upozorní na možnosť stretnutia s nakazeným chorobou COVID-19.</string>
+    <string name="efgs_visit_plus">Nastavenie môžete kedykoľvek zmeniť v aplikácii.</string>
     <string name="efgs_check">Upozorňovať na zahraničné rizikové stretnutia</string>
     <string name="efgs_usage">Využívanie tejto funkcie môže spôsobiť vyšší objem sťahovaných dát. Vypnite ju %1$d dní po návrate zo zahraničia.</string>
     <string name="efgs_disable_confirmation"><![CDATA[Ochorenie COVID-19 sa môže prejaviť až %1$d dní po stretnutí s nakazenou osobou. Spoluprácu so zahraničím, prosím, vypnite najskôr <b>%1$d dní</b> po návrate.]]></string>

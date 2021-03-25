@@ -58,7 +58,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/legacy_update_header"
                     android:text="@{@string/efgs_boundaries + `\n\n` + @string/efgs_visit(vm.efgsDays)}"
-                    tools:text="@tools:sample/lorem" />
+                    tools:text="@{@string/efgs_boundaries + `\n\n` + @string/efgs_visit(2)}" />
+
+                <TextView
+                    android:id="@+id/legacy_update_body_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/Erouska.Body"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
+                    android:text="@string/efgs_visit_plus"
+                    tools:text="@string/efgs_visit_plus" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/legacy_update_checkbox"
@@ -71,7 +84,7 @@
                     android:checked="@{vm.sharedPrefsRepository.isTraveller()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/legacy_update_body"
+                    app:layout_constraintTop_toBottomOf="@id/legacy_update_body_plus"
                     />
 
                 <TextView
