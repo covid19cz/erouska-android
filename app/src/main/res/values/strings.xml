@@ -13,6 +13,7 @@
     <string name="dashboard_body_secondary">We will notify you if you encountered someone with COVID-19, and show you all important information.</string>
     <string name="dashboard_body_no_contact">Last update on %1$s at %2$s.</string>
     <string name="dashboard_body_paused">Application is now paused and is not collecting any data about other eRouška applications nearby. Resume the app and keep yourself and others safe. Don\'t forget to do that especially when leaving your home.</string>
+    <string name="dashboard_loading_data">Loading data...</string>
     <string name="pause_app">Pause</string>
     <string name="start_app">Start</string>
     <string name="privacy_header_text">We value your privacy. You are always in control of your data.</string>
@@ -95,7 +96,7 @@
     <string name="traveller_button_no">I have not been abroad</string>
     <string name="efgs_agreement_title">Cross-border cooperation</string>
     <string name="efgs_agreement_traveller_body">Do you consent to notifying users of foreign apps who you have met in the Czech Republic or abroad?</string>
-    <string name="efgs_agreement_non_traveller_body">Do you consent to notifying users of foreign apps who you have met in the Czech Republic?</string>
+    <string name="efgs_agreement_non_traveller_body">Do you consent to notifying users of foreign apps that you have met in the Czech Republic?</string>
     <string name="efgs_agreement_description"><![CDATA[Sharing data with EU countries is anonymous. By sending data abroad you agree they will be processed by EU countries according to <a href="%1$s">the personal data processing agreement</a>.]]></string>
     <string name="efgs_agreement_agree">I agree</string>
     <string name="efgs_agreement_disagree">I do not agree</string>
@@ -197,8 +198,7 @@
     <string name="how_it_works_content">Are you curious how eRouška works?</string>
     <string name="how_it_works_more">Find out more</string>
     <string name="how_it_works_close">Close</string>
-    <string name="how_it_works_info_content">eRouška will notify you about risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.
-When using eRouška, nobody can collect your location information or other data about you or your phone.</string>
+    <string name="how_it_works_info_content">eRouška will notify you about risky encounters with other eRouška users that you have encountered in the past 14 days and that have tested positive for COVID-19.\nWhen using eRouška, nobody can collect your location information or other data about you or your phone.</string>
     <string name="how_it_works_encounter_title">Phones with eRouška are waiting for encounters</string>
     <string name="how_it_works_encounter_content">When two phones with eRouška meet, they exchange some basic data about the encounter. They log the date, distance between each other, and an anonymous phone identifier. They will remember this encounter for 14 days.</string>
     <string name="how_it_works_confirm_title">If COVID-19 infection is confirmed</string>
@@ -233,8 +233,5 @@ When using eRouška, nobody can collect your location information or other data 
     <string name="efgs_disable_confirmation_off">Disable</string>
     <string name="send_data_code_invalid_header">Verification code is not valid</string>
     <string name="send_data_code_invalid_body">Check the code and try entering it again. If a valid code fails repeatedly, contact us at %1$s.</string>
-    <string name="dashboard_loading_data">Loading data...</string>
-
-    <!-- TODO : Translate-->
-    <string name="no_code_email_body_error">TODO: translate</string>
+    <string name="no_code_email_body_error">"Dear eRouška team,\n\nmy COVID-19 test is positive and my verification code for eRouška has failed. What shall I do next?\n\n\nFull name on the test request form:  \n\n\nPhone number on the test request form:  \n\n\nDate of test results:  \n\n\nTesting location or laboratory which handled my test results:  \n\n\nTest type (PCR/antigen): "</string>
 </resources>
