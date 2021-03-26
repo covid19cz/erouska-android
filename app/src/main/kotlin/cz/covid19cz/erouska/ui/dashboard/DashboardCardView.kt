@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.dashboard_card_view.view.*
 import kotlinx.android.synthetic.main.view_data_item.view.subtitle_text
 import kotlinx.android.synthetic.main.view_data_item.view.title_text
 
-class DashboardCardView : ConstraintLayout {
+
+open class DashboardCardView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, attributeSetId: Int) : super(
@@ -23,8 +24,10 @@ class DashboardCardView : ConstraintLayout {
     )
 
     init {
-        View.inflate(context, R.layout.dashboard_card_view, this)
+        View.inflate(context, getLayoutId(), this)
     }
+
+    open fun getLayoutId() = R.layout.dashboard_card_view
 
     var card_title: String? = null
         set(value) {
@@ -51,7 +54,7 @@ class DashboardCardView : ConstraintLayout {
             button.show()
         }
 
-    var card_show_right_arrow: Boolean? = false
+    open var card_show_right_arrow: Boolean? = false
         set(value) {
             field = value
             if (value == true) {
@@ -106,7 +109,7 @@ class DashboardCardView : ConstraintLayout {
             }
         }
 
-    var card_icon: Drawable? = null
+    open var card_icon: Drawable? = null
         set(value) {
             field = value
             value?.let {
