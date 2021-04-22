@@ -23,7 +23,12 @@ data class CovidStatsResponse(
     @SerializedName("deceasedTotal") val deceasedTotal: Int?,
     @SerializedName("deceasedIncrease") val deceasedIncrease: Int?,
     @SerializedName("currentlyHospitalizedTotal") val currentlyHospitalizedTotal: Int?,
-    @SerializedName("currentlyHospitalizedIncrease") val currentlyHospitalizedIncrease: Int?
+    @SerializedName("currentlyHospitalizedIncrease") val currentlyHospitalizedIncrease: Int?,
+    @SerializedName("vaccinationsTotalFirstDose") val vaccinationsTotalFirstDose: Int?,
+    @SerializedName("vaccinationsDailyFirstDose") val vaccinationsDailyFirstDose: Int?,
+    @SerializedName("vaccinationsTotalSecondDose") val vaccinationsTotalSecondDose: Int?,
+    @SerializedName("vaccinationsDailySecondDose") val vaccinationsDailySecondDose: Int?,
+    @SerializedName("vaccinationsDailyDosesDate") val vaccinationsDailyDosesDate: String?,
 )
 
 data class DownloadMetricsResponse(

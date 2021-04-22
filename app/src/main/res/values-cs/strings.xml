@@ -243,4 +243,8 @@
     <string name="send_data_code_invalid_body">Zkontrolujte kód a zkuste ho zadat znovu. V případě, že se vám opakovaně nedaří zadat platný kód, kontaktujte nás na %1$s.</string>
 
     <string name="no_code_email_body_error">Milý týme eRoušky,\nmám pozitivní test na COVID-19 a nedaří se mi zadat správně ověřovací kód pro eRoušku. Jak mám dále postupovat?\n\nCelé jméno uvedené na žádance o test: \n\nTelefonní číslo uvedené na žádance o test: \n\nDatum výsledku testů: \n\nOdběrové místo / laboratoř, ze které mi přišly výsledky testu: \n\nTyp testu (PCR/antigen): </string>
+
+    <string name="my_data_vaccination">Očkování</string>
+    <string name="my_data_first_dose">%1$s očkovaných první dávkou</string>
+    <string name="my_data_second_dose">%1$s osob s ukončeným očkováním</string>
 </resources>
