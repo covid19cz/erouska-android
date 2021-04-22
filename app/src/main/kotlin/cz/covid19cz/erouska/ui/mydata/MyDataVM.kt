@@ -47,6 +47,38 @@ class MyDataVM @ViewModelInject constructor(
 
     val isLoading = SafeMutableLiveData(false)
 
+    // vaccinations
+    val vaccinationsTotal = SafeMutableLiveData(prefs.getVaccinationsTotal())
+    val vaccinationsIncrease = SafeMutableLiveData(prefs.getVaccinationsIncrease())
+    val vaccinationsIncreaseDate = if (prefs.getVaccinationsIncreaseDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getVaccinationsIncreaseDate()))
+        )
+    }
+
+
+    val firstDoseTotal = SafeMutableLiveData(prefs.getFirstDoseTotal())
+    val firstDoseIncrease = SafeMutableLiveData(prefs.getFirstDoseIncrease())
+
+    val secondDoseTotal = SafeMutableLiveData(prefs.getSecondDoseTotal())
+    val secondDoseIncrease = SafeMutableLiveData(prefs.getSecondDoseIncrease())
+
+    val dailyDosesDate = if (prefs.getDailyDosesDate() == 0L) {
+        SafeMutableLiveData("-")
+    } else {
+        SafeMutableLiveData(
+            SimpleDateFormat(
+                LAST_UPDATE_UI_FORMAT,
+                Locale.getDefault()
+            ).format(Date(prefs.getDailyDosesDate()))
+        )
+    }
+
     // stats
     val testsTotal = SafeMutableLiveData(prefs.getTestsTotal())
     val testsIncrease = SafeMutableLiveData(prefs.getTestsIncrease())
@@ -71,19 +103,6 @@ class MyDataVM @ViewModelInject constructor(
                 LAST_UPDATE_UI_FORMAT,
                 Locale.getDefault()
             ).format(Date(prefs.getAntigenTestsIncreaseDate()))
-        )
-    }
-
-    val vaccinationsTotal = SafeMutableLiveData(prefs.getVaccinationsTotal())
-    val vaccinationsIncrease = SafeMutableLiveData(prefs.getVaccinationsIncrease())
-    val vaccinationsIncreaseDate = if (prefs.getVaccinationsIncreaseDate() == 0L) {
-        SafeMutableLiveData("-")
-    } else {
-        SafeMutableLiveData(
-            SimpleDateFormat(
-                LAST_UPDATE_UI_FORMAT,
-                Locale.getDefault()
-            ).format(Date(prefs.getVaccinationsIncreaseDate()))
         )
     }
 
@@ -203,6 +222,41 @@ class MyDataVM @ViewModelInject constructor(
                         prefs.setVaccinationsIncreaseDate(lastUpdateMillis)
 
                         vaccinationsIncreaseDate.value = SimpleDateFormat(
+                            LAST_UPDATE_UI_FORMAT,
+                            Locale.getDefault()
+                        ).format(
+                            Date(lastUpdateMillis)
+                        )
+                    }
+               }
+
+               safeLet(response.vaccinationsTotalFirstDose,
+                    response.vaccinationsDailyFirstDose) { total, increase ->
+                   firstDoseTotal.value = total
+                   firstDoseIncrease.value = increase
+
+                    prefs.setFirstDoseTotal(total)
+                    prefs.setFirstDoseIncrease(increase)
+                }
+               safeLet(response.vaccinationsTotalSecondDose,
+                    response.vaccinationsDailySecondDose) { total, increase ->
+                   secondDoseTotal.value = total
+                   secondDoseIncrease.value = increase
+
+                    prefs.setSecondDoseTotal(total)
+                    prefs.setSecondDoseIncrease(increase)
+                }
+
+                response.vaccinationsDailyDosesDate?.let { increaseDate ->
+                    val lastUpdateDate = SimpleDateFormat(
+                        LAST_UPDATE_API_FORMAT,
+                        Locale.getDefault()
+                    ).parse(increaseDate)
+
+                    lastUpdateDate?.time?.let { lastUpdateMillis ->
+                        prefs.setDailyDosesDate(lastUpdateMillis)
+
+                        dailyDosesDate.value = SimpleDateFormat(
                             LAST_UPDATE_UI_FORMAT,
                             Locale.getDefault()
                         ).format(

@@ -47,6 +47,14 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
         const val VACCINATIONS_INCREASE = "vaccinationsIncrease"
         const val VACCINATIONS_INCREASE_DATE = "vaccinationsIncreaseDate"
 
+        const val DAILY_DOSES_DATE = "dailyDosesDate"
+
+        const val FIRST_DOSE_TOTAL = "firstDoseTotal"
+        const val FIRST_DOSE_INCREASE = "firstDoseIncrease"
+
+        const val SECOND_DOSE_TOTAL = "secondDoseTotal"
+        const val SECOND_DOSE_INCREASE = "secondDoseIncrease"
+
         const val CONFIRMED_CASES_TOTAL = "confirmedCasesTotal"
         const val CONFIRMED_CASES_INCREASE = "confirmedCasesIncrease"
         const val CONFIRMED_CASES_INCREASE_DATE = "confirmedCasesIncreaseDate"
@@ -326,6 +334,46 @@ class SharedPrefsRepository @Inject constructor(@ApplicationContext c: Context) 
 
     fun setVaccinationsIncreaseDate(value: Long) {
         return prefs.edit().putLong(VACCINATIONS_INCREASE_DATE, value).apply()
+    }
+
+    fun getFirstDoseTotal(): Int {
+        return prefs.getInt(FIRST_DOSE_TOTAL, 0)
+    }
+
+    fun setFirstDoseTotal(value: Int) {
+        return prefs.edit().putInt(FIRST_DOSE_TOTAL, value).apply()
+    }
+
+    fun getFirstDoseIncrease(): Int {
+        return prefs.getInt(FIRST_DOSE_INCREASE, 0)
+    }
+
+    fun setFirstDoseIncrease(value: Int) {
+        return prefs.edit().putInt(FIRST_DOSE_INCREASE, value).apply()
+    }
+
+    fun getSecondDoseTotal(): Int {
+        return prefs.getInt(SECOND_DOSE_TOTAL, 0)
+    }
+
+    fun setSecondDoseTotal(value: Int) {
+        return prefs.edit().putInt(SECOND_DOSE_TOTAL, value).apply()
+    }
+
+    fun getSecondDoseIncrease(): Int {
+        return prefs.getInt(SECOND_DOSE_INCREASE, 0)
+    }
+
+    fun setSecondDoseIncrease(value: Int) {
+        return prefs.edit().putInt(SECOND_DOSE_INCREASE, value).apply()
+    }
+
+    fun getDailyDosesDate(): Long {
+        return prefs.getLong(DAILY_DOSES_DATE, 0)
+    }
+
+    fun setDailyDosesDate(value: Long) {
+        return prefs.edit().putLong(DAILY_DOSES_DATE, value).apply()
     }
 
     fun getConfirmedCasesTotal(): Int {
