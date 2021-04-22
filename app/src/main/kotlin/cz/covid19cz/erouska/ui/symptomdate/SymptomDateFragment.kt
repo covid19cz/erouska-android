@@ -53,7 +53,8 @@ class SymptomDateFragment : BaseFragment<FragmentSymptomDateBinding, SymptomDate
             preselectCalendar.get(Calendar.MONTH),
             preselectCalendar.get(Calendar.DAY_OF_MONTH)
         )
-        datePickerDialog.datePicker.maxDate = Date().time
+        datePickerDialog.datePicker.minDate = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -14) }.timeInMillis
+        datePickerDialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
         datePickerDialog.show()
     }
 

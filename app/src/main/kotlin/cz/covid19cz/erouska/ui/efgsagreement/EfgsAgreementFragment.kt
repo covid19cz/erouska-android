@@ -24,12 +24,16 @@ class EfgsAgreementFragment : BaseFragment<FragmentEfgsAgreementBinding, EfgsAgr
 
     @Inject
     internal lateinit var exposureNotificationsErrorHandling: ExposureNotificationsErrorHandling
+    private var gmsDialogShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         subscribe(GmsApiErrorEvent::class) {
-            exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
+            if (!gmsDialogShown) {
+                gmsDialogShown = true
+                exposureNotificationsErrorHandling.handle(it, this, SCREEN_NAME)
+            }
         }
     }
 
@@ -46,11 +50,9 @@ class EfgsAgreementFragment : BaseFragment<FragmentEfgsAgreementBinding, EfgsAgr
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ExposureNotificationsErrorHandling.REQUEST_GMS_ERROR_RESOLUTION) {
+            gmsDialogShown = false
             when (resultCode) {
                 Activity.RESULT_OK -> viewModel.publishKeys()
-                Activity.RESULT_CANCELED -> {
-                    //TODO: Integrate with Tomas's error screen
-                }
             }
         }
     }
