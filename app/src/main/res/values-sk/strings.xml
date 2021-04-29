@@ -239,4 +239,7 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="send_data_code_invalid_header">Zadaný kód nie je platný</string>
     <string name="send_data_code_invalid_body">Skontrolujte kód a skúste ho zadať znova. V prípade, že sa vám opakovane nedarí zadať platný kód, kontaktujte nás na %1$s.</string>
     <string name="no_code_email_body_error">Milý tím eRoušky,\nmám pozitívny test na COVID-19 a nedarí sa mi zadať správne overovací kód pre eRoušku. Ako mám ďalej postupovať?\n\nCelé meno uvedené na žiadanke o test:\n\nTelefónne číslo uvedené na žiadanke o test:\n\nDátum výsledku testov:\n\nOdberové miesto/laboratórium, z ktorej mi prišli výsledky testu:\n\nTyp testu (PCR/antigén):</string>
+    <string name="my_data_vaccination">Očkovanie</string>
+    <string name="my_data_first_dose">%1$s očkovaných prvou dávkou</string>
+    <string name="my_data_second_dose">%1$s osob s ukončeným očkovaním</string>
 </resources>

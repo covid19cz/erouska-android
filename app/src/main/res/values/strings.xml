@@ -234,9 +234,7 @@
     <string name="send_data_code_invalid_header">Verification code is not valid</string>
     <string name="send_data_code_invalid_body">Check the code and try entering it again. If a valid code fails repeatedly, contact us at %1$s.</string>
     <string name="no_code_email_body_error">"Dear eRouška team,\n\nmy COVID-19 test is positive and my verification code for eRouška has failed. What shall I do next?\n\n\nFull name on the test request form:  \n\n\nPhone number on the test request form:  \n\n\nDate of test results:  \n\n\nTesting location or laboratory which handled my test results:  \n\n\nTest type (PCR/antigen): "</string>
-
-    <!-- TODO : Translate -->
-    <string name="my_data_vaccination">TODO : Translate</string>
-    <string name="my_data_first_dose">TODO : Translate</string>
-    <string name="my_data_second_dose">TODO : Translate</string>
+    <string name="my_data_vaccination">Vaccinations</string>
+    <string name="my_data_first_dose">%1$s people vaccinated with 1 dose</string>
+    <string name="my_data_second_dose">%1$s people fully vaccinated</string>
 </resources>
