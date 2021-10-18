@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.ui.exposure
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import cz.covid19cz.erouska.db.SharedPrefsRepository
@@ -9,9 +8,12 @@ import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExposureVM @ViewModelInject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository, private val prefs : SharedPrefsRepository) :
+@HiltViewModel
+class ExposureVM @Inject constructor(private val exposureNotificationsRepo: ExposureNotificationsRepository, private val prefs : SharedPrefsRepository) :
     BaseVM() {
 
     val lastExposureDate = MutableLiveData<String>()

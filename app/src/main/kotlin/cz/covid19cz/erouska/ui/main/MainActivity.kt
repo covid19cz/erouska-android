@@ -170,7 +170,7 @@ class MainActivity :
     /** Call this when asking for review **/
     fun askForReview() {
         if (reviewInfo != null) {
-            reviewManager.launchReviewFlow(this, reviewInfo).addOnFailureListener {
+            reviewManager.launchReviewFlow(this, reviewInfo!!).addOnFailureListener {
                 L.e(it)
             }.addOnCompleteListener { L.i("Review success") }
         }

@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.ui.efgsagreement
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
 import com.google.android.gms.common.api.ApiException
@@ -12,10 +11,13 @@ import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.NoKeysException
 import cz.covid19cz.erouska.ui.verification.ReportExposureException
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class EfgsAgreementVM @ViewModelInject constructor(val prefs: SharedPrefsRepository, val exposureNotificationsRepo: ExposureNotificationsRepository) :
+@HiltViewModel
+class EfgsAgreementVM @Inject constructor(val prefs: SharedPrefsRepository, val exposureNotificationsRepo: ExposureNotificationsRepository) :
     BaseVM() {
 
     val traveller = prefs.isTraveller()

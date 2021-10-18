@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.help
 
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import arch.adapter.RecyclerLayoutStrategy
 import cz.covid19cz.erouska.AppConfig
 import cz.covid19cz.erouska.R
@@ -9,8 +8,11 @@ import cz.covid19cz.erouska.ui.about.AboutFragmentArgs
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.*
 import cz.covid19cz.erouska.ui.helpcategory.HelpCategoryFragmentArgs
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HelpVM @ViewModelInject constructor() : BaseVM() {
+@HiltViewModel
+class HelpVM @Inject constructor() : BaseVM() {
 
     val layoutStrategy = object : RecyclerLayoutStrategy {
         override fun getLayoutId(item: Any): Int {

@@ -1,14 +1,16 @@
 package cz.covid19cz.erouska.ui.helpcategory
 
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import arch.adapter.RecyclerLayoutStrategy
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.help.data.Question
 import cz.covid19cz.erouska.ui.helpquestion.HelpQuestionFragmentArgs
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HelpCategoryVM @ViewModelInject constructor() : BaseVM() {
+@HiltViewModel
+class HelpCategoryVM @Inject constructor() : BaseVM() {
 
     lateinit var categoryTitle: String
 

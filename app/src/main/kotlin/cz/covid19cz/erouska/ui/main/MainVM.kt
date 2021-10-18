@@ -1,14 +1,16 @@
 package cz.covid19cz.erouska.ui.main
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import arch.livedata.SafeMutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.ui.base.BaseVM
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainVM @ViewModelInject constructor(): BaseVM() {
+@HiltViewModel
+class MainVM @Inject constructor(): BaseVM() {
 
     val serviceRunning = SafeMutableLiveData(false)
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()

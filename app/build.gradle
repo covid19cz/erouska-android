@@ -107,37 +107,37 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.7'
 
     // Android Basics
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation 'androidx.fragment:fragment-ktx:1.2.5'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation "com.google.android.material:material:1.2.1"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.browser:browser:1.2.0"
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.browser:browser:1.3.0"
     implementation "com.google.android.play:core-ktx:1.8.1"
-    implementation "androidx.work:work-runtime-ktx:2.5.0-beta02"
+    implementation "androidx.work:work-runtime-ktx:2.7.0"
 
     // Arch
     implementation project(':arch')
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.1"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     // Dagger-Hilt
-    implementation "com.google.dagger:hilt-android:2.29.1-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.29.1-alpha"
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
-    implementation 'androidx.hilt:hilt-work:1.0.0-alpha02'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.17"
@@ -147,16 +147,15 @@ dependencies {
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     //Room
-    implementation "androidx.room:room-runtime:2.2.5"
-    kapt "androidx.room:room-compiler:2.2.5"
-    implementation "androidx.room:room-ktx:2.2.5"
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
+    implementation "androidx.room:room-ktx:2.3.0"
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.8'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
@@ -170,11 +169,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
 
     // Play Services
-    implementation 'com.google.android.play:core:1.8.3'
-    implementation 'com.google.android.gms:play-services-base:17.5.0'
-    implementation 'com.google.android.gms:play-services-basement:17.5.0'
-    implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
-    implementation 'com.google.android.gms:play-services-tasks:17.2.0'
+    implementation 'com.google.android.play:core:1.10.2'
+    implementation 'com.google.android.gms:play-services-base:17.6.0'
+    implementation 'com.google.android.gms:play-services-basement:17.6.0'
+    implementation 'com.google.android.gms:play-services-safetynet:17.0.1'
+    implementation 'com.google.android.gms:play-services-tasks:17.2.1'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'

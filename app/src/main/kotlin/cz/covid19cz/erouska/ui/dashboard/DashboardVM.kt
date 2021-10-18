@@ -1,6 +1,5 @@
 package cz.covid19cz.erouska.ui.dashboard
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -18,10 +17,13 @@ import cz.covid19cz.erouska.ui.dashboard.event.DashboardCommandEvent
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.ui.exposure.event.ExposuresCommandEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class DashboardVM
-@ViewModelInject constructor(
+@Inject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val exposureNotificationsServerRepository: ExposureServerRepository,
     private val prefs: SharedPrefsRepository

@@ -1,16 +1,18 @@
 package cz.covid19cz.erouska.exposurenotifications.worker
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.exposurenotifications.Notifications
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import java.util.*
 
-class SelfCheckerWorker @WorkerInject constructor(
+@HiltWorker
+class SelfCheckerWorker @AssistedInject constructor(
     @Assisted val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val prefs: SharedPrefsRepository,

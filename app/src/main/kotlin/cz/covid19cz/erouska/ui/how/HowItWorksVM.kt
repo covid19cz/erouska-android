@@ -1,13 +1,15 @@
 package cz.covid19cz.erouska.ui.how
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.how.event.HowItWorksEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HowItWorksVM @ViewModelInject constructor(private val prefs: SharedPrefsRepository) :
+@HiltViewModel
+class HowItWorksVM @Inject constructor(private val prefs: SharedPrefsRepository) :
     BaseVM() {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
