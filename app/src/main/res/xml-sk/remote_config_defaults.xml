@@ -264,4 +264,16 @@
         <key>v2_howItWorksEvalContent</key>
         <value>eRoušky rizikové stretnutia vyhodnotia v prípade, že boli s nakazeným v kontakte na vzdialenosť bližšiu ako 2 metre a počas aspoň 7 minút od okamihu, keď bol podľa dostupných informácií nákazlivým.</value>
     </entry>
+    <entry>
+        <key>v2_ragnarokHeadline</key>
+        <value>Pomoc eRoušky v boji s pandémiou je u konca</value>
+    </entry>
+    <entry>
+        <key>v2_ragnarokBody</key>
+        <value>Ďakujeme, že ste sa stali súčasťou siete 1,7 mil. ľudí. Pomohli ste ochrániť svoje okolie rozoslaním viac ako 430 000 upozornení na rizikové stretnutie s nakazenými.</value>
+    </entry>
+    <entry>
+        <key>v2_ragnarokMoreInfo</key>
+        <value>https://erouska.cz</value>
+    </entry>
 </defaultsMap>

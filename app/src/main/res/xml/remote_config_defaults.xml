@@ -264,4 +264,16 @@
         <key>v2_howItWorksEvalContent</key>
         <value>eRouška apps will evaluate a risky encounter if it was longer than 7 minutes and closer than 2 meters apart, starting with the moment when the individual was supposedly infectious.</value>
     </entry>
+    <entry>
+        <key>v2_ragnarokHeadline</key>
+        <value>The help of eRouška in the fight against the pandemic is over</value>
+    </entry>
+    <entry>
+        <key>v2_ragnarokBody</key>
+        <value>Thank you for joining the 1.7 million people network. You have helped protect your surroundings by sending out more than 400,000 alerts about risky encounters with those infected.</value>
+    </entry>
+    <entry>
+        <key>v2_ragnarokMoreInfo</key>
+        <value>https://erouska.cz</value>
+    </entry>
 </defaultsMap>

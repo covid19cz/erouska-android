@@ -242,4 +242,6 @@ Sledujte svoj zdravotný stav. Viac informácií nájdete v aplikácii.</string>
     <string name="my_data_vaccination">Očkovanie</string>
     <string name="my_data_first_dose">%1$s očkovaných prvou dávkou</string>
     <string name="my_data_second_dose">%1$s osob s ukončeným očkovaním</string>
+    
+    <string name="ragnarok_more_info">Viac informácií</string>
 </resources>

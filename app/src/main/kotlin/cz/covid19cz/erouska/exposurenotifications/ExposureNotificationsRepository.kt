@@ -375,7 +375,8 @@ class ExposureNotificationsRepository @Inject constructor(
     }
 
     fun scheduleSelfChecker() {
-        val constraints = Constraints.Builder().build()
+        //TODO: Uncomment if eRouška gets resurrected
+        /*val constraints = Constraints.Builder().build()
         val worker = PeriodicWorkRequestBuilder<SelfCheckerWorker>(
             AppConfig.selfCheckerPeriodHours,
             TimeUnit.HOURS
@@ -388,7 +389,7 @@ class ExposureNotificationsRepository @Inject constructor(
                 SelfCheckerWorker.TAG,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 worker
-            )
+            )*/
     }
 
     suspend fun isEligibleToDownloadKeys(): Boolean {
