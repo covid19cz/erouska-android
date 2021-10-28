@@ -22,7 +22,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.isNetworkAvailable
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
-import cz.covid19cz.erouska.ui.ragnarok.RagnarokActivity
+import cz.covid19cz.erouska.ui.ragnarok.MainActivity
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -177,7 +177,7 @@ class Notifications @Inject constructor(
         //TODO: Uncomment if eRouška gets resurrected
         //val notificationIntent = Intent(context, MainActivity::class.java)
         //TODO: Remove if eRouška gets resurrected
-        val notificationIntent = Intent(context, RagnarokActivity::class.java)
+        val notificationIntent = Intent(context, MainActivity::class.java)
 
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 

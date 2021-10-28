@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.search_toolbar.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity :
+class MainActivityOld :
     BaseActivity<ActivityMainBinding, MainVM>(R.layout.activity_main, MainVM::class) {
 
     @Inject

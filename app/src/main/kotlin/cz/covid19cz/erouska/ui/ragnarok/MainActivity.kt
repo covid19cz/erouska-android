@@ -10,7 +10,7 @@ import cz.covid19cz.erouska.ui.base.UrlEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RagnarokActivity : BaseActivity<ActivityRagnarokBinding, RagnarokVM>(R.layout.activity_ragnarok, RagnarokVM::class) {
+class MainActivity : BaseActivity<ActivityRagnarokBinding, RagnarokVM>(R.layout.activity_ragnarok, RagnarokVM::class) {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

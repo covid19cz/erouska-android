@@ -4,7 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import cz.covid19cz.erouska.screens.*
 import cz.covid19cz.erouska.testRules.DisableAnimationsRule
-import cz.covid19cz.erouska.ui.main.MainActivity
+import cz.covid19cz.erouska.ui.main.MainActivityOld
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,7 +16,7 @@ class ActivationTest {
     val disableAnimationsRule = DisableAnimationsRule()
 
     @get:Rule
-    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    val activityRule: ActivityTestRule<MainActivityOld> = ActivityTestRule(MainActivityOld::class.java)
 
     @Test
     fun activationTest() {
