@@ -1,8 +1,7 @@
 package cz.covid19cz.erouska.exposurenotifications.worker
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
@@ -11,8 +10,11 @@ import cz.covid19cz.erouska.exposurenotifications.Notifications
 import cz.covid19cz.erouska.net.ExposureServerRepository
 import cz.covid19cz.erouska.utils.Analytics
 import cz.covid19cz.erouska.utils.L
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class DownloadKeysWorker @WorkerInject constructor(
+@HiltWorker
+class DownloadKeysWorker @AssistedInject constructor(
     @Assisted val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationsRepository: ExposureNotificationsRepository,

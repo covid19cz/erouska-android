@@ -2,7 +2,6 @@ package cz.covid19cz.erouska.ui.sandbox
 
 import android.util.Base64
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -20,9 +19,12 @@ import cz.covid19cz.erouska.ui.sandbox.event.SnackbarEvent
 import cz.covid19cz.erouska.ui.verification.ReportExposureException
 import cz.covid19cz.erouska.ui.verification.VerifyException
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SandboxVM @ViewModelInject constructor(
+@HiltViewModel
+class SandboxVM @Inject constructor(
     private val exposureNotificationsRepository: ExposureNotificationsRepository,
     private val serverRepository: ExposureServerRepository
 ) : BaseVM() {

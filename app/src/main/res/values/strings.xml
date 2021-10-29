@@ -237,4 +237,6 @@
     <string name="my_data_vaccination">Vaccinations</string>
     <string name="my_data_first_dose">%1$s people vaccinated with 1 dose</string>
     <string name="my_data_second_dose">%1$s people fully vaccinated</string>
+
+    <string name="ragnarok_more_info">More info</string>
 </resources>

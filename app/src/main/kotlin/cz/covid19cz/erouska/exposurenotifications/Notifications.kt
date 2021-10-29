@@ -174,7 +174,11 @@ class Notifications @Inject constructor(
     }
 
     private fun getContentIntent(): PendingIntent {
+        //TODO: Uncomment if eRouška gets resurrected
+        //val notificationIntent = Intent(context, MainActivity::class.java)
+        //TODO: Remove if eRouška gets resurrected
         val notificationIntent = Intent(context, MainActivity::class.java)
+
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
         return PendingIntent.getActivity(

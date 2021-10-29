@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.verification
 
 import androidx.core.text.isDigitsOnly
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import arch.livedata.SafeMutableLiveData
@@ -13,10 +12,13 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.error.entity.ErrorType
 import cz.covid19cz.erouska.ui.verification.event.VerificationCommandEvent
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class VerificationVM @ViewModelInject constructor(
+@HiltViewModel
+class VerificationVM @Inject constructor(
     private val exposureNotificationRepo: ExposureNotificationsRepository,
     private val prefs: SharedPrefsRepository
 ) :

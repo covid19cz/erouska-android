@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.sandbox
 
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
@@ -11,9 +10,12 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepositor
 import cz.covid19cz.erouska.ext.daysSinceEpochToDateString
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SandboxDataVM @ViewModelInject constructor(private val exposureNotificationsRepository: ExposureNotificationsRepository, val prefs : SharedPrefsRepository) : BaseVM() {
+@HiltViewModel
+class SandboxDataVM @Inject constructor(private val exposureNotificationsRepository: ExposureNotificationsRepository, val prefs : SharedPrefsRepository) : BaseVM() {
 
     val dailySummaries = ObservableArrayList<DailySummary>()
     val exposureWindows = ObservableArrayList<Any>()

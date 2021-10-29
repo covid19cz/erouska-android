@@ -124,6 +124,12 @@ object AppConfig {
         get() = firebaseRemoteConfig.getString("v2_helpJson")
     val validationTokenExpirationLeewayMinutes
         get() = firebaseRemoteConfig.getLong("v2_validationTokenExpirationLeewayMinutes")
+    val ragnarokHeadline
+        get() = firebaseRemoteConfig.getString("v2_ragnarokHeadline")
+    val ragnarokBody
+        get() = firebaseRemoteConfig.getString("v2_ragnarokBody")
+    val ragnarokMoreInfo
+        get() = firebaseRemoteConfig.getString("v2_ragnarokMoreInfo")
 
     init {
         val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()

@@ -247,4 +247,6 @@
     <string name="my_data_vaccination">Očkování</string>
     <string name="my_data_first_dose">%1$s očkovaných první dávkou</string>
     <string name="my_data_second_dose">%1$s osob s ukončeným očkováním</string>
+
+    <string name="ragnarok_more_info">Více informací</string>
 </resources>

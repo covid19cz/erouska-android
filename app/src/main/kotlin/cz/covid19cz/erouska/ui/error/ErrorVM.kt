@@ -1,7 +1,9 @@
 package cz.covid19cz.erouska.ui.error
 
-import androidx.hilt.lifecycle.ViewModelInject
 import cz.covid19cz.erouska.ui.base.BaseVM
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ErrorVM @ViewModelInject constructor() :
+@HiltViewModel
+class ErrorVM @Inject constructor() :
     BaseVM()

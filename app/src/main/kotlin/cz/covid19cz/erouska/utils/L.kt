@@ -40,12 +40,14 @@ object L {
         FirebaseCrashlytics.getInstance().log("E/${logStrings[0]}: ${logStrings[1]}")
     }
 
-    fun e(throwable: Throwable) {
-        if (BuildConfig.DEBUG) {
-            Log.e("L", throwable.message, throwable)
-            throwable.printStackTrace()
+    fun e(throwable: Throwable?) {
+        throwable?.let {
+            if (BuildConfig.DEBUG) {
+                Log.e("L", throwable.message, throwable)
+                throwable.printStackTrace()
+            }
+            FirebaseCrashlytics.getInstance().recordException(throwable)
         }
-        FirebaseCrashlytics.getInstance().recordException(throwable)
     }
 
     private fun createLogStrings(text: String): Array<String> {

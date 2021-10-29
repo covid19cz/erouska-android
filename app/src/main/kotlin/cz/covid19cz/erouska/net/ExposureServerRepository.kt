@@ -207,7 +207,8 @@ class ExposureServerRepository @Inject constructor(
     }
 
     fun scheduleKeyDownload() {
-        val constraints = Constraints.Builder()
+        //TODO: Uncomment if eRouška gets resurrected
+        /*val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val worker = PeriodicWorkRequestBuilder<DownloadKeysWorker>(
@@ -222,7 +223,7 @@ class ExposureServerRepository @Inject constructor(
                 DownloadKeysWorker.TAG,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 worker
-            )
+            )*/
     }
 
     fun deleteFiles() {

@@ -6,6 +6,7 @@ import androidx.work.WorkManager
 import arch.BaseApp
 import com.jakewharton.threetenabp.AndroidThreeTen
 import cz.covid19cz.erouska.exposurenotifications.Notifications
+import cz.covid19cz.erouska.exposurenotifications.worker.DownloadKeysWorker
 import dagger.hilt.android.HiltAndroidApp
 import java.io.File
 import javax.inject.Inject
@@ -28,6 +29,13 @@ class App : BaseApp(), Configuration.Provider {
 
         // Init WorkManager with app context, battery saver prevention
         WorkManager.getInstance(this)
+
+        //TODO: Remove if eRouška gets resurrected
+        unscheduleWorkers()
+    }
+
+    private fun unscheduleWorkers(){
+        WorkManager.getInstance(this).cancelAllWork()
     }
 
     override fun getWorkManagerConfiguration() =

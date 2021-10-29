@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.mydata
 
 import android.text.format.DateUtils
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
@@ -13,12 +12,15 @@ import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class MyDataVM @ViewModelInject constructor(
+@HiltViewModel
+class MyDataVM @Inject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
     val prefs: SharedPrefsRepository
 ) : BaseVM() {

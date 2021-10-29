@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.helpsearch
 
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import arch.adapter.RecyclerLayoutStrategy
 import arch.livedata.SafeMutableLiveData
@@ -13,11 +12,14 @@ import cz.covid19cz.erouska.ui.help.data.toFaqCategories
 import cz.covid19cz.erouska.ui.helpsearch.data.SearchableQuestion
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.Markdown
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import org.apache.commons.lang3.StringUtils
 import java.util.regex.Pattern
+import javax.inject.Inject
 
-class HelpSearchVM @ViewModelInject constructor(
+@HiltViewModel
+class HelpSearchVM @Inject constructor(
     val markdown: Markdown
 ) : BaseVM() {
 

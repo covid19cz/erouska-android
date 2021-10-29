@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.activation
 
 import android.content.Context
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,11 +13,14 @@ import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.dashboard.event.GmsApiErrorEvent
 import cz.covid19cz.erouska.utils.L
 import cz.covid19cz.erouska.utils.LocaleUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ActivationVM @ViewModelInject constructor(
+@HiltViewModel
+class ActivationVM @Inject constructor(
     private val firebaseFunctionsRepository: FirebaseFunctionsRepository,
     @ApplicationContext
     private val context: Context,

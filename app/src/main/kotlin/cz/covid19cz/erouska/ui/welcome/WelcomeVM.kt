@@ -1,11 +1,13 @@
 package cz.covid19cz.erouska.ui.welcome
 
-import androidx.hilt.lifecycle.ViewModelInject
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ui.base.BaseVM
 import cz.covid19cz.erouska.ui.welcome.event.WelcomeCommandEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class WelcomeVM @ViewModelInject constructor(private val prefs: SharedPrefsRepository) : BaseVM() {
+@HiltViewModel
+class WelcomeVM @Inject constructor(private val prefs: SharedPrefsRepository) : BaseVM() {
 
     fun nextStep() {
         publish(WelcomeCommandEvent(WelcomeCommandEvent.Command.VERIFY_APP))

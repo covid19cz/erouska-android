@@ -1,7 +1,6 @@
 package cz.covid19cz.erouska.ui.recentexposures
 
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import arch.adapter.RecyclerLayoutStrategy
 import arch.viewmodel.BaseArchViewModel
@@ -10,12 +9,15 @@ import cz.covid19cz.erouska.db.DailySummaryEntity
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.ui.recentexposures.entity.RecentExposureGroupHeaderItem
 import cz.covid19cz.erouska.utils.L
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
-class RecentExposuresVM @ViewModelInject constructor(
+@HiltViewModel
+class RecentExposuresVM @Inject constructor(
     private val exposureNotificationsRepo: ExposureNotificationsRepository
 ) : BaseArchViewModel() {
 
