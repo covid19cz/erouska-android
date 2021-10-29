@@ -22,7 +22,7 @@ import cz.covid19cz.erouska.R
 import cz.covid19cz.erouska.db.SharedPrefsRepository
 import cz.covid19cz.erouska.ext.isNetworkAvailable
 import cz.covid19cz.erouska.net.FirebaseFunctionsRepository
-import cz.covid19cz.erouska.ui.ragnarok.MainActivity
+import cz.covid19cz.erouska.ui.main.MainActivity
 import cz.covid19cz.erouska.utils.L
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers

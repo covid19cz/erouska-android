@@ -15,13 +15,15 @@
         android:padding="@dimen/fragment_padding">
 
         <ImageView
+            android:id="@+id/imageIcon"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/ic_ragnarok"
-            app:layout_constraintBottom_toTopOf="@+id/textHeadline"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="16dp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textHeadline"/>
 
         <TextView
             android:id="@+id/textHeadline"
@@ -31,32 +33,37 @@
             android:textAppearance="@style/Erouska.Body"
             android:textStyle="bold"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/textBody"
+            app:layout_constraintTop_toBottomOf="@id/imageIcon" />
 
         <TextView
             android:id="@+id/textBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
             android:text="@{vm.body}"
             android:textAppearance="@style/Erouska.Body"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textHeadline" />
+            app:layout_constraintTop_toBottomOf="@+id/textHeadline"
+            app:layout_constraintBottom_toTopOf="@id/buttonMoreInfo"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonMoreInfo"
             style="@style/DashButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ragnarok_more_info"
+            android:layout_marginTop="16dp"
             android:onClick="@{() -> vm.showMoreInfo()}"
+            android:text="@string/ragnarok_more_info"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/textBody" />
 
 
