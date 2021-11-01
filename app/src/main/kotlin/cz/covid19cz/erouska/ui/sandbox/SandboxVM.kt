@@ -29,7 +29,7 @@ class SandboxVM @Inject constructor(
     private val serverRepository: ExposureServerRepository
 ) : BaseVM() {
 
-    val filesString = MutableLiveData<String>()
+    val filesString = MutableLiveData<String?>()
     val teks = ObservableArrayList<TemporaryExposureKey>()
     var downloadResult: List<DownloadedKeys>? = null
     val code = MutableLiveData("")

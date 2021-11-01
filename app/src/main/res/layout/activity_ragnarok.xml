@@ -9,20 +9,16 @@
             type="cz.covid19cz.erouska.ui.ragnarok.RagnarokVM" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageIcon"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/ic_ragnarok"
+                android:layout_marginTop="64dp"
                 app:layout_constraintBottom_toTopOf="@id/textHeadline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,40 +36,45 @@
                 android:textStyle="bold"
                 android:layout_marginStart="@dimen/fragment_padding"
                 android:layout_marginEnd="@dimen/fragment_padding"
-                app:layout_constraintBottom_toTopOf="@id/textBody"
+                app:layout_constraintBottom_toTopOf="@id/scrollViewBody"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageIcon" />
 
-            <TextView
-                android:id="@+id/textBody"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="@{vm.body}"
-                android:layout_marginStart="@dimen/fragment_padding"
-                android:layout_marginEnd="@dimen/fragment_padding"
-                android:textAppearance="@style/Erouska.Body"
-                app:layout_constraintBottom_toTopOf="@id/buttonMoreInfo"
+            <ScrollView
+                android:id="@+id/scrollViewBody"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonMoreInfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textHeadline" />
+                app:layout_constraintTop_toBottomOf="@+id/textHeadline">
 
+                <TextView
+                    android:id="@+id/textBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fragment_padding"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/fragment_padding"
+                    android:gravity="center"
+                    android:text="@{vm.body}"
+                    android:textAppearance="@style/Erouska.Body" />
+
+            </ScrollView>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonMoreInfo"
                 style="@style/DashButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="64dp"
                 android:onClick="@{() -> vm.showMoreInfo()}"
                 android:text="@string/ragnarok_more_info"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textBody"
                 app:layout_constraintVertical_chainStyle="packed" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </layout>

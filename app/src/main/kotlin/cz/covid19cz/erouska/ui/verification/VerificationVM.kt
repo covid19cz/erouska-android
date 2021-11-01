@@ -25,7 +25,7 @@ class VerificationVM @Inject constructor(
     BaseVM() {
 
     val code = SafeMutableLiveData("")
-    val error = MutableLiveData<Int>(null)
+    val error = MutableLiveData<Int?>(null)
     val lastDataSentDate = MutableLiveData<String>(prefs.getLastDataSentDateString())
     val loading = SafeMutableLiveData(false)
 

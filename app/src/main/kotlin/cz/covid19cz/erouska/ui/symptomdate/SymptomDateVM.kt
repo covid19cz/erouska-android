@@ -15,8 +15,8 @@ import javax.inject.Inject
 class SymptomDateVM @Inject constructor(val prefs: SharedPrefsRepository) : BaseVM() {
 
     val hasSymptoms = SafeMutableLiveData(true)
-    val symptomDate = MutableLiveData<Date>()
-    val symptomDateString = MutableLiveData<String>()
+    val symptomDate = MutableLiveData<Date?>()
+    val symptomDateString = MutableLiveData<String?>()
 
     init {
         symptomDate.observeForever {
