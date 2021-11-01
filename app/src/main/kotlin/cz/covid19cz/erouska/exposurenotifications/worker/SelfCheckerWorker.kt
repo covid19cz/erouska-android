@@ -9,7 +9,6 @@ import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepositor
 import cz.covid19cz.erouska.exposurenotifications.Notifications
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import java.util.*
 
 @HiltWorker
 class SelfCheckerWorker @AssistedInject constructor(
@@ -25,6 +24,8 @@ class SelfCheckerWorker @AssistedInject constructor(
     }
 
     override suspend fun doWork(): Result {
+        //TODO: Remove if eRouška gets resurrected
+        /**
         val hour = Calendar.getInstance(Locale.getDefault()).get(Calendar.HOUR_OF_DAY)
         if (hour in 9..19) {
             if (!exposureNotificationsRepository.isEnabled()) {
@@ -33,7 +34,7 @@ class SelfCheckerWorker @AssistedInject constructor(
             if (prefs.hasOutdatedKeyData()) {
                 notifications.showOutdatedDataNotification()
             }
-        }
+        }**/
         return Result.success()
     }
 

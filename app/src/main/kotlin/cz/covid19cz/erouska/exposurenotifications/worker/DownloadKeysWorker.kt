@@ -3,13 +3,10 @@ package cz.covid19cz.erouska.exposurenotifications.worker
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import cz.covid19cz.erouska.exposurenotifications.ExposureNotificationsRepository
 import cz.covid19cz.erouska.exposurenotifications.Notifications
 import cz.covid19cz.erouska.net.ExposureServerRepository
-import cz.covid19cz.erouska.utils.Analytics
-import cz.covid19cz.erouska.utils.L
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -27,6 +24,8 @@ class DownloadKeysWorker @AssistedInject constructor(
     }
 
     override suspend fun doWork(): Result {
+        //TODO: Remove if eRouška gets resurrected
+        /**
         try {
             setForeground(ForegroundInfo(Notifications.REQ_ID_DOWNLOADING, notifications.getDownloadingNotification(id)))
             if (exposureNotificationsRepository.isEligibleToDownloadKeys()) {
@@ -47,6 +46,7 @@ class DownloadKeysWorker @AssistedInject constructor(
             } else {
                 Result.failure()
             }
-        }
+        }**/
+        return Result.success()
     }
 }
